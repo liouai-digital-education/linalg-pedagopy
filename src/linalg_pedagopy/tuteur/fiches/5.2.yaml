@@ -20,6 +20,6 @@ notions:
 - algorithme de Gram-Schmidt
 - influence de l'ordre des vecteurs
 - VMLS ch. 5
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?5.2, p. 14
-ecart: Aucun (construction d'un contre-exemple (a_1, a_2) montrant la d?pendance ?
-  l'ordre de Gram-Schmidt, VMLS ?5.2).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §5.2, p. 14
+ecart: Aucun (construction d'un contre-exemple (a_1, a_2) montrant la dépendance à
+  l'ordre de Gram-Schmidt, VMLS §5.2).

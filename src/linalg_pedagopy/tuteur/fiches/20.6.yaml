@@ -32,6 +32,6 @@ jumeau: generateurs.gram_schmidt_exemple()
 notions:
 - test d'indépendance linéaire par Gram-Schmidt
 - VMLS ch. 5 et 20
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?20.6, p. 47
-ecart: Test de d?pendance lin?aire par l'annulation du r?sidu de Gram-Schmidt ||q_tilde_3||^2
-  (VMLS ?20.6).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §20.6, p. 47
+ecart: Test de dépendance linéaire par l'annulation du résidu de Gram-Schmidt ||q_tilde_3||^2
+  (VMLS §20.6).

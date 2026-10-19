@@ -27,6 +27,6 @@ notions:
 - distance euclidienne
 - plus proche voisin
 - VMLS ch. 3
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?3.2, p. 6
-ecart: Instance num?rique exacte dans R^3 illustrant le calcul de distance euclidienne
-  de VMLS ?3.2.
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §3.2, p. 6
+ecart: Instance numérique exacte dans R^3 illustrant le calcul de distance euclidienne
+  de VMLS §3.2.

@@ -28,6 +28,6 @@ notions:
 - somme des coefficients d'une matrice
 - multiplication par le vecteur 1
 - VMLS ch. 10
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?10.10, p. 23
-ecart: Calcul de la matrice de Gram G = A^T A pour tester l'orthonormalit? des colonnes
-  (VMLS ?10.10).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §10.10, p. 23
+ecart: Calcul de la matrice de Gram G = A^T A pour tester l'orthonormalité des colonnes
+  (VMLS §10.10).

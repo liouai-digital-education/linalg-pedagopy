@@ -26,5 +26,5 @@ jumeau: generateurs.statistiques_vecteur(values=(2, -1, 5, 2))
 notions:
 - angle et distance entre vecteurs
 - VMLS ch. 3 et 20
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?20.2, p. 47
-ecart: Calcul exact de distance d'un vecteur ? sa projection (VMLS ?20.2).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §20.2, p. 47
+ecart: Calcul exact de distance d'un vecteur à sa projection (VMLS §20.2).

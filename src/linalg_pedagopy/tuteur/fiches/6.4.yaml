@@ -24,6 +24,6 @@ jumeau: generateurs.moyenne_glissante(fenetre=2, n=5)
 notions:
 - matrice comme application linéaire
 - VMLS ch. 6
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?6.4, p. 15
-ecart: Aucun (fid?le ? la matrice 3x6 d'?cart ? la moyenne glissante sur 3 jours de
-  VMLS ?6.4).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §6.4, p. 15
+ecart: Aucun (fidèle à la matrice 3x6 d'écart à la moyenne glissante sur 3 jours de
+  VMLS §6.4).

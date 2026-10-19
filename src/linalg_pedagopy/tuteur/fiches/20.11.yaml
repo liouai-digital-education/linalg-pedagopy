@@ -31,6 +31,6 @@ notions:
 - solution de norme minimale
 - système KKT
 - VMLS ch. 16 et 20
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?20.11, p. 49
-ecart: Calcul de la solution de norme minimale d'un syst?me sous-d?termin? C x = d
-  via les conditions KKT (VMLS ?20.11).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §20.11, p. 49
+ecart: Calcul de la solution de norme minimale d'un système sous-déterminé C x = d
+  via les conditions KKT (VMLS §20.11).

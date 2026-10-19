@@ -29,6 +29,6 @@ notions:
 - inverses à droite multiples
 - systèmes sous-déterminés
 - VMLS ch. 11
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?11.11, p. 27
-ecart: Aucun (construction de deux inverses ? droite distinctes B_1 != B_2 d'une matrice
-  large 2x3, VMLS ?11.11).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §11.11, p. 27
+ecart: Aucun (construction de deux inverses à droite distinctes B_1 != B_2 d'une matrice
+  large 2x3, VMLS §11.11).

@@ -186,8 +186,23 @@ def check_row_operation(
             error_code="self_transvection",
         )
 
+    # Écrasement d'une ligne : L_i <- (combinaison des autres lignes) sans L_i
+    if coeffs and target_i not in coeffs:
+        autres = ", ".join(f"L{k + 1}" for k in sorted(other_rows))
+        return OperationFeedback(
+            status="invalid",
+            message=(
+                f"Invalide : L{target_i + 1} est remplacée par une expression qui ne la contient pas "
+                f"({autres}). L'ancienne ligne L{target_i + 1} est perdue : l'opération n'est pas "
+                f"inversible et le système change. Pour échanger deux lignes, écrivez "
+                f"'L{target_i + 1} <-> L{sorted(other_rows)[0] + 1}' ; pour une transvection, conservez "
+                f"L{target_i + 1} : 'L{target_i + 1} <- L{target_i + 1} + λ*L{sorted(other_rows)[0] + 1}'."
+            ),
+            error_code="row_overwrite",
+        )
+
     # Cas d'une dilatation par 0 : L_i <- 0*L_i (aucune ligne présente dans coeffs)
-    if not coeffs or target_i not in coeffs:
+    if not coeffs:
         return OperationFeedback(
             status="invalid",
             message=(

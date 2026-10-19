@@ -355,3 +355,21 @@ def test_phase0_english_nomenclature_api(tmp_path: Path) -> None:
 
     twin_ma = generators.moving_average(window=2, n=5)
     assert "5" in twin_ma.title
+
+
+def test_fiches_source_ecart_sans_caracteres_corrompus() -> None:
+    """Les champs de traçabilité des fiches ne contiennent pas de caractères perdus ('?')."""
+    import re
+    from pathlib import Path
+
+    import yaml
+
+    import linalg_pedagopy
+
+    fiches = Path(linalg_pedagopy.__file__).parent / "tuteur" / "fiches"
+    for f in sorted(fiches.glob("*.yaml")):
+        data = yaml.safe_load(f.read_text(encoding="utf-8"))
+        for key in ("source", "ecart"):
+            assert "?" not in str(data[key]), f"{f.name} : caractère corrompu dans {key!r}"
+        assert re.search(r"§\d+\.\d+", str(data["source"])), f"{f.name} : référence § absente"
+

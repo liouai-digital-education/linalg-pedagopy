@@ -34,6 +34,6 @@ notions:
 - formulation des moindres carrés ||A x - b||^2
 - mesures de sommes de paires
 - VMLS ch. 12
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?12.6, p. 30
-ecart: Mise sous forme matricielle A x ? b d'un probl?me d'estimation par moindres
-  carr?s (VMLS ?12.6).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §12.6, p. 30
+ecart: Mise sous forme matricielle A x ≈ b d'un problème d'estimation par moindres
+  carrés (VMLS §12.6).

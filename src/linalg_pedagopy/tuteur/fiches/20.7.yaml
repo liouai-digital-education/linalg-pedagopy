@@ -30,6 +30,6 @@ notions:
 - matrices décrites par leur effet sur un vecteur
 - matrice de retournement (reverser)
 - VMLS ch. 6 et 20
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?20.7, p. 47
-ecart: Calcul exact du r?sidu optimal ||A x_hat - b|| au sens des moindres carr?s
-  (VMLS ?20.7).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §20.7, p. 47
+ecart: Calcul exact du résidu optimal ||A x_hat - b|| au sens des moindres carrés
+  (VMLS §20.7).

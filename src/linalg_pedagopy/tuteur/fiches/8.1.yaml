@@ -31,5 +31,5 @@ notions:
 - système d'équations linéaires A c = b
 - interpolation d'Hermite d'un polynôme
 - VMLS ch. 8
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?8.1, p. 19
-ecart: Matrice des diff?rences premi?res D sur R^4 (VMLS ?8.1).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §8.1, p. 19
+ecart: Matrice des différences premières D sur R^4 (VMLS §8.1).

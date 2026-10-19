@@ -35,5 +35,5 @@ notions:
 - flux de trésorerie (cash flow) depuis la VAN
 - résolution de système linéaire
 - VMLS ch. 11
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?11.10, p. 27
-ecart: R?solution exacte d'un syst?me carr? 3x3 d'actualisation de flux (VMLS ?11.10).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §11.10, p. 27
+ecart: Résolution exacte d'un système carré 3x3 d'actualisation de flux (VMLS §11.10).

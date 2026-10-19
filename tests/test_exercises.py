@@ -82,6 +82,12 @@ def test_interactive_session_and_annexe_c_errors() -> None:
     assert fb_zero.status == "invalid"
     assert fb_zero.error_code == "zero_scaling"
 
+    # 2bis. Écrasement d'une ligne par une autre (Annexe C)
+    fb_over = s.propose("L1 <- L2")
+    assert fb_over.status == "invalid"
+    assert fb_over.error_code == "row_overwrite"
+    assert "L1 <-> L2" in fb_over.message
+
     # 3. Transvection d'une ligne par elle-même (Annexe C)
     fb_self = s.propose("L2 <- L2 - L2")
     assert fb_self.status == "invalid"

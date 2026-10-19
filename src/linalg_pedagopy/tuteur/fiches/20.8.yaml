@@ -23,6 +23,6 @@ notions:
 - identités sur les matrices par blocs
 - produit matriciel par blocs
 - VMLS ch. 10 et 20
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?20.8, p. 48
-ecart: V?rification par blocs de l'identit? multiplicative sur [[A, B], [C, D]] (VMLS
-  ?20.8).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §20.8, p. 48
+ecart: Vérification par blocs de l'identité multiplicative sur [[A, B], [C, D]] (VMLS
+  §20.8).

@@ -43,6 +43,6 @@ notions:
 - convolution de deux vecteurs
 - matrice de Toeplitz
 - VMLS ch. 7
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?7.5, p. 18
-ecart: Matrice de Toeplitz 4x2 associ?e ? la convolution avec b = (1, -2, 1) (VMLS
-  ?7.5).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §7.5, p. 18
+ecart: Matrice de Toeplitz 4x2 associée à la convolution avec b = (1, -2, 1) (VMLS
+  §7.5).

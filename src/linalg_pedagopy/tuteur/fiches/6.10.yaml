@@ -30,6 +30,6 @@ notions:
 - matrices par blocs
 - répétition d'un vecteur
 - VMLS ch. 6
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?6.10, p. 16
-ecart: Instance num?rique de transformation lin?aire de s?rie temporelle sur R^4 (VMLS
-  ?6.10).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §6.10, p. 16
+ecart: Instance numérique de transformation linéaire de série temporelle sur R^4 (VMLS
+  §6.10).

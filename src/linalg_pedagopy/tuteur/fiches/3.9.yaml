@@ -35,6 +35,6 @@ jumeau: generateurs.statistiques_vecteur(values=(2, -1, 5, 2))
 notions:
 - rms, avg, std, corrélation, distance
 - VMLS ch. 3
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?3.9, p. 8
-ecart: Vecteurs exacts x = (1, -2, 3, 2) et y = (2, 1, 0, 1) de VMLS ?3.9 avec v?rification
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §3.9, p. 8
+ecart: Vecteurs exacts x = (1, -2, 3, 2) et y = (2, 1, 0, 1) de VMLS §3.9 avec vérification
   de rms, avg, std, dist et corr.

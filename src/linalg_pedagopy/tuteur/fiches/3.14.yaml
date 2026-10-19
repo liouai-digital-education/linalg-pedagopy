@@ -23,5 +23,5 @@ notions:
 - rms d'une différence orthogonale
 - orthogonalité
 - VMLS ch. 3
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?3.14, p. 9
-ecart: Formule symbolique de rms(u + v) pour deux vecteurs orthogonaux (VMLS ?3.14).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §3.14, p. 9
+ecart: Formule symbolique de rms(u + v) pour deux vecteurs orthogonaux (VMLS §3.14).

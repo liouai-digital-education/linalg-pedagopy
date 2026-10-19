@@ -20,6 +20,6 @@ jumeau: generateurs.produit_scalaire_selection(n=5, indices=(1, 4))
 notions:
 - produit scalaire
 - VMLS ch. 1
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?1.2, p. 3
-ecart: Instance sur R^5 (cible x_2 - x_4) illustrant la mod?lisation par produit scalaire
-  de VMLS ?1.2.
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §1.2, p. 3
+ecart: Instance sur R^5 (cible x_2 - x_4) illustrant la modélisation par produit scalaire
+  de VMLS §1.2.

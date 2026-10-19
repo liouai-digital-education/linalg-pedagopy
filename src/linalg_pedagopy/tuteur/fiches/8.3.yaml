@@ -29,6 +29,6 @@ notions:
 - applications linéaires de R^2 dans R^2
 - représentation matricielle
 - VMLS ch. 8
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?8.3, p. 19
-ecart: ?valuation d'une composition d'applications lin?aires par produit matriciel
-  A B x (VMLS ?8.3).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §8.3, p. 19
+ecart: Évaluation d'une composition d'applications linéaires par produit matriciel
+  A B x (VMLS §8.3).

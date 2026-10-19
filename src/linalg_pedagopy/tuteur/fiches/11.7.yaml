@@ -23,6 +23,6 @@ jumeau: generateurs.inverse_droite_exemple()
 notions:
 - inverses à gauche et à droite d'un vecteur ligne
 - VMLS ch. 11
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?11.7, p. 27
-ecart: Construction d'une inverse ? droite pour une matrice ligne 1x3 non nulle (VMLS
-  ?11.7).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §11.7, p. 27
+ecart: Construction d'une inverse à droite pour une matrice ligne 1x3 non nulle (VMLS
+  §11.7).

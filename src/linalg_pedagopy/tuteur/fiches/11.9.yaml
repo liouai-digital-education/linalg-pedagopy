@@ -23,5 +23,5 @@ notions:
 - inverse d'un carré de matrice
 - inverse d'un produit
 - VMLS ch. 11
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?11.9, p. 27
-ecart: Aucun (expression de l'inverse de A^2 en fonction de B = A^-1, VMLS ?11.9).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §11.9, p. 27
+ecart: Aucun (expression de l'inverse de A^2 en fonction de B = A^-1, VMLS §11.9).

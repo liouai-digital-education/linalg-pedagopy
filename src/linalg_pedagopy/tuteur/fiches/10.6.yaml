@@ -32,6 +32,6 @@ notions:
 - matrice d'adjacence d'un graphe
 - produit matrice-vecteur
 - VMLS ch. 10
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?10.6, p. 23
-ecart: Matrice de s?lection / permutation associ?e ? un graphe orient? sur 4 sommets
-  (VMLS ?10.6).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §10.6, p. 23
+ecart: Matrice de sélection / permutation associée à un graphe orienté sur 4 sommets
+  (VMLS §10.6).

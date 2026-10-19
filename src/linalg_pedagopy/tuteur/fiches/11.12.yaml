@@ -23,6 +23,6 @@ notions:
 - inverse d'une matrice 2×2
 - signe des coefficients de l'inverse
 - VMLS ch. 11
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?11.12, p. 27
-ecart: Aucun (contre-exemple d'une matrice inversible ? coefficients > 0 dont l'inverse
-  a des coefficients < 0, VMLS ?11.12).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §11.12, p. 27
+ecart: Aucun (contre-exemple d'une matrice inversible à coefficients > 0 dont l'inverse
+  a des coefficients < 0, VMLS §11.12).

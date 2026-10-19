@@ -24,5 +24,5 @@ notions:
 - fonction linéaire
 - représentation par produit scalaire
 - VMLS ch. 2
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?2.1, p. 5
-ecart: Sous-question (a) de VMLS ?2.1 mod?lis?e sous la forme f(x) = a^T x sur R^4.
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §2.1, p. 5
+ecart: Sous-question (a) de VMLS §2.1 modélisée sous la forme f(x) = a^T x sur R^4.

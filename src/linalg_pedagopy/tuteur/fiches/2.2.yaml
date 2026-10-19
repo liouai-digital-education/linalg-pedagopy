@@ -23,6 +23,6 @@ notions:
 - superposition et linéarité
 - contre-exemple
 - VMLS ch. 2
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?2.2, p. 5
-ecart: Test de non-lin?arit? par contre-exemple sur l'?tendue (spread) et le maximum
-  (VMLS ?2.2).
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §2.2, p. 5
+ecart: Test de non-linéarité par contre-exemple sur l'étendue (spread) et le maximum
+  (VMLS §2.2).

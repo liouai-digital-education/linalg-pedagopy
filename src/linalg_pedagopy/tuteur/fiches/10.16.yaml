@@ -27,6 +27,6 @@ notions:
 - multiplication par des matrices diagonales D A E
 - mise à l'échelle des lignes et colonnes
 - VMLS ch. 10
-source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?10.16, p. 24
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, §10.16, p. 24
 ecart: Aucun (formule du coefficient (i, j) de D A E pour D et E diagonales, VMLS
-  ?10.16).
+  §10.16).
