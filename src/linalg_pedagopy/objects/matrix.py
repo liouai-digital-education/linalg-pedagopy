@@ -12,7 +12,7 @@ from linalg_pedagopy.core.exceptions import (
     DimensionMismatchError,
     UndefinedOperationError,
 )
-from linalg_pedagopy.core.field import choose_domain, to_exact
+from linalg_pedagopy.core.field import choose_domain, match_symbol_substitutions, to_exact
 from linalg_pedagopy.core.zero import AssumptionsType, Verdict, oracle
 from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.trace.step import StepKind
@@ -36,6 +36,8 @@ class Matrix:
     __slots__ = ("_rows", "_nrows", "_ncols", "_domain_matrix")
 
     def __init__(self, data: Iterable[Any]) -> None:
+        if getattr(data, "_is_locked_tutor_proxy", False):
+            data = data._unwrap_for_constructor("Matrix(...)")  # type: ignore[attr-defined]
         if isinstance(data, Matrix):
             object.__setattr__(self, "_rows", data._rows)
             object.__setattr__(self, "_nrows", data._nrows)
@@ -305,10 +307,10 @@ class Matrix:
 
     def subs(self, mapping: Mapping[Any, Any]) -> Matrix:
         """Substitue des symboles par des valeurs et renvoie une nouvelle Matrix."""
-        sym_map = {
-            (sp.Symbol(k, real=True) if isinstance(k, str) else k): to_exact(v)
-            for k, v in mapping.items()
-        }
+        free: set[sp.Symbol] = set()
+        for e in self.flat_entries:
+            free |= {s for s in e.free_symbols if isinstance(s, sp.Symbol)}
+        sym_map = match_symbol_substitutions(free, mapping)
         return Matrix._from_exact_rows(
             [[sp.simplify(e.xreplace(sym_map)) for e in r] for r in self._rows]
         )
@@ -647,10 +649,10 @@ class Matrix:
             raise RuntimeError("Le module algorithms.gauss_jordan n'est pas initialisé.")
         return _gauss_jordan_factory
 
-    def rref(self) -> Matrix | CaseSplit[Matrix]:
+    def rref(self, *, assumptions: Any = None) -> Matrix | CaseSplit[Matrix]:
         """Calcule la forme échelonnée réduite via GaussJordan (§5.3.2)."""
         gj_cls = self._require_gj()
-        res = gj_cls(self).run()
+        res = gj_cls(self, assumptions=assumptions).run()
         if isinstance(res, CaseSplit):
             return CaseSplit(
                 branches=tuple(
@@ -660,10 +662,10 @@ class Matrix:
             )
         return res.rref  # type: ignore[no-any-return]
 
-    def rank(self) -> int | CaseSplit[int]:
+    def rank(self, *, assumptions: Any = None) -> int | CaseSplit[int]:
         """Calcule le rang de la matrice via GaussJordan (§5.3.2)."""
         gj_cls = self._require_gj()
-        res = gj_cls(self).run()
+        res = gj_cls(self, assumptions=assumptions).run()
         if isinstance(res, CaseSplit):
             return CaseSplit(
                 branches=tuple(
@@ -673,11 +675,13 @@ class Matrix:
             )
         return res.rank  # type: ignore[no-any-return]
 
-    def nullspace(self) -> tuple[Vector, ...] | CaseSplit[tuple[Vector, ...]]:
+    def nullspace(
+        self, *, assumptions: Any = None
+    ) -> tuple[Vector, ...] | CaseSplit[tuple[Vector, ...]]:
         """Calcule une base du noyau ker(A) via GaussJordan (§5.3.2)."""
         gj_cls = self._require_gj()
         b_zero = Vector.zeros(self._nrows)
-        res = gj_cls(self, b_zero).run()
+        res = gj_cls(self, b_zero, assumptions=assumptions).run()
         if isinstance(res, CaseSplit):
             return CaseSplit(
                 branches=tuple(

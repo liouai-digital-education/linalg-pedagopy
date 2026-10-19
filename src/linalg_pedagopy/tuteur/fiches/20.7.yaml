@@ -1,9 +1,9 @@
-id: "20.7"
+id: '20.7'
 page: 47
 type: modelisation
-reformulation: >
-  Pour un vecteur x de R^4, l'application linéaire renverse l'ordre des composantes :
-  y = (x_4, x_3, x_2, x_1). Donner la matrice A de taille 4×4 telle que y = A x.
+reformulation: 'Pour un vecteur $x \in \mathbb{R}^4$, l''application linéaire renverse
+  l''ordre des composantes : $y = (x_4, x_3, x_2, x_1)$. Donner la matrice $A$ de
+  taille $4 \times 4$ telle que $y = A x$.'
 donnees:
   n: 4
   m: 4
@@ -14,16 +14,22 @@ verification:
   taille_entree: 4
   taille_sortie: 4
   lignes_cibles:
-    - "y[1] = x[4]"
-    - "y[2] = x[3]"
-    - "y[3] = x[2]"
-    - "y[4] = x[1]"
+  - y[1] = x[4]
+  - y[2] = x[3]
+  - y[3] = x[2]
+  - y[4] = x[1]
 indices:
-  - "L'entrée x et la sortie y sont toutes deux dans R^4 : la matrice A est de taille 4×4 (VMLS ch. 6 et 20)."
-  - "Une matrice de permutation ou de retournement contient un seul 1 par ligne et par colonne, et des 0 ailleurs."
-  - "Sur quelle colonne de la ligne 1 faut-il placer le 1 pour que la 1re composante de A x soit x_4 ?"
-jumeau: "generateurs.moyenne_glissante(fenetre=2, n=5)"
+- 'L''entrée $x$ et la sortie $y$ sont toutes deux dans $\mathbb{R}^4$ : la matrice
+  $A$ est de taille $4 \times 4$ (VMLS ch. 6 et 20).'
+- Une matrice de permutation ou de retournement contient un seul 1 par ligne et par
+  colonne, et des 0 ailleurs.
+- Sur quelle colonne de la ligne 1 faut-il placer le 1 pour que la 1\textsuperscript{re}
+  composante de $A x$ soit $x_4$ ?
+jumeau: generateurs.moyenne_glissante(fenetre=2, n=5)
 notions:
-  - "matrices décrites par leur effet sur un vecteur"
-  - "matrice de retournement (reverser)"
-  - "VMLS ch. 6 et 20"
+- matrices décrites par leur effet sur un vecteur
+- matrice de retournement (reverser)
+- VMLS ch. 6 et 20
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?20.7, p. 47
+ecart: Calcul exact du r?sidu optimal ||A x_hat - b|| au sens des moindres carr?s
+  (VMLS ?20.7).

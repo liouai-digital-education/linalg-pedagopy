@@ -223,17 +223,36 @@ class GramSchmidt(Procedure[GSResult]):
                         snapshot={"result": q_tilde},
                     )
 
-                    # Test de nullité de ||q_tilde_i||^2 via ZeroOracle
+                    # Sur R, ||q_tilde_i||^2 == 0 ssi toutes les composantes de q_tilde_i sont nulles.
                     norm_sq = _simplify_entry(q_tilde.norm_sq())
-                    dec = oracle.decide(norm_sq, assumptions=cond)
+                    comp_decisions = [
+                        oracle.decide(comp, assumptions=cond) for comp in q_tilde.entries
+                    ]
+                    if any(d.verdict == Verdict.NONZERO for d in comp_decisions):
+                        dec_verdict = Verdict.NONZERO
+                        dec_factors: tuple[sp.Expr, ...] = ()
+                    elif all(d.verdict == Verdict.ZERO for d in comp_decisions):
+                        dec_verdict = Verdict.ZERO
+                        dec_factors = ()
+                    else:
+                        cond_comps = [
+                            d for d in comp_decisions if d.verdict == Verdict.CONDITIONAL and d.factors
+                        ]
+                        if cond_comps:
+                            dec_verdict = Verdict.CONDITIONAL
+                            dec_factors = cond_comps[0].factors
+                        else:
+                            dec = oracle.decide(norm_sq, assumptions=cond)
+                            dec_verdict = dec.verdict
+                            dec_factors = dec.factors
 
-                    if dec.verdict == Verdict.CONDITIONAL and dec.factors:
-                        return self._split_gs(cond, dec.factors, depth=depth)
+                    if dec_verdict == Verdict.CONDITIONAL and dec_factors:
+                        return self._split_gs(cond, dec_factors, depth=depth)
 
-                    if dec.verdict == Verdict.UNKNOWN:
+                    if dec_verdict == Verdict.UNKNOWN:
                         oracle.is_zero(norm_sq, assumptions=cond)
 
-                    if dec.verdict == Verdict.ZERO:
+                    if dec_verdict == Verdict.ZERO:
                         # Dépendance linéaire détectée ! Construction du témoin
                         witness = self._build_witness(i, coeffs_i, r_tilde_grid)
                         record(
@@ -336,16 +355,21 @@ class GramSchmidt(Procedure[GSResult]):
             gen_cond = gen_cond & Condition.from_zero_expr(fac, is_zero=False)
         branches: list[Branch[GSResult]] = []
 
-        with tracing(level=3) as t_gen:
-            gen_res = self._run_gs(gen_cond, depth=depth + 1)
-        if isinstance(gen_res, CaseSplit):
-            branches.extend(gen_res.branches)
-        else:
-            object.__setattr__(gen_res, "trace", t_gen.tree)
-            branches.append(Branch(gen_cond, gen_res, t_gen.tree))
+        if not gen_cond.is_contradictory:
+            with tracing(level=3) as t_gen:
+                gen_res = self._run_gs(gen_cond, depth=depth + 1)
+            if isinstance(gen_res, CaseSplit):
+                branches.extend(gen_res.branches)
+            else:
+                object.__setattr__(gen_res, "trace", t_gen.tree)
+                branches.append(Branch(gen_cond, gen_res, t_gen.tree))
 
+        prefix_neq = cond
         for fac in factors:
-            part_cond = cond & Condition.from_zero_expr(fac, is_zero=True)
+            part_cond = prefix_neq & Condition.from_zero_expr(fac, is_zero=True)
+            prefix_neq = prefix_neq & Condition.from_zero_expr(fac, is_zero=False)
+            if part_cond.is_contradictory:
+                continue
             with tracing(level=3) as t_part:
                 part_res = self._run_gs(part_cond, depth=depth + 1)
             if isinstance(part_res, CaseSplit):

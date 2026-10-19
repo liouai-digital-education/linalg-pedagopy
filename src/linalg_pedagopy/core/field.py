@@ -73,7 +73,9 @@ def _ensure_real_symbols(expr: sp.Expr, *, warn: bool = True) -> sp.Expr:
     replacements: dict[sp.Symbol, sp.Symbol] = {}
     for sym in expr.free_symbols:
         if isinstance(sym, sp.Symbol) and sym.is_real is not True:
-            real_sym = sp.Symbol(sym.name, real=True)
+            assumptions = dict(sym.assumptions0)
+            assumptions["real"] = True
+            real_sym = sp.Symbol(sym.name, **assumptions)
             replacements[sym] = real_sym
             if warn:
                 emit_core_event(
@@ -85,6 +87,34 @@ def _ensure_real_symbols(expr: sp.Expr, *, warn: bool = True) -> sp.Expr:
     if replacements:
         expr = expr.xreplace(replacements)
     return expr
+
+
+def match_symbol_substitutions(
+    free_syms: Iterable[sp.Symbol],
+    mapping: Mapping[Any, Any],
+) -> dict[sp.Symbol, sp.Expr]:
+    """Construit un dictionnaire de substitution {Symbol -> Expr} en appariant aussi par nom."""
+    by_name: dict[str, list[sp.Symbol]] = {}
+    for s in free_syms:
+        if isinstance(s, sp.Symbol):
+            by_name.setdefault(s.name, []).append(s)
+
+    subs_map: dict[sp.Symbol, sp.Expr] = {}
+    for k, v in mapping.items():
+        val = to_exact(v)
+        if isinstance(k, str):
+            name = k
+            sym_default = sp.Symbol(name, real=True)
+            subs_map[sym_default] = val
+        elif isinstance(k, sp.Symbol):
+            name = k.name
+            subs_map[k] = val
+            subs_map[sp.Symbol(name, real=True)] = val
+        else:
+            continue
+        for target_sym in by_name.get(name, ()):
+            subs_map[target_sym] = val
+    return subs_map
 
 
 def to_exact(x: Any, *, float_policy: FloatPolicy | None = None) -> sp.Expr:

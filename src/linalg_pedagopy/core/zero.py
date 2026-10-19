@@ -79,8 +79,8 @@ def _parse_single_assumption(s: str) -> Condition:
     s = s.strip()
     if "!=" in s:
         lhs_s, rhs_s = s.split("!=", 1)
-        lhs = sp.sympify(lhs_s.strip())
-        rhs = sp.sympify(rhs_s.strip())
+        lhs = to_exact(lhs_s.strip())
+        rhs = to_exact(rhs_s.strip())
         from linalg_pedagopy.core.cases import _normalize_relation_expr
 
         diff = sp.simplify(lhs - rhs)
@@ -88,13 +88,13 @@ def _parse_single_assumption(s: str) -> Condition:
         return Condition.neq(norm_l, norm_r)
     if "==" in s:
         lhs_s, rhs_s = s.split("==", 1)
-        lhs = sp.sympify(lhs_s.strip())
-        rhs = sp.sympify(rhs_s.strip())
+        lhs = to_exact(lhs_s.strip())
+        rhs = to_exact(rhs_s.strip())
         return Condition.eq(lhs, rhs)
     if "=" in s:
         lhs_s, rhs_s = s.split("=", 1)
-        lhs = sp.sympify(lhs_s.strip())
-        rhs = sp.sympify(rhs_s.strip())
+        lhs = to_exact(lhs_s.strip())
+        rhs = to_exact(rhs_s.strip())
         return Condition.eq(lhs, rhs)
     return Condition.true()
 
@@ -110,7 +110,7 @@ def _extract_polynomial_factors(num: sp.Expr) -> list[sp.Expr]:
 
 
 def _extract_factors(expr: sp.Expr) -> list[sp.Expr]:
-    """Extrait les facteurs polynomiaux ou issus de puissances/radicaux."""
+    """Extrait les facteurs polynomiaux ou issus de puissances/radicaux (y compris via unrad)."""
     free = expr.free_symbols
     if not free:
         return []
@@ -124,13 +124,27 @@ def _extract_factors(expr: sp.Expr) -> list[sp.Expr]:
 
     factors: list[sp.Expr] = []
     try:
-        powers = expr.as_powers_dict()
+        together_expr = sp.together(expr)
+        num, _den = sp.fraction(together_expr)
+        if num == 0:
+            return [sp.Integer(0)]
+        powers = num.as_powers_dict()
         for base, exp in powers.items():
-            if exp > 0 and base.has(*free):
+            if exp.is_number and exp > 0 and base.has(*free):
                 if base.is_rational_function(*free):
                     together_b = sp.together(sp.cancel(base))
                     num_b, _ = sp.fraction(together_b)
                     for fac in _extract_polynomial_factors(sp.expand(num_b)):
+                        if fac not in factors:
+                            factors.append(fac)
+        if not factors:
+            from sympy.solvers.solvers import unrad
+
+            unrad_res = unrad(num, *sorted(free, key=lambda s: s.name))
+            if unrad_res is not None:
+                poly_eq, cov = unrad_res
+                if not cov:
+                    for fac in _extract_polynomial_factors(sp.expand(poly_eq)):
                         if fac not in factors:
                             factors.append(fac)
     except Exception:
@@ -171,8 +185,26 @@ class ZeroOracle:
                 emit_core_event("CHECK", "zero.domain_zero", 3, expr=expr)
             return decision
 
-        # Si présence de paramètres (fraction rationnelle ou produit de radicaux/puissances)
         if free_syms:
+            # Vérifier si la condition courante tranche directement l'expression
+            direct_status = cond.implies_zero(expr)
+            if direct_status is True:
+                if trace_level3:
+                    emit_core_event("CHECK", "zero.domain_zero", 3, expr=expr)
+                return ZeroDecision(verdict=Verdict.ZERO, condition=None, method="domain")
+            if direct_status is False:
+                return ZeroDecision(verdict=Verdict.NONZERO, condition=None, method="domain")
+
+            # Si les hypothèses SymPy sur les symboles (ou la positivité sur R) garantissent non-zéro
+            if (
+                expr.is_zero is False
+                or expr.is_nonzero is True
+                or expr.is_positive is True
+                or expr.is_negative is True
+            ):
+                return ZeroDecision(verdict=Verdict.NONZERO, condition=None, method="domain")
+
+            is_rat = expr.is_rational_function(*free_syms)
             factors = _extract_factors(expr)
             if factors:
                 if factors == [sp.Integer(0)]:
@@ -180,19 +212,32 @@ class ZeroOracle:
                         emit_core_event("CHECK", "zero.domain_zero", 3, expr=expr)
                     return ZeroDecision(verdict=Verdict.ZERO, condition=None, method="domain")
 
-                # Filtrer les facteurs déjà connus non nuls via cond.neqs
+                # Filtrer les facteurs déjà connus non nuls via cond
                 active_factors: list[sp.Expr] = []
                 for fac in factors:
+                    if (
+                        fac.is_zero is False
+                        or fac.is_nonzero is True
+                        or fac.is_positive is True
+                        or fac.is_negative is True
+                    ):
+                        continue
                     status = cond.implies_zero(fac)
                     if status is True:
-                        return ZeroDecision(verdict=Verdict.ZERO, condition=None, method="domain")
+                        if is_rat:
+                            if trace_level3:
+                                emit_core_event("CHECK", "zero.domain_zero", 3, expr=expr)
+                            return ZeroDecision(verdict=Verdict.ZERO, condition=None, method="domain")
+                        # Pour une expression avec radicaux, vérifier que l'annulation du facteur annule expr
+                        if sp.simplify(expr) == 0:
+                            return ZeroDecision(verdict=Verdict.ZERO, condition=None, method="domain")
                     if status is None:
                         active_factors.append(fac)
 
                 if not active_factors:
                     return ZeroDecision(verdict=Verdict.NONZERO, condition=None, method="domain")
 
-                # Vérifier si les facteurs s'annulent sur R
+                # Vérifier si les facteurs s'annulent sur R (et éliminer les racines parasites d'unrad)
                 real_factors: list[sp.Expr] = []
                 for fac in active_factors:
                     if len(fac.free_symbols) == 1:
@@ -201,9 +246,31 @@ class ZeroOracle:
                             real_roots = sp.solve(fac, sym)
                             if not real_roots:
                                 continue
+                            if not is_rat:
+                                valid_roots = [
+                                    r
+                                    for r in real_roots
+                                    if sp.simplify(expr.xreplace({sym: r})) == 0
+                                ]
+                                if not valid_roots:
+                                    continue
+                                if len(valid_roots) < len(real_roots):
+                                    for vr in valid_roots:
+                                        lin_fac = sym - vr
+                                        st = cond.implies_zero(lin_fac)
+                                        if st is True:
+                                            return ZeroDecision(
+                                                verdict=Verdict.ZERO,
+                                                condition=None,
+                                                method="domain",
+                                            )
+                                        if st is None and lin_fac not in real_factors:
+                                            real_factors.append(lin_fac)
+                                    continue
                         except Exception:
                             pass
-                    real_factors.append(fac)
+                    if fac not in real_factors:
+                        real_factors.append(fac)
 
                 if not real_factors:
                     return ZeroDecision(verdict=Verdict.NONZERO, condition=None, method="domain")
@@ -241,7 +308,12 @@ class ZeroOracle:
                 if trace_level3:
                     emit_core_event("CHECK", "zero.simplify_zero", 3, expr=expr)
                 return ZeroDecision(verdict=Verdict.ZERO, condition=None, method="simplify")
-            if not free_syms and s2.is_zero is False:
+            if (
+                s2.is_zero is False
+                or s2.is_nonzero is True
+                or s2.is_positive is True
+                or s2.is_negative is True
+            ):
                 return ZeroDecision(verdict=Verdict.NONZERO, condition=None, method="simplify")
             if not free_syms and s2.equals(0) is True:
                 if trace_level3:
@@ -251,7 +323,7 @@ class ZeroOracle:
             s2 = expr
 
         # Si après simplification on retrouve une fraction rationnelle en des paramètres
-        if s2.free_symbols and s2.is_rational_function(*s2.free_symbols):
+        if s2 != expr and s2.free_symbols and s2.is_rational_function(*s2.free_symbols):
             return self.decide(s2, cond, trace_level3=trace_level3)
 
         # Étape 4 : Contrôle numérique en haute précision (evalf(50))

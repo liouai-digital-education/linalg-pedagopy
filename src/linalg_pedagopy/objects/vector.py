@@ -12,7 +12,7 @@ from linalg_pedagopy.core.exceptions import (
     DimensionMismatchError,
     UndefinedOperationError,
 )
-from linalg_pedagopy.core.field import choose_domain, to_exact
+from linalg_pedagopy.core.field import choose_domain, match_symbol_substitutions, to_exact
 from linalg_pedagopy.core.zero import AssumptionsType, Verdict, oracle
 from linalg_pedagopy.trace.step import StepKind
 from linalg_pedagopy.trace.tracer import current_tracer, record, section, suspend_tracing
@@ -24,6 +24,8 @@ class Vector:
     __slots__ = ("_entries", "_domain_matrix")
 
     def __init__(self, entries: Iterable[Any]) -> None:
+        if getattr(entries, "_is_locked_tutor_proxy", False):
+            entries = entries._unwrap_for_constructor("Vector(...)")  # type: ignore[attr-defined]
         if isinstance(entries, Vector):
             object.__setattr__(self, "_entries", entries._entries)
             object.__setattr__(self, "_domain_matrix", entries._domain_matrix)
@@ -174,10 +176,10 @@ class Vector:
 
     def subs(self, mapping: Mapping[Any, Any]) -> Vector:
         """Substitue des symboles par des valeurs et renvoie un nouveau Vector."""
-        sym_map = {
-            (sp.Symbol(k, real=True) if isinstance(k, str) else k): to_exact(v)
-            for k, v in mapping.items()
-        }
+        free: set[sp.Symbol] = set()
+        for e in self._entries:
+            free |= {s for s in e.free_symbols if isinstance(s, sp.Symbol)}
+        sym_map = match_symbol_substitutions(free, mapping)
         return Vector._from_exact(
             sp.simplify(e.xreplace(sym_map)) for e in self._entries
         )

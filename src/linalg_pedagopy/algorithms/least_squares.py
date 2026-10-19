@@ -37,6 +37,8 @@ class LSResult(Result):
     residual_norm: sp.Expr = sp.Integer(0)
     residual_rms: sp.Expr = sp.Integer(0)
     method: LSMethod = "rational_qr"
+    full_rank: bool = True
+    witness: Any = None
 
     @property
     def residual(self) -> Vector:
@@ -68,15 +70,21 @@ class LSResult(Result):
             residual_norm=sp.simplify(self.residual_norm.xreplace(sym_map)),
             residual_rms=sp.simplify(self.residual_rms.xreplace(sym_map)),
             method=self.method,
+            full_rank=self.full_rank,
+            witness=self.witness,
         )
 
     def _branch_summary_lines(self) -> list[str]:
+        if not self.full_rank:
+            return [f"rang déficient (colonnes liées : {self.witness})"]
         return [
             f"rang plein ({self.A.cols}), solution des moindres carrés x_hat = {self.x_hat}",
             f"résidu r_hat = {self.r_hat}, ||r_hat|| = {self.residual_norm}",
         ]
 
     def _run_verification(self) -> None:
+        if not self.full_rank:
+            return
         with section("ls.verify", level=1):
             cols = self.A.columns()
             for j, col_j in enumerate(cols, start=1):
@@ -147,11 +155,20 @@ class LeastSquares(Procedure[LSResult]):
             if isinstance(qr_check, CaseSplit):
                 branches: list[Branch[LSResult]] = []
                 for br in qr_check.branches:
-                    if not br.result.full_rank:
-                        continue
                     subs_map = br.condition.substitutions()
                     A_sub = self.A.subs(subs_map) if subs_map else self.A
                     b_sub = self.b.subs(subs_map) if subs_map else self.b
+                    if not br.result.full_rank:
+                        ls_def = LSResult(
+                            trace=br.trace,
+                            A=A_sub,
+                            b=b_sub,
+                            method=self.method,
+                            full_rank=False,
+                            witness=br.result.witness,
+                        )
+                        branches.append(Branch(br.condition, ls_def, br.trace))
+                        continue
                     with tracing(level=3) as t_br:
                         ls_sub = self._solve_full_rank(
                             A_sub, b_sub, br.result, assumptions=br.condition

@@ -64,6 +64,7 @@ from linalg_pedagopy.exercises import (
     generate_parametric_system,
     generate_rational_qr_matrix,
     generate_unimodular_matrix,
+    generators,
     generateurs,
 )
 from linalg_pedagopy.objects import Matrix, Vector
@@ -78,7 +79,7 @@ from linalg_pedagopy.trace import (
     suspend_tracing,
     tracing,
 )
-from linalg_pedagopy import tuteur
+from linalg_pedagopy import tuteur, tutor
 
 __version__ = "3.0.0"
 
@@ -136,6 +137,7 @@ __all__ = [
     "generate_parametric_system",
     "generate_rational_qr_matrix",
     "generate_unimodular_matrix",
+    "generators",
     "generateurs",
     "oracle",
     "record",
@@ -145,5 +147,6 @@ __all__ = [
     "to_exact",
     "tracing",
     "tuteur",
+    "tutor",
     "using_config",
 ]

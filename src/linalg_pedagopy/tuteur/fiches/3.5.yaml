@@ -1,23 +1,28 @@
-id: "3.5"
+id: '3.5'
 page: 7
 type: justification
-reformulation: >
-  Soient u et v deux vecteurs orthogonaux de R^n (u ⊥ v). Exprimer ||u + v||^2
-  en fonction de norm_u (représentant ||u||) et norm_v (représentant ||v||).
+reformulation: Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp
+  v$). Exprimer $\|u + v\|^2$ en fonction de norm_u (représentant $\|u\|$) et norm_v
+  (représentant $\|v\|$) (théorème de Pythagore).
 donnees:
   n: 3
 verification:
   type: formule
   parametres:
-    - norm_u
-    - norm_v
-  cible: "norm_u**2 + norm_v**2"
+  - norm_u
+  - norm_v
+  cible: norm_u**2 + norm_v**2
 indices:
-  - "On cherche à exprimer le carré de la norme de la somme u + v en fonction de ||u|| et ||v|| lorsque u ⊥ v (théorème de Pythagore vectoriel, VMLS ch. 3)."
-  - "Rappel : pour tout vecteur w, ||w||^2 = w^T w. Appliquez cette identité à w = u + v."
-  - "Développez (u + v)^T (u + v) et utilisez l'hypothèse d'orthogonalité u^T v = 0."
-jumeau: "generateurs.combinaison_orthogonale(c1=2, c2=-3)"
+- On cherche à exprimer le carré de la norme de la somme $u + v$ en fonction de $\|u\|$
+  et $\|v\|$ lorsque $u \perp v$ (théorème de Pythagore vectoriel, VMLS ch. 3).
+- 'Rappel : pour tout vecteur $w$, $\|w\|^2 = w^T w$. Appliquez cette identité à $w
+  = u + v$.'
+- Développez $(u + v)^T (u + v)$ et utilisez l'hypothèse d'orthogonalité $u^T v =
+  0$.
+jumeau: generateurs.combinaison_orthogonale(c1=2, c2=-3)
 notions:
-  - "norme d'une somme orthogonale"
-  - "théorème de Pythagore"
-  - "VMLS ch. 3"
+- norme d'une somme orthogonale
+- théorème de Pythagore
+- VMLS ch. 3
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?3.5, p. 7
+ecart: Formule symbolique exacte de ||u + v||^2 pour u ? v (VMLS ?3.5).

@@ -1,11 +1,11 @@
-id: "12.6"
+id: '12.6'
 page: 30
 type: modelisation
-reformulation: >
-  On cherche à estimer x dans R^3 à partir des 6 mesures bruitées de toutes les paires :
-  y_1 ≈ x_1 + x_2, y_2 ≈ x_1 + x_3, y_3 ≈ x_2 + x_3, et des 3 mesures individuelles
-  y_4 ≈ x_1, y_5 ≈ x_2, y_6 ≈ x_3. Donner la matrice de conception A de taille 6×3
-  telle que le problème s'écrive min ||A x - y||^2.
+reformulation: 'On cherche à estimer $x \in \mathbb{R}^3$ à partir des 6 mesures bruitées
+  de toutes les paires : $y_1 \approx x_1 + x_2$, $y_2 \approx x_1 + x_3$, $y_3 \approx
+  x_2 + x_3$, et des 3 mesures individuelles $y_4 \approx x_1$, $y_5 \approx x_2$,
+  $y_6 \approx x_3$. Donner la matrice de conception $A$ de taille $6 \times 3$ telle
+  que le problème s''écrive $\min_x \|A x - y\|^2$.'
 donnees:
   n: 3
   m: 6
@@ -16,18 +16,24 @@ verification:
   taille_entree: 3
   taille_sortie: 6
   lignes_cibles:
-    - "y[1] = x[1] + x[2]"
-    - "y[2] = x[1] + x[3]"
-    - "y[3] = x[2] + x[3]"
-    - "y[4] = x[1]"
-    - "y[5] = x[2]"
-    - "y[6] = x[3]"
+  - y[1] = x[1] + x[2]
+  - y[2] = x[1] + x[3]
+  - y[3] = x[2] + x[3]
+  - y[4] = x[1]
+  - y[5] = x[2]
+  - y[6] = x[3]
 indices:
-  - "Il y a 6 mesures et 3 inconnues (x_1, x_2, x_3) : la matrice A est de taille 6×3 (VMLS ch. 12)."
-  - "Chaque ligne i de A contient les coefficients (0 ou 1) qui relient la i-ème mesure aux inconnues x_1, x_2, x_3."
-  - "Écrivez les 3 premières lignes pour les sommes de paires, puis les 3 dernières lignes (qui forment la matrice identité I_3)."
-jumeau: "generateurs.moindres_carres_exemple()"
+- 'Il y a 6 mesures et 3 inconnues ($x_1, x_2, x_3$) : la matrice $A$ est de taille
+  $6 \times 3$ (VMLS ch. 12).'
+- Chaque ligne $i$ de $A$ contient les coefficients (0 ou 1) qui relient la $i$-ième
+  mesure aux inconnues $x_1, x_2, x_3$.
+- Écrivez les 3 premières lignes pour les sommes de paires, puis les 3 dernières lignes
+  (qui forment la matrice identité $I_3$).
+jumeau: generateurs.moindres_carres_exemple()
 notions:
-  - "formulation des moindres carrés ||A x - b||^2"
-  - "mesures de sommes de paires"
-  - "VMLS ch. 12"
+- formulation des moindres carrés ||A x - b||^2
+- mesures de sommes de paires
+- VMLS ch. 12
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?12.6, p. 30
+ecart: Mise sous forme matricielle A x ? b d'un probl?me d'estimation par moindres
+  carr?s (VMLS ?12.6).

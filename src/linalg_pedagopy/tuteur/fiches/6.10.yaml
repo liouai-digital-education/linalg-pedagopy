@@ -1,9 +1,9 @@
-id: "6.10"
+id: '6.10'
 page: 16
 type: modelisation
-reformulation: >
-  Pour un vecteur x de R^2, on forme le vecteur y = (x, x, x) de R^6 obtenu en
-  répétant trois fois le vecteur x. Donner la matrice A de taille 6×2 telle que y = A x.
+reformulation: Pour un vecteur $x \in \mathbb{R}^2$, on forme le vecteur $y = (x,
+  x, x) \in \mathbb{R}^6$ obtenu en répétant trois fois le vecteur $x$. Donner la
+  matrice $A$ de taille $6 \times 2$ telle que $y = A x$.
 donnees:
   n: 2
   m: 6
@@ -14,18 +14,22 @@ verification:
   taille_entree: 2
   taille_sortie: 6
   lignes_cibles:
-    - "y[1] = x[1]"
-    - "y[2] = x[2]"
-    - "y[3] = x[1]"
-    - "y[4] = x[2]"
-    - "y[5] = x[1]"
-    - "y[6] = x[2]"
+  - y[1] = x[1]
+  - y[2] = x[2]
+  - y[3] = x[1]
+  - y[4] = x[2]
+  - y[5] = x[1]
+  - y[6] = x[2]
 indices:
-  - "Le vecteur d'entrée x est dans R^2 et le vecteur de sortie y = (x, x, x) est dans R^6 : quelle est la taille de A ?"
-  - "Quelle matrice 2×2 multiplie x pour redonner exactement x ?"
-  - "Empilez verticalement trois blocs identité I_2 pour obtenir les 6 lignes de A."
-jumeau: "generateurs.moyenne_glissante(fenetre=2, n=5)"
+- 'Le vecteur d''entrée $x$ est dans $\mathbb{R}^2$ et le vecteur de sortie $y = (x,
+  x, x)$ est dans $\mathbb{R}^6$ : quelle est la taille de $A$ ?'
+- Quelle matrice $2 \times 2$ multiplie $x$ pour redonner exactement $x$ ?
+- Empilez verticalement trois blocs identité $I_2$ pour obtenir les 6 lignes de $A$.
+jumeau: generateurs.moyenne_glissante(fenetre=2, n=5)
 notions:
-  - "matrices par blocs"
-  - "répétition d'un vecteur"
-  - "VMLS ch. 6"
+- matrices par blocs
+- répétition d'un vecteur
+- VMLS ch. 6
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?6.10, p. 16
+ecart: Instance num?rique de transformation lin?aire de s?rie temporelle sur R^4 (VMLS
+  ?6.10).

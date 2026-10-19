@@ -76,3 +76,28 @@ def test_zero_oracle_unknown_raises_undecidable() -> None:
     assert d.verdict == Verdict.UNKNOWN
     with pytest.raises(UndecidableZeroError):
         oracle.is_zero(expr)
+
+
+def test_zero_oracle_parametric_radicals_and_assumptions() -> None:
+    m, a, b = symbols("m a b")
+    # Somme/différence avec radical paramétré : m - sqrt(1 - m^2) s'annule en m = sqrt(2)/2
+    expr_rad = m - sp.sqrt(1 - m**2)
+    dec_rad = oracle.decide(expr_rad)
+    assert dec_rad.verdict == Verdict.CONDITIONAL
+    assert dec_rad.condition is not None
+    assert dec_rad.condition.substitutions() == {m: sp.sqrt(2) / 2}
+
+    # Sous m = sqrt(2)/2, l'expression est ZERO
+    assert oracle.decide(expr_rad, assumptions=dec_rad.condition).verdict == Verdict.ZERO
+    # Sous m = -sqrt(2)/2 (racine parasite d'unrad), l'expression est NONZERO
+    assert oracle.decide(expr_rad, assumptions=Condition.eq(m, -sp.sqrt(2) / 2)).verdict == Verdict.NONZERO
+
+    # 1 + sqrt(m^2 + 1) est strictement positif sur R -> NONZERO
+    assert oracle.decide(1 + sp.sqrt(m**2 + 1)).verdict == Verdict.NONZERO
+
+    # Polynôme multivarié strictement positif sur R : a^2 + b^2 + 1 -> NONZERO
+    assert oracle.decide(a**2 + b**2 + 1).verdict == Verdict.NONZERO
+
+    # Symbole portant l'hypothèse SymPy nonzero=True
+    (nz,) = symbols("nz", nonzero=True)
+    assert oracle.decide(nz).verdict == Verdict.NONZERO

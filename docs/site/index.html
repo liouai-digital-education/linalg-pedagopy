@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accueil & Démarrage — linalg_pedagopy v3.0</title>
+  <meta name="description" content="Introduction, principes directeurs et installation rapide">
+
+  <!-- Typographie Web Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="assets/css/academic.css">
+
+  <!-- MathJax pour les formules mathématiques exactes -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Moteur de diagrammes Mermaid.js -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+  </script>
+</head>
+<body>
+
+  <!-- En-tête institutionnel -->
+  <header class="site-header">
+    <a href="index.html" class="header-brand">
+      <div class="brand-crest">LP</div>
+      <div>
+        <div class="brand-title">linalg_pedagopy</div>
+        <div class="brand-subtitle">Algèbre Linéaire Formelle & VMLS</div>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher... (Ctrl+K)" readonly>
+      </div>
+      <button id="themeToggle" class="theme-toggle-btn" title="Changer de thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- Modal de recherche plein texte -->
+  <div id="searchModal" class="search-results-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="Rechercher une fonction, un théorème, un symbole...">
+      </div>
+      <div id="modalSearchResults" class="search-modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;">Saisissez un mot-clé...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-container">
+    <!-- Barre latérale gauche de navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Sommaire de l'ouvrage</div>
+      <ul class="nav-list">
+        
+        <li class="nav-item active">
+          <a href="index.html">
+            <span>Accueil & Démarrage</span>
+            <span class="nav-badge">Portail</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="01_core_and_formal_computation.html">
+            <span>01. Noyau formel & Exactitude</span>
+            <span class="nav-badge">Fondement</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="02_vectors_and_matrices.html">
+            <span>02. Vecteurs, Matrices & VMLS</span>
+            <span class="nav-badge">Objets</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="03_algorithms_and_step_tracing.html">
+            <span>03. Algorithmes & Traçabilité</span>
+            <span class="nav-badge">Algèbre</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="04_vmls_tutor.html">
+            <span>04. Le Tuteur Interactif VMLS</span>
+            <span class="nav-badge">Pédagogie</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="05_pedagogical_exercises_and_sessions.html">
+            <span>05. Exercices & Sessions Guidées</span>
+            <span class="nav-badge">Didactique</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="06_rendering_visualization_and_numerics.html">
+            <span>06. Rendu, Géométrie & Numérique</span>
+            <span class="nav-badge">Visuel</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="07_api_reference.html">
+            <span>07. Référence complète de l'API</span>
+            <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
+        <strong>Version 3.0.0</strong><br>
+        Inspiré de Boyd &amp; Vandenberghe
+      </div>
+    </aside>
+
+    <!-- Corps de texte de l'article -->
+    <main class="main-content">
+      <header class="article-header">
+        <span class="article-badge">Chapitre 00 • Portail</span>
+        <h1 class="article-title">Accueil & Démarrage</h1>
+        <p class="article-subtitle">Introduction, principes directeurs et installation rapide</p>
+      </header>
+
+      <article class="markdown-body">
+        <h1 id="documentation-officielle-de-linalg_pedagopy-v30">Documentation officielle de <code>linalg_pedagopy</code> v3.0</h1>
+<p>Bienvenue dans la documentation complète et de référence de <strong><code>linalg_pedagopy</code></strong>, le package Python d'algèbre linéaire formelle et pédagogique conçu pour l'enseignement supérieur (Licence 1–2, CPGE, parcours informatique et mathématiques appliquées).</p>
+<p>Inspiré de l'ouvrage classique de référence <strong>Stephen Boyd &amp; Lieven Vandenberghe</strong>, <em>Introduction to Applied Linear Algebra — Vectors, Matrices, and Least Squares (VMLS)</em> (Cambridge University Press), complété par les approches pédagogiques de David Lay et Gilbert Strang, <code>linalg_pedagopy</code> allie la <strong>rigueur du calcul symbolique exact</strong> à une <strong>didactique active et interactive</strong>.</p>
+<hr/>
+<h2 id="plan-general-de-la-documentation">🧭 Plan général de la documentation</h2>
+<p>La documentation est structurée en 7 guides thématiques approfondis et une référence complète de l'API :</p>
+<ol>
+<li>
+<p><a href="01_core_and_formal_computation.html"><strong>01. Noyau formel et Calcul Symbolique Exact</strong></a><br/>
+   Types de données exacts, politique des flottants (<code>float_policy</code>), symboles réels (<code>symbols</code>), oracle de nullité à 4 verdicts (<code>ZeroOracle</code>), simplification des radicaux réels (<code>unrad</code>), partitionnement disjoint de l'espace des paramètres (<code>CaseSplit</code>, <code>Condition</code>, <code>Branch</code>), clôture transitive des substitutions et détection de contradictions.</p>
+</li>
+<li>
+<p><a href="02_vectors_and_matrices.html"><strong>02. Vecteurs, Matrices et Métriques VMLS</strong></a><br/>
+   Objets immuables <code>Vector</code> et <code>Matrix</code>, initialisation, métriques VMLS (norme euclidienne, angle, corrélation, distance RMS, projection orthogonale), les 4 vues du produit matriciel (combinaison linéaire des colonnes, produit scalaire ligne-colonne, somme de produits externes, décomposition par blocs), propriétés matricielles (rang, noyau, image, rref, déterminant, inverse, détection de singularité).</p>
+</li>
+<li>
+<p><a href="03_algorithms_and_step_tracing.html"><strong>03. Algorithmes fondamentaux et Traçabilité hiérarchique</strong></a><br/>
+   Architecture de traçabilité (<code>Tracer</code>, context manager <code>tracing()</code>, niveaux de détail 0 à 3, <code>Highlight</code>, <code>Step</code>), élimination de Gauss-Jordan (<code>GaussJordan</code>, pivotage formel, opérations élémentaires, calcul simultané d'inverses), substitutions triangulaires (<code>ForwardSubstitution</code>, <code>BackSubstitution</code>), orthogonalisation de Gram-Schmidt (<code>GramSchmidt</code>), factorisation QR (<code>QR</code>, Householder, Givens) et régression par moindres carrés (<code>LeastSquares</code>, équations normales, QR, projection orthogonale).</p>
+</li>
+<li>
+<p><a href="04_vmls_tutor.html"><strong>04. Le Tuteur Interactif VMLS (<code>tutor</code> / <code>tuteur</code>)</strong></a><br/>
+   Architecture anti-triche et coffre-fort d'isolation (<code>_LOCK_VAULT</code>, <code>WeakKeyDictionary</code>, <code>__slots__ = ("__weakref__",)</code>), objets verrouillés (<code>LockedVector</code>, <code>LockedMatrix</code>), catalogue des 35 fiches d'exercices VMLS officielles (<code>exercise</code>), système d'indices gradués (niveaux 1 à 4) sans divulgation, exercice jumeau résolu (<code>twin</code>), prédiction d'étape (<code>predict</code>), laboratoire de contre-exemples (<code>lab</code>), vérificateurs formels de solutions (<code>verify</code>), journal persistant et atomique (<code>ExerciseJournal</code>), interface interactive JupyterLab (<code>panel</code>), et modes étudiant/enseignant.</p>
+</li>
+<li>
+<p><a href="05_pedagogical_exercises_and_sessions.html"><strong>05. Exercices pédagogiques et Sessions interactives</strong></a><br/>
+   Générateurs d'exercices à résultats propres (<code>generators.py</code> : matrices de différence, moyennes mobiles, sommes cumulées, Vandermonde, matrices unimodulaires, orthogonales de Cayley, etc.), sessions interactives guidées (<code>InteractiveSession</code>, modes <code>read</code>, <code>predict_reveal</code>, <code>completion</code>, <code>autonomous</code>), et diagnostic automatique des erreurs étudiantes types (Annexe C).</p>
+</li>
+<li>
+<p><a href="06_rendering_visualization_and_numerics.html"><strong>06. Rendu, Visualisation et Comparaison Numérique</strong></a><br/>
+   Moteurs de rendu multi-formats (<code>Explanation</code>, LaTeX, Markdown, HTML, texte Unicode), localisation multilingue (<code>locales/fr.yaml</code>, <code>locales/en.yaml</code>), figures géométriques 2D et 3D avec Matplotlib (<code>plot</code>), et comparaison du calcul exact avec les bibliothèques numériques flottantes (<code>compare</code> avec NumPy/SciPy, matrices de Hilbert, matrices de Läuchli, perte d'orthogonalité, conditionnement).</p>
+</li>
+<li>
+<p><a href="07_api_reference.html"><strong>07. Référence complète de l'API</strong></a><br/>
+   Index alphabétique exhaustif de toutes les classes, méthodes, fonctions, exceptions et paramètres du package, avec tableau de correspondance bilingue (nomenclature primaire anglaise et alias français).</p>
+</li>
+</ol>
+<hr/>
+<h2 id="demarrage-rapide-en-5-minutes">⚡ Démarrage rapide en 5 minutes</h2>
+<h3 id="installation">Installation</h3>
+<div class="code-container"><div class="code-header"><span>Bash</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bash"># Installation de base
+pip install -e .
+
+# Avec support du tuteur graphique JupyterLab
+pip install -e ".[tuteur]"
+
+# Avec visualisation graphique 2D/3D (Matplotlib)
+pip install -e ".[plot]"
+
+# Avec comparaison numérique NumPy
+pip install -e ".[compare]"
+
+# Installation complète pour développement et tests
+pip install -e ".[dev,tuteur,plot,compare]"
+</code></pre></div>
+<h3 id="premier-script-resolution-formelle-et-discussion-parametrique">Premier script : Résolution formelle et discussion paramétrique</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, symbols, tracing, GaussJordan
+
+# Déclaration de symboles réels
+a, b = symbols("a b")
+
+# Définition de la matrice et du second membre
+A = Matrix([
+    [1, 1, 1],
+    [1, a, 1],
+    [1, 1, a]
+])
+y = Vector([1, 2, 3])
+
+# Exécution avec traçabilité pédagogique (niveau 2 : détail des opérations)
+with tracing(level=2):
+    result = GaussJordan(A, y).run()
+
+# Affichage de la discussion de cas (CaseSplit)
+print(result.explain())
+</code></pre></div>
+<h3 id="premiere-session-avec-le-tuteur-vmls">Première session avec le Tuteur VMLS</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.tutor import exercise
+
+# Chargement d'un exercice VMLS (ex: projection orthogonale)
+ex = exercise("6.4")
+
+# Consultation de l'énoncé mathématique
+print(ex.statement())
+
+# Demande d'un indice progressif (sans divulgation de la solution)
+print(ex.hint())
+
+# Étude de l'exercice jumeau résolu
+print(ex.twin().statement)
+print(ex.twin().solution_summary)
+
+# Test d'une réponse candidate
+from linalg_pedagopy import Vector
+reponse_etudiant = Vector([1, 2, 3])
+rapport = ex.verify(reponse_etudiant)
+print(rapport)
+</code></pre></div>
+<hr/>
+<h2 id="philosophie-et-choix-de-conception">🎯 Philosophie et Choix de Conception</h2>
+<p><code>linalg_pedagopy</code> a été conçu autour de 6 principes directeurs fondamentaux :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Principe</th>
+<th style="text-align: left;">Décision de Conception</th>
+<th style="text-align: left;">Bénéfice Pédagogique</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Exactitude stricte</strong></td>
+<td style="text-align: left;">Aucun nombre flottant non converti (<code>float_policy="rationalize"</code>). Symboles dotés de <code>real=True</code>.</td>
+<td style="text-align: left;">Supprime les artéfacts numériques (ex: <code>0.0000000000000001</code> au lieu de <code>0</code>) et force la manipulation exacte.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Oracle de nullité à 4 verdicts</strong></td>
+<td style="text-align: left;"><code>Verdict.ZERO</code>, <code>Verdict.NONZERO</code>, <code>Verdict.CONDITIONAL</code>, <code>Verdict.UNKNOWN</code>. Simplification par <code>unrad</code>.</td>
+<td style="text-align: left;">Empêche les divisions sauvages par une quantité formelle potentiellement nulle.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Branchement paramétrique automatique</strong></td>
+<td style="text-align: left;">Arbre de cas <code>CaseSplit</code> avec partition disjointe et propagation des contraintes (<code>Condition</code>).</td>
+<td style="text-align: left;">L'étudiant visualise la géométrie des sous-espaces exceptionnels (<strong>ACADEMIC_TOKEN_0</strong>, <strong>ACADEMIC_TOKEN_1</strong>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Immutabilité rigoureuse</strong></td>
+<td style="text-align: left;">Les instances de <code>Vector</code> et <code>Matrix</code> sont immuables.</td>
+<td style="text-align: left;">Évite les effets de bord sournois pendant les algorithmes de manipulation de lignes/colonnes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Traçabilité hiérarchique</strong></td>
+<td style="text-align: left;">Arbre de trace contextuel (<code>Tracer</code>) avec 4 niveaux de zoom (0 : résultat, 1 : macro, 2 : micro, 3 : arithmétique).</td>
+<td style="text-align: left;">L'enseignant choisit le niveau d'explication adapté au niveau des étudiants.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Isolation du tuteur (Anti-triche)</strong></td>
+<td style="text-align: left;">Coffres-forts privés <code>WeakKeyDictionary</code> avec <code>__slots__ = ("__weakref__",)</code>.</td>
+<td style="text-align: left;">Les étudiants ne peuvent pas extraire la solution par introspection Python (<code>ex.data.A</code>).</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="nomenclature-bilingue-anglais-primaire-alias-francais">🌐 Nomenclature bilingue (Anglais primaire / Alias français)</h2>
+<p>Le package adopte une <strong>nomenclature anglaise primaire</strong> standardisée au niveau international, tout en offrant un ensemble complet d'alias français transparents pour les cours francophones :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Concept</th>
+<th style="text-align: left;">API Primaire (Anglais)</th>
+<th style="text-align: left;">Alias Rétrocompatible (Français)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Module Tuteur</td>
+<td style="text-align: left;"><code>from linalg_pedagopy import tutor</code></td>
+<td style="text-align: left;"><code>from linalg_pedagopy import tuteur</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Chargement d'exercice</td>
+<td style="text-align: left;"><code>tutor.exercise("6.4")</code></td>
+<td style="text-align: left;"><code>tuteur.exercice("6.4")</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Énoncé</td>
+<td style="text-align: left;"><code>ex.statement()</code></td>
+<td style="text-align: left;"><code>ex.enonce()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Indice</td>
+<td style="text-align: left;"><code>ex.hint()</code></td>
+<td style="text-align: left;"><code>ex.indice()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Exercice jumeau</td>
+<td style="text-align: left;"><code>ex.twin()</code></td>
+<td style="text-align: left;"><code>ex.jumeau()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Prédiction d'étape</td>
+<td style="text-align: left;"><code>ex.predict(reponse)</code></td>
+<td style="text-align: left;"><code>ex.predire(reponse)</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Laboratoire</td>
+<td style="text-align: left;"><code>ex.lab()</code></td>
+<td style="text-align: left;"><code>ex.labo()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Vérification</td>
+<td style="text-align: left;"><code>ex.verify(reponse)</code></td>
+<td style="text-align: left;"><code>ex.verifier(reponse)</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Fiche enseignant</td>
+<td style="text-align: left;"><code>ex.teacher_sheet()</code></td>
+<td style="text-align: left;"><code>ex.fiche_enseignant()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Liste des exercices</td>
+<td style="text-align: left;"><code>tutor.list_exercises()</code></td>
+<td style="text-align: left;"><code>tuteur.lister_exercices()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Validation d'une fiche</td>
+<td style="text-align: left;"><code>tutor.validate_sheet("6.4")</code></td>
+<td style="text-align: left;"><code>tuteur.valider_fiche("6.4")</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Glossaire</td>
+<td style="text-align: left;"><code>tutor.glossary()</code></td>
+<td style="text-align: left;"><code>tuteur.glossaire()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Mode d'exécution</td>
+<td style="text-align: left;"><code>config.tutor_mode = "student"</code></td>
+<td style="text-align: left;"><code>config.tutor_mode = "etudiant"</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Générateurs</td>
+<td style="text-align: left;"><code>generators.moving_average(...)</code></td>
+<td style="text-align: left;"><code>generateurs.moyenne_mobile(...)</code></td>
+</tr>
+</tbody>
+</table>
+      </article>
+
+      <!-- Navigation entre chapitres -->
+      <nav class="chapter-nav">
+        
+        <div></div>
+        
+
+        
+        <a href="01_core_and_formal_computation.html" class="chapter-nav-btn" style="text-align:right;">
+          <span class="nav-direction">Chapitre suivant &rarr;</span>
+          <span class="nav-target">01. Noyau formel & Exactitude</span>
+        </a>
+        
+      </nav>
+    </main>
+
+    <!-- Barre latérale droite : Sommaire de la page (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-heading">Sur cette page</div>
+      <ul class="toc-list">
+        
+        <li class="toc-item ">
+          <a href="#plan-general-de-la-documentation">🧭 Plan général de la documentation</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#demarrage-rapide-en-5-minutes">⚡ Démarrage rapide en 5 minutes</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#installation">Installation</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#premier-script-resolution-formelle-et-discussion-parametrique">Premier script : Résolution formelle et discussion paramétrique</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#premiere-session-avec-le-tuteur-vmls">Première session avec le Tuteur VMLS</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#philosophie-et-choix-de-conception">🎯 Philosophie et Choix de Conception</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#nomenclature-bilingue-anglais-primaire-alias-francais">🌐 Nomenclature bilingue (Anglais primaire / Alias français)</a>
+        </li>
+        
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <p>
+      <strong>linalg_pedagopy v3.0</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement en L1–L2 et fondé sur <em>Introduction to Applied Linear Algebra</em> (VMLS) par S. Boyd &amp; L. Vandenberghe.<br>
+      Documentation sous licence MIT. Code source ouvert.
+    </p>
+  </footer>
+
+  <script src="assets/js/academic.js"></script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>06. Rendu, Géométrie & Numérique — linalg_pedagopy v3.0</title>
+  <meta name="description" content="Formats Explanation, tracés Matplotlib 2D/3D et banc d'essai Läuchli/Hilbert">
+
+  <!-- Typographie Web Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="assets/css/academic.css">
+
+  <!-- MathJax pour les formules mathématiques exactes -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Moteur de diagrammes Mermaid.js -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+  </script>
+</head>
+<body>
+
+  <!-- En-tête institutionnel -->
+  <header class="site-header">
+    <a href="index.html" class="header-brand">
+      <div class="brand-crest">LP</div>
+      <div>
+        <div class="brand-title">linalg_pedagopy</div>
+        <div class="brand-subtitle">Algèbre Linéaire Formelle & VMLS</div>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher... (Ctrl+K)" readonly>
+      </div>
+      <button id="themeToggle" class="theme-toggle-btn" title="Changer de thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- Modal de recherche plein texte -->
+  <div id="searchModal" class="search-results-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="Rechercher une fonction, un théorème, un symbole...">
+      </div>
+      <div id="modalSearchResults" class="search-modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;">Saisissez un mot-clé...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-container">
+    <!-- Barre latérale gauche de navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Sommaire de l'ouvrage</div>
+      <ul class="nav-list">
+        
+        <li class="nav-item ">
+          <a href="index.html">
+            <span>Accueil & Démarrage</span>
+            <span class="nav-badge">Portail</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="01_core_and_formal_computation.html">
+            <span>01. Noyau formel & Exactitude</span>
+            <span class="nav-badge">Fondement</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="02_vectors_and_matrices.html">
+            <span>02. Vecteurs, Matrices & VMLS</span>
+            <span class="nav-badge">Objets</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="03_algorithms_and_step_tracing.html">
+            <span>03. Algorithmes & Traçabilité</span>
+            <span class="nav-badge">Algèbre</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="04_vmls_tutor.html">
+            <span>04. Le Tuteur Interactif VMLS</span>
+            <span class="nav-badge">Pédagogie</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="05_pedagogical_exercises_and_sessions.html">
+            <span>05. Exercices & Sessions Guidées</span>
+            <span class="nav-badge">Didactique</span>
+          </a>
+        </li>
+        
+        <li class="nav-item active">
+          <a href="06_rendering_visualization_and_numerics.html">
+            <span>06. Rendu, Géométrie & Numérique</span>
+            <span class="nav-badge">Visuel</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="07_api_reference.html">
+            <span>07. Référence complète de l'API</span>
+            <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
+        <strong>Version 3.0.0</strong><br>
+        Inspiré de Boyd &amp; Vandenberghe
+      </div>
+    </aside>
+
+    <!-- Corps de texte de l'article -->
+    <main class="main-content">
+      <header class="article-header">
+        <span class="article-badge">Chapitre 06 • Visuel</span>
+        <h1 class="article-title">06. Rendu, Géométrie & Numérique</h1>
+        <p class="article-subtitle">Formats Explanation, tracés Matplotlib 2D/3D et banc d'essai Läuchli/Hilbert</p>
+      </header>
+
+      <article class="markdown-body">
+        <h1 id="06-rendu-visualisation-et-comparaison-numerique">06. Rendu, Visualisation et Comparaison Numérique</h1>
+<p>Le package <code>linalg_pedagopy</code> offre des moteurs d'affichage polyvalents, un module graphique géométrique basé sur Matplotlib, ainsi qu'un banc de comparaison formel/numérique pour illustrer les limites du calcul flottant.</p>
+<hr/>
+<h2 id="1-moteurs-de-rendu-multi-formats-explanation">1. Moteurs de rendu multi-formats (<code>Explanation</code>)</h2>
+<p>Toutes les procédures algorithmiques renvoient un résultat muni d'une méthode <a href="src/linalg_pedagopy/algorithms/base.py"><code>explain(level=...)</code></a> produisant une instance immuable d'<a href="src/linalg_pedagopy/render/explanation.py"><code>Explanation</code></a>.</p>
+<p><strong>ACADEMIC_TOKEN_0</strong></p>
+<h3 id="11-formats-de-sortie-disponibles">1.1 Formats de sortie disponibles</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, GaussJordan
+
+A = Matrix([[1, 2], [3, 4]])
+b = Vector([5, 11])
+res = GaussJordan(A, b).run()
+exp = res.explain(level=2)
+
+# 1. Rendu console Unicode enrichi
+print(exp.to_text())
+
+# 2. Rendu LaTeX complet pour documents et polycopiés
+print(exp.to_latex())
+
+# 3. Rendu Markdown avec formules mathématiques
+print(exp.to_markdown())
+
+# 4. Rendu HTML avec classes CSS
+html_code = exp.to_html()
+</code></pre></div>
+<p>Dans un environnement JupyterLab ou Jupyter Notebook, l'objet <code>Explanation</code> implémente <code>_repr_markdown_()</code> : il s'affiche automatiquement avec un rendu typographique soigné grâce au moteur KaTeX/MathJax sans qu'aucun appel à <code>print()</code> ne soit nécessaire.</p>
+<h3 id="12-localisation-et-multilinguisme-locales">1.2 Localisation et multilinguisme (<code>locales</code>)</h3>
+<p>Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans <a href="src/linalg_pedagopy/render/locales/"><code>src/linalg_pedagopy/render/locales/</code></a> (<code>fr.yaml</code> et <code>en.yaml</code>).</p>
+<p>La langue s'ajuste globalement ou localement :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.config import config, using_config
+
+# Basculement global en anglais
+config.locale = "en"
+
+# Basculement temporaire en français
+with using_config(locale="fr"):
+    print(res.explain())
+</code></pre></div>
+<hr/>
+<h2 id="2-visualisation-geometrique-2d-et-3d-linalg_pedagopyplot">2. Visualisation géométrique 2D et 3D (<code>linalg_pedagopy.plot</code>)</h2>
+<p>Le sous-module <a href="src/linalg_pedagopy/plot/geometry.py"><code>linalg_pedagopy.plot</code></a> fournit des représentations géométriques directes des concepts vectoriels de VMLS via Matplotlib.</p>
+<p><strong>ACADEMIC_TOKEN_25</strong></p>
+<h3 id="21-fonctions-graphiques-disponibles">2.1 Fonctions graphiques disponibles</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Fonction</th>
+<th style="text-align: left;">Description géométrique</th>
+<th style="text-align: center;">Dimension</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>plot_linear_combination_2d(u, v, c1, c2)</code></td>
+<td style="text-align: left;">Règle du parallélogramme pour la combinaison linéaire <strong>ACADEMIC_TOKEN_2</strong>.</td>
+<td style="text-align: center;"><strong>ACADEMIC_TOKEN_3</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>plot_orthogonal_projection_2d(a, q)</code></td>
+<td style="text-align: left;">Projection orthogonale de <strong>ACADEMIC_TOKEN_4</strong> sur la droite <strong>ACADEMIC_TOKEN_5</strong> et vecteur résidu.</td>
+<td style="text-align: center;"><strong>ACADEMIC_TOKEN_6</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>plot_gram_schmidt_2d(vectors)</code></td>
+<td style="text-align: left;">Tracé simultané des vecteurs initiaux et de la base orthonormée <strong>ACADEMIC_TOKEN_7</strong>.</td>
+<td style="text-align: center;"><strong>ACADEMIC_TOKEN_8</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>plot_least_squares_fit(x_data, y_data, ls_result)</code></td>
+<td style="text-align: left;">Nuage de points, droite/modèle ajusté <strong>ACADEMIC_TOKEN_9</strong> et résidus verticaux.</td>
+<td style="text-align: center;">Plan</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>plot_least_squares_geometry_3d(ls_result)</code></td>
+<td style="text-align: left;">Vue spatiale du vecteur <strong>ACADEMIC_TOKEN_10</strong>, de sa projection orthogonale <strong>ACADEMIC_TOKEN_11</strong> sur <strong>ACADEMIC_TOKEN_12</strong> et du vecteur résidu <strong>ACADEMIC_TOKEN_13</strong> (<strong>ACADEMIC_TOKEN_14</strong>).</td>
+<td style="text-align: center;"><strong>ACADEMIC_TOKEN_15</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-exemple-geometrie-3d-des-moindres-carres">2.2 Exemple : Géométrie 3D des Moindres Carrés</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, LeastSquares
+from linalg_pedagopy.plot import plot_least_squares_geometry_3d
+import matplotlib.pyplot as plt
+
+# Matrice A de taille 3x2 (plan vectoriel dans R^3)
+A = Matrix([
+    [1, 0],
+    [0, 1],
+    [1, 1]
+])
+b = Vector([1, 2, 4])
+
+ls = LeastSquares(A, b).run()
+
+# Génération de la figure 3D
+fig = plot_least_squares_geometry_3d(ls)
+plt.show()
+</code></pre></div>
+<hr/>
+<h2 id="3-comparaison-exact-vs-virgule-flottante-linalg_pedagopycompare">3. Comparaison Exact vs Virgule Flottante (<code>linalg_pedagopy.compare</code>)</h2>
+<p>Dans l'esprit du chapitre 5 de <em>VMLS</em>, le module <a href="src/linalg_pedagopy/compare/numeric.py"><code>linalg_pedagopy.compare</code></a> permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 <code>float64</code> sous NumPy).</p>
+<h3 id="31-la-fonction-universelle-compare">3.1 La fonction universelle <code>compare</code></h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, GaussJordan, compare
+
+A = Matrix([[1, 2], [3, 4]])
+b = Vector([5, 11])
+proc = GaussJordan(A, b)
+
+rapport = compare(proc)
+print("Écart absolu maximal :", rapport.max_abs_error)
+print("Résumé :", rapport.summary)
+</code></pre></div>
+<p>Le rapport <a href="src/linalg_pedagopy/compare/numeric.py#L48-L60"><code>ComparisonReport</code></a> résume l'erreur absolue, la dérive relative et, le cas échéant, la perte d'orthogonalité.</p>
+<h3 id="32-cas-decole-1-la-matrice-de-lauchli-et-la-perte-dorthogonalite">3.2 Cas d'école 1 : La matrice de Läuchli et la perte d'orthogonalité</h3>
+<p>La matrice de Läuchli <strong>ACADEMIC_TOKEN_16</strong> est définie par :
+<strong>ACADEMIC_TOKEN_1</strong></p>
+<p>Pour <strong>ACADEMIC_TOKEN_17</strong> très petit (par exemple <strong>ACADEMIC_TOKEN_18</strong>), l'algorithme de Gram-Schmidt classique en virgule flottante perd totalement l'orthogonalité des vecteurs générés (<strong>ACADEMIC_TOKEN_19</strong>).</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.compare import build_lauchli_matrix, compare
+from linalg_pedagopy import GramSchmidt
+
+# Matrice de Läuchli avec epsilon = 10^-8
+L = build_lauchli_matrix(n=3, epsilon="1/100000000")
+proc = GramSchmidt(L.columns)
+
+rapport = compare(proc)
+print("Défaut d'orthogonalité en float64 :", rapport.orthogonality_defect_float)
+# En virgule flottante, les vecteurs q2 et q3 ne sont plus du tout orthogonaux !
+# En calcul formel linalg_pedagopy, l'orthogonalité est rigoureusement exacte.
+</code></pre></div>
+<h3 id="33-cas-decole-2-la-matrice-de-hilbert-et-le-mauvais-conditionnement">3.3 Cas d'école 2 : La matrice de Hilbert et le mauvais conditionnement</h3>
+<p>La matrice de Hilbert d'ordre <strong>ACADEMIC_TOKEN_20</strong>, <strong>ACADEMIC_TOKEN_21</strong>, est célèbre pour son conditionnement exponentiellement grand (<strong>ACADEMIC_TOKEN_22</strong>).</p>
+<p>Dès <strong>ACADEMIC_TOKEN_23</strong>, un solveur numérique flottant traditionnel produit des solutions complètement fausses (erreur relative <strong>ACADEMIC_TOKEN_24</strong>). Avec <code>linalg_pedagopy</code>, les coefficients restent des fractions rationnelles exactes irréductibles, quelle que soit la dimension.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.compare import build_hilbert_matrix
+from linalg_pedagopy import Vector, GaussJordan
+
+# Matrice de Hilbert d'ordre 8
+H = build_hilbert_matrix(8)
+b = Vector([1] * 8)
+
+res = GaussJordan(H, b).run()
+print("Solution exacte rationnelle :")
+print(res.solution.x)
+</code></pre></div>
+      </article>
+
+      <!-- Navigation entre chapitres -->
+      <nav class="chapter-nav">
+        
+        <a href="05_pedagogical_exercises_and_sessions.html" class="chapter-nav-btn">
+          <span class="nav-direction">&larr; Chapitre précédent</span>
+          <span class="nav-target">05. Exercices & Sessions Guidées</span>
+        </a>
+        
+
+        
+        <a href="07_api_reference.html" class="chapter-nav-btn" style="text-align:right;">
+          <span class="nav-direction">Chapitre suivant &rarr;</span>
+          <span class="nav-target">07. Référence complète de l'API</span>
+        </a>
+        
+      </nav>
+    </main>
+
+    <!-- Barre latérale droite : Sommaire de la page (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-heading">Sur cette page</div>
+      <ul class="toc-list">
+        
+        <li class="toc-item ">
+          <a href="#1-moteurs-de-rendu-multi-formats-explanation">1. Moteurs de rendu multi-formats (Explanation)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#11-formats-de-sortie-disponibles">1.1 Formats de sortie disponibles</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#12-localisation-et-multilinguisme-locales">1.2 Localisation et multilinguisme (locales)</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#2-visualisation-geometrique-2d-et-3d-linalg_pedagopyplot">2. Visualisation géométrique 2D et 3D (linalg_pedagopy.plot)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#21-fonctions-graphiques-disponibles">2.1 Fonctions graphiques disponibles</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#22-exemple-geometrie-3d-des-moindres-carres">2.2 Exemple : Géométrie 3D des Moindres Carrés</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#3-comparaison-exact-vs-virgule-flottante-linalg_pedagopycompare">3. Comparaison Exact vs Virgule Flottante (linalg_pedagopy.compare)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#31-la-fonction-universelle-compare">3.1 La fonction universelle compare</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#32-cas-decole-1-la-matrice-de-lauchli-et-la-perte-dorthogonalite">3.2 Cas d'école 1 : La matrice de Läuchli et la perte d'orthogonalité</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#33-cas-decole-2-la-matrice-de-hilbert-et-le-mauvais-conditionnement">3.3 Cas d'école 2 : La matrice de Hilbert et le mauvais conditionnement</a>
+        </li>
+        
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <p>
+      <strong>linalg_pedagopy v3.0</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement en L1–L2 et fondé sur <em>Introduction to Applied Linear Algebra</em> (VMLS) par S. Boyd &amp; L. Vandenberghe.<br>
+      Documentation sous licence MIT. Code source ouvert.
+    </p>
+  </footer>
+
+  <script src="assets/js/academic.js"></script>
+</body>
+</html>

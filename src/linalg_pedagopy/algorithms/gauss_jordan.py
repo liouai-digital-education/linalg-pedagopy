@@ -413,24 +413,31 @@ class GaussJordan(Procedure[GJResult]):
 
             # Vérification de compatibilité sur les lignes nulles si un second membre est présent
             rank = len(pivots)
-            if b_cur is not None:
+            if b_cur is not None and not self.compute_inverse:
+                has_unconditional_inconsistency = False
                 for r in range(rank, m):
                     for rhs_c in range(n, total_cols):
                         rhs_val = _simplify_entry(grid[r][rhs_c])
                         grid[r][rhs_c] = rhs_val
-                        dec_rhs = oracle.decide(rhs_val, assumptions=cond)
-                        if dec_rhs.verdict == Verdict.CONDITIONAL:
-                            return self._split_on_factors(
-                                A_in,
-                                b_in,
-                                cond,
-                                factors=dec_rhs.factors,
-                                row=r,
-                                col=rhs_c,
-                                expr=rhs_val,
-                                depth=depth,
-                                state=state,
-                            )
+                        if oracle.decide(rhs_val, assumptions=cond).verdict == Verdict.NONZERO:
+                            has_unconditional_inconsistency = True
+                if not has_unconditional_inconsistency:
+                    for r in range(rank, m):
+                        for rhs_c in range(n, total_cols):
+                            rhs_val = grid[r][rhs_c]
+                            dec_rhs = oracle.decide(rhs_val, assumptions=cond)
+                            if dec_rhs.verdict == Verdict.CONDITIONAL:
+                                return self._split_on_factors(
+                                    A_in,
+                                    b_in,
+                                    cond,
+                                    factors=dec_rhs.factors,
+                                    row=r,
+                                    col=rhs_c,
+                                    expr=rhs_val,
+                                    depth=depth,
+                                    state=state,
+                                )
 
             aug_rref = Matrix._from_exact_rows(grid)
             rref_a = aug_rref[:, :n] if n > 0 else Matrix.zeros(m, 0)
@@ -465,7 +472,7 @@ class GaussJordan(Procedure[GJResult]):
                         n=n,
                     )
 
-            if b_cur is not None:
+            if b_cur is not None and not self.compute_inverse:
                 solution = self._build_solution_set(
                     aug_rref,
                     m=m,
@@ -534,20 +541,25 @@ class GaussJordan(Procedure[GJResult]):
 
         branches: list[Branch[GJResult]] = []
 
-        with tracing(level=3) as t_gen:
-            gen_res = self._solve_under_condition(
-                A_in, b_in, gen_cond, depth=depth + 1, state=state
-            )
-        if isinstance(gen_res, CaseSplit):
-            for b_sub in gen_res.branches:
-                branches.append(b_sub)
-        else:
-            object.__setattr__(gen_res, "trace", t_gen.tree)
-            branches.append(Branch(condition=gen_cond, result=gen_res, trace=t_gen.tree))
+        if not gen_cond.is_contradictory:
+            with tracing(level=3) as t_gen:
+                gen_res = self._solve_under_condition(
+                    A_in, b_in, gen_cond, depth=depth + 1, state=state
+                )
+            if isinstance(gen_res, CaseSplit):
+                for b_sub in gen_res.branches:
+                    branches.append(b_sub)
+            else:
+                object.__setattr__(gen_res, "trace", t_gen.tree)
+                branches.append(Branch(condition=gen_cond, result=gen_res, trace=t_gen.tree))
 
-        # 2. Branches particulières : chaque facteur s'annule
+        # 2. Branches particulières disjointes : le facteur i s'annule et les précédents (< i) sont non nuls
+        prefix_neq = cond
         for fac in factors:
-            part_cond = cond & Condition.from_zero_expr(fac, is_zero=True)
+            part_cond = prefix_neq & Condition.from_zero_expr(fac, is_zero=True)
+            prefix_neq = prefix_neq & Condition.from_zero_expr(fac, is_zero=False)
+            if part_cond.is_contradictory:
+                continue
             with tracing(level=3) as t_part:
                 part_res = self._solve_under_condition(
                     A_in, b_in, part_cond, depth=depth + 1, state=state
@@ -606,7 +618,10 @@ class GaussJordan(Procedure[GJResult]):
         for r in range(rank, m):
             for c_idx in range(n, total_cols):
                 val = aug_rref[r, c_idx]
-                if oracle.decide(val, assumptions=cond).verdict == Verdict.NONZERO:
+                dec_val = oracle.decide(val, assumptions=cond)
+                if dec_val.verdict == Verdict.UNKNOWN:
+                    oracle.is_zero(val, assumptions=cond)
+                if dec_val.verdict == Verdict.NONZERO:
                     inconsistent.append((r, val))
                     break
 

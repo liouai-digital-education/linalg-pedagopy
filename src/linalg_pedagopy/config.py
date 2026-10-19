@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Iterator, Literal
 
 FloatPolicy = Literal["rationalize", "reject", "keep"]
-TutorMode = Literal["etudiant", "enseignant"]
+TutorMode = Literal["student", "teacher", "etudiant", "enseignant"]
 
 
 @dataclass(frozen=True)
@@ -21,7 +21,7 @@ class ConfigState:
     default_trace_level: int = 1
     max_case_depth: int = 3
     max_cases: int = 8
-    tutor_mode: TutorMode = "etudiant"
+    tutor_mode: TutorMode = "student"
     hint_min_attempts: int = 0
     hint_min_delay_seconds: int = 0
     journal_path: Path = Path(".linalg_pedagopy_journal.json")
@@ -89,7 +89,7 @@ class ConfigProxy:
 
     @tutor_mode.setter
     def tutor_mode(self, value: TutorMode) -> None:
-        if value not in ("etudiant", "enseignant"):
+        if value not in ("student", "teacher", "etudiant", "enseignant"):
             raise ValueError(f"tutor_mode invalide : {value!r}")
         _config_var.set(replace(_config_var.get(), tutor_mode=value))
 

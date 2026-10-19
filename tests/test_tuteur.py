@@ -242,3 +242,116 @@ def test_glossaire_and_teacher_mode() -> None:
         assert mode() == "enseignant"
         fiche = ex.fiche_enseignant()
         assert fiche["id"] == "6.4"
+
+
+def test_phase0_tutor_tamper_proof_and_anti_bypass(tmp_path: Path) -> None:
+    """Vérifie qu'aucun contournement du tuteur (Plan v4 §0.3) n'est possible."""
+    from linalg_pedagopy import tutor
+
+    j_path = tmp_path / "journal_sec.json"
+    ex = tutor.exercise("3.9", journal_path=j_path)
+
+    # 1. Aucun attribut secret sur l'instance ou __dict__
+    with pytest.raises(AttributeError):
+        _ = ex._fiche  # type: ignore[attr-defined]
+    with pytest.raises(AttributeError):
+        _ = ex._verification_spec  # type: ignore[attr-defined]
+    with pytest.raises(AttributeError):
+        ex._unlocked = True  # type: ignore[attr-defined]
+
+    # 2. Aucun accès aux vecteurs/matrices bruts via data / donnees
+    with pytest.raises(LockedExerciseDataError):
+        ex.data.raw_dict()
+    with pytest.raises(AttributeError):
+        _ = ex.data._raw
+    with pytest.raises(AttributeError):
+        _ = ex.data.x._vec
+    with pytest.raises(LockedExerciseDataError):
+        _ = ex.data.x.entries
+    with pytest.raises(LockedExerciseDataError):
+        _ = list(ex.data.x)
+    with pytest.raises(LockedExerciseDataError):
+        _ = ex.data.x[0]
+    with pytest.raises(LockedExerciseDataError):
+        _ = Vector(ex.data.x)
+
+    # Même contrôle sur une matrice verrouillée (ex. 11.7)
+    ex_mat = tutor.exercise("11.7", journal_path=j_path)
+    with pytest.raises(AttributeError):
+        _ = ex_mat.data.A._mat
+    with pytest.raises(LockedExerciseDataError):
+        _ = ex_mat.data.A[0, 0]
+    with pytest.raises(LockedExerciseDataError):
+        _ = Matrix(ex_mat.data.A)
+
+    # 3. Anti-trivialité sur verify_equalities (ex. 20.8)
+    ex_eq = tutor.exercise("20.8", journal_path=j_path)
+    assert not ex_eq.verify(["0", "0"]).valid
+    assert not ex_eq.verify(["I", "I"]).valid
+    assert not ex_eq.verify(
+        ["block([[A, B], [C, D]])", "block([[A, B], [C, D]])"]
+    ).valid
+
+
+def test_phase0_journal_persistence_across_sessions_and_no_validation_pollution(
+    tmp_path: Path,
+) -> None:
+    """Vérifie la persistance du journal entre séances et la non-pollution par validate_sheet (§0.4)."""
+    from linalg_pedagopy import tutor
+
+    j_path = tmp_path / "journal_persist.json"
+    with using_config(journal_path=j_path):
+        # validate_sheet ne doit pas créer ni polluer le fichier journal
+        rep = tutor.validate_sheet("1.2")
+        assert rep.valid is True
+        assert rep.source_ok is True
+        assert rep.cross_check_ok is True
+        assert not j_path.exists()
+
+        # Séance 1 : 2 tentatives erronées + déblocage de 2 indices
+        s1 = tutor.exercise("1.2")
+        s1.verify(Vector([1, 0, 0, 0, 0]))
+        s1.verify(Vector([0, -1, 0, 1, 0]))
+        s1.hint()
+        s1.hint()
+        assert s1.journal.attempts == 2
+        assert s1.journal.hints_unlocked == [1, 2]
+
+        # Séance 2 (réinstanciation de exercise("1.2")) : l'état du journal est rechargé !
+        s2 = tutor.exercise("1.2")
+        assert s2.journal.attempts == 2
+        assert s2.journal.hints_unlocked == [1, 2]
+        # Le prochain appel à hint() débloque le niveau 3 (et non le niveau 1)
+        h3 = s2.hint()
+        assert "Niveau 3" in h3
+        assert s2.journal.hints_unlocked == [1, 2, 3]
+
+
+def test_phase0_english_nomenclature_api(tmp_path: Path) -> None:
+    """Vérifie l'API anglaise complète du module tutor et de generators."""
+    from linalg_pedagopy import generators, tutor
+
+    j_path = tmp_path / "journal_en.json"
+    ids = tutor.list_exercises()
+    assert len(ids) == 35
+    assert "Moindres carrés" in tutor.glossary("least squares")
+
+    ex = tutor.exercise("1.2", journal_path=j_path)
+    assert "1.2" in ex.statement()
+    assert "Niveau 1" in ex.hint()
+    twin_obj = ex.twin()
+    assert "a^T x" in str(twin_obj)
+
+    res = ex.verify(Vector([0, 1, 0, -1, 0]))
+    assert res.valid is True
+    assert "Validé" in ex.summary()
+    assert "1.2" in str(ex.panel())
+
+    with using_config(tutor_mode="teacher"):
+        assert tutor.mode() == "teacher"
+        sheet = ex.teacher_sheet()
+        assert sheet["id"] == "1.2"
+        assert "source" in sheet and "ecart" in sheet
+
+    twin_ma = generators.moving_average(window=2, n=5)
+    assert "5" in twin_ma.title

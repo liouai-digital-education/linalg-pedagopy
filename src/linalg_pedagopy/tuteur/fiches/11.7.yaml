@@ -1,19 +1,28 @@
-id: "11.7"
+id: '11.7'
 page: 27
 type: calcul
-reformulation: >
-  On considère la matrice ligne A = [[1, 2, -1]] de taille 1×3. Trouver une matrice
-  colonne B de taille 3×1 qui soit une inverse à droite de A (c'est-à-dire telle que A B = [[1]]).
+reformulation: On considère la matrice ligne $A = \begin{bmatrix} 1 & 2 & -1 \end{bmatrix}$
+  de taille $1 \times 3$. Trouver une matrice colonne $B$ de taille $3 \times 1$ qui
+  soit une inverse à droite de $A$ (c'est-à-dire telle que $A B = [1]$).
 donnees:
-  A: [[1, 2, -1]]
+  A:
+  - - 1
+    - 2
+    - -1
 verification:
   type: propriete
-  propriete: "left_right_inverse_row"
+  propriete: left_right_inverse_row
 indices:
-  - "Pour une matrice ligne A de taille 1×3, une inverse à droite B est une matrice 3×1 telle que A B = I_1 = [[1]] (VMLS ch. 11)."
-  - "Rappel : une matrice large (1 < 3) non nulle possède une infinité d'inverses à droite, mais aucune inverse à gauche."
-  - "Écrivez la condition b_1 + 2 b_2 - b_3 = 1 et choisissez n'importe quel triplet simple (b_1, b_2, b_3) qui la satisfait."
-jumeau: "generateurs.inverse_droite_exemple()"
+- Pour une matrice ligne $A$ de taille $1 \times 3$, une inverse à droite $B$ est
+  une matrice $3 \times 1$ telle que $A B = I_1 = [1]$ (VMLS ch. 11).
+- 'Rappel : une matrice large ($1 < 3$) non nulle possède une infinité d''inverses
+  à droite, mais aucune inverse à gauche.'
+- Écrivez la condition $b_1 + 2 b_2 - b_3 = 1$ et choisissez n'importe quel triplet
+  simple $(b_1, b_2, b_3)$ qui la satisfait.
+jumeau: generateurs.inverse_droite_exemple()
 notions:
-  - "inverses à gauche et à droite d'un vecteur ligne"
-  - "VMLS ch. 11"
+- inverses à gauche et à droite d'un vecteur ligne
+- VMLS ch. 11
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?11.7, p. 27
+ecart: Construction d'une inverse ? droite pour une matrice ligne 1x3 non nulle (VMLS
+  ?11.7).

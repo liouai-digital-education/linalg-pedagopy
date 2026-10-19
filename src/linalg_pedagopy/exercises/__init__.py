@@ -16,6 +16,7 @@ from linalg_pedagopy.exercises.generators import (
     generate_parametric_system,
     generate_rational_qr_matrix,
     generate_unimodular_matrix,
+    generators,
     generateurs,
 )
 from linalg_pedagopy.exercises.interactive import InteractiveMode, InteractiveSession
@@ -34,5 +35,6 @@ __all__ = [
     "generate_parametric_system",
     "generate_rational_qr_matrix",
     "generate_unimodular_matrix",
+    "generators",
     "generateurs",
 ]

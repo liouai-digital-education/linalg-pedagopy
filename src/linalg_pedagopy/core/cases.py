@@ -7,7 +7,7 @@ from typing import Any, Callable, Generic, Iterator, Mapping, Sequence, TypeVar
 
 import sympy as sp
 
-from linalg_pedagopy.core.field import symbols, to_exact
+from linalg_pedagopy.core.field import match_symbol_substitutions, symbols, to_exact
 
 R = TypeVar("R")
 
@@ -37,6 +37,8 @@ def _normalize_relation_expr(expr: sp.Expr) -> tuple[sp.Expr, sp.Expr]:
                 c1, c0 = poly.all_coeffs()
                 rhs = sp.simplify(-c0 / c1)
                 return sym, rhs
+            if poly.degree() > 1 and poly.LC().is_number and poly.LC() < 0:
+                expr = sp.expand(-expr)
         except Exception:
             pass
     # Si la forme est sym - rhs où rhs ne contient pas sym
@@ -52,6 +54,29 @@ def _normalize_relation_expr(expr: sp.Expr) -> tuple[sp.Expr, sp.Expr]:
         except Exception:
             pass
     return expr, sp.Integer(0)
+
+
+def _compute_transitive_substitutions(
+    eqs: Sequence[tuple[sp.Expr, sp.Expr]],
+) -> dict[sp.Symbol, sp.Expr]:
+    """Calcule la clôture transitive des substitutions linéaires issues des égalités."""
+    subs_map: dict[sp.Symbol, sp.Expr] = {}
+    changed = True
+    while changed:
+        changed = False
+        for lhs, rhs in eqs:
+            diff = sp.simplify((lhs - rhs).xreplace(subs_map))
+            if diff == 0:
+                continue
+            nl, nr = _normalize_relation_expr(diff)
+            if isinstance(nl, sp.Symbol) and nl not in nr.free_symbols and nl not in subs_map:
+                subs_map[nl] = nr
+                subs_map = {
+                    k: sp.simplify(v.xreplace({nl: nr}))
+                    for k, v in subs_map.items()
+                }
+                changed = True
+    return subs_map
 
 
 @dataclass(frozen=True)
@@ -98,6 +123,34 @@ class Condition:
         return len(self.eqs) == 0
 
     @property
+    def is_contradictory(self) -> bool:
+        """Vérifie si la conjonction d'égalités et d'inégalités est contradictoire sur R."""
+        subs_map = self.substitutions()
+        for lhs, rhs in self.eqs:
+            diff = sp.simplify((lhs - rhs).xreplace(subs_map))
+            if diff == 0:
+                continue
+            if not diff.free_symbols and diff.is_zero is False:
+                return True
+            if len(diff.free_symbols) == 1:
+                sym = next(iter(diff.free_symbols))
+                try:
+                    if not sp.solve(diff, sym):
+                        return True
+                except Exception:
+                    pass
+        for lhs, rhs in self.neqs:
+            diff = sp.simplify((lhs - rhs).xreplace(subs_map))
+            if diff == 0:
+                return True
+            nl, nr = _normalize_relation_expr(diff)
+            for el, er in self.eqs:
+                eq_diff = sp.simplify((el - er).xreplace(subs_map))
+                if sp.simplify((nl - nr) - eq_diff) == 0 or sp.simplify((nl - nr) + eq_diff) == 0:
+                    return True
+        return False
+
+    @property
     def free_symbols(self) -> set[sp.Symbol]:
         syms: set[sp.Symbol] = set()
         for l, r in (*self.eqs, *self.neqs):
@@ -105,27 +158,61 @@ class Condition:
         return {s for s in syms if isinstance(s, sp.Symbol)}
 
     def and_with(self, other: Condition) -> Condition:
-        """Conjonction logique de deux conditions sans doublons."""
-        new_eqs = list(self.eqs)
+        """Conjonction logique de deux conditions avec réduction des égalités et élagage des tautologies."""
+        raw_eqs = list(self.eqs)
         for item in other.eqs:
-            if item not in new_eqs:
-                new_eqs.append(item)
-        new_neqs = list(self.neqs)
+            if item not in raw_eqs:
+                raw_eqs.append(item)
+        raw_neqs = list(self.neqs)
         for item in other.neqs:
-            if item not in new_neqs:
-                new_neqs.append(item)
+            if item not in raw_neqs:
+                raw_neqs.append(item)
+
+        if not raw_eqs:
+            return Condition(eqs=(), neqs=tuple(raw_neqs))
+
+        subs_map = _compute_transitive_substitutions(raw_eqs)
+        new_eqs: list[tuple[sp.Expr, sp.Expr]] = []
+        for lhs, rhs in raw_eqs:
+            if isinstance(lhs, sp.Symbol) and lhs in subs_map:
+                cand_eq = (lhs, subs_map[lhs])
+                if cand_eq not in new_eqs:
+                    new_eqs.append(cand_eq)
+                # Si rhs réduit diffère de subs_map[lhs], conserver la relation pour détecter la contradiction
+                diff_check = sp.simplify((lhs - rhs).xreplace(subs_map))
+                if diff_check != 0 and (lhs, rhs) not in new_eqs:
+                    new_eqs.append((lhs, rhs))
+            else:
+                diff = sp.simplify((lhs - rhs).xreplace(subs_map))
+                if diff == 0:
+                    continue
+                nl, nr = _normalize_relation_expr(diff)
+                if (nl, nr) not in new_eqs:
+                    new_eqs.append((nl, nr))
+
+        new_neqs: list[tuple[sp.Expr, sp.Expr]] = []
+        for lhs, rhs in raw_neqs:
+            diff = sp.simplify((lhs - rhs).xreplace(subs_map))
+            if diff == 0:
+                zero_pair = (sp.Integer(0), sp.Integer(0))
+                if zero_pair not in new_neqs:
+                    new_neqs.append(zero_pair)
+                continue
+            # Une inégalité constante non nulle (ex. -2 != 0 sous a = -1) est une tautologie : on l'élague
+            if not diff.free_symbols and diff.is_zero is False:
+                continue
+            nl, nr = _normalize_relation_expr(diff)
+            if (nl, nr) not in new_neqs:
+                new_neqs.append((nl, nr))
+
         return Condition(eqs=tuple(new_eqs), neqs=tuple(new_neqs))
 
     def __and__(self, other: Condition) -> Condition:
         return self.and_with(other)
 
     def substitutions(self) -> dict[sp.Symbol, sp.Expr]:
-        """Extrait les substitutions directes (symbole -> expression) des égalités."""
-        subs_map: dict[sp.Symbol, sp.Expr] = {}
-        for lhs, rhs in self.eqs:
-            if isinstance(lhs, sp.Symbol) and lhs not in rhs.free_symbols:
-                subs_map[lhs] = rhs
-        return subs_map
+        """Extrait la clôture transitive des substitutions (symbole -> expression) des égalités."""
+        return _compute_transitive_substitutions(self.eqs)
 
     def implies_zero(self, expr: sp.Expr) -> bool | None:
         """Teste si la condition courante fixe le statut nul/non-nul de expr.
@@ -143,19 +230,49 @@ class Condition:
             return False
 
         norm_l, norm_r = _normalize_relation_expr(reduced)
+        red_poly = sp.expand(norm_l - norm_r)
+
         for l, r in self.eqs:
-            if sp.simplify((norm_l - norm_r) - (l - r)) == 0 or sp.simplify((norm_l - norm_r) + (l - r)) == 0:
+            eq_diff = sp.simplify((l - r).xreplace(subs_map))
+            if eq_diff == 0:
+                continue
+            el, er = _normalize_relation_expr(eq_diff)
+            eq_poly = sp.expand(el - er)
+            if sp.simplify(red_poly - eq_poly) == 0 or sp.simplify(red_poly + eq_poly) == 0:
                 return True
-        for l, r in self.neqs:
-            diff_rel = sp.simplify((norm_l - norm_r) - (l - r))
-            if diff_rel == 0 or sp.simplify((norm_l - norm_r) + (l - r)) == 0:
-                return False
-            # Si reduced divise l - r, alors l - r != 0 implique reduced != 0
-            diff_neq = sp.simplify(l - r)
-            if diff_neq.has(*reduced.free_symbols):
+            if eq_poly.free_symbols and eq_poly.free_symbols <= red_poly.free_symbols:
                 try:
-                    q, rem = sp.div(diff_neq, reduced)
-                    if rem == 0:
+                    _, rem = sp.div(red_poly, eq_poly)
+                    if sp.simplify(rem) == 0:
+                        return True
+                except Exception:
+                    pass
+                if len(eq_poly.free_symbols) == 1 and red_poly.free_symbols == eq_poly.free_symbols:
+                    sym = next(iter(eq_poly.free_symbols))
+                    try:
+                        if red_poly.is_polynomial(sym) and eq_poly.is_polynomial(sym):
+                            rem_u = sp.rem(red_poly, eq_poly, sym)
+                            if sp.simplify(rem_u) == 0:
+                                return True
+                            g = sp.gcd(red_poly, eq_poly, sym)
+                            if sp.Poly(g, sym).degree() == 0:
+                                return False
+                    except Exception:
+                        pass
+
+        for l, r in self.neqs:
+            diff_neq = sp.simplify((l - r).xreplace(subs_map))
+            if diff_neq == 0:
+                continue
+            nl, nr = _normalize_relation_expr(diff_neq)
+            neq_poly = sp.expand(nl - nr)
+            if sp.simplify(red_poly - neq_poly) == 0 or sp.simplify(red_poly + neq_poly) == 0:
+                return False
+            # Si red_poly divise neq_poly, alors neq_poly != 0 implique red_poly != 0
+            if neq_poly.has(*red_poly.free_symbols):
+                try:
+                    _, rem = sp.div(neq_poly, red_poly)
+                    if sp.simplify(rem) == 0:
                         return False
                 except Exception:
                     pass
@@ -163,10 +280,7 @@ class Condition:
 
     def is_satisfied(self, values: Mapping[str | sp.Symbol, Any]) -> bool:
         """Vérifie si les valeurs passées pour les paramètres satisfont la condition."""
-        subs_map: dict[sp.Symbol, sp.Expr] = {}
-        for k, v in values.items():
-            sym = symbols(k)[0] if isinstance(k, str) else k
-            subs_map[sym] = to_exact(v)
+        subs_map = match_symbol_substitutions(self.free_symbols, values)
 
         for lhs, rhs in self.eqs:
             diff = sp.simplify((lhs - rhs).xreplace(subs_map))
@@ -198,6 +312,16 @@ class Condition:
 
     def __str__(self) -> str:
         return self.format_text()
+
+
+def _subs_branch_result(res: Any, subs_map: Mapping[sp.Symbol, sp.Expr]) -> Any:
+    if hasattr(res, "subs"):
+        return res.subs(subs_map)
+    if isinstance(res, tuple):
+        return tuple(_subs_branch_result(item, subs_map) for item in res)
+    if isinstance(res, list):
+        return [_subs_branch_result(item, subs_map) for item in res]
+    return res
 
 
 @dataclass(frozen=True)
@@ -242,18 +366,16 @@ class CaseSplit(Generic[R]):
 
     def at(self, **values: Any) -> R:
         """Renvoie le résultat correspondant aux valeurs données des paramètres."""
-        subs_map: dict[sp.Symbol, sp.Expr] = {
-            symbols(k)[0]: to_exact(v) for k, v in values.items()
-        }
+        all_syms: set[sp.Symbol] = set(self.parameters)
+        for b in self.branches:
+            all_syms |= b.condition.free_symbols
+        subs_map = match_symbol_substitutions(all_syms, values)
         # On teste d'abord les cas particuliers (égalités), puis la branche générique
         particular = [b for b in self.branches if not b.condition.is_generic]
         generics = [b for b in self.branches if b.condition.is_generic]
         for branch in (*particular, *generics):
             if branch.condition.is_satisfied(subs_map):
-                res = branch.result
-                if hasattr(res, "subs"):
-                    return res.subs(subs_map)  # type: ignore[no-any-return]
-                return res
+                return _subs_branch_result(branch.result, subs_map)  # type: ignore[no-any-return]
         raise ValueError(
             f"Aucune branche ne correspond aux valeurs fournies : {values!r}"
         )

@@ -1,24 +1,26 @@
-id: "3.13"
+id: '3.13'
 page: 9
 type: vrai_faux
-reformulation: >
-  A-t-on ||a + b + c|| <= ||a|| + ||b|| + ||c|| pour tous vecteurs a, b, c ?
-  Justifier, ou donner un contre-exemple.
+reformulation: A-t-on $\|a + b + c\| \le \|a\| + \|b\| + \|c\|$ pour tous vecteurs
+  $a, b, c$ ? Justifier, ou donner un contre-exemple.
 donnees:
   n: 3
 verification:
   type: labo
-  enonce: "norm(a + b + c) <= norm(a) + norm(b) + norm(c)"
+  enonce: norm(a + b + c) <= norm(a) + norm(b) + norm(c)
   variables:
     a: vecteur
     b: vecteur
     c: vecteur
 indices:
-  - "Quel résultat du cours ressemble à cette inégalité ?"
-  - "Rappel : inégalité triangulaire ||u + v|| <= ||u|| + ||v||."
-  - "Pouvez-vous voir a + b + c comme la somme de deux vecteurs ?"
-jumeau: "generateurs.combinaison_orthogonale(c1=1, c2=1)"
+- Quel résultat fondamental du cours ressemble à cette inégalité ?
+- 'Rappel : inégalité triangulaire $\|u + v\| \le \|u\| + \|v\|$.'
+- Pouvez-vous voir $a + b + c$ comme la somme de deux vecteurs $(a + b) + c$ ?
+jumeau: generateurs.combinaison_orthogonale(c1=1, c2=1)
 notions:
-  - "inégalité triangulaire"
-  - "norme euclidienne"
-  - "VMLS ch. 3"
+- inégalité triangulaire
+- norme euclidienne
+- VMLS ch. 3
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?3.13, p. 9
+ecart: Exploration par le laboratoire de l'in?galit? triangulaire ? 3 vecteurs (VMLS
+  ?3.13).

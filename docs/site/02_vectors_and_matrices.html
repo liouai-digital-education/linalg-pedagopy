@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02. Vecteurs, Matrices & VMLS — linalg_pedagopy v3.0</title>
+  <meta name="description" content="Métriques vectorielles, les 4 vues du produit matriciel, rref et sous-espaces">
+
+  <!-- Typographie Web Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="assets/css/academic.css">
+
+  <!-- MathJax pour les formules mathématiques exactes -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Moteur de diagrammes Mermaid.js -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+  </script>
+</head>
+<body>
+
+  <!-- En-tête institutionnel -->
+  <header class="site-header">
+    <a href="index.html" class="header-brand">
+      <div class="brand-crest">LP</div>
+      <div>
+        <div class="brand-title">linalg_pedagopy</div>
+        <div class="brand-subtitle">Algèbre Linéaire Formelle & VMLS</div>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher... (Ctrl+K)" readonly>
+      </div>
+      <button id="themeToggle" class="theme-toggle-btn" title="Changer de thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- Modal de recherche plein texte -->
+  <div id="searchModal" class="search-results-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="Rechercher une fonction, un théorème, un symbole...">
+      </div>
+      <div id="modalSearchResults" class="search-modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;">Saisissez un mot-clé...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-container">
+    <!-- Barre latérale gauche de navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Sommaire de l'ouvrage</div>
+      <ul class="nav-list">
+        
+        <li class="nav-item ">
+          <a href="index.html">
+            <span>Accueil & Démarrage</span>
+            <span class="nav-badge">Portail</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="01_core_and_formal_computation.html">
+            <span>01. Noyau formel & Exactitude</span>
+            <span class="nav-badge">Fondement</span>
+          </a>
+        </li>
+        
+        <li class="nav-item active">
+          <a href="02_vectors_and_matrices.html">
+            <span>02. Vecteurs, Matrices & VMLS</span>
+            <span class="nav-badge">Objets</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="03_algorithms_and_step_tracing.html">
+            <span>03. Algorithmes & Traçabilité</span>
+            <span class="nav-badge">Algèbre</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="04_vmls_tutor.html">
+            <span>04. Le Tuteur Interactif VMLS</span>
+            <span class="nav-badge">Pédagogie</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="05_pedagogical_exercises_and_sessions.html">
+            <span>05. Exercices & Sessions Guidées</span>
+            <span class="nav-badge">Didactique</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="06_rendering_visualization_and_numerics.html">
+            <span>06. Rendu, Géométrie & Numérique</span>
+            <span class="nav-badge">Visuel</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="07_api_reference.html">
+            <span>07. Référence complète de l'API</span>
+            <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
+        <strong>Version 3.0.0</strong><br>
+        Inspiré de Boyd &amp; Vandenberghe
+      </div>
+    </aside>
+
+    <!-- Corps de texte de l'article -->
+    <main class="main-content">
+      <header class="article-header">
+        <span class="article-badge">Chapitre 02 • Objets</span>
+        <h1 class="article-title">02. Vecteurs, Matrices & VMLS</h1>
+        <p class="article-subtitle">Métriques vectorielles, les 4 vues du produit matriciel, rref et sous-espaces</p>
+      </header>
+
+      <article class="markdown-body">
+        <h1 id="02-vecteurs-matrices-et-metriques-vmls">02. Vecteurs, Matrices et Métriques VMLS</h1>
+<p>Les classes <a href="src/linalg_pedagopy/objects/vector.py#L31-L450"><code>Vector</code></a> et <a href="src/linalg_pedagopy/objects/matrix.py#L35-L750"><code>Matrix</code></a> incarnent les structures de données fondamentales de <code>linalg_pedagopy</code>.</p>
+<p>Conformément à la philosophie du package :
+- <strong>Immutabilité absolue</strong> : Toute opération renvoie une nouvelle instance. Aucune modification en place n'est autorisée.
+- <strong>Exactitude symbolique</strong> : Les coefficients sont convertis en expressions SymPy exactes (<code>sp.Expr</code>).
+- <strong>Protection anti-triche</strong> : Les constructeurs rejettent les proxys verrouillés du tuteur pour empêcher les contournements.</p>
+<hr/>
+<h2 id="1-la-classe-vector">1. La classe <code>Vector</code></h2>
+<p>Un <code>Vector</code> représente un vecteur colonne de <strong>ACADEMIC_TOKEN_4</strong> (de dimension formelle <strong>ACADEMIC_TOKEN_5</strong>).</p>
+<h3 id="11-initialisation-et-constructeurs-dusine">1.1 Initialisation et constructeurs d'usine</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Vector
+import sympy as sp
+from fractions import Fraction
+
+# Initialisation par une séquence de scalaires exacts
+v = Vector([1, "2/3", Fraction(4, 5), sp.sqrt(3)])
+print(v)          # (1, 2/3, 4/5, sqrt(3))
+print(v.size)     # 4
+print(v.shape)    # (4, 1)
+
+# Constructeurs d'usine remarquables
+z = Vector.zeros(3)          # Vecteur nul (0, 0, 0)
+u = Vector.ones(4)           # Vecteur unitaire tout à 1 (1, 1, 1, 1)
+e2 = Vector.unit(1, 4)       # 2e vecteur de la base canonique e₂ = (0, 1, 0, 0) (indice 0-based)
+</code></pre></div>
+<h3 id="12-operations-algebriques">1.2 Opérations algébriques</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">v1 = Vector([1, 2, 3])
+v2 = Vector([4, 5, 6])
+
+# Addition et soustraction
+w1 = v1 + v2       # (5, 7, 9)
+w2 = v1 - v2       # (-3, -3, -3)
+
+# Multiplication scalaire (gauche et droite)
+w3 = 3 * v1        # (3, 6, 9)
+w4 = v1 * "1/2"    # (1/2, 1, 3/2)
+
+# Négation
+w5 = -v1           # (-1, -2, -3)
+</code></pre></div>
+<h3 id="13-metriques-et-geometrie-vmls">1.3 Métriques et géométrie VMLS</h3>
+<p><code>linalg_pedagopy</code> implémente l'ensemble des métriques géométriques introduites dans les chapitres 1 à 3 de <em>VMLS</em> :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Méthode</th>
+<th style="text-align: left;">Définition Mathématique</th>
+<th style="text-align: left;">Description VMLS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>v.dot(w)</code> ou <code>v @ w</code></td>
+<td style="text-align: left;"><strong>ACADEMIC_TOKEN_6</strong></td>
+<td style="text-align: left;">Produit scalaire standard.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>v.norm_sq()</code></td>
+<td style="text-align: left;"><strong>ACADEMIC_TOKEN_7</strong></td>
+<td style="text-align: left;">Carré de la norme euclidienne (rationnel si <strong>ACADEMIC_TOKEN_8</strong>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>v.norm()</code></td>
+<td style="text-align: left;"><strong>ACADEMIC_TOKEN_9</strong></td>
+<td style="text-align: left;">Norme euclidienne exacte.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>v.unit_vector()</code></td>
+<td style="text-align: left;"><strong>ACADEMIC_TOKEN_10</strong></td>
+<td style="text-align: left;">Vecteur normalisé (direction).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>v.dist(w)</code></td>
+<td style="text-align: left;"><strong>ACADEMIC_TOKEN_11</strong></td>
+<td style="text-align: left;">Distance euclidienne entre <strong>ACADEMIC_TOKEN_12</strong> et <strong>ACADEMIC_TOKEN_13</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>v.rms()</code></td>
+<td style="text-align: left;"><strong>ACADEMIC_TOKEN_14</strong></td>
+<td style="text-align: left;">Valeur efficace (<em>Root-Mean-Square</em>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>v.mean()</code></td>
+<td style="text-align: left;"><strong>ACADEMIC_TOKEN_15</strong></td>
+<td style="text-align: left;">Moyenne arithmétique des coefficients.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>v.std()</code></td>
+<td style="text-align: left;"><strong>ACADEMIC_TOKEN_16</strong></td>
+<td style="text-align: left;">Écart-type (écart quadratique moyen à la moyenne).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>v.angle(w)</code></td>
+<td style="text-align: left;"><strong>ACADEMIC_TOKEN_17</strong></td>
+<td style="text-align: left;">Angle non orienté en radians.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>v.correlation(w)</code></td>
+<td style="text-align: left;"><strong>ACADEMIC_TOKEN_18</strong></td>
+<td style="text-align: left;">Coefficient de corrélation de Pearson.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>v.project_onto(w)</code></td>
+<td style="text-align: left;"><strong>ACADEMIC_TOKEN_19</strong></td>
+<td style="text-align: left;">Projection orthogonale de <strong>ACADEMIC_TOKEN_20</strong> sur la droite <strong>ACADEMIC_TOKEN_21</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>v.orthogonal_complement(w)</code></td>
+<td style="text-align: left;"><strong>ACADEMIC_TOKEN_22</strong></td>
+<td style="text-align: left;">Composante orthogonale de <strong>ACADEMIC_TOKEN_23</strong> par rapport à <strong>ACADEMIC_TOKEN_24</strong>.</td>
+</tr>
+</tbody>
+</table>
+<p>Exemple :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">a = Vector([1, 2, 2])
+b = Vector([2, 0, 1])
+
+print(a.norm())                   # 3
+print(a.dot(b))                   # 4
+print(a.angle(b))                 # acos(4*sqrt(5)/15)
+print(a.project_onto(b))          # (8/5, 0, 4/5)
+print(a.orthogonal_complement(b)) # (-3/5, 2, 6/5)
+</code></pre></div>
+<h3 id="14-vecteurs-par-blocs-et-conversions">1.4 Vecteurs par blocs et conversions</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python"># Concaténation par blocs
+v_block = Vector.block([Vector([1, 2]), Vector([3, 4, 5])])
+print(v_block)  # (1, 2, 3, 4, 5)
+
+# Conversion en Matrix ou SymPy Matrix
+M = a.to_matrix()    # Matrix 3x1
+sp_col = a.to_sympy() # sympy.Matrix 3x1
+</code></pre></div>
+<hr/>
+<h2 id="2-la-classe-matrix">2. La classe <code>Matrix</code></h2>
+<p>Une <a href="src/linalg_pedagopy/objects/matrix.py#L35-L750"><code>Matrix</code></a> représente une matrice <strong>ACADEMIC_TOKEN_25</strong> sur <strong>ACADEMIC_TOKEN_26</strong>.</p>
+<h3 id="21-initialisation-et-constructeurs-dusine">2.1 Initialisation et constructeurs d'usine</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix
+
+# Initialisation par une liste de lignes
+A = Matrix([
+    [1, 2, 3],
+    [4, 5, 6]
+])
+print(A.shape)   # (2, 3)
+print(A.nrows)   # 2 (nombre de lignes)
+print(A.ncols)   # 3 (nombre de colonnes)
+
+# Constructeurs d'usine
+I3 = Matrix.identity(3)        # Matrice identité 3x3
+Z = Matrix.zeros(2, 4)         # Matrice nulle 2x4
+D = Matrix.diagonal([2, -1, 5]) # Matrice diagonale diag(2, -1, 5)
+
+# Construction à partir de colonnes ou de lignes
+col1 = Vector([1, 0])
+col2 = Vector([2, 3])
+M = Matrix.from_columns([col1, col2])
+</code></pre></div>
+<h3 id="22-operations-matricielles-usuelles">2.2 Opérations matricielles usuelles</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">A = Matrix([[1, 2], [3, 4]])
+B = Matrix([[2, 0], [1, 2]])
+
+# Somme, différence et produit scalaire
+C = A + B
+D = A - B
+E = 2 * A
+
+# Produit matriciel (opérateur @)
+P = A @ B          # Matrix([[4, 4], [10, 8]])
+
+# Transposée
+AT = A.T           # Matrix([[1, 3], [2, 4]])
+
+# Puissance entière (matrices carrées)
+A_cubed = A ** 3
+</code></pre></div>
+<hr/>
+<h2 id="3-les-4-vues-du-produit-matriciel-vmls-101">3. Les 4 vues du produit matriciel (VMLS §10.1)</h2>
+<p>L'ouvrage <em>VMLS</em> insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel <strong>ACADEMIC_TOKEN_27</strong>. <code>linalg_pedagopy</code> propose des méthodes explicites pour illustrer chacune d'elles :</p>
+<p><strong>ACADEMIC_TOKEN_0</strong></p>
+<h3 id="31-vue-1-combinaisons-lineaires-des-colonnes-de-academic_token_28">3.1 Vue 1 : Combinaisons linéaires des colonnes de <strong>ACADEMIC_TOKEN_28</strong></h3>
+<p>Chaque colonne <strong>ACADEMIC_TOKEN_29</strong> de <strong>ACADEMIC_TOKEN_30</strong> est une combinaison linéaire des colonnes <strong>ACADEMIC_TOKEN_31</strong> de <strong>ACADEMIC_TOKEN_32</strong>, avec pour coefficients les composantes de la <strong>ACADEMIC_TOKEN_33</strong>-ième colonne de <strong>ACADEMIC_TOKEN_34</strong> :
+<strong>ACADEMIC_TOKEN_1</strong></p>
+<h3 id="32-vue-2-produits-scalaires-ligne-colonne">3.2 Vue 2 : Produits scalaires ligne-colonne</h3>
+<p>Chaque coefficient <strong>ACADEMIC_TOKEN_35</strong> est le produit scalaire standard entre la <strong>ACADEMIC_TOKEN_36</strong>-ième ligne de <strong>ACADEMIC_TOKEN_37</strong> et la <strong>ACADEMIC_TOKEN_38</strong>-ième colonne de <strong>ACADEMIC_TOKEN_39</strong> :
+<strong>ACADEMIC_TOKEN_2</strong></p>
+<h3 id="33-vue-3-somme-de-produits-externes-outer-products">3.3 Vue 3 : Somme de produits externes (<em>Outer Products</em>)</h3>
+<p>Le produit <strong>ACADEMIC_TOKEN_40</strong> est la somme de <strong>ACADEMIC_TOKEN_41</strong> matrices de rang 1 formées par les produits externes des colonnes de <strong>ACADEMIC_TOKEN_42</strong> et des lignes de <strong>ACADEMIC_TOKEN_43</strong> :
+<strong>ACADEMIC_TOKEN_3</strong></p>
+<h3 id="34-vue-4-multiplication-par-blocs">3.4 Vue 4 : Multiplication par blocs</h3>
+<p>La méthode statique <a href="src/linalg_pedagopy/objects/matrix.py#L380-L420"><code>Matrix.block</code></a> assemble une matrice à partir d'une grille de blocs sous-matriciels :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">A11 = Matrix([[1, 2], [3, 4]])
+A12 = Matrix([[0], [0]])
+A21 = Matrix([[5, 6]])
+A22 = Matrix([[7]])
+
+M_bloc = Matrix.block([
+    [A11, A12],
+    [A21, A22]
+])
+print(M_bloc)
+# [1, 2, 0]
+# [3, 4, 0]
+# [5, 6, 7]
+</code></pre></div>
+<hr/>
+<h2 id="4-analyse-et-proprietes-des-matrices">4. Analyse et Propriétés des Matrices</h2>
+<h3 id="41-tests-structurels">4.1 Tests structurels</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">M = Matrix([[1, 0], [0, 1]])
+print(M.is_square)        # True
+print(M.is_symmetric)     # True
+print(M.is_orthogonal)    # True (M.T @ M == I)
+print(M.is_invertible())  # True
+</code></pre></div>
+<h3 id="42-inversion-formelle-inv">4.2 Inversion formelle (<code>inv</code>)</h3>
+<p>La méthode <a href="src/linalg_pedagopy/objects/matrix.py#L694-L715"><code>inv(strict=True)</code></a> calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :
+- Si la matrice est numérique et singulière, elle lève une <a href="src/linalg_pedagopy/core/exceptions.py"><code>SingularMatrixError</code></a>.
+- Si la matrice contient des paramètres, elle renvoie automatiquement un <a href="src/linalg_pedagopy/core/cases.py#L194-L320"><code>CaseSplit</code></a> décrivant les conditions d'inversibilité et les inverses partielles.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, symbols
+
+a, = symbols("a")
+A = Matrix([[1, a], [0, 1]])
+print(A.inv()) # Matrix([[1, -a], [0, 1]])
+</code></pre></div>
+<h3 id="43-reduction-echelonnee-rang-et-sous-espaces-fondamentaux">4.3 Réduction échelonnée, rang et sous-espaces fondamentaux</h3>
+<p>Les méthodes <a href="src/linalg_pedagopy/objects/matrix.py#L649-L656"><code>rref</code></a>, <a href="src/linalg_pedagopy/objects/matrix.py#L658-L674"><code>rank</code></a> et <a href="src/linalg_pedagopy/objects/matrix.py#L676-L693"><code>nullspace</code></a> acceptent un paramètre <code>assumptions</code> pour spécifier des contraintes de branche :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">A = Matrix([
+    [1, 2, 0, 1],
+    [0, 1, 1, 0],
+    [1, 3, 1, 1]
+])
+
+print(A.rank())        # 2
+rref_mat, pivots = A.rref()
+print(pivots)          # (0, 1)
+
+# Base du noyau (Ker A)
+ker = A.nullspace()
+print(ker)             # Liste de vecteurs engendrant Ker(A)
+
+# Base de l'image (Col A)
+im = A.col_space()
+print(im)              # Colonnes pivot de A
+</code></pre></div>
+      </article>
+
+      <!-- Navigation entre chapitres -->
+      <nav class="chapter-nav">
+        
+        <a href="01_core_and_formal_computation.html" class="chapter-nav-btn">
+          <span class="nav-direction">&larr; Chapitre précédent</span>
+          <span class="nav-target">01. Noyau formel & Exactitude</span>
+        </a>
+        
+
+        
+        <a href="03_algorithms_and_step_tracing.html" class="chapter-nav-btn" style="text-align:right;">
+          <span class="nav-direction">Chapitre suivant &rarr;</span>
+          <span class="nav-target">03. Algorithmes & Traçabilité</span>
+        </a>
+        
+      </nav>
+    </main>
+
+    <!-- Barre latérale droite : Sommaire de la page (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-heading">Sur cette page</div>
+      <ul class="toc-list">
+        
+        <li class="toc-item ">
+          <a href="#1-la-classe-vector">1. La classe Vector</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#11-initialisation-et-constructeurs-dusine">1.1 Initialisation et constructeurs d'usine</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#12-operations-algebriques">1.2 Opérations algébriques</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#13-metriques-et-geometrie-vmls">1.3 Métriques et géométrie VMLS</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#14-vecteurs-par-blocs-et-conversions">1.4 Vecteurs par blocs et conversions</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#2-la-classe-matrix">2. La classe Matrix</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#21-initialisation-et-constructeurs-dusine">2.1 Initialisation et constructeurs d'usine</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#22-operations-matricielles-usuelles">2.2 Opérations matricielles usuelles</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#3-les-4-vues-du-produit-matriciel-vmls-101">3. Les 4 vues du produit matriciel (VMLS §10.1)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#31-vue-1-combinaisons-lineaires-des-colonnes-de-academic_token_28">3.1 Vue 1 : Combinaisons linéaires des colonnes de ACADEMIC_TOKEN_28</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#32-vue-2-produits-scalaires-ligne-colonne">3.2 Vue 2 : Produits scalaires ligne-colonne</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#33-vue-3-somme-de-produits-externes-outer-products">3.3 Vue 3 : Somme de produits externes (Outer Products)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#34-vue-4-multiplication-par-blocs">3.4 Vue 4 : Multiplication par blocs</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#4-analyse-et-proprietes-des-matrices">4. Analyse et Propriétés des Matrices</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#41-tests-structurels">4.1 Tests structurels</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#42-inversion-formelle-inv">4.2 Inversion formelle (inv)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#43-reduction-echelonnee-rang-et-sous-espaces-fondamentaux">4.3 Réduction échelonnée, rang et sous-espaces fondamentaux</a>
+        </li>
+        
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <p>
+      <strong>linalg_pedagopy v3.0</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement en L1–L2 et fondé sur <em>Introduction to Applied Linear Algebra</em> (VMLS) par S. Boyd &amp; L. Vandenberghe.<br>
+      Documentation sous licence MIT. Code source ouvert.
+    </p>
+  </footer>
+
+  <script src="assets/js/academic.js"></script>
+</body>
+</html>

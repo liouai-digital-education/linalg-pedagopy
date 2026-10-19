@@ -1,0 +1,86 @@
+"""VMLS Tutor module with English nomenclature and French backward-compatible aliases (Layer 6, §7, v4 Phase 0)."""
+
+from __future__ import annotations
+
+from linalg_pedagopy.tutor.catalog import (
+    ExerciceSession,
+    ExerciseSession,
+    ValidationReport,
+    exercice,
+    exercise,
+    glossaire,
+    glossary,
+    list_exercises,
+    lister_exercices,
+    mode,
+    validate_sheet,
+    valider_fiche,
+)
+from linalg_pedagopy.tutor.hints import HintLadder, evaluate_twin_spec
+from linalg_pedagopy.tutor.journal import ExerciseJournal
+from linalg_pedagopy.tutor.lab import CounterexampleLab, LabReport
+from linalg_pedagopy.tutor.lock import LockedMatrix, LockedNamespace, LockedVector
+from linalg_pedagopy.tutor.panel import PanelFallback, PanneauFallback, build_panel, build_panneau
+from linalg_pedagopy.tutor.verifiers import (
+    VerificationResult,
+    verifier_contre_exemple,
+    verifier_dimensions,
+    verifier_egalites,
+    verifier_formule,
+    verifier_matrice,
+    verifier_produit_scalaire,
+    verifier_propriete,
+    verifier_valeur,
+    verify_counterexample,
+    verify_dimensions,
+    verify_equalities,
+    verify_formula,
+    verify_inner_product,
+    verify_matrix,
+    verify_property,
+    verify_value,
+)
+
+__all__ = [
+    "CounterexampleLab",
+    "ExerciceSession",
+    "ExerciseJournal",
+    "ExerciseSession",
+    "HintLadder",
+    "LabReport",
+    "LockedMatrix",
+    "LockedNamespace",
+    "LockedVector",
+    "PanelFallback",
+    "PanneauFallback",
+    "ValidationReport",
+    "VerificationResult",
+    "build_panel",
+    "build_panneau",
+    "evaluate_twin_spec",
+    "exercice",
+    "exercise",
+    "glossaire",
+    "glossary",
+    "list_exercises",
+    "lister_exercices",
+    "mode",
+    "validate_sheet",
+    "valider_fiche",
+    "verifier_contre_exemple",
+    "verifier_dimensions",
+    "verifier_egalites",
+    "verifier_formule",
+    "verifier_matrice",
+    "verifier_produit_scalaire",
+    "verifier_propriete",
+    "verifier_valeur",
+    "verify_counterexample",
+    "verify_dimensions",
+    "verify_equalities",
+    "verify_formula",
+    "verify_inner_product",
+    "verify_matrix",
+    "verify_property",
+    "verify_value",
+]

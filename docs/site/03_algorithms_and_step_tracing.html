@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03. Algorithmes & Traçabilité — linalg_pedagopy v3.0</title>
+  <meta name="description" content="Traceur hiérarchique, Gauss-Jordan, Gram-Schmidt, QR et Moindres Carrés">
+
+  <!-- Typographie Web Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="assets/css/academic.css">
+
+  <!-- MathJax pour les formules mathématiques exactes -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Moteur de diagrammes Mermaid.js -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+  </script>
+</head>
+<body>
+
+  <!-- En-tête institutionnel -->
+  <header class="site-header">
+    <a href="index.html" class="header-brand">
+      <div class="brand-crest">LP</div>
+      <div>
+        <div class="brand-title">linalg_pedagopy</div>
+        <div class="brand-subtitle">Algèbre Linéaire Formelle & VMLS</div>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher... (Ctrl+K)" readonly>
+      </div>
+      <button id="themeToggle" class="theme-toggle-btn" title="Changer de thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- Modal de recherche plein texte -->
+  <div id="searchModal" class="search-results-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="Rechercher une fonction, un théorème, un symbole...">
+      </div>
+      <div id="modalSearchResults" class="search-modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;">Saisissez un mot-clé...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-container">
+    <!-- Barre latérale gauche de navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Sommaire de l'ouvrage</div>
+      <ul class="nav-list">
+        
+        <li class="nav-item ">
+          <a href="index.html">
+            <span>Accueil & Démarrage</span>
+            <span class="nav-badge">Portail</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="01_core_and_formal_computation.html">
+            <span>01. Noyau formel & Exactitude</span>
+            <span class="nav-badge">Fondement</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="02_vectors_and_matrices.html">
+            <span>02. Vecteurs, Matrices & VMLS</span>
+            <span class="nav-badge">Objets</span>
+          </a>
+        </li>
+        
+        <li class="nav-item active">
+          <a href="03_algorithms_and_step_tracing.html">
+            <span>03. Algorithmes & Traçabilité</span>
+            <span class="nav-badge">Algèbre</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="04_vmls_tutor.html">
+            <span>04. Le Tuteur Interactif VMLS</span>
+            <span class="nav-badge">Pédagogie</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="05_pedagogical_exercises_and_sessions.html">
+            <span>05. Exercices & Sessions Guidées</span>
+            <span class="nav-badge">Didactique</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="06_rendering_visualization_and_numerics.html">
+            <span>06. Rendu, Géométrie & Numérique</span>
+            <span class="nav-badge">Visuel</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="07_api_reference.html">
+            <span>07. Référence complète de l'API</span>
+            <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
+        <strong>Version 3.0.0</strong><br>
+        Inspiré de Boyd &amp; Vandenberghe
+      </div>
+    </aside>
+
+    <!-- Corps de texte de l'article -->
+    <main class="main-content">
+      <header class="article-header">
+        <span class="article-badge">Chapitre 03 • Algèbre</span>
+        <h1 class="article-title">03. Algorithmes & Traçabilité</h1>
+        <p class="article-subtitle">Traceur hiérarchique, Gauss-Jordan, Gram-Schmidt, QR et Moindres Carrés</p>
+      </header>
+
+      <article class="markdown-body">
+        <h1 id="03-algorithmes-fondamentaux-et-tracabilite-hierarchique">03. Algorithmes fondamentaux et Traçabilité hiérarchique</h1>
+<p>Le module <code>linalg_pedagopy.algorithms</code> regroupe les procédures fondamentales de l'algèbre linéaire appliquées selon l'approche de <em>VMLS</em> (Boyd &amp; Vandenberghe) et des cours classiques de L1–L2.</p>
+<p>Chaque procédure hérite de la classe de base <a href="src/linalg_pedagopy/algorithms/base.py#L35-L95"><code>Procedure</code></a> et s'exécute dans un contexte de traçabilité pédagogique.</p>
+<hr/>
+<h2 id="1-moteur-de-tracabilite-contextuelle-tracer">1. Moteur de traçabilité contextuelle (<code>Tracer</code>)</h2>
+<h3 id="11-pourquoi-une-tracabilite-hierarchique-decision-d6">1.1 Pourquoi une traçabilité hiérarchique ? (Décision D6)</h3>
+<p>L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une réponse numérique brute, mais à comprendre la succession d'étapes de calcul. Cependant, un niveau d'explication unique ne convient pas à tous les publics :
+- Un étudiant débutant a besoin de voir la réduction au même dénominateur lors d'une opération de ligne.
+- Un étudiant avancé ne souhaite voir que la matrice résultante à chaque pivot.
+- Un enseignant souhaite projeter les grandes étapes au tableau.</p>
+<p><code>linalg_pedagopy</code> résout ce dilemme par un <strong>traceur arborescent contextuel</strong> commandé par le context manager <a href="src/linalg_pedagopy/trace/tracer.py#L170-L218"><code>tracing</code></a> :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, GaussJordan, tracing
+
+A = Matrix([[2, 1], [4, 3]])
+b = Vector([5, 11])
+
+# Niveau 1 : Macro-étapes (étapes de pivot)
+with tracing(level=1):
+    res = GaussJordan(A, b).run()
+print(res.explain())
+
+# Niveau 2 : Micro-étapes (opérations élémentaires détaillées)
+with tracing(level=2):
+    res = GaussJordan(A, b).run()
+print(res.explain())
+</code></pre></div>
+<h3 id="12-les-4-niveaux-de-zoom-didactiques">1.2 Les 4 niveaux de zoom didactiques</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Niveau</th>
+<th style="text-align: left;">Nom</th>
+<th style="text-align: left;">Description du contenu de la trace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>0</strong></td>
+<td style="text-align: left;"><strong>Résultat seul</strong></td>
+<td style="text-align: left;">Aucune trace intermédiaire ; seul le résultat final est retourné.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: left;"><strong>Macro-étapes</strong></td>
+<td style="text-align: left;">Grandes phases : choix du pivot, passage en forme triangulaire supérieure, phase de remontée de Jordan.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: left;"><strong>Micro-étapes</strong> <em>(recommandé)</em></td>
+<td style="text-align: left;">Opérations élémentaires sur les lignes (<strong>ACADEMIC_TOKEN_3</strong>), calculs de projections et normalisations.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: left;"><strong>Arithmétique élémentaire</strong></td>
+<td style="text-align: left;">Détail arithmétique de chaque coefficient, calcul des produits scalaires terme à terme et simplification des radicaux.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-nuds-de-larbre-step-stepkind-et-highlight">1.3 Nœuds de l'arbre : <code>Step</code>, <code>StepKind</code> et <code>Highlight</code></h3>
+<p>L'arbre de trace est composé de nœuds immuables <a href="src/linalg_pedagopy/trace/step.py#L42-L78"><code>Step</code></a>. Chaque étape possède :
+- Un type d'action <a href="src/linalg_pedagopy/trace/step.py#L10-L28"><code>StepKind</code></a> (<code>ROW_SWAP</code>, <code>ROW_SCALE</code>, <code>ROW_ADD</code>, <code>PROJECTION</code>, <code>NORMALIZE</code>, etc.).
+- Des instantanés matriciels (<code>snapshot</code>).
+- Une mise en valeur graphique <a href="src/linalg_pedagopy/trace/step.py#L30-L39"><code>Highlight</code></a> spécifiant les coordonnées du pivot <strong>ACADEMIC_TOKEN_4</strong>, les lignes modifiées et la barre de séparation augmentée.</p>
+<hr/>
+<h2 id="2-elimination-de-gauss-jordan-gaussjordan">2. Élimination de Gauss-Jordan (<code>GaussJordan</code>)</h2>
+<p>La procédure <a href="src/linalg_pedagopy/algorithms/gauss_jordan.py#L38-L480"><code>GaussJordan</code></a> résout les systèmes linéaires formels <strong>ACADEMIC_TOKEN_5</strong> et calcule l'inverse de matrices carrées.</p>
+<h3 id="21-signature-et-options">2.1 Signature et options</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">GaussJordan(
+    A: Matrix,
+    b: Vector | Matrix | None = None,
+    *,
+    assumptions: Condition | None = None,
+    strict: bool = True,
+    compute_inverse: bool = False
+)
+</code></pre></div>
+<ul>
+<li><code>A</code> : Matrice des coefficients <strong>ACADEMIC_TOKEN_6</strong>.</li>
+<li><code>b</code> : Vecteur ou matrice du second membre (optionnel).</li>
+<li><code>assumptions</code> : Hypothèses initiales sur les paramètres de la branche.</li>
+<li><code>strict</code> : Si <code>True</code>, lève une exception en cas de système incompatible ou singulier au lieu de retourner un ensemble vide.</li>
+<li><code>compute_inverse</code> : Si <code>True</code>, calcule l'inverse via l'échelonnement simultané de <strong>ACADEMIC_TOKEN_7</strong>.</li>
+</ul>
+<h3 id="22-typologie-des-ensembles-de-solutions">2.2 Typologie des ensembles de solutions</h3>
+<p>Le résultat renvoyé par <code>GaussJordan.run()</code> est un <a href="src/linalg_pedagopy/algorithms/gauss_jordan.py#L22-L35"><code>GJResult</code></a> dont la propriété <code>solution</code> appartient à l'une des 3 catégories de <a href="src/linalg_pedagopy/algorithms/base.py#L10-L32"><code>SolutionSet</code></a> :</p>
+<p><strong>ACADEMIC_TOKEN_0</strong></p>
+<ol>
+<li><strong><code>UniqueSolution</code></strong> : Système de Cramer ou système rectangulaire compatible de rang plein colonne.<br/>
+<strong>ACADEMIC_TOKEN_8</strong>.</li>
+<li><strong><code>AffineSolution</code></strong> : Sous-déterminé ou système compatible de rang déficient.<br/>
+<strong>ACADEMIC_TOKEN_9</strong>. L'objet fournit la solution particulière <strong>ACADEMIC_TOKEN_10</strong> et une base du noyau <strong>ACADEMIC_TOKEN_11</strong>.</li>
+<li><strong><code>EmptySolution</code></strong> : Système incompatible (présence d'une ligne d'incompatibilité <strong>ACADEMIC_TOKEN_12</strong> avec <strong>ACADEMIC_TOKEN_13</strong>).<br/>
+<strong>ACADEMIC_TOKEN_14</strong>.</li>
+</ol>
+<h3 id="23-exemple-avec-parametre-et-discussion-automatique">2.3 Exemple avec paramètre et discussion automatique</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, symbols, GaussJordan
+
+m, = symbols("m")
+A = Matrix([
+    [1, 1, m],
+    [1, m, 1],
+    [m, 1, 1]
+])
+b = Vector([1, 1, 1])
+
+res = GaussJordan(A, b).run()
+print(res.explain())
+</code></pre></div>
+<p>Ce code produit automatiquement un <code>CaseSplit</code> distinguant :
+- Le cas <strong>ACADEMIC_TOKEN_15</strong> : infinité de solutions (plan affine de dimension 2).
+- Le cas <strong>ACADEMIC_TOKEN_16</strong> : système incompatible (<strong>ACADEMIC_TOKEN_17</strong>).
+- Le cas <strong>ACADEMIC_TOKEN_18</strong> : solution unique <strong>ACADEMIC_TOKEN_19</strong>.</p>
+<hr/>
+<h2 id="3-substitutions-triangulaires">3. Substitutions Triangulaires</h2>
+<p>Pour les systèmes dont la matrice est déjà échelonnée, les algorithmes de substitution évitent le coût complet d'un pivot de Gauss :</p>
+<ul>
+<li><a href="src/linalg_pedagopy/algorithms/triangular.py#L25-L80"><code>ForwardSubstitution</code></a> : Résout <strong>ACADEMIC_TOKEN_20</strong> pour une matrice triangulaire inférieure <strong>ACADEMIC_TOKEN_21</strong> (descente).</li>
+<li><a href="src/linalg_pedagopy/algorithms/triangular.py#L85-L140"><code>BackSubstitution</code></a> : Résout <strong>ACADEMIC_TOKEN_22</strong> pour une matrice triangulaire supérieure <strong>ACADEMIC_TOKEN_23</strong> (remontée).</li>
+</ul>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, BackSubstitution
+
+U = Matrix([
+    [2, 1, -1],
+    [0, 3,  2],
+    [0, 0,  4]
+])
+y = Vector([3, 8, 4])
+
+res = BackSubstitution(U, y).run()
+print(res.x)  # Vector([1, 2, 1])
+</code></pre></div>
+<hr/>
+<h2 id="4-orthogonalisation-de-gram-schmidt-gramschmidt">4. Orthogonalisation de Gram-Schmidt (<code>GramSchmidt</code>)</h2>
+<p>La procédure <a href="src/linalg_pedagopy/algorithms/gram_schmidt.py#L35-L275"><code>GramSchmidt</code></a> transforme une famille libre de vecteurs <strong>ACADEMIC_TOKEN_24</strong> en une famille orthogonale <strong>ACADEMIC_TOKEN_25</strong> puis orthonormée <strong>ACADEMIC_TOKEN_26</strong> :</p>
+<p><strong>ACADEMIC_TOKEN_1</strong></p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Vector, GramSchmidt
+
+a1 = Vector([1, 1, 0])
+a2 = Vector([1, 0, 1])
+a3 = Vector([0, 1, 1])
+
+res = GramSchmidt([a1, a2, a3]).run()
+
+# Vecteurs orthogonaux
+for u in res.orthogonal:
+    print(u)
+
+# Vecteurs orthonormés (avec radicaux exacts)
+for q in res.orthonormal:
+    print(q)
+</code></pre></div>
+<h3 id="detection-de-dependance-lineaire">Détection de dépendance linéaire</h3>
+<p>Si la famille est liée, <code>GramSchmidt</code> lève une <a href="src/linalg_pedagopy/core/exceptions.py"><code>LinearDependenceError</code></a> contenant un témoin de dépendance <a href="src/linalg_pedagopy/algorithms/gram_schmidt.py#L18-L32"><code>DependenceWitness</code></a> détaillant la combinaison linéaire nulle.</p>
+<hr/>
+<h2 id="5-factorisation-qr-qr">5. Factorisation QR (<code>QR</code>)</h2>
+<p>La classe <a href="src/linalg_pedagopy/algorithms/qr.py#L30-L190"><code>QR</code></a> factorise une matrice <strong>ACADEMIC_TOKEN_27</strong> de rang plein colonne sous la forme <strong>ACADEMIC_TOKEN_28</strong>, où <strong>ACADEMIC_TOKEN_29</strong> a des colonnes orthonormales (<strong>ACADEMIC_TOKEN_30</strong>) et <strong>ACADEMIC_TOKEN_31</strong> est triangulaire supérieure inversible.</p>
+<p>Trois méthodes sont supportées :
+1. <code>method="gram_schmidt"</code> : Gram-Schmidt classique ou modifié (forme symbolique naturelle).
+2. <code>method="householder"</code> : Réflexions orthogonales de Householder (stabilité géométrique).
+3. <code>method="givens"</code> : Rotations planes de Givens (idéal pour annuler des coefficients ciblés).</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, QR
+
+A = Matrix([
+    [1, -1],
+    [1,  0],
+    [1,  1]
+])
+
+qr_res = QR(A, method="gram_schmidt").run()
+print("Q =", qr_res.Q)
+print("R =", qr_res.R)
+print("Vérification Q @ R == A :", qr_res.Q @ qr_res.R == A)
+</code></pre></div>
+<hr/>
+<h2 id="6-moindres-carres-lineaires-leastsquares">6. Moindres Carrés Linéaires (<code>LeastSquares</code>)</h2>
+<p>La régression au sens des moindres carrés résout le problème d'optimisation :
+<strong>ACADEMIC_TOKEN_2</strong></p>
+<p>La classe <a href="src/linalg_pedagopy/algorithms/least_squares.py#L30-L150"><code>LeastSquares</code></a> calcule la solution exacte <strong>ACADEMIC_TOKEN_32</strong> via :
+- La factorisation QR de <strong>ACADEMIC_TOKEN_33</strong> : <strong>ACADEMIC_TOKEN_34</strong>.
+- Les équations normales : <strong>ACADEMIC_TOKEN_35</strong>.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, LeastSquares
+
+A = Matrix([
+    [1, 0],
+    [1, 1],
+    [1, 2],
+    [1, 3]
+])
+b = Vector([1, 2, 2, 4])
+
+ls = LeastSquares(A, b).run()
+print("x_hat =", ls.x_hat)  # Estimateur des paramètres
+print("y_hat =", ls.y_hat)  # Projection y_hat = A x_hat
+print("r_hat =", ls.r_hat)  # Résidu r_hat = A x_hat - b
+print("Norme au carré de l'erreur :", ls.residual_norm_sq)
+
+# Vérification pédagogique fondamentale : A^T r_hat == 0
+print("Orthogonalité du résidu :", ls.verify())  # True
+</code></pre></div>
+      </article>
+
+      <!-- Navigation entre chapitres -->
+      <nav class="chapter-nav">
+        
+        <a href="02_vectors_and_matrices.html" class="chapter-nav-btn">
+          <span class="nav-direction">&larr; Chapitre précédent</span>
+          <span class="nav-target">02. Vecteurs, Matrices & VMLS</span>
+        </a>
+        
+
+        
+        <a href="04_vmls_tutor.html" class="chapter-nav-btn" style="text-align:right;">
+          <span class="nav-direction">Chapitre suivant &rarr;</span>
+          <span class="nav-target">04. Le Tuteur Interactif VMLS</span>
+        </a>
+        
+      </nav>
+    </main>
+
+    <!-- Barre latérale droite : Sommaire de la page (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-heading">Sur cette page</div>
+      <ul class="toc-list">
+        
+        <li class="toc-item ">
+          <a href="#1-moteur-de-tracabilite-contextuelle-tracer">1. Moteur de traçabilité contextuelle (Tracer)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#11-pourquoi-une-tracabilite-hierarchique-decision-d6">1.1 Pourquoi une traçabilité hiérarchique ? (Décision D6)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#12-les-4-niveaux-de-zoom-didactiques">1.2 Les 4 niveaux de zoom didactiques</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#13-nuds-de-larbre-step-stepkind-et-highlight">1.3 Nœuds de l'arbre : Step, StepKind et Highlight</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#2-elimination-de-gauss-jordan-gaussjordan">2. Élimination de Gauss-Jordan (GaussJordan)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#21-signature-et-options">2.1 Signature et options</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#22-typologie-des-ensembles-de-solutions">2.2 Typologie des ensembles de solutions</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#23-exemple-avec-parametre-et-discussion-automatique">2.3 Exemple avec paramètre et discussion automatique</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#3-substitutions-triangulaires">3. Substitutions Triangulaires</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#4-orthogonalisation-de-gram-schmidt-gramschmidt">4. Orthogonalisation de Gram-Schmidt (GramSchmidt)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#detection-de-dependance-lineaire">Détection de dépendance linéaire</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#5-factorisation-qr-qr">5. Factorisation QR (QR)</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#6-moindres-carres-lineaires-leastsquares">6. Moindres Carrés Linéaires (LeastSquares)</a>
+        </li>
+        
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <p>
+      <strong>linalg_pedagopy v3.0</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement en L1–L2 et fondé sur <em>Introduction to Applied Linear Algebra</em> (VMLS) par S. Boyd &amp; L. Vandenberghe.<br>
+      Documentation sous licence MIT. Code source ouvert.
+    </p>
+  </footer>
+
+  <script src="assets/js/academic.js"></script>
+</body>
+</html>

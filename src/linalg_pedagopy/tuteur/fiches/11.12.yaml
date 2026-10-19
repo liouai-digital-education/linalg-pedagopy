@@ -1,22 +1,28 @@
-id: "11.12"
+id: '11.12'
 page: 27
 type: contre_exemple
-reformulation: >
-  L'inverse d'une matrice carrée inversible à coefficients strictement positifs (> 0)
-  a-t-elle toujours ses coefficients positifs ? Fournir une matrice A de taille 2×2
-  à coefficients > 0 qui soit inversible et dont l'inverse A^(-1) comporte au moins
-  un coefficient strictement négatif.
+reformulation: L'inverse d'une matrice carrée inversible à coefficients strictement
+  positifs ($> 0$) a-t-elle toujours ses coefficients positifs ? Fournir une matrice
+  $A$ de taille $2 \times 2$ à coefficients $> 0$ qui soit inversible et dont l'inverse
+  $A^{-1}$ comporte au moins un coefficient strictement négatif.
 donnees:
   n: 2
 verification:
   type: contre_exemple
-  cas: "inverse_matrice_positive_11_12"
+  cas: inverse_matrice_positive_11_12
 indices:
-  - "Rappelez-vous la formule de l'inverse d'une matrice 2×2 : A^(-1) = (1/(ad - bc)) [[d, -b], [-c, a]] (VMLS ch. 11)."
-  - "Si a, b, c, d sont tous strictement positifs (> 0) et ad - bc != 0, quels signes ont les coefficients hors diagonale -b et -c dans [[d, -b], [-c, a]] ?"
-  - "Choisissez quatre petits entiers strictement positifs (par exemple 1 et 2) tels que ad - bc != 0."
-jumeau: "generateurs.contre_exemple_guide(famille='matrices 2×2 à coefficients dans {1, 2}')"
+- 'Rappelez-vous la formule de l''inverse d''une matrice $2 \times 2$ : $A^{-1} =
+  \frac{1}{ad - bc} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$ (VMLS ch. 11).'
+- Si $a, b, c, d$ sont tous strictement positifs ($> 0$) et $ad - bc \neq 0$, quels
+  signes ont les coefficients hors diagonale $-b$ et $-c$ ?
+- Choisissez quatre petits entiers strictement positifs (par exemple 1 et 2) tels
+  que $ad - bc \neq 0$.
+jumeau: generateurs.contre_exemple_guide(famille='matrices 2×2 à coefficients dans
+  {1, 2}')
 notions:
-  - "inverse d'une matrice 2×2"
-  - "signe des coefficients de l'inverse"
-  - "VMLS ch. 11"
+- inverse d'une matrice 2×2
+- signe des coefficients de l'inverse
+- VMLS ch. 11
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?11.12, p. 27
+ecart: Aucun (contre-exemple d'une matrice inversible ? coefficients > 0 dont l'inverse
+  a des coefficients < 0, VMLS ?11.12).

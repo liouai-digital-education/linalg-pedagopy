@@ -196,6 +196,18 @@ def generate_parametric_system(
     return A_param, b_vec, param_sym, crit_expr
 
 
+def _matrix_to_latex(mat: Matrix) -> str:
+    """Formate une Matrix en environnement LaTeX bmatrix."""
+    rows_str = [" & ".join(sp.latex(mat[i, j]) for j in range(mat.cols)) for i in range(mat.rows)]
+    return "\\begin{bmatrix} " + " \\\\ ".join(rows_str) + " \\end{bmatrix}"
+
+
+def _vector_to_latex(vec: Vector) -> str:
+    """Formate un Vector en environnement LaTeX bmatrix colonne."""
+    rows_str = [sp.latex(e) for e in vec.entries]
+    return "\\begin{bmatrix} " + " \\\\ ".join(rows_str) + " \\end{bmatrix}"
+
+
 @dataclass(frozen=True)
 class TwinExercise:
     """Exercice jumeau résolu de bout en bout pour le niveau 4 d'indice du tuteur (§7.3, §7.5)."""
@@ -216,6 +228,18 @@ class TwinExercise:
             if exp_txt:
                 lines.append(exp_txt)
         return "\n".join(lines)
+
+    def _repr_markdown_(self) -> str:
+        lines = [
+            f"### Exercice jumeau résolu : {self.title}",
+            f"**Énoncé analogue** :\n\n{self.statement}",
+            f"**Résolution pas à pas** :\n\n{self.solution_summary}",
+        ]
+        if self.explanation is not None:
+            exp_md = self.explanation.to_markdown(level=2)
+            if exp_md:
+                lines.append(f"**Détail des étapes formelles** :\n\n{exp_md}")
+        return "\n\n".join(lines)
 
     def __str__(self) -> str:
         return self.format_text()
@@ -238,19 +262,20 @@ class _TwinGeneratorNamespace:
             rows.append(row)
         A_twin = Matrix._from_exact_rows(rows)
         stmt = (
-            f"p ∈ R^{n} est une série de prix. d ∈ R^{m} mesure, à partir du jour {fenetre + 1}, "
-            f"l'écart entre le prix du jour et la moyenne des {fenetre} jours précédents : "
-            f"d_i = p_(i+{fenetre}) - (1/{fenetre}) * sum_(k=0..{fenetre - 1}) p_(i+k). "
-            f"Construire la matrice A telle que d = A p."
+            f"$p \\in \\mathbb{{R}}^{{{n}}}$ est une série de prix. $d \\in \\mathbb{{R}}^{{{m}}}$ mesure, à partir du jour {fenetre + 1}, "
+            f"l'écart entre le prix du jour et la moyenne des {fenetre} jours précédents :\n\n"
+            f"$$d_i = p_{{i+{fenetre}}} - \\frac{{1}}{{{fenetre}}} \\sum_{{k=0}}^{{{fenetre - 1}}} p_{{i+k}}$$\n\n"
+            f"Construire la matrice $A$ telle que $d = A p$."
         )
         sol = (
-            f"1. Taille : d a {m} composantes et p en a {n}, donc A est de taille {m}×{n}.\n"
-            f"2. Ligne 1 (i=1) : d_1 = p_{fenetre + 1} - (1/{fenetre})(p_1 + ... + p_{fenetre}), "
-            f"ce qui donne la ligne 1 : {A_twin.row(0)}.\n"
-            f"3. En décalant d'une colonne à chaque ligne, on obtient :\n{A_twin}"
+            f"1. **Taille** : $d$ possède {m} composantes et $p$ en a {n}, donc $A$ est de taille ${m} \\times {n}$.\n"
+            f"2. **Ligne 1 ($i=1$)** : $d_1 = p_{{{fenetre + 1}}} - \\frac{{1}}{{{fenetre}}}(p_1 + \\dots + p_{{{fenetre}}})$, "
+            f"ce qui donne la ligne 1 : {_vector_to_latex(A_twin.row(0))}^T.\n"
+            f"3. En décalant d'une colonne à chaque ligne, on obtient la matrice $A$ :\n\n"
+            f"$$A = {_matrix_to_latex(A_twin)}$$"
         )
         return TwinExercise(
-            title=f"Écart à la moyenne glissante (fenêtre={fenetre}, n={n})",
+            title=f"Écart à la moyenne glissante (fenêtre $k={fenetre}$, $n={n}$)",
             statement=stmt,
             solution_summary=sol,
         )
@@ -261,14 +286,15 @@ class _TwinGeneratorNamespace:
         coeffs = [sp.Integer(1 if (k + 1) in indices else 0) for k in range(n)]
         a_vec = Vector._from_exact(coeffs)
         terms = " + ".join(f"x_{idx}" for idx in indices)
-        stmt = f"Pour x ∈ R^{n}, écrire la somme {terms} sous la forme a^T x."
+        stmt = f"Pour $x \\in \\mathbb{{R}}^{{{n}}}$, écrire la somme ${terms}$ sous la forme $a^T x$."
         sol = (
-            f"On identifie le coefficient devant chaque composante x_k (k = 1..{n}) :\n"
-            f"Les composantes présentes sont {indices} (coefficient 1) et les autres ont un coefficient 0.\n"
-            f"On obtient a = {a_vec}."
+            f"On identifie le coefficient devant chaque composante $x_k$ ($k = 1, \\dots, {n}$) :\n"
+            f"- Les composantes sélectionnées sont {indices} (coefficient 1) et les autres ont un coefficient 0.\n"
+            f"- On obtient le vecteur $a$ :\n\n"
+            f"$$a = {_vector_to_latex(a_vec)}$$"
         )
         return TwinExercise(
-            title="Modélisation sous la forme a^T x",
+            title="Modélisation sous la forme $a^T x$",
             statement=stmt,
             solution_summary=sol,
         )
@@ -282,15 +308,15 @@ class _TwinGeneratorNamespace:
             rms_v = v.rms()
             std_v = v.std()
         exp = Explanation(t.tree, level=2)
-        stmt = f"Pour le vecteur x = {v} dans R^{len(v)}, calculer avg(x), rms(x) et std(x)."
+        stmt = f"Pour le vecteur $x = {_vector_to_latex(v)}$ dans $\\mathbb{{R}}^{{{len(v)}}}$, calculer $\\text{{avg}}(x)$, $\\text{{rms}}(x)$ et $\\text{{std}}(x)$."
         sol = (
-            f"- Moyenne : avg(x) = {avg_v}\n"
-            f"- Moyenne quadratique : rms(x) = ||x|| / sqrt({len(v)}) = {rms_v}\n"
-            f"- Vecteur centré : x - avg(x)·1 = {v.demean()}\n"
-            f"- Écart type (VMLS) : std(x) = rms(x - avg(x)·1) = {std_v}"
+            f"- **Moyenne** : $\\text{{avg}}(x) = {sp.latex(avg_v)}$\n"
+            f"- **Moyenne quadratique** : $\\text{{rms}}(x) = \\frac{{\\|x\\|}}{{\\sqrt{{{len(v)}}}}} = {sp.latex(rms_v)}$\n"
+            f"- **Vecteur centré** : $x - \\text{{avg}}(x) \\mathbf{{1}} = {_vector_to_latex(v.demean())}$\n"
+            f"- **Écart type (VMLS)** : $\\text{{std}}(x) = \\text{{rms}}(x - \\text{{avg}}(x) \\mathbf{{1}}) = {sp.latex(std_v)}$"
         )
         return TwinExercise(
-            title="Moyenne, moyenne quadratique (rms) et écart type (std)",
+            title="Moyenne, moyenne quadratique ($\text{rms}$) et écart type ($\text{std}$)",
             statement=stmt,
             solution_summary=sol,
             explanation=exp,
@@ -300,15 +326,16 @@ class _TwinGeneratorNamespace:
     def combinaison_orthogonale(c1: int = 2, c2: int = -3) -> TwinExercise:
         """Jumeau pour la norme ou rms d'une combinaison de vecteurs orthogonaux (ex. 3.5, 3.14)."""
         stmt = (
-            f"Soient u et v deux vecteurs orthogonaux de R^n (u ⊥ v). "
-            f"Exprimer ||{c1}u + ({c2})v||^2 en fonction de ||u|| et ||v||."
+            f"Soient $u$ et $v$ deux vecteurs orthogonaux de $\\mathbb{{R}}^n$ ($u \\perp v$). "
+            f"Exprimer $\\|{c1} u + ({c2}) v\\|^2$ en fonction de $\\|u\\|$ et $\\|v\\|$."
         )
         sol = (
-            f"1. On développe le produit scalaire :\n"
-            f"   ||{c1}u + ({c2})v||^2 = ({c1}u + ({c2})v)^T ({c1}u + ({c2})v)\n"
-            f"   = {c1**2} ||u||^2 + 2·({c1 * c2}) (u^T v) + {c2**2} ||v||^2.\n"
-            f"2. Comme u ⊥ v, on a u^T v = 0.\n"
-            f"3. Il reste : ||{c1}u + ({c2})v||^2 = {c1**2} ||u||^2 + {c2**2} ||v||^2."
+            f"1. On développe le produit scalaire :\n\n"
+            f"   $$\\|{c1} u + ({c2}) v\\|^2 = ({c1} u + ({c2}) v)^T ({c1} u + ({c2}) v)$$\n"
+            f"   $$= {c1**2} \\|u\\|^2 + 2 \\cdot ({c1 * c2}) (u^T v) + {c2**2} \\|v\\|^2$$\n\n"
+            f"2. Comme $u \\perp v$, le produit scalaire est nul : $u^T v = 0$.\n"
+            f"3. Conclusion :\n\n"
+            f"   $$\\|{c1} u + ({c2}) v\\|^2 = {c1**2} \\|u\\|^2 + {c2**2} \\|v\\|^2$$"
         )
         return TwinExercise(
             title="Norme d'une combinaison de vecteurs orthogonaux",
@@ -320,14 +347,14 @@ class _TwinGeneratorNamespace:
     def dimensions_expressions() -> TwinExercise:
         """Jumeau pour l'analyse de validité et dimensions d'expressions (ex. 1.3, 3.11, 10.5)."""
         stmt = (
-            "Soient A de taille 3×4, B de taille 4×2 et x un vecteur de R^4 (taille 4×1). "
-            "Les expressions (a) A x, (b) B^T x, (c) A B + B sont-elles bien définies ? "
-            "Si oui, donner leur taille."
+            "Soient $A \\in \\mathbb{R}^{3 \\times 4}$, $B \\in \\mathbb{R}^{4 \\times 2}$ et $x \\in \\mathbb{R}^4$. "
+            "Les expressions (a) $A x$, (b) $B^T x$, (c) $A B + B$ sont-elles bien définies ? "
+            "Si oui, donner leur dimension."
         )
         sol = (
-            "- (a) A (3×4) et x (4×1) : les dimensions internes (4 = 4) coïncident -> valide, taille 3×1 (vecteur de R^3).\n"
-            "- (b) B^T est de taille 2×4 et x est 4×1 : (4 = 4) -> valide, taille 2×1.\n"
-            "- (c) A B est de taille 3×2 tandis que B est 4×2 : addition de tailles différentes (3×2 ≠ 4×2) -> invalide."
+            "- **(a)** $A$ ($3 \\times 4$) et $x$ ($4 \\times 1$) : les dimensions internes ($4 = 4$) coïncident $\\implies$ **valide**, dimension $3 \\times 1$ (vecteur de $\\mathbb{R}^3$).\n"
+            "- **(b)** $B^T$ est de dimension $2 \\times 4$ et $x$ est $4 \\times 1$ : ($4 = 4$) $\\implies$ **valide**, dimension $2 \\times 1$.\n"
+            "- **(c)** $A B$ est de dimension $3 \\times 2$ tandis que $B$ est $4 \\times 2$ : addition de dimensions différentes ($3 \\times 2 \\neq 4 \\times 2$) $\\implies$ **invalide**."
         )
         return TwinExercise(
             title="Analyse de compatibilité des dimensions",
@@ -336,16 +363,16 @@ class _TwinGeneratorNamespace:
         )
 
     @staticmethod
-    def contre_exemple_guide(famille: str = "R^2, coefficients dans {-1, 0, 1}") -> TwinExercise:
+    def contre_exemple_guide(famille: str = "\\mathbb{R}^2, \\text{coefficients dans } \\{-1, 0, 1\\}") -> TwinExercise:
         """Jumeau d'orientation pour la recherche de contre-exemple (ex. 2.2, 3.3, 5.2, 11.12)."""
         stmt = (
             "Comment construire méthodiquement un contre-exemple simple en petite dimension ?"
         )
         sol = (
-            f"Indication d'existence : un contre-exemple existe dans {famille}.\n"
-            "Méthode :\n"
-            "1. Choisir la plus petite dimension autorisée par l'énoncé (souvent n = 2).\n"
-            "2. Tester des vecteurs de la base canonique e_1 = (1, 0), e_2 = (0, 1) ou (1, 1) "
+            f"**Indication d'existence** : un contre-exemple existe dans ${famille}$.\n\n"
+            "**Méthode** :\n"
+            "1. Choisir la plus petite dimension autorisée par l'énoncé (souvent $n = 2$).\n"
+            "2. Tester des vecteurs de la base canonique $e_1 = (1, 0)$, $e_2 = (0, 1)$ ou $(1, 1)$ "
             "qui vérifient les hypothèses.\n"
             "3. Calculer les deux membres de l'affirmation et vérifier qu'ils diffèrent."
         )
@@ -365,13 +392,13 @@ class _TwinGeneratorNamespace:
             for j in range(n):
                 c[i + j] += a_vals[i] * b_vals[j]
         stmt = (
-            f"Calculer la convolution c = a * b des vecteurs a = {Vector(a_vals)} "
-            f"et b = {Vector(b_vals)}."
+            f"Calculer le produit de convolution $c = a * b$ des vecteurs "
+            f"$a = {_vector_to_latex(Vector(a_vals))}$ et $b = {_vector_to_latex(Vector(b_vals))}$."
         )
         sol = (
-            f"La taille de c = a * b est {m} + {n} - 1 = {size}.\n"
-            f"Pour chaque k = 1..{size}, c_k = sum_{{i+j=k+1}} a_i b_j :\n"
-            f"Résultat : c = {Vector(c)}."
+            f"1. La dimension de $c = a * b$ est $m + n - 1 = {m} + {n} - 1 = {size}$.\n"
+            f"2. Pour chaque $k \\in \\{{1, \\dots, {size}\\}}$ : $c_k = \\sum_{{i+j=k+1}} a_i b_j$ :\n\n"
+            f"   $$c = {_vector_to_latex(Vector(c))}$$"
         )
         return TwinExercise(
             title="Produit de convolution de deux vecteurs",
@@ -386,15 +413,17 @@ class _TwinGeneratorNamespace:
         B1 = Matrix([[1, 0], [0, 1], [0, 0]])
         B2 = Matrix([[-1, 2], [1, 0], [1, -1]])
         stmt = (
-            f"Pour la matrice A = {A} de taille 2×3 (lignes indépendantes), "
-            "trouver deux inverses à droite B distinctes (telles que A B = I_2)."
+            f"Pour la matrice $A = {_matrix_to_latex(A)}$ de taille $2 \\times 3$ (lignes indépendantes), "
+            "trouver deux inverses à droite $B$ distinctes (telles que $A B = I_2$)."
         )
         sol = (
-            "Une matrice B de taille 3×2 vérifie A B = I_2 si ses deux colonnes b_1, b_2 "
-            "satisfont A b_1 = e_1 et A b_2 = e_2.\n"
-            f"- En fixant la 3e composante libre à 0, on obtient B_1 = {B1}.\n"
-            f"- En fixant la 3e composante à (1, -1), on obtient B_2 = {B2}.\n"
-            "Dans les deux cas, A B_1 = I_2 et A B_2 = I_2."
+            "Une matrice $B \\in \\mathbb{R}^{3 \\times 2}$ vérifie $A B = I_2$ si ses deux colonnes $b_1, b_2$ "
+            "satisfont $A b_1 = e_1$ et $A b_2 = e_2$ :\n\n"
+            f"- En fixant la 3\\textsuperscript{{e}} composante libre à 0, on obtient :\n\n"
+            f"  $$B_1 = {_matrix_to_latex(B1)}$$\n\n"
+            f"- En fixant la 3\\textsuperscript{{e}} composante à $(1, -1)$, on obtient :\n\n"
+            f"  $$B_2 = {_matrix_to_latex(B2)}$$\n\n"
+            "Dans les deux cas, on vérifie $A B_1 = I_2$ et $A B_2 = I_2$ avec $B_1 \\neq B_2$."
         )
         return TwinExercise(
             title="Construction de plusieurs inverses à droite",
@@ -411,7 +440,7 @@ class _TwinGeneratorNamespace:
         with tracing(level=2) as t:
             res = GramSchmidt([a1, a2, a3]).run()
         exp = Explanation(t.tree, level=2)
-        stmt = f"Appliquer Gram-Schmidt à la famille a_1 = {a1}, a_2 = {a2}, a_3 = {a3}."
+        stmt = f"Appliquer Gram-Schmidt à la famille $a_1 = {_vector_to_latex(a1)}$, $a_2 = {_vector_to_latex(a2)}$, $a_3 = {_vector_to_latex(a3)}$."
         sol = f"Résultat : famille liée ({res.witness})." if isinstance(res, list) is False and hasattr(res, "witness") else ""
         return TwinExercise(
             title="Test d'indépendance par Gram-Schmidt",
@@ -429,18 +458,21 @@ class _TwinGeneratorNamespace:
             res = LeastSquares(A, b).run()
         exp = Explanation(t.tree, level=2)
         stmt = (
-            "On dispose de 3 mesures bruitées de x_1, de x_2 et de x_1 + x_2 : "
-            "y_1 = 2, y_2 = 3, y_3 = 6. Écrire le problème sous la forme min ||A x - b||^2."
+            "On dispose de 3 mesures bruitées de $x_1$, de $x_2$ et de $x_1 + x_2$ : "
+            "$y_1 = 2$, $y_2 = 3$, $y_3 = 6$. Écrire le problème sous la forme $\\min_x \\|A x - b\\|^2$."
         )
+        x_hat_tex = _vector_to_latex(res.x_hat) if hasattr(res, 'x_hat') else ''
         sol = (
-            f"Chaque mesure correspond à une ligne de A x ≈ b :\n"
-            f"- Ligne 1 : 1·x_1 + 0·x_2 ≈ 2\n"
-            f"- Ligne 2 : 0·x_1 + 1·x_2 ≈ 3\n"
-            f"- Ligne 3 : 1·x_1 + 1·x_2 ≈ 6\n"
-            f"D'où A = {A} et b = {b}, avec x_hat = {res.x_hat if hasattr(res, 'x_hat') else ''}."
+            "Chaque mesure correspond à une ligne du système $A x \\approx b$ :\n\n"
+            "- Ligne 1 : $1 \\cdot x_1 + 0 \\cdot x_2 \\approx 2$\n"
+            "- Ligne 2 : $0 \\cdot x_1 + 1 \\cdot x_2 \\approx 3$\n"
+            "- Ligne 3 : $1 \\cdot x_1 + 1 \\cdot x_2 \\approx 6$\n\n"
+            f"D'où les matrices du problème :\n\n"
+            f"$$A = {_matrix_to_latex(A)}, \\quad b = {_vector_to_latex(b)}$$\n\n"
+            f"L'estimateur des moindres carrés est $\\hat{{x}} = {x_hat_tex}$."
         )
         return TwinExercise(
-            title="Modélisation par moindres carrés min ||A x - b||^2",
+            title="Modélisation par moindres carrés $\\min \\|A x - b\\|^2$",
             statement=stmt,
             solution_summary=sol,
             explanation=exp,
@@ -450,15 +482,15 @@ class _TwinGeneratorNamespace:
     def kkt_norme_minimale() -> TwinExercise:
         """Jumeau pour le système KKT d'un problème sous contrainte C x = d (ex. 20.11)."""
         stmt = (
-            "Exprimer les conditions d'optimalité KKT du problème de norme minimale : "
-            "minimiser ||x||^2 sous la contrainte C x = d."
+            "Exprimer les conditions d'optimalité KKT du problème de norme minimale :\n\n"
+            "$$\\min_x \\|x\\|^2 \\quad \\text{sous la contrainte} \\quad C x = d$$"
         )
         sol = (
-            "1. C'est un problème de moindres carrés sous contrainte avec A = I_n et b = 0.\n"
-            "2. Le lagrangien est L(x, z) = ||x||^2 + z^T (C x - d).\n"
-            "3. En annulant le gradient par rapport à x : 2 x + C^T z = 0, avec C x = d.\n"
-            "4. Sous forme matricielle par blocs :\n"
-            "   [[2 I, C^T], [C, 0]] [x ; z] = [0 ; d]."
+            "1. C'est un problème de moindres carrés sous contrainte avec $A = I_n$ et $b = 0$.\n"
+            "2. Le lagrangien est $L(x, z) = \\|x\\|^2 + z^T (C x - d)$.\n"
+            "3. En annulant le gradient par rapport à $x$ : $2 x + C^T z = 0$, avec $C x = d$.\n"
+            "4. Sous forme matricielle par blocs :\n\n"
+            "   $$\\begin{bmatrix} 2 I & C^T \\\\ C & 0 \\end{bmatrix} \\begin{bmatrix} x \\\\ z \\end{bmatrix} = \\begin{bmatrix} 0 \\\\ d \\end{bmatrix}$$"
         )
         return TwinExercise(
             title="Système KKT et solution de norme minimale",
@@ -466,5 +498,25 @@ class _TwinGeneratorNamespace:
             solution_summary=sol,
         )
 
+    # English aliases for twin exercise generators
+    @staticmethod
+    def moving_average(window: int = 2, n: int = 5, *, fenetre: int | None = None) -> TwinExercise:
+        return _TwinGeneratorNamespace.moyenne_glissante(
+            fenetre=fenetre if fenetre is not None else window,
+            n=n,
+        )
 
-generateurs = _TwinGeneratorNamespace()
+    inner_product_selection = produit_scalaire_selection
+    vector_statistics = statistiques_vecteur
+    orthogonal_combination = combinaison_orthogonale
+    expression_dimensions = dimensions_expressions
+    counterexample_guide = contre_exemple_guide
+    polynomial_convolution = convolution_polynomes
+    right_inverse_example = inverse_droite_exemple
+    gram_schmidt_example = gram_schmidt_exemple
+    least_squares_example = moindres_carres_exemple
+    kkt_minimum_norm = kkt_norme_minimale
+
+
+generators = _TwinGeneratorNamespace()
+generateurs = generators

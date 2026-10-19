@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01. Noyau formel & Exactitude — linalg_pedagopy v3.0</title>
+  <meta name="description" content="Types exacts, ZeroOracle, radicaux unrad et disjonction CaseSplit">
+
+  <!-- Typographie Web Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="assets/css/academic.css">
+
+  <!-- MathJax pour les formules mathématiques exactes -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Moteur de diagrammes Mermaid.js -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+  </script>
+</head>
+<body>
+
+  <!-- En-tête institutionnel -->
+  <header class="site-header">
+    <a href="index.html" class="header-brand">
+      <div class="brand-crest">LP</div>
+      <div>
+        <div class="brand-title">linalg_pedagopy</div>
+        <div class="brand-subtitle">Algèbre Linéaire Formelle & VMLS</div>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher... (Ctrl+K)" readonly>
+      </div>
+      <button id="themeToggle" class="theme-toggle-btn" title="Changer de thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- Modal de recherche plein texte -->
+  <div id="searchModal" class="search-results-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="Rechercher une fonction, un théorème, un symbole...">
+      </div>
+      <div id="modalSearchResults" class="search-modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;">Saisissez un mot-clé...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-container">
+    <!-- Barre latérale gauche de navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Sommaire de l'ouvrage</div>
+      <ul class="nav-list">
+        
+        <li class="nav-item ">
+          <a href="index.html">
+            <span>Accueil & Démarrage</span>
+            <span class="nav-badge">Portail</span>
+          </a>
+        </li>
+        
+        <li class="nav-item active">
+          <a href="01_core_and_formal_computation.html">
+            <span>01. Noyau formel & Exactitude</span>
+            <span class="nav-badge">Fondement</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="02_vectors_and_matrices.html">
+            <span>02. Vecteurs, Matrices & VMLS</span>
+            <span class="nav-badge">Objets</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="03_algorithms_and_step_tracing.html">
+            <span>03. Algorithmes & Traçabilité</span>
+            <span class="nav-badge">Algèbre</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="04_vmls_tutor.html">
+            <span>04. Le Tuteur Interactif VMLS</span>
+            <span class="nav-badge">Pédagogie</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="05_pedagogical_exercises_and_sessions.html">
+            <span>05. Exercices & Sessions Guidées</span>
+            <span class="nav-badge">Didactique</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="06_rendering_visualization_and_numerics.html">
+            <span>06. Rendu, Géométrie & Numérique</span>
+            <span class="nav-badge">Visuel</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="07_api_reference.html">
+            <span>07. Référence complète de l'API</span>
+            <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
+        <strong>Version 3.0.0</strong><br>
+        Inspiré de Boyd &amp; Vandenberghe
+      </div>
+    </aside>
+
+    <!-- Corps de texte de l'article -->
+    <main class="main-content">
+      <header class="article-header">
+        <span class="article-badge">Chapitre 01 • Fondement</span>
+        <h1 class="article-title">01. Noyau formel & Exactitude</h1>
+        <p class="article-subtitle">Types exacts, ZeroOracle, radicaux unrad et disjonction CaseSplit</p>
+      </header>
+
+      <article class="markdown-body">
+        <h1 id="01-noyau-formel-et-calcul-symbolique-exact">01. Noyau formel et Calcul Symbolique Exact</h1>
+<p>Le module <code>linalg_pedagopy.core</code> constitue le socle mathématique fondamental du package. Il garantit la rigueur des calculs formels sur le corps des réels <strong>ACADEMIC_TOKEN_3</strong>, empêche les erreurs de troncature numérique et gère de manière déterministe les discussions paramétriques.</p>
+<hr/>
+<h2 id="1-representation-des-scalaires-et-coercition-exacte">1. Représentation des scalaires et coercition exacte</h2>
+<h3 id="11-la-fonction-to_exact">1.1 La fonction <code>to_exact</code></h3>
+<p>En calcul formel didactique, manipuler des nombres à virgule flottante (<code>float</code>) conduit inévitablement à des artefacts déroutants pour l'étudiant (pivots non nuls valant <code>1e-16</code>, divisions par zéro masquées, etc.). </p>
+<p>La fonction <a href="src/linalg_pedagopy/core/field.py#L95-L140"><code>to_exact</code></a> convertit tout scalaire d'entrée en une expression symbolique exacte SymPy (<code>sympy.Expr</code>) selon la politique déclarée :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import to_exact
+import sympy as sp
+from fractions import Fraction
+
+# Entiers, fractions et chaînes de caractères
+s1 = to_exact(3)           # sympy.Integer(3)
+s2 = to_exact("2/3")       # sympy.Rational(2, 3)
+s3 = to_exact(Fraction(5, 7)) # sympy.Rational(5, 7)
+
+# Expressions algébriques et radicaux
+s4 = to_exact("sqrt(2)")   # sympy.sqrt(2)
+s5 = to_exact(sp.pi)       # sympy.pi
+</code></pre></div>
+<h3 id="12-politique-de-gestion-des-flottants-float_policy">1.2 Politique de gestion des flottants (<code>float_policy</code>)</h3>
+<p>Le comportement face à l'introduction explicite d'un flottant standard (<code>float</code>) est régi par <a href="src/linalg_pedagopy/config.py#L43-L50"><code>config.float_policy</code></a> :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Politique</th>
+<th style="text-align: left;">Comportement</th>
+<th style="text-align: left;">Cas d'usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>"rationalize"</code> <em>(par défaut)</em></td>
+<td style="text-align: left;">Convertit automatiquement le flottant en fraction rationnelle approchée (<code>sp.Rational(str(x))</code>).</td>
+<td style="text-align: left;">Saisie souple en TD ou console interactive (<code>0.25</code> devient <code>1/4</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"reject"</code></td>
+<td style="text-align: left;">Lève immédiatement une exception <a href="src/linalg_pedagopy/core/exceptions.py"><code>InexactInputError</code></a>.</td>
+<td style="text-align: left;">Contrôle d'examen ou mode d'exigence formelle stricte.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"keep"</code></td>
+<td style="text-align: left;">Conserve le flottant SymPy (<code>sp.Float</code>).</td>
+<td style="text-align: left;">Analyse des erreurs de troncature et comparaison avec le numérique.</td>
+</tr>
+</tbody>
+</table>
+<p>Exemple d'utilisation avec <code>using_config</code> :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import to_exact, using_config, InexactInputError
+
+# Par défaut : rationalisation
+print(to_exact(0.1))  # 1/10
+
+# Mode strict : rejet
+with using_config(float_policy="reject"):
+    try:
+        to_exact(0.1)
+    except InexactInputError as err:
+        print(f"Entrée rejetée : {err}")
+</code></pre></div>
+<hr/>
+<h2 id="2-declaration-et-gestion-des-symboles-reels-symbols">2. Déclaration et gestion des symboles réels (<code>symbols</code>)</h2>
+<h3 id="21-hypothese-realtrue-par-defaut-decision-d1">2.1 Hypothèse <code>real=True</code> par défaut (Décision D1)</h3>
+<p>Dans les systèmes de calcul formel généralistes, un symbole non qualifié <strong>ACADEMIC_TOKEN_4</strong> est supposé complexe (<strong>ACADEMIC_TOKEN_5</strong>), ce qui empêche de nombreuses simplifications élémentaires (par exemple <strong>ACADEMIC_TOKEN_6</strong> ou la factorisation de carrés).</p>
+<p>Dans <code>linalg_pedagopy</code>, la fonction <a href="src/linalg_pedagopy/core/field.py#L14-L43"><code>symbols</code></a> munit systématiquement les symboles de l'hypothèse <code>real=True</code> :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import symbols
+
+# Déclaration de scalaires réels
+a, b, m = symbols("a b m")
+print(a.is_real)  # True
+
+# Préservation d'hypothèses supplémentaires
+x, y = symbols("x y", positive=True)
+print(x.is_positive, x.is_real)  # True True
+</code></pre></div>
+<h3 id="22-preservation-et-correspondance-des-symboles">2.2 Préservation et correspondance des symboles</h3>
+<p>Lors des substitutions partielles ou complètes, la fonction <a href="src/linalg_pedagopy/core/field.py#L80-L92"><code>match_symbol_substitutions</code></a> fait correspondre les variables par leur nom textuel si nécessaire, évitant ainsi les incompatibilités entre symboles SymPy de mêmes noms mais créés dans des contextes distincts.</p>
+<hr/>
+<h2 id="3-loracle-de-nullite-zerooracle">3. L'Oracle de nullité (<code>ZeroOracle</code>)</h2>
+<h3 id="31-pourquoi-un-oracle-dedie-decision-d3">3.1 Pourquoi un oracle dédié ? (Décision D3)</h3>
+<p>En présence de paramètres symboliques, tester si un scalaire <strong>ACADEMIC_TOKEN_7</strong> est nul (<code>v == 0</code>) ne peut pas être une simple opération booléenne :
+- Si <strong>ACADEMIC_TOKEN_8</strong>, la réponse dépend de la valeur de <strong>ACADEMIC_TOKEN_9</strong>.
+- Si l'on répond aveuglément <code>False</code>, on risque de diviser par <strong>ACADEMIC_TOKEN_10</strong>, rendant le pivotage invalide pour <strong>ACADEMIC_TOKEN_11</strong>.
+- Si l'on répond aveuglément <code>True</code>, on ignore le cas générique <strong>ACADEMIC_TOKEN_12</strong>.</p>
+<p>L'instance globale <a href="src/linalg_pedagopy/core/zero.py#L249"><code>oracle</code></a> évalue la nullité selon quatre verdicts :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.core.zero import Verdict, oracle
+from linalg_pedagopy import symbols
+
+a, = symbols("a")
+
+dec1 = oracle.decide(0)
+print(dec1.verdict)  # Verdict.ZERO
+
+dec2 = oracle.decide(3)
+print(dec2.verdict)  # Verdict.NONZERO
+
+dec3 = oracle.decide(a - 2)
+print(dec3.verdict)  # Verdict.CONDITIONAL
+print(dec3.factors)  # [a - 2]
+</code></pre></div>
+<h3 id="32-les-4-verdicts">3.2 Les 4 Verdicts</h3>
+<p><strong>ACADEMIC_TOKEN_0</strong></p>
+<ol>
+<li><strong><code>Verdict.ZERO</code></strong> : L'expression se simplifie formellement en 0 de manière inconditionnelle.</li>
+<li><strong><code>Verdict.NONZERO</code></strong> : L'expression est inconditionnellement non nulle sur <strong>ACADEMIC_TOKEN_13</strong> (ex: <strong>ACADEMIC_TOKEN_14</strong>, <strong>ACADEMIC_TOKEN_15</strong>, ou constante non nulle).</li>
+<li><strong><code>Verdict.CONDITIONAL</code></strong> : L'expression peut s'annuler pour des valeurs réelles particulières des paramètres. L'oracle extrait les facteurs d'annulation (<code>dec.factors</code>).</li>
+<li><strong><code>Verdict.UNKNOWN</code></strong> : L'expression ne peut être décidée sans hypothèse explicite. L'appel à <code>oracle.is_zero(expr)</code> lèvera alors une <a href="src/linalg_pedagopy/core/exceptions.py"><code>UndecidableZeroError</code></a>.</li>
+</ol>
+<h3 id="33-traitement-des-radicaux-parametriques-unrad">3.3 Traitement des radicaux paramétriques (<code>unrad</code>)</h3>
+<p>Les expressions contenant des racines carrées paramétriques (comme <strong>ACADEMIC_TOKEN_16</strong> ou <strong>ACADEMIC_TOKEN_17</strong>) sont traitées via <a href="src/linalg_pedagopy/core/zero.py#L73-L143"><code>_extract_factors</code></a> :
+1. L'oracle fait appel à <code>sympy.solvers.solvers.unrad</code> pour éliminer les radicaux de l'équation <strong>ACADEMIC_TOKEN_18</strong>.
+2. Il résout la partie polynomiale sur <strong>ACADEMIC_TOKEN_19</strong>.
+3. <strong>Filtrage des racines parasites</strong> : Chaque racine candidate <strong>ACADEMIC_TOKEN_20</strong> est réinjectée dans l'expression radicale initiale pour vérifier que <strong>ACADEMIC_TOKEN_21</strong>. Cela élimine les racines parasites introduites par l'élévation au carré de <code>unrad</code>.</p>
+<hr/>
+<h2 id="4-disjonction-de-cas-parametriques-casesplit">4. Disjonction de cas paramétriques (<code>CaseSplit</code>)</h2>
+<h3 id="41-la-classe-condition">4.1 La classe <code>Condition</code></h3>
+<p>Une <a href="src/linalg_pedagopy/core/cases.py#L29-L176"><code>Condition</code></a> modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :
+- Des égalités formelles : <strong>ACADEMIC_TOKEN_22</strong>, <strong>ACADEMIC_TOKEN_23</strong>.
+- Des inégalités strictes : <strong>ACADEMIC_TOKEN_24</strong>, <strong>ACADEMIC_TOKEN_25</strong>.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.core.cases import Condition, Equality, Inequality
+from linalg_pedagopy import symbols
+
+a, b = symbols("a b")
+
+c1 = Condition.from_equalities(Equality(a, 1))
+c2 = Condition.from_inequalities(Inequality(b, 0))
+c3 = c1.and_with(c2)
+print(c3)  # {a = 1} ∧ {b ≠ 0}
+</code></pre></div>
+<h3 id="42-cloture-transitive-et-detection-de-contradictions">4.2 Clôture transitive et détection de contradictions</h3>
+<p>La classe <code>Condition</code> implémente deux propriétés critiques :
+1. <strong>Clôture transitive des substitutions</strong> (<a href="src/linalg_pedagopy/core/cases.py#L14-L26"><code>_compute_transitive_substitutions</code></a>) :<br/>
+   Si la condition contient <strong>ACADEMIC_TOKEN_26</strong> et <strong>ACADEMIC_TOKEN_27</strong>, la substitution résout automatiquement <strong>ACADEMIC_TOKEN_28</strong>.
+2. <strong>Détection de contradictions et élagage des tautologies</strong> (<a href="src/linalg_pedagopy/core/cases.py#L82-L97"><code>is_contradictory</code></a>) :<br/>
+   Si une branche tente de combiner <strong>ACADEMIC_TOKEN_29</strong> et <strong>ACADEMIC_TOKEN_30</strong>, <code>c.is_contradictory()</code> renvoie <code>True</code> et la branche impossible est immédiatement abandonnée.
+3. <strong>Implication de nullité modulo la branche</strong> (<a href="src/linalg_pedagopy/core/cases.py#L99-L107"><code>implies_zero</code></a>) :<br/>
+   Vérifie si une expression polynomiale s'annule en tenant compte des égalités déjà posées sur la branche.</p>
+<h3 id="43-structure-dun-casesplit">4.3 Structure d'un <code>CaseSplit</code></h3>
+<p>Un <a href="src/linalg_pedagopy/core/cases.py#L194-L320"><code>CaseSplit[T]</code></a> regroupe un ensemble fini de branches disjointes <a href="src/linalg_pedagopy/core/cases.py#L179-L191"><code>Branch[T]</code></a> couvrant la totalité de l'espace des paramètres :</p>
+<p><strong>ACADEMIC_TOKEN_1</strong></p>
+<h3 id="44-partitionnement-disjoint-par-prefixes-dinegalites">4.4 Partitionnement disjoint par préfixes d'inégalités</h3>
+<p>Lorsqu'un pivot présente plusieurs facteurs d'annulation <strong>ACADEMIC_TOKEN_31</strong>, l'algorithme génère des branches mutuellement disjointes selon la méthode des préfixes d'inégalités :
+- Branche 1 : <strong>ACADEMIC_TOKEN_32</strong>
+- Branche 2 : <strong>ACADEMIC_TOKEN_33</strong>
+- <strong>ACADEMIC_TOKEN_34</strong>
+- Branche <strong>ACADEMIC_TOKEN_35</strong> (générique) : <strong>ACADEMIC_TOKEN_36</strong></p>
+<p>Cette construction garantit que chaque point de l'espace des paramètres appartient à une et une seule branche.</p>
+<h3 id="45-commutation-de-la-specialisation-at">4.5 Commutation de la spécialisation (<code>at</code>)</h3>
+<p>Un résultat <code>CaseSplit</code> respecte le principe de commutation fondamentale :
+<strong>ACADEMIC_TOKEN_2</strong></p>
+<p>On évalue un <code>CaseSplit</code> en un point donné grâce à la méthode <a href="src/linalg_pedagopy/core/cases.py#L273-L302"><code>at</code></a> :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, symbols, GaussJordan
+
+a, = symbols("a")
+A = Matrix([[1, a], [a, 1]])
+b = Vector([1, 1])
+
+res = GaussJordan(A, b).run()
+# Spécialisation en a = 1
+spec_1 = res.at(a=1)
+print(spec_1)  # AffineSolution
+
+# Spécialisation en a = 0 (cas générique)
+spec_0 = res.at(a=0)
+print(spec_0)  # UniqueSolution (x = [1, 1])
+</code></pre></div>
+      </article>
+
+      <!-- Navigation entre chapitres -->
+      <nav class="chapter-nav">
+        
+        <a href="index.html" class="chapter-nav-btn">
+          <span class="nav-direction">&larr; Chapitre précédent</span>
+          <span class="nav-target">Accueil & Démarrage</span>
+        </a>
+        
+
+        
+        <a href="02_vectors_and_matrices.html" class="chapter-nav-btn" style="text-align:right;">
+          <span class="nav-direction">Chapitre suivant &rarr;</span>
+          <span class="nav-target">02. Vecteurs, Matrices & VMLS</span>
+        </a>
+        
+      </nav>
+    </main>
+
+    <!-- Barre latérale droite : Sommaire de la page (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-heading">Sur cette page</div>
+      <ul class="toc-list">
+        
+        <li class="toc-item ">
+          <a href="#1-representation-des-scalaires-et-coercition-exacte">1. Représentation des scalaires et coercition exacte</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#11-la-fonction-to_exact">1.1 La fonction to_exact</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#12-politique-de-gestion-des-flottants-float_policy">1.2 Politique de gestion des flottants (float_policy)</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#2-declaration-et-gestion-des-symboles-reels-symbols">2. Déclaration et gestion des symboles réels (symbols)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#21-hypothese-realtrue-par-defaut-decision-d1">2.1 Hypothèse real=True par défaut (Décision D1)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#22-preservation-et-correspondance-des-symboles">2.2 Préservation et correspondance des symboles</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#3-loracle-de-nullite-zerooracle">3. L'Oracle de nullité (ZeroOracle)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#31-pourquoi-un-oracle-dedie-decision-d3">3.1 Pourquoi un oracle dédié ? (Décision D3)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#32-les-4-verdicts">3.2 Les 4 Verdicts</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#33-traitement-des-radicaux-parametriques-unrad">3.3 Traitement des radicaux paramétriques (unrad)</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#4-disjonction-de-cas-parametriques-casesplit">4. Disjonction de cas paramétriques (CaseSplit)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#41-la-classe-condition">4.1 La classe Condition</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#42-cloture-transitive-et-detection-de-contradictions">4.2 Clôture transitive et détection de contradictions</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#43-structure-dun-casesplit">4.3 Structure d'un CaseSplit</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#44-partitionnement-disjoint-par-prefixes-dinegalites">4.4 Partitionnement disjoint par préfixes d'inégalités</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#45-commutation-de-la-specialisation-at">4.5 Commutation de la spécialisation (at)</a>
+        </li>
+        
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <p>
+      <strong>linalg_pedagopy v3.0</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement en L1–L2 et fondé sur <em>Introduction to Applied Linear Algebra</em> (VMLS) par S. Boyd &amp; L. Vandenberghe.<br>
+      Documentation sous licence MIT. Code source ouvert.
+    </p>
+  </footer>
+
+  <script src="assets/js/academic.js"></script>
+</body>
+</html>

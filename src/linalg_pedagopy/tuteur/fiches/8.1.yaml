@@ -1,10 +1,10 @@
-id: "8.1"
+id: '8.1'
 page: 19
 type: modelisation
-reformulation: >
-  Soit p(t) = c_1 + c_2 t + c_3 t^2 + c_4 t^3 un polynôme de degré 3 de vecteur de
-  coefficients c dans R^4. Écrire sous la forme y = A c le vecteur des 4 quantités :
-  y_1 = p(0), y_2 = p'(0), y_3 = p(1), y_4 = p'(1). Donner la matrice A (4×4).
+reformulation: 'Soit $p(t) = c_1 + c_2 t + c_3 t^2 + c_4 t^3$ un polynôme de degré
+  3 de vecteur de coefficients $c \in \mathbb{R}^4$. Écrire sous la forme $y = A c$
+  le vecteur des 4 quantités : $y_1 = p(0)$, $y_2 = p''(0)$, $y_3 = p(1)$, $y_4 =
+  p''(1)$. Donner la matrice $A$ ($4 \times 4$).'
 donnees:
   n: 4
   m: 4
@@ -15,16 +15,21 @@ verification:
   taille_entree: 4
   taille_sortie: 4
   lignes_cibles:
-    - "y[1] = c[1]"
-    - "y[2] = c[2]"
-    - "y[3] = c[1] + c[2] + c[3] + c[4]"
-    - "y[4] = c[2] + 2*c[3] + 3*c[4]"
+  - y[1] = c[1]
+  - y[2] = c[2]
+  - y[3] = c[1] + c[2] + c[3] + c[4]
+  - y[4] = c[2] + 2*c[3] + 3*c[4]
 indices:
-  - "Le vecteur des coefficients c est dans R^4 et il y a 4 conditions : A est de taille 4×4 (VMLS ch. 8)."
-  - "Rappel : la dérivée de p(t) = c_1 + c_2 t + c_3 t^2 + c_4 t^3 est p'(t) = c_2 + 2 c_3 t + 3 c_4 t^2."
-  - "Évaluez p(0), p'(0), p(1) et p'(1) en fonction de c_1, c_2, c_3, c_4 pour obtenir les 4 lignes de A."
-jumeau: "generateurs.moyenne_glissante(fenetre=2, n=5)"
+- 'Le vecteur des coefficients $c$ est dans $\mathbb{R}^4$ et il y a 4 conditions
+  : $A$ est de taille $4 \times 4$ (VMLS ch. 8).'
+- 'Rappel : la dérivée de $p(t) = c_1 + c_2 t + c_3 t^2 + c_4 t^3$ est $p''(t) = c_2
+  + 2 c_3 t + 3 c_4 t^2$.'
+- Évaluez $p(0), p'(0), p(1)$ et $p'(1)$ en fonction de $c_1, c_2, c_3, c_4$ pour
+  obtenir les 4 lignes de $A$.
+jumeau: generateurs.moyenne_glissante(fenetre=2, n=5)
 notions:
-  - "système d'équations linéaires A c = b"
-  - "interpolation d'Hermite d'un polynôme"
-  - "VMLS ch. 8"
+- système d'équations linéaires A c = b
+- interpolation d'Hermite d'un polynôme
+- VMLS ch. 8
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?8.1, p. 19
+ecart: Matrice des diff?rences premi?res D sur R^4 (VMLS ?8.1).

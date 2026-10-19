@@ -1,22 +1,48 @@
-id: "7.5"
+id: '7.5'
 page: 18
 type: calcul
-reformulation: >
-  Calculer le produit de convolution c = a * b des vecteurs a = (1, 0, -1) et
-  b = (2, 1, -1) de R^3.
+reformulation: Calculer le produit de convolution $c = a * b$ des vecteurs $a = (1,
+  0, -1)$ et $b = (2, 1, -1)$ de $\mathbb{R}^3$.
 donnees:
-  a: [1, 0, -1]
-  b: [2, 1, -1]
-  T_b: [[2, 0, 0], [1, 2, 0], [-1, 1, 2], [0, -1, 1], [0, 0, -1]]
+  a:
+  - 1
+  - 0
+  - -1
+  b:
+  - 2
+  - 1
+  - -1
+  T_b:
+  - - 2
+    - 0
+    - 0
+  - - 1
+    - 2
+    - 0
+  - - -1
+    - 1
+    - 2
+  - - 0
+    - -1
+    - 1
+  - - 0
+    - 0
+    - -1
 verification:
   type: valeur
-  calcul: "T_b @ a"
+  calcul: T_b @ a
 indices:
-  - "La convolution de deux vecteurs de taille 3 est un vecteur c de taille 3 + 3 - 1 = 5 (VMLS ch. 7)."
-  - "Vous pouvez écrire c = T(b) a où T(b) est la matrice de Toeplitz 5×3 associée à b."
-  - "Calculez successivement c_1 = a_1 b_1, c_2 = a_1 b_2 + a_2 b_1, ..., jusqu'à c_5 = a_3 b_3."
-jumeau: "generateurs.convolution_polynomes(a_vals=(1, 2), b_vals=(3, -1, 1))"
+- La convolution de deux vecteurs de taille 3 est un vecteur $c$ de taille $3 + 3
+  - 1 = 5$ (VMLS ch. 7).
+- Vous pouvez écrire $c = T(b) a$ où $T(b)$ est la matrice de Toeplitz $5 \times 3$
+  associée à $b$.
+- Calculez successivement $c_1 = a_1 b_1, c_2 = a_1 b_2 + a_2 b_1, \dots$, jusqu'à
+  $c_5 = a_3 b_3$.
+jumeau: generateurs.convolution_polynomes(a_vals=(1, 2), b_vals=(3, -1, 1))
 notions:
-  - "convolution de deux vecteurs"
-  - "matrice de Toeplitz"
-  - "VMLS ch. 7"
+- convolution de deux vecteurs
+- matrice de Toeplitz
+- VMLS ch. 7
+source: Boyd & Vandenberghe, Additional Exercises for VMLS, ?7.5, p. 18
+ecart: Matrice de Toeplitz 4x2 associ?e ? la convolution avec b = (1, -2, 1) (VMLS
+  ?7.5).
