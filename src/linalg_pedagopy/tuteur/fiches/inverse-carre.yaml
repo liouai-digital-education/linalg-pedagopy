@@ -1,0 +1,25 @@
+id: inverse-carre
+numero: 30
+titre: Inverse d'un carré
+theme: Inverses et systèmes linéaires
+niveau: 2
+type: justification
+enonce: Soit $A = \begin{bmatrix} 1 & 2 \\ 0 & 1 \end{bmatrix}$ une matrice carrée inversible d'inverse
+  $B = A^{-1}$. Donner la matrice inverse de $A^2$ (ou son expression en fonction de $B$).
+notions:
+- inverse d'un carré de matrice
+- inverse d'un produit
+donnees:
+  A:
+  - - 1
+    - 2
+  - - 0
+    - 1
+verification:
+  type: propriete
+  propriete: square_inverse
+indices:
+- On cherche une matrice $X$ telle que $A^2 X = I$ et $X A^2 = I$.
+- 'Rappel : si deux matrices $M$ et $N$ sont inversibles, l''inverse du produit $M N$ est $N^{-1} M^{-1}$.'
+- Appliquez cette propriété à $M = A$ et $N = A$, ou calculez $(A^{-1})^2$.
+jumeau: generateurs.inverse_produit()

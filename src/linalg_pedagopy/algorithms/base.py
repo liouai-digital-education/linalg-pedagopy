@@ -1,4 +1,4 @@
-"""Classes de base Procedure, Result et SolutionSet pour les algorithmes (§5.4.1, D8)."""
+"""Classes de base Procedure, Result et SolutionSet pour les algorithmes."""
 
 from __future__ import annotations
 
@@ -40,7 +40,7 @@ def make_explanation(tree: Step, level: int = 1, fmt: str = "auto") -> Any:
 
 @dataclass(frozen=True)
 class Result:
-    """Classe de base immuable pour les résultats typés des algorithmes (§5.4.1, D8)."""
+    """Classe de base immuable pour les résultats typés des algorithmes."""
 
     trace: Step = field(
         default_factory=lambda: Step(StepKind.SECTION, 0, "trace.root"),
@@ -56,7 +56,7 @@ class Result:
         return make_explanation(self.trace, level=lvl, fmt=fmt)
 
     def verify(self) -> Any:
-        """Exécute et trace les contrôles de validité a posteriori (§5.4.1, §6)."""
+        """Exécute et trace les contrôles de validité a posteriori."""
         with tracing(level=2) as t:
             self._run_verification()
         return make_explanation(t.tree, level=2, fmt="auto")
@@ -65,7 +65,7 @@ class Result:
         record(StepKind.CHECK, "gj.verify", level=1)
 
     def _repr_markdown_(self) -> str:
-        """Rendu Markdown avec formules LaTeX dans Jupyter (§5.5)."""
+        """Rendu Markdown avec formules LaTeX dans Jupyter."""
         from linalg_pedagopy.config import config
 
         lvl = max(config.default_trace_level, 2)
@@ -80,7 +80,7 @@ class Result:
 
 
 class Procedure(ABC, Generic[R]):
-    """Classe de base abstraite des procédures algorithmiques (§5.4.1)."""
+    """Classe de base abstraite des procédures algorithmiques."""
 
     def run(self) -> R | CaseSplit[R]:
         """Exécute la procédure et enregistre la trace complète."""
@@ -112,14 +112,14 @@ class Procedure(ABC, Generic[R]):
         """Implémentation interne de l'algorithme."""
 
     def interactive(self, mode: str = "autonomous") -> Any:
-        """Ouvre une session interactive sur cette procédure (§5.6.2, §5.6.3)."""
+        """Ouvre une session interactive sur cette procédure."""
         if _interactive_session_hook is None:
             raise RuntimeError("Le module exercises.interactive n'est pas initialisé.")
         return _interactive_session_hook(self, mode=mode)
 
 
 class SolutionSet:
-    """Ensemble des solutions d'un système linéaire A x = b (§5.4.2, D8)."""
+    """Ensemble des solutions d'un système linéaire A x = b."""
 
     Unique: type[UniqueSolution]
     Affine: type[AffineSolution]

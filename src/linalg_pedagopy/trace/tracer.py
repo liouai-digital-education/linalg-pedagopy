@@ -1,4 +1,4 @@
-"""Traceur contextuel arborescent à 4 niveaux via contextvars (§5.2.2, D6)."""
+"""Traceur contextuel arborescent à 4 niveaux via contextvars."""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""4-level graduated hint ladder and unlocking policy for the VMLS Tutor (§7.5, v4 Phase 0)."""
+"""Échelle d'indices à 4 paliers et politique de déblocage du tuteur."""
 
 from __future__ import annotations
 
@@ -39,7 +39,7 @@ def evaluate_twin_spec(twin_spec: str | None) -> TwinExercise | str:
 
 @dataclass
 class HintLadder:
-    """Manager for the 4-level hint ladder of an exercise (§7.5)."""
+    """Manager for the 4-level hint ladder of an exercise."""
 
     hints: tuple[str, ...]
     twin_spec: str | None = None
@@ -67,7 +67,7 @@ class HintLadder:
             target = 1
         if target > 4:
             return (
-                "Il n'existe pas de niveau 5 (« solution ») en mode étudiant (§7.5). "
+                "Il n'existe pas de palier 5 « solution » en mode étudiant. "
                 "Appuyez-vous sur l'exercice jumeau résolu au niveau 4 pour transposer la méthode !"
             )
 
@@ -112,7 +112,7 @@ class HintLadder:
             body = (
                 self.hints[idx]
                 if idx < len(self.hints)
-                else "Relisez les définitions du chapitre correspondant dans VMLS."
+                else "Relisez les définitions des notions indiquées dans l'énoncé."
             )
             return f"**[{title}]**\n\n{body}"
 

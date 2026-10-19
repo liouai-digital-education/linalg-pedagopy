@@ -1,4 +1,4 @@
-"""Figures géométriques 2D et 3D avec Matplotlib (§5.8)."""
+"""Figures géométriques 2D et 3D avec Matplotlib."""
 
 from __future__ import annotations
 
@@ -143,7 +143,7 @@ def plot_least_squares_fit(
     *,
     ax: Any = None,
 ) -> Any:
-    """Trace le nuage de points, la droite ajustée et les résidus verticaux (§5.8)."""
+    """Trace le nuage de points, la droite ajustée et les résidus verticaux."""
     plt = _require_matplotlib()
     if ax is None:
         fig, ax = plt.subplots(figsize=(7, 5))
@@ -173,7 +173,7 @@ def plot_least_squares_fit(
 
 
 def plot_least_squares_geometry_3d(ls_result: LSResult) -> Any:
-    """Vue géométrique 3D de b, sa projection orthogonale y_hat = A x_hat et le résidu r_hat (§5.8)."""
+    """Vue géométrique 3D de b, sa projection orthogonale y_hat = A x_hat et le résidu r_hat."""
     if len(ls_result.b) != 3:
         raise ValueError("plot_least_squares_geometry_3d requiert b dans R³ (m = 3).")
     plt = _require_matplotlib()

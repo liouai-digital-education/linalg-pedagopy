@@ -1,4 +1,4 @@
-"""Algorithme de Gram-Schmidt (variante rationnelle normalize='end' et VMLS normalize='each', §5.4.4)."""
+"""Algorithme de Gram-Schmidt (variante rationnelle normalize='end' et normalisation à chaque étape normalize='each')."""
 
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ NormalizeMode = Literal["end", "each"]
 
 @dataclass(frozen=True)
 class DependenceWitness:
-    """Témoin exact de dépendance linéaire pour Gram-Schmidt (§5.4.4, D8)."""
+    """Témoin exact de dépendance linéaire pour Gram-Schmidt."""
 
     index: int  # indice 0-based du vecteur dépendant a_i
     q_tilde_coeffs: tuple[sp.Expr, ...]  # coefficients r_tilde_{j, i} tels que a_i = sum_{j<i} r_tilde_{j,i} q_tilde_j
@@ -38,7 +38,7 @@ class DependenceWitness:
 
 @dataclass(frozen=True)
 class GSResult(Result):
-    """Résultat typé de l'algorithme de Gram-Schmidt (§5.4.4, D8)."""
+    """Résultat typé de l'algorithme de Gram-Schmidt."""
 
     independent: bool = True
     vectors: tuple[Vector, ...] = ()
@@ -108,7 +108,7 @@ class GSResult(Result):
 
 
 class GramSchmidt(Procedure[GSResult]):
-    """Procédure d'orthogonalisation de Gram-Schmidt (§5.4.4)."""
+    """Procédure d'orthogonalisation de Gram-Schmidt."""
 
     def __init__(
         self,
@@ -189,7 +189,7 @@ class GramSchmidt(Procedure[GSResult]):
                             ]
                         q_tilde = Vector._from_exact(q_tilde_entries)
                     else:
-                        # normalize == "each" (algorithme de VMLS tel quel)
+                        # normalize == "each" (normalisation à chaque étape)
                         q_tilde_entries = list(a_i.entries)
                         coeffs_i = []
                         for j in range(i):

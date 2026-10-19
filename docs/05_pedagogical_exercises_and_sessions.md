@@ -6,6 +6,8 @@ Le module `linalg_pedagopy.exercises` propose des outils de génération procéd
 
 ## 1. Générateurs de matrices et problèmes « propres » (`generators`)
 
+> Pour les matrices structurées classiques (différences, sommes cumulées, moyenne glissante, Vandermonde, convolution, sélection, renversement), voir la [section 5 du guide 02](02_vectors_and_matrices.md).
+
 ### 1.1 Le problème des fractions géantes
 
 Dans un cours d'algèbre linéaire, générer des matrices avec des entiers aléatoires produit presque systématiquement, dès la 3e étape du pivot de Gauss ou de Gram-Schmidt, des fractions avec des numérateurs et dénominateurs à 6 ou 10 chiffres (par exemple $x = \frac{138547}{294821}$).
@@ -77,6 +79,17 @@ L'espace de noms `generators` (alias `generateurs`) regroupe les générateurs d
 | `gram_schmidt_example()` | `gram_schmidt_exemple()` |
 | `least_squares_example()` | `moindres_carres_exemple()` |
 | `kkt_minimum_norm()` | `kkt_norme_minimale()` |
+| `matrix_from_action()` | `matrice_par_effet()` |
+| `polynomial_evaluation()` | `evaluation_polynome()` |
+| `matrix_power()` | `puissance_matrice()` |
+| `adjacency_matrix()` | `matrice_adjacence()` |
+| `diagonal_scaling()` | `mise_echelle_diagonale()` |
+| `product_inverse()` | `inverse_produit()` |
+| `system_solving()` | `resolution_systeme()` |
+| `block_product()` | `identite_blocs()` |
+| `triangle_inequality()` | `inegalite_triangulaire()` |
+
+Chaque fiche du tuteur appelle un générateur adapté à son sujet : la fiche « Un réseau d'amitié » propose ainsi, au palier 4, la matrice d'adjacence d'un réseau de trois personnes, et la fiche « Inverse d'un carré » l'inverse d'un produit sur un autre exemple.
 
 ```python
 from linalg_pedagopy import generators
@@ -146,7 +159,7 @@ print(s.reveal())   # On annule le coefficient (2,1) : L2 ← L2 - 3·L1.
 
 ---
 
-## 3. Analyseur d'erreurs et rétroactions pédagogiques (Annexe C)
+## 3. Analyseur d'erreurs et rétroactions pédagogiques
 
 Le vérificateur [`check_row_operation`](../src/linalg_pedagopy/exercises/checkers.py) (`check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)`), utilisé par `propose`, ne se contente pas d'un refus brut : il identifie la cause de l'erreur (champ `error_code`). Exemples sur la matrice augmentée $[A \mid b]$ ci-dessus :
 

@@ -5,14 +5,14 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "linalg_pedagopy"
 version = "3.0.0"
-description = "Package pédagogique d'algèbre linéaire formelle inspiré de VMLS (Boyd & Vandenberghe)"
+description = "Package pédagogique d'algèbre linéaire formelle : calcul exact, discussion de cas, explications pas à pas et tuteur interactif"
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
 authors = [
     {name = "Cédric Bohnert"}
 ]
-keywords = ["linear-algebra", "sympy", "pedagogy", "vmls", "formal-computation", "jupyter"]
+keywords = ["linear-algebra", "sympy", "pedagogy", "formal-computation", "jupyter", "tutor"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Education",

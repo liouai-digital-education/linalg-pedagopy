@@ -1,4 +1,4 @@
-"""Résolution de systèmes triangulaires par substitution avant et arrière (§5.4.3, VMLS ch. 11)."""
+"""Résolution de systèmes triangulaires par substitution avant et arrière."""
 
 from __future__ import annotations
 
@@ -23,7 +23,7 @@ from linalg_pedagopy.trace.tracer import record, section, suspend_tracing, traci
 
 @dataclass(frozen=True)
 class TriangularResult(Result):
-    """Résultat typé d'une substitution avant ou arrière (§5.4.3)."""
+    """Résultat typé d'une substitution avant ou arrière."""
 
     x: Vector = Vector([])
     A: Matrix = Matrix([])
@@ -54,7 +54,7 @@ class TriangularResult(Result):
 
 
 class BackSubstitution(Procedure[TriangularResult]):
-    """Résolution d'un système triangulaire supérieur R x = c par substitution arrière (§5.4.3)."""
+    """Résolution d'un système triangulaire supérieur R x = c par substitution arrière."""
 
     def __init__(
         self,
@@ -146,7 +146,7 @@ class BackSubstitution(Procedure[TriangularResult]):
 
 
 class ForwardSubstitution(Procedure[TriangularResult]):
-    """Résolution d'un système triangulaire inférieur L x = c par substitution avant (§5.4.3)."""
+    """Résolution d'un système triangulaire inférieur L x = c par substitution avant."""
 
     def __init__(
         self,

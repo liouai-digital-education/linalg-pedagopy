@@ -1,6 +1,6 @@
-# Tutoriel exhaustif et guide d'apprentissage — `linalg_pedagopy` v3.0
+# Tutoriel — `linalg_pedagopy`
 
-Bienvenue dans le tutoriel officiel de **`linalg_pedagopy` v3.0**, le package Python d'algèbre linéaire formelle et pédagogique conçu pour l'enseignement en L1–L2 et fondé sur l'ouvrage de référence *Introduction to Applied Linear Algebra — Vectors, Matrices, and Least Squares (VMLS)* de Stephen Boyd et Lieven Vandenberghe.
+Ce tutoriel fait le tour de **`linalg_pedagopy`**, un package Python d'algèbre linéaire formelle et pédagogique conçu pour l'enseignement en L1–L2. Chaque bloc de code s'exécute tel quel ; le carnet `tutoriel_linalg_pedagopy.ipynb` est généré à partir de ce fichier par `python convert_tutorial_to_ipynb.py`.
 
 ---
 
@@ -8,7 +8,7 @@ Bienvenue dans le tutoriel officiel de **`linalg_pedagopy` v3.0**, le package Py
 
 1. [Philosophie et principes fondamentaux](#1-philosophie-et-principes-fondamentaux)
 2. [Installation et configuration](#2-installation-et-configuration)
-3. [Vecteurs et métriques VMLS (`Vector`)](#3-vecteurs-et-métriques-vmls-vector)
+3. [Vecteurs et métriques (`Vector`)](#3-vecteurs-et-métriques-vector)
 4. [Matrices et les 4 vues du produit matriciel (`Matrix`)](#4-matrices-et-les-4-vues-du-produit-matriciel-matrix)
 5. [Systèmes linéaires et Gauss-Jordan (`GaussJordan`)](#5-systèmes-linéaires-et-gauss-jordan-gaussjordan)
 6. [Discussion automatique selon des paramètres (`CaseSplit`)](#6-discussion-automatique-selon-des-paramètres-casesplit)
@@ -18,7 +18,7 @@ Bienvenue dans le tutoriel officiel de **`linalg_pedagopy` v3.0**, le package Py
 10. [Moteurs de rendu et traçabilité (`Explanation`)](#10-moteurs-de-rendu-et-traçabilité-explanation)
 11. [Générateurs à résultats propres et mode interactif](#11-générateurs-à-résultats-propres-et-mode-interactif)
 12. [Comparaison Exact vs Flottant (`compare`)](#12-comparaison-exact-vs-flottant-compare)
-13. [Le Tuteur interactif VMLS (`tuteur`)](#13-le-tuteur-interactif-vmls-tuteur)
+13. [Le tuteur interactif (`tutor` / `tuteur`)](#13-le-tuteur-interactif-tutor--tuteur)
 14. [Exercices pratiques guidés pas à pas](#14-exercices-pratiques-guidés-pas-à-pas)
 
 ---
@@ -29,17 +29,17 @@ Bienvenue dans le tutoriel officiel de **`linalg_pedagopy` v3.0**, le package Py
 
 1. **Exactitude formelle sur $\mathbb{R}$** :
    - Aucun arrondi intempestif : fractions rationnelles exactes, radicaux algébriques et paramètres réels sont préservés.
-   - Tous les symboles créés portent automatiquement l'hypothèse `real=True` (**Décision D1**).
-   - Les flottants saisis sont interceptés selon la politique déclarée `float_policy` (**D2** : `"rationalize"` par défaut, `"reject"` ou `"keep"`).
-2. **Oracle de nullité à 4 verdicts (`ZeroOracle`, D3)** :
+   - Tous les symboles créés portent automatiquement l'hypothèse `real=True`.
+   - Les flottants saisis sont interceptés selon la politique déclarée `float_policy` (`"rationalize"` par défaut, `"reject"` ou `"keep"`).
+2. **Oracle de nullité à 4 verdicts (`ZeroOracle`)** :
    - Tester l'égalité à zéro renvoie `ZERO`, `NONZERO`, `CONDITIONAL` ou `UNKNOWN`.
-   - Si la nullité dépend d'un paramètre, l'algorithme ne choisit pas arbitrairement : il produit un embranchement formel (**`CaseSplit`, D4**).
-3. **Immutabilité et traçabilité hiérarchique (D5, D6)** :
+   - Si la nullité dépend d'un paramètre, l'algorithme ne choisit pas arbitrairement : il produit un embranchement formel (**`CaseSplit`**).
+3. **Immutabilité et traçabilité hiérarchique** :
    - Les objets mathématiques `Vector` et `Matrix` sont strictement immuables.
    - Les algorithmes produisent un arbre d'étapes consultable à plusieurs niveaux de détail (niveau 0 : résultat seul, 1 : grandes étapes, 2 : sous-calculs, 3 : arithmétique élémentaire).
 4. **Pédagogie active** :
-   - Des sessions interactives permettent à l'élève de proposer des opérations de ligne, prédire des étapes, et recevoir un diagnostic ciblé sur ses erreurs (catalogue d'erreurs de l'Annexe C).
-   - Un module **Tuteur VMLS** accompagne la résolution d'exercices sans jamais divulguer la solution en mode étudiant.
+   - Des sessions interactives permettent à l'élève de proposer des opérations de ligne, prédire des étapes, et recevoir un diagnostic ciblé sur ses erreurs.
+   - Un **tuteur** accompagne la résolution de 35 exercices nommés sans jamais divulguer la solution en mode étudiant.
 
 ---
 
@@ -74,7 +74,7 @@ config.default_trace_level = 2
 
 ---
 
-## 3. Vecteurs et métriques VMLS (`Vector`)
+## 3. Vecteurs et métriques (`Vector`)
 
 ### 3.1 Création d'un vecteur
 
@@ -112,9 +112,9 @@ comb = Vector.combination([a, b], [2, -3])
 print(comb)      # (-10, 7, 0)
 ```
 
-### 3.3 Métriques statistiques et géométriques de VMLS (Chapitres 1 et 3)
+### 3.3 Métriques statistiques et géométriques
 
-VMLS introduit des concepts essentiels reliant géométrie et statistiques :
+Ces métriques relient géométrie et statistiques :
 
 ```python
 x = Vector([1, -2, 3, 2])
@@ -131,7 +131,7 @@ print("Norme :", x.norm())  # 3*sqrt(2)
 # Moyenne quadratique (RMS) : rms(x) = ||x|| / sqrt(n)
 print("RMS :", x.rms())  # 3*sqrt(2)/2 = 3/sqrt(2)
 
-# Écart-type VMLS : std(x) = rms(x - avg(x)*1) (avec dénominateur sqrt(n))
+# Écart type : std(x) = rms(x - avg(x)*1) (avec dénominateur sqrt(n))
 print("Écart-type :", x.std())  # sqrt(14)/2
 
 # Distance et Angle
@@ -173,9 +173,9 @@ M = Matrix.block([
 ])
 ```
 
-### 4.2 Les 4 points de vue du produit matriciel (VMLS Chapitre 10)
+### 4.2 Les 4 points de vue du produit matriciel
 
-Dans VMLS, le produit $A B$ ou $A v$ n'est pas qu'un simple algorithme mécanique ; il s'interprète selon 4 points de vue fondamentaux :
+Le produit $A B$ ou $A v$ n'est pas qu'un simple algorithme mécanique ; il s'interprète selon 4 points de vue fondamentaux :
 
 ```python
 from linalg_pedagopy import Matrix, tracing
@@ -208,6 +208,20 @@ print(A.T)
 G = A.gram()
 print("Matrice de Gram :\n", G)
 print("Colonnes orthonormées ?", G == Matrix.identity(A.cols))
+```
+
+---
+
+### 4.4 Matrices structurées classiques
+
+```python
+from linalg_pedagopy import difference_matrix, running_sum_matrix, vandermonde, convolution
+
+D = difference_matrix(4)                 # (D x)_i = x_{i+1} - x_i
+S = running_sum_matrix(4)                # sommes cumulées
+print(D @ S)                             # D « défait » S
+print(vandermonde([0, 1, 2]))            # valeurs d'un polynôme de degré 2 en 0, 1, 2
+print(convolution([1, -2, 1], [2, 1]))   # produit de polynômes : (2, -3, 0, 1)
 ```
 
 ---
@@ -323,7 +337,7 @@ print("Pour a = 1, compatible ?", sol_a1.solution.is_consistent) # False
 
 ## 7. Substitutions triangulaires (`BackSubstitution`, `ForwardSubstitution`)
 
-VMLS résout les systèmes échelonnés triangulaires sans jamais inverser de matrice :
+Les systèmes triangulaires se résolvent sans jamais inverser de matrice :
 
 ```python
 from linalg_pedagopy import Matrix, Vector, BackSubstitution, ForwardSubstitution
@@ -349,7 +363,7 @@ print(res_back.explain())
 
 Deux variantes sont disponibles :
 - `normalize="end"` (par défaut) : calcule des vecteurs orthogonaux $\tilde{q}_i$ restant entièrement dans $\mathbb{Q}$, puis normalise à la toute fin.
-- `normalize="each"` : algorithme classique de VMLS qui normalise à chaque étape (avec apparition de radicaux).
+- `normalize="each"` : algorithme classique qui normalise à chaque étape (avec apparition de radicaux).
 
 ```python
 from linalg_pedagopy import Vector, GramSchmidt
@@ -542,19 +556,30 @@ print(hilbert_conditioning_experiment(sizes=[3, 5, 7]))
 
 ---
 
-## 13. Le Tuteur interactif VMLS (`tuteur`)
+## 13. Le tuteur interactif (`tutor` / `tuteur`)
 
-Le module `tuteur` permet à l'étudiant de travailler directement sur les exercices du recueil officiel *Additional Exercises for VMLS* dans JupyterLab.
+Le tuteur accompagne l'étudiant sur **35 exercices nommés**, classés en 8 thèmes et 3 niveaux, sans jamais donner la solution.
 
-### Les 8 principes pédagogiques :
-1. **Vérification par propriété** : Le tuteur ne stocke pas de corrigé figé. Il vérifie que la réponse proposée satisfait la définition mathématique ($A B = I$, résidu orthogonal, etc.).
-2. **Diagnostic explicatif** : Le tuteur décrit ce que calcule la réponse de l'étudiant et pose une question guidée ; il ne donne jamais la bonne réponse.
-3. **Échelle d'indices sur 4 niveaux** (Orientation $\to$ Outil $\to$ Démarrage $\to$ Exercice jumeau résolu). Aucun niveau 5 « solution » n'existe en mode étudiant.
-4. **Exercice jumeau résolu** : Au niveau 4, l'élève étudie un problème de même structure avec d'autres données numériques.
-5. **Verrou des données** : Les données d'un exercice (`ex.donnees`) refusent de calculer automatiquement tant qu'aucune réponse n'a été validée.
-6. **Engagement avant exploration** : Dans les vrai/faux, l'étudiant doit d'abord enregistrer sa prédiction (`ex.predire(...)`) avant d'accéder au laboratoire de contre-exemples (`ex.labo()`).
-7. **Refus de confirmer par de simples essais** : Si un énoncé est vrai sur une instance testée, le tuteur rappelle qu'un essai ne constitue pas une preuve.
-8. **Transparence** : Chaque session consigne localement un journal JSON de progression sans notation automatique (`ex.bilan()`).
+### Les 8 principes pédagogiques
+1. **Vérification par propriété** : le tuteur ne stocke pas de corrigé figé. Il vérifie que la réponse satisfait la définition mathématique ($A B = I$, résidu orthogonal, etc.).
+2. **Diagnostic explicatif** : il décrit ce que calcule la réponse de l'étudiant et pose une question guidée.
+3. **Échelle d'indices sur 4 niveaux** (orientation $\to$ outil $\to$ démarrage $\to$ exercice jumeau résolu). Il n'y a pas de niveau « solution ».
+4. **Exercice jumeau résolu** : au niveau 4, l'étudiant étudie un problème de même structure avec d'autres données.
+5. **Verrou des données** : les données d'un exercice (`ex.donnees`) refusent de calculer à la place de l'étudiant tant qu'aucune réponse n'a été validée.
+6. **Engagement avant exploration** : pour un vrai/faux, il faut enregistrer une prédiction (`ex.predire(...)`) avant d'ouvrir le laboratoire (`ex.labo()`).
+7. **Un essai n'est pas une preuve** : si un énoncé est vrai sur une instance testée, le tuteur demande une justification.
+8. **Transparence** : un journal JSON local garde la progression, sans note (`ex.bilan()`).
+
+### Le catalogue
+
+```python
+from linalg_pedagopy import tutor
+
+tutor.catalog()                      # tableau : n°, titre, identifiant, thème, type, niveau
+print(tutor.themes())
+ex = tutor.exercise("moyenne-glissante")   # ou tutor.exercise(16), ou par son titre
+ex.statement()
+```
 
 ---
 
@@ -562,10 +587,10 @@ Le module `tuteur` permet à l'étudiant de travailler directement sur les exerc
 
 Voici 5 exercices complets résolus et commentés illustrant l'ensemble du workflow.
 
-### Exercice 1 : Modélisation d'une moyenne glissante (Recueil VMLS 6.4)
+### Exercice 1 : Écart à la moyenne glissante (`moyenne-glissante`)
 
 **Énoncé** :
-$p \in \mathbb{R}^6$ est une série temporelle de prix sur 6 jours. $d \in \mathbb{R}^3$ mesure, à partir du 4e jour ($i = 1, 2, 3$), l'écart entre le prix du jour ($p_{i+3}$) et la moyenne des trois jours précédents :
+$p \in \mathbb{R}^6$ est une série temporelle de prix sur 6 jours. $d \in \mathbb{R}^3$ mesure, à partir du 4ᵉ jour ($i = 1, 2, 3$), l'écart entre le prix du jour ($p_{i+3}$) et la moyenne des trois jours précédents :
 $$d_i = p_{i+3} - \frac{p_i + p_{i+1} + p_{i+2}}{3}$$
 Trouver la matrice $A$ de taille $3 \times 6$ telle que $d = A p$.
 
@@ -583,7 +608,7 @@ from fractions import Fraction
 from linalg_pedagopy import Matrix
 from linalg_pedagopy.tuteur import exercice
 
-ex = exercice("6.4")
+ex = exercice("moyenne-glissante")
 print(ex.enonce())
 print(ex.indice()) # Indice 1
 
@@ -613,7 +638,7 @@ print(ex.verifier(A_juste))
 
 ---
 
-### Exercice 2 : Exploration au laboratoire de contre-exemples (Recueil VMLS 3.3)
+### Exercice 2 : Orthogonalité : vrai ou faux ? (`orthogonalite-vrai-faux`)
 
 **Énoncé** :
 Soient $a, b, c \in \mathbb{R}^n$ tels que $a \perp c$ et $b \perp c$. Les affirmations suivantes sont-elles toujours vraies ou peuvent-elles être fausses ?
@@ -633,7 +658,7 @@ Soient $a, b, c \in \mathbb{R}^n$ tels que $a \perp c$ et $b \perp c$. Les affir
 from linalg_pedagopy import Vector
 from linalg_pedagopy.tuteur import exercice
 
-ex = exercice("3.3")
+ex = exercice("orthogonalite-vrai-faux")
 
 # Étape obligatoire : s'engager sur une prédiction
 ex.predire(a="peut être faux", b="toujours vrai", c="peut être faux")
@@ -657,7 +682,7 @@ print(rep.message)
 
 ---
 
-### Exercice 3 : Recherche d'inverses à droite distinctes (Recueil VMLS 11.11)
+### Exercice 3 : Deux inverses à droite (`deux-inverses-droite`)
 
 **Énoncé** :
 On considère la matrice large $A = \begin{pmatrix} 1 & -1 & 2 \\ 0 & 1 & 1 \end{pmatrix}$.
@@ -683,7 +708,7 @@ Trouver deux matrices inverses à droite distinctes $B_1$ et $B_2$ ($3 \times 2$
 from linalg_pedagopy import Matrix
 from linalg_pedagopy.tuteur import exercice
 
-ex = exercice("11.11")
+ex = exercice("deux-inverses-droite")
 
 B1 = Matrix([[1, 1], [0, 1], [0, 0]])
 B2 = Matrix([[-2, 1], [-1, 1], [1, 0]])
@@ -738,14 +763,14 @@ print(res.verify().to_text())       # Confirme A^T r_hat = 0
 
 ---
 
-### Exercice 5 : Optimisation sous contrainte et système KKT (Recueil VMLS 20.11)
+### Exercice 5 : Solution de norme minimale (`norme-minimale`)
 
 **Énoncé** :
 On cherche le vecteur $x \in \mathbb{R}^3$ de **norme minimale** $\|x\|^2 = x_1^2 + x_2^2 + x_3^2$ satisfaisant la contrainte linéaire $C x = d$ avec :
 $$C = \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \end{pmatrix}, \quad d = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$$
 
 **Démarche pas à pas** :
-1. D'après le chapitre 16 de VMLS, le problème de norme minimale sous contrainte linéaire a pour conditions d'optimalité le système KKT :
+1. Le problème de norme minimale sous contrainte linéaire a pour conditions d'optimalité le système KKT :
    $$2 x + C^T z = 0 \quad \text{et} \quad C x = d$$
 2. De la première équation, $x = -\frac{1}{2} C^T z \in \text{Im}(C^T)$.
 3. En multipliant par $C$ à gauche :
@@ -772,7 +797,7 @@ from fractions import Fraction
 from linalg_pedagopy import Vector
 from linalg_pedagopy.tuteur import exercice
 
-ex = exercice("20.11")
+ex = exercice("norme-minimale")
 x_opt = Vector([Fraction(1, 3), Fraction(2, 3), Fraction(1, 3)])
 print(ex.verifier(x_opt))
 # "Exact ! Votre vecteur x vérifie C x = d et les conditions KKT de norme minimale."
@@ -792,8 +817,10 @@ print(ex.verifier(x_opt))
 | Factorisation QR | `res = QR(A).run()` |
 | Moindres carrés rationnels | `res = LeastSquares(A, b).run()` |
 | Trace et explication multi-format | `exp = res.explain() ; exp.save("trace.html")` |
-| Expérience numérique de Läuchli | `compare.lauchli_least_squares_experiment()` |
-| Session tuteur VMLS | `ex = exercice("6.4") ; ex.enonce() ; ex.verifier(...)` |
-| Glossaire VMLS anglais $\to$ français | `glossaire("least squares")` |
-| Lancer les 54 tests unitaires | `python -m pytest tests/ -v` |
+| Expérience numérique de Läuchli | `lauchli_least_squares_experiment()` (module `linalg_pedagopy.compare`) |
+| Catalogue des exercices | `tutor.catalog()` |
+| Séance de tuteur | `ex = exercice("moyenne-glissante") ; ex.enonce() ; ex.indice() ; ex.verifier(...)` |
+| Repartir de zéro sur un exercice | `ex.recommencer()` |
+| Glossaire anglais $\to$ français | `glossaire("least squares")` |
+| Lancer les tests | `python -m pytest tests/ -v` |
 | Lancer la démonstration | `python demo.py` |

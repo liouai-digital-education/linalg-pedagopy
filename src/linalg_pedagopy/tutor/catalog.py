@@ -1,7 +1,8 @@
-"""YAML sheet catalog, ExerciseSession, glossary, and cross-checking validate_sheet (§7.7, §7.8, §7.9, v4 Phase 0)."""
+"""Catalogue des exercices, séance ExerciseSession, glossaire et validation des fiches du tuteur."""
 
 from __future__ import annotations
 
+import difflib
 from functools import lru_cache
 from pathlib import Path
 import re
@@ -12,6 +13,7 @@ import sympy as sp
 import yaml
 
 from linalg_pedagopy.config import TutorMode, config
+from linalg_pedagopy.core.exceptions import PedagopyError, UnknownExerciseError
 from linalg_pedagopy.exercises.generators import TwinExercise
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
@@ -59,59 +61,178 @@ def _load_glossaire() -> dict[str, dict[str, str]]:
     return {}
 
 
-def glossary(term: str) -> str:
-    """Translates and explains in French an English VMLS term (§7.2)."""
+def glossary(term: str | None = None) -> str:
+    """Traduit et définit un terme d'algèbre linéaire (anglais ou français).
+
+    Sans argument, renvoie la liste des termes disponibles.
+    """
     terms = _load_glossaire()
+    if term is None:
+        lignes = [f"- **{k}** → {v['fr']}" for k, v in sorted(terms.items())]
+        return MarkdownText("**Glossaire anglais → français**\n\n" + "\n".join(lignes))
     key = term.strip().lower()
     if key in terms:
         entry = terms[key]
-        return f"{term} → {entry['fr']} : {entry['definition']}"
+        return MarkdownText(f"**{key}** → {entry['fr']} : {entry['definition']}")
     for k, entry in terms.items():
         if key in k or key in entry.get("fr", "").lower():
-            return f"{k} → {entry['fr']} : {entry['definition']}"
+            return MarkdownText(f"**{k}** → {entry['fr']} : {entry['definition']}")
+    proches = difflib.get_close_matches(key, list(terms), n=3)
+    suggestion = f" Termes proches : {proches}." if proches else ""
     raise KeyError(
-        f"Terme {term!r} absent du glossaire. Termes disponibles : {sorted(terms.keys())}"
+        f"Terme {term!r} absent du glossaire.{suggestion} Appelez glossary() pour la liste complète."
     )
 
 
 def mode(new_mode: TutorMode | None = None) -> TutorMode:
-    """Gets or sets the tutor mode ('student'/'etudiant' or 'teacher'/'enseignant', §7.9)."""
+    """Gets or sets the tutor mode ('student'/'etudiant' or 'teacher'/'enseignant')."""
     if new_mode is not None:
         config.tutor_mode = new_mode
     return config.tutor_mode
 
 
-def list_exercises() -> list[str]:
-    """Returns the sorted list of available exercise IDs."""
+THEMES: tuple[str, ...] = (
+    "Vecteurs et produit scalaire",
+    "Normes, distances et angles",
+    "Orthogonalisation",
+    "Matrices et applications linéaires",
+    "Convolution",
+    "Produit matriciel",
+    "Inverses et systèmes linéaires",
+    "Moindres carrés et optimisation",
+)
+
+TYPE_LABELS: dict[str, str] = {
+    "calcul": "calcul",
+    "modelisation": "modélisation",
+    "dimensions": "dimensions",
+    "justification": "justification",
+    "contre_exemple": "contre-exemple",
+    "vrai_faux": "vrai ou faux",
+}
+
+
+def _niveau_etoiles(niveau: Any) -> str:
+    try:
+        n = max(1, min(3, int(niveau)))
+    except Exception:
+        n = 1
+    return "★" * n + "☆" * (3 - n)
+
+
+@lru_cache(maxsize=1)
+def _all_fiches() -> tuple[dict[str, Any], ...]:
+    """Charge toutes les fiches YAML, triées par numéro."""
     if not _FICHES_DIR.exists():
-        return []
-    ids: list[str] = []
+        return ()
+    fiches = []
     for p in _FICHES_DIR.glob("*.yaml"):
-        ids.append(p.stem)
-
-    def _sort_key(s: str) -> tuple[int, int]:
-        parts = s.split(".")
-        try:
-            return (int(parts[0]), int(parts[1]))
-        except Exception:
-            return (999, 999)
-
-    return sorted(ids, key=_sort_key)
+        with p.open("r", encoding="utf-8") as fh:
+            data = yaml.safe_load(fh)
+        if isinstance(data, dict):
+            data.setdefault("id", p.stem)
+            fiches.append(data)
+    return tuple(sorted(fiches, key=lambda d: (int(d.get("numero", 999)), str(d["id"]))))
 
 
-def _load_fiche_dict(ex_id: str) -> dict[str, Any]:
-    norm_id = str(ex_id).strip()
-    path = _FICHES_DIR / f"{norm_id}.yaml"
-    if not path.exists():
-        raise FileNotFoundError(
-            f"Aucune fiche trouvée pour l'exercice {norm_id!r}. "
-            f"Exercices disponibles : {list_exercises()}"
+def reload_catalog() -> None:
+    """Relit les fiches sur le disque (utile après avoir modifié ou ajouté une fiche)."""
+    _all_fiches.cache_clear()
+
+
+def themes() -> list[str]:
+    """Renvoie la liste ordonnée des thèmes du catalogue."""
+    present = {str(f.get("theme", "")) for f in _all_fiches()}
+    ordered = [th for th in THEMES if th in present]
+    return ordered + sorted(present - set(ordered))
+
+
+def list_exercises(theme: str | None = None) -> list[str]:
+    """Renvoie les identifiants des exercices, dans l'ordre du catalogue (éventuellement filtrés par thème)."""
+    return [str(f["id"]) for f in _all_fiches() if theme is None or _theme_matches(f, theme)]
+
+
+def _theme_matches(fiche: Mapping[str, Any], theme: str) -> bool:
+    return theme.strip().lower() in str(fiche.get("theme", "")).lower()
+
+
+class ExerciseCatalog(tuple):
+    """Table des exercices (tuple de dictionnaires) avec rendu Markdown dans JupyterLab."""
+
+    def _repr_markdown_(self) -> str:
+        lignes = ["| N° | Exercice | Identifiant | Thème | Type | Niveau |", "|---:|:---|:---|:---|:---|:---|"]
+        for row in self:
+            lignes.append(
+                f"| {row['numero']} | {row['titre']} | `{row['id']}` | {row['theme']} | "
+                f"{row['type']} | {_niveau_etoiles(row['niveau'])} |"
+            )
+        return "\n".join(lignes)
+
+    def __str__(self) -> str:
+        lignes = []
+        theme_courant = None
+        for row in self:
+            if row["theme"] != theme_courant:
+                theme_courant = row["theme"]
+                lignes.append(f"\n{theme_courant}")
+            lignes.append(
+                f"  {row['numero']:>2}. {row['titre']}  [{row['id']}]  "
+                f"({row['type']}, {_niveau_etoiles(row['niveau'])})"
+            )
+        return "\n".join(lignes).lstrip("\n")
+
+
+def catalog(theme: str | None = None) -> ExerciseCatalog:
+    """Renvoie le catalogue des exercices : numéro, titre, identifiant, thème, type et niveau."""
+    rows = []
+    for f in _all_fiches():
+        if theme is not None and not _theme_matches(f, theme):
+            continue
+        rows.append(
+            {
+                "numero": int(f.get("numero", 0)),
+                "id": str(f["id"]),
+                "titre": str(f.get("titre", f["id"])),
+                "theme": str(f.get("theme", "")),
+                "type": TYPE_LABELS.get(str(f.get("type", "")), str(f.get("type", ""))),
+                "niveau": int(f.get("niveau", 1)),
+                "notions": list(f.get("notions", [])),
+            }
         )
-    with path.open("r", encoding="utf-8") as fh:
-        data = yaml.safe_load(fh)
-    if not isinstance(data, dict):
-        raise ValueError(f"La fiche {path} est mal formée.")
-    return data
+    return ExerciseCatalog(rows)
+
+
+def _resolve_exercise(ref: Any) -> dict[str, Any]:
+    """Retrouve une fiche par identifiant, numéro (int ou chaîne de chiffres) ou titre."""
+    fiches = _all_fiches()
+    if isinstance(ref, bool):
+        ref = str(ref)
+    if isinstance(ref, int) or (isinstance(ref, str) and ref.strip().isdigit()):
+        num = int(ref)
+        for f in fiches:
+            if int(f.get("numero", -1)) == num:
+                return dict(f)
+        raise UnknownExerciseError(
+            f"Aucun exercice n° {num}. Les numéros vont de 1 à {len(fiches)} : voir tutor.catalog()."
+        )
+    key = str(ref).strip()
+    low = key.lower()
+    for f in fiches:
+        if str(f["id"]).lower() == low or str(f.get("titre", "")).lower() == low:
+            return dict(f)
+    ids = [str(f["id"]) for f in fiches]
+    titres = {str(f.get("titre", "")).lower(): str(f["id"]) for f in fiches}
+    proches = difflib.get_close_matches(low, ids, n=3, cutoff=0.5)
+    proches += [titres[t] for t in difflib.get_close_matches(low, list(titres), n=3, cutoff=0.5)]
+    proches = list(dict.fromkeys(proches))
+    suggestion = f" Vouliez-vous dire : {', '.join(proches)} ?" if proches else ""
+    raise UnknownExerciseError(
+        f"Exercice {key!r} introuvable.{suggestion} Consultez la liste avec tutor.catalog()."
+    )
+
+
+def _load_fiche_dict(ex_id: Any) -> dict[str, Any]:
+    return _resolve_exercise(ex_id)
 
 
 class MarkdownText(str):
@@ -126,13 +247,13 @@ class TeacherSheet(dict):
 
     def _repr_markdown_(self) -> str:
         lines = [
-            f"## Fiche Enseignant — Exercice {self.get('id', '')}",
-            f"**Type** : `{self.get('type', '')}` | **Page VMLS** : {self.get('page', '')}",
-            f"**Source** : *{self.get('source', '')}*",
-            f"**Écart VMLS** : *{self.get('ecart', '')}*",
+            f"## Fiche enseignant — {self.get('titre', self.get('id', ''))}",
+            f"**Identifiant** : `{self.get('id', '')}` | **N°** : {self.get('numero', '')} | "
+            f"**Thème** : {self.get('theme', '')} | **Type** : {self.get('type', '')} | "
+            f"**Niveau** : {_niveau_etoiles(self.get('niveau', 1))}",
             "",
             "### Énoncé",
-            str(self.get("reformulation", "")),
+            str(self.get("enonce", self.get("reformulation", ""))),
             "",
             "### Spécification de vérification",
             "```yaml",
@@ -144,16 +265,12 @@ class TeacherSheet(dict):
         for i, ind in enumerate(self.get("indices", []), 1):
             lines.append(f"- **Palier {i}** : {ind}")
         if "jumeau" in self:
-            lines.extend([
-                "",
-                "### Exercice jumeau",
-                f"`{self.get('jumeau')}`",
-            ])
+            lines.extend(["", "### Exercice jumeau", f"`{self.get('jumeau')}`"])
         return "\n".join(lines)
 
 
 class ExerciseSession:
-    """Interactive tutoring session for an exercise from VMLS Additional Exercises (§7.8, v4 Phase 0)."""
+    """Séance de tutorat interactive sur un exercice du catalogue."""
 
     __slots__ = ("__weakref__",)
 
@@ -175,12 +292,14 @@ class ExerciseSession:
         state: dict[str, Any] = {
             "fiche": fiche_copy,
             "id": ex_id,
-            "page": fiche_copy.get("page"),
+            "numero": int(fiche_copy.get("numero", 0) or 0),
+            "titre": str(fiche_copy.get("titre", ex_id)),
+            "theme": str(fiche_copy.get("theme", "")),
+            "niveau": int(fiche_copy.get("niveau", 1) or 1),
             "type": str(fiche_copy.get("type", "calcul")),
-            "reformulation": str(fiche_copy.get("reformulation", "")).strip(),
+            "enonce": str(fiche_copy.get("enonce", fiche_copy.get("reformulation", ""))).strip(),
             "notions": list(fiche_copy.get("notions", [])),
-            "source": str(fiche_copy.get("source", "")),
-            "ecart": str(fiche_copy.get("ecart", "")),
+            "resumed": bool(journal.attempts or journal.hints_unlocked or journal.solved),
             "verification_spec": dict(fiche_copy.get("verification", {})),
             "unlocked": initial_unlocked,
             "predictions": initial_preds,
@@ -212,28 +331,46 @@ class ExerciseSession:
         return self._state()["id"]  # type: ignore[no-any-return]
 
     @property
-    def page(self) -> Any:
-        return self._state()["page"]
+    def number(self) -> int:
+        """Numéro de l'exercice dans le catalogue."""
+        return self._state()["numero"]  # type: ignore[no-any-return]
+
+    numero = number
+
+    @property
+    def title(self) -> str:
+        """Titre de l'exercice."""
+        return self._state()["titre"]  # type: ignore[no-any-return]
+
+    titre = title
+
+    @property
+    def theme(self) -> str:
+        """Thème de l'exercice."""
+        return self._state()["theme"]  # type: ignore[no-any-return]
+
+    @property
+    def level(self) -> int:
+        """Niveau de difficulté (1 à 3)."""
+        return self._state()["niveau"]  # type: ignore[no-any-return]
+
+    niveau = level
 
     @property
     def type(self) -> str:
         return self._state()["type"]  # type: ignore[no-any-return]
 
     @property
-    def reformulation(self) -> str:
-        return self._state()["reformulation"]  # type: ignore[no-any-return]
+    def text(self) -> str:
+        """Texte brut de l'énoncé (Markdown + LaTeX)."""
+        return self._state()["enonce"]  # type: ignore[no-any-return]
+
+    texte = text
 
     @property
     def notions(self) -> list[str]:
         return list(self._state()["notions"])
 
-    @property
-    def source(self) -> str:
-        return self._state()["source"]  # type: ignore[no-any-return]
-
-    @property
-    def ecart(self) -> str:
-        return self._state()["ecart"]  # type: ignore[no-any-return]
 
     @property
     def journal(self) -> ExerciseJournal:
@@ -252,34 +389,55 @@ class ExerciseSession:
         return dict(self._state()["predictions"])
 
     def statement(self) -> MarkdownText:
-        """Displays the French short reformulation and page reference to the VMLS companion with LaTeX math (§7.2, §7.8)."""
-        page_ref = f", page {self.page}" if self.page is not None else ""
-        notions_str = f"\n\n**Notions** : *{', '.join(self.notions)}*" if self.notions else ""
-        source_str = f"\n\n*Source : {self.source}*" if self.source else ""
+        """Affiche l'énoncé (titre, thème, niveau, texte et notions) avec formules LaTeX."""
+        st = self._state()
+        type_label = TYPE_LABELS.get(st["type"], st["type"])
+        meta = f"*{st['theme']} · {type_label} · niveau {_niveau_etoiles(st['niveau'])}*"
+        notions_str = f"\n\n**Notions** : {', '.join(st['notions'])}" if st["notions"] else ""
         return MarkdownText(
-            f"### [Exercice {self.id} — Recueil Additional Exercises de VMLS{page_ref}]\n\n"
-            f"{self.reformulation}{notions_str}{source_str}"
+            f"### Exercice {st['numero']} — {st['titre']}\n\n{meta}\n\n{st['enonce']}{notions_str}"
         )
 
     def hint(self, level: int | None = None, *, niveau: int | None = None) -> MarkdownText:
-        """Unlocks and displays the next hint level (1 to 4) with LaTeX math (§7.5, §7.8)."""
+        """Débloque et affiche le palier d'indice suivant (1 à 4), ou réaffiche un palier déjà débloqué."""
         st = self._state()
         lvl = level if level is not None else niveau
-        res = st["ladder"].request_hint(
+        ladder = st["ladder"]
+        if lvl is None and ladder.unlocked_level >= 4:
+            return MarkdownText(
+                "**Tous les paliers d'aide sont déjà débloqués** (1 à 4"
+                + (", lors d'une séance précédente" if st.get("resumed") else "")
+                + ").\n\n"
+                "- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;\n"
+                "- étudiez l'exercice résolu analogue avec `ex.twin()` ;\n"
+                "- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.\n\n"
+                "Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau."
+            )
+        res = ladder.request_hint(
             level=lvl,
             current_attempts=st["journal"].attempts,
         )
         return MarkdownText(res)
 
+    def reset(self) -> MarkdownText:
+        """Remet à zéro la progression sur cet exercice (journal, indices, prédictions, verrou)."""
+        st = self._state()
+        st["journal"].reset()
+        st["ladder"].unlocked_level = 0
+        st["predictions"] = {}
+        st["unlocked"] = False
+        st["resumed"] = False
+        return MarkdownText(f"Progression sur « {st['titre']} » remise à zéro.")
+
     def twin(self) -> TwinExercise | str:
-        """Solves and displays the analogous twin exercise (level 4 help, §7.3 Principle 4)."""
+        """Solves and displays the analogous twin exercise (palier 4)."""
         st = self._state()
         st["journal"].record_twin()
         st["ladder"].unlocked_level = max(st["ladder"].unlocked_level, 4)
         return evaluate_twin_spec(st["fiche"].get("jumeau"))
 
     def predict(self, *args: str, **kwargs: str) -> MarkdownText:
-        """Records the student's prediction before opening the counterexample lab (§7.3 Principle 6, §7.8)."""
+        """Records the student's prediction before opening the counterexample lab."""
         st = self._state()
         preds: dict[str, str] = st["predictions"]
         if args and not kwargs:
@@ -295,7 +453,7 @@ class ExerciseSession:
         )
 
     def lab(self) -> CounterexampleLab:
-        """Opens the counterexample laboratory after recording a prediction (§7.8)."""
+        """Opens the counterexample laboratory after recording a prediction."""
         st = self._state()
         return CounterexampleLab(
             st["verification_spec"],
@@ -304,41 +462,49 @@ class ExerciseSession:
         )
 
     def verify(self, response: Any) -> VerificationResult:
-        """Verifies the student's response and produces a diagnostic without revealing the answer (§7.6, §7.8)."""
+        """Verifies the student's response and produces a diagnostic without revealing the answer."""
         st = self._state()
         spec = st["verification_spec"]
         v_type = str(spec.get("type", "valeur"))
         raw_data = _get_namespace_raw_dict(st["data"])
 
-        if v_type in ("produit_scalaire", "inner_product"):
-            res = verify_inner_product(response, spec, raw_data)
-        elif v_type in ("matrice", "matrix"):
-            res = verify_matrix(response, spec, raw_data)
-        elif v_type in ("formule", "formula"):
-            res = verify_formula(response, spec, raw_data)
-        elif v_type in ("valeur", "value"):
-            res = verify_value(response, spec, raw_data)
-        elif v_type in ("propriete", "property"):
-            res = verify_property(response, spec, raw_data)
-        elif v_type in ("contre_exemple", "counterexample"):
-            res = verify_counterexample(response, spec, raw_data)
-        elif v_type in ("egalites", "equalities"):
-            res = verify_equalities(response, spec, raw_data)
-        elif v_type == "dimensions":
-            res = verify_dimensions(response, spec, raw_data)
-        elif v_type in ("labo", "lab"):
-            if isinstance(response, Mapping):
-                lab_inst = self.lab()
-                rep = lab_inst.test(**response)
-                res = VerificationResult(rep.found_counterexample, rep.message)
+        try:
+            if v_type in ("produit_scalaire", "inner_product"):
+                res = verify_inner_product(response, spec, raw_data)
+            elif v_type in ("matrice", "matrix"):
+                res = verify_matrix(response, spec, raw_data)
+            elif v_type in ("formule", "formula"):
+                res = verify_formula(response, spec, raw_data)
+            elif v_type in ("valeur", "value"):
+                res = verify_value(response, spec, raw_data)
+            elif v_type in ("propriete", "property"):
+                res = verify_property(response, spec, raw_data)
+            elif v_type in ("contre_exemple", "counterexample"):
+                res = verify_counterexample(response, spec, raw_data)
+            elif v_type in ("egalites", "equalities"):
+                res = verify_equalities(response, spec, raw_data)
+            elif v_type == "dimensions":
+                res = verify_dimensions(response, spec, raw_data)
+            elif v_type in ("labo", "lab"):
+                if isinstance(response, Mapping):
+                    lab_inst = self.lab()
+                    rep = lab_inst.test(**response)
+                    res = VerificationResult(rep.found_counterexample, rep.message)
+                else:
+                    res = VerificationResult(
+                        False,
+                        "Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) "
+                        "puis explorez avec lab = ex.lab() ; lab.test(...).",
+                    )
             else:
-                res = VerificationResult(
-                    False,
-                    "Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) "
-                    "puis explorez avec lab = ex.lab() ; lab.test(...).",
-                )
-        else:
-            raise ValueError(f"Type de vérificateur inconnu : {v_type!r}")
+                raise ValueError(f"Type de vérificateur inconnu : {v_type!r}")
+        except PedagopyError as exc:
+            res = VerificationResult(False, str(exc))
+        except Exception:
+            res = VerificationResult(
+                False,
+                "Votre réponse n'a pas la forme attendue : " + _EXPECTED_FORMS.get(v_type, "relisez l'énoncé."),
+            )
 
         st["journal"].record_attempt(correct=res.valid, diagnostic=res.diagnostic)
         if res.valid:
@@ -346,15 +512,16 @@ class ExerciseSession:
         return res
 
     def summary(self) -> MarkdownText:
-        """Returns the readable summary of the exercise journal (§7.8, §7.9)."""
-        return MarkdownText(self._state()["journal"].format_summary())
+        """Renvoie le bilan de la séance (tentatives, indices, temps passé)."""
+        st = self._state()
+        return MarkdownText(st["journal"].format_summary(title=st["titre"]))
 
     def panel(self) -> Any:
-        """Returns the interactive ipywidgets panel for JupyterLab (§7.8)."""
+        """Returns the interactive ipywidgets panel for JupyterLab."""
         return build_panel(self)
 
     def teacher_sheet(self) -> TeacherSheet:
-        """Returns the full exercise sheet in teacher mode only (§7.9)."""
+        """Returns the full exercise sheet in teacher mode only."""
         if not _is_teacher_mode():
             raise PermissionError(
                 "L'inspection de la fiche complète est réservée au mode enseignant (tutor.mode('teacher') / tuteur.mode('enseignant'))."
@@ -371,19 +538,20 @@ class ExerciseSession:
     bilan = summary
     panneau = panel
     fiche_enseignant = teacher_sheet
+    recommencer = reset
 
 
 ExerciceSession = ExerciseSession
 
 
-def exercise(ex_id: str, *, journal_path: Path | None = None) -> ExerciseSession:
-    """Loads the sheet for `ex_id` and starts an ExerciseSession (§7.8)."""
+def exercise(ex_id: str | int, *, journal_path: Path | None = None) -> ExerciseSession:
+    """Ouvre une séance sur un exercice désigné par son identifiant, son numéro ou son titre."""
     fiche = _load_fiche_dict(ex_id)
     return ExerciseSession(fiche, journal_path=journal_path)
 
 
 class ValidationReport:
-    """Automatic validation report for an exercise sheet via validate_sheet (§7.9, v4 Phase 0)."""
+    """Automatic validation report for an exercise sheet via validate_sheet."""
 
     __slots__ = (
         "id",
@@ -442,6 +610,27 @@ class ValidationReport:
 
     def __bool__(self) -> bool:
         return self.valid
+
+
+_EXPECTED_FORMS: dict[str, str] = {
+    "produit_scalaire": "un vecteur, par exemple Vector([0, 1, 0]).",
+    "inner_product": "un vecteur, par exemple Vector([0, 1, 0]).",
+    "matrice": "une matrice, par exemple Matrix([[1, 0], [0, 1]]).",
+    "matrix": "une matrice, par exemple Matrix([[1, 0], [0, 1]]).",
+    "formule": "une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.",
+    "formula": "une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.",
+    "valeur": "une valeur exacte (entier, fraction, expression comme sqrt(2)) ou un dictionnaire de valeurs.",
+    "value": "une valeur exacte (entier, fraction, expression comme sqrt(2)) ou un dictionnaire de valeurs.",
+    "propriete": "l'objet demandé par l'énoncé (vecteur, matrice ou couple de matrices).",
+    "property": "l'objet demandé par l'énoncé (vecteur, matrice ou couple de matrices).",
+    "contre_exemple": "le contre-exemple sous la forme indiquée dans l'énoncé.",
+    "counterexample": "le contre-exemple sous la forme indiquée dans l'énoncé.",
+    "egalites": "une liste de chaînes, une par maillon de la chaîne d'égalités.",
+    "equalities": "une liste de chaînes, une par maillon de la chaîne d'égalités.",
+    "dimensions": "un dictionnaire, par exemple {'a': (3, 2), 'b': 'invalide'}.",
+    "labo": "un dictionnaire d'instances à tester au laboratoire, après ex.predict(...).",
+    "lab": "un dictionnaire d'instances à tester au laboratoire, après ex.predict(...).",
+}
 
 
 _VALID_VERIFIER_TYPES = {
@@ -568,15 +757,15 @@ def _cross_check_verifier(
 
             elif v_type in ("contre_exemple", "counterexample"):
                 cas = str(verif.get("cas", ""))
-                if cas == "non_linearite_2_2":
+                if cas == "non_linearite_etendue":
                     if not session.verify({"x": Vector([1, 0]), "y": Vector([0, 1]), "alpha": 1, "beta": 1}).valid:
-                        errs.append("Cross-check échoué sur non_linearite_2_2.")
-                elif cas == "ordre_gram_schmidt_5_2":
+                        errs.append("Cross-check échoué sur non_linearite_etendue.")
+                elif cas == "ordre_gram_schmidt":
                     if not session.verify((Vector([1, 0]), Vector([1, 1]))).valid:
-                        errs.append("Cross-check échoué sur ordre_gram_schmidt_5_2.")
-                elif cas == "inverse_matrice_positive_11_12":
+                        errs.append("Cross-check échoué sur ordre_gram_schmidt.")
+                elif cas == "inverse_matrice_positive":
                     if not session.verify(Matrix([[2, 1], [1, 2]])).valid:
-                        errs.append("Cross-check échoué sur inverse_matrice_positive_11_12.")
+                        errs.append("Cross-check échoué sur inverse_matrice_positive.")
 
             elif v_type in ("egalites", "equalities"):
                 if session.verify(["0", "0"]).valid:
@@ -592,20 +781,31 @@ def _cross_check_verifier(
     return (len(errs) == 0), errs
 
 
-def validate_sheet(ex_id: str) -> ValidationReport:
-    """Verifies that a YAML sheet is coherent, source-documented, leak-free, and passes solver cross-check (§7.9, v4 Phase 0)."""
+def validate_sheet(ex_id: str | int) -> ValidationReport:
+    """Vérifie qu'une fiche est complète, sans fuite dans ses indices et cohérente avec le solveur."""
     fiche = _load_fiche_dict(ex_id)
     erreurs: list[str] = []
 
-    for req_key in ("id", "type", "reformulation", "verification", "indices"):
+    for req_key in ("id", "type", "enonce", "verification", "indices"):
         if req_key not in fiche or not fiche[req_key]:
             erreurs.append(f"Champ obligatoire manquant ou vide : {req_key!r}")
 
     source_ok = True
-    for meta_key in ("source", "ecart"):
+    for meta_key in ("titre", "theme", "niveau", "numero"):
         if meta_key not in fiche or not str(fiche.get(meta_key, "")).strip():
             source_ok = False
-            erreurs.append(f"Champ de traçabilité VMLS manquant ou vide : {meta_key!r}")
+            erreurs.append(f"Métadonnée de catalogue manquante ou vide : {meta_key!r}")
+    try:
+        if not 1 <= int(fiche.get("niveau", 0)) <= 3:
+            source_ok = False
+            erreurs.append("Le niveau doit être 1, 2 ou 3.")
+    except (TypeError, ValueError):
+        source_ok = False
+        erreurs.append("Le niveau doit être un entier (1, 2 ou 3).")
+    numeros = [int(f.get("numero", -1)) for f in _all_fiches()]
+    if numeros.count(int(fiche.get("numero", -1))) > 1:
+        source_ok = False
+        erreurs.append(f"Numéro {fiche.get('numero')} utilisé par plusieurs fiches.")
 
     verif = dict(fiche.get("verification", {}))
     v_type = str(verif.get("type", ""))
@@ -712,5 +912,7 @@ def validate_sheet(ex_id: str) -> ValidationReport:
 # French backward-compatible function aliases
 glossaire = glossary
 lister_exercices = list_exercises
+catalogue = catalog
+recharger_catalogue = reload_catalog
 exercice = exercise
 valider_fiche = validate_sheet

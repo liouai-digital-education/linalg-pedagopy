@@ -1,0 +1,27 @@
+id: angle-et-distance
+numero: 7
+titre: Angle et distance
+theme: Normes, distances et angles
+niveau: 1
+type: calcul
+enonce: 'On considère les vecteurs $x = (1, 0, -1)$ et $y = (0, 1, 1)$ de $\mathbb{R}^3$. Calculer leur
+  distance euclidienne $\|x - y\|$ (ou un dictionnaire {''dist'': ..., ''angle'': ...}).'
+notions:
+- angle et distance entre vecteurs
+donnees:
+  x:
+  - 1
+  - 0
+  - -1
+  y:
+  - 0
+  - 1
+  - 1
+verification:
+  type: valeur
+  calcul: x.distance(y)
+indices:
+- 'Rappel : $\text{dist}(x, y) = \|x - y\|$ et $\cos(\theta) = \frac{x^T y}{\|x\| \|y\|}$.'
+- Calculez d'abord le vecteur différence $x - y$ composante par composante.
+- Élevez chaque composante de $x - y$ au carré, additionnez-les, puis prenez la racine carrée.
+jumeau: generateurs.statistiques_vecteur(values=(2, -1, 5, 2))

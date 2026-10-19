@@ -1,0 +1,34 @@
+id: norme-minimale
+numero: 35
+titre: Solution de norme minimale
+theme: Moindres carrés et optimisation
+niveau: 3
+type: calcul
+enonce: 'On considère le problème de norme minimale : minimiser $\|x\|^2$ sous la contrainte $C x = d$,
+  avec $C = \begin{bmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \end{bmatrix}$ (taille $2 \times 3$) et $d = (1, 1)$.
+  Trouver la solution optimale $x \in \mathbb{R}^3$ à l''aide des conditions KKT.'
+notions:
+- solution de norme minimale
+- système KKT
+donnees:
+  C:
+  - - 1
+    - 1
+    - 0
+  - - 0
+    - 1
+    - 1
+  d:
+  - 1
+  - 1
+verification:
+  type: propriete
+  propriete: kkt_minimum_norm
+indices:
+- 'La solution de norme minimale de $C x = d$ vérifie les équations KKT : $2 x + C^T z = 0$ et $C x =
+  d$.'
+- En exprimant $x = -\frac{1}{2} C^T z$ et en reportant dans $C x = d$, on obtient $x = C^T (C C^T)^{-1}
+  d$.
+- Calculez la matrice $2 \times 2$ $C C^T$, inversez-la, puis appliquez $C^T (C C^T)^{-1}$ au vecteur
+  $d = (1, 1)$.
+jumeau: generateurs.kkt_norme_minimale()

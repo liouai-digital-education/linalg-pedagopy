@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>05. Exercices & Sessions Guidées — linalg_pedagopy v3.0</title>
-  <meta name="description" content="Générateurs à résultats propres, sessions interactives et diagnostic d'erreurs">
+  <title>05. Exercices & sessions guidées — linalg_pedagopy</title>
+  <meta name="description" content="Générateurs propres, exercices jumeaux, sessions et diagnostic d'erreurs">
 
   <!-- Typographie Web Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,7 +43,7 @@
       <div class="brand-crest">LP</div>
       <div>
         <div class="brand-title">linalg_pedagopy</div>
-        <div class="brand-subtitle">Algèbre Linéaire Formelle & VMLS</div>
+        <div class="brand-subtitle">Algèbre linéaire formelle et pédagogique</div>
       </div>
     </a>
 
@@ -76,57 +76,71 @@
         
         <li class="nav-item ">
           <a href="index.html">
-            <span>Accueil & Démarrage</span>
+            <span>Accueil & démarrage</span>
             <span class="nav-badge">Portail</span>
           </a>
         </li>
         
         <li class="nav-item ">
           <a href="01_core_and_formal_computation.html">
-            <span>01. Noyau formel & Exactitude</span>
+            <span>01. Noyau formel & calcul exact</span>
             <span class="nav-badge">Fondement</span>
           </a>
         </li>
         
         <li class="nav-item ">
           <a href="02_vectors_and_matrices.html">
-            <span>02. Vecteurs, Matrices & VMLS</span>
+            <span>02. Vecteurs, matrices & métriques</span>
             <span class="nav-badge">Objets</span>
           </a>
         </li>
         
         <li class="nav-item ">
           <a href="03_algorithms_and_step_tracing.html">
-            <span>03. Algorithmes & Traçabilité</span>
+            <span>03. Algorithmes & traçabilité</span>
             <span class="nav-badge">Algèbre</span>
           </a>
         </li>
         
         <li class="nav-item ">
-          <a href="04_vmls_tutor.html">
-            <span>04. Le Tuteur Interactif VMLS</span>
+          <a href="04_tuteur.html">
+            <span>04. Le tuteur interactif</span>
             <span class="nav-badge">Pédagogie</span>
           </a>
         </li>
         
         <li class="nav-item active">
           <a href="05_pedagogical_exercises_and_sessions.html">
-            <span>05. Exercices & Sessions Guidées</span>
+            <span>05. Exercices & sessions guidées</span>
             <span class="nav-badge">Didactique</span>
           </a>
         </li>
         
         <li class="nav-item ">
           <a href="06_rendering_visualization_and_numerics.html">
-            <span>06. Rendu, Géométrie & Numérique</span>
+            <span>06. Rendu, géométrie & numérique</span>
             <span class="nav-badge">Visuel</span>
           </a>
         </li>
         
         <li class="nav-item ">
           <a href="07_api_reference.html">
-            <span>07. Référence complète de l'API</span>
+            <span>07. Référence de l'API</span>
             <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="08_catalogue_exercices.html">
+            <span>08. Catalogue des exercices</span>
+            <span class="nav-badge">Exercices</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="09_guide_jupyterlab.html">
+            <span>09. Guide JupyterLab</span>
+            <span class="nav-badge">Pratique</span>
           </a>
         </li>
         
@@ -134,7 +148,7 @@
 
       <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
         <strong>Version 3.0.0</strong><br>
-        Inspiré de Boyd &amp; Vandenberghe
+        Calcul exact · tuteur interactif
       </div>
     </aside>
 
@@ -142,8 +156,8 @@
     <main class="main-content">
       <header class="article-header">
         <span class="article-badge">Chapitre 05 • Didactique</span>
-        <h1 class="article-title">05. Exercices & Sessions Guidées</h1>
-        <p class="article-subtitle">Générateurs à résultats propres, sessions interactives et diagnostic d'erreurs</p>
+        <h1 class="article-title">05. Exercices & sessions guidées</h1>
+        <p class="article-subtitle">Générateurs propres, exercices jumeaux, sessions et diagnostic d'erreurs</p>
       </header>
 
       <article class="markdown-body">
@@ -151,6 +165,9 @@
 <p>Le module <code>linalg_pedagopy.exercises</code> propose des outils de génération procédurale d'exercices d'algèbre linéaire à coefficients « propres » (entiers ou rationnels simples) ainsi qu'un moteur de sessions interactives pas-à-pas.</p>
 <hr/>
 <h2 id="1-generateurs-de-matrices-et-problemes-propres-generators">1. Générateurs de matrices et problèmes « propres » (<code>generators</code>)</h2>
+<blockquote>
+<p>Pour les matrices structurées classiques (différences, sommes cumulées, moyenne glissante, Vandermonde, convolution, sélection, renversement), voir la <a href="02_vectors_and_matrices.html">section 5 du guide 02</a>.</p>
+</blockquote>
 <h3 id="11-le-probleme-des-fractions-geantes">1.1 Le problème des fractions géantes</h3>
 <p>Dans un cours d'algèbre linéaire, générer des matrices avec des entiers aléatoires produit presque systématiquement, dès la 3e étape du pivot de Gauss ou de Gram-Schmidt, des fractions avec des numérateurs et dénominateurs à 6 ou 10 chiffres (par exemple <strong>ACADEMIC_TOKEN_1</strong>).</p>
 <p>Cette complexité arithmétique parasite masque la compréhension des concepts géométriques fondamentaux. <code>linalg_pedagopy</code> résout ce problème grâce à des générateurs à <strong>résultats propres garantis</strong>.</p>
@@ -283,8 +300,45 @@ print(Q.has_orthonormal_columns())      # True
 <td style="text-align: left;"><code>kkt_minimum_norm()</code></td>
 <td style="text-align: left;"><code>kkt_norme_minimale()</code></td>
 </tr>
+<tr>
+<td style="text-align: left;"><code>matrix_from_action()</code></td>
+<td style="text-align: left;"><code>matrice_par_effet()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>polynomial_evaluation()</code></td>
+<td style="text-align: left;"><code>evaluation_polynome()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>matrix_power()</code></td>
+<td style="text-align: left;"><code>puissance_matrice()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>adjacency_matrix()</code></td>
+<td style="text-align: left;"><code>matrice_adjacence()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>diagonal_scaling()</code></td>
+<td style="text-align: left;"><code>mise_echelle_diagonale()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>product_inverse()</code></td>
+<td style="text-align: left;"><code>inverse_produit()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>system_solving()</code></td>
+<td style="text-align: left;"><code>resolution_systeme()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>block_product()</code></td>
+<td style="text-align: left;"><code>identite_blocs()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>triangle_inequality()</code></td>
+<td style="text-align: left;"><code>inegalite_triangulaire()</code></td>
+</tr>
 </tbody>
 </table>
+<p>Chaque fiche du tuteur appelle un générateur adapté à son sujet : la fiche « Un réseau d'amitié » propose ainsi, au palier 4, la matrice d'adjacence d'un réseau de trois personnes, et la fiche « Inverse d'un carré » l'inverse d'un produit sur un autre exemple.</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import generators
 
 tw = generators.moving_average(window=3, n=6)
@@ -331,7 +385,7 @@ s.predict("L2 &lt;- L2 - 3 L1")
 print(s.reveal())   # On annule le coefficient (2,1) : L2 ← L2 - 3·L1.
 </code></pre></div>
 <hr/>
-<h2 id="3-analyseur-derreurs-et-retroactions-pedagogiques-annexe-c">3. Analyseur d'erreurs et rétroactions pédagogiques (Annexe C)</h2>
+<h2 id="3-analyseur-derreurs-et-retroactions-pedagogiques">3. Analyseur d'erreurs et rétroactions pédagogiques</h2>
 <p>Le vérificateur <a href="../../src/linalg_pedagopy/exercises/checkers.py"><code>check_row_operation</code></a> (<code>check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)</code>), utilisé par <code>propose</code>, ne se contente pas d'un refus brut : il identifie la cause de l'erreur (champ <code>error_code</code>). Exemples sur la matrice augmentée <strong>ACADEMIC_TOKEN_12</strong> ci-dessus :</p>
 <table>
 <thead>
@@ -387,16 +441,16 @@ print(s.reveal())   # On annule le coefficient (2,1) : L2 ← L2 - 3·L1.
       <!-- Navigation entre chapitres -->
       <nav class="chapter-nav">
         
-        <a href="04_vmls_tutor.html" class="chapter-nav-btn">
+        <a href="04_tuteur.html" class="chapter-nav-btn">
           <span class="nav-direction">&larr; Chapitre précédent</span>
-          <span class="nav-target">04. Le Tuteur Interactif VMLS</span>
+          <span class="nav-target">04. Le tuteur interactif</span>
         </a>
         
 
         
         <a href="06_rendering_visualization_and_numerics.html" class="chapter-nav-btn" style="text-align:right;">
           <span class="nav-direction">Chapitre suivant &rarr;</span>
-          <span class="nav-target">06. Rendu, Géométrie & Numérique</span>
+          <span class="nav-target">06. Rendu, géométrie & numérique</span>
         </a>
         
       </nav>
@@ -440,7 +494,7 @@ print(s.reveal())   # On annule le coefficient (2,1) : L2 ← L2 - 3·L1.
         </li>
         
         <li class="toc-item ">
-          <a href="#3-analyseur-derreurs-et-retroactions-pedagogiques-annexe-c">3. Analyseur d'erreurs et rétroactions pédagogiques (Annexe C)</a>
+          <a href="#3-analyseur-derreurs-et-retroactions-pedagogiques">3. Analyseur d'erreurs et rétroactions pédagogiques</a>
         </li>
         
       </ul>
@@ -450,8 +504,8 @@ print(s.reveal())   # On annule le coefficient (2,1) : L2 ← L2 - 3·L1.
   <!-- Pied de page -->
   <footer class="site-footer">
     <p>
-      <strong>linalg_pedagopy v3.0</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
-      Conçu pour l'enseignement en L1–L2 et fondé sur <em>Introduction to Applied Linear Algebra</em> (VMLS) par S. Boyd &amp; L. Vandenberghe.<br>
+      <strong>linalg_pedagopy</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement de l'algèbre linéaire en L1–L2.<br>
       Documentation sous licence MIT. Code source ouvert.
     </p>
   </footer>

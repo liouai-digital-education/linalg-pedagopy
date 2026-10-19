@@ -2,6 +2,31 @@
 
 ## [Non publié] — branche `development`
 
+### Tuteur et exercices
+- Les 35 exercices ont désormais un **identifiant lisible**, un **titre**, un **thème** (8 thèmes), un **niveau** (★ à ★★★) et un **numéro** ; plus aucune référence à un ouvrage ou recueil externe (fiches renommées `<identifiant>.yaml`, champs `page`, `source`, `ecart` supprimés).
+- `tutor.catalog()` / `catalogue()` (tableau Markdown dans JupyterLab), `tutor.themes()`, `tutor.list_exercises(theme)`, `tutor.reload_catalog()`.
+- `tutor.exercise()` accepte un identifiant, un numéro ou un titre ; `UnknownExerciseError` avec suggestion en cas de faute de frappe.
+- Énoncé avec titre, thème, type et niveau ; `ex.title`, `ex.number`, `ex.theme`, `ex.level`.
+- `ex.hint()` explique quand tous les paliers sont débloqués (au lieu d'un message de « niveau 5 ») ; nouvelle méthode `ex.reset()` / `ex.recommencer()`.
+- `ex.verify()` ne lève plus d'exception sur une réponse mal formée : il indique la forme attendue. La réponse `None` n'est plus acceptée comme « invalide ».
+- Bilan en Markdown (`ex.summary()`), panneau JupyterLab refait (énoncé rendu en LaTeX, relecture d'un palier, zone de réponse et bouton Vérifier).
+- 9 nouveaux exercices jumeaux, adaptés au sujet de chaque fiche (matrice décrite par son effet, adjacence, puissance de matrice, mise à l'échelle diagonale, inverse d'un produit, système linéaire, produit par blocs, valeurs d'un polynôme, inégalité triangulaire) ; jumeau Gram-Schmidt détaillé.
+- Glossaire étendu à 40 termes, recherche en français, liste avec `glossary()`.
+- Messages sans références internes (« Principe 6 », « §7.5 », « D5 »…).
+
+### Nouveautés
+- Module `linalg_pedagopy.special` : `difference_matrix`, `running_sum_matrix`, `moving_average_matrix`, `vandermonde`, `convolution_matrix`, `convolution`, `selection_matrix`, `reversal_matrix` (avec alias français).
+
+### Corrections
+- Rendu texte des puissances (`a··2` → `a²`) et des racines (`√(1 − m²)`) ; conditions affichées en notation mathématique et factorisées (`b ≠ 1 et b ≠ −1`).
+- Discussion de cas en Markdown, LaTeX et HTML : solutions rendues en LaTeX.
+- `repr(CaseSplit)` concis (au lieu de la trace complète) ; `print(case_split)` affiche la discussion.
+- Titre d'un exercice jumeau corrompu par une tabulation (`\text` non échappé).
+
+### Documentation
+- Documentation réécrite : nouveau guide du tuteur, catalogue des exercices (`docs/08_catalogue_exercices.md`, régénéré par `docs/generer_catalogue.py`), guide JupyterLab, matrices structurées, site HTML régénéré.
+- `TUTORIAL.md` mis à jour ; le carnet tutoriel est désormais généré à partir de `TUTORIAL.md`.
+
 ### Corrections
 - Fiches du tuteur : restauration des caractères accentués et des symboles perdus (`§`, `é`, `è`, `à`, `ô`, `⊥`, `≈`) dans les champs `source` et `ecart` des 35 fiches ; test de non-régression `test_fiches_source_ecart_sans_caracteres_corrompus`.
 - `check_row_operation` : une opération qui écrase une ligne sans la conserver (ex. `L1 <- L2`) est désormais diagnostiquée comme `row_overwrite` (avec suggestion d'échange ou de transvection) au lieu d'être confondue avec une dilatation par 0.

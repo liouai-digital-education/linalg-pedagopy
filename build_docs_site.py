@@ -1,4 +1,4 @@
-"""Générateur de site web de documentation académique pour linalg_pedagopy v3.0.
+"""Générateur de site web de documentation académique pour linalg_pedagopy.
 
 Convertit les fichiers Markdown de docs/ en un site HTML autonome au design sobre,
 élégant et universitaire (style Oxford / Princeton / Booktabs / MathJax).
@@ -24,83 +24,38 @@ CSS_DIR = ASSETS_DIR / "css"
 JS_DIR = ASSETS_DIR / "js"
 
 PAGES = [
-    {
-        "id": "index",
-        "src": "index.md",
-        "dst": "index.html",
-        "title": "Accueil & Démarrage",
-        "subtitle": "Introduction, principes directeurs et installation rapide",
-        "badge": "Portail",
-        "number": "00",
-    },
-    {
-        "id": "01_core",
-        "src": "01_core_and_formal_computation.md",
-        "dst": "01_core_and_formal_computation.html",
-        "title": "01. Noyau formel & Exactitude",
-        "subtitle": "Types exacts, ZeroOracle, radicaux unrad et disjonction CaseSplit",
-        "badge": "Fondement",
-        "number": "01",
-    },
-    {
-        "id": "02_objects",
-        "src": "02_vectors_and_matrices.md",
-        "dst": "02_vectors_and_matrices.html",
-        "title": "02. Vecteurs, Matrices & VMLS",
-        "subtitle": "Métriques vectorielles, les 4 vues du produit matriciel, rref et sous-espaces",
-        "badge": "Objets",
-        "number": "02",
-    },
-    {
-        "id": "03_algorithms",
-        "src": "03_algorithms_and_step_tracing.md",
-        "dst": "03_algorithms_and_step_tracing.html",
-        "title": "03. Algorithmes & Traçabilité",
-        "subtitle": "Traceur hiérarchique, Gauss-Jordan, Gram-Schmidt, QR et Moindres Carrés",
-        "badge": "Algèbre",
-        "number": "03",
-    },
-    {
-        "id": "04_tutor",
-        "src": "04_vmls_tutor.md",
-        "dst": "04_vmls_tutor.html",
-        "title": "04. Le Tuteur Interactif VMLS",
-        "subtitle": "Coffres-forts anti-triche, 35 fiches, indices progressifs et laboratoire",
-        "badge": "Pédagogie",
-        "number": "04",
-    },
-    {
-        "id": "05_exercises",
-        "src": "05_pedagogical_exercises_and_sessions.md",
-        "dst": "05_pedagogical_exercises_and_sessions.html",
-        "title": "05. Exercices & Sessions Guidées",
-        "subtitle": "Générateurs à résultats propres, sessions interactives et diagnostic d'erreurs",
-        "badge": "Didactique",
-        "number": "05",
-    },
-    {
-        "id": "06_rendering",
-        "src": "06_rendering_visualization_and_numerics.md",
-        "dst": "06_rendering_visualization_and_numerics.html",
-        "title": "06. Rendu, Géométrie & Numérique",
-        "subtitle": "Formats Explanation, tracés Matplotlib 2D/3D et banc d'essai Läuchli/Hilbert",
-        "badge": "Visuel",
-        "number": "06",
-    },
-    {
-        "id": "07_api",
-        "src": "07_api_reference.md",
-        "dst": "07_api_reference.html",
-        "title": "07. Référence complète de l'API",
-        "subtitle": "Index alphabétique exhaustif, signatures formelles et table bilingue",
-        "badge": "Référence",
-        "number": "07",
-    },
+    {"id": "index", "src": "index.md", "dst": "index.html", "title": "Accueil & démarrage",
+     "subtitle": "Présentation, installation, démarrage rapide et principes", "badge": "Portail", "number": "00"},
+    {"id": "01_core", "src": "01_core_and_formal_computation.md", "dst": "01_core_and_formal_computation.html",
+     "title": "01. Noyau formel & calcul exact",
+     "subtitle": "Scalaires exacts, ZeroOracle, conditions et discussion de cas", "badge": "Fondement", "number": "01"},
+    {"id": "02_objects", "src": "02_vectors_and_matrices.md", "dst": "02_vectors_and_matrices.html",
+     "title": "02. Vecteurs, matrices & métriques",
+     "subtitle": "Métriques, 4 vues du produit matriciel, sous-espaces et matrices structurées", "badge": "Objets", "number": "02"},
+    {"id": "03_algorithms", "src": "03_algorithms_and_step_tracing.md", "dst": "03_algorithms_and_step_tracing.html",
+     "title": "03. Algorithmes & traçabilité",
+     "subtitle": "Trace à 4 niveaux, Gauss-Jordan, Gram-Schmidt, QR et moindres carrés", "badge": "Algèbre", "number": "03"},
+    {"id": "04_tutor", "src": "04_tuteur.md", "dst": "04_tuteur.html", "title": "04. Le tuteur interactif",
+     "subtitle": "Catalogue nommé, indices gradués, jumeau, laboratoire et panneau", "badge": "Pédagogie", "number": "04"},
+    {"id": "05_exercises", "src": "05_pedagogical_exercises_and_sessions.md", "dst": "05_pedagogical_exercises_and_sessions.html",
+     "title": "05. Exercices & sessions guidées",
+     "subtitle": "Générateurs propres, exercices jumeaux, sessions et diagnostic d'erreurs", "badge": "Didactique", "number": "05"},
+    {"id": "06_rendering", "src": "06_rendering_visualization_and_numerics.md", "dst": "06_rendering_visualization_and_numerics.html",
+     "title": "06. Rendu, géométrie & numérique",
+     "subtitle": "Formats d'explication, figures 2D/3D, Läuchli et Hilbert", "badge": "Visuel", "number": "06"},
+    {"id": "07_api", "src": "07_api_reference.md", "dst": "07_api_reference.html", "title": "07. Référence de l'API",
+     "subtitle": "Signatures, exceptions et alias français", "badge": "Référence", "number": "07"},
+    {"id": "08_catalogue", "src": "08_catalogue_exercices.md", "dst": "08_catalogue_exercices.html",
+     "title": "08. Catalogue des exercices",
+     "subtitle": "Les 35 exercices du tuteur par thème et par niveau", "badge": "Exercices", "number": "08"},
+    {"id": "09_jupyterlab", "src": "09_guide_jupyterlab.md", "dst": "09_guide_jupyterlab.html",
+     "title": "09. Guide JupyterLab",
+     "subtitle": "Installation pas à pas, premières cellules et dépannage", "badge": "Pratique", "number": "09"},
 ]
 
 ACADEMIC_CSS = """/* ==========================================================================
-   Feuille de style universitaire et sobre — linalg_pedagopy v3.0
-   Typographie d'inspiration Oxford University Press / Cambridge VMLS
+   Feuille de style universitaire et sobre — linalg_pedagopy
+   Typographie sobre d'inspiration universitaire
    ========================================================================== */
 
 :root {
@@ -987,7 +942,7 @@ PAGE_TEMPLATE = jinja2.Template("""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title }} — linalg_pedagopy v3.0</title>
+  <title>{{ page.title }} — linalg_pedagopy</title>
   <meta name="description" content="{{ page.subtitle }}">
 
   <!-- Typographie Web Google Fonts -->
@@ -1027,7 +982,7 @@ PAGE_TEMPLATE = jinja2.Template("""<!DOCTYPE html>
       <div class="brand-crest">LP</div>
       <div>
         <div class="brand-title">linalg_pedagopy</div>
-        <div class="brand-subtitle">Algèbre Linéaire Formelle & VMLS</div>
+        <div class="brand-subtitle">Algèbre linéaire formelle et pédagogique</div>
       </div>
     </a>
 
@@ -1069,7 +1024,7 @@ PAGE_TEMPLATE = jinja2.Template("""<!DOCTYPE html>
 
       <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
         <strong>Version 3.0.0</strong><br>
-        Inspiré de Boyd &amp; Vandenberghe
+        Calcul exact · tuteur interactif
       </div>
     </aside>
 
@@ -1121,8 +1076,8 @@ PAGE_TEMPLATE = jinja2.Template("""<!DOCTYPE html>
   <!-- Pied de page -->
   <footer class="site-footer">
     <p>
-      <strong>linalg_pedagopy v3.0</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
-      Conçu pour l'enseignement en L1–L2 et fondé sur <em>Introduction to Applied Linear Algebra</em> (VMLS) par S. Boyd &amp; L. Vandenberghe.<br>
+      <strong>linalg_pedagopy</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement de l'algèbre linéaire en L1–L2.<br>
       Documentation sous licence MIT. Code source ouvert.
     </p>
   </footer>

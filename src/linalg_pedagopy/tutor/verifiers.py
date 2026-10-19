@@ -1,4 +1,4 @@
-"""The 9 specialized verifiers of the VMLS Tutor (§7.6, v4 Phase 0)."""
+"""Les 9 vérificateurs spécialisés du tuteur."""
 
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ from linalg_pedagopy.trace.tracer import suspend_tracing
 
 
 class VerificationResult:
-    """Result of a tutor verification with bilingual attribute support (§7.6)."""
+    """Result of a tutor verification with bilingual attribute support."""
 
     __slots__ = ("valid", "diagnostic", "simplicity_note")
 
@@ -82,7 +82,7 @@ class VerificationResult:
 
 
 def _format_linear_comb(coeffs: Sequence[sp.Expr], var_name: str) -> str:
-    """Formats a linear combination sum_j coeffs[j] * var_{j+1} in readable form (cf. §7.8)."""
+    """Formats a linear combination sum_j coeffs[j] * var_{j+1} in readable form."""
     pos_unit_terms: list[str] = []
     neg_frac_groups: dict[sp.Expr, list[str]] = {}
     other_terms: list[tuple[sp.Expr, str]] = []
@@ -156,7 +156,7 @@ def verify_inner_product(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 1: inner_product / produit_scalaire (§7.6)."""
+    """Verifier 1: inner_product / produit_scalaire."""
     if not isinstance(response, Vector):
         try:
             response = Vector(response)
@@ -227,7 +227,7 @@ def verify_matrix(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 2: matrix / matrice — shape check then row-by-row diagnostic (§7.6, §7.7, §7.8)."""
+    """Verifier 2: matrix / matrice — shape check then row-by-row diagnostic."""
     expected_rhs = spec.get("second_membre", spec.get("rhs"))
     rhs_student: Vector | None = None
     if isinstance(response, tuple) and len(response) == 2:
@@ -348,7 +348,7 @@ def verify_formula(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 3: symbolic formula in terms of parameters (§7.6)."""
+    """Verifier 3: symbolic formula in terms of parameters."""
     param_names = list(spec.get("parametres", spec.get("parameters", ["norm_u", "norm_v"])))
     param_syms = {name: symbols(name)[0] for name in param_names}
     local_env: dict[str, Any] = dict(param_syms)
@@ -430,7 +430,7 @@ def _detect_typical_value_error(
     student_val: sp.Expr,
     raw_data: Mapping[str, Any],
 ) -> str | None:
-    """Detectors for typical student errors from Table §7.6 (page 22)."""
+    """Détecteurs des erreurs typiques des étudiants."""
     vecs = {k: v for k, v in raw_data.items() if isinstance(v, Vector)}
     with suspend_tracing():
         for _name, v in vecs.items():
@@ -446,7 +446,7 @@ def _detect_typical_value_error(
                 if oracle.decide(student_val - std_n_minus_1).verdict == Verdict.ZERO:
                     return (
                         "Vous avez utilisé la convention statistique en n − 1. "
-                        "Quelle est la définition de VMLS ?"
+                        "Quelle est la définition de l'écart type utilisée dans ce cours (division par n) ?"
                     )
 
         vec_items = list(vecs.items())
@@ -473,7 +473,7 @@ def verify_value(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 4: exact value computed on the fly + typical error detectors (§7.6)."""
+    """Verifier 4: exact value computed on the fly + typical error detectors."""
     calcul_spec = spec.get("calcul", spec.get("compute"))
 
     if isinstance(calcul_spec, Mapping):
@@ -566,7 +566,7 @@ def verify_property(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 5: verification by defining mathematical property without storing an answer key (§7.3 Principle 1, §7.6)."""
+    """Verifier 5: verification by defining mathematical property without storing an answer key."""
     prop_kind = str(spec.get("propriete", spec.get("property", "right_inverse")))
 
     with suspend_tracing():
@@ -738,11 +738,11 @@ def verify_counterexample(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 6: counterexample validation and simplicity note (§7.6)."""
+    """Verifier 6: counterexample validation and simplicity note."""
     ce_kind = str(spec.get("cas", spec.get("case", "")))
 
     with suspend_tracing():
-        if ce_kind == "non_linearite_2_2":
+        if ce_kind == "non_linearite_etendue":
             if not isinstance(response, Mapping) or "x" not in response or "y" not in response:
                 return VerificationResult(
                     False,
@@ -786,7 +786,7 @@ def verify_counterexample(
                 "Choisissez deux vecteurs dont les maximums ne se trouvent pas à la même composante !",
             )
 
-        if ce_kind == "ordre_gram_schmidt_5_2":
+        if ce_kind == "ordre_gram_schmidt":
             if not isinstance(response, (tuple, list)) or len(response) != 2:
                 return VerificationResult(
                     False,
@@ -826,7 +826,7 @@ def verify_counterexample(
                 "Choisissez deux vecteurs indépendants non orthogonaux !",
             )
 
-        if ce_kind == "inverse_matrice_positive_11_12":
+        if ce_kind == "inverse_matrice_positive":
             try:
                 A = response if isinstance(response, Matrix) else Matrix(response)
             except Exception:
@@ -868,7 +868,7 @@ def verify_equalities(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 8: equality chain verified link by link with anti-triviality and endpoint checks (§7.6, v4 Phase 0)."""
+    """Verifier 8: equality chain verified link by link with anti-triviality and endpoint checks."""
     if not isinstance(response, (list, tuple)) or len(response) < 2:
         return VerificationResult(
             False,
@@ -1003,7 +1003,7 @@ def verify_dimensions(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 9: dimension algebra and validity of vector/matrix notations (§7.6)."""
+    """Verifier 9: dimension algebra and validity of vector/matrix notations."""
     attendu = spec.get("attendu", spec.get("expected"))
 
     if isinstance(attendu, Mapping):
@@ -1053,7 +1053,7 @@ def _match_dim_answer(student: Any, expected: Any) -> bool:
     e_str = str(expected).strip().lower()
     if s_str == e_str:
         return True
-    if e_str in ("invalide", "invalid") and s_str in ("invalide", "invalid", "faux", "false", "none"):
+    if e_str in ("invalide", "invalid") and s_str in ("invalide", "invalid", "non valide", "non défini", "non definie", "indéfini"):
         return True
     if e_str in ("valide", "valid") and s_str in ("valide", "valid", "vrai", "true"):
         return True

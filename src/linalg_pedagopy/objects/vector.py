@@ -1,4 +1,4 @@
-"""Objet mathématique immuable Vector (§5.3.1, D5, D9, D10)."""
+"""Objet mathématique immuable Vector."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ from linalg_pedagopy.trace.tracer import current_tracer, record, section, suspen
 
 
 class Vector:
-    """Vecteur colonne immuable à coefficients exacts sur R (§5.3.1, D5)."""
+    """Vecteur colonne immuable à coefficients exacts sur R."""
 
     __slots__ = ("_entries", "_domain_matrix")
 
@@ -45,7 +45,7 @@ class Vector:
         object.__setattr__(self, "_domain_matrix", None)
 
     def __setattr__(self, name: str, value: Any) -> None:
-        raise AttributeError("Vector est immuable (D5).")
+        raise AttributeError("Vector est immuable : créez un nouveau vecteur plutôt que de le modifier.")
 
     @classmethod
     def zeros(cls, n: int) -> Vector:
@@ -63,7 +63,7 @@ class Vector:
 
     @classmethod
     def unit(cls, i: int, n: int) -> Vector:
-        """Vecteur canonique e_i de taille n (indice i à partir de 0 dans l'API Python, D9)."""
+        """Vecteur canonique e_i de taille n (indice i à partir de 0 dans l'API Python)."""
         if not (0 <= i < n):
             raise IndexError(f"Indice {i} hors bornes pour un vecteur de taille {n}.")
         items = [sp.Integer(1 if k == i else 0) for k in range(n)]
@@ -71,7 +71,7 @@ class Vector:
 
     @classmethod
     def combination(cls, vs: Sequence[Vector], cs: Sequence[Any]) -> Vector:
-        """Calcule la combinaison linéaire sum_i c_i * v_i avec trace (§5.3.1)."""
+        """Calcule la combinaison linéaire sum_i c_i * v_i avec trace."""
         if len(vs) != len(cs):
             raise DimensionMismatchError(
                 f"Nombre de vecteurs ({len(vs)}) différent du nombre de coefficients ({len(cs)})."
@@ -132,7 +132,7 @@ class Vector:
 
     @property
     def shape(self) -> tuple[int, int]:
-        """Un Vector est vu comme une matrice colonne n x 1 (§5.3.2)."""
+        """Un Vector est vu comme une matrice colonne n x 1."""
         return (len(self._entries), 1)
 
     @property
@@ -165,7 +165,7 @@ class Vector:
         return sp.Matrix([[e] for e in self._entries])
 
     def to_domain_matrix(self) -> DomainMatrix:
-        """Convertit le vecteur en DomainMatrix n x 1 sur le plus petit domaine exact (D10)."""
+        """Convertit le vecteur en DomainMatrix n x 1 sur le plus petit domaine exact."""
         dm = self._domain_matrix
         if dm is None:
             dom = choose_domain(self._entries)
@@ -273,7 +273,7 @@ class Vector:
         return self * (sp.Integer(1) / c)
 
     def dot(self, other: Vector) -> sp.Expr:
-        """Produit scalaire u^T v = sum_i u_i * v_i (§5.3.1)."""
+        """Produit scalaire u^T v = sum_i u_i * v_i."""
         self._check_same_size(other)
         with section("vector.dot", level=2, u=self, v=other):
             terms: list[sp.Expr] = []
@@ -305,7 +305,7 @@ class Vector:
             return sp.simplify(sum((e**2 for e in self._entries), sp.Integer(0)))
 
     def norm(self) -> sp.Expr:
-        """Norme euclidienne ||v|| = sqrt(sum_i v_i^2) (§5.3.1)."""
+        """Norme euclidienne ||v|| = sqrt(sum_i v_i^2)."""
         with section("vector.norm", level=2, v=self):
             squares = [sp.simplify(e**2) for e in self._entries]
             sum_sq = sp.simplify(sum(squares, sp.Integer(0)))
@@ -321,7 +321,7 @@ class Vector:
             return res
 
     def rms(self) -> sp.Expr:
-        """Moyenne quadratique rms(v) = ||v|| / sqrt(n) (VMLS ch. 1, D9)."""
+        """Moyenne quadratique rms(v) = ||v|| / sqrt(n)."""
         n = len(self._entries)
         if n == 0:
             raise UndefinedOperationError("rms() n'est pas défini sur un vecteur vide.")
@@ -339,7 +339,7 @@ class Vector:
             return res
 
     def avg(self) -> sp.Expr:
-        """Moyenne arithmétique avg(v) = (1/n) * sum_i v_i (VMLS ch. 1)."""
+        """Moyenne arithmétique avg(v) = (1/n) * sum_i v_i."""
         n = len(self._entries)
         if n == 0:
             raise UndefinedOperationError("avg() n'est pas défini sur un vecteur vide.")
@@ -357,7 +357,7 @@ class Vector:
             return res
 
     def demean(self) -> Vector:
-        """Vecteur centré v - avg(v)*1 (de-meaned vector, VMLS ch. 3)."""
+        """Vecteur centré v - avg(v)*1 (de-meaned vector)."""
         n = len(self._entries)
         if n == 0:
             return self
@@ -374,7 +374,7 @@ class Vector:
             return res
 
     def std(self) -> sp.Expr:
-        """Écart type std(v) = rms(v - avg(v)*1) (convention VMLS en 1/sqrt(n), ch. 3)."""
+        """Écart type std(v) = rms(v - avg(v)*1) (convention en 1/sqrt(n))."""
         n = len(self._entries)
         if n == 0:
             raise UndefinedOperationError("std() n'est pas défini sur un vecteur vide.")
@@ -391,7 +391,7 @@ class Vector:
             return res
 
     def distance(self, other: Vector) -> sp.Expr:
-        """Distance euclidienne ||u - v|| (§5.3.1)."""
+        """Distance euclidienne ||u - v||."""
         self._check_same_size(other)
         with section("vector.distance", level=2, u=self, v=other):
             diff = self - other
@@ -406,7 +406,7 @@ class Vector:
             return dist
 
     def angle(self, other: Vector) -> sp.Expr:
-        """Angle en radians arccos(u^T v / (||u|| ||v||)) avec vérification de Cauchy-Schwarz (§5.3.1)."""
+        """Angle en radians arccos(u^T v / (||u|| ||v||)) avec vérification de Cauchy-Schwarz."""
         self._check_same_size(other)
         if self.is_zero() is True or other.is_zero() is True:
             raise UndefinedOperationError(
@@ -441,7 +441,7 @@ class Vector:
             return theta
 
     def correlation(self, other: Vector) -> sp.Expr:
-        """Coefficient de corrélation de VMLS ch. 3 : (u_tilde^T v_tilde) / (||u_tilde|| ||v_tilde||)."""
+        """Coefficient de corrélation : (u_tilde^T v_tilde) / (||u_tilde|| ||v_tilde||)."""
         self._check_same_size(other)
         with section("vector.correlation", level=2, u=self, v=other):
             du = self.demean()
@@ -457,7 +457,7 @@ class Vector:
             return res
 
     def is_zero(self, assumptions: AssumptionsType = None) -> bool | CaseSplit[bool]:
-        """Teste si le vecteur est nul via ZeroOracle ; peut renvoyer un CaseSplit[bool] (§5.3.1)."""
+        """Teste si le vecteur est nul via ZeroOracle ; peut renvoyer un CaseSplit[bool]."""
         cond_zero = Condition.true()
         has_conditional = False
         for e in self._entries:
@@ -516,6 +516,6 @@ class Vector:
         return f"({items})"
 
     def _repr_latex_(self) -> str:
-        """Rendu LaTeX pour JupyterLab (§5.5)."""
+        """Rendu LaTeX pour JupyterLab."""
         rows_tex = " \\\\ ".join(sp.latex(e) for e in self._entries)
         return f"$\\left[\\begin{{array}}{{c}} {rows_tex} \\end{{array}}\\right]$"

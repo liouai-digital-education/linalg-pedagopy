@@ -1,0 +1,30 @@
+id: distance-deux-vecteurs
+numero: 6
+titre: Distance entre deux vecteurs
+theme: Normes, distances et angles
+niveau: 1
+type: calcul
+enonce: On donne $x = (1, 2, -1)$ et $y = (2, 0, 1)$ dans $\mathbb{R}^3$. Calculer la distance euclidienne
+  $\|x - y\|$ entre $x$ et $y$.
+notions:
+- distance euclidienne
+- plus proche voisin
+donnees:
+  x:
+  - 1
+  - 2
+  - -1
+  y:
+  - 2
+  - 0
+  - 1
+verification:
+  type: valeur
+  calcul: x.distance(y)
+indices:
+- 'La distance entre deux vecteurs $x$ et $y$ de $\mathbb{R}^3$ est la norme de leur différence : $\text{dist}(x,
+  y) = \|x - y\|$.'
+- 'Rappel : $\|u\| = \sqrt{u_1^2 + u_2^2 + u_3^2}$. N''oubliez pas la racine carrée finale !'
+- Calculez d'abord le vecteur différence $x - y$ composante par composante, puis la somme des carrés de
+  ses composantes.
+jumeau: generateurs.statistiques_vecteur(values=(2, -1, 5, 2))

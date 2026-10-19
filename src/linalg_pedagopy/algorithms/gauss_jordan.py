@@ -1,4 +1,4 @@
-"""Élimination de Gauss-Jordan complète avec discussion par cas et choix du pivot (§5.4.2, D4, D8, D11)."""
+"""Élimination de Gauss-Jordan complète avec discussion par cas et choix du pivot."""
 
 from __future__ import annotations
 
@@ -62,7 +62,7 @@ def _pivot_complexity_key(val: sp.Expr) -> tuple[int, int | float, int]:
 
 @dataclass(frozen=True)
 class GJResult(Result):
-    """Résultat typé de la réduction de Gauss-Jordan (§5.4.2, D8)."""
+    """Résultat typé de la réduction de Gauss-Jordan."""
 
     A: Matrix = Matrix([])
     b: Vector | Matrix | None = None
@@ -91,7 +91,7 @@ class GJResult(Result):
         )
 
     def _branch_summary_lines(self) -> list[str]:
-        """Résumé concis pour le rendu d'une branche de CaseSplit (cf. Annexe A)."""
+        """Résumé concis pour le rendu d'une branche de CaseSplit."""
         if isinstance(self.solution, UniqueSolution):
             return [
                 f"pivots non nuls, rang {self.rank}, solution unique",
@@ -176,7 +176,7 @@ class GJResult(Result):
 
 
 class GaussJordan(Procedure[GJResult]):
-    """Procédure d'élimination de Gauss-Jordan (§5.4.2)."""
+    """Procédure d'élimination de Gauss-Jordan."""
 
     def __init__(
         self,
@@ -269,7 +269,7 @@ class GaussJordan(Procedure[GJResult]):
                     elif dec.verdict == Verdict.UNKNOWN:
                         unknown_cands.append((r, val))
 
-                # S'il n'y a aucun candidat inconditionnellement non nul mais un candidat conditionnel -> CaseSplit (D4)
+                # S'il n'y a aucun candidat inconditionnellement non nul mais un candidat conditionnel -> CaseSplit
                 if not nonzero_cands and cond_cands:
                     cand_r, cand_val, cand_factors = min(
                         cond_cands, key=lambda item: _pivot_complexity_key(item[1])
@@ -298,7 +298,7 @@ class GaussJordan(Procedure[GJResult]):
                     )
                     continue
 
-                # Choix du pivot selon pivot_strategy (D11)
+                # Choix du pivot selon pivot_strategy
                 if self.pivot_strategy == "simplest":
                     chosen_r, chosen_val = min(
                         nonzero_cands, key=lambda item: _pivot_complexity_key(item[1])

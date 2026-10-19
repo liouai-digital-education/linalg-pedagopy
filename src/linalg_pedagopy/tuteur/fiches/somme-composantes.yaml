@@ -1,0 +1,28 @@
+id: somme-composantes
+numero: 24
+titre: Sommer les composantes d'un vecteur
+theme: Produit matriciel
+niveau: 1
+type: modelisation
+enonce: Pour tout vecteur $v \in \mathbb{R}^3$, on veut calculer la somme de ses composantes $v_1 + v_2
+  + v_3$ par un produit matriciel $B v$. Donner la matrice $B$ de taille $1 \times 3$.
+notions:
+- somme des coefficients d'une matrice
+- multiplication par le vecteur 1
+donnees:
+  n: 3
+  m: 1
+verification:
+  type: matrice
+  inconnue: v
+  nom_sortie: s
+  taille_entree: 3
+  taille_sortie: 1
+  lignes_cibles:
+  - s[1] = v[1] + v[2] + v[3]
+indices:
+- Pour sommer toutes les composantes d'un vecteur colonne $v \in \mathbb{R}^3$ par un produit matriciel
+  $B v$, quelle doit être la taille de $B$ ?
+- 'Rappel : la somme des coefficients d''une matrice $A$ ($m \times n$) s''écrit $\mathbf{1}_m^T A \mathbf{1}_n$.'
+- Écrivez le vecteur ligne $\mathbf{1}_3^T$ comme une matrice de taille $1 \times 3$.
+jumeau: generateurs.matrice_par_effet()

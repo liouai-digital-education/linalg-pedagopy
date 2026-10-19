@@ -1,4 +1,4 @@
-"""Moteur de rendu Markdown avec formules LaTeX $...$ et $$...$$ (§5.5)."""
+"""Moteur de rendu Markdown avec formules LaTeX $...$ et $$...$$."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import sympy as sp
 from linalg_pedagopy.core.cases import CaseSplit
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
-from linalg_pedagopy.render.latex import format_matrix_latex, format_value_latex
+from linalg_pedagopy.render.latex import branch_summary_parts, format_matrix_latex, format_value_latex
 from linalg_pedagopy.render.text import translate
 from linalg_pedagopy.trace.step import Step
 
@@ -64,12 +64,9 @@ def render_casesplit_markdown(
     for branch in cs.branches:
         cond_tex = branch.condition.format_latex()
         gen_tag = " (générique)" if branch.condition.is_generic else ""
-        if hasattr(branch.result, "_branch_summary_lines"):
-            summary_lines = list(branch.result._branch_summary_lines())
-        elif isinstance(branch.result, (Matrix, Vector)):
-            summary_lines = [f"$${branch.result._repr_latex_().strip('$')}$$"]
-        else:
-            summary_lines = [str(branch.result)]
+        summary_lines = [
+            (f"${tex}$" if tex else txt) for txt, tex in branch_summary_parts(branch.result)
+        ]
         first = summary_lines[0] if summary_lines else ""
         lines.append(f"- **Cas ${cond_tex}${gen_tag}** : {first}")
         for extra in summary_lines[1:]:

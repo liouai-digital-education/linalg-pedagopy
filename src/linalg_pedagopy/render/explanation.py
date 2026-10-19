@@ -1,4 +1,4 @@
-"""Objet Explanation retourné par explain() et verify() (§5.5)."""
+"""Objet Explanation retourné par explain() et verify()."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ from linalg_pedagopy.trace.step import Step
 
 @dataclass(frozen=True)
 class Explanation:
-    """Représentation multi-format d'une trace de calcul ou d'une discussion par cas (§5.5)."""
+    """Représentation multi-format d'une trace de calcul ou d'une discussion par cas."""
 
     source: Step | CaseSplit[Any]
     level: int = 1
@@ -87,7 +87,7 @@ class Explanation:
         return target
 
     def _repr_markdown_(self) -> str:
-        """Rendu automatique dans JupyterLab (§5.5)."""
+        """Rendu automatique dans JupyterLab."""
         return self.to_markdown()
 
     def __str__(self) -> str:

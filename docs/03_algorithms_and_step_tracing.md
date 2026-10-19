@@ -1,6 +1,6 @@
 # 03. Algorithmes fondamentaux et Traçabilité hiérarchique
 
-Le module `linalg_pedagopy.algorithms` regroupe les procédures fondamentales de l'algèbre linéaire appliquées selon l'approche de *VMLS* (Boyd & Vandenberghe) et des cours classiques de L1–L2.
+Le module `linalg_pedagopy.algorithms` regroupe les procédures fondamentales de l'algèbre linéaire telles qu'on les enseigne en L1–L2, avec une trace pas à pas de chaque calcul.
 
 Chaque procédure hérite de la classe de base [`Procedure`](../src/linalg_pedagopy/algorithms/base.py) et s'exécute dans un contexte de traçabilité pédagogique.
 
@@ -185,7 +185,7 @@ La procédure [`GramSchmidt`](../src/linalg_pedagopy/algorithms/gram_schmidt.py)
 
 $$u_k = a_k - \sum_{i=1}^{k-1} \frac{\langle a_k, u_i \rangle}{\|u_i\|^2} u_i, \quad q_k = \frac{u_k}{\|u_k\|}$$
 
-Avec `normalize="end"` (défaut), les calculs restent rationnels jusqu'à la normalisation finale ; `normalize="each"` suit la présentation de VMLS (normalisation à chaque étape).
+Avec `normalize="end"` (défaut), les calculs restent rationnels jusqu'à la normalisation finale ; `normalize="each"` normalise à chaque étape, comme dans la présentation classique de l'algorithme.
 
 ```python
 from linalg_pedagopy import Vector, GramSchmidt

@@ -1,4 +1,4 @@
-"""Objet mathématique immuable Matrix (§5.3.2, D5, D9, D10)."""
+"""Objet mathématique immuable Matrix."""
 
 from __future__ import annotations
 
@@ -31,7 +31,7 @@ def register_gauss_jordan_hook(factory: Callable[..., Any]) -> None:
 
 
 class Matrix:
-    """Matrice immuable m x n à coefficients exacts sur R (§5.3.2, D5)."""
+    """Matrice immuable m x n à coefficients exacts sur R."""
 
     __slots__ = ("_rows", "_nrows", "_ncols", "_domain_matrix")
 
@@ -85,7 +85,7 @@ class Matrix:
         object.__setattr__(self, "_domain_matrix", None)
 
     def __setattr__(self, name: str, value: Any) -> None:
-        raise AttributeError("Matrix est immuable (D5).")
+        raise AttributeError("Matrix est immuable : créez une nouvelle matrice plutôt que de la modifier.")
 
     @classmethod
     def _from_exact_rows(cls, rows: Sequence[Sequence[sp.Expr]]) -> Matrix:
@@ -109,7 +109,7 @@ class Matrix:
 
     @classmethod
     def from_columns(cls, columns: Sequence[Vector | Sequence[Any]]) -> Matrix:
-        """Construit une matrice à partir d'une liste de vecteurs-colonnes (§5.3.2)."""
+        """Construit une matrice à partir d'une liste de vecteurs-colonnes."""
         if not columns:
             return cls([])
         col_vecs = [c if isinstance(c, Vector) else Vector(c) for c in columns]
@@ -148,7 +148,7 @@ class Matrix:
 
     @classmethod
     def identity(cls, n: int) -> Matrix:
-        """Matrice identité I_n de taille n x n (§5.3.2)."""
+        """Matrice identité I_n de taille n x n."""
         if n < 0:
             raise ValueError("La dimension n doit être positive ou nulle.")
         z, one = sp.Integer(0), sp.Integer(1)
@@ -168,7 +168,7 @@ class Matrix:
 
     @classmethod
     def block(cls, blocks: Sequence[Sequence[Matrix | Vector | int]]) -> Matrix:
-        """Construit une matrice par blocs (§5.3.2).
+        """Construit une matrice par blocs.
 
         Un entier 0 dans un bloc est remplacé par une matrice nulle aux dimensions compatibles.
         """
@@ -296,7 +296,7 @@ class Matrix:
         return sp.Matrix([list(r) for r in self._rows])
 
     def to_domain_matrix(self) -> DomainMatrix:
-        """Convertit la matrice en DomainMatrix sur le plus petit domaine exact (D10)."""
+        """Convertit la matrice en DomainMatrix sur le plus petit domaine exact."""
         dm = self._domain_matrix
         if dm is None:
             dom = choose_domain(self.flat_entries)
@@ -351,7 +351,7 @@ class Matrix:
 
     @property
     def T(self) -> Matrix:
-        """Transposée A^T avec trace (A^T)_{ij} = A_{ji} (§5.3.2)."""
+        """Transposée A^T avec trace (A^T)_{ij} = A_{ji}."""
         with section("matrix.transpose", level=2, A=self, shape=self.shape):
             if self._nrows == 0 or self._ncols == 0:
                 res = Matrix.zeros(self._ncols, self._nrows)
@@ -407,7 +407,7 @@ class Matrix:
 
     def __mul__(self, scalar: Any) -> Matrix:
         if isinstance(scalar, (Matrix, Vector)):
-            raise TypeError("Utilisez l'opérateur '@' pour le produit matriciel (D9, §5.3.2).")
+            raise TypeError("Utilisez l'opérateur '@' pour le produit matriciel (le symbole * est réservé au produit par un scalaire).")
         try:
             c = to_exact(scalar)
         except TypeError:
@@ -450,7 +450,7 @@ class Matrix:
         *,
         view: MatmulView = "entries",
     ) -> Matrix | Vector:
-        """Produit matriciel A @ B ou A @ v tracé selon la vue choisie (§5.3.2, VMLS ch. 10).
+        """Produit matriciel A @ B ou A @ v tracé selon la vue choisie.
 
         Vues disponibles :
         - 'entries' : coefficient (i, j) comme produit scalaire ligne i de A . colonne j de B ;
@@ -479,7 +479,7 @@ class Matrix:
             p=p,
             view=view,
         ):
-            # Calcul interne rapide via DomainMatrix (D10)
+            # Calcul interne rapide via DomainMatrix
             with suspend_tracing():
                 all_entries = (*self.flat_entries, *rhs_mat.flat_entries)
                 dom = choose_domain(all_entries)
@@ -571,7 +571,7 @@ class Matrix:
             return final_out
 
     def gram(self) -> Matrix:
-        """Matrice de Gram G = A^T A avec coefficient (i, j) = a_i^T a_j (§5.3.2, VMLS ch. 10)."""
+        """Matrice de Gram G = A^T A avec coefficient (i, j) = a_i^T a_j."""
         cols = self.columns()
         n = self._ncols
         with section("matrix.gram", level=1, snapshot={"A": self}, n=n):
@@ -605,7 +605,7 @@ class Matrix:
     def has_orthonormal_columns(
         self, assumptions: AssumptionsType = None
     ) -> bool | CaseSplit[bool]:
-        """Vérifie A^T A = I_n via l'oracle de nullité (§5.3.2)."""
+        """Vérifie A^T A = I_n via l'oracle de nullité."""
         with section("matrix.orthonormal_check", level=1, snapshot={"A": self}):
             with suspend_tracing():
                 g = self.gram()
@@ -650,7 +650,7 @@ class Matrix:
         return _gauss_jordan_factory
 
     def rref(self, *, assumptions: Any = None) -> Matrix | CaseSplit[Matrix]:
-        """Calcule la forme échelonnée réduite via GaussJordan (§5.3.2)."""
+        """Calcule la forme échelonnée réduite via GaussJordan."""
         gj_cls = self._require_gj()
         res = gj_cls(self, assumptions=assumptions).run()
         if isinstance(res, CaseSplit):
@@ -663,7 +663,7 @@ class Matrix:
         return res.rref  # type: ignore[no-any-return]
 
     def rank(self, *, assumptions: Any = None) -> int | CaseSplit[int]:
-        """Calcule le rang de la matrice via GaussJordan (§5.3.2)."""
+        """Calcule le rang de la matrice via GaussJordan."""
         gj_cls = self._require_gj()
         res = gj_cls(self, assumptions=assumptions).run()
         if isinstance(res, CaseSplit):
@@ -678,7 +678,7 @@ class Matrix:
     def nullspace(
         self, *, assumptions: Any = None
     ) -> tuple[Vector, ...] | CaseSplit[tuple[Vector, ...]]:
-        """Calcule une base du noyau ker(A) via GaussJordan (§5.3.2)."""
+        """Calcule une base du noyau ker(A) via GaussJordan."""
         gj_cls = self._require_gj()
         b_zero = Vector.zeros(self._nrows)
         res = gj_cls(self, b_zero, assumptions=assumptions).run()
@@ -698,7 +698,7 @@ class Matrix:
         assumptions: Any = None,
         strict: bool = True,
     ) -> Matrix | None | CaseSplit[Matrix | None]:
-        """Calcule l'inverse A^{-1} via GaussJordan sur [A | I_n] (§5.3.2, §5.4.2)."""
+        """Calcule l'inverse A^{-1} via GaussJordan sur [A | I_n]."""
         if self._nrows != self._ncols:
             raise DimensionMismatchError(
                 f"Seules les matrices carrées sont inversibles (reçu {self.shape})."
@@ -727,7 +727,7 @@ class Matrix:
         assumptions: Any = None,
         strict: bool = False,
     ) -> Any:
-        """Résout A x = b via GaussJordan et renvoie un SolutionSet ou un CaseSplit (§5.3.2)."""
+        """Résout A x = b via GaussJordan et renvoie un SolutionSet ou un CaseSplit."""
         gj_cls = self._require_gj()
         res = gj_cls(self, b, assumptions=assumptions, strict=strict).run()
         if isinstance(res, CaseSplit):
@@ -767,7 +767,7 @@ class Matrix:
         return str(sp.pretty(self.to_sympy(), use_unicode=True))
 
     def _repr_latex_(self) -> str:
-        """Rendu LaTeX pour JupyterLab (§5.5)."""
+        """Rendu LaTeX pour JupyterLab."""
         if self._nrows == 0 or self._ncols == 0:
             return "$\\left[\\,\\right]$"
         cols_spec = "c" * self._ncols

@@ -1,4 +1,4 @@
-"""Tamper-proof lock proxies for exercise data in the VMLS Tutor (§7.3 Principle 5, v4 Phase 0)."""
+"""Proxys verrouillés protégeant les données des exercices du tuteur."""
 
 from __future__ import annotations
 
@@ -29,7 +29,7 @@ def _unwrap_locked_arg(obj: Any) -> Any:
 
 
 class LockedVector:
-    """Tamper-proof locked wrapper around an exercise Vector (§7.3 Principle 5)."""
+    """Tamper-proof locked wrapper around an exercise Vector."""
 
     __slots__ = ("__weakref__",)
     _is_locked_tutor_proxy = True
@@ -143,7 +143,7 @@ class LockedVector:
 
 
 class LockedMatrix:
-    """Tamper-proof locked wrapper around an exercise Matrix (§7.3 Principle 5)."""
+    """Tamper-proof locked wrapper around an exercise Matrix."""
 
     __slots__ = ("__weakref__",)
     _is_locked_tutor_proxy = True

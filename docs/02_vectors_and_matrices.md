@@ -1,4 +1,4 @@
-# 02. Vecteurs, Matrices et Métriques VMLS
+# 02. Vecteurs, matrices et métriques
 
 Les classes [`Vector`](../src/linalg_pedagopy/objects/vector.py) et [`Matrix`](../src/linalg_pedagopy/objects/matrix.py) incarnent les structures de données fondamentales de `linalg_pedagopy`.
 
@@ -58,11 +58,11 @@ w6 = -v1           # (-1, -2, -3)
 print(v1[0], len(v1), list(v1))  # 1 3 [1, 2, 3]
 ```
 
-### 1.3 Métriques et géométrie VMLS
+### 1.3 Métriques et géométrie
 
-`linalg_pedagopy` implémente l'ensemble des métriques géométriques introduites dans les chapitres 1 à 3 de *VMLS* :
+`linalg_pedagopy` implémente les métriques géométriques et statistiques usuelles sur les vecteurs :
 
-| Méthode | Définition Mathématique | Description VMLS |
+| Méthode | Définition mathématique | Description |
 | :--- | :--- | :--- |
 | `v.dot(w)` | $\langle v, w \rangle = \sum_{i=1}^n v_i w_i$ | Produit scalaire standard (l'opérateur `@` n'est pas défini entre deux vecteurs). |
 | `v.norm_sq()` | $\|v\|^2 = \sum_{i=1}^n v_i^2$ | Carré de la norme euclidienne (rationnel si $v \in \mathbb{Q}^n$). |
@@ -167,9 +167,9 @@ A_cubed = A @ A @ A
 
 ---
 
-## 3. Les 4 vues du produit matriciel (VMLS §10.1)
+## 3. Les 4 vues du produit matriciel
 
-L'ouvrage *VMLS* insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. `linalg_pedagopy` les rend explicites via `A.matmul(B, view=...)` : le résultat est identique quelle que soit la vue, mais la trace enregistrée (section `matrix.matmul.<vue>`) détaille le calcul selon la vue choisie :
+Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. `linalg_pedagopy` les rend explicites via `A.matmul(B, view=...)` : le résultat est identique quelle que soit la vue, mais la trace enregistrée (section `matrix.matmul.<vue>`) détaille le calcul selon la vue choisie :
 
 ```mermaid
 flowchart TD
@@ -291,3 +291,44 @@ print(gj.pivots)                          # (0, 1)
 im = [A.col(j) for j in gj.pivots]
 print(im)                                 # colonnes pivots de A
 ```
+
+---
+
+## 5. Matrices structurées classiques (`linalg_pedagopy.special`)
+
+Les matrices que l'on rencontre dans tout cours d'algèbre linéaire appliquée se construisent directement, en arithmétique exacte. Les indices de composantes sont comptés **à partir de 0**, comme pour `Vector.unit`. Chaque fonction est importable depuis `linalg_pedagopy` et possède un alias français.
+
+| Fonction | Alias français | Matrice obtenue |
+| :--- | :--- | :--- |
+| `difference_matrix(n)` | `matrice_differences` | $(n-1) \times n$, $(D x)_i = x_{i+1} - x_i$ |
+| `running_sum_matrix(n)` | `matrice_somme_cumulee` | $n \times n$ triangulaire inférieure de 1, $(S x)_i = x_1 + \dots + x_i$ |
+| `moving_average_matrix(n, k)` | `matrice_moyenne_glissante` | $(n-k+1) \times n$, moyenne de $k$ valeurs consécutives |
+| `vandermonde(points, degree=None)` | `vandermonde` | ligne $i$ : $(1, t_i, t_i^2, \dots)$ |
+| `convolution_matrix(b, n)` | `matrice_convolution` | Toeplitz $T(b)$ telle que $T(b)\,a = b * a$ |
+| `convolution(a, b)` | `convolution` | le vecteur $a * b$ (produit des polynômes associés) |
+| `selection_matrix(indices, n)` | `matrice_selection` | lignes $e_{i}^T$ pour les indices choisis |
+| `reversal_matrix(n)` | `matrice_renversement` | $(x_n, \dots, x_1)$ |
+
+```python
+from linalg_pedagopy import (
+    Vector, difference_matrix, running_sum_matrix, moving_average_matrix,
+    vandermonde, convolution, convolution_matrix, selection_matrix, reversal_matrix,
+)
+
+D = difference_matrix(4)          # 3 × 4
+S = running_sum_matrix(4)         # 4 × 4
+print((D @ S).entries_grid)       # ((0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) : D « défait » S
+
+print(moving_average_matrix(5, 3).entries_grid[0])   # (1/3, 1/3, 1/3, 0, 0)
+
+V = vandermonde([0, 1, 2])        # valeurs d'un polynôme de degré 2 aux points 0, 1, 2
+print(V @ Vector([1, -1, 2]))     # (1, 2, 7) : p(t) = 1 − t + 2t²
+
+print(convolution([1, -2, 1], [2, 1]))                 # (2, -3, 0, 1)
+print(convolution_matrix([2, 1], 3) @ Vector([1, -2, 1]))  # même résultat
+
+print(selection_matrix([1, 3], 5) @ Vector([10, 11, 12, 13, 14]))  # (11, 13)
+print(reversal_matrix(3) @ Vector([1, 2, 3]))                       # (3, 2, 1)
+```
+
+> Ces matrices sont aussi des **réponses** possibles aux exercices de modélisation du tuteur : elles permettent de vérifier un résultat, pas de le donner à l'étudiant à sa place.

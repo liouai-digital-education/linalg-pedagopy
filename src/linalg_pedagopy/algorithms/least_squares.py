@@ -1,4 +1,4 @@
-"""Moindres carrés linéaires par QR rationnelle, QR normalisée ou équations normales (§5.4.6, D9)."""
+"""Moindres carrés linéaires par QR rationnelle, QR normalisée ou équations normales."""
 
 from __future__ import annotations
 
@@ -27,13 +27,13 @@ LSMethod = Literal["rational_qr", "qr", "normal"]
 
 @dataclass(frozen=True)
 class LSResult(Result):
-    """Résultat typé d'un problème de moindres carrés min ||A x - b|| (§5.4.6, D8, D9)."""
+    """Résultat typé d'un problème de moindres carrés min ||A x - b||."""
 
     A: Matrix = Matrix([])
     b: Vector = Vector([])
     x_hat: Vector = Vector([])
     y_hat: Vector = Vector([])  # A x_hat
-    r_hat: Vector = Vector([])  # résidu r_hat = A x_hat - b (convention VMLS, D9)
+    r_hat: Vector = Vector([])  # résidu r_hat = A x_hat - b 
     residual_norm: sp.Expr = sp.Integer(0)
     residual_rms: sp.Expr = sp.Integer(0)
     method: LSMethod = "rational_qr"
@@ -47,7 +47,7 @@ class LSResult(Result):
 
     @property
     def pseudoinverse(self) -> Matrix:
-        """Formule théorique de la pseudo-inverse A^† = (A^T A)^(-1) A^T (VMLS ch. 11)."""
+        """Formule théorique de la pseudo-inverse A^† = (A^T A)^(-1) A^T."""
         with suspend_tracing():
             ata = self.A.T @ self.A
             ata_inv = ata.inv(strict=True)
@@ -106,7 +106,7 @@ class LSResult(Result):
 
 
 class LeastSquares(Procedure[LSResult]):
-    """Procédure de résolution de min ||A x - b|| au sens des moindres carrés (§5.4.6)."""
+    """Procédure de résolution de min ||A x - b|| au sens des moindres carrés."""
 
     def __init__(
         self,
@@ -265,7 +265,7 @@ class LeastSquares(Procedure[LSResult]):
             y_hat = Vector._from_exact(
                 _simplify_entry(e) for e in (A_mat @ x_hat).entries
             )
-            # Convention VMLS (D9) : r_hat = A x_hat - b
+            # Convention : r_hat = A x_hat - b
             r_hat = Vector._from_exact(
                 _simplify_entry(e) for e in (y_hat - b_vec).entries
             )

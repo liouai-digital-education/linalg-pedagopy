@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>08. Catalogue des exercices — linalg_pedagopy</title>
+  <meta name="description" content="Les 35 exercices du tuteur par thème et par niveau">
+
+  <!-- Typographie Web Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="assets/css/academic.css">
+
+  <!-- MathJax pour les formules mathématiques exactes -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Moteur de diagrammes Mermaid.js -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+  </script>
+</head>
+<body>
+
+  <!-- En-tête institutionnel -->
+  <header class="site-header">
+    <a href="index.html" class="header-brand">
+      <div class="brand-crest">LP</div>
+      <div>
+        <div class="brand-title">linalg_pedagopy</div>
+        <div class="brand-subtitle">Algèbre linéaire formelle et pédagogique</div>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher... (Ctrl+K)" readonly>
+      </div>
+      <button id="themeToggle" class="theme-toggle-btn" title="Changer de thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- Modal de recherche plein texte -->
+  <div id="searchModal" class="search-results-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="Rechercher une fonction, un théorème, un symbole...">
+      </div>
+      <div id="modalSearchResults" class="search-modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;">Saisissez un mot-clé...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-container">
+    <!-- Barre latérale gauche de navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Sommaire de l'ouvrage</div>
+      <ul class="nav-list">
+        
+        <li class="nav-item ">
+          <a href="index.html">
+            <span>Accueil & démarrage</span>
+            <span class="nav-badge">Portail</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="01_core_and_formal_computation.html">
+            <span>01. Noyau formel & calcul exact</span>
+            <span class="nav-badge">Fondement</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="02_vectors_and_matrices.html">
+            <span>02. Vecteurs, matrices & métriques</span>
+            <span class="nav-badge">Objets</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="03_algorithms_and_step_tracing.html">
+            <span>03. Algorithmes & traçabilité</span>
+            <span class="nav-badge">Algèbre</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="04_tuteur.html">
+            <span>04. Le tuteur interactif</span>
+            <span class="nav-badge">Pédagogie</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="05_pedagogical_exercises_and_sessions.html">
+            <span>05. Exercices & sessions guidées</span>
+            <span class="nav-badge">Didactique</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="06_rendering_visualization_and_numerics.html">
+            <span>06. Rendu, géométrie & numérique</span>
+            <span class="nav-badge">Visuel</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="07_api_reference.html">
+            <span>07. Référence de l'API</span>
+            <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+        <li class="nav-item active">
+          <a href="08_catalogue_exercices.html">
+            <span>08. Catalogue des exercices</span>
+            <span class="nav-badge">Exercices</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="09_guide_jupyterlab.html">
+            <span>09. Guide JupyterLab</span>
+            <span class="nav-badge">Pratique</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
+        <strong>Version 3.0.0</strong><br>
+        Calcul exact · tuteur interactif
+      </div>
+    </aside>
+
+    <!-- Corps de texte de l'article -->
+    <main class="main-content">
+      <header class="article-header">
+        <span class="article-badge">Chapitre 08 • Exercices</span>
+        <h1 class="article-title">08. Catalogue des exercices</h1>
+        <p class="article-subtitle">Les 35 exercices du tuteur par thème et par niveau</p>
+      </header>
+
+      <article class="markdown-body">
+        <h1 id="08-catalogue-des-exercices">08. Catalogue des exercices</h1>
+<p>Le tuteur propose <strong>35 exercices</strong> répartis en 8 thèmes, du plus simple (★☆☆) au plus exigeant (★★★).
+Chaque exercice s'ouvre par son identifiant, son numéro ou son titre :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tutor
+
+ex = tutor.exercise("moyenne-glissante")   # ou tutor.exercise(16)
+ex.statement()
+</code></pre></div>
+<p>Ce tableau est produit par <code>python docs/generer_catalogue.py</code> à partir des fiches ; dans un carnet, <code>tutor.catalog()</code> affiche la même liste.</p>
+<h2 id="vue-densemble">Vue d'ensemble</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">N°</th>
+<th style="text-align: left;">Exercice</th>
+<th style="text-align: left;">Identifiant</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: center;">Niveau</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><strong>Vecteurs et produit scalaire</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;"><a href="#selection-composantes">Sélectionner des composantes par un produit scalaire</a></td>
+<td style="text-align: left;"><code>selection-composantes</code></td>
+<td style="text-align: left;">modélisation</td>
+<td style="text-align: center;">★☆☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;"><a href="#validite-notations">Notations vectorielles : valides ou non ?</a></td>
+<td style="text-align: left;"><code>validite-notations</code></td>
+<td style="text-align: left;">dimensions</td>
+<td style="text-align: center;">★☆☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td style="text-align: left;"><a href="#recette-week-end">La recette du week-end</a></td>
+<td style="text-align: left;"><code>recette-week-end</code></td>
+<td style="text-align: left;">modélisation</td>
+<td style="text-align: center;">★☆☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;"><a href="#centre-moins-extremes">Valeurs centrales contre valeurs extrêmes</a></td>
+<td style="text-align: left;"><code>centre-moins-extremes</code></td>
+<td style="text-align: left;">modélisation</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;"><a href="#etendue-non-lineaire">L'étendue n'est pas linéaire</a></td>
+<td style="text-align: left;"><code>etendue-non-lineaire</code></td>
+<td style="text-align: left;">contre-exemple</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><strong>Normes, distances et angles</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;"><a href="#distance-deux-vecteurs">Distance entre deux vecteurs</a></td>
+<td style="text-align: left;"><code>distance-deux-vecteurs</code></td>
+<td style="text-align: left;">calcul</td>
+<td style="text-align: center;">★☆☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;"><a href="#angle-et-distance">Angle et distance</a></td>
+<td style="text-align: left;"><code>angle-et-distance</code></td>
+<td style="text-align: left;">calcul</td>
+<td style="text-align: center;">★☆☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;"><a href="#statistiques-vecteur">Moyenne, rms et écart type d'un vecteur</a></td>
+<td style="text-align: left;"><code>statistiques-vecteur</code></td>
+<td style="text-align: left;">calcul</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;"><a href="#notation-x-carre">Que signifie x² pour un vecteur ?</a></td>
+<td style="text-align: left;"><code>notation-x-carre</code></td>
+<td style="text-align: left;">dimensions</td>
+<td style="text-align: center;">★☆☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;"><a href="#pythagore">Le théorème de Pythagore</a></td>
+<td style="text-align: left;"><code>pythagore</code></td>
+<td style="text-align: left;">justification</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;"><a href="#rms-difference-orthogonale">rms d'une différence de vecteurs orthogonaux</a></td>
+<td style="text-align: left;"><code>rms-difference-orthogonale</code></td>
+<td style="text-align: left;">justification</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;"><a href="#orthogonalite-vrai-faux">Orthogonalité : vrai ou faux ?</a></td>
+<td style="text-align: left;"><code>orthogonalite-vrai-faux</code></td>
+<td style="text-align: left;">vrai ou faux</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">13</td>
+<td style="text-align: left;"><a href="#inegalite-triangulaire-trois">Inégalité triangulaire à trois vecteurs</a></td>
+<td style="text-align: left;"><code>inegalite-triangulaire-trois</code></td>
+<td style="text-align: left;">vrai ou faux</td>
+<td style="text-align: center;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><strong>Orthogonalisation</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">14</td>
+<td style="text-align: left;"><a href="#ordre-gram-schmidt">Gram-Schmidt dépend-il de l'ordre ?</a></td>
+<td style="text-align: left;"><code>ordre-gram-schmidt</code></td>
+<td style="text-align: left;">contre-exemple</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">15</td>
+<td style="text-align: left;"><a href="#independance-gram-schmidt">Tester l'indépendance avec Gram-Schmidt</a></td>
+<td style="text-align: left;"><code>independance-gram-schmidt</code></td>
+<td style="text-align: left;">calcul</td>
+<td style="text-align: center;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><strong>Matrices et applications linéaires</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">16</td>
+<td style="text-align: left;"><a href="#moyenne-glissante">Écart à la moyenne glissante</a></td>
+<td style="text-align: left;"><code>moyenne-glissante</code></td>
+<td style="text-align: left;">modélisation</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">17</td>
+<td style="text-align: left;"><a href="#vecteur-repete">Répéter un vecteur</a></td>
+<td style="text-align: left;"><code>vecteur-repete</code></td>
+<td style="text-align: left;">modélisation</td>
+<td style="text-align: center;">★☆☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">18</td>
+<td style="text-align: left;"><a href="#renverser-vecteur">Renverser l'ordre des composantes</a></td>
+<td style="text-align: left;"><code>renverser-vecteur</code></td>
+<td style="text-align: left;">modélisation</td>
+<td style="text-align: center;">★☆☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">19</td>
+<td style="text-align: left;"><a href="#matrice-application-plan">Matrice d'une application du plan</a></td>
+<td style="text-align: left;"><code>matrice-application-plan</code></td>
+<td style="text-align: left;">modélisation</td>
+<td style="text-align: center;">★☆☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">20</td>
+<td style="text-align: left;"><a href="#interpolation-hermite">Interpolation d'Hermite</a></td>
+<td style="text-align: left;"><code>interpolation-hermite</code></td>
+<td style="text-align: left;">modélisation</td>
+<td style="text-align: center;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><strong>Convolution</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">21</td>
+<td style="text-align: left;"><a href="#convolution-vecteurs">Convolution de deux vecteurs</a></td>
+<td style="text-align: left;"><code>convolution-vecteurs</code></td>
+<td style="text-align: left;">calcul</td>
+<td style="text-align: center;">★☆☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">22</td>
+<td style="text-align: left;"><a href="#produit-polynomes">Produit de polynômes par convolution</a></td>
+<td style="text-align: left;"><code>produit-polynomes</code></td>
+<td style="text-align: left;">calcul</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><strong>Produit matriciel</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">23</td>
+<td style="text-align: left;"><a href="#dimensions-produits">Tailles des produits matriciels</a></td>
+<td style="text-align: left;"><code>dimensions-produits</code></td>
+<td style="text-align: left;">dimensions</td>
+<td style="text-align: center;">★☆☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">24</td>
+<td style="text-align: left;"><a href="#somme-composantes">Sommer les composantes d'un vecteur</a></td>
+<td style="text-align: left;"><code>somme-composantes</code></td>
+<td style="text-align: left;">modélisation</td>
+<td style="text-align: center;">★☆☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">25</td>
+<td style="text-align: left;"><a href="#reseau-amitie">Un réseau d'amitié</a></td>
+<td style="text-align: left;"><code>reseau-amitie</code></td>
+<td style="text-align: left;">modélisation</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">26</td>
+<td style="text-align: left;"><a href="#dynamique-trois-pas">Dynamique linéaire : trois pas de temps</a></td>
+<td style="text-align: left;"><code>dynamique-trois-pas</code></td>
+<td style="text-align: left;">modélisation</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">27</td>
+<td style="text-align: left;"><a href="#mise-echelle-diagonale">Mise à l'échelle par matrices diagonales</a></td>
+<td style="text-align: left;"><code>mise-echelle-diagonale</code></td>
+<td style="text-align: left;">modélisation</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">28</td>
+<td style="text-align: left;"><a href="#identite-par-blocs">Une identité par blocs</a></td>
+<td style="text-align: left;"><code>identite-par-blocs</code></td>
+<td style="text-align: left;">justification</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><strong>Inverses et systèmes linéaires</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">29</td>
+<td style="text-align: left;"><a href="#inverse-droite-ligne">Inverse à droite d'une matrice ligne</a></td>
+<td style="text-align: left;"><code>inverse-droite-ligne</code></td>
+<td style="text-align: left;">calcul</td>
+<td style="text-align: center;">★☆☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">30</td>
+<td style="text-align: left;"><a href="#inverse-carre">Inverse d'un carré</a></td>
+<td style="text-align: left;"><code>inverse-carre</code></td>
+<td style="text-align: left;">justification</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">31</td>
+<td style="text-align: left;"><a href="#flux-tresorerie">Retrouver un flux de trésorerie</a></td>
+<td style="text-align: left;"><code>flux-tresorerie</code></td>
+<td style="text-align: left;">calcul</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">32</td>
+<td style="text-align: left;"><a href="#deux-inverses-droite">Deux inverses à droite</a></td>
+<td style="text-align: left;"><code>deux-inverses-droite</code></td>
+<td style="text-align: left;">calcul</td>
+<td style="text-align: center;">★★★</td>
+</tr>
+<tr>
+<td style="text-align: right;">33</td>
+<td style="text-align: left;"><a href="#inverse-signes">Les signes des coefficients d'une inverse</a></td>
+<td style="text-align: left;"><code>inverse-signes</code></td>
+<td style="text-align: left;">contre-exemple</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><strong>Moindres carrés et optimisation</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">34</td>
+<td style="text-align: left;"><a href="#sommes-de-paires">Mesures de sommes de paires</a></td>
+<td style="text-align: left;"><code>sommes-de-paires</code></td>
+<td style="text-align: left;">modélisation</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">35</td>
+<td style="text-align: left;"><a href="#norme-minimale">Solution de norme minimale</a></td>
+<td style="text-align: left;"><code>norme-minimale</code></td>
+<td style="text-align: left;">calcul</td>
+<td style="text-align: center;">★★★</td>
+</tr>
+</tbody>
+</table>
+<h2 id="enonces">Énoncés</h2>
+<h3 id="vecteurs-et-produit-scalaire">Vecteurs et produit scalaire</h3>
+<p><a id="selection-composantes"></a></p>
+<h4 id="1-selectionner-des-composantes-par-un-produit-scalaire">1. Sélectionner des composantes par un produit scalaire</h4>
+<p><em>Identifiant</em> <code>selection-composantes</code> · <em>type</em> modélisation · <em>niveau</em> ★☆☆ · <em>réponse attendue</em> : un vecteur <strong>ACADEMIC_TOKEN_0</strong> (forme <strong>ACADEMIC_TOKEN_1</strong>)</p>
+<p>Pour un vecteur <strong>ACADEMIC_TOKEN_2</strong>, déterminer le vecteur <strong>ACADEMIC_TOKEN_3</strong> tel que le produit scalaire <strong>ACADEMIC_TOKEN_4</strong> soit égal à <strong>ACADEMIC_TOKEN_5</strong>.</p>
+<p><strong>Notions</strong> : produit scalaire</p>
+<p><a id="validite-notations"></a></p>
+<h4 id="2-notations-vectorielles-valides-ou-non">2. Notations vectorielles : valides ou non ?</h4>
+<p><em>Identifiant</em> <code>validite-notations</code> · <em>type</em> dimensions · <em>niveau</em> ★☆☆ · <em>réponse attendue</em> : validité et tailles (dictionnaire ou mot)</p>
+<p>Soient <strong>ACADEMIC_TOKEN_6</strong> et <strong>ACADEMIC_TOKEN_7</strong> deux vecteurs de <strong>ACADEMIC_TOKEN_8</strong> (<strong>ACADEMIC_TOKEN_9</strong>) et <strong>ACADEMIC_TOKEN_10</strong> un scalaire. Indiquer pour chacune des notations (a) <strong>ACADEMIC_TOKEN_11</strong>, (b) <strong>ACADEMIC_TOKEN_12</strong>, (c) <strong>ACADEMIC_TOKEN_13</strong>, (d) <strong>ACADEMIC_TOKEN_14</strong> si elle est valide ou invalide.</p>
+<p><strong>Notions</strong> : notations vectorielles, dimensions</p>
+<p><a id="recette-week-end"></a></p>
+<h4 id="3-la-recette-du-week-end">3. La recette du week-end</h4>
+<p><em>Identifiant</em> <code>recette-week-end</code> · <em>type</em> modélisation · <em>niveau</em> ★☆☆ · <em>réponse attendue</em> : un vecteur <strong>ACADEMIC_TOKEN_15</strong> (forme <strong>ACADEMIC_TOKEN_16</strong>)</p>
+<p>Un vecteur <strong>ACADEMIC_TOKEN_17</strong> représente les recettes quotidiennes d'un magasin du lundi (<strong>ACADEMIC_TOKEN_18</strong>) au dimanche (<strong>ACADEMIC_TOKEN_19</strong>). Donner le vecteur <strong>ACADEMIC_TOKEN_20</strong> tel que <strong>ACADEMIC_TOKEN_21</strong> représente la recette totale du week-end (samedi <strong>ACADEMIC_TOKEN_22</strong> et dimanche <strong>ACADEMIC_TOKEN_23</strong>).</p>
+<p><strong>Notions</strong> : produit scalaire, sélection et somme de composantes</p>
+<p><a id="centre-moins-extremes"></a></p>
+<h4 id="4-valeurs-centrales-contre-valeurs-extremes">4. Valeurs centrales contre valeurs extrêmes</h4>
+<p><em>Identifiant</em> <code>centre-moins-extremes</code> · <em>type</em> modélisation · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : un vecteur <strong>ACADEMIC_TOKEN_24</strong> (forme <strong>ACADEMIC_TOKEN_25</strong>)</p>
+<p>Soit <strong>ACADEMIC_TOKEN_26</strong> la fonction linéaire qui associe à <strong>ACADEMIC_TOKEN_27</strong> l'écart entre sa valeur centrale <strong>ACADEMIC_TOKEN_28</strong> et la moyenne de ses valeurs extrêmes <strong>ACADEMIC_TOKEN_29</strong>. Trouver le vecteur <strong>ACADEMIC_TOKEN_30</strong> tel que <strong>ACADEMIC_TOKEN_31</strong>.</p>
+<p><strong>Notions</strong> : fonction linéaire, représentation par produit scalaire</p>
+<p><a id="etendue-non-lineaire"></a></p>
+<h4 id="5-letendue-nest-pas-lineaire">5. L'étendue n'est pas linéaire</h4>
+<p><em>Identifiant</em> <code>etendue-non-lineaire</code> · <em>type</em> contre-exemple · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : un contre-exemple</p>
+<p>On considère la fonction <strong>ACADEMIC_TOKEN_32</strong> définie par l'étendue (<em>spread</em>) <strong>ACADEMIC_TOKEN_33</strong>. Montrer que <strong>ACADEMIC_TOKEN_34</strong> n'est pas linéaire en fournissant un contre-exemple explicite {'x': Vector(...), 'y': Vector(...), 'alpha': 1, 'beta': 1}.</p>
+<p><strong>Notions</strong> : superposition et linéarité, contre-exemple</p>
+<h3 id="normes-distances-et-angles">Normes, distances et angles</h3>
+<p><a id="distance-deux-vecteurs"></a></p>
+<h4 id="6-distance-entre-deux-vecteurs">6. Distance entre deux vecteurs</h4>
+<p><em>Identifiant</em> <code>distance-deux-vecteurs</code> · <em>type</em> calcul · <em>niveau</em> ★☆☆ · <em>réponse attendue</em> : une valeur exacte (ou un dictionnaire de valeurs)</p>
+<p>On donne <strong>ACADEMIC_TOKEN_35</strong> et <strong>ACADEMIC_TOKEN_36</strong> dans <strong>ACADEMIC_TOKEN_37</strong>. Calculer la distance euclidienne <strong>ACADEMIC_TOKEN_38</strong> entre <strong>ACADEMIC_TOKEN_39</strong> et <strong>ACADEMIC_TOKEN_40</strong>.</p>
+<p><strong>Notions</strong> : distance euclidienne, plus proche voisin</p>
+<p><a id="angle-et-distance"></a></p>
+<h4 id="7-angle-et-distance">7. Angle et distance</h4>
+<p><em>Identifiant</em> <code>angle-et-distance</code> · <em>type</em> calcul · <em>niveau</em> ★☆☆ · <em>réponse attendue</em> : une valeur exacte (ou un dictionnaire de valeurs)</p>
+<p>On considère les vecteurs <strong>ACADEMIC_TOKEN_41</strong> et <strong>ACADEMIC_TOKEN_42</strong> de <strong>ACADEMIC_TOKEN_43</strong>. Calculer leur distance euclidienne <strong>ACADEMIC_TOKEN_44</strong> (ou un dictionnaire {'dist': ..., 'angle': ...}).</p>
+<p><strong>Notions</strong> : angle et distance entre vecteurs</p>
+<p><a id="statistiques-vecteur"></a></p>
+<h4 id="8-moyenne-rms-et-ecart-type-dun-vecteur">8. Moyenne, rms et écart type d'un vecteur</h4>
+<p><em>Identifiant</em> <code>statistiques-vecteur</code> · <em>type</em> calcul · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : une valeur exacte (ou un dictionnaire de valeurs)</p>
+<p>On considère les vecteurs <strong>ACADEMIC_TOKEN_45</strong> et <strong>ACADEMIC_TOKEN_46</strong> de <strong>ACADEMIC_TOKEN_47</strong>. Calculer <strong>ACADEMIC_TOKEN_48</strong> (ou fournir un dictionnaire {'rms': ..., 'avg': ..., 'std': ..., 'corr': ..., 'dist': ...}).</p>
+<p><strong>Notions</strong> : rms, avg, std, corrélation, distance</p>
+<p><a id="notation-x-carre"></a></p>
+<h4 id="9-que-signifie-x2-pour-un-vecteur">9. Que signifie x² pour un vecteur ?</h4>
+<p><em>Identifiant</em> <code>notation-x-carre</code> · <em>type</em> dimensions · <em>niveau</em> ★☆☆ · <em>réponse attendue</em> : validité et tailles (dictionnaire ou mot)</p>
+<p>Pour un vecteur colonne <strong>ACADEMIC_TOKEN_49</strong> (<strong>ACADEMIC_TOKEN_50</strong>), la notation <strong>ACADEMIC_TOKEN_51</strong> (au sens du produit <strong>ACADEMIC_TOKEN_52</strong>) est-elle valide ou invalide ? Comment s'écrit correctement le carré de la norme <strong>ACADEMIC_TOKEN_53</strong> en notation matricielle/vectorielle ?</p>
+<p><strong>Notions</strong> : validité des notations vectorielles, produit scalaire x^T x</p>
+<p><a id="pythagore"></a></p>
+<h4 id="10-le-theoreme-de-pythagore">10. Le théorème de Pythagore</h4>
+<p><em>Identifiant</em> <code>pythagore</code> · <em>type</em> justification · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : une formule (chaîne)</p>
+<p>Soient <strong>ACADEMIC_TOKEN_54</strong> et <strong>ACADEMIC_TOKEN_55</strong> deux vecteurs orthogonaux de <strong>ACADEMIC_TOKEN_56</strong> (<strong>ACADEMIC_TOKEN_57</strong>). Exprimer <strong>ACADEMIC_TOKEN_58</strong> en fonction de norm_u (représentant <strong>ACADEMIC_TOKEN_59</strong>) et norm_v (représentant <strong>ACADEMIC_TOKEN_60</strong>) (théorème de Pythagore).</p>
+<p><strong>Notions</strong> : norme d'une somme orthogonale, théorème de Pythagore</p>
+<p><a id="rms-difference-orthogonale"></a></p>
+<h4 id="11-rms-dune-difference-de-vecteurs-orthogonaux">11. rms d'une différence de vecteurs orthogonaux</h4>
+<p><em>Identifiant</em> <code>rms-difference-orthogonale</code> · <em>type</em> justification · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : une formule (chaîne)</p>
+<p>Soient <strong>ACADEMIC_TOKEN_61</strong> et <strong>ACADEMIC_TOKEN_62</strong> deux vecteurs orthogonaux de <strong>ACADEMIC_TOKEN_63</strong> (<strong>ACADEMIC_TOKEN_64</strong>). Exprimer <strong>ACADEMIC_TOKEN_65</strong> en fonction de rms_u (représentant <strong>ACADEMIC_TOKEN_66</strong>) et rms_v (représentant <strong>ACADEMIC_TOKEN_67</strong>).</p>
+<p><strong>Notions</strong> : rms d'une différence orthogonale, orthogonalité</p>
+<p><a id="orthogonalite-vrai-faux"></a></p>
+<h4 id="12-orthogonalite-vrai-ou-faux">12. Orthogonalité : vrai ou faux ?</h4>
+<p><em>Identifiant</em> <code>orthogonalite-vrai-faux</code> · <em>type</em> vrai ou faux · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : prédiction puis essais au laboratoire</p>
+<p>Soient <strong>ACADEMIC_TOKEN_68</strong> trois vecteurs de <strong>ACADEMIC_TOKEN_69</strong> tels que <strong>ACADEMIC_TOKEN_70</strong> et <strong>ACADEMIC_TOKEN_71</strong>. Pour chacune des affirmations (a) <strong>ACADEMIC_TOKEN_72</strong>, (b) <strong>ACADEMIC_TOKEN_73</strong>, (c) <strong>ACADEMIC_TOKEN_74</strong>, prédire si elle est « toujours vrai » ou « peut être faux », puis tester au laboratoire.</p>
+<p><strong>Notions</strong> : orthogonalité, distributivité du produit scalaire</p>
+<p><a id="inegalite-triangulaire-trois"></a></p>
+<h4 id="13-inegalite-triangulaire-a-trois-vecteurs">13. Inégalité triangulaire à trois vecteurs</h4>
+<p><em>Identifiant</em> <code>inegalite-triangulaire-trois</code> · <em>type</em> vrai ou faux · <em>niveau</em> ★★★ · <em>réponse attendue</em> : prédiction puis essais au laboratoire</p>
+<p>A-t-on <strong>ACADEMIC_TOKEN_75</strong> pour tous vecteurs <strong>ACADEMIC_TOKEN_76</strong> ? Justifier, ou donner un contre-exemple.</p>
+<p><strong>Notions</strong> : inégalité triangulaire, norme euclidienne</p>
+<h3 id="orthogonalisation">Orthogonalisation</h3>
+<p><a id="ordre-gram-schmidt"></a></p>
+<h4 id="14-gram-schmidt-depend-il-de-lordre">14. Gram-Schmidt dépend-il de l'ordre ?</h4>
+<p><em>Identifiant</em> <code>ordre-gram-schmidt</code> · <em>type</em> contre-exemple · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : un contre-exemple</p>
+<p>L'algorithme de Gram-Schmidt dépend-il de l'ordre des vecteurs d'entrée ? Donner deux vecteurs indépendants <strong>ACADEMIC_TOKEN_77</strong> de <strong>ACADEMIC_TOKEN_78</strong> tels que Gram-Schmidt appliqué à <strong>ACADEMIC_TOKEN_79</strong> puis à <strong>ACADEMIC_TOKEN_80</strong> produise deux bases orthonormées différentes.</p>
+<p><strong>Notions</strong> : algorithme de Gram-Schmidt, influence de l'ordre des vecteurs</p>
+<p><a id="independance-gram-schmidt"></a></p>
+<h4 id="15-tester-lindependance-avec-gram-schmidt">15. Tester l'indépendance avec Gram-Schmidt</h4>
+<p><em>Identifiant</em> <code>independance-gram-schmidt</code> · <em>type</em> calcul · <em>niveau</em> ★★★ · <em>réponse attendue</em> : une valeur exacte (ou un dictionnaire de valeurs)</p>
+<p>On donne les vecteurs <strong>ACADEMIC_TOKEN_81</strong>, <strong>ACADEMIC_TOKEN_82</strong> et <strong>ACADEMIC_TOKEN_83</strong> de <strong>ACADEMIC_TOKEN_84</strong>. En appliquant Gram-Schmidt, déterminer le résidu orthogonal <strong>ACADEMIC_TOKEN_85</strong> obtenu à la 3ᵉ étape (ou indiquer son carré de norme |\tilde{q}_3|^2 pour tester l'indépendance).</p>
+<p><strong>Notions</strong> : test d'indépendance linéaire par Gram-Schmidt</p>
+<h3 id="matrices-et-applications-lineaires">Matrices et applications linéaires</h3>
+<p><a id="moyenne-glissante"></a></p>
+<h4 id="16-ecart-a-la-moyenne-glissante">16. Écart à la moyenne glissante</h4>
+<p><em>Identifiant</em> <code>moyenne-glissante</code> · <em>type</em> modélisation · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : une matrice</p>
+<p><strong>ACADEMIC_TOKEN_86</strong> est une série de prix. <strong>ACADEMIC_TOKEN_87</strong> mesure, à partir du 4ᵉ jour, l'écart entre le prix du jour et la moyenne des trois jours précédents. Trouver la matrice <strong>ACADEMIC_TOKEN_88</strong> telle que <strong>ACADEMIC_TOKEN_89</strong> (donner sa taille et ses coefficients).</p>
+<p><strong>Notions</strong> : matrice comme application linéaire</p>
+<p><a id="vecteur-repete"></a></p>
+<h4 id="17-repeter-un-vecteur">17. Répéter un vecteur</h4>
+<p><em>Identifiant</em> <code>vecteur-repete</code> · <em>type</em> modélisation · <em>niveau</em> ★☆☆ · <em>réponse attendue</em> : une matrice</p>
+<p>Pour un vecteur <strong>ACADEMIC_TOKEN_90</strong>, on forme le vecteur <strong>ACADEMIC_TOKEN_91</strong> obtenu en répétant trois fois le vecteur <strong>ACADEMIC_TOKEN_92</strong>. Donner la matrice <strong>ACADEMIC_TOKEN_93</strong> de taille <strong>ACADEMIC_TOKEN_94</strong> telle que <strong>ACADEMIC_TOKEN_95</strong>.</p>
+<p><strong>Notions</strong> : matrices par blocs, répétition d'un vecteur</p>
+<p><a id="renverser-vecteur"></a></p>
+<h4 id="18-renverser-lordre-des-composantes">18. Renverser l'ordre des composantes</h4>
+<p><em>Identifiant</em> <code>renverser-vecteur</code> · <em>type</em> modélisation · <em>niveau</em> ★☆☆ · <em>réponse attendue</em> : une matrice</p>
+<p>Pour un vecteur <strong>ACADEMIC_TOKEN_96</strong>, l'application linéaire renverse l'ordre des composantes : <strong>ACADEMIC_TOKEN_97</strong>. Donner la matrice <strong>ACADEMIC_TOKEN_98</strong> de taille <strong>ACADEMIC_TOKEN_99</strong> telle que <strong>ACADEMIC_TOKEN_100</strong>.</p>
+<p><strong>Notions</strong> : matrices décrites par leur effet sur un vecteur, matrice de retournement (reverser)</p>
+<p><a id="matrice-application-plan"></a></p>
+<h4 id="19-matrice-dune-application-du-plan">19. Matrice d'une application du plan</h4>
+<p><em>Identifiant</em> <code>matrice-application-plan</code> · <em>type</em> modélisation · <em>niveau</em> ★☆☆ · <em>réponse attendue</em> : une matrice</p>
+<p>Soit l'application linéaire <strong>ACADEMIC_TOKEN_101</strong> qui à <strong>ACADEMIC_TOKEN_102</strong> associe <strong>ACADEMIC_TOKEN_103</strong> avec <strong>ACADEMIC_TOKEN_104</strong> et <strong>ACADEMIC_TOKEN_105</strong>. Donner la matrice <strong>ACADEMIC_TOKEN_106</strong> (<strong>ACADEMIC_TOKEN_107</strong>) telle que <strong>ACADEMIC_TOKEN_108</strong>.</p>
+<p><strong>Notions</strong> : applications linéaires de R^2 dans R^2, représentation matricielle</p>
+<p><a id="interpolation-hermite"></a></p>
+<h4 id="20-interpolation-dhermite">20. Interpolation d'Hermite</h4>
+<p><em>Identifiant</em> <code>interpolation-hermite</code> · <em>type</em> modélisation · <em>niveau</em> ★★★ · <em>réponse attendue</em> : une matrice</p>
+<p>Soit <strong>ACADEMIC_TOKEN_109</strong> un polynôme de degré 3 de vecteur de coefficients <strong>ACADEMIC_TOKEN_110</strong>. Écrire sous la forme <strong>ACADEMIC_TOKEN_111</strong> le vecteur des 4 quantités : <strong>ACADEMIC_TOKEN_112</strong>, <strong>ACADEMIC_TOKEN_113</strong>, <strong>ACADEMIC_TOKEN_114</strong>, <strong>ACADEMIC_TOKEN_115</strong>. Donner la matrice <strong>ACADEMIC_TOKEN_116</strong> (<strong>ACADEMIC_TOKEN_117</strong>).</p>
+<p><strong>Notions</strong> : système d'équations linéaires A c = b, interpolation d'Hermite d'un polynôme</p>
+<h3 id="convolution">Convolution</h3>
+<p><a id="convolution-vecteurs"></a></p>
+<h4 id="21-convolution-de-deux-vecteurs">21. Convolution de deux vecteurs</h4>
+<p><em>Identifiant</em> <code>convolution-vecteurs</code> · <em>type</em> calcul · <em>niveau</em> ★☆☆ · <em>réponse attendue</em> : une valeur exacte (ou un dictionnaire de valeurs)</p>
+<p>Calculer le produit de convolution <strong>ACADEMIC_TOKEN_118</strong> des vecteurs <strong>ACADEMIC_TOKEN_119</strong> et <strong>ACADEMIC_TOKEN_120</strong> de <strong>ACADEMIC_TOKEN_121</strong>.</p>
+<p><strong>Notions</strong> : convolution de deux vecteurs, matrice de Toeplitz</p>
+<p><a id="produit-polynomes"></a></p>
+<h4 id="22-produit-de-polynomes-par-convolution">22. Produit de polynômes par convolution</h4>
+<p><em>Identifiant</em> <code>produit-polynomes</code> · <em>type</em> calcul · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : une valeur exacte (ou un dictionnaire de valeurs)</p>
+<p>Soient les deux polynômes <strong>ACADEMIC_TOKEN_122</strong> (vecteur de coefficients <strong>ACADEMIC_TOKEN_123</strong>) et <strong>ACADEMIC_TOKEN_124</strong> (vecteur <strong>ACADEMIC_TOKEN_125</strong>). Calculer le vecteur <strong>ACADEMIC_TOKEN_126</strong> des coefficients du polynôme produit <strong>ACADEMIC_TOKEN_127</strong> par convolution <strong>ACADEMIC_TOKEN_128</strong>.</p>
+<p><strong>Notions</strong> : produit de convolution, multiplication de polynômes</p>
+<h3 id="produit-matriciel">Produit matriciel</h3>
+<p><a id="dimensions-produits"></a></p>
+<h4 id="23-tailles-des-produits-matriciels">23. Tailles des produits matriciels</h4>
+<p><em>Identifiant</em> <code>dimensions-produits</code> · <em>type</em> dimensions · <em>niveau</em> ★☆☆ · <em>réponse attendue</em> : validité et tailles (dictionnaire ou mot)</p>
+<p>Soient <strong>ACADEMIC_TOKEN_129</strong> de taille <strong>ACADEMIC_TOKEN_130</strong>, <strong>ACADEMIC_TOKEN_131</strong> de taille <strong>ACADEMIC_TOKEN_132</strong> et <strong>ACADEMIC_TOKEN_133</strong> de taille <strong>ACADEMIC_TOKEN_134</strong>. Donner pour chacune des expressions (a) <strong>ACADEMIC_TOKEN_135</strong>, (b) <strong>ACADEMIC_TOKEN_136</strong>, (c) <strong>ACADEMIC_TOKEN_137</strong> la dimension <strong>ACADEMIC_TOKEN_138</strong> du résultat ou "invalide" si l'opération n'est pas définie.</p>
+<p><strong>Notions</strong> : produit matriciel, compatibilité des dimensions</p>
+<p><a id="somme-composantes"></a></p>
+<h4 id="24-sommer-les-composantes-dun-vecteur">24. Sommer les composantes d'un vecteur</h4>
+<p><em>Identifiant</em> <code>somme-composantes</code> · <em>type</em> modélisation · <em>niveau</em> ★☆☆ · <em>réponse attendue</em> : une matrice</p>
+<p>Pour tout vecteur <strong>ACADEMIC_TOKEN_139</strong>, on veut calculer la somme de ses composantes <strong>ACADEMIC_TOKEN_140</strong> par un produit matriciel <strong>ACADEMIC_TOKEN_141</strong>. Donner la matrice <strong>ACADEMIC_TOKEN_142</strong> de taille <strong>ACADEMIC_TOKEN_143</strong>.</p>
+<p><strong>Notions</strong> : somme des coefficients d'une matrice, multiplication par le vecteur 1</p>
+<p><a id="reseau-amitie"></a></p>
+<h4 id="25-un-reseau-damitie">25. Un réseau d'amitié</h4>
+<p><em>Identifiant</em> <code>reseau-amitie</code> · <em>type</em> modélisation · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : une matrice</p>
+<p>On considère un réseau d'amitié entre 4 personnes : 1 est amie avec 2 et 3 ; 2 est amie avec 1, 3 et 4 ; 3 est amie avec 1, 2 et 4 ; 4 est amie avec 2 et 3. Pour un vecteur de caractéristiques <strong>ACADEMIC_TOKEN_144</strong>, le vecteur <strong>ACADEMIC_TOKEN_145</strong> donne pour chaque personne la somme des caractéristiques de ses amis. Donner la matrice <strong>ACADEMIC_TOKEN_146</strong> (<strong>ACADEMIC_TOKEN_147</strong>) telle que <strong>ACADEMIC_TOKEN_148</strong>.</p>
+<p><strong>Notions</strong> : matrice d'adjacence d'un graphe, produit matrice-vecteur</p>
+<p><a id="dynamique-trois-pas"></a></p>
+<h4 id="26-dynamique-lineaire-trois-pas-de-temps">26. Dynamique linéaire : trois pas de temps</h4>
+<p><em>Identifiant</em> <code>dynamique-trois-pas</code> · <em>type</em> modélisation · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : une matrice</p>
+<p>Un système dynamique linéaire évolue selon <strong>ACADEMIC_TOKEN_149</strong> avec <strong>ACADEMIC_TOKEN_150</strong>. Exprimer l'état à l'instant <strong>ACADEMIC_TOKEN_151</strong> sous la forme <strong>ACADEMIC_TOKEN_152</strong> en donnant la matrice <strong>ACADEMIC_TOKEN_153</strong> de taille <strong>ACADEMIC_TOKEN_154</strong>.</p>
+<p><strong>Notions</strong> : puissances d'une matrice, évolution à t + 3</p>
+<p><a id="mise-echelle-diagonale"></a></p>
+<h4 id="27-mise-a-lechelle-par-matrices-diagonales">27. Mise à l'échelle par matrices diagonales</h4>
+<p><em>Identifiant</em> <code>mise-echelle-diagonale</code> · <em>type</em> modélisation · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : une formule (chaîne)</p>
+<p>Soit <strong>ACADEMIC_TOKEN_155</strong> une matrice <strong>ACADEMIC_TOKEN_156</strong>, <strong>ACADEMIC_TOKEN_157</strong> une matrice diagonale <strong>ACADEMIC_TOKEN_158</strong> et <strong>ACADEMIC_TOKEN_159</strong> une matrice diagonale <strong>ACADEMIC_TOKEN_160</strong>. Exprimer le coefficient <strong>ACADEMIC_TOKEN_161</strong> du produit <strong>ACADEMIC_TOKEN_162</strong> en fonction de <strong>ACADEMIC_TOKEN_163</strong>, <strong>ACADEMIC_TOKEN_164</strong> (représentant <strong>ACADEMIC_TOKEN_165</strong>) et <strong>ACADEMIC_TOKEN_166</strong>.</p>
+<p><strong>Notions</strong> : multiplication par des matrices diagonales D A E, mise à l'échelle des lignes et colonnes</p>
+<p><a id="identite-par-blocs"></a></p>
+<h4 id="28-une-identite-par-blocs">28. Une identité par blocs</h4>
+<p><em>Identifiant</em> <code>identite-par-blocs</code> · <em>type</em> justification · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : une chaîne d'égalités (liste de chaînes)</p>
+<p>Vérifier par une chaîne d'égalités matricielles par blocs l'identité : <strong>ACADEMIC_TOKEN_167</strong> (soumettre la liste des maillons simplifiés).</p>
+<p><strong>Notions</strong> : identités sur les matrices par blocs, produit matriciel par blocs</p>
+<h3 id="inverses-et-systemes-lineaires">Inverses et systèmes linéaires</h3>
+<p><a id="inverse-droite-ligne"></a></p>
+<h4 id="29-inverse-a-droite-dune-matrice-ligne">29. Inverse à droite d'une matrice ligne</h4>
+<p><em>Identifiant</em> <code>inverse-droite-ligne</code> · <em>type</em> calcul · <em>niveau</em> ★☆☆ · <em>réponse attendue</em> : l'objet demandé (vérifié par sa propriété)</p>
+<p>On considère la matrice ligne <strong>ACADEMIC_TOKEN_168</strong> de taille <strong>ACADEMIC_TOKEN_169</strong>. Trouver une matrice colonne <strong>ACADEMIC_TOKEN_170</strong> de taille <strong>ACADEMIC_TOKEN_171</strong> qui soit une inverse à droite de <strong>ACADEMIC_TOKEN_172</strong> (c'est-à-dire telle que <strong>ACADEMIC_TOKEN_173</strong>).</p>
+<p><strong>Notions</strong> : inverses à gauche et à droite d'un vecteur ligne</p>
+<p><a id="inverse-carre"></a></p>
+<h4 id="30-inverse-dun-carre">30. Inverse d'un carré</h4>
+<p><em>Identifiant</em> <code>inverse-carre</code> · <em>type</em> justification · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : l'objet demandé (vérifié par sa propriété)</p>
+<p>Soit <strong>ACADEMIC_TOKEN_174</strong> une matrice carrée inversible d'inverse <strong>ACADEMIC_TOKEN_175</strong>. Donner la matrice inverse de <strong>ACADEMIC_TOKEN_176</strong> (ou son expression en fonction de <strong>ACADEMIC_TOKEN_177</strong>).</p>
+<p><strong>Notions</strong> : inverse d'un carré de matrice, inverse d'un produit</p>
+<p><a id="flux-tresorerie"></a></p>
+<h4 id="31-retrouver-un-flux-de-tresorerie">31. Retrouver un flux de trésorerie</h4>
+<p><em>Identifiant</em> <code>flux-tresorerie</code> · <em>type</em> calcul · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : l'objet demandé (vérifié par sa propriété)</p>
+<p>Un flux de trésorerie sur 3 périodes <strong>ACADEMIC_TOKEN_178</strong> a une valeur actuelle nette (VAN) égale à <strong>ACADEMIC_TOKEN_179</strong> au taux <strong>ACADEMIC_TOKEN_180</strong> (<strong>ACADEMIC_TOKEN_181</strong>), égale à <strong>ACADEMIC_TOKEN_182</strong> pour un facteur d'actualisation <strong>ACADEMIC_TOKEN_183</strong> (<strong>ACADEMIC_TOKEN_184</strong>), et vérifie <strong>ACADEMIC_TOKEN_185</strong>. Retrouver le vecteur de flux de trésorerie <strong>ACADEMIC_TOKEN_186</strong>.</p>
+<p><strong>Notions</strong> : flux de trésorerie (cash flow) depuis la VAN, résolution de système linéaire</p>
+<p><a id="deux-inverses-droite"></a></p>
+<h4 id="32-deux-inverses-a-droite">32. Deux inverses à droite</h4>
+<p><em>Identifiant</em> <code>deux-inverses-droite</code> · <em>type</em> calcul · <em>niveau</em> ★★★ · <em>réponse attendue</em> : l'objet demandé (vérifié par sa propriété)</p>
+<p>On considère la matrice large <strong>ACADEMIC_TOKEN_187</strong> de taille <strong>ACADEMIC_TOKEN_188</strong>. Trouver deux matrices inverses à droite distinctes <strong>ACADEMIC_TOKEN_189</strong> et <strong>ACADEMIC_TOKEN_190</strong> (de taille <strong>ACADEMIC_TOKEN_191</strong>) telles que <strong>ACADEMIC_TOKEN_192</strong>, <strong>ACADEMIC_TOKEN_193</strong> et <strong>ACADEMIC_TOKEN_194</strong>, et les soumettre sous la forme <strong>ACADEMIC_TOKEN_195</strong>.</p>
+<p><strong>Notions</strong> : inverses à droite multiples, systèmes sous-déterminés</p>
+<p><a id="inverse-signes"></a></p>
+<h4 id="33-les-signes-des-coefficients-dune-inverse">33. Les signes des coefficients d'une inverse</h4>
+<p><em>Identifiant</em> <code>inverse-signes</code> · <em>type</em> contre-exemple · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : un contre-exemple</p>
+<p>L'inverse d'une matrice carrée inversible à coefficients strictement positifs (<strong>ACADEMIC_TOKEN_196</strong>) a-t-elle toujours ses coefficients positifs ? Fournir une matrice <strong>ACADEMIC_TOKEN_197</strong> de taille <strong>ACADEMIC_TOKEN_198</strong> à coefficients <strong>ACADEMIC_TOKEN_199</strong> qui soit inversible et dont l'inverse <strong>ACADEMIC_TOKEN_200</strong> comporte au moins un coefficient strictement négatif.</p>
+<p><strong>Notions</strong> : inverse d'une matrice 2×2, signe des coefficients de l'inverse</p>
+<h3 id="moindres-carres-et-optimisation">Moindres carrés et optimisation</h3>
+<p><a id="sommes-de-paires"></a></p>
+<h4 id="34-mesures-de-sommes-de-paires">34. Mesures de sommes de paires</h4>
+<p><em>Identifiant</em> <code>sommes-de-paires</code> · <em>type</em> modélisation · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : une matrice</p>
+<p>On cherche à estimer <strong>ACADEMIC_TOKEN_201</strong> à partir des 6 mesures bruitées de toutes les paires : <strong>ACADEMIC_TOKEN_202</strong>, <strong>ACADEMIC_TOKEN_203</strong>, <strong>ACADEMIC_TOKEN_204</strong>, et des 3 mesures individuelles <strong>ACADEMIC_TOKEN_205</strong>, <strong>ACADEMIC_TOKEN_206</strong>, <strong>ACADEMIC_TOKEN_207</strong>. Donner la matrice de conception <strong>ACADEMIC_TOKEN_208</strong> de taille <strong>ACADEMIC_TOKEN_209</strong> telle que le problème s'écrive <strong>ACADEMIC_TOKEN_210</strong>.</p>
+<p><strong>Notions</strong> : formulation des moindres carrés ||A x - b||^2, mesures de sommes de paires</p>
+<p><a id="norme-minimale"></a></p>
+<h4 id="35-solution-de-norme-minimale">35. Solution de norme minimale</h4>
+<p><em>Identifiant</em> <code>norme-minimale</code> · <em>type</em> calcul · <em>niveau</em> ★★★ · <em>réponse attendue</em> : l'objet demandé (vérifié par sa propriété)</p>
+<p>On considère le problème de norme minimale : minimiser <strong>ACADEMIC_TOKEN_211</strong> sous la contrainte <strong>ACADEMIC_TOKEN_212</strong>, avec <strong>ACADEMIC_TOKEN_213</strong> (taille <strong>ACADEMIC_TOKEN_214</strong>) et <strong>ACADEMIC_TOKEN_215</strong>. Trouver la solution optimale <strong>ACADEMIC_TOKEN_216</strong> à l'aide des conditions KKT.</p>
+<p><strong>Notions</strong> : solution de norme minimale, système KKT</p>
+      </article>
+
+      <!-- Navigation entre chapitres -->
+      <nav class="chapter-nav">
+        
+        <a href="07_api_reference.html" class="chapter-nav-btn">
+          <span class="nav-direction">&larr; Chapitre précédent</span>
+          <span class="nav-target">07. Référence de l'API</span>
+        </a>
+        
+
+        
+        <a href="09_guide_jupyterlab.html" class="chapter-nav-btn" style="text-align:right;">
+          <span class="nav-direction">Chapitre suivant &rarr;</span>
+          <span class="nav-target">09. Guide JupyterLab</span>
+        </a>
+        
+      </nav>
+    </main>
+
+    <!-- Barre latérale droite : Sommaire de la page (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-heading">Sur cette page</div>
+      <ul class="toc-list">
+        
+        <li class="toc-item ">
+          <a href="#vue-densemble">Vue d'ensemble</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#enonces">Énoncés</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#vecteurs-et-produit-scalaire">Vecteurs et produit scalaire</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#normes-distances-et-angles">Normes, distances et angles</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#orthogonalisation">Orthogonalisation</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#matrices-et-applications-lineaires">Matrices et applications linéaires</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#convolution">Convolution</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#produit-matriciel">Produit matriciel</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#inverses-et-systemes-lineaires">Inverses et systèmes linéaires</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#moindres-carres-et-optimisation">Moindres carrés et optimisation</a>
+        </li>
+        
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <p>
+      <strong>linalg_pedagopy</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement de l'algèbre linéaire en L1–L2.<br>
+      Documentation sous licence MIT. Code source ouvert.
+    </p>
+  </footer>
+
+  <script src="assets/js/academic.js"></script>
+</body>
+</html>

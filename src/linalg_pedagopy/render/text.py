@@ -1,4 +1,4 @@
-"""Rendu texte (terminal Unicode) et chargement des catalogues i18n (§5.5, D7)."""
+"""Rendu texte (terminal Unicode) et chargement des catalogues i18n."""
 
 from __future__ import annotations
 
@@ -11,6 +11,7 @@ import yaml
 
 from linalg_pedagopy.config import config
 from linalg_pedagopy.core.cases import CaseSplit
+from linalg_pedagopy.core.field import pretty_expr
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.trace.step import Highlight, Step
@@ -54,8 +55,7 @@ def format_value_text(val: Any) -> str:
 
 
 def _pretty_scalar(expr: sp.Basic) -> str:
-    s = str(expr)
-    return s.replace("-", "−").replace("*", "·")
+    return pretty_expr(expr)
 
 
 def format_matrix_inline_text(mat: Matrix, highlight: Highlight | None = None) -> str:
@@ -157,8 +157,8 @@ def render_casesplit_text(
     max_level: int = 1,
     locale: str | None = None,
 ) -> str:
-    """Rend un CaseSplit en texte selon le format de l'Annexe A."""
-    params_str = ", ".join(str(s) for s in cs.parameters) if cs.parameters else "les paramètres"
+    """Rend un CaseSplit en texte."""
+    params_str = ", ".join(pretty_expr(s) for s in cs.parameters) if cs.parameters else "les paramètres"
     lines = [f"Discussion selon {params_str}"]
     n_branches = len(cs.branches)
     for idx, branch in enumerate(cs.branches):

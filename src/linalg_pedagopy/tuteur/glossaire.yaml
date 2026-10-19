@@ -1,75 +1,123 @@
-# Glossaire anglais-français des termes de VMLS (Boyd & Vandenberghe) — §7.2
+# Glossaire anglais-français des termes d'algèbre linéaire appliquée utilisés par le tuteur.
 
 terms:
   "least squares":
     fr: "Moindres carrés"
-    definition: "Problème d'optimisation consistant à chercher x_hat qui minimise ||A x - b||² (ou ||A x - b||). La condition d'optimalité est l'orthogonalité du résidu : A^T (A x_hat - b) = 0 (VMLS ch. 12)."
+    definition: "Problème d'optimisation consistant à chercher x_hat qui minimise ||A x - b||² (ou ||A x - b||). La condition d'optimalité est l'orthogonalité du résidu : A^T (A x_hat - b) = 0."
   "root-mean-square":
     fr: "Moyenne quadratique (rms)"
-    definition: "Pour un vecteur x de taille n, rms(x) = sqrt((x_1² + ... + x_n²) / n) = ||x|| / sqrt(n) (VMLS ch. 1 et 3)."
+    definition: "Pour un vecteur x de taille n, rms(x) = sqrt((x_1² + ... + x_n²) / n) = ||x|| / sqrt(n)."
   "rms":
     fr: "Moyenne quadratique (rms)"
-    definition: "rms(x) = ||x|| / sqrt(n), mesure la taille typique des composantes d'un vecteur x ∈ R^n (VMLS ch. 3)."
+    definition: "rms(x) = ||x|| / sqrt(n), mesure la taille typique des composantes d'un vecteur x ∈ R^n."
   "de-meaned vector":
     fr: "Vecteur centré"
-    definition: "Vecteur obtenu en retranchant la moyenne arithmétique à chaque composante : x_tilde = x - avg(x)·1 (VMLS ch. 3)."
+    definition: "Vecteur obtenu en retranchant la moyenne arithmétique à chaque composante : x_tilde = x - avg(x)·1."
   "standard deviation":
     fr: "Écart type (std)"
-    definition: "Dans VMLS (ch. 3), std(x) = rms(x - avg(x)·1) = ||x - avg(x)·1|| / sqrt(n). Attention : le dénominateur est sqrt(n), pas sqrt(n - 1)."
+    definition: "Dans ce cours, std(x) = rms(x - avg(x)·1) = ||x - avg(x)·1|| / sqrt(n). Attention : le dénominateur est sqrt(n), pas sqrt(n - 1)."
   "correlation":
     fr: "Coefficient de corrélation"
-    definition: "Cosinus de l'angle entre les vecteurs centrés x_tilde = x - avg(x)·1 et y_tilde = y - avg(y)·1 (VMLS ch. 3)."
+    definition: "Cosinus de l'angle entre les vecteurs centrés x_tilde = x - avg(x)·1 et y_tilde = y - avg(y)·1."
   "inner product":
     fr: "Produit scalaire"
-    definition: "Pour a, b ∈ R^n, le produit scalaire est a^T b = a_1 b_1 + ... + a_n b_n (VMLS ch. 1)."
+    definition: "Pour a, b ∈ R^n, le produit scalaire est a^T b = a_1 b_1 + ... + a_n b_n."
   "linear combination":
     fr: "Combinaison linéaire"
-    definition: "Somme pondérée de vecteurs : β_1 a_1 + ... + β_k a_k (VMLS ch. 1 et 5)."
+    definition: "Somme pondérée de vecteurs : β_1 a_1 + ... + β_k a_k."
   "running average":
     fr: "Moyenne glissante (ou mobile)"
-    definition: "Moyenne calculée sur une fenêtre fixe des k dernières valeurs d'une série temporelle (VMLS ch. 6)."
+    definition: "Moyenne calculée sur une fenêtre fixe des k dernières valeurs d'une série temporelle."
   "net present value":
     fr: "Valeur actuelle nette (VAN)"
-    definition: "Somme des flux de trésorerie actualisés au taux d'intérêt r : NPV = sum_{t=1}^n c_t (1 + r)^{-(t-1)} = a^T c (VMLS ch. 1 et 2)."
+    definition: "Somme des flux de trésorerie actualisés au taux d'intérêt r : NPV = sum_{t=1}^n c_t (1 + r)^{-(t-1)} = a^T c."
   "npv":
     fr: "Valeur actuelle nette (VAN)"
     definition: "Somme des flux actualisés a^T c où c est le vecteur des flux de trésorerie (cash flows)."
   "cash flow":
     fr: "Flux de trésorerie"
-    definition: "Vecteur c = (c_1, ..., c_n) dont chaque composante représente le paiement net à la période t (VMLS ch. 1)."
+    definition: "Vecteur c = (c_1, ..., c_n) dont chaque composante représente le paiement net à la période t."
   "gram matrix":
     fr: "Matrice de Gram"
-    definition: "Matrice symétrique G = A^T A dont le coefficient (i, j) est le produit scalaire a_i^T a_j des colonnes i et j de A (VMLS ch. 10)."
+    definition: "Matrice symétrique G = A^T A dont le coefficient (i, j) est le produit scalaire a_i^T a_j des colonnes i et j de A."
   "left inverse":
     fr: "Inverse à gauche"
-    definition: "Matrice X telle que X A = I_n. Elle existe si et seulement si A est grande (m >= n) et de rang plein en colonnes (VMLS ch. 11)."
+    definition: "Matrice X telle que X A = I_n. Elle existe si et seulement si A est grande (m >= n) et de rang plein en colonnes."
   "right inverse":
     fr: "Inverse à droite"
-    definition: "Matrice X telle que A X = I_m. Elle existe si et seulement si A est large (m <= n) et de rang plein en lignes (VMLS ch. 11)."
+    definition: "Matrice X telle que A X = I_m. Elle existe si et seulement si A est large (m <= n) et de rang plein en lignes."
   "pseudo-inverse":
     fr: "Pseudo-inverse (de Moore-Penrose)"
-    definition: "Pour A de rang plein en colonnes, A† = (A^T A)^{-1} A^T = R^{-1} Q^T (inverse à gauche particulière, VMLS ch. 11)."
+    definition: "Pour A de rang plein en colonnes, A† = (A^T A)^{-1} A^T = R^{-1} Q^T (inverse à gauche particulière)."
   "back substitution":
     fr: "Substitution arrière (remontée)"
-    definition: "Algorithme résolvant R x = c (R triangulaire supérieure) de la dernière inconnue x_n jusqu'à x_1 (VMLS ch. 11)."
+    definition: "Algorithme résolvant R x = c (R triangulaire supérieure) de la dernière inconnue x_n jusqu'à x_1."
   "forward substitution":
     fr: "Substitution avant (descente)"
-    definition: "Algorithme résolvant L x = c (L triangulaire inférieure) de x_1 jusqu'à x_n (VMLS ch. 11)."
+    definition: "Algorithme résolvant L x = c (L triangulaire inférieure) de x_1 jusqu'à x_n."
   "qr factorization":
     fr: "Factorisation QR"
-    definition: "Décomposition A = Q R où Q a des colonnes orthonormées (Q^T Q = I) et R est triangulaire supérieure à diagonale strictement positive (VMLS ch. 10)."
+    definition: "Décomposition A = Q R où Q a des colonnes orthonormées (Q^T Q = I) et R est triangulaire supérieure à diagonale strictement positive."
   "gram-schmidt":
     fr: "Algorithme de Gram-Schmidt"
-    definition: "Procédure d'orthogonalisation successive d'une famille de vecteurs a_1, ..., a_k (VMLS ch. 5)."
+    definition: "Procédure d'orthogonalisation successive d'une famille de vecteurs a_1, ..., a_k."
   "vandermonde":
     fr: "Matrice de Vandermonde"
-    definition: "Matrice de taille m×n dont la ligne i est (1, t_i, t_i², ..., t_i^{n-1}), utilisée pour l'ajustement polynomial (VMLS ch. 6 et 13)."
+    definition: "Matrice de taille m×n dont la ligne i est (1, t_i, t_i², ..., t_i^{n-1}), utilisée pour l'ajustement polynomial."
   "convolution":
     fr: "Produit de convolution"
-    definition: "Pour a ∈ R^n et b ∈ R^m, le vecteur c = a * b ∈ R^{n+m-1} correspond au produit des polynômes associés et s'écrit c = T(b) a avec une matrice de Toeplitz (VMLS ch. 7)."
+    definition: "Pour a ∈ R^n et b ∈ R^m, le vecteur c = a * b ∈ R^{n+m-1} correspond au produit des polynômes associés et s'écrit c = T(b) a avec une matrice de Toeplitz."
   "chebyshev inequality":
     fr: "Inégalité de Bienaymé-Tchebychev"
-    definition: "Borne la proportion des composantes d'un vecteur x de valeur absolue >= a par (rms(x) / a)² (VMLS ch. 3)."
+    definition: "Borne la proportion des composantes d'un vecteur x de valeur absolue >= a par (rms(x) / a)²."
   "kkt":
     fr: "Système et conditions KKT (Karush-Kuhn-Tucker)"
-    definition: "Système linéaire par blocs caractérisant l'optimum des moindres carrés sous contrainte linéaire C x = d (VMLS ch. 16)."
+    definition: "Système linéaire par blocs caractérisant l'optimum des moindres carrés sous contrainte linéaire C x = d."
+  "norm":
+    fr: "Norme (euclidienne)"
+    definition: "||x|| = sqrt(x_1² + ... + x_n²) = sqrt(x^T x), la longueur du vecteur x."
+  "distance":
+    fr: "Distance euclidienne"
+    definition: "dist(x, y) = ||x - y||, la norme de la différence des deux vecteurs."
+  "angle":
+    fr: "Angle entre deux vecteurs"
+    definition: "θ = arccos(a^T b / (||a|| ||b||)) pour a, b non nuls ; θ = π/2 si et seulement si a ⊥ b."
+  "orthogonal":
+    fr: "Orthogonal"
+    definition: "Deux vecteurs a et b sont orthogonaux (a ⊥ b) si a^T b = 0. Une famille est orthonormée si ses vecteurs sont deux à deux orthogonaux et de norme 1."
+  "linear independence":
+    fr: "Indépendance linéaire"
+    definition: "Les vecteurs a_1, ..., a_k sont linéairement indépendants si β_1 a_1 + ... + β_k a_k = 0 implique β_1 = ... = β_k = 0."
+  "rank":
+    fr: "Rang"
+    definition: "Nombre de pivots de la forme échelonnée réduite de A, égal à la dimension de l'image (espace des colonnes) de A."
+  "nullspace":
+    fr: "Noyau"
+    definition: "Ensemble des x tels que A x = 0 ; sa dimension vaut n - rang(A) (nombre de variables libres)."
+  "pivot":
+    fr: "Pivot"
+    definition: "Coefficient non nul choisi dans une colonne pour éliminer les autres coefficients de cette colonne lors de la méthode de Gauss-Jordan."
+  "reduced row echelon form":
+    fr: "Forme échelonnée réduite (RREF)"
+    definition: "Forme obtenue par Gauss-Jordan : pivots égaux à 1, seuls non nuls dans leur colonne, et placés en escalier."
+  "rref":
+    fr: "Forme échelonnée réduite (RREF)"
+    definition: "Abréviation de reduced row echelon form : pivots égaux à 1, seuls non nuls dans leur colonne, en escalier."
+  "transpose":
+    fr: "Transposée"
+    definition: "La transposée A^T de A (m×n) est la matrice n×m de coefficients (A^T)_{ij} = A_{ji}."
+  "identity matrix":
+    fr: "Matrice identité"
+    definition: "Matrice carrée I_n avec des 1 sur la diagonale et des 0 ailleurs ; I x = x pour tout x."
+  "inverse":
+    fr: "Inverse d'une matrice"
+    definition: "Pour A carrée, l'inverse A^{-1} vérifie A A^{-1} = A^{-1} A = I ; elle existe si et seulement si A est de rang n."
+  "adjacency matrix":
+    fr: "Matrice d'adjacence"
+    definition: "Pour un graphe à n sommets, A_{ij} = 1 s'il existe une arête entre i et j (ou de j vers i pour un graphe orienté), 0 sinon."
+  "toeplitz matrix":
+    fr: "Matrice de Toeplitz"
+    definition: "Matrice constante le long de chaque diagonale ; la matrice de convolution T(b) en est un exemple."
+  "residual":
+    fr: "Résidu"
+    definition: "En moindres carrés, r_hat = A x_hat - b ; à l'optimum il est orthogonal aux colonnes de A (A^T r_hat = 0)."

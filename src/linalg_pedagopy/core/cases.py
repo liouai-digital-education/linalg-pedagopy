@@ -1,4 +1,4 @@
-"""Gestion des conditions paramétriques et discussions par cas CaseSplit (§5.1.3, D4)."""
+"""Gestion des conditions paramétriques et discussions par cas CaseSplit."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from typing import Any, Callable, Generic, Iterator, Mapping, Sequence, TypeVar
 
 import sympy as sp
 
-from linalg_pedagopy.core.field import match_symbol_substitutions, symbols, to_exact
+from linalg_pedagopy.core.field import match_symbol_substitutions, pretty_expr, symbols, to_exact
 
 R = TypeVar("R")
 
@@ -81,7 +81,7 @@ def _compute_transitive_substitutions(
 
 @dataclass(frozen=True)
 class Condition:
-    """Conjonction d'égalités et d'inégalités polynomiales en les paramètres (§5.1.3)."""
+    """Conjonction d'égalités et d'inégalités polynomiales en les paramètres."""
 
     eqs: tuple[tuple[sp.Expr, sp.Expr], ...] = ()
     neqs: tuple[tuple[sp.Expr, sp.Expr], ...] = ()
@@ -292,20 +292,46 @@ class Condition:
                 return False
         return True
 
+    @staticmethod
+    def _split_neq(lhs: sp.Expr, rhs: sp.Expr) -> list[tuple[sp.Expr, sp.Expr]]:
+        """Décompose 'p(s) ≠ 0' en 's ≠ r_1 et s ≠ r_2 …' quand p se factorise sur R.
+
+        Purement d'affichage : un produit est non nul si et seulement si chacun
+        de ses facteurs l'est. On ne décompose que les polynômes en une seule
+        variable dont toutes les racines sont réelles et explicites.
+        """
+        try:
+            expr = sp.expand(sp.sympify(lhs) - sp.sympify(rhs))
+            syms = expr.free_symbols
+            if len(syms) != 1 or (sp.sympify(rhs) != 0 and sp.Poly(expr, *syms).degree() <= 1):
+                return [(lhs, rhs)]
+            s = next(iter(syms))
+            poly = sp.Poly(expr, s)
+            if poly.degree() < 1:
+                return [(lhs, rhs)]
+            roots = sp.roots(poly)
+            if sum(roots.values()) != poly.degree() or not all(r.is_real for r in roots):
+                return [(lhs, rhs)]
+            return [(s, r) for r in sorted(roots, key=lambda r: float(r), reverse=True)]
+        except Exception:
+            return [(lhs, rhs)]
+
     def format_text(self) -> str:
-        """Rendu texte lisible, ex. 'a ≠ 1 et b = 0'."""
+        """Rendu texte lisible, ex. 'a ≠ 1 et b = 0', 'b ≠ 1 et b ≠ −1'."""
         parts: list[str] = []
         for lhs, rhs in self.neqs:
-            parts.append(f"{lhs} ≠ {rhs}")
+            for l2, r2 in self._split_neq(lhs, rhs):
+                parts.append(f"{pretty_expr(l2)} ≠ {pretty_expr(r2)}")
         for lhs, rhs in self.eqs:
-            parts.append(f"{lhs} = {rhs}")
+            parts.append(f"{pretty_expr(lhs)} = {pretty_expr(rhs)}")
         return " et ".join(parts) if parts else "toujours"
 
     def format_latex(self) -> str:
         """Rendu LaTeX de la condition."""
         parts: list[str] = []
         for lhs, rhs in self.neqs:
-            parts.append(f"{sp.latex(lhs)} \\neq {sp.latex(rhs)}")
+            for l2, r2 in self._split_neq(lhs, rhs):
+                parts.append(f"{sp.latex(l2)} \\neq {sp.latex(r2)}")
         for lhs, rhs in self.eqs:
             parts.append(f"{sp.latex(lhs)} = {sp.latex(rhs)}")
         return " \\text{ et } ".join(parts) if parts else "\\text{toujours}"
@@ -330,12 +356,12 @@ class Branch(Generic[R]):
 
     condition: Condition
     result: R
-    trace: Any = None
+    trace: Any = field(default=None, repr=False, compare=False)
 
 
 @dataclass(frozen=True)
 class CaseSplit(Generic[R]):
-    """Discussion ordonnée par cas selon un ou plusieurs paramètres (§5.1.3, D4)."""
+    """Discussion ordonnée par cas selon un ou plusieurs paramètres."""
 
     branches: tuple[Branch[R], ...]
     parameters: tuple[sp.Symbol, ...] = field(default=())
@@ -386,8 +412,16 @@ class CaseSplit(Generic[R]):
             raise RuntimeError("Le module render n'est pas initialisé.")
         return _explain_casesplit_hook(self, level if level is not None else 1, fmt)
 
+    def __str__(self) -> str:
+        return str(self.explain().to_text())
+
+    def __repr__(self) -> str:
+        params = ", ".join(s.name for s in self.parameters) or "les paramètres"
+        cases = " | ".join(b.condition.format_text() for b in self.branches)
+        return f"<CaseSplit selon {params} : {len(self.branches)} cas — {cases}>"
+
     def _repr_markdown_(self) -> str:
-        """Rendu Markdown avec formules LaTeX dans Jupyter (§5.5)."""
+        """Rendu Markdown avec formules LaTeX dans Jupyter."""
         return self.explain().to_markdown()
 
     def _repr_latex_(self) -> str:

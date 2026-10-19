@@ -1,0 +1,32 @@
+id: deux-inverses-droite
+numero: 32
+titre: Deux inverses à droite
+theme: Inverses et systèmes linéaires
+niveau: 3
+type: calcul
+enonce: On considère la matrice large $A = \begin{bmatrix} 1 & -1 & 2 \\ 0 & 1 & 1 \end{bmatrix}$ de taille
+  $2 \times 3$. Trouver deux matrices inverses à droite distinctes $B_1$ et $B_2$ (de taille $3 \times
+  2$) telles que $A B_1 = I_2$, $A B_2 = I_2$ et $B_1 \neq B_2$, et les soumettre sous la forme $(B_1,
+  B_2)$.
+notions:
+- inverses à droite multiples
+- systèmes sous-déterminés
+donnees:
+  A:
+  - - 1
+    - -1
+    - 2
+  - - 0
+    - 1
+    - 1
+verification:
+  type: propriete
+  propriete: two_right_inverses
+indices:
+- Une inverse à droite $B$ de $A$ ($2 \times 3$) est une matrice $3 \times 2$ dont les colonnes $b_1,
+  b_2$ vérifient $A b_1 = e_1$ et $A b_2 = e_2$.
+- Comme $A$ a 2 lignes indépendantes et 3 colonnes, chaque système $A b = e_j$ possède une variable libre
+  (la 3ᵉ composante).
+- Choisissez deux affectations différentes pour les variables libres de la 3ᵉ ligne de $B$, puis déduisez
+  les deux premières lignes pour obtenir $B_1$ et $B_2$ distinctes.
+jumeau: generateurs.inverse_droite_exemple()

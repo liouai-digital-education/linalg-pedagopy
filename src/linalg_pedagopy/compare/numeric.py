@@ -1,4 +1,4 @@
-"""Comparaison exact vs virgule flottante (NumPy) et expériences numériques de VMLS (§5.7)."""
+"""Comparaison exact vs virgule flottante (NumPy) et expériences numériques classiques."""
 
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ def _to_numpy_float(obj: Matrix | Vector) -> np.ndarray:
 
 
 def build_lauchli_matrix(n: int = 3, epsilon: Any = sp.Rational(1, 10**8)) -> Matrix:
-    """Construit la matrice de Läuchli de taille (n+1) x n : [1...1 ; eps * I_n] (§5.7)."""
+    """Construit la matrice de Läuchli de taille (n+1) x n : [1...1 ; eps * I_n]."""
     eps = sp.sympify(epsilon)
     rows: list[list[sp.Expr]] = [[sp.Integer(1)] * n]
     for i in range(n):
@@ -37,7 +37,7 @@ def build_lauchli_matrix(n: int = 3, epsilon: Any = sp.Rational(1, 10**8)) -> Ma
 
 
 def build_hilbert_matrix(n: int) -> Matrix:
-    """Construit la matrice de Hilbert exacte H_(i,j) = 1 / (i + j + 1) (§5.7)."""
+    """Construit la matrice de Hilbert exacte H_(i,j) = 1 / (i + j + 1)."""
     rows = [
         [sp.Rational(1, i + j + 1) for j in range(n)]
         for i in range(n)
@@ -47,7 +47,7 @@ def build_hilbert_matrix(n: int) -> Matrix:
 
 @dataclass(frozen=True)
 class ComparisonReport:
-    """Rapport de comparaison entre un calcul exact et son homologue flottant NumPy (§5.7)."""
+    """Rapport de comparaison entre un calcul exact et son homologue flottant NumPy."""
 
     procedure_name: str
     exact_result: Any
@@ -62,7 +62,7 @@ class ComparisonReport:
 
 @dataclass(frozen=True)
 class LauchliGSReport:
-    """Résultat de l'expérience de Gram-Schmidt classique vs modifié vs exact sur Läuchli (§5.7)."""
+    """Résultat de l'expérience de Gram-Schmidt classique vs modifié vs exact sur Läuchli."""
 
     epsilon: float
     exact_orthogonality_error: int
@@ -79,7 +79,7 @@ class LauchliGSReport:
 
 @dataclass(frozen=True)
 class LauchliLSReport:
-    """Résultat de l'expérience Équations normales vs QR sur la matrice de Läuchli (§5.7)."""
+    """Résultat de l'expérience Équations normales vs QR sur la matrice de Läuchli."""
 
     epsilon: float
     ata_exact: Matrix
@@ -104,7 +104,7 @@ class HilbertEntry:
 
 @dataclass(frozen=True)
 class HilbertReport:
-    """Résultat de l'expérience sur les matrices de Hilbert (§5.7)."""
+    """Résultat de l'expérience sur les matrices de Hilbert."""
 
     entries: tuple[HilbertEntry, ...]
     summary: str
@@ -115,7 +115,7 @@ class HilbertReport:
 
 @dataclass(frozen=True)
 class InverseVsSolveReport:
-    """Résultat de la comparaison entre inversion explicite A^(-1) b et résolution directe (§5.7)."""
+    """Résultat de la comparaison entre inversion explicite A^(-1) b et résolution directe."""
 
     n: int
     solve_flops: int
@@ -158,7 +158,7 @@ def _modified_gram_schmidt_float(A_np: np.ndarray) -> np.ndarray:
 
 
 def compare(procedure: Any, inputs: Any = None) -> ComparisonReport:
-    """Exécute un algorithme en exact et en flottant (NumPy) et mesure l'écart (§5.7)."""
+    """Exécute un algorithme en exact et en flottant (NumPy) et mesure l'écart."""
     if isinstance(procedure, type) and inputs is not None:
         if isinstance(inputs, tuple):
             proc_inst = procedure(*inputs)
@@ -227,7 +227,7 @@ def lauchli_gram_schmidt_experiment(
     epsilon: Any = sp.Rational(1, 10**8),
     n: int = 3,
 ) -> LauchliGSReport:
-    """Expérience 1 (§5.7) : Gram-Schmidt classique vs modifié vs exact sur la matrice de Läuchli."""
+    """Expérience 1 : Gram-Schmidt classique vs modifié vs exact sur la matrice de Läuchli."""
     A = build_lauchli_matrix(n=n, epsilon=epsilon)
     with suspend_tracing():
         gs_res = GramSchmidt(A.columns(), normalize="end").run()
@@ -263,7 +263,7 @@ def lauchli_least_squares_experiment(
     epsilon: Any = sp.Rational(1, 10**8),
     n: int = 3,
 ) -> LauchliLSReport:
-    """Expérience 2 (§5.7) : Équations normales vs QR sur la matrice de Läuchli (1 + ε^2 == 1 en machine)."""
+    """Expérience 2 : Équations normales vs QR sur la matrice de Läuchli (1 + ε^2 == 1 en machine)."""
     A = build_lauchli_matrix(n=n, epsilon=epsilon)
     b = Vector([sp.Integer(1)] + [sp.Integer(i + 1) for i in range(n)])
 
@@ -305,7 +305,7 @@ def lauchli_least_squares_experiment(
 def hilbert_conditioning_experiment(
     sizes: Sequence[int] = (3, 5, 7, 9),
 ) -> HilbertReport:
-    """Expérience 3 (§5.7) : Croissance du conditionnement et erreur relative sur les matrices de Hilbert."""
+    """Expérience 3 : Croissance du conditionnement et erreur relative sur les matrices de Hilbert."""
     entries: list[HilbertEntry] = []
     lines = ["Matrices de Hilbert H_n :"]
     for n in sizes:
@@ -331,7 +331,7 @@ def hilbert_conditioning_experiment(
 
 
 def explicit_inverse_vs_solve_experiment(n: int = 6) -> InverseVsSolveReport:
-    """Expérience 4 (§5.7) : Coût en flops et erreur supplémentaire de A^(-1) b face à une résolution directe."""
+    """Expérience 4 : Coût en flops et erreur supplémentaire de A^(-1) b face à une résolution directe."""
     H = build_hilbert_matrix(n)
     x_true = Vector([sp.Integer((-1) ** i * (i + 1)) for i in range(n)])
     with suspend_tracing():
@@ -347,7 +347,7 @@ def explicit_inverse_vs_solve_experiment(n: int = 6) -> InverseVsSolveReport:
     err_solve = float(np.linalg.norm(H_np @ x_solve - b_np))
     err_inv = float(np.linalg.norm(H_np @ x_inv - b_np))
 
-    # VMLS chap. 11 : résolution d'un système ~ (2/3) n^3 flops, inversion complète ~ (8/3) n^3 ou 2 n^3 flops
+    # Résolution d'un système ~ (2/3) n^3 flops, inversion complète ~ (8/3) n^3 ou 2 n^3 flops
     solve_flops = int(round((2.0 / 3.0) * (n**3) + 2 * (n**2)))
     inv_flops = int(round((8.0 / 3.0) * (n**3) + 2 * (n**2)))
     ratio = inv_flops / max(1, solve_flops)

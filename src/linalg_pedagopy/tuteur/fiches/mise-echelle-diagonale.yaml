@@ -1,0 +1,30 @@
+id: mise-echelle-diagonale
+numero: 27
+titre: Mise à l'échelle par matrices diagonales
+theme: Produit matriciel
+niveau: 2
+type: modelisation
+enonce: Soit $A$ une matrice $m \times n$, $D = \text{diag}(d_1, \dots, d_m)$ une matrice diagonale $m
+  \times m$ et $E = \text{diag}(e_1, \dots, e_n)$ une matrice diagonale $n \times n$. Exprimer le coefficient
+  $(i, j)$ du produit $D A E$ en fonction de $d_i$, $a_{ij}$ (représentant $A_{i,j}$) et $e_j$.
+notions:
+- multiplication par des matrices diagonales D A E
+- mise à l'échelle des lignes et colonnes
+donnees:
+  m: 3
+  n: 3
+verification:
+  type: formule
+  parametres:
+  - d_i
+  - a_ij
+  - e_j
+  cible: d_i * a_ij * e_j
+indices:
+- Analysez l'effet de la multiplication à gauche par une matrice diagonale $D$, puis à droite par une
+  matrice diagonale $E$.
+- 'Rappel : multiplier $A$ à gauche par $D = \text{diag}(d_1, \dots, d_m)$ multiplie la ligne $i$ de $A$
+  par $d_i$.'
+- Multiplier ensuite à droite par $E = \text{diag}(e_1, \dots, e_n)$ multiplie la colonne $j$ par $e_j$.
+  Quel est alors le coefficient $(i, j)$ ?
+jumeau: generateurs.mise_echelle_diagonale()

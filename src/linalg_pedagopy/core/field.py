@@ -1,4 +1,4 @@
-"""Gestion du corps des réels, coercition des entrées et choix du domaine (§5.1.1, D1, D2, D10)."""
+"""Gestion du corps des réels, coercition des entrées et choix du domaine."""
 
 from __future__ import annotations
 
@@ -31,7 +31,7 @@ def emit_core_event(kind_name: str, message_key: str, level: int, **params: Any)
 
 
 def symbols(*names: str, **assumptions: Any) -> tuple[sp.Symbol, ...]:
-    """Crée un tuple de symboles SymPy portant par défaut l'hypothèse real=True (D1).
+    """Crée un tuple de symboles SymPy portant par défaut l'hypothèse real=True.
 
     Exemples:
         a, = symbols("a")
@@ -174,7 +174,7 @@ def to_exact(x: Any, *, float_policy: FloatPolicy | None = None) -> sp.Expr:
 
 
 def choose_domain(entries: Iterable[sp.Expr]) -> Domain:
-    """Sélectionne le domaine le plus petit possible pour DomainMatrix (D10).
+    """Sélectionne le domaine le plus petit possible pour DomainMatrix.
 
     Ordre de préférence :
     1. QQ si toutes les entrées sont rationnelles ;
@@ -215,3 +215,25 @@ def choose_domain(entries: Iterable[sp.Expr]) -> Domain:
         return dom
     except Exception:
         return EX
+
+
+_SUPERSCRIPTS = str.maketrans("0123456789-", "⁰¹²³⁴⁵⁶⁷⁸⁹⁻")
+
+
+def pretty_expr(expr: Any) -> str:
+    """Formate une expression SymPy en texte Unicode lisible (a², √(1 − m²), 2·a·b).
+
+    Utilisé par les rendus texte et l'affichage des conditions de discussion :
+    les puissances entières deviennent des exposants, ``sqrt`` devient ``√`` et
+    les produits sont notés par un point médian.
+    """
+    import re
+
+    s = sp.sstr(expr) if isinstance(expr, sp.Basic) else str(expr)
+    s = re.sub(r"\*\*\((-?\d+)\)", lambda m: m.group(1).translate(_SUPERSCRIPTS), s)
+    s = re.sub(r"\*\*(\d+)", lambda m: m.group(1).translate(_SUPERSCRIPTS), s)
+    s = s.replace("**", "^")
+    s = s.replace("sqrt(", "√(")
+    s = s.replace("*", "·")
+    s = re.sub(r"(?<![eE\d])-", "−", s)
+    return s

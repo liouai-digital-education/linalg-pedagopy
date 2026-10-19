@@ -1,4 +1,4 @@
-"""Structures de données immuables pour l'arbre de trace (§5.2.1, D6)."""
+"""Structures de données immuables pour l'arbre de trace."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from typing import Any, Iterator, Mapping
 
 
 class StepKind(Enum):
-    """Catégories d'étapes dans l'arbre de trace (§5.2.1)."""
+    """Catégories d'étapes dans l'arbre de trace."""
 
     SECTION = auto()
     INFO = auto()
@@ -29,7 +29,7 @@ class StepKind(Enum):
 
 @dataclass(frozen=True)
 class Highlight:
-    """Mise en évidence visuelle pour les matrices augmentées et pivots (§5.2.1, §5.5)."""
+    """Mise en évidence visuelle pour les matrices augmentées et pivots."""
 
     pivot: tuple[int, int] | None = None  # indices 0-based (row, col)
     rows: tuple[int, ...] = ()  # indices 0-based des lignes modifiées
@@ -40,7 +40,7 @@ class Highlight:
 
 @dataclass(frozen=True)
 class Step:
-    """Nœud immuable de l'arbre de trace (§5.2.1)."""
+    """Nœud immuable de l'arbre de trace."""
 
     kind: StepKind
     level: int

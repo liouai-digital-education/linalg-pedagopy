@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>07. Référence complète de l'API — linalg_pedagopy v3.0</title>
-  <meta name="description" content="Index alphabétique exhaustif, signatures formelles et table bilingue">
+  <title>07. Référence de l'API — linalg_pedagopy</title>
+  <meta name="description" content="Signatures, exceptions et alias français">
 
   <!-- Typographie Web Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,7 +43,7 @@
       <div class="brand-crest">LP</div>
       <div>
         <div class="brand-title">linalg_pedagopy</div>
-        <div class="brand-subtitle">Algèbre Linéaire Formelle & VMLS</div>
+        <div class="brand-subtitle">Algèbre linéaire formelle et pédagogique</div>
       </div>
     </a>
 
@@ -76,57 +76,71 @@
         
         <li class="nav-item ">
           <a href="index.html">
-            <span>Accueil & Démarrage</span>
+            <span>Accueil & démarrage</span>
             <span class="nav-badge">Portail</span>
           </a>
         </li>
         
         <li class="nav-item ">
           <a href="01_core_and_formal_computation.html">
-            <span>01. Noyau formel & Exactitude</span>
+            <span>01. Noyau formel & calcul exact</span>
             <span class="nav-badge">Fondement</span>
           </a>
         </li>
         
         <li class="nav-item ">
           <a href="02_vectors_and_matrices.html">
-            <span>02. Vecteurs, Matrices & VMLS</span>
+            <span>02. Vecteurs, matrices & métriques</span>
             <span class="nav-badge">Objets</span>
           </a>
         </li>
         
         <li class="nav-item ">
           <a href="03_algorithms_and_step_tracing.html">
-            <span>03. Algorithmes & Traçabilité</span>
+            <span>03. Algorithmes & traçabilité</span>
             <span class="nav-badge">Algèbre</span>
           </a>
         </li>
         
         <li class="nav-item ">
-          <a href="04_vmls_tutor.html">
-            <span>04. Le Tuteur Interactif VMLS</span>
+          <a href="04_tuteur.html">
+            <span>04. Le tuteur interactif</span>
             <span class="nav-badge">Pédagogie</span>
           </a>
         </li>
         
         <li class="nav-item ">
           <a href="05_pedagogical_exercises_and_sessions.html">
-            <span>05. Exercices & Sessions Guidées</span>
+            <span>05. Exercices & sessions guidées</span>
             <span class="nav-badge">Didactique</span>
           </a>
         </li>
         
         <li class="nav-item ">
           <a href="06_rendering_visualization_and_numerics.html">
-            <span>06. Rendu, Géométrie & Numérique</span>
+            <span>06. Rendu, géométrie & numérique</span>
             <span class="nav-badge">Visuel</span>
           </a>
         </li>
         
         <li class="nav-item active">
           <a href="07_api_reference.html">
-            <span>07. Référence complète de l'API</span>
+            <span>07. Référence de l'API</span>
             <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="08_catalogue_exercices.html">
+            <span>08. Catalogue des exercices</span>
+            <span class="nav-badge">Exercices</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="09_guide_jupyterlab.html">
+            <span>09. Guide JupyterLab</span>
+            <span class="nav-badge">Pratique</span>
           </a>
         </li>
         
@@ -134,7 +148,7 @@
 
       <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
         <strong>Version 3.0.0</strong><br>
-        Inspiré de Boyd &amp; Vandenberghe
+        Calcul exact · tuteur interactif
       </div>
     </aside>
 
@@ -142,13 +156,13 @@
     <main class="main-content">
       <header class="article-header">
         <span class="article-badge">Chapitre 07 • Référence</span>
-        <h1 class="article-title">07. Référence complète de l'API</h1>
-        <p class="article-subtitle">Index alphabétique exhaustif, signatures formelles et table bilingue</p>
+        <h1 class="article-title">07. Référence de l'API</h1>
+        <p class="article-subtitle">Signatures, exceptions et alias français</p>
       </header>
 
       <article class="markdown-body">
         <h1 id="07-reference-complete-de-lapi">07. Référence complète de l'API</h1>
-<p>Ce document constitue la référence des modules, classes, fonctions et exceptions publics du package <code>linalg_pedagopy</code> v3.0. Les signatures sont celles du code source (<code>src/linalg_pedagopy</code>).</p>
+<p>Ce document constitue la référence des modules, classes, fonctions et exceptions publics du package <code>linalg_pedagopy</code>. Les signatures sont celles du code source (<code>src/linalg_pedagopy</code>).</p>
 <p>Tous les noms ci-dessous sont importables depuis <code>linalg_pedagopy</code> (sauf mention d'un sous-module).</p>
 <hr/>
 <h2 id="1-table-de-correspondance-bilingue-anglais-francais">1. Table de correspondance bilingue (Anglais / Français)</h2>
@@ -166,6 +180,21 @@
 <td style="text-align: left;"><code>tutor</code></td>
 <td style="text-align: left;"><code>tuteur</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tutor.catalog(theme=None)</code></td>
+<td style="text-align: left;"><code>tuteur.catalogue(theme=None)</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tutor.themes()</code></td>
+<td style="text-align: left;"><code>tuteur.themes()</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tutor.reload_catalog()</code></td>
+<td style="text-align: left;"><code>tuteur.recharger_catalogue()</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>tutor.exercise(id)</code></td>
@@ -248,6 +277,16 @@
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
+<td style="text-align: left;"><code>ex.reset()</code></td>
+<td style="text-align: left;"><code>ex.recommencer()</code></td>
+<td style="text-align: left;"><code>ExerciseSession</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ex.title</code>, <code>ex.number</code>, <code>ex.level</code></td>
+<td style="text-align: left;"><code>ex.titre</code>, <code>ex.numero</code>, <code>ex.niveau</code></td>
+<td style="text-align: left;"><code>ExerciseSession</code></td>
+</tr>
+<tr>
 <td style="text-align: left;"><code>ex.panel()</code></td>
 <td style="text-align: left;"><code>ex.panneau()</code></td>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
@@ -276,6 +315,11 @@
 <td style="text-align: left;"><code>generators.least_squares_example()</code></td>
 <td style="text-align: left;"><code>generateurs.moindres_carres_exemple()</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy.exercises.generators</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>difference_matrix(n)</code>, <code>running_sum_matrix(n)</code>…</td>
+<td style="text-align: left;"><code>matrice_differences(n)</code>, <code>matrice_somme_cumulee(n)</code>…</td>
+<td style="text-align: left;"><code>linalg_pedagopy.special</code></td>
 </tr>
 </tbody>
 </table>
@@ -309,7 +353,7 @@
 <h4 id="oracledecidee-assumptionsnone-trace_level3true-zerodecision"><code>oracle.decide(e, assumptions=None, *, trace_level3=True) -&gt; ZeroDecision</code></h4>
 <p>Analyse la nullité d'une expression (avec élimination des radicaux par <code>sympy.unrad</code> et filtrage des racines parasites). <code>oracle</code> est l'instance globale de <code>ZeroOracle</code>.</p>
 <h4 id="oracleis_zeroe-assumptionsnone-bool"><code>oracle.is_zero(e, assumptions=None) -&gt; bool</code></h4>
-<p>Renvoie <code>True</code> si l'expression est nulle, <code>False</code> si elle est non nulle. Lève <a href="#24-hiérarchie-des-exceptions"><code>UndecidableZeroError</code></a> sinon.</p>
+<p>Renvoie <code>True</code> si l'expression est nulle, <code>False</code> si elle est non nulle. Lève <a href="#24-hierarchie-des-exceptions"><code>UndecidableZeroError</code></a> sinon.</p>
 <h3 id="23-disjonction-de-cas-condition-branch-casesplit">2.3 Disjonction de cas (<code>Condition</code>, <code>Branch</code>, <code>CaseSplit</code>)</h3>
 <h4 id="condition"><code>Condition</code></h4>
 <p>Ensemble d'égalités (<code>eqs</code>) et d'inégalités (<code>neqs</code>) sur les paramètres.
@@ -339,7 +383,8 @@
 ├── RankDeficientError        (ArithmeticError)
 ├── UndecidableZeroError      (ArithmeticError)
 ├── UndefinedOperationError   (ArithmeticError)
-└── LockedExerciseDataError   (PermissionError)
+├── LockedExerciseDataError   (PermissionError)
+└── UnknownExerciseError      (LookupError)
 </code></pre></div>
 <hr/>
 <h2 id="3-module-linalg_pedagopyobjects">3. Module <code>linalg_pedagopy.objects</code></h2>
@@ -354,7 +399,7 @@
 <ul>
 <li><code>v + w</code>, <code>v - w</code>, <code>-v</code>, <code>c * v</code>, <code>v * c</code>, <code>v / c</code>.</li>
 </ul>
-<h4 id="metriques-vmls">Métriques VMLS</h4>
+<h4 id="metriques">Métriques</h4>
 <ul>
 <li><code>dot(other) -&gt; Expr</code> : produit scalaire.</li>
 <li><code>norm_sq() -&gt; Expr</code>, <code>norm() -&gt; Expr</code> : carré de la norme, norme.</li>
@@ -409,6 +454,18 @@
 <li><code>Matrix.block(blocks)</code> : grille de blocs (matrices, vecteurs ou entiers).</li>
 </ul>
 <hr/>
+<h3 id="33-module-linalg_pedagopyspecial-matrices-structurees">3.3 Module <code>linalg_pedagopy.special</code> (matrices structurées)</h3>
+<p>Indices comptés à partir de 0 ; toutes les fonctions sont aussi importables depuis <code>linalg_pedagopy</code>.</p>
+<ul>
+<li><code>difference_matrix(n)</code> (alias <code>matrice_differences</code>) : <strong>ACADEMIC_TOKEN_6</strong>, <strong>ACADEMIC_TOKEN_7</strong>.</li>
+<li><code>running_sum_matrix(n)</code> (alias <code>matrice_somme_cumulee</code>) : <strong>ACADEMIC_TOKEN_8</strong>, sommes cumulées.</li>
+<li><code>moving_average_matrix(n, k)</code> (alias <code>matrice_moyenne_glissante</code>) : <strong>ACADEMIC_TOKEN_9</strong>.</li>
+<li><code>vandermonde(points, degree=None)</code> : ligne <strong>ACADEMIC_TOKEN_10</strong> = <strong>ACADEMIC_TOKEN_11</strong>.</li>
+<li><code>convolution_matrix(b, n)</code> (alias <code>matrice_convolution</code>) : Toeplitz <strong>ACADEMIC_TOKEN_12</strong>, <strong>ACADEMIC_TOKEN_13</strong>.</li>
+<li><code>convolution(a, b) -&gt; Vector</code> : produit de convolution.</li>
+<li><code>selection_matrix(indices, n)</code> (alias <code>matrice_selection</code>), <code>reversal_matrix(n)</code> (alias <code>matrice_renversement</code>).</li>
+</ul>
+<hr/>
 <h2 id="4-module-linalg_pedagopyalgorithms">4. Module <code>linalg_pedagopy.algorithms</code></h2>
 <p>Chaque procédure s'exécute par <code>.run()</code>, qui renvoie un résultat (ou un <code>CaseSplit</code> de résultats en présence de paramètres). Tout résultat possède <code>trace: Step</code>, <code>explain(level=None, fmt="auto") -&gt; Explanation</code> et <code>verify() -&gt; Explanation</code>. <code>procedure.interactive(mode=...)</code> ouvre une <code>InteractiveSession</code>.</p>
 <h3 id="41-gaussjordan">4.1 <code>GaussJordan</code></h3>
@@ -438,7 +495,7 @@ BackSubstitution(R, c, *, assumptions=None)
 </code></pre></div>
 <ul>
 <li><code>vectors</code> : suite de vecteurs (ou de listes) ou <code>Matrix</code> (ses colonnes).</li>
-<li><code>normalize</code> : <code>"end"</code> (calcul rationnel, normalisation finale) ou <code>"each"</code> (VMLS).</li>
+<li><code>normalize</code> : <code>"end"</code> (calcul rationnel, normalisation finale) ou <code>"each"</code> (normalisation à chaque étape).</li>
 <li><code>strict=True</code> : <code>LinearDependenceError</code> si la famille est liée.</li>
 <li><code>.run()</code> → <code>GSResult | CaseSplit[GSResult]</code>.</li>
 <li>Champs de <code>GSResult</code> : <code>independent</code>, <code>vectors</code>, <code>orthogonal</code>, <code>orthonormal</code>, <code>r_tilde</code>, <code>d_sq</code>, <code>dependent_index</code>, <code>witness</code> (<code>DependenceWitness(index, q_tilde_coeffs, a_coeffs, expression)</code>) ; propriétés <code>Q</code>, <code>Q_tilde</code>.</li>
@@ -455,7 +512,7 @@ BackSubstitution(R, c, *, assumptions=None)
 </code></pre></div>
 <ul>
 <li><code>method</code> : <code>"rational_qr"</code> (défaut), <code>"qr"</code> ou <code>"normal"</code>.</li>
-<li><code>.run()</code> → <code>LSResult | CaseSplit[LSResult]</code> : <code>A</code>, <code>b</code>, <code>x_hat</code>, <code>y_hat</code>, <code>r_hat</code> (<strong>ACADEMIC_TOKEN_6</strong>), <code>residual_norm</code>, <code>residual_rms</code>, <code>method</code>, <code>full_rank</code>, <code>witness</code> ; propriétés <code>residual</code>, <code>pseudoinverse</code>.</li>
+<li><code>.run()</code> → <code>LSResult | CaseSplit[LSResult]</code> : <code>A</code>, <code>b</code>, <code>x_hat</code>, <code>y_hat</code>, <code>r_hat</code> (<strong>ACADEMIC_TOKEN_14</strong>), <code>residual_norm</code>, <code>residual_rms</code>, <code>method</code>, <code>full_rank</code>, <code>witness</code> ; propriétés <code>residual</code>, <code>pseudoinverse</code>.</li>
 </ul>
 <hr/>
 <h2 id="5-tracabilite-et-rendu">5. Traçabilité et rendu</h2>
@@ -468,34 +525,41 @@ BackSubstitution(R, c, *, assumptions=None)
 </ul>
 <hr/>
 <h2 id="6-module-linalg_pedagopytutor-tuteur">6. Module <code>linalg_pedagopy.tutor</code> / <code>tuteur</code></h2>
-<h3 id="61-fonctions-du-catalogue">6.1 Fonctions du catalogue</h3>
-<h4 id="exerciseex_id-journal_pathnone-exercisesession-alias-exercice"><code>exercise(ex_id, *, journal_path=None) -&gt; ExerciseSession</code> (alias <code>exercice</code>)</h4>
-<p>Charge la fiche VMLS d'identifiant <code>ex_id</code> et ouvre une séance.</p>
-<h4 id="list_exercises-liststr-alias-lister_exercices"><code>list_exercises() -&gt; list[str]</code> (alias <code>lister_exercices</code>)</h4>
-<p>Renvoie la liste triée des identifiants des fiches disponibles (35 fiches).</p>
-<h4 id="validate_sheetex_id-validationreport-alias-valider_fiche"><code>validate_sheet(ex_id) -&gt; ValidationReport</code> (alias <code>valider_fiche</code>)</h4>
-<p>Valide une fiche (champs, vérificateur, jumeau, absence de fuite, contrôle croisé) sans écrire dans le journal. <code>ValidationReport</code> : <code>valid</code>, <code>target_ok</code>, <code>twin_ok</code>, <code>hints_leak_free</code>, <code>source_ok</code>, <code>cross_check_ok</code>, <code>errors</code>.</p>
-<h4 id="glossaryterm-str-alias-glossaire"><code>glossary(term) -&gt; str</code> (alias <code>glossaire</code>)</h4>
-<p>Renvoie la définition d'un terme du glossaire VMLS (termes anglais : <code>"gram matrix"</code>, <code>"least squares"</code>, <code>"rms"</code>…). Lève <code>KeyError</code> avec la liste des termes disponibles si le terme est absent.</p>
+<h3 id="61-catalogue">6.1 Catalogue</h3>
+<h4 id="catalogthemenone-exercisecatalog-alias-catalogue"><code>catalog(theme=None) -&gt; ExerciseCatalog</code> (alias <code>catalogue</code>)</h4>
+<p>Table des exercices (tuple de dictionnaires <code>numero</code>, <code>id</code>, <code>titre</code>, <code>theme</code>, <code>type</code>, <code>niveau</code>, <code>notions</code>), rendue en tableau Markdown dans JupyterLab et groupée par thème avec <code>print</code>. <code>theme</code> filtre sur une partie du nom du thème.</p>
+<h4 id="themes-liststr"><code>themes() -&gt; list[str]</code></h4>
+<p>Les thèmes, dans l'ordre du cours (constante <code>THEMES</code>).</p>
+<h4 id="list_exercisesthemenone-liststr-alias-lister_exercices"><code>list_exercises(theme=None) -&gt; list[str]</code> (alias <code>lister_exercices</code>)</h4>
+<p>Identifiants des exercices dans l'ordre du catalogue.</p>
+<h4 id="exerciseref-journal_pathnone-exercisesession-alias-exercice"><code>exercise(ref, *, journal_path=None) -&gt; ExerciseSession</code> (alias <code>exercice</code>)</h4>
+<p>Ouvre une séance. <code>ref</code> est un identifiant (<code>"moyenne-glissante"</code>), un numéro (<code>16</code> ou <code>"16"</code>) ou un titre exact. Lève <code>UnknownExerciseError</code> (avec suggestions) si l'exercice n'existe pas.</p>
+<h4 id="validate_sheetref-validationreport-alias-valider_fiche"><code>validate_sheet(ref) -&gt; ValidationReport</code> (alias <code>valider_fiche</code>)</h4>
+<p>Valide une fiche (champs, métadonnées, numéro unique, vérificateur, jumeau, absence de fuite, contrôle croisé) sans écrire dans le journal. <code>ValidationReport</code> : <code>valid</code>, <code>target_ok</code>, <code>twin_ok</code>, <code>hints_leak_free</code>, <code>source_ok</code> (métadonnées de catalogue), <code>cross_check_ok</code>, <code>errors</code> (alias <code>valide</code>, <code>cible_ok</code>, <code>jumeau_ok</code>, <code>indices_sans_fuite</code>, <code>erreurs</code>).</p>
+<h4 id="reload_catalog-alias-recharger_catalogue"><code>reload_catalog()</code> (alias <code>recharger_catalogue</code>)</h4>
+<p>Relit les fiches sur le disque.</p>
+<h4 id="glossarytermnone-str-alias-glossaire"><code>glossary(term=None) -&gt; str</code> (alias <code>glossaire</code>)</h4>
+<p>Définition d'un terme (anglais ou français, recherche partielle) ; sans argument, la liste des 40 termes. Lève <code>KeyError</code> avec des suggestions si le terme est absent.</p>
 <h4 id="modenew_modenone-str"><code>mode(new_mode=None) -&gt; str</code></h4>
 <p>Lit ou fixe <code>config.tutor_mode</code> (<code>"student"</code>, <code>"teacher"</code>, <code>"etudiant"</code>, <code>"enseignant"</code>).</p>
-<h3 id="62-classe-exercisesession">6.2 Classe <code>ExerciseSession</code></h3>
+<h3 id="62-classe-exercisesession-alias-exercicesession">6.2 Classe <code>ExerciseSession</code> (alias <code>ExerciceSession</code>)</h3>
 <ul>
-<li>Attributs : <code>id</code>, <code>type</code>, <code>page</code>, <code>reformulation</code>, <code>notions</code>, <code>source</code>, <code>ecart</code>, <code>data</code> (<code>LockedNamespace</code>), <code>journal</code> (<code>ExerciseJournal</code>), <code>predictions</code>.</li>
-<li><code>statement() -&gt; MarkdownText</code> : énoncé (rendu Markdown/LaTeX dans Jupyter).</li>
-<li><code>hint(level=None, *, niveau=None) -&gt; MarkdownText</code> : débloque le palier suivant (1 à 4, le 4ᵉ étant l'exercice jumeau).</li>
-<li><code>twin() -&gt; TwinExercise</code> : exercice jumeau résolu (<code>title</code>, <code>statement</code>, <code>solution_summary</code>, <code>explanation</code>).</li>
-<li><code>predict(*args, **kwargs) -&gt; MarkdownText</code> : enregistre une prédiction (obligatoire avant <code>lab()</code>).</li>
-<li><code>lab() -&gt; CounterexampleLab</code> : laboratoire ; <code>lab.test(**instances) -&gt; LabReport</code> (<code>hypotheses_satisfied</code>, <code>results_by_part</code>, <code>found_counterexample</code>, <code>message</code>).</li>
-<li><code>verify(response) -&gt; VerificationResult</code> : <code>valid</code>, <code>diagnostic</code>, <code>simplicity_note</code>.</li>
-<li><code>summary() -&gt; MarkdownText</code> : bilan du journal.</li>
-<li><code>panel()</code> : panneau <code>ipywidgets</code> (ou <code>PanelFallback</code>).</li>
-<li><code>teacher_sheet() -&gt; TeacherSheet</code> : fiche complète (dictionnaire), mode enseignant uniquement (<code>PermissionError</code> sinon).</li>
+<li>Attributs : <code>id</code>, <code>number</code>/<code>numero</code>, <code>title</code>/<code>titre</code>, <code>theme</code>, <code>level</code>/<code>niveau</code>, <code>type</code>, <code>notions</code>, <code>text</code>/<code>texte</code> (énoncé brut), <code>data</code>/<code>donnees</code> (<code>LockedNamespace</code>), <code>journal</code> (<code>ExerciseJournal</code>), <code>predictions</code>.</li>
+<li><code>statement() -&gt; MarkdownText</code> (alias <code>enonce</code>) : titre, thème, type, niveau, énoncé et notions.</li>
+<li><code>hint(level=None, *, niveau=None) -&gt; MarkdownText</code> (alias <code>indice</code>) : palier suivant (1 à 4) ou relecture d'un palier débloqué ; récapitulatif quand tout est débloqué.</li>
+<li><code>twin() -&gt; TwinExercise</code> (alias <code>jumeau</code>) : exercice analogue résolu (<code>title</code>, <code>statement</code>, <code>solution_summary</code>, <code>explanation</code>).</li>
+<li><code>predict(*args, **kwargs) -&gt; MarkdownText</code> (alias <code>predire</code>) : enregistre une prédiction (obligatoire avant <code>lab()</code>).</li>
+<li><code>lab() -&gt; CounterexampleLab</code> (alias <code>labo</code>) ; <code>lab.test(**instances) -&gt; LabReport</code> (<code>hypotheses_satisfied</code>, <code>results_by_part</code>, <code>found_counterexample</code>, <code>message</code>).</li>
+<li><code>verify(response) -&gt; VerificationResult</code> (alias <code>verifier</code>) : <code>valid</code>, <code>diagnostic</code>, <code>simplicity_note</code> (alias <code>valide</code>, <code>note_simplicite</code>). Une réponse de forme inattendue donne un diagnostic, jamais une exception.</li>
+<li><code>summary() -&gt; MarkdownText</code> (alias <code>bilan</code>) : bilan de la séance.</li>
+<li><code>reset() -&gt; MarkdownText</code> (alias <code>recommencer</code>) : efface la progression sur l'exercice.</li>
+<li><code>panel()</code> (alias <code>panneau</code>) : panneau <code>ipywidgets</code> (ou <code>PanelFallback</code>).</li>
+<li><code>teacher_sheet() -&gt; TeacherSheet</code> (alias <code>fiche_enseignant</code>) : fiche complète, mode enseignant uniquement (<code>PermissionError</code> sinon).</li>
 </ul>
 <hr/>
 <h2 id="7-modules-exercises-compare-et-plot">7. Modules <code>exercises</code>, <code>compare</code> et <code>plot</code></h2>
 <ul>
-<li><code>linalg_pedagopy.exercises</code> : <code>generate_unimodular_matrix</code>, <code>generate_integer_rref_matrix</code>, <code>generate_rational_qr_matrix</code>, <code>generate_clean_least_squares</code>, <code>generate_parametric_system</code>, <code>cayley_orthogonal</code>, <code>generators</code> / <code>generateurs</code>, <code>TwinExercise</code>, <code>InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)</code>, <code>check_row_operation</code>, <code>check_gram_schmidt_step</code>, <code>OperationFeedback</code> (voir <a href="05_pedagogical_exercises_and_sessions.html">guide 05</a>).</li>
+<li><code>linalg_pedagopy.exercises</code> : <code>generate_unimodular_matrix</code>, <code>generate_integer_rref_matrix</code>, <code>generate_rational_qr_matrix</code>, <code>generate_clean_least_squares</code>, <code>generate_parametric_system</code>, <code>cayley_orthogonal</code>, <code>generators</code> / <code>generateurs</code>, <code>TwinExercise</code> (20 générateurs, voir le guide 05), <code>InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)</code>, <code>check_row_operation</code>, <code>check_gram_schmidt_step</code>, <code>OperationFeedback</code> (voir <a href="05_pedagogical_exercises_and_sessions.html">guide 05</a>).</li>
 <li><code>linalg_pedagopy.compare</code> (extra <code>compare</code>, NumPy) : <code>compare(procedure, inputs=None) -&gt; ComparisonReport</code>, <code>build_lauchli_matrix(n=3, epsilon=1/10**8)</code>, <code>build_hilbert_matrix(n)</code>, <code>lauchli_gram_schmidt_experiment</code>, <code>lauchli_least_squares_experiment</code>, <code>hilbert_conditioning_experiment</code>, <code>explicit_inverse_vs_solve_experiment</code> (voir <a href="06_rendering_visualization_and_numerics.html">guide 06</a>).</li>
 <li><code>linalg_pedagopy.plot</code> (extra <code>plot</code>, Matplotlib) : <code>plot_linear_combination_2d</code>, <code>plot_orthogonal_projection_2d</code>, <code>plot_gram_schmidt_2d</code>, <code>plot_least_squares_fit</code>, <code>plot_least_squares_geometry_3d</code>.</li>
 </ul>
@@ -569,10 +633,15 @@ BackSubstitution(R, c, *, assumptions=None)
         
         <a href="06_rendering_visualization_and_numerics.html" class="chapter-nav-btn">
           <span class="nav-direction">&larr; Chapitre précédent</span>
-          <span class="nav-target">06. Rendu, Géométrie & Numérique</span>
+          <span class="nav-target">06. Rendu, géométrie & numérique</span>
         </a>
         
 
+        
+        <a href="08_catalogue_exercices.html" class="chapter-nav-btn" style="text-align:right;">
+          <span class="nav-direction">Chapitre suivant &rarr;</span>
+          <span class="nav-target">08. Catalogue des exercices</span>
+        </a>
         
       </nav>
     </main>
@@ -618,6 +687,10 @@ BackSubstitution(R, c, *, assumptions=None)
           <a href="#32-classe-matrix">3.2 Classe Matrix</a>
         </li>
         
+        <li class="toc-item toc-h3">
+          <a href="#33-module-linalg_pedagopyspecial-matrices-structurees">3.3 Module linalg_pedagopy.special (matrices structurées)</a>
+        </li>
+        
         <li class="toc-item ">
           <a href="#4-module-linalg_pedagopyalgorithms">4. Module linalg_pedagopy.algorithms</a>
         </li>
@@ -651,11 +724,11 @@ BackSubstitution(R, c, *, assumptions=None)
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#61-fonctions-du-catalogue">6.1 Fonctions du catalogue</a>
+          <a href="#61-catalogue">6.1 Catalogue</a>
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#62-classe-exercisesession">6.2 Classe ExerciseSession</a>
+          <a href="#62-classe-exercisesession-alias-exercicesession">6.2 Classe ExerciseSession (alias ExerciceSession)</a>
         </li>
         
         <li class="toc-item ">
@@ -673,8 +746,8 @@ BackSubstitution(R, c, *, assumptions=None)
   <!-- Pied de page -->
   <footer class="site-footer">
     <p>
-      <strong>linalg_pedagopy v3.0</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
-      Conçu pour l'enseignement en L1–L2 et fondé sur <em>Introduction to Applied Linear Algebra</em> (VMLS) par S. Boyd &amp; L. Vandenberghe.<br>
+      <strong>linalg_pedagopy</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement de l'algèbre linéaire en L1–L2.<br>
       Documentation sous licence MIT. Code source ouvert.
     </p>
   </footer>

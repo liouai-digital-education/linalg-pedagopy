@@ -1,0 +1,25 @@
+id: inegalite-triangulaire-trois
+numero: 13
+titre: Inégalité triangulaire à trois vecteurs
+theme: Normes, distances et angles
+niveau: 3
+type: vrai_faux
+enonce: A-t-on $\|a + b + c\| \le \|a\| + \|b\| + \|c\|$ pour tous vecteurs $a, b, c$ ? Justifier, ou
+  donner un contre-exemple.
+notions:
+- inégalité triangulaire
+- norme euclidienne
+donnees:
+  n: 3
+verification:
+  type: labo
+  enonce: norm(a + b + c) <= norm(a) + norm(b) + norm(c)
+  variables:
+    a: vecteur
+    b: vecteur
+    c: vecteur
+indices:
+- Quel résultat fondamental du cours ressemble à cette inégalité ?
+- 'Rappel : inégalité triangulaire $\|u + v\| \le \|u\| + \|v\|$.'
+- Pouvez-vous voir $a + b + c$ comme la somme de deux vecteurs $(a + b) + c$ ?
+jumeau: generateurs.inegalite_triangulaire()

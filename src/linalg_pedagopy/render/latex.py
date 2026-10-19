@@ -1,4 +1,4 @@
-"""Moteur de rendu LaTeX (matrices augmentées, pivots encadrés, opérations sur flèches, §5.5)."""
+"""Moteur de rendu LaTeX (matrices augmentées, pivots encadrés, opérations sur flèches)."""
 
 from __future__ import annotations
 
@@ -28,7 +28,7 @@ def format_value_latex(val: Any) -> str:
 
 
 def format_matrix_latex(mat: Matrix, highlight: Highlight | None = None) -> str:
-    """Formate une Matrix en LaTeX avec barre d'augmentation '|', pivot \\boxed et lignes colorées (§5.5)."""
+    """Formate une Matrix en LaTeX avec barre d'augmentation '|', pivot \\boxed et lignes colorées."""
     if mat.rows == 0 or mat.cols == 0:
         return "\\left[\\,\\right]"
 
@@ -99,6 +99,45 @@ def _render_node_latex(node: Step, *, locale: str | None) -> list[str]:
     return lines
 
 
+
+def branch_summary_parts(result: Any) -> list[tuple[str, str]]:
+    """Résumé d'une branche de CaseSplit sous forme de (texte, latex) par ligne.
+
+    La partie texte est la phrase descriptive ; la partie LaTeX (éventuellement vide)
+    contient la solution mise en forme mathématiquement, pour les rendus LaTeX,
+    Markdown et HTML.
+    """
+    if hasattr(result, "_branch_summary_lines"):
+        lines = list(result._branch_summary_lines())
+    elif isinstance(result, (Matrix, Vector, sp.Basic)):
+        return [("", format_value_latex(result))]
+    else:
+        lines = [str(result)]
+    sol = getattr(result, "solution", None)
+    parts: list[tuple[str, str]] = []
+    for line in lines:
+        if line.startswith("x = ") and sol is not None:
+            if hasattr(sol, "x") and isinstance(getattr(sol, "x"), Vector):
+                parts.append(("", "x = " + format_value_latex(sol.x)))
+                continue
+            if hasattr(sol, "x0") and hasattr(sol, "basis"):
+                terms = [format_value_latex(sol.x0)] + [
+                    f"t_{{{i + 1}}} {format_value_latex(v)}" for i, v in enumerate(sol.basis)
+                ]
+                parts.append(("", "x = " + " + ".join(terms)))
+                continue
+        parts.append((line, ""))
+    return parts
+
+
+def _latex_escape_text(s: str) -> str:
+    """Échappe les caractères spéciaux LaTeX d'une phrase en texte."""
+    for a, b in (("\\", "\\textbackslash{}"), ("&", "\\&"), ("%", "\\%"), ("#", "\\#"),
+                 ("_", "\\_"), ("|", "\\textbar{}"), ("−", "-")):
+        s = s.replace(a, b)
+    return s
+
+
 def render_casesplit_latex(
     cs: CaseSplit[Any],
     *,
@@ -111,12 +150,10 @@ def render_casesplit_latex(
     for branch in cs.branches:
         cond_tex = branch.condition.format_latex()
         gen_tag = " \\text{ (générique)}" if branch.condition.is_generic else ""
-        summary_lines = (
-            list(branch.result._branch_summary_lines())
-            if hasattr(branch.result, "_branch_summary_lines")
-            else [str(branch.result)]
+        parts = branch_summary_parts(branch.result)
+        summary_txt = " — ".join(
+            (f"${tex}$" if tex else _latex_escape_text(txt)) for txt, tex in parts
         )
-        summary_txt = " — ".join(summary_lines)
         lines.append(f"  \\item \\textbf{{Cas ${cond_tex}{gen_tag}$}} : {summary_txt}")
         if max_level >= 2 and isinstance(branch.trace, Step):
             sub_tex = render_step_latex(branch.trace, max_level=max_level, locale=locale)

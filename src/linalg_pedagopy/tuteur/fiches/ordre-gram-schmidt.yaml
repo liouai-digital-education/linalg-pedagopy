@@ -1,0 +1,23 @@
+id: ordre-gram-schmidt
+numero: 14
+titre: Gram-Schmidt dépend-il de l'ordre ?
+theme: Orthogonalisation
+niveau: 2
+type: contre_exemple
+enonce: L'algorithme de Gram-Schmidt dépend-il de l'ordre des vecteurs d'entrée ? Donner deux vecteurs
+  indépendants $(a_1, a_2)$ de $\mathbb{R}^2$ tels que Gram-Schmidt appliqué à $(a_1, a_2)$ puis à $(a_2,
+  a_1)$ produise deux bases orthonormées différentes.
+notions:
+- algorithme de Gram-Schmidt
+- influence de l'ordre des vecteurs
+donnees:
+  n: 2
+verification:
+  type: contre_exemple
+  cas: ordre_gram_schmidt
+indices:
+- Le premier vecteur produit par Gram-Schmidt est toujours $q_1 = \frac{a_1}{\|a_1\|}$.
+- Si l'on inverse l'ordre en $(a_2, a_1)$, le nouveau premier vecteur est $p_1 = \frac{a_2}{\|a_2\|}$.
+- Pour que les deux bases orthonormées diffèrent, choisissez dans $\mathbb{R}^2$ deux vecteurs indépendants
+  qui ne sont pas déjà orthogonaux entre eux.
+jumeau: generateurs.contre_exemple_guide(famille='R^2, coefficients dans {0, 1}')

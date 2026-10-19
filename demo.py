@@ -1,4 +1,4 @@
-"""Script de démonstration complet de linalg_pedagopy v3.0 (Annexe A + Tuteur §7.8 + Compare §5.7)."""
+"""Script de démonstration de linalg_pedagopy : discussion paramétrique, comparaison numérique et tuteur."""
 
 from __future__ import annotations
 
@@ -30,8 +30,8 @@ def main() -> None:
     print("DÉMONSTRATION — linalg_pedagopy v3.0")
     print("=" * 76)
 
-    # 1. Annexe A : Discussion automatique selon un paramètre avec Gauss-Jordan
-    print("\n--- 1. Discussion selon un paramètre (Annexe A) ---")
+    # 1. Discussion automatique selon un paramètre avec Gauss-Jordan
+    print("\n--- 1. Discussion selon un paramètre ---")
     (a,) = symbols("a")
     A = Matrix([[1, 1, 1], [1, a, 1], [1, 1, a]])
     b = Vector([1, 2, 3])
@@ -48,25 +48,25 @@ def main() -> None:
     print("R_tilde (rationnel) =\n", qr_res.R_tilde)
     print(qr_res.verify())
 
-    # 3. Moindres carrés par QR rationnelle (Annexe A)
-    print("\n--- 3. Moindres carrés par QR rationnelle (Annexe A) ---")
+    # 3. Moindres carrés par QR rationnelle
+    print("\n--- 3. Moindres carrés par QR rationnelle ---")
     y = Vector([1, 2, 2, 4])
     ls_res = LeastSquares(M, y).run()
     print("x_hat =", ls_res.x_hat)
     print("r_hat = A x_hat - b =", ls_res.r_hat)
     print(ls_res.verify())
 
-    # 4. Comparaison exact vs flottant sur la matrice de Läuchli (§5.7)
-    print("\n--- 4. Exact vs Flottant : Matrice de Läuchli (§5.7) ---")
+    # 4. Comparaison exact vs flottant sur la matrice de Läuchli
+    print("\n--- 4. Exact vs Flottant : Matrice de Läuchli ---")
     print(lauchli_gram_schmidt_experiment())
     print()
     print(lauchli_least_squares_experiment())
 
-    # 5. Séance Tuteur VMLS (§7.8)
-    print("\n--- 5. Séance Tuteur VMLS : Exercice 6.4 et Exercice 3.3 (§7.8) ---")
+    # 5. Séance de tuteur
+    print("\n--- 5. Séance de tuteur : « Écart à la moyenne glissante » et « Orthogonalité : vrai ou faux ? » ---")
     print(glossaire("running average"))
     t = Fraction(1, 3)
-    ex64 = exercice("6.4")
+    ex64 = exercice("moyenne-glissante")
     print(ex64.enonce())
     print(ex64.indice())
 
@@ -90,8 +90,8 @@ def main() -> None:
     print("\nValidation de la matrice corrigée :")
     print(ex64.verifier(A_ok))
 
-    print("\nLaboratoire de contre-exemples sur l'exercice 3.3 :")
-    ex33 = exercice("3.3")
+    print("\nLaboratoire de contre-exemples sur « Orthogonalité : vrai ou faux ? » :")
+    ex33 = exercice("orthogonalite-vrai-faux")
     ex33.predire(a="peut être faux", b="toujours vrai", c="peut être faux")
     lab = ex33.labo()
     print(lab.tester(a=Vector([1, 0, 0]), b=Vector([1, 1, 0]), c=Vector([0, 0, 1])))

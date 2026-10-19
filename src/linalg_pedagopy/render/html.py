@@ -1,4 +1,4 @@
-"""Moteur de rendu HTML avec MathJax et sections repliables <details> (§5.5, §10)."""
+"""Moteur de rendu HTML avec MathJax et sections repliables <details>."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ import sympy as sp
 from linalg_pedagopy.core.cases import CaseSplit
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
-from linalg_pedagopy.render.latex import format_matrix_latex, format_value_latex
+from linalg_pedagopy.render.latex import branch_summary_parts, format_matrix_latex, format_value_latex
 from linalg_pedagopy.render.text import translate
 from linalg_pedagopy.trace.step import Step
 
@@ -100,12 +100,10 @@ def render_casesplit_html(
     for branch in cs.branches:
         cond_tex = branch.condition.format_latex()
         gen_tag = " (générique)" if branch.condition.is_generic else ""
-        summary_lines = (
-            list(branch.result._branch_summary_lines())
-            if hasattr(branch.result, "_branch_summary_lines")
-            else [str(branch.result)]
+        summary_html = "<br>".join(
+            (f"\\({tex}\\)" if tex else html.escape(txt))
+            for txt, tex in branch_summary_parts(branch.result)
         )
-        summary_html = "<br>".join(html.escape(s) for s in summary_lines)
         sub_html = ""
         if max_level >= 2 and isinstance(branch.trace, Step):
             sub_html = render_step_html(

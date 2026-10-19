@@ -1,0 +1,25 @@
+id: rms-difference-orthogonale
+numero: 11
+titre: rms d'une différence de vecteurs orthogonaux
+theme: Normes, distances et angles
+niveau: 2
+type: justification
+enonce: Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp v$). Exprimer $\text{rms}(u
+  - v)^2$ en fonction de rms_u (représentant $\text{rms}(u)$) et rms_v (représentant $\text{rms}(v)$).
+notions:
+- rms d'une différence orthogonale
+- orthogonalité
+donnees:
+  n: 4
+verification:
+  type: formule
+  parametres:
+  - rms_u
+  - rms_v
+  cible: rms_u**2 + rms_v**2
+indices:
+- 'Reliez la moyenne quadratique $\text{rms}(w)$ à la norme euclidienne $\|w\|$ : $\text{rms}(w)^2 = \frac{\|w\|^2}{n}$.'
+- 'Rappel : si $u \perp v$, alors $\|u - v\|^2 = \|u\|^2 + \|v\|^2$.'
+- Divisez les deux membres de $\|u - v\|^2 = \|u\|^2 + \|v\|^2$ par $n$ pour faire apparaître $\text{rms}(u)^2$
+  et $\text{rms}(v)^2$.
+jumeau: generateurs.combinaison_orthogonale(c1=1, c2=-1)

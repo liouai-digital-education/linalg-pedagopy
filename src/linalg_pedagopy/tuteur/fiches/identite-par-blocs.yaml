@@ -1,0 +1,25 @@
+id: identite-par-blocs
+numero: 28
+titre: Une identité par blocs
+theme: Produit matriciel
+niveau: 2
+type: justification
+enonce: 'Vérifier par une chaîne d''égalités matricielles par blocs l''identité : $\begin{bmatrix} A &
+  B \\ C & D \end{bmatrix} \begin{bmatrix} I & 0 \\ 0 & I \end{bmatrix} = \begin{bmatrix} A & B \\ C &
+  D \end{bmatrix}$ (soumettre la liste des maillons simplifiés).'
+notions:
+- identités sur les matrices par blocs
+- produit matriciel par blocs
+donnees:
+  n: 2
+verification:
+  type: egalites
+  mode: blocs
+indices:
+- Le produit de deux matrices par blocs compatibles se calcule comme un produit matriciel usuel en remplaçant
+  les produits scalaires par des produits de blocs.
+- 'Rappel : la matrice par blocs $\begin{bmatrix} I & 0 \\ 0 & I \end{bmatrix}$ est la matrice identité
+  de la dimension totale.'
+- Écrivez le premier maillon avec l'opérateur @ entre les deux matrices par blocs, puis le bloc résultant
+  simplifié.
+jumeau: generateurs.identite_blocs()

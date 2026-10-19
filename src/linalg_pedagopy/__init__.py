@@ -41,6 +41,7 @@ from linalg_pedagopy.core import (
     InexactInputError,
     LinearDependenceError,
     LockedExerciseDataError,
+    UnknownExerciseError,
     PedagopyError,
     RankDeficientError,
     SingularMatrixError,
@@ -68,6 +69,23 @@ from linalg_pedagopy.exercises import (
     generateurs,
 )
 from linalg_pedagopy.objects import Matrix, Vector
+from linalg_pedagopy import special
+from linalg_pedagopy.special import (
+    convolution,
+    convolution_matrix,
+    difference_matrix,
+    matrice_convolution,
+    matrice_differences,
+    matrice_moyenne_glissante,
+    matrice_renversement,
+    matrice_selection,
+    matrice_somme_cumulee,
+    moving_average_matrix,
+    reversal_matrix,
+    running_sum_matrix,
+    selection_matrix,
+    vandermonde,
+)
 from linalg_pedagopy.render import Explanation
 from linalg_pedagopy.trace import (
     Highlight,
@@ -106,6 +124,7 @@ __all__ = [
     "LeastSquares",
     "LinearDependenceError",
     "LockedExerciseDataError",
+    "UnknownExerciseError",
     "Matrix",
     "PedagopyError",
     "Procedure",
@@ -149,4 +168,19 @@ __all__ = [
     "tuteur",
     "tutor",
     "using_config",
+    "special",
+    "convolution",
+    "convolution_matrix",
+    "difference_matrix",
+    "matrice_convolution",
+    "matrice_differences",
+    "matrice_moyenne_glissante",
+    "matrice_renversement",
+    "matrice_selection",
+    "matrice_somme_cumulee",
+    "moving_average_matrix",
+    "reversal_matrix",
+    "running_sum_matrix",
+    "selection_matrix",
+    "vandermonde",
 ]

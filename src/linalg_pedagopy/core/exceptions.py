@@ -1,4 +1,4 @@
-"""Hiérarchie des exceptions du package linalg_pedagopy (§5.1.4)."""
+"""Hiérarchie des exceptions du package linalg_pedagopy."""
 
 from __future__ import annotations
 
@@ -73,3 +73,7 @@ class UndefinedOperationError(PedagopyError, ArithmeticError):
 
 class LockedExerciseDataError(PedagopyError, PermissionError):
     """Tentative de calcul direct sur les données verrouillées d'un exercice du tuteur."""
+
+
+class UnknownExerciseError(PedagopyError, LookupError):
+    """Exercice introuvable dans le catalogue du tuteur (identifiant, numéro ou titre inconnu)."""

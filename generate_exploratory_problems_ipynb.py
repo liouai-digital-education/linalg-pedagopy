@@ -71,7 +71,7 @@ def create_notebook() -> None:
 ### Modélisation, Calcul Formel Exact, Géométrie et Régularisation avec `linalg_pedagopy` v3.0
 
 Ce notebook propose deux études de cas approfondies et complètes en algèbre linéaire appliquée,
-directement inspirées des principes de l'ouvrage *Introduction to Applied Linear Algebra* (VMLS) de Boyd & Vandenberghe.
+directement inspirées des applications classiques de l'algèbre linéaire.
 
 Chaque problème est une véritable enquête scientifique guidée pas à pas, combinant :
 - La **modélisation matricielle** rigoureuse d'un phénomène physique ou informationnel ;
@@ -86,7 +86,7 @@ Chaque problème est une véritable enquête scientifique guidée pas à pas, co
 1. **Problème 1 — Tomographie Discrète, Images Fantômes et Inversion Régularisée**
    * *Notions clés* : Matrices d'incidence, rang plein en colonnes/lignes, noyau $\\ker(A)$ et composantes non observables (« fantômes »), système sous-déterminé, reconstruction de norme minimale (KKT / pseudo-inverse), régularisation de Tikhonov avec opérateur Laplacien discret, sensibilité au bruit.
 2. **Problème 2 — Identification d'un Système Dynamique, Filtrage Spatio-Temporel et Stabilité**
-   * *Notions clés* : Séries temporelles et statistiques VMLS (RMS, moyenne, centrage, corrélation), matrice de Toeplitz/Hankel des retards, orthogonalisation de Gram-Schmidt rationnelle, factorisation QR exacte, moindres carrés et orthogonalité du résidu ($A^T \\hat{r} = 0$), discussion formelle selon un coefficient de frottement (`CaseSplit`), et rupture d'orthogonalité sur matrice de Läuchli."""
+   * *Notions clés* : Séries temporelles et statistiques (RMS, moyenne, centrage, corrélation), matrice de Toeplitz/Hankel des retards, orthogonalisation de Gram-Schmidt rationnelle, factorisation QR exacte, moindres carrés et orthogonalité du résidu ($A^T \\hat{r} = 0$), discussion formelle selon un coefficient de frottement (`CaseSplit`), et rupture d'orthogonalité sur matrice de Läuchli."""
         )
     )
 
@@ -124,7 +124,7 @@ display(Markdown(f"**Environnement initialisé avec succès.** État du moteur :
     nb["cells"].append(
         md_cell(
             """# Problème 1 — Tomographie Discrète, Images Fantômes et Inversion Régularisée
-*(VMLS chapitres 6, 11, 12, 16 et 20)*
+*(matrices, inverses, moindres carrés, norme minimale)*
 
 ### Contexte physique :
 Dans un scanner médical ou géophysique à rayons X, un faisceau traverse un milieu d'absorption inconnue.
@@ -271,7 +271,7 @@ $$x_{\\text{vrai}} = \\begin{bmatrix}
 2. Résolvons le système sous-déterminé $A x = b$.
 3. Cherchons la **solution de norme minimale** :
    $$\\min_{x} \\|x\\|^2 \\quad \\text{sous la contrainte } A x = b$$
-   D'après le chapitre 16 de VMLS, cette solution correspond à la pseudo-inverse et élimine toute composante superflue dans le noyau."""
+   Cette solution correspond à la pseudo-inverse et élimine toute composante superflue dans le noyau."""
         )
     )
 
@@ -297,7 +297,7 @@ display(res_tomo.solution)
 
     nb["cells"].append(
         md_cell(
-            """#### Calcul de la solution de norme minimale via le système KKT (VMLS ch. 16 & 20) :
+            """#### Calcul de la solution de norme minimale via le système KKT :
 Le problème d'optimisation quadratique sous contrainte d'égalité :
 $$\\min_x \\frac{1}{2} \\|x\\|^2 \\quad \\text{s.c.} \\quad A x = b$$
 admet les conditions d'optimalité KKT suivantes avec le multiplicateur de Lagrange $\\nu \\in \\mathbb{R}^8$ :
@@ -352,7 +352,7 @@ Pour pénaliser les fortes variations entre pixels adjacents, introduisons la ma
 * Pour chaque paire de voisins verticaux $(x_j, x_{j+3})$ : $x_j - x_{j+3} \\approx 0$
 
 Il y a 6 paires horizontales et 6 paires verticales, soit 12 différences.
-Le problème régularisé de Tikhonov (VMLS ch. 15) s'écrit :
+Le problème régularisé de Tikhonov s'écrit :
 $$\\min_{x} \\|A x - b\\|^2 + \\lambda \\|D x\\|^2 = \\min_{x} \\left\\| \\begin{bmatrix} A \\\\ \\sqrt{\\lambda} D \\end{bmatrix} x - \\begin{bmatrix} b \\\\ 0 \\end{bmatrix} \\right\\|^2$$
 
 Posons $\\lambda = 1$ ($\\,\\sqrt{\\lambda} = 1$). Résolvons ce problème par moindres carrés exacts via `LeastSquares` !"""
@@ -428,7 +428,7 @@ display(ls_tikhonov.verify())
         md_cell(
             """---
 # Problème 2 — Identification d'un Système Dynamique, Filtrage et Conditionnement
-*(VMLS chapitres 3, 8, 10, 11, 13 et 15)*
+*(statistiques, convolution, produit matriciel, inverses, moindres carrés régularisés)*
 
 ### Contexte :
 On observe l'évolution temporelle d'un système oscillant amorti soumis à un forçage extérieur.
@@ -448,12 +448,12 @@ $$\\theta = (\\alpha_1, \\alpha_2, \\beta, c)^T \\in \\mathbb{R}^4$$"""
     # Problème 2 - Partie A
     nb["cells"].append(
         md_cell(
-            """### Partie 2.A — Série Temporelle et Métriques Statistiques de VMLS
+            """### Partie 2.A — Série temporelle et métriques statistiques
 
 Considérons une séquence de $T = 8$ observations exactes rationnelles :
 $$y = (1, \\frac{3}{2}, 2, \\frac{7}{4}, 1, \\frac{1}{4}, 0, \\frac{1}{2})^T$$
 
-Calculons les métriques statistiques VMLS (chapitres 1 et 3) avec `Vector`."""
+Calculons les métriques statistiques avec `Vector`."""
         )
     )
 
@@ -469,7 +469,7 @@ display(y_serie.demean())
 
 display(Markdown(f"""- **Norme euclidienne $\\|y\\|$ :** ${sp.latex(y_serie.norm())}$
 - **Moyenne quadratique $\\operatorname{{rms}}(y)$ :** ${sp.latex(y_serie.rms())}$
-- **Écart-type VMLS $\\operatorname{{std}}(y) = \\operatorname{{rms}}(\\tilde{{y}})$ :** ${sp.latex(y_serie.std())}$"""))
+- **Écart type $\\operatorname{{std}}(y) = \\operatorname{{rms}}(\\tilde{{y}})$ :** ${sp.latex(y_serie.std())}$"""))
 '''
         )
     )
@@ -681,7 +681,7 @@ display(Markdown(f"```text\n{lauchli_least_squares_experiment(epsilon=1e-8)}\n``
 
 Ces deux problèmes illustrent comment `linalg_pedagopy` réconcilie :
 * La **rigueur formelle** des mathématiques pures (démonstrations exactes, noyaux, conditions KKT, discussion de paramètres) ;
-* La **puissance applicative** de l'algèbre linéaire moderne telle qu'enseignée dans VMLS (imagerie tomographique, filtrage dynamique, moindres carrés régularisés) ;
+* La **puissance applicative** de l'algèbre linéaire moderne (imagerie tomographique, filtrage dynamique, moindres carrés régularisés) ;
 * La **traçabilité pédagogique totale**, permettant à l'étudiant de comprendre chaque pivot, chaque projection et chaque résidu."""
         )
     )

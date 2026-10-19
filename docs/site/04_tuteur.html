@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04. Le tuteur interactif — linalg_pedagopy</title>
+  <meta name="description" content="Catalogue nommé, indices gradués, jumeau, laboratoire et panneau">
+
+  <!-- Typographie Web Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="assets/css/academic.css">
+
+  <!-- MathJax pour les formules mathématiques exactes -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Moteur de diagrammes Mermaid.js -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+  </script>
+</head>
+<body>
+
+  <!-- En-tête institutionnel -->
+  <header class="site-header">
+    <a href="index.html" class="header-brand">
+      <div class="brand-crest">LP</div>
+      <div>
+        <div class="brand-title">linalg_pedagopy</div>
+        <div class="brand-subtitle">Algèbre linéaire formelle et pédagogique</div>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher... (Ctrl+K)" readonly>
+      </div>
+      <button id="themeToggle" class="theme-toggle-btn" title="Changer de thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- Modal de recherche plein texte -->
+  <div id="searchModal" class="search-results-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="Rechercher une fonction, un théorème, un symbole...">
+      </div>
+      <div id="modalSearchResults" class="search-modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;">Saisissez un mot-clé...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-container">
+    <!-- Barre latérale gauche de navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Sommaire de l'ouvrage</div>
+      <ul class="nav-list">
+        
+        <li class="nav-item ">
+          <a href="index.html">
+            <span>Accueil & démarrage</span>
+            <span class="nav-badge">Portail</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="01_core_and_formal_computation.html">
+            <span>01. Noyau formel & calcul exact</span>
+            <span class="nav-badge">Fondement</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="02_vectors_and_matrices.html">
+            <span>02. Vecteurs, matrices & métriques</span>
+            <span class="nav-badge">Objets</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="03_algorithms_and_step_tracing.html">
+            <span>03. Algorithmes & traçabilité</span>
+            <span class="nav-badge">Algèbre</span>
+          </a>
+        </li>
+        
+        <li class="nav-item active">
+          <a href="04_tuteur.html">
+            <span>04. Le tuteur interactif</span>
+            <span class="nav-badge">Pédagogie</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="05_pedagogical_exercises_and_sessions.html">
+            <span>05. Exercices & sessions guidées</span>
+            <span class="nav-badge">Didactique</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="06_rendering_visualization_and_numerics.html">
+            <span>06. Rendu, géométrie & numérique</span>
+            <span class="nav-badge">Visuel</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="07_api_reference.html">
+            <span>07. Référence de l'API</span>
+            <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="08_catalogue_exercices.html">
+            <span>08. Catalogue des exercices</span>
+            <span class="nav-badge">Exercices</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="09_guide_jupyterlab.html">
+            <span>09. Guide JupyterLab</span>
+            <span class="nav-badge">Pratique</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
+        <strong>Version 3.0.0</strong><br>
+        Calcul exact · tuteur interactif
+      </div>
+    </aside>
+
+    <!-- Corps de texte de l'article -->
+    <main class="main-content">
+      <header class="article-header">
+        <span class="article-badge">Chapitre 04 • Pédagogie</span>
+        <h1 class="article-title">04. Le tuteur interactif</h1>
+        <p class="article-subtitle">Catalogue nommé, indices gradués, jumeau, laboratoire et panneau</p>
+      </header>
+
+      <article class="markdown-body">
+        <h1 id="04-le-tuteur-interactif-tutor-tuteur">04. Le tuteur interactif (<code>tutor</code> / <code>tuteur</code>)</h1>
+<p>Le module <a href="../../src/linalg_pedagopy/tutor/__init__.py"><code>linalg_pedagopy.tutor</code></a>, aussi accessible sous le nom français <a href="../../src/linalg_pedagopy/tuteur/__init__.py"><code>linalg_pedagopy.tuteur</code></a>, accompagne un étudiant sur une banque de <strong>35 exercices nommés</strong>. Il l'aide à trouver la méthode <strong>sans jamais donner la solution</strong> : indices gradués, exercice analogue résolu, laboratoire de contre-exemples et diagnostic précis des réponses fausses.</p>
+<hr/>
+<h2 id="1-principes-pedagogiques">1. Principes pédagogiques</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Principe</th>
+<th style="text-align: left;">Mise en œuvre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Vérifier par propriété, pas par corrigé figé</td>
+<td style="text-align: left;">Toute réponse correcte est acceptée (par ex. n'importe quelle inverse à droite valable).</td>
+</tr>
+<tr>
+<td style="text-align: left;">Diagnostiquer ce que calcule la réponse</td>
+<td style="text-align: left;">« Votre ligne 2 calcule d₂ = p₄ − (p₁ + p₂ + p₃)/3 » plutôt que « faux ».</td>
+</tr>
+<tr>
+<td style="text-align: left;">Aide graduée</td>
+<td style="text-align: left;">4 paliers : orientation, outil, démarrage, exercice jumeau résolu. Pas de palier « solution ».</td>
+</tr>
+<tr>
+<td style="text-align: left;">Transposer une méthode</td>
+<td style="text-align: left;">Le palier 4 résout un exercice <strong>analogue</strong> (autres données), à transposer.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Données verrouillées</td>
+<td style="text-align: left;">Les vecteurs et matrices de l'énoncé ne peuvent pas servir à calculer la réponse à la place de l'étudiant tant que l'exercice n'est pas résolu.</td>
+</tr>
+<tr>
+<td style="text-align: left;">S'engager avant d'explorer</td>
+<td style="text-align: left;">Pour un vrai/faux, il faut enregistrer une prédiction avant d'ouvrir le laboratoire.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Un essai ne prouve pas un « toujours vrai »</td>
+<td style="text-align: left;">Le laboratoire le rappelle et demande une justification.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Transparence</td>
+<td style="text-align: left;">Un journal local garde la trace de la séance ; aucune note n'est calculée.</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="2-trouver-un-exercice-le-catalogue">2. Trouver un exercice : le catalogue</h2>
+<p>Chaque exercice a un <strong>numéro</strong> (1 à 35), un <strong>identifiant</strong> lisible, un <strong>titre</strong>, un <strong>thème</strong> et un <strong>niveau</strong> (★ à ★★★). La liste complète figure dans le <a href="08_catalogue_exercices.html">catalogue des exercices</a>.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tutor
+
+cat = tutor.catalog()          # tableau Markdown dans JupyterLab
+print(cat)                     # version texte, groupée par thème
+print(len(cat))                # 35
+
+print(tutor.themes())          # les 8 thèmes, dans l'ordre du cours
+print(tutor.list_exercises("convolution"))   # ['convolution-vecteurs', 'produit-polynomes']
+
+tutor.catalog("Inverses")      # filtrer par (partie du) thème
+</code></pre></div>
+<p>Un exercice s'ouvre par son identifiant, son numéro ou son titre exact. Une faute de frappe donne une suggestion :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex = tutor.exercise("moyenne-glissante")       # par identifiant
+ex = tutor.exercise(16)                        # par numéro
+ex = tutor.exercise("Écart à la moyenne glissante")   # par titre
+
+try:
+    tutor.exercise("moyene-glissante")
+except Exception as err:
+    print(err)   # Exercice 'moyene-glissante' introuvable. Vouliez-vous dire : moyenne-glissante ? ...
+</code></pre></div>
+<p>Les attributs <code>ex.id</code>, <code>ex.number</code> (alias <code>numero</code>), <code>ex.title</code> (alias <code>titre</code>), <code>ex.theme</code>, <code>ex.level</code> (alias <code>niveau</code>), <code>ex.type</code> et <code>ex.notions</code> décrivent l'exercice.</p>
+<hr/>
+<h2 id="3-une-seance-pas-a-pas">3. Une séance pas à pas</h2>
+<h3 id="31-lire-lenonce">3.1 Lire l'énoncé</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex = tutor.exercise("moyenne-glissante")
+ex.statement()          # dans JupyterLab : rendu Markdown + LaTeX
+print(ex.statement())
+</code></pre></div>
+<div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">### Exercice 16 — Écart à la moyenne glissante
+
+*Matrices et applications linéaires · modélisation · niveau ★★☆*
+
+$p \in \mathbb{R}^6$ est une série de prix. $d \in \mathbb{R}^3$ mesure, à partir du 4ᵉ jour, …
+</code></pre></div>
+<h3 id="32-demander-de-laide-les-4-paliers">3.2 Demander de l'aide : les 4 paliers</h3>
+<p>Chaque appel à <code>ex.hint()</code> (alias <code>ex.indice()</code>) débloque le palier suivant :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Palier</th>
+<th style="text-align: left;">Titre</th>
+<th style="text-align: left;">Exemple (exercice 16)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Orientation</td>
+<td style="text-align: left;">« Quelle est la taille de <strong>ACADEMIC_TOKEN_2</strong> ? celle de <strong>ACADEMIC_TOKEN_3</strong> ? Qu'en déduisez-vous pour <strong>ACADEMIC_TOKEN_4</strong> ? »</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">Outil</td>
+<td style="text-align: left;">« La ligne <strong>ACADEMIC_TOKEN_5</strong> de <strong>ACADEMIC_TOKEN_6</strong> contient les coefficients de <strong>ACADEMIC_TOKEN_7</strong> exprimé en fonction de <strong>ACADEMIC_TOKEN_8</strong>. »</td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Démarrage</td>
+<td style="text-align: left;">« Écrivez <strong>ACADEMIC_TOKEN_9</strong> en fonction des <strong>ACADEMIC_TOKEN_10</strong>, puis lisez ses coefficients. »</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">Exercice jumeau résolu</td>
+<td style="text-align: left;">Résolution complète d'un exercice analogue (fenêtre de 2 jours, série de 5 prix).</td>
+</tr>
+</tbody>
+</table>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(ex.hint())     # **[Niveau 1 — Orientation]** …
+print(ex.hint())     # **[Niveau 2 — Outil]** …
+print(ex.hint(1))    # relire un palier déjà débloqué
+</code></pre></div>
+<p>Quand les quatre paliers sont débloqués, <code>ex.hint()</code> le dit et rappelle comment relire un palier, consulter le jumeau ou repartir de zéro. On ne peut pas sauter de palier : <code>ex.hint(3)</code> avant le palier 2 débloque le palier 2.</p>
+<p>Pour imposer de l'effort entre deux indices, l'enseignant peut régler <code>config.hint_min_attempts</code> (nombre de tentatives) et <code>config.hint_min_delay_seconds</code> (délai).</p>
+<h3 id="33-lexercice-jumeau">3.3 L'exercice jumeau</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">jumeau = ex.twin()        # alias ex.jumeau()
+print(jumeau.title)       # Écart à la moyenne glissante (fenêtre $k=2$, $n=5$)
+jumeau                    # dans JupyterLab : énoncé analogue + résolution pas à pas
+</code></pre></div>
+<p><code>twin()</code> renvoie un <code>TwinExercise</code> (<code>title</code>, <code>statement</code>, <code>solution_summary</code>, <code>explanation</code>) et débloque le palier 4.</p>
+<h3 id="34-soumettre-une-reponse">3.4 Soumettre une réponse</h3>
+<p><code>ex.verify(reponse)</code> (alias <code>ex.verifier</code>) renvoie un <code>VerificationResult</code> immuable : <code>valid</code>, <code>diagnostic</code> et, pour certains contre-exemples, <code>simplicity_note</code>.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from fractions import Fraction
+from linalg_pedagopy import Matrix
+
+t = Fraction(1, 3)
+fausse = Matrix([[-t, -t, -t, 1, 0, 0],
+                 [-t, -t, -t, 1, 0, 0],
+                 [0, 0, -t, -t, -t, 1]])
+r = ex.verify(fausse)
+print(r.valid)        # False
+print(r.diagnostic)
+# Taille correcte (3 x 6). Lignes 1 et 3 correctes.
+# Votre ligne 2 calcule d_2 = p_4 - (p_1 + p_2 + p_3)/3.
+# Relisez la définition de d_2 : quel est le prix « du jour » pour i = 2 ?
+</code></pre></div>
+<p>Une réponse de forme inattendue (une liste à la place d'une matrice, par exemple) ne provoque pas d'erreur Python : le diagnostic indique la forme attendue. Une réponse correcte affiche « ✓ Réponse validée » et <strong>déverrouille les données</strong> de l'exercice.</p>
+<h3 id="35-vrai-ou-faux-prediction-puis-laboratoire">3.5 Vrai ou faux : prédiction puis laboratoire</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Vector
+
+ex12 = tutor.exercise("orthogonalite-vrai-faux")
+print(ex12.predict(a="peut être faux", b="toujours vrai", c="peut être faux"))
+
+lab = ex12.lab()          # impossible avant predict(...)
+rapport = lab.test(a=Vector([1, 0, 0]), b=Vector([1, 1, 0]), c=Vector([0, 0, 1]))
+print(rapport.found_counterexample)   # True
+print(rapport.message)
+</code></pre></div>
+<p><code>lab.test(**instances)</code> renvoie un <code>LabReport</code> : <code>hypotheses_satisfied</code>, <code>results_by_part</code>, <code>found_counterexample</code>, <code>message</code>.</p>
+<h3 id="36-bilan-et-reprise">3.6 Bilan et reprise</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(ex.summary())       # alias ex.bilan()
+</code></pre></div>
+<div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">**Bilan — Écart à la moyenne glissante**
+
+- Statut : en cours
+- Tentatives soumises : 1
+- Paliers d'indices consultés : 1, 2
+- Exercice jumeau consulté : non
+- Essais au laboratoire : 0
+- Temps passé : 95 s
+- Dernier diagnostic : …
+</code></pre></div>
+<p>La progression est enregistrée dans un journal JSON (<code>config.journal_path</code>, par défaut <code>.linalg_pedagopy_journal.json</code> dans le dossier du carnet). En rouvrant l'exercice plus tard, on retrouve ses indices et ses tentatives. Pour repartir de zéro sur un exercice :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.reset()                # alias ex.recommencer()
+</code></pre></div>
+<hr/>
+<h2 id="4-le-panneau-jupyterlab">4. Le panneau JupyterLab</h2>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.panel()                # alias ex.panneau()
+</code></pre></div>
+<p>Avec <code>ipywidgets</code> installé (extra <code>tuteur</code>), le panneau affiche :
+- l'énoncé rendu en LaTeX ;
+- les boutons <strong>Indice suivant</strong>, <strong>Relire le palier…</strong>, <strong>Exercice jumeau</strong> et <strong>Bilan</strong> ;
+- une zone de réponse (par exemple <code>Matrix([[1, 0], [0, 1]])</code> ou <code>Vector([1, 2])</code>) et un bouton <strong>Vérifier</strong> ;
+- une zone de retour où s'affichent indices, jumeau, diagnostic et bilan.</p>
+<p>La zone de réponse n'accepte que <code>Vector</code>, <code>Matrix</code>, <code>sqrt</code>, <code>Rational</code>, <code>pi</code>, des nombres, listes, tuples, dictionnaires et chaînes. Sans <code>ipywidgets</code>, <code>panel()</code> affiche l'énoncé et le bilan en Markdown.</p>
+<hr/>
+<h2 id="5-le-glossaire">5. Le glossaire</h2>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(tutor.glossary("least squares"))   # **least squares** → Moindres carrés : …
+print(tutor.glossary("noyau"))           # recherche aussi en français
+tutor.glossary()                          # liste des 40 termes
+</code></pre></div>
+<hr/>
+<h2 id="6-mode-enseignant">6. Mode enseignant</h2>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">tutor.mode("teacher")            # ou "enseignant" ; équivalent : config.tutor_mode = "teacher"
+ex = tutor.exercise("moyenne-glissante")
+fiche = ex.teacher_sheet()       # TeacherSheet : la fiche complète (cible, indices, jumeau)
+print(fiche["verification"]["cible"])
+fiche                            # dans JupyterLab : rendu Markdown de la fiche
+tutor.mode("student")            # ou "etudiant"
+</code></pre></div>
+<p>En mode étudiant, <code>teacher_sheet()</code> lève <code>PermissionError</code>. En mode enseignant, les données des exercices sont déverrouillées.</p>
+<hr/>
+<h2 id="7-protection-contre-les-contournements">7. Protection contre les contournements</h2>
+<p>Dans un carnet, l'étudiant dispose de tout Python. Le tuteur empêche les raccourcis les plus directs :
+- la fiche, la cible et l'état de la séance sont rangés dans des dictionnaires privés à clés faibles (<code>WeakKeyDictionary</code>) du module, pas sur l'objet <code>ex</code> ;
+- <code>ExerciseSession</code>, <code>LockedVector</code>, <code>LockedMatrix</code> et <code>LockedNamespace</code> définissent <code>__slots__ = ("__weakref__",)</code> : pas de <code>__dict__</code> à inspecter, et toute affectation d'attribut est refusée ;
+- tant que l'exercice n'est pas résolu, <code>ex.data.x.rms()</code>, <code>Vector(ex.data.x)</code> ou <code>ex.data.x[0]</code> lèvent <code>LockedExerciseDataError</code>.</p>
+<p>Ce n'est pas une protection cryptographique : un étudiant déterminé peut lire les fichiers YAML. Le but est d'éviter que la réponse s'obtienne par une simple ligne de code.</p>
+<hr/>
+<h2 id="8-les-fiches-dexercices">8. Les fiches d'exercices</h2>
+<p>Les fiches sont des fichiers YAML dans <a href="../../src/linalg_pedagopy/tuteur/fiches/"><code>src/linalg_pedagopy/tuteur/fiches/</code></a>, un par exercice, nommés d'après leur identifiant.</p>
+<div class="code-container"><div class="code-header"><span>Yaml</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-yaml">id: moyenne-glissante
+numero: 16
+titre: Écart à la moyenne glissante
+theme: Matrices et applications linéaires
+niveau: 2
+type: modelisation
+enonce: $p \in \mathbb{R}^6$ est une série de prix. … Trouver la matrice $A$ telle que $d = A p$.
+notions:
+- matrice comme application linéaire
+donnees: {n: 6, m: 3}
+verification:
+  type: matrice
+  inconnue: p
+  nom_sortie: d
+  taille_entree: 6
+  taille_sortie: 3
+  cible: d[i] = p[i+3] - (p[i] + p[i+1] + p[i+2]) / 3
+indices:
+- Quelle est la taille de $d$ ? celle de $p$ ? Qu'en déduisez-vous pour $A$ ?
+- La ligne $i$ de $A$ contient les coefficients de $d_i$ …
+- Écrivez $d_1$ en fonction des $p_j$, puis lisez ses coefficients.
+jumeau: generateurs.moyenne_glissante(fenetre=2, n=5)
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Champ</th>
+<th style="text-align: left;">Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>id</code></td>
+<td style="text-align: left;">Identifiant (identique au nom du fichier).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>numero</code></td>
+<td style="text-align: left;">Position dans le catalogue (unique).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>titre</code>, <code>theme</code>, <code>niveau</code></td>
+<td style="text-align: left;">Métadonnées affichées (niveau 1, 2 ou 3).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>type</code></td>
+<td style="text-align: left;"><code>calcul</code>, <code>modelisation</code>, <code>dimensions</code>, <code>justification</code>, <code>contre_exemple</code> ou <code>vrai_faux</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>enonce</code>, <code>notions</code></td>
+<td style="text-align: left;">Texte de l'énoncé (Markdown + LaTeX) et notions mobilisées.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>donnees</code></td>
+<td style="text-align: left;">Données verrouillées de l'exercice.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>verification</code></td>
+<td style="text-align: left;">Vérificateur : <code>type</code> parmi <code>produit_scalaire</code>, <code>matrice</code>, <code>formule</code>, <code>valeur</code>, <code>propriete</code>, <code>contre_exemple</code>, <code>labo</code>, <code>egalites</code>, <code>dimensions</code>, plus ses paramètres (<code>cible</code>, <code>lignes_cibles</code>…).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>indices</code></td>
+<td style="text-align: left;">Au moins 3 indices textuels (paliers 1 à 3).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>jumeau</code></td>
+<td style="text-align: left;">Appel d'un générateur d'exercice jumeau (voir le <a href="05_pedagogical_exercises_and_sessions.html">guide 05</a>).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="valider-une-fiche">Valider une fiche</h3>
+<p><code>validate_sheet</code> (alias <code>valider_fiche</code>) contrôle une fiche : champs et métadonnées présents, numéro unique, type de vérificateur valide, jumeau exécutable, <strong>absence de fuite</strong> dans les indices (aucun indice ne contient la cible, ni n'est accepté comme réponse) et contrôle croisé du vérificateur avec le solveur. Elle n'écrit rien dans le journal.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">rapport = tutor.validate_sheet("moyenne-glissante")
+print(rapport.valid, rapport.errors)       # True ()
+
+assert all(tutor.validate_sheet(i).valid for i in tutor.list_exercises())
+</code></pre></div>
+<p>Après avoir ajouté ou modifié une fiche pendant une séance, appelez <code>tutor.reload_catalog()</code> (alias <code>recharger_catalogue</code>).</p>
+      </article>
+
+      <!-- Navigation entre chapitres -->
+      <nav class="chapter-nav">
+        
+        <a href="03_algorithms_and_step_tracing.html" class="chapter-nav-btn">
+          <span class="nav-direction">&larr; Chapitre précédent</span>
+          <span class="nav-target">03. Algorithmes & traçabilité</span>
+        </a>
+        
+
+        
+        <a href="05_pedagogical_exercises_and_sessions.html" class="chapter-nav-btn" style="text-align:right;">
+          <span class="nav-direction">Chapitre suivant &rarr;</span>
+          <span class="nav-target">05. Exercices & sessions guidées</span>
+        </a>
+        
+      </nav>
+    </main>
+
+    <!-- Barre latérale droite : Sommaire de la page (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-heading">Sur cette page</div>
+      <ul class="toc-list">
+        
+        <li class="toc-item ">
+          <a href="#1-principes-pedagogiques">1. Principes pédagogiques</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#2-trouver-un-exercice-le-catalogue">2. Trouver un exercice : le catalogue</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#3-une-seance-pas-a-pas">3. Une séance pas à pas</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#31-lire-lenonce">3.1 Lire l'énoncé</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#32-demander-de-laide-les-4-paliers">3.2 Demander de l'aide : les 4 paliers</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#33-lexercice-jumeau">3.3 L'exercice jumeau</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#34-soumettre-une-reponse">3.4 Soumettre une réponse</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#35-vrai-ou-faux-prediction-puis-laboratoire">3.5 Vrai ou faux : prédiction puis laboratoire</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#36-bilan-et-reprise">3.6 Bilan et reprise</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#4-le-panneau-jupyterlab">4. Le panneau JupyterLab</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#5-le-glossaire">5. Le glossaire</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#6-mode-enseignant">6. Mode enseignant</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#7-protection-contre-les-contournements">7. Protection contre les contournements</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#8-les-fiches-dexercices">8. Les fiches d'exercices</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#valider-une-fiche">Valider une fiche</a>
+        </li>
+        
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <p>
+      <strong>linalg_pedagopy</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement de l'algèbre linéaire en L1–L2.<br>
+      Documentation sous licence MIT. Code source ouvert.
+    </p>
+  </footer>
+
+  <script src="assets/js/academic.js"></script>
+</body>
+</html>

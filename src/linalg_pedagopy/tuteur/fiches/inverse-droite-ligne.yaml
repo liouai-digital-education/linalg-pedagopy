@@ -1,0 +1,27 @@
+id: inverse-droite-ligne
+numero: 29
+titre: Inverse à droite d'une matrice ligne
+theme: Inverses et systèmes linéaires
+niveau: 1
+type: calcul
+enonce: On considère la matrice ligne $A = \begin{bmatrix} 1 & 2 & -1 \end{bmatrix}$ de taille $1 \times
+  3$. Trouver une matrice colonne $B$ de taille $3 \times 1$ qui soit une inverse à droite de $A$ (c'est-à-dire
+  telle que $A B = [1]$).
+notions:
+- inverses à gauche et à droite d'un vecteur ligne
+donnees:
+  A:
+  - - 1
+    - 2
+    - -1
+verification:
+  type: propriete
+  propriete: left_right_inverse_row
+indices:
+- Pour une matrice ligne $A$ de taille $1 \times 3$, une inverse à droite $B$ est une matrice $3 \times
+  1$ telle que $A B = I_1 = [1]$.
+- 'Rappel : une matrice large ($1 < 3$) non nulle possède une infinité d''inverses à droite, mais aucune
+  inverse à gauche.'
+- Écrivez la condition $b_1 + 2 b_2 - b_3 = 1$ et choisissez n'importe quel triplet simple $(b_1, b_2,
+  b_3)$ qui la satisfait.
+jumeau: generateurs.inverse_droite_exemple()

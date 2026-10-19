@@ -1,4 +1,4 @@
-"""Oracle de nullité à quatre verdicts (§5.1.2, D3)."""
+"""Oracle de nullité à quatre verdicts."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ from linalg_pedagopy.core.field import emit_core_event, symbols, to_exact
 
 
 class Verdict(Enum):
-    """Les quatre verdicts possibles de l'oracle de nullité (D3)."""
+    """Les quatre verdicts possibles de l'oracle de nullité."""
 
     ZERO = auto()
     NONZERO = auto()

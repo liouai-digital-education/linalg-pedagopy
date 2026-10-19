@@ -1,4 +1,4 @@
-"""Persistent and atomic JSON activity journal for the VMLS Tutor (§7.3 Principle 8, §7.9, v4 Phase 0)."""
+"""Journal JSON persistant et atomique des séances du tuteur."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from linalg_pedagopy.config import config
 
 
 class ExerciseJournal:
-    """Activity journal for an exercise session with automatic disk reload and atomic writes (§7.9)."""
+    """Journal d'activité d'un exercice : rechargement automatique et écriture atomique."""
 
     def __init__(
         self,
@@ -104,6 +104,19 @@ class ExerciseJournal:
         self.lab_tests += 1
         self._persist()
 
+    def reset(self) -> None:
+        """Efface la progression de cet exercice (en mémoire et dans le fichier journal)."""
+        self.started_at = time.time()
+        self._prior_elapsed_seconds = 0.0
+        self.attempts = 0
+        self.hints_unlocked = []
+        self.twin_opened = False
+        self.predictions = []
+        self.lab_tests = 0
+        self.solved = False
+        self.diagnostics = []
+        self._persist()
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "exercise_id": self.exercise_id,
@@ -150,26 +163,30 @@ class ExerciseJournal:
             # In read-only environments, keep journal in memory without crashing the session
             pass
 
-    def format_summary(self) -> str:
-        """Produces a readable summary of the session (without automatic grading, §7.3 Principle 8)."""
-        statut = "Validé" if self.solved else "En cours"
+    def format_summary(self, title: str | None = None) -> str:
+        """Bilan lisible de la séance, en Markdown (sans note automatique)."""
+        statut = "✅ validé" if self.solved else "en cours"
         indices_str = (
-            ", ".join(str(lvl) for lvl in self.hints_unlocked)
+            ", ".join(str(lvl) for lvl in sorted(set(self.hints_unlocked)))
             if self.hints_unlocked
             else "aucun"
         )
         jumeau_str = "oui" if self.twin_opened else "non"
+        nom = title or self.exercise_id
         lines = [
-            f"=== Bilan de l'exercice {self.exercise_id} ===",
-            f"- Statut               : {statut}",
-            f"- Tentatives soumises  : {self.attempts}",
-            f"- Indices consultés    : {indices_str}",
-            f"- Exercice jumeau lu   : {jumeau_str}",
-            f"- Essais au labo       : {self.lab_tests}",
-            f"- Temps passé          : {self.elapsed_seconds:.1f} s",
+            f"**Bilan — {nom}**",
+            "",
+            f"- Statut : {statut}",
+            f"- Tentatives soumises : {self.attempts}",
+            f"- Paliers d'indices consultés : {indices_str}",
+            f"- Exercice jumeau consulté : {jumeau_str}",
+            f"- Essais au laboratoire : {self.lab_tests}",
+            f"- Temps passé : {self.elapsed_seconds:.0f} s",
         ]
         if self.predictions:
-            lines.append(f"- Prédiction initiale  : {self.predictions[-1]}")
+            lines.append(f"- Dernière prédiction : {self.predictions[-1]}")
+        if self.diagnostics and not self.solved:
+            lines.append("- Dernier diagnostic : " + " ".join(str(self.diagnostics[-1]).split()))
         return "\n".join(lines)
 
     format_bilan = format_summary

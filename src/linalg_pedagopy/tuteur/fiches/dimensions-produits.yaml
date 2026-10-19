@@ -1,0 +1,39 @@
+id: dimensions-produits
+numero: 23
+titre: Tailles des produits matriciels
+theme: Produit matriciel
+niveau: 1
+type: dimensions
+enonce: Soient $A$ de taille $3 \times 4$, $B$ de taille $4 \times 2$ et $C$ de taille $3 \times 2$. Donner
+  pour chacune des expressions (a) $A B + C$, (b) $A^T C$, (c) $B A$ la dimension $(m, n)$ du résultat
+  ou "invalide" si l'opération n'est pas définie.
+notions:
+- produit matriciel
+- compatibilité des dimensions
+donnees:
+  shape_A:
+  - 3
+  - 4
+  shape_B:
+  - 4
+  - 2
+  shape_C:
+  - 3
+  - 2
+verification:
+  type: dimensions
+  attendu:
+    a:
+    - 3
+    - 2
+    b:
+    - 4
+    - 2
+    c: invalide
+indices:
+- 'Rappel : le produit $X Y$ de $X$ ($m \times k$) par $Y$ ($p \times n$) est défini si et seulement si
+  $k = p$, et sa taille est alors $(m, n)$.'
+- La transposée d'une matrice de taille $m \times n$ est de taille $n \times m$.
+- Pour (a), déterminez d'abord la taille de $A B$ et vérifiez si elle coïncide avec celle de $C$ ($3 \times
+  2$).
+jumeau: generateurs.dimensions_expressions()

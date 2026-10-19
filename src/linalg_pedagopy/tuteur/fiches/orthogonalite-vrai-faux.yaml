@@ -1,0 +1,31 @@
+id: orthogonalite-vrai-faux
+numero: 12
+titre: 'Orthogonalité : vrai ou faux ?'
+theme: Normes, distances et angles
+niveau: 2
+type: vrai_faux
+enonce: Soient $a, b, c$ trois vecteurs de $\mathbb{R}^n$ tels que $a \perp c$ et $b \perp c$. Pour chacune
+  des affirmations (a) $a \perp b$, (b) $(a + b) \perp c$, (c) $(a - b) \perp (a + b)$, prédire si elle
+  est « toujours vrai » ou « peut être faux », puis tester au laboratoire.
+notions:
+- orthogonalité
+- distributivité du produit scalaire
+donnees:
+  n: 3
+verification:
+  type: labo
+  hypotheses:
+  - a.dot(c) == 0
+  - b.dot(c) == 0
+  hypotheses_texte: a ⊥ c et b ⊥ c
+  affirmations:
+    a: a.dot(b) == 0
+    b: (a + b).dot(c) == 0
+    c: (a - b).dot(a + b) == 0
+indices:
+- Traduisez chaque relation d'orthogonalité $u \perp v$ par la nullité du produit scalaire $u^T v = 0$.
+- 'Rappel : le produit scalaire est distributif par rapport à l''addition : $(u + v)^T w = u^T w + v^T
+  w$.'
+- Dans $\mathbb{R}^3$, si $c = (0, 0, 1)$, quels sont les vecteurs orthogonaux à $c$ ? Deux tels vecteurs
+  sont-ils nécessairement orthogonaux entre eux ou de même norme ?
+jumeau: generateurs.contre_exemple_guide(famille='R^3, coefficients dans {0, 1}')

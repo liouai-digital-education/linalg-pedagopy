@@ -1,0 +1,26 @@
+id: centre-moins-extremes
+numero: 4
+titre: Valeurs centrales contre valeurs extrêmes
+theme: Vecteurs et produit scalaire
+niveau: 2
+type: modelisation
+enonce: 'Soit $f : \mathbb{R}^4 \to \mathbb{R}$ la fonction linéaire qui associe à $x$ l''écart entre
+  sa valeur centrale $\frac{x_2 + x_3}{2}$ et la moyenne de ses valeurs extrêmes $\frac{x_1 + x_4}{2}$.
+  Trouver le vecteur $a \in \mathbb{R}^4$ tel que $f(x) = a^T x$.'
+notions:
+- fonction linéaire
+- représentation par produit scalaire
+donnees:
+  n: 4
+verification:
+  type: produit_scalaire
+  inconnue: x
+  taille: 4
+  cible: (x[2] + x[3])/2 - (x[1] + x[4])/2
+indices:
+- Toute fonction linéaire de $\mathbb{R}^4$ dans $\mathbb{R}$ s'écrit de manière unique sous la forme
+  $f(x) = a^T x$ avec $a \in \mathbb{R}^4$.
+- La $i$-ième composante de $a$ est $a_i = f(e_i)$, c'est-à-dire le coefficient devant $x_i$.
+- Développez $\frac{x_2 + x_3}{2} - \frac{x_1 + x_4}{2}$ et lisez le coefficient devant chacune des 4
+  composantes.
+jumeau: generateurs.produit_scalaire_selection(n=4, indices=(2, 3))

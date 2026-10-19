@@ -69,7 +69,7 @@ Pour ajouter une langue, il suffit de créer `locales/<code>.yaml` avec les mêm
 
 ## 2. Visualisation géométrique 2D et 3D (`linalg_pedagopy.plot`)
 
-Le sous-module [`linalg_pedagopy.plot`](../src/linalg_pedagopy/plot/geometry.py) fournit des représentations géométriques directes des concepts vectoriels de VMLS via Matplotlib.
+Le sous-module [`linalg_pedagopy.plot`](../src/linalg_pedagopy/plot/geometry.py) fournit des représentations géométriques directes des concepts vectoriels via Matplotlib.
 
 > [!NOTE]
 > Ce module nécessite l'installation de la dépendance facultative : `pip install linalg_pedagopy[plot]`.
@@ -110,7 +110,7 @@ plt.show()
 
 ## 3. Comparaison Exact vs Virgule Flottante (`linalg_pedagopy.compare`)
 
-Dans l'esprit du chapitre 5 de *VMLS*, le module [`linalg_pedagopy.compare`](../src/linalg_pedagopy/compare/numeric.py) permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 `float64` sous NumPy).
+Le module [`linalg_pedagopy.compare`](../src/linalg_pedagopy/compare/numeric.py) permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 `float64` sous NumPy).
 
 ### 3.1 La fonction universelle `compare`
 

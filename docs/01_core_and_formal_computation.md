@@ -157,7 +157,20 @@ print(c3)                      # b ≠ 0 et a = 1
 print(c3.is_satisfied({a: 1, b: 5}))  # True
 ```
 
-### 4.2 Clôture transitive et détection de contradictions
+### 4.2 Affichage lisible des conditions
+
+Les conditions s'affichent en notation mathématique : puissances en exposant, racines avec `√`, et une condition « produit non nul » est décomposée en facteurs lorsqu'ils sont explicites :
+
+```python
+from linalg_pedagopy import Condition, symbols
+
+a, b = symbols("a b")
+print(Condition.neq(b**2 - 1))          # b ≠ 1 et b ≠ −1
+print(Condition.neq(a - b**2))          # a ≠ b²
+print(Condition.eq(a, b**2).format_latex())   # a = b^{2}
+```
+
+### 4.3 Clôture transitive et détection de contradictions
 
 La classe `Condition` implémente deux propriétés critiques :
 1. **Clôture transitive des substitutions** ([`_compute_transitive_substitutions`](../src/linalg_pedagopy/core/cases.py)) :  
@@ -168,7 +181,7 @@ La classe `Condition` implémente deux propriétés critiques :
 3. **Implication de nullité modulo la branche** ([`implies_zero`](../src/linalg_pedagopy/core/cases.py)) :  
    Vérifie si une expression polynomiale s'annule en tenant compte des égalités déjà posées sur la branche : `Condition.eq(a, 1).implies_zero(a**2 - 1)` renvoie `True` (et `None` si la condition ne permet pas de conclure).
 
-### 4.3 Structure d'un `CaseSplit`
+### 4.4 Structure d'un `CaseSplit`
 
 Un [`CaseSplit[T]`](../src/linalg_pedagopy/core/cases.py) regroupe un ensemble fini de branches disjointes [`Branch[T]`](../src/linalg_pedagopy/core/cases.py) couvrant la totalité de l'espace des paramètres :
 
@@ -180,7 +193,7 @@ flowchart TD
     CS --> B3["Branche particulière : a = -1<br/>Système incompatible (ensemble vide)"]
 ```
 
-### 4.4 Partitionnement disjoint par préfixes d'inégalités
+### 4.5 Partitionnement disjoint par préfixes d'inégalités
 
 Lorsqu'un pivot présente plusieurs facteurs d'annulation $(f_1, f_2, \dots, f_k)$, l'algorithme génère des branches mutuellement disjointes selon la méthode des préfixes d'inégalités :
 - Branche 1 : $f_1 = 0$
@@ -190,7 +203,7 @@ Lorsqu'un pivot présente plusieurs facteurs d'annulation $(f_1, f_2, \dots, f_k
 
 Cette construction garantit que chaque point de l'espace des paramètres appartient à une et une seule branche.
 
-### 4.5 Commutation de la spécialisation (`at`)
+### 4.6 Commutation de la spécialisation (`at`)
 
 Un résultat `CaseSplit` respecte le principe de commutation fondamentale :
 $$\left( \text{Algorithme}(A(p), b(p)) \right) \Big|_{p = p_0} = \text{Algorithme}\left( A(p_0), b(p_0) \right)$$
@@ -218,3 +231,8 @@ print(spec_0.solution)   # UniqueSolution(x=(1, 1))
 spec_m1 = res.at(a=-1)
 print(spec_m1.solution)  # EmptySolution(ligne L2 : 0 = 2)
 ```
+
+Un `CaseSplit` s'affiche de trois façons :
+- `print(res)` donne la discussion rédigée en texte ;
+- `repr(res)` donne un résumé d'une ligne : `<CaseSplit selon a : 3 cas — a ≠ 1 et a ≠ −1 | a = 1 | a = −1>` ;
+- dans JupyterLab, la cellule `res` affiche la discussion en Markdown, avec les solutions en LaTeX.

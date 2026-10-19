@@ -1,0 +1,33 @@
+id: renverser-vecteur
+numero: 18
+titre: Renverser l'ordre des composantes
+theme: Matrices et applications linéaires
+niveau: 1
+type: modelisation
+enonce: 'Pour un vecteur $x \in \mathbb{R}^4$, l''application linéaire renverse l''ordre des composantes
+  : $y = (x_4, x_3, x_2, x_1)$. Donner la matrice $A$ de taille $4 \times 4$ telle que $y = A x$.'
+notions:
+- matrices décrites par leur effet sur un vecteur
+- matrice de retournement (reverser)
+donnees:
+  n: 4
+  m: 4
+verification:
+  type: matrice
+  inconnue: x
+  nom_sortie: y
+  taille_entree: 4
+  taille_sortie: 4
+  lignes_cibles:
+  - y[1] = x[4]
+  - y[2] = x[3]
+  - y[3] = x[2]
+  - y[4] = x[1]
+indices:
+- 'L''entrée $x$ et la sortie $y$ sont toutes deux dans $\mathbb{R}^4$ : la matrice $A$ est de taille
+  $4 \times 4$.'
+- Une matrice de permutation ou de retournement contient un seul 1 par ligne et par colonne, et des 0
+  ailleurs.
+- Sur quelle colonne de la ligne 1 faut-il placer le 1 pour que la 1ʳᵉ composante de $A x$ soit $x_4$
+  ?
+jumeau: generateurs.matrice_par_effet()

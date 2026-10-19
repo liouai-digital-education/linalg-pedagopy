@@ -1,4 +1,4 @@
-"""Validation d'opérations élémentaires proposées par l'élève et détection des erreurs de l'Annexe C (§5.6.3)."""
+"""Validation d'opérations élémentaires proposées par l'élève et détection des erreurs les plus fréquentes."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ ProposalStatus = Literal["invalid", "valid_no_progress", "valid_useful"]
 
 @dataclass(frozen=True)
 class OperationFeedback:
-    """Retour détaillé du vérificateur d'opération (§5.6.3, Annexe C)."""
+    """Retour détaillé du vérificateur d'opération."""
 
     status: ProposalStatus
     message: str
@@ -53,7 +53,7 @@ def check_row_operation(
     num_lhs_cols: int | None = None,
     only_lhs: bool = False,
 ) -> OperationFeedback:
-    """Analyse, valide et applique une opération élémentaire sur les lignes (Annexe C)."""
+    """Analyse, valide et applique une opération élémentaire sur les lignes."""
     m, total_cols = aug_matrix.shape
     n_cols = num_lhs_cols if num_lhs_cols is not None else total_cols
 
@@ -228,7 +228,7 @@ def check_row_operation(
             error_code="zero_scaling",
         )
 
-    # Détection de division/multiplication par une expression dépendant d'un paramètre (Annexe C)
+    # Détection de division/multiplication par une expression dépendant d'un paramètre
     for c_val in coeffs.values():
         num_c, den_c = sp.fraction(sp.together(c_val))
         if num_c.free_symbols or den_c.free_symbols:
@@ -297,7 +297,7 @@ def check_row_operation(
                 ),
                 new_matrix=new_mat,
             )
-        # Détection d'erreur de signe dans le coefficient de transvection (Annexe C)
+        # Détection d'erreur de signe dans le coefficient de transvection
         expected_lam = sp.simplify(-c_target * old_val / row_j[pivot_col_j])
         if oracle.decide(lam + expected_lam).verdict == Verdict.ZERO and oracle.decide(old_val).verdict == Verdict.NONZERO:
             return OperationFeedback(
@@ -324,7 +324,7 @@ def check_gram_schmidt_step(
     *,
     normalized_early: bool = False,
 ) -> OperationFeedback:
-    """Vérifie une étape proposée pour Gram-Schmidt et détecte les erreurs de l'Annexe C."""
+    """Vérifie une étape proposée pour Gram-Schmidt et détecte les erreurs les plus fréquentes."""
     if normalized_early:
         return OperationFeedback(
             status="invalid",
@@ -352,7 +352,7 @@ def check_gram_schmidt_step(
                 message="Valide. Le vecteur obtenu est bien orthogonal aux vecteurs précédents.",
             )
 
-        # Vérifier si l'élève a oublié de diviser par q_tilde_j^T q_tilde_j (Annexe C)
+        # Vérifier si l'élève a oublié de diviser par q_tilde_j^T q_tilde_j
         if proposed_vector == unnormalized_attempt and any(
             q_j.norm_sq() != 1 for q_j in q_tildes_prev
         ):

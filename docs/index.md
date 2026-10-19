@@ -1,145 +1,128 @@
-# Documentation officielle de `linalg_pedagopy` v3.0
+# Documentation de `linalg_pedagopy`
 
-Bienvenue dans la documentation complète et de référence de **`linalg_pedagopy`**, le package Python d'algèbre linéaire formelle et pédagogique conçu pour l'enseignement supérieur (Licence 1–2, CPGE, parcours informatique et mathématiques appliquées).
-
-Inspiré de l'ouvrage classique de référence **Stephen Boyd & Lieven Vandenberghe**, *Introduction to Applied Linear Algebra — Vectors, Matrices, and Least Squares (VMLS)* (Cambridge University Press), complété par les approches pédagogiques de David Lay et Gilbert Strang, `linalg_pedagopy` allie la **rigueur du calcul symbolique exact** à une **didactique active et interactive**.
+**`linalg_pedagopy`** est un package Python d'**algèbre linéaire formelle et pédagogique** pour l'enseignement en L1–L2 (licence, classes préparatoires, écoles d'ingénieurs). Il calcule en **arithmétique exacte**, **discute automatiquement les cas** quand un calcul dépend d'un paramètre, **explique chaque étape** au niveau de détail voulu, et propose un **tuteur** qui guide l'étudiant sur 35 exercices sans jamais donner la solution.
 
 ---
 
-## 🧭 Plan général de la documentation
+## Plan de la documentation
 
-La documentation est structurée en 7 guides thématiques approfondis et une référence complète de l'API :
+1. [**01. Noyau formel et calcul exact**](01_core_and_formal_computation.md)  
+   Conversion exacte des scalaires (`to_exact`, `float_policy`), symboles réels (`symbols`), oracle de nullité à 4 verdicts (`ZeroOracle`), conditions et discussion de cas (`Condition`, `CaseSplit`, `Branch`).
 
-1. [**01. Noyau formel et Calcul Symbolique Exact**](01_core_and_formal_computation.md)  
-   Types de données exacts, politique des flottants (`float_policy`), symboles réels (`symbols`), oracle de nullité à 4 verdicts (`ZeroOracle`), simplification des radicaux réels (`unrad`), partitionnement disjoint de l'espace des paramètres (`CaseSplit`, `Condition`, `Branch`), clôture transitive des substitutions et détection de contradictions.
+2. [**02. Vecteurs, matrices et métriques**](02_vectors_and_matrices.md)  
+   Objets immuables `Vector` et `Matrix`, métriques (norme, rms, moyenne, écart type, distance, angle, corrélation), les 4 vues du produit matriciel, matrices par blocs, `rref`, `rank`, `nullspace`, `inv`, `solve`, et matrices structurées (différences, sommes cumulées, moyenne glissante, Vandermonde, convolution).
 
-2. [**02. Vecteurs, Matrices et Métriques VMLS**](02_vectors_and_matrices.md)  
-   Objets immuables `Vector` et `Matrix`, constructeurs, métriques VMLS (norme, valeur RMS, moyenne, écart type, distance, angle, corrélation), les 4 vues du produit matriciel (`view='entries'`, `'rows'`, `'columns'`, `'outer'`), matrices par blocs (`Matrix.block`), matrice de Gram, et propriétés avec discussion paramétrique (`rref`, `rank`, `nullspace`, `inv`, `solve`).
+3. [**03. Algorithmes et traçabilité**](03_algorithms_and_step_tracing.md)  
+   Trace hiérarchique (`explain(level=0..3)`, `tracing`), `GaussJordan`, substitutions triangulaires, `GramSchmidt`, `QR` exacte et rationnelle, `LeastSquares`.
 
-3. [**03. Algorithmes fondamentaux et Traçabilité hiérarchique**](03_algorithms_and_step_tracing.md)  
-   Architecture de traçabilité (`Tracer`, context manager `tracing()`, niveaux de détail 0 à 3, `Highlight`, `Step`), élimination de Gauss-Jordan (`GaussJordan`, pivotage formel, opérations élémentaires, calcul simultané d'inverses), substitutions triangulaires (`ForwardSubstitution`, `BackSubstitution`), orthogonalisation de Gram-Schmidt (`GramSchmidt`), factorisation QR exacte via Gram-Schmidt (`QR`, forme rationnelle sans radicaux $\tilde Q \tilde R$) et moindres carrés (`LeastSquares`, méthodes `'rational_qr'`, `'qr'` et `'normal'`).
+4. [**04. Le tuteur interactif**](04_tuteur.md)  
+   Catalogue nommé, séance pas à pas (énoncé, indices, exercice jumeau, vérification, laboratoire, bilan), panneau JupyterLab, mode enseignant, format des fiches et validation.
 
-4. [**04. Le Tuteur Interactif VMLS (`tutor` / `tuteur`)**](04_vmls_tutor.md)  
-   Architecture anti-triche et coffre-fort d'isolation (`_LOCK_VAULT`, `WeakKeyDictionary`, `__slots__ = ("__weakref__",)`), objets verrouillés (`LockedVector`, `LockedMatrix`), catalogue des 35 fiches d'exercices VMLS officielles (`exercise`), système d'indices gradués (niveaux 1 à 4) sans divulgation, exercice jumeau résolu (`twin`), prédiction d'étape (`predict`), laboratoire de contre-exemples (`lab`), vérificateurs formels de solutions (`verify`), journal persistant et atomique (`ExerciseJournal`), interface interactive JupyterLab (`panel`), et modes étudiant/enseignant.
+5. [**05. Exercices et sessions guidées**](05_pedagogical_exercises_and_sessions.md)  
+   Générateurs à résultats propres, générateurs d'exercices jumeaux, sessions interactives (`InteractiveSession`) et diagnostic des erreurs d'opérations de lignes.
 
-5. [**05. Exercices pédagogiques et Sessions interactives**](05_pedagogical_exercises_and_sessions.md)  
-   Générateurs d'exercices à résultats propres (matrices unimodulaires, matrices à RREF entière, matrices à QR rationnelle, moindres carrés propres, systèmes paramétriques, orthogonales de Cayley) et générateurs d'exercices jumeaux (`generators` / `generateurs`), sessions interactives guidées (`InteractiveSession`, modes `read`, `predict_reveal`, `completion`, `autonomous`), et diagnostic automatique des erreurs étudiantes types (`check_row_operation`, `check_gram_schmidt_step`).
+6. [**06. Rendu, visualisation et comparaison numérique**](06_rendering_visualization_and_numerics.md)  
+   Formats texte, LaTeX, Markdown et HTML (`Explanation`), figures 2D/3D, comparaison exact / flottant (Läuchli, Hilbert).
 
-6. [**06. Rendu, Visualisation et Comparaison Numérique**](06_rendering_visualization_and_numerics.md)  
-   Moteurs de rendu multi-formats (`Explanation`, LaTeX, Markdown, HTML, texte Unicode), localisation des libellés (`locales/fr.yaml`, seule locale fournie), figures géométriques 2D et 3D avec Matplotlib (`plot`), et comparaison du calcul exact avec les bibliothèques numériques flottantes (`compare` avec NumPy, matrices de Hilbert, matrices de Läuchli, perte d'orthogonalité, conditionnement).
+7. [**07. Référence de l'API**](07_api_reference.md)  
+   Classes, fonctions, signatures, exceptions et table des alias français.
 
-7. [**07. Référence complète de l'API**](07_api_reference.md)  
-   Index alphabétique exhaustif de toutes les classes, méthodes, fonctions, exceptions et paramètres du package, avec tableau de correspondance bilingue (nomenclature primaire anglaise et alias français).
+8. [**08. Catalogue des exercices**](08_catalogue_exercices.md)  
+   Les 35 exercices du tuteur, par thème et par niveau, avec leurs énoncés.
+
+9. [**09. Utiliser le package dans JupyterLab**](09_guide_jupyterlab.md)  
+   Installation pas à pas, premières cellules et dépannage.
 
 ---
 
-## ⚡ Démarrage rapide en 5 minutes
+## Démarrage rapide
 
 ### Installation
 
 ```bash
-# Installation de base
-pip install -e .
-
-# Avec support du tuteur graphique JupyterLab
-pip install -e ".[tuteur]"
-
-# Avec visualisation graphique 2D/3D (Matplotlib)
-pip install -e ".[plot]"
-
-# Avec comparaison numérique NumPy
-pip install -e ".[compare]"
-
-# Installation complète pour développement et tests
-pip install -e ".[dev,tuteur,plot,compare]"
+pip install -e .                               # installation de base
+pip install -e ".[tuteur]"                     # + JupyterLab et panneau interactif
+pip install -e ".[plot]"                       # + figures Matplotlib
+pip install -e ".[compare]"                    # + comparaison avec NumPy
+pip install -e ".[dev,tuteur,plot,compare]"    # installation complète (avec les tests)
 ```
 
-### Premier script : Résolution formelle et discussion paramétrique
+Le pas-à-pas complet pour JupyterLab est dans le [guide 09](09_guide_jupyterlab.md).
+
+### Premier calcul : un système avec paramètre
 
 ```python
-from linalg_pedagopy import Matrix, Vector, symbols, tracing, GaussJordan
+from linalg_pedagopy import Matrix, Vector, symbols, GaussJordan
 
-# Déclaration de symboles réels
-a, b = symbols("a b")
-
-# Définition de la matrice et du second membre
-A = Matrix([
-    [1, 1, 1],
-    [1, a, 1],
-    [1, 1, a]
-])
+a, = symbols("a")
+A = Matrix([[1, 1, 1],
+            [1, a, 1],
+            [1, 1, a]])
 y = Vector([1, 2, 3])
 
-# Exécution avec traçabilité pédagogique (niveau 2 : détail des opérations)
-with tracing(level=2):
-    result = GaussJordan(A, y).run()
+result = GaussJordan(A, y).run()
+print(result)
+# Discussion selon a
+# ├─ Cas a ≠ 1 (générique) : pivots non nuls, rang 3, solution unique
+# │    x = ( (a − 4)/(a − 1), 1/(a − 1), 2/(a − 1) )
+# └─ Cas a = 1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+#      système incompatible (témoin : 0 = 1)
 
-# Affichage de la discussion de cas (CaseSplit)
-print(result.explain())
+print(result.at(a=0).solution)   # UniqueSolution(x=(4, -1, -2))
 ```
 
-### Première session avec le Tuteur VMLS
+### Première séance avec le tuteur
 
 ```python
-from linalg_pedagopy.tutor import exercise
+from linalg_pedagopy import tutor, Matrix
 
-# Chargement d'un exercice VMLS (ex. 6.4 : écart à la moyenne glissante, d = Ap)
-ex = exercise("6.4")
+print(tutor.catalog())                     # les 35 exercices, par thème
 
-# Consultation de l'énoncé mathématique
-ex.statement()            # objet Markdown, rendu avec LaTeX dans JupyterLab
-print(ex.statement())     # ou en texte brut
+ex = tutor.exercise("moyenne-glissante")   # ou tutor.exercise(16)
+print(ex.statement())                      # dans JupyterLab : ex.statement() suffit
+print(ex.hint())                           # palier 1 : orientation
 
-# Demande d'un indice progressif (sans divulgation de la solution)
-print(ex.hint())
-
-# Étude de l'exercice jumeau résolu
-jumeau = ex.twin()
-print(jumeau.statement)
-print(jumeau.solution_summary)
-
-# Test d'une réponse candidate
-from linalg_pedagopy import Vector
-reponse_etudiant = Vector([1, 2, 3])
-rapport = ex.verify(reponse_etudiant)   # VerificationResult(valid, diagnostic)
-print(rapport.valid)
-print(rapport.diagnostic)
+rapport = ex.verify(Matrix.zeros(3, 6))    # une réponse fausse
+print(rapport.valid)                       # False
+print(rapport.diagnostic)                  # ce que calcule la réponse, et une question
 ```
 
 ---
 
-## 🎯 Philosophie et Choix de Conception
+## Principes de conception
 
-`linalg_pedagopy` a été conçu autour de 6 principes directeurs fondamentaux :
-
-| Principe | Décision de Conception | Bénéfice Pédagogique |
+| Principe | Choix | Bénéfice pédagogique |
 | :--- | :--- | :--- |
-| **Exactitude stricte** | Aucun nombre flottant non converti (`float_policy="rationalize"`). Symboles dotés de `real=True`. | Supprime les artéfacts numériques (ex: `0.0000000000000001` au lieu de `0`) et force la manipulation exacte. |
-| **Oracle de nullité à 4 verdicts** | `Verdict.ZERO`, `Verdict.NONZERO`, `Verdict.CONDITIONAL`, `Verdict.UNKNOWN`. Élimination des radicaux par `sympy.unrad`. | Empêche les divisions sauvages par une quantité formelle potentiellement nulle. |
-| **Branchement paramétrique automatique** | Arbre de cas `CaseSplit` avec partition disjointe et propagation des contraintes (`Condition`). | L'étudiant visualise la géométrie des sous-espaces exceptionnels ($a = 1$, $a = -2$). |
-| **Immutabilité rigoureuse** | Les instances de `Vector` et `Matrix` sont immuables. | Évite les effets de bord sournois pendant les algorithmes de manipulation de lignes/colonnes. |
-| **Traçabilité hiérarchique** | Arbre de trace contextuel (`Tracer`) avec 4 niveaux de zoom (0 : résultat, 1 : macro, 2 : micro, 3 : arithmétique). | L'enseignant choisit le niveau d'explication adapté au niveau des étudiants. |
-| **Isolation du tuteur (Anti-triche)** | Coffres-forts privés `WeakKeyDictionary` avec `__slots__ = ("__weakref__",)`. | Les étudiants ne peuvent pas extraire la solution par introspection Python (`ex.data.A`). |
+| **Exactitude** | Les flottants sont convertis en fractions (`float_policy="rationalize"`) ; les symboles sont réels (`real=True`). | Pas de `0.0000000001` au lieu de `0` : on manipule les vraies valeurs. |
+| **Oracle de nullité à 4 verdicts** | `ZERO`, `NONZERO`, `CONDITIONAL`, `UNKNOWN`. | Jamais de division par une quantité qui pourrait être nulle. |
+| **Discussion de cas automatique** | `CaseSplit` partitionne l'espace des paramètres en cas disjoints. | Les cas particuliers ($a = 1$…) apparaissent d'eux-mêmes. |
+| **Immutabilité** | `Vector` et `Matrix` ne se modifient pas. | Pas d'effet de bord pendant les manipulations de lignes. |
+| **Traçabilité à 4 niveaux** | Chaque résultat garde sa trace complète ; `explain(level=0..3)` choisit le détail. | L'enseignant adapte l'explication au public. |
+| **Tuteur sans solution** | Indices gradués, jumeau résolu, diagnostic, données verrouillées. | L'étudiant cherche, et sait pourquoi sa réponse est fausse. |
 
 ---
 
-## 🌐 Nomenclature bilingue (Anglais primaire / Alias français)
+## Noms anglais et alias français
 
-Le package adopte une **nomenclature anglaise primaire** standardisée au niveau international, tout en offrant un ensemble complet d'alias français transparents pour les cours francophones :
+L'API principale est en anglais ; chaque élément du tuteur a un alias français :
 
-| Concept | API Primaire (Anglais) | Alias Rétrocompatible (Français) |
+| Concept | API (anglais) | Alias français |
 | :--- | :--- | :--- |
-| Module Tuteur | `from linalg_pedagopy import tutor` | `from linalg_pedagopy import tuteur` |
-| Chargement d'exercice | `tutor.exercise("6.4")` | `tuteur.exercice("6.4")` |
+| Module | `from linalg_pedagopy import tutor` | `from linalg_pedagopy import tuteur` |
+| Catalogue | `tutor.catalog()` | `tuteur.catalogue()` |
+| Ouvrir un exercice | `tutor.exercise("moyenne-glissante")` | `tuteur.exercice("moyenne-glissante")` |
 | Énoncé | `ex.statement()` | `ex.enonce()` |
 | Indice | `ex.hint()` | `ex.indice()` |
 | Exercice jumeau | `ex.twin()` | `ex.jumeau()` |
-| Prédiction d'étape | `ex.predict(reponse)` | `ex.predire(reponse)` |
+| Prédiction | `ex.predict(...)` | `ex.predire(...)` |
 | Laboratoire | `ex.lab()` | `ex.labo()` |
 | Vérification | `ex.verify(reponse)` | `ex.verifier(reponse)` |
+| Bilan | `ex.summary()` | `ex.bilan()` |
+| Repartir de zéro | `ex.reset()` | `ex.recommencer()` |
 | Fiche enseignant | `ex.teacher_sheet()` | `ex.fiche_enseignant()` |
-| Liste des exercices | `tutor.list_exercises()` | `tuteur.lister_exercices()` |
-| Validation d'une fiche | `tutor.validate_sheet("6.4")` | `tuteur.valider_fiche("6.4")` |
-| Glossaire | `tutor.glossary()` | `tuteur.glossaire()` |
-| Mode d'exécution | `tutor.mode("student")` / `tutor.mode("teacher")` | `tuteur.mode("etudiant")` / `tuteur.mode("enseignant")` |
-| Générateurs | `generators.moving_average(...)` | `generateurs.moyenne_glissante(...)` |
+| Liste des identifiants | `tutor.list_exercises()` | `tuteur.lister_exercices()` |
+| Valider une fiche | `tutor.validate_sheet(id)` | `tuteur.valider_fiche(id)` |
+| Glossaire | `tutor.glossary(terme)` | `tuteur.glossaire(terme)` |
+| Mode | `tutor.mode("teacher")` | `tuteur.mode("enseignant")` |
+| Jumeaux | `generators.moving_average(...)` | `generateurs.moyenne_glissante(...)` |
+| Matrices structurées | `difference_matrix(n)` | `matrice_differences(n)` |

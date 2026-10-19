@@ -1,4 +1,4 @@
-"""Modes d'usage interactifs : lecture, prédire/révéler, complétion et autonome (§5.6.2, §5.6.3)."""
+"""Modes d'usage interactifs : lecture, prédire/révéler, complétion et autonome."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ InteractiveMode = Literal["read", "predict_reveal", "completion", "autonomous"]
 
 
 class InteractiveSession:
-    """Session interactive sur une procédure algorithmique (§5.6.2, §5.6.3)."""
+    """Session interactive sur une procédure algorithmique."""
 
     def __init__(
         self,
@@ -70,7 +70,7 @@ class InteractiveSession:
             self._collect_atomic_steps(child)
 
     def propose(self, operation: str, *, only_lhs: bool = False) -> OperationFeedback:
-        """Valide et applique une opération proposée par l'élève (§5.6.3)."""
+        """Valide et applique une opération proposée par l'élève."""
         if not isinstance(self.procedure, GaussJordan):
             raise TypeError("propose() d'opérations de lignes est dédié à GaussJordan.")
         feedback = check_row_operation(
@@ -85,7 +85,7 @@ class InteractiveSession:
         return feedback
 
     def hint(self) -> str:
-        """Suggère la prochaine opération élémentaire utile sans l'effectuer (§5.6.3)."""
+        """Suggère la prochaine opération élémentaire utile sans l'effectuer."""
         if not isinstance(self.procedure, GaussJordan):
             if self._reveal_index < len(self._flat_steps):
                 st = self._flat_steps[self._reveal_index]
@@ -148,7 +148,7 @@ class InteractiveSession:
         return "Prédiction enregistrée. Vous pouvez maintenant appeler reveal() pour afficher l'étape."
 
     def reveal(self) -> str:
-        """Révèle la prochaine étape dans le mode 'predict_reveal' (§5.6.2)."""
+        """Révèle la prochaine étape dans le mode 'predict_reveal'."""
         if self.mode == "predict_reveal" and len(self.predictions) <= self._reveal_index:
             return "Veuillez d'abord enregistrer votre prédiction avec predict(...) avant de révéler l'étape."
         if self._reveal_index >= len(self._flat_steps):
@@ -158,7 +158,7 @@ class InteractiveSession:
         return translate(step.message_key, step.params)
 
     def completion_view(self) -> list[dict[str, Any]]:
-        """Produit une liste d'étapes dont une proportion mask_ratio est masquée (mode completion, §5.6.2)."""
+        """Produit une liste d'étapes dont une proportion mask_ratio est masquée (mode completion)."""
         total = len(self._flat_steps)
         if total == 0:
             return []

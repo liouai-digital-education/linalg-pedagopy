@@ -1,4 +1,4 @@
-"""Factorisation QR rationnelle et normalisée (§5.4.5, D9)."""
+"""Factorisation QR rationnelle et normalisée."""
 
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ from linalg_pedagopy.trace.tracer import record, section, suspend_tracing
 
 @dataclass(frozen=True)
 class QRResult(Result):
-    """Résultat typé de la factorisation QR (§5.4.5)."""
+    """Résultat typé de la factorisation QR."""
 
     A: Matrix = Matrix([])
     Q: Matrix = Matrix([])
@@ -91,7 +91,7 @@ class QRResult(Result):
 
 
 class QR(Procedure[QRResult]):
-    """Procédure de factorisation QR rationnelle puis normalisée (§5.4.5)."""
+    """Procédure de factorisation QR rationnelle puis normalisée."""
 
     def __init__(
         self,

@@ -1,0 +1,43 @@
+id: produit-polynomes
+numero: 22
+titre: Produit de polynômes par convolution
+theme: Convolution
+niveau: 2
+type: calcul
+enonce: Soient les deux polynômes $p(t) = 1 - 2t + t^2$ (vecteur de coefficients $a = (1, -2, 1)$) et
+  $q(t) = 2 + t$ (vecteur $b = (2, 1)$). Calculer le vecteur $c \in \mathbb{R}^4$ des coefficients du
+  polynôme produit $r(t) = p(t) q(t)$ par convolution $c = a * b$.
+notions:
+- produit de convolution
+- multiplication de polynômes
+donnees:
+  a:
+  - 1
+  - -2
+  - 1
+  b:
+  - 2
+  - 1
+  T_b:
+  - - 2
+    - 0
+    - 0
+  - - 1
+    - 2
+    - 0
+  - - 0
+    - 1
+    - 2
+  - - 0
+    - 0
+    - 1
+verification:
+  type: valeur
+  calcul: T_b @ a
+indices:
+- Le produit de deux polynômes de degrés 2 et 1 est un polynôme de degré 3, représenté par un vecteur
+  $c$ de taille $3 + 2 - 1 = 4$.
+- 'Rappel : la convolution $c = a * b$ vérifie $c_k = \sum_{i+j=k+1} a_i b_j$.'
+- Développez $(1 - 2t + t^2)(2 + t)$ suivant les puissances croissantes de $t$ ($1, t, t^2, t^3$) et lisez
+  les 4 coefficients.
+jumeau: generateurs.convolution_polynomes(a_vals=(1, 2), b_vals=(3, -1, 1))

@@ -1,0 +1,25 @@
+id: pythagore
+numero: 10
+titre: Le théorème de Pythagore
+theme: Normes, distances et angles
+niveau: 2
+type: justification
+enonce: Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp v$). Exprimer $\|u + v\|^2$
+  en fonction de norm_u (représentant $\|u\|$) et norm_v (représentant $\|v\|$) (théorème de Pythagore).
+notions:
+- norme d'une somme orthogonale
+- théorème de Pythagore
+donnees:
+  n: 3
+verification:
+  type: formule
+  parametres:
+  - norm_u
+  - norm_v
+  cible: norm_u**2 + norm_v**2
+indices:
+- On cherche à exprimer le carré de la norme de la somme $u + v$ en fonction de $\|u\|$ et $\|v\|$ lorsque
+  $u \perp v$ (théorème de Pythagore vectoriel).
+- 'Rappel : pour tout vecteur $w$, $\|w\|^2 = w^T w$. Appliquez cette identité à $w = u + v$.'
+- Développez $(u + v)^T (u + v)$ et utilisez l'hypothèse d'orthogonalité $u^T v = 0$.
+jumeau: generateurs.combinaison_orthogonale(c1=2, c2=-3)

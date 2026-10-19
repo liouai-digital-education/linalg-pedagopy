@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>09. Guide JupyterLab — linalg_pedagopy</title>
+  <meta name="description" content="Installation pas à pas, premières cellules et dépannage">
+
+  <!-- Typographie Web Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="assets/css/academic.css">
+
+  <!-- MathJax pour les formules mathématiques exactes -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Moteur de diagrammes Mermaid.js -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+  </script>
+</head>
+<body>
+
+  <!-- En-tête institutionnel -->
+  <header class="site-header">
+    <a href="index.html" class="header-brand">
+      <div class="brand-crest">LP</div>
+      <div>
+        <div class="brand-title">linalg_pedagopy</div>
+        <div class="brand-subtitle">Algèbre linéaire formelle et pédagogique</div>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher... (Ctrl+K)" readonly>
+      </div>
+      <button id="themeToggle" class="theme-toggle-btn" title="Changer de thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- Modal de recherche plein texte -->
+  <div id="searchModal" class="search-results-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="Rechercher une fonction, un théorème, un symbole...">
+      </div>
+      <div id="modalSearchResults" class="search-modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;">Saisissez un mot-clé...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-container">
+    <!-- Barre latérale gauche de navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Sommaire de l'ouvrage</div>
+      <ul class="nav-list">
+        
+        <li class="nav-item ">
+          <a href="index.html">
+            <span>Accueil & démarrage</span>
+            <span class="nav-badge">Portail</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="01_core_and_formal_computation.html">
+            <span>01. Noyau formel & calcul exact</span>
+            <span class="nav-badge">Fondement</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="02_vectors_and_matrices.html">
+            <span>02. Vecteurs, matrices & métriques</span>
+            <span class="nav-badge">Objets</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="03_algorithms_and_step_tracing.html">
+            <span>03. Algorithmes & traçabilité</span>
+            <span class="nav-badge">Algèbre</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="04_tuteur.html">
+            <span>04. Le tuteur interactif</span>
+            <span class="nav-badge">Pédagogie</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="05_pedagogical_exercises_and_sessions.html">
+            <span>05. Exercices & sessions guidées</span>
+            <span class="nav-badge">Didactique</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="06_rendering_visualization_and_numerics.html">
+            <span>06. Rendu, géométrie & numérique</span>
+            <span class="nav-badge">Visuel</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="07_api_reference.html">
+            <span>07. Référence de l'API</span>
+            <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="08_catalogue_exercices.html">
+            <span>08. Catalogue des exercices</span>
+            <span class="nav-badge">Exercices</span>
+          </a>
+        </li>
+        
+        <li class="nav-item active">
+          <a href="09_guide_jupyterlab.html">
+            <span>09. Guide JupyterLab</span>
+            <span class="nav-badge">Pratique</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
+        <strong>Version 3.0.0</strong><br>
+        Calcul exact · tuteur interactif
+      </div>
+    </aside>
+
+    <!-- Corps de texte de l'article -->
+    <main class="main-content">
+      <header class="article-header">
+        <span class="article-badge">Chapitre 09 • Pratique</span>
+        <h1 class="article-title">09. Guide JupyterLab</h1>
+        <p class="article-subtitle">Installation pas à pas, premières cellules et dépannage</p>
+      </header>
+
+      <article class="markdown-body">
+        <h1 id="09-utiliser-le-package-dans-jupyterlab">09. Utiliser le package dans JupyterLab</h1>
+<p>Ce guide pas à pas installe <code>linalg_pedagopy</code> dans un environnement dédié et l'utilise dans JupyterLab. Les commandes sont données pour <strong>Windows avec Anaconda</strong> ; sous macOS ou Linux, remplacez <em>Anaconda Prompt</em> par un terminal et adaptez le chemin du dossier.</p>
+<p>Le package demande <strong>Python 3.11 ou plus récent</strong>.</p>
+<hr/>
+<h2 id="1-ouvrir-un-terminal-dans-le-dossier-du-projet">1. Ouvrir un terminal dans le dossier du projet</h2>
+<p>Lancez <strong>Anaconda Prompt</strong> depuis le menu Démarrer, puis placez-vous dans le dossier du dépôt :</p>
+<div class="code-container"><div class="code-header"><span>Bat</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bat">cd C:\chemin\vers\linalg-pedagopy
+</code></pre></div>
+<h2 id="2-creer-un-environnement-dedie">2. Créer un environnement dédié</h2>
+<div class="code-container"><div class="code-header"><span>Bat</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bat">conda create -n pedagopy python=3.12 -y
+conda activate pedagopy
+</code></pre></div>
+<p>L'invite affiche alors <code>(pedagopy)</code>. Un environnement séparé évite les conflits avec les autres paquets.</p>
+<h2 id="3-installer-le-package-en-mode-editable">3. Installer le package en mode éditable</h2>
+<div class="code-container"><div class="code-header"><span>Bat</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bat">pip install -e ".[tuteur,plot,compare,dev]"
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Extra</th>
+<th style="text-align: left;">Contenu</th>
+<th style="text-align: left;">Utile pour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>tuteur</code></td>
+<td style="text-align: left;">JupyterLab, ipywidgets</td>
+<td style="text-align: left;">carnets et panneau interactif du tuteur</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>plot</code></td>
+<td style="text-align: left;">Matplotlib</td>
+<td style="text-align: left;">figures 2D/3D (<code>linalg_pedagopy.plot</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>compare</code></td>
+<td style="text-align: left;">NumPy</td>
+<td style="text-align: left;">comparaison exact / flottant (<code>linalg_pedagopy.compare</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>dev</code></td>
+<td style="text-align: left;">pytest, hypothesis, mypy, ruff…</td>
+<td style="text-align: left;">tests et qualité du code</td>
+</tr>
+</tbody>
+</table>
+<p>Avec <code>-e</code>, une modification du code dans <code>src/</code> est prise en compte sans réinstaller : il suffit de redémarrer le noyau du carnet.</p>
+<h2 id="4-verifier-linstallation">4. Vérifier l'installation</h2>
+<div class="code-container"><div class="code-header"><span>Bat</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bat">pytest tests/ -q
+</code></pre></div>
+<p>Tous les tests doivent passer.</p>
+<h2 id="5-lancer-jupyterlab">5. Lancer JupyterLab</h2>
+<div class="code-container"><div class="code-header"><span>Bat</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bat">jupyter lab
+</code></pre></div>
+<p>Créez un carnet (<strong>File → New → Notebook</strong>, noyau <strong>Python 3</strong>). JupyterLab ayant été lancé depuis l'environnement <code>pedagopy</code>, ce noyau est bien celui de l'environnement.</p>
+<p>Deux carnets prêts à l'emploi sont fournis à la racine du dépôt :
+- <code>tutoriel_linalg_pedagopy.ipynb</code>, généré à partir de <code>TUTORIAL.md</code> par <code>python convert_tutorial_to_ipynb.py</code> ;
+- <code>problemes_exploratoires_linalg_pedagopy.ipynb</code>, généré par <code>python generate_exploratory_problems_ipynb.py</code>.</p>
+<h2 id="6-premieres-cellules">6. Premières cellules</h2>
+<p><strong>Import</strong></p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">import linalg_pedagopy as lp
+lp.__version__
+</code></pre></div>
+<p><strong>Calcul exact et discussion de cas</strong> : la dernière ligne d'une cellule s'affiche en Markdown et LaTeX, sans <code>print</code>.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, symbols, GaussJordan
+
+a, = symbols("a")
+res = GaussJordan(Matrix([[1, a], [a, 1]]), Vector([1, 1])).run()
+res                         # discussion selon a, solutions en LaTeX
+</code></pre></div>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">res.explain(level=2)        # avec le détail des opérations de lignes
+</code></pre></div>
+<p><strong>Le tuteur</strong></p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tutor
+tutor.catalog()             # les 35 exercices
+</code></pre></div>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex = tutor.exercise("moyenne-glissante")
+ex.statement()
+</code></pre></div>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.hint()                   # à répéter : paliers 1 à 4
+</code></pre></div>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.verify(Matrix.zeros(3, 6))   # diagnostic d'une réponse fausse
+</code></pre></div>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.panel()                  # panneau : indices, jumeau, réponse, bilan
+</code></pre></div>
+<p><strong>Une figure</strong></p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import LeastSquares
+from linalg_pedagopy.plot import plot_least_squares_geometry_3d
+
+ls = LeastSquares(Matrix([[1, 0], [0, 1], [1, 1]]), Vector([1, 2, 4])).run()
+plot_least_squares_geometry_3d(ls);
+</code></pre></div>
+<h2 id="7-les-fois-suivantes">7. Les fois suivantes</h2>
+<div class="code-container"><div class="code-header"><span>Bat</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bat">cd C:\chemin\vers\linalg-pedagopy
+conda activate pedagopy
+jupyter lab
+</code></pre></div>
+<h2 id="8-depannage">8. Dépannage</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Symptôme</th>
+<th style="text-align: left;">Cause probable</th>
+<th style="text-align: left;">Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>ModuleNotFoundError: linalg_pedagopy</code></td>
+<td style="text-align: left;">le noyau n'est pas celui de l'environnement</td>
+<td style="text-align: left;">relancez <code>jupyter lab</code> après <code>conda activate pedagopy</code>, ou ajoutez <code>src/</code> à <code>sys.path</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ex.panel()</code> affiche du texte au lieu de boutons</td>
+<td style="text-align: left;"><code>ipywidgets</code> absent du noyau</td>
+<td style="text-align: left;"><code>pip install -e ".[tuteur]"</code> puis redémarrez le noyau</td>
+</tr>
+<tr>
+<td style="text-align: left;">Une modification du code n'est pas prise en compte</td>
+<td style="text-align: left;">module déjà importé</td>
+<td style="text-align: left;"><strong>Kernel → Restart Kernel</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ex.hint()</code> dit que tous les paliers sont débloqués</td>
+<td style="text-align: left;">progression reprise depuis le journal</td>
+<td style="text-align: left;">relisez avec <code>ex.hint(2)</code>, ou repartez de zéro avec <code>ex.reset()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>UnknownExerciseError</code></td>
+<td style="text-align: left;">identifiant mal orthographié</td>
+<td style="text-align: left;">le message propose l'identifiant le plus proche ; <code>tutor.catalog()</code> donne la liste</td>
+</tr>
+<tr>
+<td style="text-align: left;">Une fiche modifiée n'est pas relue</td>
+<td style="text-align: left;">catalogue mis en cache</td>
+<td style="text-align: left;"><code>tutor.reload_catalog()</code></td>
+</tr>
+</tbody>
+</table>
+<p>Le journal du tuteur est le fichier <code>.linalg_pedagopy_journal.json</code> du dossier du carnet (réglable par <code>config.journal_path</code>). Le supprimer remet à zéro la progression sur tous les exercices.</p>
+      </article>
+
+      <!-- Navigation entre chapitres -->
+      <nav class="chapter-nav">
+        
+        <a href="08_catalogue_exercices.html" class="chapter-nav-btn">
+          <span class="nav-direction">&larr; Chapitre précédent</span>
+          <span class="nav-target">08. Catalogue des exercices</span>
+        </a>
+        
+
+        
+      </nav>
+    </main>
+
+    <!-- Barre latérale droite : Sommaire de la page (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-heading">Sur cette page</div>
+      <ul class="toc-list">
+        
+        <li class="toc-item ">
+          <a href="#1-ouvrir-un-terminal-dans-le-dossier-du-projet">1. Ouvrir un terminal dans le dossier du projet</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#2-creer-un-environnement-dedie">2. Créer un environnement dédié</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#3-installer-le-package-en-mode-editable">3. Installer le package en mode éditable</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#4-verifier-linstallation">4. Vérifier l'installation</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#5-lancer-jupyterlab">5. Lancer JupyterLab</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#6-premieres-cellules">6. Premières cellules</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#7-les-fois-suivantes">7. Les fois suivantes</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#8-depannage">8. Dépannage</a>
+        </li>
+        
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <p>
+      <strong>linalg_pedagopy</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement de l'algèbre linéaire en L1–L2.<br>
+      Documentation sous licence MIT. Code source ouvert.
+    </p>
+  </footer>
+
+  <script src="assets/js/academic.js"></script>
+</body>
+</html>

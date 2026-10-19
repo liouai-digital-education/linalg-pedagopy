@@ -1,0 +1,24 @@
+id: inverse-signes
+numero: 33
+titre: Les signes des coefficients d'une inverse
+theme: Inverses et systèmes linéaires
+niveau: 2
+type: contre_exemple
+enonce: L'inverse d'une matrice carrée inversible à coefficients strictement positifs ($> 0$) a-t-elle
+  toujours ses coefficients positifs ? Fournir une matrice $A$ de taille $2 \times 2$ à coefficients $>
+  0$ qui soit inversible et dont l'inverse $A^{-1}$ comporte au moins un coefficient strictement négatif.
+notions:
+- inverse d'une matrice 2×2
+- signe des coefficients de l'inverse
+donnees:
+  n: 2
+verification:
+  type: contre_exemple
+  cas: inverse_matrice_positive
+indices:
+- 'Rappelez-vous la formule de l''inverse d''une matrice $2 \times 2$ : $A^{-1} = \frac{1}{ad - bc} \begin{bmatrix}
+  d & -b \\ -c & a \end{bmatrix}$.'
+- Si $a, b, c, d$ sont tous strictement positifs ($> 0$) et $ad - bc \neq 0$, quels signes ont les coefficients
+  hors diagonale $-b$ et $-c$ ?
+- Choisissez quatre petits entiers strictement positifs (par exemple 1 et 2) tels que $ad - bc \neq 0$.
+jumeau: generateurs.contre_exemple_guide(famille='matrices 2×2 à coefficients dans {1, 2}')

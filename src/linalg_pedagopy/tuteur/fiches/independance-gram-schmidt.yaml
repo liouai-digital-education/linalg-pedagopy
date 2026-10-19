@@ -1,0 +1,34 @@
+id: independance-gram-schmidt
+numero: 15
+titre: Tester l'indépendance avec Gram-Schmidt
+theme: Orthogonalisation
+niveau: 3
+type: calcul
+enonce: On donne les vecteurs $a_1 = (1, 2, -1)$, $a_2 = (2, 0, 1)$ et $a_3 = (0, 4, -3)$ de $\mathbb{R}^3$.
+  En appliquant Gram-Schmidt, déterminer le résidu orthogonal $\tilde{q}_3$ obtenu à la 3ᵉ étape (ou indiquer
+  son carré de norme \|\tilde{q}_3\|^2 pour tester l'indépendance).
+notions:
+- test d'indépendance linéaire par Gram-Schmidt
+donnees:
+  a1:
+  - 1
+  - 2
+  - -1
+  a2:
+  - 2
+  - 0
+  - 1
+  a3:
+  - 0
+  - 4
+  - -3
+verification:
+  type: valeur
+  calcul: (a3 - (a1.dot(a3)/a1.norm_sq())*a1 - (a2.dot(a3)/a2.norm_sq())*a2).norm_sq()
+indices:
+- 'L''algorithme de Gram-Schmidt permet de tester si une famille $(a_1, a_2, a_3)$ est libre ou liée :
+  elle est liée si l''un des $\tilde{q}_i$ est nul.'
+- Vérifiez d'abord si $a_1$ et $a_2$ sont orthogonaux en calculant $a_1^T a_2$.
+- 'Projetez $a_3$ sur $a_1$ et sur $a_2$, puis retranchez ces projections à $a_3$ : que vaut $\|\tilde{q}_3\|^2$
+  ?'
+jumeau: generateurs.gram_schmidt_exemple()
