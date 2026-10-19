@@ -190,87 +190,87 @@
   },
   {
     "pageTitle": "02. Vecteurs, Matrices & VMLS",
-    "title": "1.4 Vecteurs par blocs et conversions",
-    "url": "02_vectors_and_matrices.html#14-vecteurs-par-blocs-et-conversions",
-    "snippet": "Une Matrix représente une matrice ACADEMIC_TOKEN_25 sur ACADEMIC_TOKEN_26....",
-    "content": "1.4 Vecteurs par blocs et conversions Une Matrix représente une matrice ACADEMIC_TOKEN_25 sur ACADEMIC_TOKEN_26...."
+    "title": "1.4 Vecteurs empilés et conversions",
+    "url": "02_vectors_and_matrices.html#14-vecteurs-empiles-et-conversions",
+    "snippet": "Une Matrix représente une matrice ACADEMIC_TOKEN_21 sur ACADEMIC_TOKEN_22....",
+    "content": "1.4 Vecteurs empilés et conversions Une Matrix représente une matrice ACADEMIC_TOKEN_21 sur ACADEMIC_TOKEN_22...."
   },
   {
     "pageTitle": "02. Vecteurs, Matrices & VMLS",
     "title": "2. La classe Matrix",
     "url": "02_vectors_and_matrices.html#2-la-classe-matrix",
-    "snippet": "Une Matrix représente une matrice ACADEMIC_TOKEN_25 sur ACADEMIC_TOKEN_26....",
-    "content": "2. La classe Matrix Une Matrix représente une matrice ACADEMIC_TOKEN_25 sur ACADEMIC_TOKEN_26...."
+    "snippet": "Une Matrix représente une matrice ACADEMIC_TOKEN_21 sur ACADEMIC_TOKEN_22....",
+    "content": "2. La classe Matrix Une Matrix représente une matrice ACADEMIC_TOKEN_21 sur ACADEMIC_TOKEN_22...."
   },
   {
     "pageTitle": "02. Vecteurs, Matrices & VMLS",
     "title": "2.1 Initialisation et constructeurs d'usine",
     "url": "02_vectors_and_matrices.html#21-initialisation-et-constructeurs-dusine",
-    "snippet": "L'ouvrage VMLS insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_27. linalg_pedagopy propose ...",
-    "content": "2.1 Initialisation et constructeurs d'usine L'ouvrage VMLS insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_27. linalg_pedagopy propose ..."
+    "snippet": "L'ouvrage VMLS insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_23. linalg_pedagopy les rend...",
+    "content": "2.1 Initialisation et constructeurs d'usine L'ouvrage VMLS insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_23. linalg_pedagopy les rend..."
   },
   {
     "pageTitle": "02. Vecteurs, Matrices & VMLS",
     "title": "2.2 Opérations matricielles usuelles",
     "url": "02_vectors_and_matrices.html#22-operations-matricielles-usuelles",
-    "snippet": "L'ouvrage VMLS insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_27. linalg_pedagopy propose ...",
-    "content": "2.2 Opérations matricielles usuelles L'ouvrage VMLS insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_27. linalg_pedagopy propose ..."
+    "snippet": "L'ouvrage VMLS insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_23. linalg_pedagopy les rend...",
+    "content": "2.2 Opérations matricielles usuelles L'ouvrage VMLS insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_23. linalg_pedagopy les rend..."
   },
   {
     "pageTitle": "02. Vecteurs, Matrices & VMLS",
     "title": "3. Les 4 vues du produit matriciel (VMLS §10.1)",
     "url": "02_vectors_and_matrices.html#3-les-4-vues-du-produit-matriciel-vmls-101",
-    "snippet": "L'ouvrage VMLS insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_27. linalg_pedagopy propose ...",
-    "content": "3. Les 4 vues du produit matriciel (VMLS §10.1) L'ouvrage VMLS insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_27. linalg_pedagopy propose ..."
+    "snippet": "L'ouvrage VMLS insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_23. linalg_pedagopy les rend...",
+    "content": "3. Les 4 vues du produit matriciel (VMLS §10.1) L'ouvrage VMLS insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_23. linalg_pedagopy les rend..."
   },
   {
     "pageTitle": "02. Vecteurs, Matrices & VMLS",
-    "title": "3.1 Vue 1 : Combinaisons linéaires des colonnes de ACADEMIC_TOKEN_28",
-    "url": "02_vectors_and_matrices.html#31-vue-1-combinaisons-lineaires-des-colonnes-de-academic_token_28",
-    "snippet": "Chaque colonne ACADEMIC_TOKEN_29 de ACADEMIC_TOKEN_30 est une combinaison linéaire des colonnes ACADEMIC_TOKEN_31 de ACADEMIC_TOKEN_32, avec pour coefficients l...",
-    "content": "3.1 Vue 1 : Combinaisons linéaires des colonnes de ACADEMIC_TOKEN_28 Chaque colonne ACADEMIC_TOKEN_29 de ACADEMIC_TOKEN_30 est une combinaison linéaire des colonnes ACADEMIC_TOKEN_31 de ACADEMIC_TOKEN_32, avec pour coefficients l..."
+    "title": "3.1 Vue 1 (view='columns') : Combinaisons linéaires des colonnes de ACADEMIC_TOKEN_24",
+    "url": "02_vectors_and_matrices.html#31-vue-1-viewcolumns-combinaisons-lineaires-des-colonnes-de-academic_token_24",
+    "snippet": "Chaque colonne ACADEMIC_TOKEN_25 de ACADEMIC_TOKEN_26 est une combinaison linéaire des colonnes ACADEMIC_TOKEN_27 de ACADEMIC_TOKEN_28, avec pour coefficients l...",
+    "content": "3.1 Vue 1 (view='columns') : Combinaisons linéaires des colonnes de ACADEMIC_TOKEN_24 Chaque colonne ACADEMIC_TOKEN_25 de ACADEMIC_TOKEN_26 est une combinaison linéaire des colonnes ACADEMIC_TOKEN_27 de ACADEMIC_TOKEN_28, avec pour coefficients l..."
   },
   {
     "pageTitle": "02. Vecteurs, Matrices & VMLS",
-    "title": "3.2 Vue 2 : Produits scalaires ligne-colonne",
-    "url": "02_vectors_and_matrices.html#32-vue-2-produits-scalaires-ligne-colonne",
-    "snippet": "Chaque coefficient ACADEMIC_TOKEN_35 est le produit scalaire standard entre la ACADEMIC_TOKEN_36-ième ligne de ACADEMIC_TOKEN_37 et la ACADEMIC_TOKEN_38-ième co...",
-    "content": "3.2 Vue 2 : Produits scalaires ligne-colonne Chaque coefficient ACADEMIC_TOKEN_35 est le produit scalaire standard entre la ACADEMIC_TOKEN_36-ième ligne de ACADEMIC_TOKEN_37 et la ACADEMIC_TOKEN_38-ième co..."
+    "title": "3.2 Vue 2 (view='rows' / view='entries') : Produits scalaires ligne-colonne",
+    "url": "02_vectors_and_matrices.html#32-vue-2-viewrows-viewentries-produits-scalaires-ligne-colonne",
+    "snippet": "Chaque coefficient ACADEMIC_TOKEN_31 est le produit scalaire standard entre la ACADEMIC_TOKEN_32-ième ligne de ACADEMIC_TOKEN_33 et la ACADEMIC_TOKEN_34-ième co...",
+    "content": "3.2 Vue 2 (view='rows' / view='entries') : Produits scalaires ligne-colonne Chaque coefficient ACADEMIC_TOKEN_31 est le produit scalaire standard entre la ACADEMIC_TOKEN_32-ième ligne de ACADEMIC_TOKEN_33 et la ACADEMIC_TOKEN_34-ième co..."
   },
   {
     "pageTitle": "02. Vecteurs, Matrices & VMLS",
-    "title": "3.3 Vue 3 : Somme de produits externes (Outer Products)",
-    "url": "02_vectors_and_matrices.html#33-vue-3-somme-de-produits-externes-outer-products",
-    "snippet": "Le produit ACADEMIC_TOKEN_40 est la somme de ACADEMIC_TOKEN_41 matrices de rang 1 formées par les produits externes des colonnes de ACADEMIC_TOKEN_42 et des lig...",
-    "content": "3.3 Vue 3 : Somme de produits externes (Outer Products) Le produit ACADEMIC_TOKEN_40 est la somme de ACADEMIC_TOKEN_41 matrices de rang 1 formées par les produits externes des colonnes de ACADEMIC_TOKEN_42 et des lig..."
+    "title": "3.3 Vue 3 (view='outer') : Somme de produits externes (Outer Products)",
+    "url": "02_vectors_and_matrices.html#33-vue-3-viewouter-somme-de-produits-externes-outer-products",
+    "snippet": "Le produit ACADEMIC_TOKEN_36 est la somme de ACADEMIC_TOKEN_37 matrices de rang 1 formées par les produits externes des colonnes de ACADEMIC_TOKEN_38 et des lig...",
+    "content": "3.3 Vue 3 (view='outer') : Somme de produits externes (Outer Products) Le produit ACADEMIC_TOKEN_36 est la somme de ACADEMIC_TOKEN_37 matrices de rang 1 formées par les produits externes des colonnes de ACADEMIC_TOKEN_38 et des lig..."
   },
   {
     "pageTitle": "02. Vecteurs, Matrices & VMLS",
-    "title": "3.4 Vue 4 : Multiplication par blocs",
-    "url": "02_vectors_and_matrices.html#34-vue-4-multiplication-par-blocs",
-    "snippet": "La méthode statique Matrix.block assemble une matrice à partir d'une grille de blocs sous-matriciels :...",
-    "content": "3.4 Vue 4 : Multiplication par blocs La méthode statique Matrix.block assemble une matrice à partir d'une grille de blocs sous-matriciels :..."
+    "title": "3.4 Matrices par blocs",
+    "url": "02_vectors_and_matrices.html#34-matrices-par-blocs",
+    "snippet": "La méthode de classe Matrix.block assemble une matrice à partir d'une grille de blocs sous-matriciels :...",
+    "content": "3.4 Matrices par blocs La méthode de classe Matrix.block assemble une matrice à partir d'une grille de blocs sous-matriciels :..."
   },
   {
     "pageTitle": "02. Vecteurs, Matrices & VMLS",
     "title": "4. Analyse et Propriétés des Matrices",
     "url": "02_vectors_and_matrices.html#4-analyse-et-proprietes-des-matrices",
-    "snippet": "La méthode inv(strict=True) calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :\n- Si la matrice est numérique et singulière, elle l...",
-    "content": "4. Analyse et Propriétés des Matrices La méthode inv(strict=True) calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :\n- Si la matrice est numérique et singulière, elle l..."
+    "snippet": "Matrix ne fournit pas de prédicats is_square, is_symmetric… : on les écrit à partir des attributs, ce qui garde la définition sous les yeux....",
+    "content": "4. Analyse et Propriétés des Matrices Matrix ne fournit pas de prédicats is_square, is_symmetric… : on les écrit à partir des attributs, ce qui garde la définition sous les yeux...."
   },
   {
     "pageTitle": "02. Vecteurs, Matrices & VMLS",
     "title": "4.1 Tests structurels",
     "url": "02_vectors_and_matrices.html#41-tests-structurels",
-    "snippet": "La méthode inv(strict=True) calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :\n- Si la matrice est numérique et singulière, elle l...",
-    "content": "4.1 Tests structurels La méthode inv(strict=True) calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :\n- Si la matrice est numérique et singulière, elle l..."
+    "snippet": "Matrix ne fournit pas de prédicats is_square, is_symmetric… : on les écrit à partir des attributs, ce qui garde la définition sous les yeux....",
+    "content": "4.1 Tests structurels Matrix ne fournit pas de prédicats is_square, is_symmetric… : on les écrit à partir des attributs, ce qui garde la définition sous les yeux...."
   },
   {
     "pageTitle": "02. Vecteurs, Matrices & VMLS",
     "title": "4.2 Inversion formelle (inv)",
     "url": "02_vectors_and_matrices.html#42-inversion-formelle-inv",
-    "snippet": "La méthode inv(strict=True) calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :\n- Si la matrice est numérique et singulière, elle l...",
-    "content": "4.2 Inversion formelle (inv) La méthode inv(strict=True) calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :\n- Si la matrice est numérique et singulière, elle l..."
+    "snippet": "La méthode inv(*, assumptions=None, strict=True) calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :\n- Si la matrice est numérique ...",
+    "content": "4.2 Inversion formelle (inv) La méthode inv(*, assumptions=None, strict=True) calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :\n- Si la matrice est numérique ..."
   },
   {
     "pageTitle": "02. Vecteurs, Matrices & VMLS",
@@ -297,15 +297,15 @@
     "pageTitle": "03. Algorithmes & Traçabilité",
     "title": "1.2 Les 4 niveaux de zoom didactiques",
     "url": "03_algorithms_and_step_tracing.html#12-les-4-niveaux-de-zoom-didactiques",
-    "snippet": "L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (ROW_SWAP, ROW_SCALE, ROW_ADD, PROJECTION, NORMALIZE, e...",
-    "content": "1.2 Les 4 niveaux de zoom didactiques L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (ROW_SWAP, ROW_SCALE, ROW_ADD, PROJECTION, NORMALIZE, e..."
+    "snippet": "L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (SECTION, INFO, WARNING, ROW_SWAP, ROW_SCALE, ROW_ADD, ...",
+    "content": "1.2 Les 4 niveaux de zoom didactiques L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (SECTION, INFO, WARNING, ROW_SWAP, ROW_SCALE, ROW_ADD, ..."
   },
   {
     "pageTitle": "03. Algorithmes & Traçabilité",
     "title": "1.3 Nœuds de l'arbre : Step, StepKind et Highlight",
     "url": "03_algorithms_and_step_tracing.html#13-nuds-de-larbre-step-stepkind-et-highlight",
-    "snippet": "L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (ROW_SWAP, ROW_SCALE, ROW_ADD, PROJECTION, NORMALIZE, e...",
-    "content": "1.3 Nœuds de l'arbre : Step, StepKind et Highlight L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (ROW_SWAP, ROW_SCALE, ROW_ADD, PROJECTION, NORMALIZE, e..."
+    "snippet": "L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (SECTION, INFO, WARNING, ROW_SWAP, ROW_SCALE, ROW_ADD, ...",
+    "content": "1.3 Nœuds de l'arbre : Step, StepKind et Highlight L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (SECTION, INFO, WARNING, ROW_SWAP, ROW_SCALE, ROW_ADD, ..."
   },
   {
     "pageTitle": "03. Algorithmes & Traçabilité",
@@ -318,8 +318,8 @@
     "pageTitle": "03. Algorithmes & Traçabilité",
     "title": "2.1 Signature et options",
     "url": "03_algorithms_and_step_tracing.html#21-signature-et-options",
-    "snippet": "Le résultat renvoyé par GaussJordan.run() est un GJResult dont la propriété solution appartient à l'une des 3 catégories de SolutionSet :...",
-    "content": "2.1 Signature et options Le résultat renvoyé par GaussJordan.run() est un GJResult dont la propriété solution appartient à l'une des 3 catégories de SolutionSet :..."
+    "snippet": "Le résultat GJResult expose A, b, rref, augmented_rref, pivots, rank, free_vars, nullspace_basis, solution et inverse....",
+    "content": "2.1 Signature et options Le résultat GJResult expose A, b, rref, augmented_rref, pivots, rank, free_vars, nullspace_basis, solution et inverse...."
   },
   {
     "pageTitle": "03. Algorithmes & Traçabilité",
@@ -332,8 +332,8 @@
     "pageTitle": "03. Algorithmes & Traçabilité",
     "title": "2.3 Exemple avec paramètre et discussion automatique",
     "url": "03_algorithms_and_step_tracing.html#23-exemple-avec-parametre-et-discussion-automatique",
-    "snippet": "Ce code produit automatiquement un CaseSplit distinguant :\n- Le cas ACADEMIC_TOKEN_15 : infinité de solutions (plan affine de dimension 2).\n- Le cas ACADEMIC_TO...",
-    "content": "2.3 Exemple avec paramètre et discussion automatique Ce code produit automatiquement un CaseSplit distinguant :\n- Le cas ACADEMIC_TOKEN_15 : infinité de solutions (plan affine de dimension 2).\n- Le cas ACADEMIC_TO..."
+    "snippet": "Ce code produit automatiquement un CaseSplit distinguant :\n- Le cas ACADEMIC_TOKEN_16 : infinité de solutions (plan affine de dimension 2).\n- Le cas ACADEMIC_TO...",
+    "content": "2.3 Exemple avec paramètre et discussion automatique Ce code produit automatiquement un CaseSplit distinguant :\n- Le cas ACADEMIC_TOKEN_16 : infinité de solutions (plan affine de dimension 2).\n- Le cas ACADEMIC_TO..."
   },
   {
     "pageTitle": "03. Algorithmes & Traçabilité",
@@ -346,22 +346,22 @@
     "pageTitle": "03. Algorithmes & Traçabilité",
     "title": "4. Orthogonalisation de Gram-Schmidt (GramSchmidt)",
     "url": "03_algorithms_and_step_tracing.html#4-orthogonalisation-de-gram-schmidt-gramschmidt",
-    "snippet": "La procédure GramSchmidt transforme une famille libre de vecteurs ACADEMIC_TOKEN_24 en une famille orthogonale ACADEMIC_TOKEN_25 puis orthonormée ACADEMIC_TOKEN...",
-    "content": "4. Orthogonalisation de Gram-Schmidt (GramSchmidt) La procédure GramSchmidt transforme une famille libre de vecteurs ACADEMIC_TOKEN_24 en une famille orthogonale ACADEMIC_TOKEN_25 puis orthonormée ACADEMIC_TOKEN..."
+    "snippet": "La procédure GramSchmidt (GramSchmidt(vectors, *, normalize=\"end\", strict=False, assumptions=None)) transforme une famille libre de vecteurs ACADEMIC_TOKEN_25 e...",
+    "content": "4. Orthogonalisation de Gram-Schmidt (GramSchmidt) La procédure GramSchmidt (GramSchmidt(vectors, *, normalize=\"end\", strict=False, assumptions=None)) transforme une famille libre de vecteurs ACADEMIC_TOKEN_25 e..."
   },
   {
     "pageTitle": "03. Algorithmes & Traçabilité",
     "title": "Détection de dépendance linéaire",
     "url": "03_algorithms_and_step_tracing.html#detection-de-dependance-lineaire",
-    "snippet": "Si la famille est liée, GramSchmidt lève une LinearDependenceError contenant un témoin de dépendance DependenceWitness détaillant la combinaison linéaire nulle....",
-    "content": "Détection de dépendance linéaire Si la famille est liée, GramSchmidt lève une LinearDependenceError contenant un témoin de dépendance DependenceWitness détaillant la combinaison linéaire nulle...."
+    "snippet": "Si la famille est liée, GramSchmidt s'arrête au premier vecteur dépendant : le résultat a independent=False, dependent_index (indice 0-based) et un témoin Depen...",
+    "content": "Détection de dépendance linéaire Si la famille est liée, GramSchmidt s'arrête au premier vecteur dépendant : le résultat a independent=False, dependent_index (indice 0-based) et un témoin Depen..."
   },
   {
     "pageTitle": "03. Algorithmes & Traçabilité",
     "title": "5. Factorisation QR (QR)",
     "url": "03_algorithms_and_step_tracing.html#5-factorisation-qr-qr",
-    "snippet": "La classe QR factorise une matrice ACADEMIC_TOKEN_27 de rang plein colonne sous la forme ACADEMIC_TOKEN_28, où ACADEMIC_TOKEN_29 a des colonnes orthonormales (A...",
-    "content": "5. Factorisation QR (QR) La classe QR factorise une matrice ACADEMIC_TOKEN_27 de rang plein colonne sous la forme ACADEMIC_TOKEN_28, où ACADEMIC_TOKEN_29 a des colonnes orthonormales (A..."
+    "snippet": "La classe QR factorise une matrice ACADEMIC_TOKEN_28 de rang plein colonne sous la forme ACADEMIC_TOKEN_29, où ACADEMIC_TOKEN_30 a des colonnes orthonormales (A...",
+    "content": "5. Factorisation QR (QR) La classe QR factorise une matrice ACADEMIC_TOKEN_28 de rang plein colonne sous la forme ACADEMIC_TOKEN_29, où ACADEMIC_TOKEN_30 a des colonnes orthonormales (A..."
   },
   {
     "pageTitle": "03. Algorithmes & Traçabilité",
@@ -402,92 +402,85 @@
     "pageTitle": "04. Le Tuteur Interactif VMLS",
     "title": "2.1 Structure d'une fiche d'exercice",
     "url": "04_vmls_tutor.html#21-structure-dune-fiche-dexercice",
-    "snippet": "Chaque fiche contient :\n- id : Identifiant de l'exercice VMLS (ex: \"6.4\").\n- titre : Intitulé pédagogique.\n- section_vmls : Chapitre de référence dans VMLS.\n- d...",
-    "content": "2.1 Structure d'une fiche d'exercice Chaque fiche contient :\n- id : Identifiant de l'exercice VMLS (ex: \"6.4\").\n- titre : Intitulé pédagogique.\n- section_vmls : Chapitre de référence dans VMLS.\n- d..."
+    "snippet": "Chaque fiche contient les champs suivants (tous présents dans les 35 fiches fournies) :\n- id : identifiant de l'exercice VMLS (ex. '6.4').\n- page : page de l'ex...",
+    "content": "2.1 Structure d'une fiche d'exercice Chaque fiche contient les champs suivants (tous présents dans les 35 fiches fournies) :\n- id : identifiant de l'exercice VMLS (ex. '6.4').\n- page : page de l'ex..."
   },
   {
     "pageTitle": "04. Le Tuteur Interactif VMLS",
     "title": "2.2 Validation croisée d'intégrité (validate_sheet)",
     "url": "04_vmls_tutor.html#22-validation-croisee-dintegrite-validate_sheet",
-    "snippet": "La fonction validate_sheet (alias valider_fiche) contrôle automatiquement la validité d'une fiche :\n1. Elle charge la fiche en mode isolé (persist_journal=False...",
-    "content": "2.2 Validation croisée d'intégrité (validate_sheet) La fonction validate_sheet (alias valider_fiche) contrôle automatiquement la validité d'une fiche :\n1. Elle charge la fiche en mode isolé (persist_journal=False..."
+    "snippet": "La fonction validate_sheet (alias valider_fiche) contrôle automatiquement une fiche :\n1. Présence des champs obligatoires (id, type, reformulation, verification...",
+    "content": "2.2 Validation croisée d'intégrité (validate_sheet) La fonction validate_sheet (alias valider_fiche) contrôle automatiquement une fiche :\n1. Présence des champs obligatoires (id, type, reformulation, verification..."
   },
   {
     "pageTitle": "04. Le Tuteur Interactif VMLS",
     "title": "3. Déroulement d'une séance avec ExerciseSession",
     "url": "04_vmls_tutor.html#3-deroulement-dune-seance-avec-exercisesession",
-    "snippet": "Affiche l'énoncé complet, les données vectorielles et matricielles associées, ainsi que les consignes de format de réponse....",
-    "content": "3. Déroulement d'une séance avec ExerciseSession Affiche l'énoncé complet, les données vectorielles et matricielles associées, ainsi que les consignes de format de réponse...."
+    "snippet": "Les données de l'exercice sont accessibles via ex.data (alias ex.donnees), un LockedNamespace dont les vecteurs et matrices sont verrouillés tant que l'exercice...",
+    "content": "3. Déroulement d'une séance avec ExerciseSession Les données de l'exercice sont accessibles via ex.data (alias ex.donnees), un LockedNamespace dont les vecteurs et matrices sont verrouillés tant que l'exercice..."
   },
   {
     "pageTitle": "04. Le Tuteur Interactif VMLS",
     "title": "3.1 Initialisation",
     "url": "04_vmls_tutor.html#31-initialisation",
-    "snippet": "Affiche l'énoncé complet, les données vectorielles et matricielles associées, ainsi que les consignes de format de réponse....",
-    "content": "3.1 Initialisation Affiche l'énoncé complet, les données vectorielles et matricielles associées, ainsi que les consignes de format de réponse...."
+    "snippet": "Les données de l'exercice sont accessibles via ex.data (alias ex.donnees), un LockedNamespace dont les vecteurs et matrices sont verrouillés tant que l'exercice...",
+    "content": "3.1 Initialisation Les données de l'exercice sont accessibles via ex.data (alias ex.donnees), un LockedNamespace dont les vecteurs et matrices sont verrouillés tant que l'exercice..."
   },
   {
     "pageTitle": "04. Le Tuteur Interactif VMLS",
     "title": "3.2 Consultation de l'énoncé (statement)",
     "url": "04_vmls_tutor.html#32-consultation-de-lenonce-statement",
-    "snippet": "Affiche l'énoncé complet, les données vectorielles et matricielles associées, ainsi que les consignes de format de réponse....",
-    "content": "3.2 Consultation de l'énoncé (statement) Affiche l'énoncé complet, les données vectorielles et matricielles associées, ainsi que les consignes de format de réponse...."
+    "snippet": "Affiche la reformulation, la référence de page dans le recueil, les notions mobilisées et la source....",
+    "content": "3.2 Consultation de l'énoncé (statement) Affiche la reformulation, la référence de page dans le recueil, les notions mobilisées et la source...."
   },
   {
     "pageTitle": "04. Le Tuteur Interactif VMLS",
     "title": "3.3 Système d'indices gradués (hint)",
     "url": "04_vmls_tutor.html#33-systeme-dindices-gradues-hint",
-    "snippet": "Pour favoriser la recherche autonome sans court-circuiter l'effort de réflexion, les indices sont organisés en 4 paliers :...",
-    "content": "3.3 Système d'indices gradués (hint) Pour favoriser la recherche autonome sans court-circuiter l'effort de réflexion, les indices sont organisés en 4 paliers :..."
+    "snippet": "Pour favoriser la recherche autonome, les indices sont organisés en 4 paliers ; chaque appel débloque le palier suivant (on peut aussi demander ex.hint(2) / ex....",
+    "content": "3.3 Système d'indices gradués (hint) Pour favoriser la recherche autonome, les indices sont organisés en 4 paliers ; chaque appel débloque le palier suivant (on peut aussi demander ex.hint(2) / ex...."
   },
   {
     "pageTitle": "04. Le Tuteur Interactif VMLS",
     "title": "3.4 L'Exercice Jumeau (twin)",
     "url": "04_vmls_tutor.html#34-lexercice-jumeau-twin",
-    "snippet": "L'étudiant bloqué peut consulter à tout moment un exercice isomorphe entièrement résolu et commenté :...",
-    "content": "3.4 L'Exercice Jumeau (twin) L'étudiant bloqué peut consulter à tout moment un exercice isomorphe entièrement résolu et commenté :..."
+    "snippet": "L'étudiant bloqué peut consulter un exercice analogue entièrement résolu (cela débloque aussi le palier 4). twin() renvoie un TwinExercise (title, statement, so...",
+    "content": "3.4 L'Exercice Jumeau (twin) L'étudiant bloqué peut consulter un exercice analogue entièrement résolu (cela débloque aussi le palier 4). twin() renvoie un TwinExercise (title, statement, so..."
   },
   {
     "pageTitle": "04. Le Tuteur Interactif VMLS",
-    "title": "3.5 Prédiction d'étapes (predict)",
-    "url": "04_vmls_tutor.html#35-prediction-detapes-predict",
-    "snippet": "L'étudiant peut soumettre une étape intermédiaire pour s'assurer qu'il est sur la bonne voie avant de finaliser son calcul :...",
-    "content": "3.5 Prédiction d'étapes (predict) L'étudiant peut soumettre une étape intermédiaire pour s'assurer qu'il est sur la bonne voie avant de finaliser son calcul :..."
+    "title": "3.5 Prédiction et laboratoire de contre-exemples (predict, lab)",
+    "url": "04_vmls_tutor.html#35-prediction-et-laboratoire-de-contre-exemples-predict-lab",
+    "snippet": "Pour les exercices vrai/faux (vérificateur labo), l'étudiant doit s'engager avant d'explorer : il enregistre sa prédiction avec predict, puis seulement ouvre le...",
+    "content": "3.5 Prédiction et laboratoire de contre-exemples (predict, lab) Pour les exercices vrai/faux (vérificateur labo), l'étudiant doit s'engager avant d'explorer : il enregistre sa prédiction avec predict, puis seulement ouvre le..."
   },
   {
     "pageTitle": "04. Le Tuteur Interactif VMLS",
-    "title": "3.6 Le Laboratoire de contre-exemples (lab)",
-    "url": "04_vmls_tutor.html#36-le-laboratoire-de-contre-exemples-lab",
-    "snippet": "Lorsqu'un exercice demande de démontrer si une propriété est vraie ou fausse (par exemple : \"Si ACADEMIC_TOKEN_9, alors ACADEMIC_TOKEN_10 ? \"), l'étudiant peut ...",
-    "content": "3.6 Le Laboratoire de contre-exemples (lab) Lorsqu'un exercice demande de démontrer si une propriété est vraie ou fausse (par exemple : \"Si ACADEMIC_TOKEN_9, alors ACADEMIC_TOKEN_10 ? \"), l'étudiant peut ..."
-  },
-  {
-    "pageTitle": "04. Le Tuteur Interactif VMLS",
-    "title": "3.7 Vérification formelle de la solution (verify)",
-    "url": "04_vmls_tutor.html#37-verification-formelle-de-la-solution-verify",
-    "snippet": "L'étudiant soumet sa proposition de réponse finale :...",
-    "content": "3.7 Vérification formelle de la solution (verify) L'étudiant soumet sa proposition de réponse finale :..."
+    "title": "3.6 Vérification de la solution (verify)",
+    "url": "04_vmls_tutor.html#36-verification-de-la-solution-verify",
+    "snippet": "L'étudiant soumet sa réponse finale ; verify renvoie un VerificationResult immuable (valid, diagnostic, simplicity_note ; alias valide, note_simplicite) :...",
+    "content": "3.6 Vérification de la solution (verify) L'étudiant soumet sa réponse finale ; verify renvoie un VerificationResult immuable (valid, diagnostic, simplicity_note ; alias valide, note_simplicite) :..."
   },
   {
     "pageTitle": "04. Le Tuteur Interactif VMLS",
     "title": "4. Journal d'apprentissage persistant et atomique (ExerciseJournal)",
     "url": "04_vmls_tutor.html#4-journal-dapprentissage-persistant-et-atomique-exercisejournal",
-    "snippet": "Toutes les interactions de l'étudiant sont automatiquement journalisées dans .linalg_pedagopy_journal.json :\n- Persistance de session : Si le noyau Python ou Ju...",
-    "content": "4. Journal d'apprentissage persistant et atomique (ExerciseJournal) Toutes les interactions de l'étudiant sont automatiquement journalisées dans .linalg_pedagopy_journal.json :\n- Persistance de session : Si le noyau Python ou Ju..."
+    "snippet": "Toutes les interactions de l'étudiant (tentatives, indices, jumeau, prédictions, essais au laboratoire, temps passé) sont journalisées dans le fichier config.jo...",
+    "content": "4. Journal d'apprentissage persistant et atomique (ExerciseJournal) Toutes les interactions de l'étudiant (tentatives, indices, jumeau, prédictions, essais au laboratoire, temps passé) sont journalisées dans le fichier config.jo..."
   },
   {
     "pageTitle": "04. Le Tuteur Interactif VMLS",
     "title": "5. Interface interactive JupyterLab (panel)",
     "url": "04_vmls_tutor.html#5-interface-interactive-jupyterlab-panel",
-    "snippet": "Dans un carnet Jupyter interactif, l'étudiant peut invoquer le panneau graphique basé sur ipywidgets :...",
-    "content": "5. Interface interactive JupyterLab (panel) Dans un carnet Jupyter interactif, l'étudiant peut invoquer le panneau graphique basé sur ipywidgets :..."
+    "snippet": "Dans JupyterLab, avec ipywidgets installé (extra tuteur), l'étudiant peut afficher un petit panneau graphique :...",
+    "content": "5. Interface interactive JupyterLab (panel) Dans JupyterLab, avec ipywidgets installé (extra tuteur), l'étudiant peut afficher un petit panneau graphique :..."
   },
   {
     "pageTitle": "04. Le Tuteur Interactif VMLS",
     "title": "6. Mode Enseignant",
     "url": "04_vmls_tutor.html#6-mode-enseignant",
-    "snippet": "L'enseignant peut basculer l'environnement en mode superviseur :...",
-    "content": "6. Mode Enseignant L'enseignant peut basculer l'environnement en mode superviseur :..."
+    "snippet": "L'enseignant peut basculer le tuteur en mode enseignant (\"teacher\" / \"enseignant\", retour avec \"student\" / \"etudiant\") :...",
+    "content": "6. Mode Enseignant L'enseignant peut basculer le tuteur en mode enseignant (\"teacher\" / \"enseignant\", retour avec \"student\" / \"etudiant\") :..."
   },
   {
     "pageTitle": "05. Exercices & Sessions Guidées",
@@ -505,24 +498,24 @@
   },
   {
     "pageTitle": "05. Exercices & Sessions Guidées",
-    "title": "1.2 Matrices structurelles de VMLS",
-    "url": "05_pedagogical_exercises_and_sessions.html#12-matrices-structurelles-de-vmls",
-    "snippet": "Le sous-module generators fournit les matrices remarquables étudiées dans VMLS :...",
-    "content": "1.2 Matrices structurelles de VMLS Le sous-module generators fournit les matrices remarquables étudiées dans VMLS :..."
+    "title": "1.2 Générateurs à résultats propres",
+    "url": "05_pedagogical_exercises_and_sessions.html#12-generateurs-a-resultats-propres",
+    "snippet": "Le module generators.py fournit des fonctions de génération reproductibles (paramètre seed) dont les résultats sont garantis « propres » :...",
+    "content": "1.2 Générateurs à résultats propres Le module generators.py fournit des fonctions de génération reproductibles (paramètre seed) dont les résultats sont garantis « propres » :..."
   },
   {
     "pageTitle": "05. Exercices & Sessions Guidées",
-    "title": "1.3 Générateurs aléatoires reproductibles à solutions élégantes",
-    "url": "05_pedagogical_exercises_and_sessions.html#13-generateurs-aleatoires-reproductibles-a-solutions-elegantes",
-    "snippet": "Tous les générateurs acceptent un paramètre seed pour assurer la reproductibilité stricte en examen ou devoir :...",
-    "content": "1.3 Générateurs aléatoires reproductibles à solutions élégantes Tous les générateurs acceptent un paramètre seed pour assurer la reproductibilité stricte en examen ou devoir :..."
+    "title": "1.3 Générateurs d'exercices jumeaux (generators / generateurs)",
+    "url": "05_pedagogical_exercises_and_sessions.html#13-generateurs-dexercices-jumeaux-generators-generateurs",
+    "snippet": "L'espace de noms generators (alias generateurs) regroupe les générateurs d'exercices jumeaux résolus appelés par les fiches du tuteur (champ jumeau). Chacun ren...",
+    "content": "1.3 Générateurs d'exercices jumeaux (generators / generateurs) L'espace de noms generators (alias generateurs) regroupe les générateurs d'exercices jumeaux résolus appelés par les fiches du tuteur (champ jumeau). Chacun ren..."
   },
   {
     "pageTitle": "05. Exercices & Sessions Guidées",
     "title": "2. Sessions interactives pas-à-pas (InteractiveSession)",
     "url": "05_pedagogical_exercises_and_sessions.html#2-sessions-interactives-pas-a-pas-interactivesession",
-    "snippet": "La classe InteractiveSession transforme toute procédure algorithmique en un exercice d'apprentissage actif pour l'étudiant....",
-    "content": "2. Sessions interactives pas-à-pas (InteractiveSession) La classe InteractiveSession transforme toute procédure algorithmique en un exercice d'apprentissage actif pour l'étudiant...."
+    "snippet": "La classe InteractiveSession (InteractiveSession(procedure, *, mode=\"autonomous\", mask_ratio=0.5), ou procedure.interactive(mode=...)) transforme une procédure ...",
+    "content": "2. Sessions interactives pas-à-pas (InteractiveSession) La classe InteractiveSession (InteractiveSession(procedure, *, mode=\"autonomous\", mask_ratio=0.5), ou procedure.interactive(mode=...)) transforme une procédure ..."
   },
   {
     "pageTitle": "05. Exercices & Sessions Guidées",
@@ -535,15 +528,22 @@
     "pageTitle": "05. Exercices & Sessions Guidées",
     "title": "2.2 Exemple de session autonome sur Gauss-Jordan",
     "url": "05_pedagogical_exercises_and_sessions.html#22-exemple-de-session-autonome-sur-gauss-jordan",
-    "snippet": "Lorsqu'un étudiant propose une opération incorrecte dans une session autonome, le vérificateur check_row_operation ne se contente pas d'un refus brut : il analy...",
-    "content": "2.2 Exemple de session autonome sur Gauss-Jordan Lorsqu'un étudiant propose une opération incorrecte dans une session autonome, le vérificateur check_row_operation ne se contente pas d'un refus brut : il analy..."
+    "snippet": "Les opérations s'écrivent sous forme de texte : échange \"L1 <-> L2\", dilatation \"L2 <- (1/2)*L2\", transvection \"L2 <- L2 - 3*L1\" (préfixe only_A: ou propose(......",
+    "content": "2.2 Exemple de session autonome sur Gauss-Jordan Les opérations s'écrivent sous forme de texte : échange \"L1 <-> L2\", dilatation \"L2 <- (1/2)*L2\", transvection \"L2 <- L2 - 3*L1\" (préfixe only_A: ou propose(......"
+  },
+  {
+    "pageTitle": "05. Exercices & Sessions Guidées",
+    "title": "2.3 Exemple en mode prédire-puis-révéler",
+    "url": "05_pedagogical_exercises_and_sessions.html#23-exemple-en-mode-predire-puis-reveler",
+    "snippet": "Le vérificateur check_row_operation (check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)), utilisé par propose, ne se contente pas ...",
+    "content": "2.3 Exemple en mode prédire-puis-révéler Le vérificateur check_row_operation (check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)), utilisé par propose, ne se contente pas ..."
   },
   {
     "pageTitle": "05. Exercices & Sessions Guidées",
     "title": "3. Analyseur d'erreurs et rétroactions pédagogiques (Annexe C)",
     "url": "05_pedagogical_exercises_and_sessions.html#3-analyseur-derreurs-et-retroactions-pedagogiques-annexe-c",
-    "snippet": "Lorsqu'un étudiant propose une opération incorrecte dans une session autonome, le vérificateur check_row_operation ne se contente pas d'un refus brut : il analy...",
-    "content": "3. Analyseur d'erreurs et rétroactions pédagogiques (Annexe C) Lorsqu'un étudiant propose une opération incorrecte dans une session autonome, le vérificateur check_row_operation ne se contente pas d'un refus brut : il analy..."
+    "snippet": "Le vérificateur check_row_operation (check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)), utilisé par propose, ne se contente pas ...",
+    "content": "3. Analyseur d'erreurs et rétroactions pédagogiques (Annexe C) Le vérificateur check_row_operation (check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)), utilisé par propose, ne se contente pas ..."
   },
   {
     "pageTitle": "06. Rendu, Géométrie & Numérique",
@@ -556,15 +556,15 @@
     "pageTitle": "06. Rendu, Géométrie & Numérique",
     "title": "1.1 Formats de sortie disponibles",
     "url": "06_rendering_visualization_and_numerics.html#11-formats-de-sortie-disponibles",
-    "snippet": "Dans un environnement JupyterLab ou Jupyter Notebook, l'objet Explanation implémente _repr_markdown_() : il s'affiche automatiquement avec un rendu typographiqu...",
-    "content": "1.1 Formats de sortie disponibles Dans un environnement JupyterLab ou Jupyter Notebook, l'objet Explanation implémente _repr_markdown_() : il s'affiche automatiquement avec un rendu typographiqu..."
+    "snippet": "Le paramètre fmt de explain(level=..., fmt=\"auto\") fixe le format utilisé pour l'affichage automatique ; les méthodes to_text(), to_latex(), to_markdown() et to...",
+    "content": "1.1 Formats de sortie disponibles Le paramètre fmt de explain(level=..., fmt=\"auto\") fixe le format utilisé pour l'affichage automatique ; les méthodes to_text(), to_latex(), to_markdown() et to..."
   },
   {
     "pageTitle": "06. Rendu, Géométrie & Numérique",
     "title": "1.2 Localisation et multilinguisme (locales)",
     "url": "06_rendering_visualization_and_numerics.html#12-localisation-et-multilinguisme-locales",
-    "snippet": "Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans src/linalg_pedagopy/render/locales/ (fr.yaml et en.yaml)....",
-    "content": "1.2 Localisation et multilinguisme (locales) Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans src/linalg_pedagopy/render/locales/ (fr.yaml et en.yaml)...."
+    "snippet": "Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans src/linalg_pedagopy/render/locales/. Seule la locale française ...",
+    "content": "1.2 Localisation et multilinguisme (locales) Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans src/linalg_pedagopy/render/locales/. Seule la locale française ..."
   },
   {
     "pageTitle": "06. Rendu, Géométrie & Numérique",
@@ -598,8 +598,8 @@
     "pageTitle": "06. Rendu, Géométrie & Numérique",
     "title": "3.1 La fonction universelle compare",
     "url": "06_rendering_visualization_and_numerics.html#31-la-fonction-universelle-compare",
-    "snippet": "Le rapport ComparisonReport résume l'erreur absolue, la dérive relative et, le cas échéant, la perte d'orthogonalité....",
-    "content": "3.1 La fonction universelle compare Le rapport ComparisonReport résume l'erreur absolue, la dérive relative et, le cas échéant, la perte d'orthogonalité...."
+    "snippet": "Le rapport ComparisonReport contient procedure_name, exact_result, float_result, max_abs_error, orthogonality_defect_float (pour GramSchmidt et QR) et summary....",
+    "content": "3.1 La fonction universelle compare Le rapport ComparisonReport contient procedure_name, exact_result, float_result, max_abs_error, orthogonality_defect_float (pour GramSchmidt et QR) et summary...."
   },
   {
     "pageTitle": "06. Rendu, Géométrie & Numérique",
@@ -612,140 +612,154 @@
     "pageTitle": "06. Rendu, Géométrie & Numérique",
     "title": "3.3 Cas d'école 2 : La matrice de Hilbert et le mauvais conditionnement",
     "url": "06_rendering_visualization_and_numerics.html#33-cas-decole-2-la-matrice-de-hilbert-et-le-mauvais-conditionnement",
-    "snippet": "La matrice de Hilbert d'ordre ACADEMIC_TOKEN_20, ACADEMIC_TOKEN_21, est célèbre pour son conditionnement exponentiellement grand (ACADEMIC_TOKEN_22)....",
-    "content": "3.3 Cas d'école 2 : La matrice de Hilbert et le mauvais conditionnement La matrice de Hilbert d'ordre ACADEMIC_TOKEN_20, ACADEMIC_TOKEN_21, est célèbre pour son conditionnement exponentiellement grand (ACADEMIC_TOKEN_22)...."
+    "snippet": "La matrice de Hilbert d'ordre ACADEMIC_TOKEN_20, ACADEMIC_TOKEN_21 (indices à partir de 0), est célèbre pour son conditionnement qui croît exponentiellement (AC...",
+    "content": "3.3 Cas d'école 2 : La matrice de Hilbert et le mauvais conditionnement La matrice de Hilbert d'ordre ACADEMIC_TOKEN_20, ACADEMIC_TOKEN_21 (indices à partir de 0), est célèbre pour son conditionnement qui croît exponentiellement (AC..."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
     "title": "1. Table de correspondance bilingue (Anglais / Français)",
     "url": "07_api_reference.html#1-table-de-correspondance-bilingue-anglais-francais",
-    "snippet": "Le package privilégie une nomenclature primaire anglaise tout en garantissant des alias français complets :...",
-    "content": "1. Table de correspondance bilingue (Anglais / Français) Le package privilégie une nomenclature primaire anglaise tout en garantissant des alias français complets :..."
+    "snippet": "Le package privilégie une nomenclature primaire anglaise tout en garantissant des alias français :...",
+    "content": "1. Table de correspondance bilingue (Anglais / Français) Le package privilégie une nomenclature primaire anglaise tout en garantissant des alias français :..."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
     "title": "2. Module linalg_pedagopy.core",
     "url": "07_api_reference.html#2-module-linalg_pedagopycore",
-    "snippet": "Convertit un entier, une fraction, une chaîne de caractères ou un flottant en expression symbolique exacte selon config.float_policy....",
-    "content": "2. Module linalg_pedagopy.core Convertit un entier, une fraction, une chaîne de caractères ou un flottant en expression symbolique exacte selon config.float_policy...."
+    "snippet": "Convertit un entier, une Fraction, une chaîne (\"2/3\", \"sqrt(2)\"), une expression SymPy ou un flottant en expression exacte, selon float_policy (par défaut confi...",
+    "content": "2. Module linalg_pedagopy.core Convertit un entier, une Fraction, une chaîne (\"2/3\", \"sqrt(2)\"), une expression SymPy ou un flottant en expression exacte, selon float_policy (par défaut confi..."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
     "title": "2.1 Fonctions scalaires et symboliques",
     "url": "07_api_reference.html#21-fonctions-scalaires-et-symboliques",
-    "snippet": "Convertit un entier, une fraction, une chaîne de caractères ou un flottant en expression symbolique exacte selon config.float_policy....",
-    "content": "2.1 Fonctions scalaires et symboliques Convertit un entier, une fraction, une chaîne de caractères ou un flottant en expression symbolique exacte selon config.float_policy...."
+    "snippet": "Convertit un entier, une Fraction, une chaîne (\"2/3\", \"sqrt(2)\"), une expression SymPy ou un flottant en expression exacte, selon float_policy (par défaut confi...",
+    "content": "2.1 Fonctions scalaires et symboliques Convertit un entier, une Fraction, une chaîne (\"2/3\", \"sqrt(2)\"), une expression SymPy ou un flottant en expression exacte, selon float_policy (par défaut confi..."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
     "title": "2.2 Oracle de nullité (ZeroOracle)",
     "url": "07_api_reference.html#22-oracle-de-nullite-zerooracle",
-    "snippet": "Analyse la nullité d'une expression formelle et simplifie les radicaux par unrad....",
-    "content": "2.2 Oracle de nullité (ZeroOracle) Analyse la nullité d'une expression formelle et simplifie les radicaux par unrad...."
+    "snippet": "Analyse la nullité d'une expression (avec élimination des radicaux par sympy.unrad et filtrage des racines parasites). oracle est l'instance globale de ZeroOrac...",
+    "content": "2.2 Oracle de nullité (ZeroOracle) Analyse la nullité d'une expression (avec élimination des radicaux par sympy.unrad et filtrage des racines parasites). oracle est l'instance globale de ZeroOrac..."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
-    "title": "2.3 Disjonction de cas (Condition, CaseSplit)",
-    "url": "07_api_reference.html#23-disjonction-de-cas-condition-casesplit",
-    "snippet": "Représentations immuables de contraintes formelles ACADEMIC_TOKEN_0 ou ACADEMIC_TOKEN_1....",
-    "content": "2.3 Disjonction de cas (Condition, CaseSplit) Représentations immuables de contraintes formelles ACADEMIC_TOKEN_0 ou ACADEMIC_TOKEN_1...."
+    "title": "2.3 Disjonction de cas (Condition, Branch, CaseSplit)",
+    "url": "07_api_reference.html#23-disjonction-de-cas-condition-branch-casesplit",
+    "snippet": "Ensemble d'égalités (eqs) et d'inégalités (neqs) sur les paramètres.\n- Condition.true() : condition vide (toujours vraie).\n- Condition.eq(lhs, rhs=0) / Conditio...",
+    "content": "2.3 Disjonction de cas (Condition, Branch, CaseSplit) Ensemble d'égalités (eqs) et d'inégalités (neqs) sur les paramètres.\n- Condition.true() : condition vide (toujours vraie).\n- Condition.eq(lhs, rhs=0) / Conditio..."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
-    "title": "2.4 Hiérarchie des Exceptions",
+    "title": "2.4 Hiérarchie des exceptions",
     "url": "07_api_reference.html#24-hierarchie-des-exceptions",
-    "snippet": "Vecteur colonne immuable ACADEMIC_TOKEN_3....",
-    "content": "2.4 Hiérarchie des Exceptions Vecteur colonne immuable ACADEMIC_TOKEN_3...."
+    "snippet": "Vecteur colonne immuable ACADEMIC_TOKEN_0 à coefficients exacts. Constructeur : Vector(entries)....",
+    "content": "2.4 Hiérarchie des exceptions Vecteur colonne immuable ACADEMIC_TOKEN_0 à coefficients exacts. Constructeur : Vector(entries)...."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
     "title": "3. Module linalg_pedagopy.objects",
     "url": "07_api_reference.html#3-module-linalg_pedagopyobjects",
-    "snippet": "Vecteur colonne immuable ACADEMIC_TOKEN_3....",
-    "content": "3. Module linalg_pedagopy.objects Vecteur colonne immuable ACADEMIC_TOKEN_3...."
+    "snippet": "Vecteur colonne immuable ACADEMIC_TOKEN_0 à coefficients exacts. Constructeur : Vector(entries)....",
+    "content": "3. Module linalg_pedagopy.objects Vecteur colonne immuable ACADEMIC_TOKEN_0 à coefficients exacts. Constructeur : Vector(entries)...."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
     "title": "3.1 Classe Vector",
     "url": "07_api_reference.html#31-classe-vector",
-    "snippet": "Vecteur colonne immuable ACADEMIC_TOKEN_3....",
-    "content": "3.1 Classe Vector Vecteur colonne immuable ACADEMIC_TOKEN_3...."
+    "snippet": "Vecteur colonne immuable ACADEMIC_TOKEN_0 à coefficients exacts. Constructeur : Vector(entries)....",
+    "content": "3.1 Classe Vector Vecteur colonne immuable ACADEMIC_TOKEN_0 à coefficients exacts. Constructeur : Vector(entries)...."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
     "title": "3.2 Classe Matrix",
     "url": "07_api_reference.html#32-classe-matrix",
-    "snippet": "Matrice immuable ACADEMIC_TOKEN_13....",
-    "content": "3.2 Classe Matrix Matrice immuable ACADEMIC_TOKEN_13...."
+    "snippet": "Matrice immuable ACADEMIC_TOKEN_2 à coefficients exacts. Constructeur : Matrix(rows) (liste de lignes)....",
+    "content": "3.2 Classe Matrix Matrice immuable ACADEMIC_TOKEN_2 à coefficients exacts. Constructeur : Matrix(rows) (liste de lignes)...."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
     "title": "4. Module linalg_pedagopy.algorithms",
     "url": "07_api_reference.html#4-module-linalg_pedagopyalgorithms",
-    "snippet": "Charge une séance de travail sur la fiche VMLS d'identifiant id....",
-    "content": "4. Module linalg_pedagopy.algorithms Charge une séance de travail sur la fiche VMLS d'identifiant id...."
+    "snippet": "Chaque procédure s'exécute par .run(), qui renvoie un résultat (ou un CaseSplit de résultats en présence de paramètres). Tout résultat possède trace: Step, expl...",
+    "content": "4. Module linalg_pedagopy.algorithms Chaque procédure s'exécute par .run(), qui renvoie un résultat (ou un CaseSplit de résultats en présence de paramètres). Tout résultat possède trace: Step, expl..."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
     "title": "4.1 GaussJordan",
     "url": "07_api_reference.html#41-gaussjordan",
-    "snippet": "Charge une séance de travail sur la fiche VMLS d'identifiant id....",
-    "content": "4.1 GaussJordan Charge une séance de travail sur la fiche VMLS d'identifiant id...."
+    "snippet": "Tous ont les propriétés is_consistent, is_unique et la méthode subs(mapping)....",
+    "content": "4.1 GaussJordan Tous ont les propriétés is_consistent, is_unique et la méthode subs(mapping)...."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
     "title": "4.2 ForwardSubstitution & BackSubstitution",
     "url": "07_api_reference.html#42-forwardsubstitution-backsubstitution",
-    "snippet": "Charge une séance de travail sur la fiche VMLS d'identifiant id....",
-    "content": "4.2 ForwardSubstitution & BackSubstitution Charge une séance de travail sur la fiche VMLS d'identifiant id...."
+    "snippet": "Charge la fiche VMLS d'identifiant ex_id et ouvre une séance....",
+    "content": "4.2 ForwardSubstitution & BackSubstitution Charge la fiche VMLS d'identifiant ex_id et ouvre une séance...."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
     "title": "4.3 GramSchmidt",
     "url": "07_api_reference.html#43-gramschmidt",
-    "snippet": "Charge une séance de travail sur la fiche VMLS d'identifiant id....",
-    "content": "4.3 GramSchmidt Charge une séance de travail sur la fiche VMLS d'identifiant id...."
+    "snippet": "Charge la fiche VMLS d'identifiant ex_id et ouvre une séance....",
+    "content": "4.3 GramSchmidt Charge la fiche VMLS d'identifiant ex_id et ouvre une séance...."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
     "title": "4.4 QR",
     "url": "07_api_reference.html#44-qr",
-    "snippet": "Charge une séance de travail sur la fiche VMLS d'identifiant id....",
-    "content": "4.4 QR Charge une séance de travail sur la fiche VMLS d'identifiant id...."
+    "snippet": "Charge la fiche VMLS d'identifiant ex_id et ouvre une séance....",
+    "content": "4.4 QR Charge la fiche VMLS d'identifiant ex_id et ouvre une séance...."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
     "title": "4.5 LeastSquares",
     "url": "07_api_reference.html#45-leastsquares",
-    "snippet": "Charge une séance de travail sur la fiche VMLS d'identifiant id....",
-    "content": "4.5 LeastSquares Charge une séance de travail sur la fiche VMLS d'identifiant id...."
+    "snippet": "Charge la fiche VMLS d'identifiant ex_id et ouvre une séance....",
+    "content": "4.5 LeastSquares Charge la fiche VMLS d'identifiant ex_id et ouvre une séance...."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
-    "title": "5. Module linalg_pedagopy.tutor / tuteur",
-    "url": "07_api_reference.html#5-module-linalg_pedagopytutor-tuteur",
-    "snippet": "Charge une séance de travail sur la fiche VMLS d'identifiant id....",
-    "content": "5. Module linalg_pedagopy.tutor / tuteur Charge une séance de travail sur la fiche VMLS d'identifiant id...."
+    "title": "5. Traçabilité et rendu",
+    "url": "07_api_reference.html#5-tracabilite-et-rendu",
+    "snippet": "Charge la fiche VMLS d'identifiant ex_id et ouvre une séance....",
+    "content": "5. Traçabilité et rendu Charge la fiche VMLS d'identifiant ex_id et ouvre une séance...."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
-    "title": "5.1 Fonctions du catalogue",
-    "url": "07_api_reference.html#51-fonctions-du-catalogue",
-    "snippet": "Charge une séance de travail sur la fiche VMLS d'identifiant id....",
-    "content": "5.1 Fonctions du catalogue Charge une séance de travail sur la fiche VMLS d'identifiant id...."
+    "title": "6. Module linalg_pedagopy.tutor / tuteur",
+    "url": "07_api_reference.html#6-module-linalg_pedagopytutor-tuteur",
+    "snippet": "Charge la fiche VMLS d'identifiant ex_id et ouvre une séance....",
+    "content": "6. Module linalg_pedagopy.tutor / tuteur Charge la fiche VMLS d'identifiant ex_id et ouvre une séance...."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
-    "title": "5.2 Classe ExerciseSession",
-    "url": "07_api_reference.html#52-classe-exercisesession",
-    "snippet": "",
-    "content": "5.2 Classe ExerciseSession "
+    "title": "6.1 Fonctions du catalogue",
+    "url": "07_api_reference.html#61-fonctions-du-catalogue",
+    "snippet": "Charge la fiche VMLS d'identifiant ex_id et ouvre une séance....",
+    "content": "6.1 Fonctions du catalogue Charge la fiche VMLS d'identifiant ex_id et ouvre une séance...."
   },
   {
     "pageTitle": "07. Référence complète de l'API",
-    "title": "6. Module linalg_pedagopy.config",
-    "url": "07_api_reference.html#6-module-linalg_pedagopyconfig",
-    "snippet": "",
-    "content": "6. Module linalg_pedagopy.config "
+    "title": "6.2 Classe ExerciseSession",
+    "url": "07_api_reference.html#62-classe-exercisesession",
+    "snippet": "config est un objet global (par contexte) dont les attributs sont :...",
+    "content": "6.2 Classe ExerciseSession config est un objet global (par contexte) dont les attributs sont :..."
+  },
+  {
+    "pageTitle": "07. Référence complète de l'API",
+    "title": "7. Modules exercises, compare et plot",
+    "url": "07_api_reference.html#7-modules-exercises-compare-et-plot",
+    "snippet": "config est un objet global (par contexte) dont les attributs sont :...",
+    "content": "7. Modules exercises, compare et plot config est un objet global (par contexte) dont les attributs sont :..."
+  },
+  {
+    "pageTitle": "07. Référence complète de l'API",
+    "title": "8. Module linalg_pedagopy.config",
+    "url": "07_api_reference.html#8-module-linalg_pedagopyconfig",
+    "snippet": "config est un objet global (par contexte) dont les attributs sont :...",
+    "content": "8. Module linalg_pedagopy.config config est un objet global (par contexte) dont les attributs sont :..."
   }
 ]

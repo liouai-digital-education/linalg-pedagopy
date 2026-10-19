@@ -148,10 +148,11 @@
 
       <article class="markdown-body">
         <h1 id="07-reference-complete-de-lapi">07. Référence complète de l'API</h1>
-<p>Ce document constitue la référence exhaustive de l'ensemble des modules, classes, fonctions, constantes et exceptions du package <code>linalg_pedagopy</code> v3.0.</p>
+<p>Ce document constitue la référence des modules, classes, fonctions et exceptions publics du package <code>linalg_pedagopy</code> v3.0. Les signatures sont celles du code source (<code>src/linalg_pedagopy</code>).</p>
+<p>Tous les noms ci-dessous sont importables depuis <code>linalg_pedagopy</code> (sauf mention d'un sous-module).</p>
 <hr/>
 <h2 id="1-table-de-correspondance-bilingue-anglais-francais">1. Table de correspondance bilingue (Anglais / Français)</h2>
-<p>Le package privilégie une <strong>nomenclature primaire anglaise</strong> tout en garantissant des <strong>alias français complets</strong> :</p>
+<p>Le package privilégie une <strong>nomenclature primaire anglaise</strong> tout en garantissant des <strong>alias français</strong> :</p>
 <table>
 <thead>
 <tr>
@@ -161,6 +162,11 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align: left;"><code>tutor</code></td>
+<td style="text-align: left;"><code>tuteur</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy</code></td>
+</tr>
 <tr>
 <td style="text-align: left;"><code>tutor.exercise(id)</code></td>
 <td style="text-align: left;"><code>tuteur.exercice(id)</code></td>
@@ -177,8 +183,28 @@
 <td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>tutor.glossary()</code></td>
-<td style="text-align: left;"><code>tuteur.glossaire()</code></td>
+<td style="text-align: left;"><code>tutor.glossary(term)</code></td>
+<td style="text-align: left;"><code>tuteur.glossaire(term)</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tutor.mode("teacher")</code></td>
+<td style="text-align: left;"><code>tuteur.mode("enseignant")</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tutor.build_panel(ex)</code></td>
+<td style="text-align: left;"><code>tuteur.build_panneau(ex)</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tutor.verify_matrix(...)</code>, <code>verify_value(...)</code>…</td>
+<td style="text-align: left;"><code>tuteur.verifier_matrice(...)</code>, <code>verifier_valeur(...)</code>…</td>
+<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ExerciseSession</code></td>
+<td style="text-align: left;"><code>ExerciceSession</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
 </tr>
 <tr>
@@ -187,8 +213,13 @@
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ex.hint()</code></td>
-<td style="text-align: left;"><code>ex.indice()</code></td>
+<td style="text-align: left;"><code>ex.data</code></td>
+<td style="text-align: left;"><code>ex.donnees</code></td>
+<td style="text-align: left;"><code>ExerciseSession</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ex.hint(level=None)</code></td>
+<td style="text-align: left;"><code>ex.indice(niveau=None)</code></td>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
@@ -213,7 +244,12 @@
 </tr>
 <tr>
 <td style="text-align: left;"><code>ex.summary()</code></td>
-<td style="text-align: left;"><code>ex.resume()</code></td>
+<td style="text-align: left;"><code>ex.bilan()</code></td>
+<td style="text-align: left;"><code>ExerciseSession</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ex.panel()</code></td>
+<td style="text-align: left;"><code>ex.panneau()</code></td>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
@@ -222,223 +258,309 @@
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>generators.difference_matrix(n)</code></td>
-<td style="text-align: left;"><code>generateurs.matrice_differences(n)</code></td>
+<td style="text-align: left;"><code>generators</code></td>
+<td style="text-align: left;"><code>generateurs</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.exercises</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>generators.moving_average(window, n)</code></td>
+<td style="text-align: left;"><code>generateurs.moyenne_glissante(fenetre, n)</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy.exercises.generators</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>generators.running_sum_matrix(n)</code></td>
-<td style="text-align: left;"><code>generateurs.matrice_somme_cumulee(n)</code></td>
+<td style="text-align: left;"><code>generators.gram_schmidt_example()</code></td>
+<td style="text-align: left;"><code>generateurs.gram_schmidt_exemple()</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy.exercises.generators</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>generators.moving_average(n, k)</code></td>
-<td style="text-align: left;"><code>generateurs.moyenne_mobile(n, k)</code></td>
-<td style="text-align: left;"><code>linalg_pedagopy.exercises.generators</code></td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>generators.gram_matrix(V)</code></td>
-<td style="text-align: left;"><code>generateurs.matrice_gram(V)</code></td>
+<td style="text-align: left;"><code>generators.least_squares_example()</code></td>
+<td style="text-align: left;"><code>generateurs.moindres_carres_exemple()</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy.exercises.generators</code></td>
 </tr>
 </tbody>
 </table>
+<p>La liste complète des générateurs d'exercices jumeaux figure dans le <a href="05_pedagogical_exercises_and_sessions.html">guide 05</a>.</p>
 <hr/>
 <h2 id="2-module-linalg_pedagopycore">2. Module <code>linalg_pedagopy.core</code></h2>
 <h3 id="21-fonctions-scalaires-et-symboliques">2.1 Fonctions scalaires et symboliques</h3>
-<h4 id="to_exactvalue-any-sympyexpr"><code>to_exact(value: Any) -&gt; sympy.Expr</code></h4>
-<p>Convertit un entier, une fraction, une chaîne de caractères ou un flottant en expression symbolique exacte selon <code>config.float_policy</code>.</p>
-<h4 id="symbolsnames-str-sequencestr-assumptions-any-tuplesympysymbol-sympysymbol"><code>symbols(names: str | Sequence[str], **assumptions: Any) -&gt; tuple[sympy.Symbol, ...] | sympy.Symbol</code></h4>
-<p>Instancie un ou plusieurs symboles SymPy en leur attribuant par défaut l'hypothèse fondamentale <code>real=True</code>.</p>
-<h4 id="match_symbol_substitutionstarget_expr-any-subs-mappingany-any-dictsympysymbol-any"><code>match_symbol_substitutions(target_expr: Any, subs: Mapping[Any, Any]) -&gt; dict[sympy.Symbol, Any]</code></h4>
-<p>Fait correspondre les symboles d'un dictionnaire de substitution par leur nom textuel pour garantir l'indépendance de contexte.</p>
+<h4 id="to_exactx-float_policynone-sympyexpr"><code>to_exact(x, *, float_policy=None) -&gt; sympy.Expr</code></h4>
+<p>Convertit un entier, une <code>Fraction</code>, une chaîne (<code>"2/3"</code>, <code>"sqrt(2)"</code>), une expression SymPy ou un flottant en expression exacte, selon <code>float_policy</code> (par défaut <code>config.float_policy</code>).</p>
+<h4 id="symbolsnames-assumptions-tuplesympysymbol"><code>symbols(*names, **assumptions) -&gt; tuple[sympy.Symbol, ...]</code></h4>
+<p>Crée des symboles SymPy munis par défaut de l'hypothèse <code>real=True</code> (toujours un tuple : <code>a, = symbols("a")</code>).</p>
+<h4 id="match_symbol_substitutionsfree_syms-mapping-dictsympysymbol-sympyexpr"><code>match_symbol_substitutions(free_syms, mapping) -&gt; dict[sympy.Symbol, sympy.Expr]</code></h4>
+<p>Fait correspondre les clés d'un dictionnaire de substitution (symboles ou noms) aux symboles libres, par leur nom.</p>
+<h4 id="choose_domainentries-domain"><code>choose_domain(entries) -&gt; Domain</code></h4>
+<p>Choisit le domaine SymPy (<code>ZZ</code>, <code>QQ</code>, <code>EX</code>…) adapté aux coefficients, pour les calculs <code>DomainMatrix</code>.</p>
 <h3 id="22-oracle-de-nullite-zerooracle">2.2 Oracle de nullité (<code>ZeroOracle</code>)</h3>
 <h4 id="verdict-enum"><code>Verdict (Enum)</code></h4>
 <ul>
-<li><code>Verdict.ZERO</code> : Nullité formelle certaine.</li>
-<li><code>Verdict.NONZERO</code> : Non-nullité formelle certaine.</li>
-<li><code>Verdict.CONDITIONAL</code> : Nullité dépendante des valeurs de paramètres réels.</li>
-<li><code>Verdict.UNKNOWN</code> : Non décidable sans hypothèse supplémentaire.</li>
+<li><code>Verdict.ZERO</code> : nullité formelle certaine.</li>
+<li><code>Verdict.NONZERO</code> : non-nullité formelle certaine.</li>
+<li><code>Verdict.CONDITIONAL</code> : nullité dépendant des valeurs des paramètres réels.</li>
+<li><code>Verdict.UNKNOWN</code> : non décidable sans hypothèse supplémentaire.</li>
 </ul>
-<h4 id="zerodecision-dataclass"><code>ZeroDecision (Dataclass)</code></h4>
+<h4 id="zerodecision-dataclass"><code>ZeroDecision (dataclass)</code></h4>
 <ul>
-<li><code>verdict: Verdict</code> : Résultat de l'analyse.</li>
-<li><code>factors: list[sympy.Expr]</code> : Facteurs d'annulation extraits en cas de verdict conditionnel.</li>
+<li><code>verdict: Verdict</code></li>
+<li><code>condition: Condition | None</code> : condition d'annulation (verdict conditionnel).</li>
+<li><code>method: str</code> : méthode de décision utilisée.</li>
+<li><code>factors: tuple[sympy.Expr, ...]</code> : facteurs d'annulation.</li>
 </ul>
-<h4 id="oracledecideexpr-any-assumptions-condition-none-none-zerodecision"><code>oracle.decide(expr: Any, assumptions: Condition | None = None) -&gt; ZeroDecision</code></h4>
-<p>Analyse la nullité d'une expression formelle et simplifie les radicaux par <code>unrad</code>.</p>
-<h4 id="oracleis_zeroexpr-any-assumptions-condition-none-none-bool"><code>oracle.is_zero(expr: Any, assumptions: Condition | None = None) -&gt; bool</code></h4>
-<p>Renvoie <code>True</code> si l'expression est nulle, <code>False</code> si non nulle. Lève <a href="#24-hiérarchie-des-exceptions"><code>UndecidableZeroError</code></a> si le verdict est conditionnel ou inconnu.</p>
-<h3 id="23-disjonction-de-cas-condition-casesplit">2.3 Disjonction de cas (<code>Condition</code>, <code>CaseSplit</code>)</h3>
-<h4 id="equalitylhs-expr-rhs-expr-inequalitylhs-expr-rhs-expr"><code>Equality(lhs: Expr, rhs: Expr)</code> / <code>Inequality(lhs: Expr, rhs: Expr)</code></h4>
-<p>Représentations immuables de contraintes formelles <strong>ACADEMIC_TOKEN_0</strong> ou <strong>ACADEMIC_TOKEN_1</strong>.</p>
+<h4 id="oracledecidee-assumptionsnone-trace_level3true-zerodecision"><code>oracle.decide(e, assumptions=None, *, trace_level3=True) -&gt; ZeroDecision</code></h4>
+<p>Analyse la nullité d'une expression (avec élimination des radicaux par <code>sympy.unrad</code> et filtrage des racines parasites). <code>oracle</code> est l'instance globale de <code>ZeroOracle</code>.</p>
+<h4 id="oracleis_zeroe-assumptionsnone-bool"><code>oracle.is_zero(e, assumptions=None) -&gt; bool</code></h4>
+<p>Renvoie <code>True</code> si l'expression est nulle, <code>False</code> si elle est non nulle. Lève <a href="#24-hiérarchie-des-exceptions"><code>UndecidableZeroError</code></a> sinon.</p>
+<h3 id="23-disjonction-de-cas-condition-branch-casesplit">2.3 Disjonction de cas (<code>Condition</code>, <code>Branch</code>, <code>CaseSplit</code>)</h3>
 <h4 id="condition"><code>Condition</code></h4>
-<p>Ensemble cohérent d'égalités et d'inégalités.
-- <code>and_with(other: Condition) -&gt; Condition</code> : Conjonction logique avec élagage automatique des tautologies.
-- <code>is_contradictory() -&gt; bool</code> : Détecte les contradictions strictes (ex: <strong>ACADEMIC_TOKEN_2</strong>).
-- <code>implies_zero(expr: Expr) -&gt; bool</code> : Déduit si une expression s'annule modulo les égalités de la condition.
-- <code>substitutions: dict[Symbol, Expr]</code> : Dictionnaire des égalités avec clôture transitive résolue.</p>
+<p>Ensemble d'égalités (<code>eqs</code>) et d'inégalités (<code>neqs</code>) sur les paramètres.
+- <code>Condition.true()</code> : condition vide (toujours vraie).
+- <code>Condition.eq(lhs, rhs=0)</code> / <code>Condition.neq(lhs, rhs=0)</code> : contrainte <code>lhs = rhs</code> / <code>lhs ≠ rhs</code>.
+- <code>Condition.from_zero_expr(expr, *, is_zero)</code> : contrainte <code>expr = 0</code> ou <code>expr ≠ 0</code>.
+- <code>and_with(other)</code> ou <code>c1 &amp; c2</code> : conjonction.
+- <code>substitutions() -&gt; dict</code> : substitutions issues des égalités, avec clôture transitive.
+- <code>implies_zero(expr) -&gt; bool | None</code> : l'expression s'annule-t-elle modulo les égalités ?
+- <code>is_satisfied(values) -&gt; bool</code> : la condition est-elle vraie pour ces valeurs ?
+- Propriétés : <code>is_contradictory</code>, <code>is_trivial</code>, <code>is_generic</code>, <code>free_symbols</code>.
+- <code>format_text()</code>, <code>format_latex()</code> : affichage (<code>str(c)</code> donne par exemple <code>b ≠ 0 et a = 1</code>).</p>
 <h4 id="brancht"><code>Branch[T]</code></h4>
-<p>Branche de calcul associant une <code>condition: Condition</code>, un résultat <code>result: T</code> et une trace <code>trace: Step</code>.</p>
+<p>Branche de calcul : <code>condition: Condition</code>, <code>result: T</code>, <code>trace: Step</code>.</p>
 <h4 id="casesplitt"><code>CaseSplit[T]</code></h4>
-<p>Partition disjointe de l'espace des paramètres regroupant un tuple de <code>branches: tuple[Branch[T], ...]</code>.
-- <code>at(**parameter_values) -&gt; T</code> : Évalue et renvoie le résultat de la branche correspondant au point spécifié.</p>
-<h3 id="24-hierarchie-des-exceptions">2.4 Hiérarchie des Exceptions</h3>
-<div class="code-container"><div class="code-header"><span>Code</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code>PedagopyError (Exception de base)
-├── DimensionMismatchError
-├── SingularMatrixError
-├── IncompatibleSystemError
-├── UndecidableZeroError
-├── InexactInputError
-├── LinearDependenceError
-├── RankDeficientError
-├── UndefinedOperationError
-└── tutor / tuteur
-    ├── LockedExerciseDataError
-    ├── CheatAttemptError
-    ├── ExerciseNotFoundError
-    └── VerificationError
+<p>Partition disjointe de l'espace des paramètres.
+- <code>branches: tuple[Branch[T], ...]</code>, <code>parameters: tuple[Symbol, ...]</code>.
+- <code>at(**valeurs) -&gt; T</code> : résultat (spécialisé) de la branche contenant le point.
+- <code>generic() -&gt; T</code> : résultat de la branche générique.
+- <code>explain(level=None, fmt="auto") -&gt; Explanation</code> : discussion de cas rédigée.</p>
+<h3 id="24-hierarchie-des-exceptions">2.4 Hiérarchie des exceptions</h3>
+<div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">PedagopyError (Exception)
+├── DimensionMismatchError    (ValueError)
+├── InexactInputError         (ValueError)
+├── SingularMatrixError       (ArithmeticError)
+├── LinearDependenceError     (ArithmeticError)
+├── RankDeficientError        (ArithmeticError)
+├── UndecidableZeroError      (ArithmeticError)
+├── UndefinedOperationError   (ArithmeticError)
+└── LockedExerciseDataError   (PermissionError)
 </code></pre></div>
 <hr/>
 <h2 id="3-module-linalg_pedagopyobjects">3. Module <code>linalg_pedagopy.objects</code></h2>
 <h3 id="31-classe-vector">3.1 Classe <code>Vector</code></h3>
-<p>Vecteur colonne immuable <strong>ACADEMIC_TOKEN_3</strong>.</p>
-<h4 id="attributs-et-proprietes">Attributs et Propriétés</h4>
+<p>Vecteur colonne immuable <strong>ACADEMIC_TOKEN_0</strong> à coefficients exacts. Constructeur : <code>Vector(entries)</code>.</p>
+<h4 id="proprietes">Propriétés</h4>
 <ul>
-<li><code>size: int</code> : Nombre de composantes <strong>ACADEMIC_TOKEN_4</strong>.</li>
-<li><code>shape: tuple[int, int]</code> : Toujours <code>(n, 1)</code>.</li>
-<li><code>entries: tuple[sympy.Expr, ...]</code> : Composantes exactes.</li>
-<li><code>is_zero: bool</code> : Teste si le vecteur est nul.</li>
+<li><code>entries: tuple[sympy.Expr, ...]</code>, <code>size: int</code>, <code>shape: tuple[int, int]</code> (<code>(n, 1)</code>), <code>rows</code>, <code>cols</code>.</li>
+<li>Protocoles : <code>len(v)</code>, <code>v[i]</code>, itération, <code>==</code>.</li>
+</ul>
+<h4 id="operations">Opérations</h4>
+<ul>
+<li><code>v + w</code>, <code>v - w</code>, <code>-v</code>, <code>c * v</code>, <code>v * c</code>, <code>v / c</code>.</li>
 </ul>
 <h4 id="metriques-vmls">Métriques VMLS</h4>
 <ul>
-<li><code>dot(other: Vector) -&gt; sympy.Expr</code> : Produit scalaire <strong>ACADEMIC_TOKEN_5</strong> (alias opérateur <code>@</code>).</li>
-<li><code>norm() -&gt; sympy.Expr</code> : Norme euclidienne exacte <strong>ACADEMIC_TOKEN_6</strong>.</li>
-<li><code>norm_sq() -&gt; sympy.Expr</code> : Carré de la norme <strong>ACADEMIC_TOKEN_7</strong>.</li>
-<li><code>unit_vector() -&gt; Vector</code> : Vecteur normalisé <strong>ACADEMIC_TOKEN_8</strong>.</li>
-<li><code>dist(other: Vector) -&gt; sympy.Expr</code> : Distance euclidienne <strong>ACADEMIC_TOKEN_9</strong>.</li>
-<li><code>rms() -&gt; sympy.Expr</code> : Valeur efficace <strong>ACADEMIC_TOKEN_10</strong>.</li>
-<li><code>mean() -&gt; sympy.Expr</code> : Moyenne arithmétique.</li>
-<li><code>std() -&gt; sympy.Expr</code> : Écart-type.</li>
-<li><code>angle(other: Vector) -&gt; sympy.Expr</code> : Angle non orienté en radians.</li>
-<li><code>correlation(other: Vector) -&gt; sympy.Expr</code> : Coefficient de corrélation.</li>
-<li><code>project_onto(other: Vector) -&gt; Vector</code> : Projection orthogonale sur <strong>ACADEMIC_TOKEN_11</strong>.</li>
-<li><code>orthogonal_complement(other: Vector) -&gt; Vector</code> : Composante orthogonale <strong>ACADEMIC_TOKEN_12</strong>.</li>
+<li><code>dot(other) -&gt; Expr</code> : produit scalaire.</li>
+<li><code>norm_sq() -&gt; Expr</code>, <code>norm() -&gt; Expr</code> : carré de la norme, norme.</li>
+<li><code>rms() -&gt; Expr</code>, <code>avg() -&gt; Expr</code>, <code>std() -&gt; Expr</code> : valeur RMS, moyenne, écart type.</li>
+<li><code>demean() -&gt; Vector</code> : vecteur centré.</li>
+<li><code>distance(other) -&gt; Expr</code> : distance euclidienne.</li>
+<li><code>angle(other) -&gt; Expr</code> : angle en radians.</li>
+<li><code>correlation(other) -&gt; Expr</code> : coefficient de corrélation.</li>
+<li><code>is_zero(assumptions=None) -&gt; bool | CaseSplit[bool]</code>.</li>
 </ul>
-<h4 id="usines-et-utilitaires">Usines et Utilitaires</h4>
+<h4 id="constructeurs-et-conversions">Constructeurs et conversions</h4>
 <ul>
-<li><code>Vector.zeros(n: int) -&gt; Vector</code></li>
-<li><code>Vector.ones(n: int) -&gt; Vector</code></li>
-<li><code>Vector.unit(index: int, n: int) -&gt; Vector</code></li>
-<li><code>Vector.block(vectors: Sequence[Vector]) -&gt; Vector</code></li>
-<li><code>to_matrix() -&gt; Matrix</code></li>
-<li><code>to_sympy() -&gt; sympy.Matrix</code></li>
-<li><code>subs(*args, **kwargs) -&gt; Vector</code></li>
+<li><code>Vector.zeros(n)</code>, <code>Vector.ones(n)</code>, <code>Vector.unit(i, n)</code> (indice 0-based).</li>
+<li><code>Vector.combination(vs, cs) -&gt; Vector</code> : <strong>ACADEMIC_TOKEN_1</strong>.</li>
+<li><code>to_sympy() -&gt; sympy.Matrix</code>, <code>to_domain_matrix() -&gt; DomainMatrix</code>, <code>subs(mapping) -&gt; Vector</code>.</li>
 </ul>
 <hr/>
 <h3 id="32-classe-matrix">3.2 Classe <code>Matrix</code></h3>
-<p>Matrice immuable <strong>ACADEMIC_TOKEN_13</strong>.</p>
-<h4 id="attributs-et-proprietes_1">Attributs et Propriétés</h4>
+<p>Matrice immuable <strong>ACADEMIC_TOKEN_2</strong> à coefficients exacts. Constructeur : <code>Matrix(rows)</code> (liste de lignes).</p>
+<h4 id="proprietes_1">Propriétés</h4>
 <ul>
-<li><code>nrows: int</code> : Nombre de lignes <strong>ACADEMIC_TOKEN_14</strong>.</li>
-<li><code>ncols: int</code> : Nombre de colonnes <strong>ACADEMIC_TOKEN_15</strong>.</li>
-<li><code>shape: tuple[int, int]</code> : Dimensions <code>(m, n)</code>.</li>
-<li><code>is_square: bool</code> : <code>nrows == ncols</code>.</li>
-<li><code>is_symmetric: bool</code> : <strong>ACADEMIC_TOKEN_16</strong>.</li>
-<li><code>is_orthogonal: bool</code> : <strong>ACADEMIC_TOKEN_17</strong>.</li>
-<li><code>trace() -&gt; sympy.Expr</code> : Somme des éléments diagonaux.</li>
-<li><code>det() -&gt; sympy.Expr</code> : Déterminant exact.</li>
-<li><code>T: Matrix</code> : Matrice transposée <strong>ACADEMIC_TOKEN_18</strong>.</li>
+<li><code>rows: int</code>, <code>cols: int</code>, <code>shape: tuple[int, int]</code>.</li>
+<li><code>entries_grid: tuple[tuple[Expr, ...], ...]</code>, <code>flat_entries</code>.</li>
+<li><code>T: Matrix</code> : transposée.</li>
+<li>Protocoles : <code>A[i, j]</code>, <code>==</code>.</li>
 </ul>
-<h4 id="algebre-et-sous-espaces">Algèbre et Sous-espaces</h4>
+<h4 id="operations_1">Opérations</h4>
 <ul>
-<li><code>inv(strict: bool = True) -&gt; Matrix | CaseSplit[Matrix]</code> : Inverse formelle par pivot de Gauss.</li>
-<li><code>rref(assumptions: Any = None) -&gt; tuple[Matrix, tuple[int, ...]]</code> : Forme échelonnée réduite et indices des pivots.</li>
-<li><code>rank(assumptions: Any = None) -&gt; int | CaseSplit[int]</code> : Rang formel.</li>
-<li><code>nullspace(assumptions: Any = None) -&gt; tuple[Vector, ...]</code> : Base du noyau (<strong>ACADEMIC_TOKEN_19</strong>).</li>
-<li><code>col_space() -&gt; tuple[Vector, ...]</code> : Base de l'espace des colonnes (<strong>ACADEMIC_TOKEN_20</strong>).</li>
-<li><code>row_space() -&gt; tuple[Vector, ...]</code> : Base de l'espace des lignes.</li>
+<li><code>A + B</code>, <code>A - B</code>, <code>-A</code>, <code>c * A</code>, <code>A * c</code>, <code>A / c</code>, <code>A @ B</code>, <code>A @ v</code> (pas d'opérateur <code>**</code>).</li>
+<li><code>matmul(other, *, view="entries")</code> : produit avec trace selon la vue (<code>"entries"</code>, <code>"rows"</code>, <code>"columns"</code>, <code>"outer"</code>).</li>
+<li><code>gram() -&gt; Matrix</code> : <strong>ACADEMIC_TOKEN_3</strong>.</li>
+<li><code>has_orthonormal_columns(assumptions=None) -&gt; bool | CaseSplit[bool]</code>.</li>
 </ul>
-<h4 id="usines">Usines</h4>
+<h4 id="acces">Accès</h4>
 <ul>
-<li><code>Matrix.identity(n: int) -&gt; Matrix</code></li>
-<li><code>Matrix.zeros(m: int, n: int) -&gt; Matrix</code></li>
-<li><code>Matrix.ones(m: int, n: int) -&gt; Matrix</code></li>
-<li><code>Matrix.diagonal(entries: Sequence[Any]) -&gt; Matrix</code></li>
-<li><code>Matrix.from_columns(columns: Sequence[Vector]) -&gt; Matrix</code></li>
-<li><code>Matrix.from_rows(rows: Sequence[Vector | Sequence[Any]]) -&gt; Matrix</code></li>
-<li><code>Matrix.block(blocks: Sequence[Sequence[Matrix]]) -&gt; Matrix</code></li>
+<li><code>row(i) -&gt; Vector</code>, <code>col(j) -&gt; Vector</code>, <code>columns() -&gt; tuple[Vector, ...]</code>, <code>rows_as_vectors() -&gt; tuple[Vector, ...]</code>.</li>
+<li><code>augment(right) -&gt; Matrix</code> : matrice augmentée <strong>ACADEMIC_TOKEN_4</strong>.</li>
+<li><code>to_sympy()</code>, <code>to_domain_matrix()</code>, <code>subs(mapping)</code>.</li>
+</ul>
+<h4 id="algebre-et-sous-espaces-avec-discussion-parametrique">Algèbre et sous-espaces (avec discussion paramétrique)</h4>
+<ul>
+<li><code>rref(*, assumptions=None) -&gt; Matrix | CaseSplit[Matrix]</code>.</li>
+<li><code>rank(*, assumptions=None) -&gt; int | CaseSplit[int]</code>.</li>
+<li><code>nullspace(*, assumptions=None) -&gt; tuple[Vector, ...] | CaseSplit[...]</code>.</li>
+<li><code>inv(*, assumptions=None, strict=True) -&gt; Matrix | None | CaseSplit[Matrix | None]</code> : lève <code>SingularMatrixError</code> si <code>strict=True</code> et la matrice peut être singulière.</li>
+<li><code>solve(b, *, assumptions=None, strict=False)</code> : résolution de <strong>ACADEMIC_TOKEN_5</strong> par Gauss-Jordan.</li>
+</ul>
+<h4 id="constructeurs">Constructeurs</h4>
+<ul>
+<li><code>Matrix.identity(n)</code>, <code>Matrix.zeros(m, n=None)</code>, <code>Matrix.ones(m, n=None)</code>, <code>Matrix.diag(diagonal)</code>.</li>
+<li><code>Matrix.from_columns(columns)</code>, <code>Matrix.from_rows(rows)</code>.</li>
+<li><code>Matrix.block(blocks)</code> : grille de blocs (matrices, vecteurs ou entiers).</li>
 </ul>
 <hr/>
 <h2 id="4-module-linalg_pedagopyalgorithms">4. Module <code>linalg_pedagopy.algorithms</code></h2>
+<p>Chaque procédure s'exécute par <code>.run()</code>, qui renvoie un résultat (ou un <code>CaseSplit</code> de résultats en présence de paramètres). Tout résultat possède <code>trace: Step</code>, <code>explain(level=None, fmt="auto") -&gt; Explanation</code> et <code>verify() -&gt; Explanation</code>. <code>procedure.interactive(mode=...)</code> ouvre une <code>InteractiveSession</code>.</p>
 <h3 id="41-gaussjordan">4.1 <code>GaussJordan</code></h3>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">GaussJordan(A: Matrix, b: Vector | Matrix | None = None, *, assumptions: Condition | None = None, strict: bool = True, compute_inverse: bool = False)
+<div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">GaussJordan(A, b=None, *, pivot_strategy="simplest", strict=False, max_depth=None,
+            max_cases=None, assumptions=None, compute_inverse=False)
 </code></pre></div>
 <ul>
-<li>Méthode <code>.run()</code> -&gt; <code>GJResult | CaseSplit[GJResult]</code>.</li>
-<li>Propriétés de <code>GJResult</code> : <code>solution</code> (<code>UniqueSolution</code>, <code>AffineSolution</code>, <code>EmptySolution</code>), <code>rref_matrix</code>, <code>pivots</code>, <code>inverse</code>, <code>trace</code>, <code>explain()</code>.</li>
+<li><code>pivot_strategy</code> : <code>"simplest"</code>, <code>"first"</code> ou <code>"partial"</code>.</li>
+<li><code>strict=True</code> : <code>SingularMatrixError</code> pour un système incompatible ou une matrice non inversible (<code>compute_inverse=True</code>).</li>
+<li><code>.run()</code> → <code>GJResult | CaseSplit[GJResult]</code>.</li>
+<li>Champs de <code>GJResult</code> : <code>A</code>, <code>b</code>, <code>rref</code>, <code>augmented_rref</code>, <code>pivots</code>, <code>rank</code>, <code>free_vars</code>, <code>nullspace_basis</code>, <code>solution</code>, <code>inverse</code>.</li>
+<li><code>solution</code> est l'un des <code>SolutionSet</code> :</li>
+<li><code>UniqueSolution(x)</code> ;</li>
+<li><code>AffineSolution(x0, basis, free_vars)</code>, avec <code>at_params(*t)</code> ;</li>
+<li><code>EmptySolution(row, witness, inconsistent_rows)</code>.</li>
 </ul>
+<p>Tous ont les propriétés <code>is_consistent</code>, <code>is_unique</code> et la méthode <code>subs(mapping)</code>.</p>
 <h3 id="42-forwardsubstitution-backsubstitution">4.2 <code>ForwardSubstitution</code> &amp; <code>BackSubstitution</code></h3>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ForwardSubstitution(L: Matrix, b: Vector)
-BackSubstitution(U: Matrix, b: Vector)
+<div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">ForwardSubstitution(L, c, *, assumptions=None)
+BackSubstitution(R, c, *, assumptions=None)
 </code></pre></div>
 <ul>
-<li>Méthode <code>.run()</code> -&gt; <code>TriangularResult</code>.</li>
-<li>Propriétés : <code>x: Vector</code>, <code>trace: Step</code>, <code>explain()</code>.</li>
+<li><code>.run()</code> → <code>TriangularResult</code> (<code>x</code>, <code>A</code>, <code>c</code>).</li>
 </ul>
 <h3 id="43-gramschmidt">4.3 <code>GramSchmidt</code></h3>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">GramSchmidt(vectors: Sequence[Vector], *, assumptions: Condition | None = None, normalize: bool = True)
+<div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">GramSchmidt(vectors, *, normalize="end", strict=False, assumptions=None)
 </code></pre></div>
 <ul>
-<li>Méthode <code>.run()</code> -&gt; <code>GSResult | CaseSplit[GSResult]</code>.</li>
-<li>Propriétés de <code>GSResult</code> : <code>orthogonal: tuple[Vector, ...]</code>, <code>orthonormal: tuple[Vector, ...]</code>, <code>norms: tuple[sympy.Expr, ...]</code>, <code>trace</code>, <code>explain()</code>.</li>
+<li><code>vectors</code> : suite de vecteurs (ou de listes) ou <code>Matrix</code> (ses colonnes).</li>
+<li><code>normalize</code> : <code>"end"</code> (calcul rationnel, normalisation finale) ou <code>"each"</code> (VMLS).</li>
+<li><code>strict=True</code> : <code>LinearDependenceError</code> si la famille est liée.</li>
+<li><code>.run()</code> → <code>GSResult | CaseSplit[GSResult]</code>.</li>
+<li>Champs de <code>GSResult</code> : <code>independent</code>, <code>vectors</code>, <code>orthogonal</code>, <code>orthonormal</code>, <code>r_tilde</code>, <code>d_sq</code>, <code>dependent_index</code>, <code>witness</code> (<code>DependenceWitness(index, q_tilde_coeffs, a_coeffs, expression)</code>) ; propriétés <code>Q</code>, <code>Q_tilde</code>.</li>
 </ul>
 <h3 id="44-qr">4.4 <code>QR</code></h3>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">QR(A: Matrix, *, method: Literal["gram_schmidt", "householder", "givens"] = "gram_schmidt")
+<div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">QR(A, *, strict=False, assumptions=None)
 </code></pre></div>
 <ul>
-<li>Méthode <code>.run()</code> -&gt; <code>QRResult</code>.</li>
-<li>Propriétés : <code>Q: Matrix</code>, <code>R: Matrix</code>, <code>trace</code>, <code>explain()</code>.</li>
+<li>Factorisation par Gram-Schmidt (pas de variante Householder ou Givens).</li>
+<li><code>.run()</code> → <code>QRResult</code> : <code>A</code>, <code>Q</code>, <code>R</code>, <code>Q_tilde</code>, <code>R_tilde</code>, <code>D_sq</code>, <code>d_sq</code>, <code>full_rank</code>, <code>witness</code>.</li>
 </ul>
 <h3 id="45-leastsquares">4.5 <code>LeastSquares</code></h3>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">LeastSquares(A: Matrix, b: Vector, *, method: Literal["qr", "normal_equations"] = "qr")
+<div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">LeastSquares(A, b, *, method="rational_qr", assumptions=None)
 </code></pre></div>
 <ul>
-<li>Méthode <code>.run()</code> -&gt; <code>LSResult | CaseSplit[LSResult]</code>.</li>
-<li>Propriétés de <code>LSResult</code> : <code>x_hat: Vector</code>, <code>y_hat: Vector</code>, <code>r_hat: Vector</code>, <code>residual_norm_sq: sympy.Expr</code>, <code>verify() -&gt; bool</code>, <code>trace</code>, <code>explain()</code>.</li>
+<li><code>method</code> : <code>"rational_qr"</code> (défaut), <code>"qr"</code> ou <code>"normal"</code>.</li>
+<li><code>.run()</code> → <code>LSResult | CaseSplit[LSResult]</code> : <code>A</code>, <code>b</code>, <code>x_hat</code>, <code>y_hat</code>, <code>r_hat</code> (<strong>ACADEMIC_TOKEN_6</strong>), <code>residual_norm</code>, <code>residual_rms</code>, <code>method</code>, <code>full_rank</code>, <code>witness</code> ; propriétés <code>residual</code>, <code>pseudoinverse</code>.</li>
 </ul>
 <hr/>
-<h2 id="5-module-linalg_pedagopytutor-tuteur">5. Module <code>linalg_pedagopy.tutor</code> / <code>tuteur</code></h2>
-<h3 id="51-fonctions-du-catalogue">5.1 Fonctions du catalogue</h3>
-<h4 id="exerciseid-str-exercisesession-alias-exercice"><code>exercise(id: str) -&gt; ExerciseSession</code> (alias <code>exercice</code>)</h4>
-<p>Charge une séance de travail sur la fiche VMLS d'identifiant <code>id</code>.</p>
-<h4 id="list_exercisescategory-str-none-none-listdictstr-any-alias-lister_exercices"><code>list_exercises(category: str | None = None) -&gt; list[dict[str, Any]]</code> (alias <code>lister_exercices</code>)</h4>
-<p>Renvoie la liste des 35 fiches disponibles avec leurs métadonnées.</p>
-<h4 id="validate_sheetsheet_id-str-validationreport-alias-valider_fiche"><code>validate_sheet(sheet_id: str) -&gt; ValidationReport</code> (alias <code>valider_fiche</code>)</h4>
-<p>Effectue la validation croisée d'intégrité de la fiche sans polluer le journal étudiant.</p>
-<h4 id="glossaryterm-str-none-none-dictstr-str-str-alias-glossaire"><code>glossary(term: str | None = None) -&gt; dict[str, str] | str</code> (alias <code>glossaire</code>)</h4>
-<p>Consulte le lexique des définitions mathématiques VMLS.</p>
-<h3 id="52-classe-exercisesession">5.2 Classe <code>ExerciseSession</code></h3>
+<h2 id="5-tracabilite-et-rendu">5. Traçabilité et rendu</h2>
 <ul>
-<li><code>statement() -&gt; str</code> : Énoncé complet.</li>
-<li><code>hint() -&gt; str</code> : Débloque le niveau d'indice suivant (1 à 4).</li>
-<li><code>twin() -&gt; TwinExercise</code> : Exercice jumeau résolu.</li>
-<li><code>predict(**kwargs) -&gt; str</code> : Validation d'étape intermédiaire.</li>
-<li><code>lab() -&gt; CounterexampleLab</code> : Laboratoire de tests de conjectures.</li>
-<li><code>verify(answer: Any) -&gt; VerificationResult</code> : Validation de la solution.</li>
-<li><code>summary() -&gt; dict[str, Any]</code> : Bilan de la session de travail.</li>
-<li><code>panel() -&gt; Any</code> : Panneau graphique interactif JupyterLab (<code>ipywidgets</code>).</li>
-<li><code>teacher_sheet() -&gt; TeacherSheet</code> : Solution complète réservée au mode enseignant.</li>
+<li><code>tracing(level=None)</code> : context manager ouvrant un <code>Tracer</code> (accessible par <code>as tr</code>, arbre <code>tr.tree</code>).</li>
+<li><code>suspend_tracing()</code> : suspend l'enregistrement.</li>
+<li><code>section(message_key, *, level=1, ...)</code>, <code>record(kind, message_key, *, level=1, ...)</code> : primitives d'enregistrement pour écrire de nouvelles procédures.</li>
+<li><code>Step</code>, <code>StepKind</code>, <code>Highlight</code> : nœuds de l'arbre de trace.</li>
+<li><code>Explanation</code> : <code>to_text(level=None)</code>, <code>to_latex(level=None)</code>, <code>to_markdown(level=None)</code>, <code>to_html(level=None)</code>, <code>save(path, *, fmt=None)</code> ; rendu automatique dans Jupyter.</li>
 </ul>
 <hr/>
-<h2 id="6-module-linalg_pedagopyconfig">6. Module <code>linalg_pedagopy.config</code></h2>
+<h2 id="6-module-linalg_pedagopytutor-tuteur">6. Module <code>linalg_pedagopy.tutor</code> / <code>tuteur</code></h2>
+<h3 id="61-fonctions-du-catalogue">6.1 Fonctions du catalogue</h3>
+<h4 id="exerciseex_id-journal_pathnone-exercisesession-alias-exercice"><code>exercise(ex_id, *, journal_path=None) -&gt; ExerciseSession</code> (alias <code>exercice</code>)</h4>
+<p>Charge la fiche VMLS d'identifiant <code>ex_id</code> et ouvre une séance.</p>
+<h4 id="list_exercises-liststr-alias-lister_exercices"><code>list_exercises() -&gt; list[str]</code> (alias <code>lister_exercices</code>)</h4>
+<p>Renvoie la liste triée des identifiants des fiches disponibles (35 fiches).</p>
+<h4 id="validate_sheetex_id-validationreport-alias-valider_fiche"><code>validate_sheet(ex_id) -&gt; ValidationReport</code> (alias <code>valider_fiche</code>)</h4>
+<p>Valide une fiche (champs, vérificateur, jumeau, absence de fuite, contrôle croisé) sans écrire dans le journal. <code>ValidationReport</code> : <code>valid</code>, <code>target_ok</code>, <code>twin_ok</code>, <code>hints_leak_free</code>, <code>source_ok</code>, <code>cross_check_ok</code>, <code>errors</code>.</p>
+<h4 id="glossaryterm-str-alias-glossaire"><code>glossary(term) -&gt; str</code> (alias <code>glossaire</code>)</h4>
+<p>Renvoie la définition d'un terme du glossaire VMLS (termes anglais : <code>"gram matrix"</code>, <code>"least squares"</code>, <code>"rms"</code>…). Lève <code>KeyError</code> avec la liste des termes disponibles si le terme est absent.</p>
+<h4 id="modenew_modenone-str"><code>mode(new_mode=None) -&gt; str</code></h4>
+<p>Lit ou fixe <code>config.tutor_mode</code> (<code>"student"</code>, <code>"teacher"</code>, <code>"etudiant"</code>, <code>"enseignant"</code>).</p>
+<h3 id="62-classe-exercisesession">6.2 Classe <code>ExerciseSession</code></h3>
 <ul>
-<li><code>config.float_policy: Literal["rationalize", "reject", "keep"]</code></li>
-<li><code>config.locale: str</code> (<code>"fr"</code> ou <code>"en"</code>)</li>
-<li><code>config.default_trace_level: int</code> (<code>0</code> à <code>3</code>)</li>
-<li><code>config.tutor_mode: Literal["student", "teacher"]</code></li>
-<li><code>config.journal_path: Path</code></li>
-<li><code>using_config(**overrides)</code> : Context manager pour modification temporaire.</li>
+<li>Attributs : <code>id</code>, <code>type</code>, <code>page</code>, <code>reformulation</code>, <code>notions</code>, <code>source</code>, <code>ecart</code>, <code>data</code> (<code>LockedNamespace</code>), <code>journal</code> (<code>ExerciseJournal</code>), <code>predictions</code>.</li>
+<li><code>statement() -&gt; MarkdownText</code> : énoncé (rendu Markdown/LaTeX dans Jupyter).</li>
+<li><code>hint(level=None, *, niveau=None) -&gt; MarkdownText</code> : débloque le palier suivant (1 à 4, le 4ᵉ étant l'exercice jumeau).</li>
+<li><code>twin() -&gt; TwinExercise</code> : exercice jumeau résolu (<code>title</code>, <code>statement</code>, <code>solution_summary</code>, <code>explanation</code>).</li>
+<li><code>predict(*args, **kwargs) -&gt; MarkdownText</code> : enregistre une prédiction (obligatoire avant <code>lab()</code>).</li>
+<li><code>lab() -&gt; CounterexampleLab</code> : laboratoire ; <code>lab.test(**instances) -&gt; LabReport</code> (<code>hypotheses_satisfied</code>, <code>results_by_part</code>, <code>found_counterexample</code>, <code>message</code>).</li>
+<li><code>verify(response) -&gt; VerificationResult</code> : <code>valid</code>, <code>diagnostic</code>, <code>simplicity_note</code>.</li>
+<li><code>summary() -&gt; MarkdownText</code> : bilan du journal.</li>
+<li><code>panel()</code> : panneau <code>ipywidgets</code> (ou <code>PanelFallback</code>).</li>
+<li><code>teacher_sheet() -&gt; TeacherSheet</code> : fiche complète (dictionnaire), mode enseignant uniquement (<code>PermissionError</code> sinon).</li>
+</ul>
+<hr/>
+<h2 id="7-modules-exercises-compare-et-plot">7. Modules <code>exercises</code>, <code>compare</code> et <code>plot</code></h2>
+<ul>
+<li><code>linalg_pedagopy.exercises</code> : <code>generate_unimodular_matrix</code>, <code>generate_integer_rref_matrix</code>, <code>generate_rational_qr_matrix</code>, <code>generate_clean_least_squares</code>, <code>generate_parametric_system</code>, <code>cayley_orthogonal</code>, <code>generators</code> / <code>generateurs</code>, <code>TwinExercise</code>, <code>InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)</code>, <code>check_row_operation</code>, <code>check_gram_schmidt_step</code>, <code>OperationFeedback</code> (voir <a href="05_pedagogical_exercises_and_sessions.html">guide 05</a>).</li>
+<li><code>linalg_pedagopy.compare</code> (extra <code>compare</code>, NumPy) : <code>compare(procedure, inputs=None) -&gt; ComparisonReport</code>, <code>build_lauchli_matrix(n=3, epsilon=1/10**8)</code>, <code>build_hilbert_matrix(n)</code>, <code>lauchli_gram_schmidt_experiment</code>, <code>lauchli_least_squares_experiment</code>, <code>hilbert_conditioning_experiment</code>, <code>explicit_inverse_vs_solve_experiment</code> (voir <a href="06_rendering_visualization_and_numerics.html">guide 06</a>).</li>
+<li><code>linalg_pedagopy.plot</code> (extra <code>plot</code>, Matplotlib) : <code>plot_linear_combination_2d</code>, <code>plot_orthogonal_projection_2d</code>, <code>plot_gram_schmidt_2d</code>, <code>plot_least_squares_fit</code>, <code>plot_least_squares_geometry_3d</code>.</li>
+</ul>
+<hr/>
+<h2 id="8-module-linalg_pedagopyconfig">8. Module <code>linalg_pedagopy.config</code></h2>
+<p><code>config</code> est un objet global (par contexte) dont les attributs sont :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Attribut</th>
+<th style="text-align: left;">Valeurs</th>
+<th style="text-align: left;">Défaut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>float_policy</code></td>
+<td style="text-align: left;"><code>"rationalize"</code>, <code>"reject"</code>, <code>"keep"</code></td>
+<td style="text-align: left;"><code>"rationalize"</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>locale</code></td>
+<td style="text-align: left;">code de langue (seul <code>"fr"</code> est fourni)</td>
+<td style="text-align: left;"><code>"fr"</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>default_trace_level</code></td>
+<td style="text-align: left;"><code>0</code> à <code>3</code></td>
+<td style="text-align: left;"><code>1</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_case_depth</code></td>
+<td style="text-align: left;">profondeur maximale de la discussion de cas</td>
+<td style="text-align: left;"><code>3</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_cases</code></td>
+<td style="text-align: left;">nombre maximal de branches</td>
+<td style="text-align: left;"><code>8</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tutor_mode</code></td>
+<td style="text-align: left;"><code>"student"</code>, <code>"teacher"</code>, <code>"etudiant"</code>, <code>"enseignant"</code></td>
+<td style="text-align: left;"><code>"student"</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>hint_min_attempts</code></td>
+<td style="text-align: left;">tentatives minimales entre deux indices</td>
+<td style="text-align: left;"><code>0</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>hint_min_delay_seconds</code></td>
+<td style="text-align: left;">délai minimal entre deux indices (s)</td>
+<td style="text-align: left;"><code>0</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>journal_path</code></td>
+<td style="text-align: left;">chemin du journal du tuteur</td>
+<td style="text-align: left;"><code>.linalg_pedagopy_journal.json</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>using_config(**overrides)</code> (= <code>config.override(...)</code>) : context manager de modification temporaire.</li>
+<li><code>config.reset()</code> : restaure les valeurs par défaut ; <code>config.state</code> : instantané immuable de la configuration.</li>
 </ul>
       </article>
 
@@ -477,11 +599,11 @@ BackSubstitution(U: Matrix, b: Vector)
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#23-disjonction-de-cas-condition-casesplit">2.3 Disjonction de cas (Condition, CaseSplit)</a>
+          <a href="#23-disjonction-de-cas-condition-branch-casesplit">2.3 Disjonction de cas (Condition, Branch, CaseSplit)</a>
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#24-hierarchie-des-exceptions">2.4 Hiérarchie des Exceptions</a>
+          <a href="#24-hierarchie-des-exceptions">2.4 Hiérarchie des exceptions</a>
         </li>
         
         <li class="toc-item ">
@@ -521,19 +643,27 @@ BackSubstitution(U: Matrix, b: Vector)
         </li>
         
         <li class="toc-item ">
-          <a href="#5-module-linalg_pedagopytutor-tuteur">5. Module linalg_pedagopy.tutor / tuteur</a>
-        </li>
-        
-        <li class="toc-item toc-h3">
-          <a href="#51-fonctions-du-catalogue">5.1 Fonctions du catalogue</a>
-        </li>
-        
-        <li class="toc-item toc-h3">
-          <a href="#52-classe-exercisesession">5.2 Classe ExerciseSession</a>
+          <a href="#5-tracabilite-et-rendu">5. Traçabilité et rendu</a>
         </li>
         
         <li class="toc-item ">
-          <a href="#6-module-linalg_pedagopyconfig">6. Module linalg_pedagopy.config</a>
+          <a href="#6-module-linalg_pedagopytutor-tuteur">6. Module linalg_pedagopy.tutor / tuteur</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#61-fonctions-du-catalogue">6.1 Fonctions du catalogue</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#62-classe-exercisesession">6.2 Classe ExerciseSession</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#7-modules-exercises-compare-et-plot">7. Modules exercises, compare et plot</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#8-module-linalg_pedagopyconfig">8. Module linalg_pedagopy.config</a>
         </li>
         
       </ul>

@@ -148,7 +148,7 @@
 
       <article class="markdown-body">
         <h1 id="02-vecteurs-matrices-et-metriques-vmls">02. Vecteurs, Matrices et Métriques VMLS</h1>
-<p>Les classes <a href="src/linalg_pedagopy/objects/vector.py#L31-L450"><code>Vector</code></a> et <a href="src/linalg_pedagopy/objects/matrix.py#L35-L750"><code>Matrix</code></a> incarnent les structures de données fondamentales de <code>linalg_pedagopy</code>.</p>
+<p>Les classes <a href="../../src/linalg_pedagopy/objects/vector.py"><code>Vector</code></a> et <a href="../../src/linalg_pedagopy/objects/matrix.py"><code>Matrix</code></a> incarnent les structures de données fondamentales de <code>linalg_pedagopy</code>.</p>
 <p>Conformément à la philosophie du package :
 - <strong>Immutabilité absolue</strong> : Toute opération renvoie une nouvelle instance. Aucune modification en place n'est autorisée.
 - <strong>Exactitude symbolique</strong> : Les coefficients sont convertis en expressions SymPy exactes (<code>sp.Expr</code>).
@@ -169,8 +169,12 @@ print(v.shape)    # (4, 1)
 
 # Constructeurs d'usine remarquables
 z = Vector.zeros(3)          # Vecteur nul (0, 0, 0)
-u = Vector.ones(4)           # Vecteur unitaire tout à 1 (1, 1, 1, 1)
+u = Vector.ones(4)           # Vecteur tout à 1 (1, 1, 1, 1)
 e2 = Vector.unit(1, 4)       # 2e vecteur de la base canonique e₂ = (0, 1, 0, 0) (indice 0-based)
+
+# Combinaison linéaire  2·e₁ − 1·e₂
+c = Vector.combination([Vector([1, 0]), Vector([0, 1])], [2, -1])
+print(c)          # (2, -1)
 </code></pre></div>
 <h3 id="12-operations-algebriques">1.2 Opérations algébriques</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">v1 = Vector([1, 2, 3])
@@ -184,8 +188,12 @@ w2 = v1 - v2       # (-3, -3, -3)
 w3 = 3 * v1        # (3, 6, 9)
 w4 = v1 * "1/2"    # (1/2, 1, 3/2)
 
-# Négation
-w5 = -v1           # (-1, -2, -3)
+# Division par un scalaire et négation
+w5 = v1 / 2        # (1/2, 1, 3/2)
+w6 = -v1           # (-1, -2, -3)
+
+# Accès aux coefficients
+print(v1[0], len(v1), list(v1))  # 1 3 [1, 2, 3]
 </code></pre></div>
 <h3 id="13-metriques-et-geometrie-vmls">1.3 Métriques et géométrie VMLS</h3>
 <p><code>linalg_pedagopy</code> implémente l'ensemble des métriques géométriques introduites dans les chapitres 1 à 3 de <em>VMLS</em> :</p>
@@ -199,9 +207,9 @@ w5 = -v1           # (-1, -2, -3)
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><code>v.dot(w)</code> ou <code>v @ w</code></td>
+<td style="text-align: left;"><code>v.dot(w)</code></td>
 <td style="text-align: left;"><strong>ACADEMIC_TOKEN_6</strong></td>
-<td style="text-align: left;">Produit scalaire standard.</td>
+<td style="text-align: left;">Produit scalaire standard (l'opérateur <code>@</code> n'est pas défini entre deux vecteurs).</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>v.norm_sq()</code></td>
@@ -214,24 +222,24 @@ w5 = -v1           # (-1, -2, -3)
 <td style="text-align: left;">Norme euclidienne exacte.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>v.unit_vector()</code></td>
+<td style="text-align: left;"><code>v.distance(w)</code></td>
 <td style="text-align: left;"><strong>ACADEMIC_TOKEN_10</strong></td>
-<td style="text-align: left;">Vecteur normalisé (direction).</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>v.dist(w)</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_11</strong></td>
-<td style="text-align: left;">Distance euclidienne entre <strong>ACADEMIC_TOKEN_12</strong> et <strong>ACADEMIC_TOKEN_13</strong>.</td>
+<td style="text-align: left;">Distance euclidienne entre <strong>ACADEMIC_TOKEN_11</strong> et <strong>ACADEMIC_TOKEN_12</strong>.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>v.rms()</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_14</strong></td>
+<td style="text-align: left;"><strong>ACADEMIC_TOKEN_13</strong></td>
 <td style="text-align: left;">Valeur efficace (<em>Root-Mean-Square</em>).</td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>v.mean()</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_15</strong></td>
+<td style="text-align: left;"><code>v.avg()</code></td>
+<td style="text-align: left;"><strong>ACADEMIC_TOKEN_14</strong></td>
 <td style="text-align: left;">Moyenne arithmétique des coefficients.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>v.demean()</code></td>
+<td style="text-align: left;"><strong>ACADEMIC_TOKEN_15</strong></td>
+<td style="text-align: left;">Vecteur centré (<em>de-meaned</em>).</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>v.std()</code></td>
@@ -249,17 +257,15 @@ w5 = -v1           # (-1, -2, -3)
 <td style="text-align: left;">Coefficient de corrélation de Pearson.</td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>v.project_onto(w)</code></td>
+<td style="text-align: left;"><code>v.is_zero()</code></td>
 <td style="text-align: left;"><strong>ACADEMIC_TOKEN_19</strong></td>
-<td style="text-align: left;">Projection orthogonale de <strong>ACADEMIC_TOKEN_20</strong> sur la droite <strong>ACADEMIC_TOKEN_21</strong>.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>v.orthogonal_complement(w)</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_22</strong></td>
-<td style="text-align: left;">Composante orthogonale de <strong>ACADEMIC_TOKEN_23</strong> par rapport à <strong>ACADEMIC_TOKEN_24</strong>.</td>
+<td style="text-align: left;">Test de nullité exact (via l'oracle).</td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>Il n'existe pas de méthode de projection dédiée : la projection sur <strong>ACADEMIC_TOKEN_20</strong> s'écrit directement <code>(v.dot(w) / w.norm_sq()) * w</code>, ce qui garde la formule visible pour l'étudiant.</p>
+</blockquote>
 <p>Exemple :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">a = Vector([1, 2, 2])
 b = Vector([2, 0, 1])
@@ -267,21 +273,29 @@ b = Vector([2, 0, 1])
 print(a.norm())                   # 3
 print(a.dot(b))                   # 4
 print(a.angle(b))                 # acos(4*sqrt(5)/15)
-print(a.project_onto(b))          # (8/5, 0, 4/5)
-print(a.orthogonal_complement(b)) # (-3/5, 2, 6/5)
+print(a.distance(b))              # sqrt(6)
+print(a.avg(), a.rms(), a.std())  # 5/3 sqrt(3) sqrt(2)/3
+print(a.correlation(b))           # -sqrt(3)/2
+
+proj = (a.dot(b) / b.norm_sq()) * b
+print(proj)                       # (8/5, 0, 4/5)
+print(a - proj)                   # (-3/5, 2, 6/5)
 </code></pre></div>
-<h3 id="14-vecteurs-par-blocs-et-conversions">1.4 Vecteurs par blocs et conversions</h3>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python"># Concaténation par blocs
-v_block = Vector.block([Vector([1, 2]), Vector([3, 4, 5])])
+<h3 id="14-vecteurs-empiles-et-conversions">1.4 Vecteurs empilés et conversions</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix
+
+# Empilement vertical : via Matrix.block, puis extraction de la colonne
+v_block = Matrix.block([[Vector([1, 2])], [Vector([3, 4, 5])]]).col(0)
 print(v_block)  # (1, 2, 3, 4, 5)
 
-# Conversion en Matrix ou SymPy Matrix
-M = a.to_matrix()    # Matrix 3x1
-sp_col = a.to_sympy() # sympy.Matrix 3x1
+# Conversions
+M = Matrix.from_columns([a])  # Matrix 3x1
+sp_col = a.to_sympy()          # sympy.Matrix 3x1
+print(a.entries)               # (1, 2, 2)
 </code></pre></div>
 <hr/>
 <h2 id="2-la-classe-matrix">2. La classe <code>Matrix</code></h2>
-<p>Une <a href="src/linalg_pedagopy/objects/matrix.py#L35-L750"><code>Matrix</code></a> représente une matrice <strong>ACADEMIC_TOKEN_25</strong> sur <strong>ACADEMIC_TOKEN_26</strong>.</p>
+<p>Une <a href="../../src/linalg_pedagopy/objects/matrix.py"><code>Matrix</code></a> représente une matrice <strong>ACADEMIC_TOKEN_21</strong> sur <strong>ACADEMIC_TOKEN_22</strong>.</p>
 <h3 id="21-initialisation-et-constructeurs-dusine">2.1 Initialisation et constructeurs d'usine</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix
 
@@ -291,13 +305,13 @@ A = Matrix([
     [4, 5, 6]
 ])
 print(A.shape)   # (2, 3)
-print(A.nrows)   # 2 (nombre de lignes)
-print(A.ncols)   # 3 (nombre de colonnes)
+print(A.rows)    # 2 (nombre de lignes)
+print(A.cols)    # 3 (nombre de colonnes)
 
 # Constructeurs d'usine
 I3 = Matrix.identity(3)        # Matrice identité 3x3
 Z = Matrix.zeros(2, 4)         # Matrice nulle 2x4
-D = Matrix.diagonal([2, -1, 5]) # Matrice diagonale diag(2, -1, 5)
+D = Matrix.diag([2, -1, 5])    # Matrice diagonale diag(2, -1, 5)
 
 # Construction à partir de colonnes ou de lignes
 col1 = Vector([1, 0])
@@ -308,35 +322,45 @@ M = Matrix.from_columns([col1, col2])
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">A = Matrix([[1, 2], [3, 4]])
 B = Matrix([[2, 0], [1, 2]])
 
-# Somme, différence et produit scalaire
+# Somme, différence et multiplication par un scalaire
 C = A + B
 D = A - B
 E = 2 * A
 
-# Produit matriciel (opérateur @)
-P = A @ B          # Matrix([[4, 4], [10, 8]])
+# Produit matriciel (opérateur @), y compris matrice × vecteur
+P = A @ B                  # Matrix([[4, 4], [10, 8]])
+y = A @ Vector([1, 1])     # Vector (3, 7)
 
-# Transposée
-AT = A.T           # Matrix([[1, 3], [2, 4]])
+# Transposée et matrice de Gram
+AT = A.T                   # Matrix([[1, 3], [2, 4]])
+G = A.gram()               # AᵀA = Matrix([[10, 14], [14, 20]])
 
-# Puissance entière (matrices carrées)
-A_cubed = A ** 3
+# Pas d'opérateur ** : les puissances s'écrivent par produits successifs
+A_cubed = A @ A @ A
 </code></pre></div>
 <hr/>
 <h2 id="3-les-4-vues-du-produit-matriciel-vmls-101">3. Les 4 vues du produit matriciel (VMLS §10.1)</h2>
-<p>L'ouvrage <em>VMLS</em> insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel <strong>ACADEMIC_TOKEN_27</strong>. <code>linalg_pedagopy</code> propose des méthodes explicites pour illustrer chacune d'elles :</p>
+<p>L'ouvrage <em>VMLS</em> insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel <strong>ACADEMIC_TOKEN_23</strong>. <code>linalg_pedagopy</code> les rend explicites via <code>A.matmul(B, view=...)</code> : le résultat est identique quelle que soit la vue, mais la trace enregistrée (section <code>matrix.matmul.&lt;vue&gt;</code>) détaille le calcul selon la vue choisie :</p>
 <p><strong>ACADEMIC_TOKEN_0</strong></p>
-<h3 id="31-vue-1-combinaisons-lineaires-des-colonnes-de-academic_token_28">3.1 Vue 1 : Combinaisons linéaires des colonnes de <strong>ACADEMIC_TOKEN_28</strong></h3>
-<p>Chaque colonne <strong>ACADEMIC_TOKEN_29</strong> de <strong>ACADEMIC_TOKEN_30</strong> est une combinaison linéaire des colonnes <strong>ACADEMIC_TOKEN_31</strong> de <strong>ACADEMIC_TOKEN_32</strong>, avec pour coefficients les composantes de la <strong>ACADEMIC_TOKEN_33</strong>-ième colonne de <strong>ACADEMIC_TOKEN_34</strong> :
+<h3 id="31-vue-1-viewcolumns-combinaisons-lineaires-des-colonnes-de-academic_token_24">3.1 Vue 1 (<code>view='columns'</code>) : Combinaisons linéaires des colonnes de <strong>ACADEMIC_TOKEN_24</strong></h3>
+<p>Chaque colonne <strong>ACADEMIC_TOKEN_25</strong> de <strong>ACADEMIC_TOKEN_26</strong> est une combinaison linéaire des colonnes <strong>ACADEMIC_TOKEN_27</strong> de <strong>ACADEMIC_TOKEN_28</strong>, avec pour coefficients les composantes de la <strong>ACADEMIC_TOKEN_29</strong>-ième colonne de <strong>ACADEMIC_TOKEN_30</strong> :
 <strong>ACADEMIC_TOKEN_1</strong></p>
-<h3 id="32-vue-2-produits-scalaires-ligne-colonne">3.2 Vue 2 : Produits scalaires ligne-colonne</h3>
-<p>Chaque coefficient <strong>ACADEMIC_TOKEN_35</strong> est le produit scalaire standard entre la <strong>ACADEMIC_TOKEN_36</strong>-ième ligne de <strong>ACADEMIC_TOKEN_37</strong> et la <strong>ACADEMIC_TOKEN_38</strong>-ième colonne de <strong>ACADEMIC_TOKEN_39</strong> :
+<h3 id="32-vue-2-viewrows-viewentries-produits-scalaires-ligne-colonne">3.2 Vue 2 (<code>view='rows'</code> / <code>view='entries'</code>) : Produits scalaires ligne-colonne</h3>
+<p>Chaque coefficient <strong>ACADEMIC_TOKEN_31</strong> est le produit scalaire standard entre la <strong>ACADEMIC_TOKEN_32</strong>-ième ligne de <strong>ACADEMIC_TOKEN_33</strong> et la <strong>ACADEMIC_TOKEN_34</strong>-ième colonne de <strong>ACADEMIC_TOKEN_35</strong> :
 <strong>ACADEMIC_TOKEN_2</strong></p>
-<h3 id="33-vue-3-somme-de-produits-externes-outer-products">3.3 Vue 3 : Somme de produits externes (<em>Outer Products</em>)</h3>
-<p>Le produit <strong>ACADEMIC_TOKEN_40</strong> est la somme de <strong>ACADEMIC_TOKEN_41</strong> matrices de rang 1 formées par les produits externes des colonnes de <strong>ACADEMIC_TOKEN_42</strong> et des lignes de <strong>ACADEMIC_TOKEN_43</strong> :
+<h3 id="33-vue-3-viewouter-somme-de-produits-externes-outer-products">3.3 Vue 3 (<code>view='outer'</code>) : Somme de produits externes (<em>Outer Products</em>)</h3>
+<p>Le produit <strong>ACADEMIC_TOKEN_36</strong> est la somme de <strong>ACADEMIC_TOKEN_37</strong> matrices de rang 1 formées par les produits externes des colonnes de <strong>ACADEMIC_TOKEN_38</strong> et des lignes de <strong>ACADEMIC_TOKEN_39</strong> :
 <strong>ACADEMIC_TOKEN_3</strong></p>
-<h3 id="34-vue-4-multiplication-par-blocs">3.4 Vue 4 : Multiplication par blocs</h3>
-<p>La méthode statique <a href="src/linalg_pedagopy/objects/matrix.py#L380-L420"><code>Matrix.block</code></a> assemble une matrice à partir d'une grille de blocs sous-matriciels :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tracing
+
+A = Matrix([[1, 2], [3, 4]])
+B = Matrix([[2, 0], [1, 2]])
+with tracing(level=2):
+    C = A.matmul(B, view="outer")
+print(C == A @ B)   # True
+</code></pre></div>
+<h3 id="34-matrices-par-blocs">3.4 Matrices par blocs</h3>
+<p>La méthode de classe <a href="../../src/linalg_pedagopy/objects/matrix.py"><code>Matrix.block</code></a> assemble une matrice à partir d'une grille de blocs sous-matriciels :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">A11 = Matrix([[1, 2], [3, 4]])
 A12 = Matrix([[0], [0]])
 A21 = Matrix([[5, 6]])
@@ -354,24 +378,35 @@ print(M_bloc)
 <hr/>
 <h2 id="4-analyse-et-proprietes-des-matrices">4. Analyse et Propriétés des Matrices</h2>
 <h3 id="41-tests-structurels">4.1 Tests structurels</h3>
+<p><code>Matrix</code> ne fournit pas de prédicats <code>is_square</code>, <code>is_symmetric</code>… : on les écrit à partir des attributs, ce qui garde la définition sous les yeux.</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">M = Matrix([[1, 0], [0, 1]])
-print(M.is_square)        # True
-print(M.is_symmetric)     # True
-print(M.is_orthogonal)    # True (M.T @ M == I)
-print(M.is_invertible())  # True
+print(M.rows == M.cols)                  # True  (carrée)
+print(M == M.T)                          # True  (symétrique)
+print(M.has_orthonormal_columns())       # True  (MᵀM = I)
+print(M.rank() == M.rows)                # True  (inversible)
 </code></pre></div>
 <h3 id="42-inversion-formelle-inv">4.2 Inversion formelle (<code>inv</code>)</h3>
-<p>La méthode <a href="src/linalg_pedagopy/objects/matrix.py#L694-L715"><code>inv(strict=True)</code></a> calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :
-- Si la matrice est numérique et singulière, elle lève une <a href="src/linalg_pedagopy/core/exceptions.py"><code>SingularMatrixError</code></a>.
-- Si la matrice contient des paramètres, elle renvoie automatiquement un <a href="src/linalg_pedagopy/core/cases.py#L194-L320"><code>CaseSplit</code></a> décrivant les conditions d'inversibilité et les inverses partielles.</p>
+<p>La méthode <a href="../../src/linalg_pedagopy/objects/matrix.py"><code>inv(*, assumptions=None, strict=True)</code></a> calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :
+- Si la matrice est numérique et singulière, elle lève (avec <code>strict=True</code>, par défaut) une <a href="../../src/linalg_pedagopy/core/exceptions.py"><code>SingularMatrixError</code></a>.
+- Si la matrice contient des paramètres et reste inversible pour toute valeur, l'inverse est renvoyée directement.
+- Si certaines valeurs des paramètres la rendent singulière, <code>strict=True</code> lève aussi <code>SingularMatrixError</code> ; avec <code>strict=False</code>, on obtient un <a href="../../src/linalg_pedagopy/core/cases.py"><code>CaseSplit</code></a> dont les branches singulières ont pour résultat <code>None</code>.</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, symbols
 
 a, = symbols("a")
 A = Matrix([[1, a], [0, 1]])
-print(A.inv()) # Matrix([[1, -a], [0, 1]])
+print(A.inv()) # Matrix([[1, -a], [0, 1]])  (déterminant 1 : aucun cas particulier)
+
+B = Matrix([[1, a], [a, 1]])
+inv_B = B.inv(strict=False)    # CaseSplit : inversible si a ≠ ±1
+print(type(inv_B).__name__)    # CaseSplit
+for br in inv_B.branches:
+    print(br.condition, "-&gt;", "singulière" if br.result is None else "inversible")
+# a ≠ 1 et a ≠ -1 -&gt; inversible
+# a = 1 -&gt; singulière
+# a = -1 -&gt; singulière
 </code></pre></div>
 <h3 id="43-reduction-echelonnee-rang-et-sous-espaces-fondamentaux">4.3 Réduction échelonnée, rang et sous-espaces fondamentaux</h3>
-<p>Les méthodes <a href="src/linalg_pedagopy/objects/matrix.py#L649-L656"><code>rref</code></a>, <a href="src/linalg_pedagopy/objects/matrix.py#L658-L674"><code>rank</code></a> et <a href="src/linalg_pedagopy/objects/matrix.py#L676-L693"><code>nullspace</code></a> acceptent un paramètre <code>assumptions</code> pour spécifier des contraintes de branche :</p>
+<p>Les méthodes <a href="../../src/linalg_pedagopy/objects/matrix.py"><code>rref</code></a>, <a href="../../src/linalg_pedagopy/objects/matrix.py"><code>rank</code></a> et <a href="../../src/linalg_pedagopy/objects/matrix.py"><code>nullspace</code></a> acceptent un paramètre <code>assumptions</code> pour spécifier des contraintes de branche :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">A = Matrix([
     [1, 2, 0, 1],
     [0, 1, 1, 0],
@@ -379,16 +414,19 @@ print(A.inv()) # Matrix([[1, -a], [0, 1]])
 ])
 
 print(A.rank())        # 2
-rref_mat, pivots = A.rref()
-print(pivots)          # (0, 1)
+R = A.rref()           # Matrix (et non un tuple)
+print(R)               # [[1, 0, -2, 1], [0, 1, 1, 0], [0, 0, 0, 0]]
 
-# Base du noyau (Ker A)
+# Base du noyau (Ker A) : tuple de vecteurs
 ker = A.nullspace()
-print(ker)             # Liste de vecteurs engendrant Ker(A)
+print(ker)             # (Vector([2, -1, 1, 0]), Vector([-1, 0, 0, 1]))
 
-# Base de l'image (Col A)
-im = A.col_space()
-print(im)              # Colonnes pivot de A
+# Colonnes pivots et base de l'image (Col A) via GaussJordan
+from linalg_pedagopy import GaussJordan
+gj = GaussJordan(A).run()
+print(gj.pivots)                          # (0, 1)
+im = [A.col(j) for j in gj.pivots]
+print(im)                                 # colonnes pivots de A
 </code></pre></div>
       </article>
 
@@ -432,7 +470,7 @@ print(im)              # Colonnes pivot de A
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#14-vecteurs-par-blocs-et-conversions">1.4 Vecteurs par blocs et conversions</a>
+          <a href="#14-vecteurs-empiles-et-conversions">1.4 Vecteurs empilés et conversions</a>
         </li>
         
         <li class="toc-item ">
@@ -452,19 +490,19 @@ print(im)              # Colonnes pivot de A
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#31-vue-1-combinaisons-lineaires-des-colonnes-de-academic_token_28">3.1 Vue 1 : Combinaisons linéaires des colonnes de ACADEMIC_TOKEN_28</a>
+          <a href="#31-vue-1-viewcolumns-combinaisons-lineaires-des-colonnes-de-academic_token_24">3.1 Vue 1 (view='columns') : Combinaisons linéaires des colonnes de ACADEMIC_TOKEN_24</a>
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#32-vue-2-produits-scalaires-ligne-colonne">3.2 Vue 2 : Produits scalaires ligne-colonne</a>
+          <a href="#32-vue-2-viewrows-viewentries-produits-scalaires-ligne-colonne">3.2 Vue 2 (view='rows' / view='entries') : Produits scalaires ligne-colonne</a>
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#33-vue-3-somme-de-produits-externes-outer-products">3.3 Vue 3 : Somme de produits externes (Outer Products)</a>
+          <a href="#33-vue-3-viewouter-somme-de-produits-externes-outer-products">3.3 Vue 3 (view='outer') : Somme de produits externes (Outer Products)</a>
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#34-vue-4-multiplication-par-blocs">3.4 Vue 4 : Multiplication par blocs</a>
+          <a href="#34-matrices-par-blocs">3.4 Matrices par blocs</a>
         </li>
         
         <li class="toc-item ">

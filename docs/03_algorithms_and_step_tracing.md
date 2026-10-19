@@ -2,7 +2,7 @@
 
 Le module `linalg_pedagopy.algorithms` regroupe les procédures fondamentales de l'algèbre linéaire appliquées selon l'approche de *VMLS* (Boyd & Vandenberghe) et des cours classiques de L1–L2.
 
-Chaque procédure hérite de la classe de base [`Procedure`](src/linalg_pedagopy/algorithms/base.py#L35-L95) et s'exécute dans un contexte de traçabilité pédagogique.
+Chaque procédure hérite de la classe de base [`Procedure`](../src/linalg_pedagopy/algorithms/base.py) et s'exécute dans un contexte de traçabilité pédagogique.
 
 ---
 
@@ -15,7 +15,7 @@ L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une
 - Un étudiant avancé ne souhaite voir que la matrice résultante à chaque pivot.
 - Un enseignant souhaite projeter les grandes étapes au tableau.
 
-`linalg_pedagopy` résout ce dilemme par un **traceur arborescent contextuel** commandé par le context manager [`tracing`](src/linalg_pedagopy/trace/tracer.py#L170-L218) :
+`linalg_pedagopy` résout ce dilemme par un **traceur arborescent** : chaque appel à `run()` enregistre la trace **complète** (jusqu'au niveau 3) dans `result.trace`, et c'est au moment de l'affichage que l'on choisit le niveau de détail avec `result.explain(level=...)` (par défaut `config.default_trace_level`, qui vaut 1) :
 
 ```python
 from linalg_pedagopy import Matrix, Vector, GaussJordan, tracing
@@ -23,61 +23,79 @@ from linalg_pedagopy import Matrix, Vector, GaussJordan, tracing
 A = Matrix([[2, 1], [4, 3]])
 b = Vector([5, 11])
 
-# Niveau 1 : Macro-étapes (étapes de pivot)
-with tracing(level=1):
-    res = GaussJordan(A, b).run()
-print(res.explain())
+res = GaussJordan(A, b).run()
 
-# Niveau 2 : Micro-étapes (opérations élémentaires détaillées)
-with tracing(level=2):
-    res = GaussJordan(A, b).run()
-print(res.explain())
+# Niveau 1 : macro-étapes (opérations de lignes et résultat)
+print(res.explain(level=1))
+
+# Niveau 2 : ajoute le choix des pivots et le découpage par colonne
+print(res.explain(level=2))
+
+# Niveau 3 : ajoute les contrôles de nullité de l'oracle
+print(res.explain(level=3))
+```
+
+Le context manager [`tracing`](../src/linalg_pedagopy/trace/tracer.py) sert, lui, à **regrouper** dans un même arbre les étapes de plusieurs calculs successifs, filtrées au niveau indiqué :
+
+```python
+with tracing(level=1) as tr:
+    GaussJordan(A, b).run()
+    GaussJordan(A.T, b).run()
+arbre = tr.tree          # Step racine contenant les deux réductions
+print(len(arbre.children))
 ```
 
 ### 1.2 Les 4 niveaux de zoom didactiques
 
 | Niveau | Nom | Description du contenu de la trace |
 | :---: | :--- | :--- |
-| **0** | **Résultat seul** | Aucune trace intermédiaire ; seul le résultat final est retourné. |
-| **1** | **Macro-étapes** | Grandes phases : choix du pivot, passage en forme triangulaire supérieure, phase de remontée de Jordan. |
-| **2** | **Micro-étapes** *(recommandé)* | Opérations élémentaires sur les lignes ($L_2 \leftarrow L_2 - 2 L_1$), calculs de projections et normalisations. |
-| **3** | **Arithmétique élémentaire** | Détail arithmétique de chaque coefficient, calcul des produits scalaires terme à terme et simplification des radicaux. |
+| **0** | **Résultat seul** | Seules les étapes de niveau 0 (en-tête de la procédure). |
+| **1** | **Macro-étapes** *(défaut)* | Opérations élémentaires sur les lignes ($L_2 \leftarrow L_2 - 2 L_1$) avec la matrice après chaque opération, résultat final. |
+| **2** | **Micro-étapes** *(recommandé en TD)* | Ajoute le traitement colonne par colonne, le choix et la stratégie de pivot, les projections et normalisations. |
+| **3** | **Contrôles élémentaires** | Ajoute les vérifications de nullité de l'oracle (`CHECK`) et les détails arithmétiques. |
 
 ### 1.3 Nœuds de l'arbre : `Step`, `StepKind` et `Highlight`
 
-L'arbre de trace est composé de nœuds immuables [`Step`](src/linalg_pedagopy/trace/step.py#L42-L78). Chaque étape possède :
-- Un type d'action [`StepKind`](src/linalg_pedagopy/trace/step.py#L10-L28) (`ROW_SWAP`, `ROW_SCALE`, `ROW_ADD`, `PROJECTION`, `NORMALIZE`, etc.).
+L'arbre de trace est composé de nœuds immuables [`Step`](../src/linalg_pedagopy/trace/step.py). Chaque étape possède :
+- Un type d'action [`StepKind`](../src/linalg_pedagopy/trace/step.py) (`SECTION`, `INFO`, `WARNING`, `ROW_SWAP`, `ROW_SCALE`, `ROW_ADD`, `DOT`, `NORM`, `PROJECTION`, `SUBTRACT`, `NORMALIZE`, `BACK_SUBSTITUTION`, `CASE_SPLIT`, `CHECK`, `RESULT`).
 - Des instantanés matriciels (`snapshot`).
-- Une mise en valeur graphique [`Highlight`](src/linalg_pedagopy/trace/step.py#L30-L39) spécifiant les coordonnées du pivot $(i, j)$, les lignes modifiées et la barre de séparation augmentée.
+- Une mise en valeur graphique [`Highlight`](../src/linalg_pedagopy/trace/step.py) spécifiant les coordonnées du pivot $(i, j)$, les lignes modifiées et la barre de séparation augmentée.
 
 ---
 
 ## 2. Élimination de Gauss-Jordan (`GaussJordan`)
 
-La procédure [`GaussJordan`](src/linalg_pedagopy/algorithms/gauss_jordan.py#L38-L480) résout les systèmes linéaires formels $A x = b$ et calcule l'inverse de matrices carrées.
+La procédure [`GaussJordan`](../src/linalg_pedagopy/algorithms/gauss_jordan.py) résout les systèmes linéaires formels $A x = b$ et calcule l'inverse de matrices carrées.
 
 ### 2.1 Signature et options
 
-```python
+```text
 GaussJordan(
     A: Matrix,
-    b: Vector | Matrix | None = None,
+    b: Vector | None = None,
     *,
-    assumptions: Condition | None = None,
-    strict: bool = True,
-    compute_inverse: bool = False
+    pivot_strategy: "simplest" | "first" | "partial" = "simplest",
+    strict: bool = False,
+    max_depth: int | None = None,
+    max_cases: int | None = None,
+    assumptions: Condition | dict | None = None,
+    compute_inverse: bool = False,
 )
 ```
 
 - `A` : Matrice des coefficients $m \times n$.
-- `b` : Vecteur ou matrice du second membre (optionnel).
-- `assumptions` : Hypothèses initiales sur les paramètres de la branche.
-- `strict` : Si `True`, lève une exception en cas de système incompatible ou singulier au lieu de retourner un ensemble vide.
-- `compute_inverse` : Si `True`, calcule l'inverse via l'échelonnement simultané de $[A \mid I_n]$.
+- `b` : Vecteur second membre (optionnel ; sans lui, seule la RREF de $A$ est calculée).
+- `pivot_strategy` : choix du pivot — le plus simple (`"simplest"`), le premier non nul (`"first"`) ou le plus grand en valeur absolue (`"partial"`).
+- `strict` : si `True`, lève `SingularMatrixError` pour un système incompatible (ou une matrice non inversible avec `compute_inverse=True`) au lieu de renvoyer `EmptySolution` / `inverse=None`.
+- `max_depth`, `max_cases` : limites de la discussion paramétrique (par défaut `config.max_case_depth` et `config.max_cases`).
+- `assumptions` : hypothèses initiales sur les paramètres de la branche.
+- `compute_inverse` : si `True`, calcule l'inverse via l'échelonnement simultané de $[A \mid I_n]$ (champ `inverse` du résultat).
+
+Le résultat `GJResult` expose `A`, `b`, `rref`, `augmented_rref`, `pivots`, `rank`, `free_vars`, `nullspace_basis`, `solution` et `inverse`.
 
 ### 2.2 Typologie des ensembles de solutions
 
-Le résultat renvoyé par `GaussJordan.run()` est un [`GJResult`](src/linalg_pedagopy/algorithms/gauss_jordan.py#L22-L35) dont la propriété `solution` appartient à l'une des 3 catégories de [`SolutionSet`](src/linalg_pedagopy/algorithms/base.py#L10-L32) :
+Le résultat renvoyé par `GaussJordan.run()` est un [`GJResult`](../src/linalg_pedagopy/algorithms/gauss_jordan.py) dont la propriété `solution` appartient à l'une des 3 catégories de [`SolutionSet`](../src/linalg_pedagopy/algorithms/base.py) :
 
 ```mermaid
 classDiagram
@@ -86,12 +104,15 @@ classDiagram
         +Vector x
     }
     class AffineSolution {
-        +Vector particular
+        +Vector x0
         +tuple[Vector] basis
-        +tuple[Symbol] free_variables
+        +tuple[int] free_vars
+        +at_params(*t)
     }
     class EmptySolution {
-        +str reason
+        +int row
+        +Expr witness
+        +tuple inconsistent_rows
     }
     SolutionSet <|-- UniqueSolution
     SolutionSet <|-- AffineSolution
@@ -101,9 +122,9 @@ classDiagram
 1. **`UniqueSolution`** : Système de Cramer ou système rectangulaire compatible de rang plein colonne.  
    $\mathcal{S} = \{ x_0 \}$.
 2. **`AffineSolution`** : Sous-déterminé ou système compatible de rang déficient.  
-   $\mathcal{S} = x_p + \text{Vect}(v_1, \dots, v_k)$. L'objet fournit la solution particulière $x_p$ et une base du noyau $\{v_1, \dots, v_k\}$.
+   $\mathcal{S} = x_p + \text{Vect}(v_1, \dots, v_k)$. L'objet fournit la solution particulière `x0` ($x_p$), une base du noyau `basis` ($\{v_1, \dots, v_k\}$) et les indices des variables libres `free_vars` ; `at_params(t1, ..., tk)` renvoie la solution pour des valeurs données des paramètres.
 3. **`EmptySolution`** : Système incompatible (présence d'une ligne d'incompatibilité $[0 \dots 0 \mid \beta]$ avec $\beta \neq 0$).  
-   $\mathcal{S} = \emptyset$.
+   $\mathcal{S} = \emptyset$. L'objet indique la ligne témoin `row` (indice 0-based), la valeur non nulle `witness` du second membre et la liste `inconsistent_rows`.
 
 ### 2.3 Exemple avec paramètre et discussion automatique
 
@@ -120,6 +141,12 @@ b = Vector([1, 1, 1])
 
 res = GaussJordan(A, b).run()
 print(res.explain())
+
+for br in res.branches:
+    print(br.condition, "->", br.result.solution)
+# m ≠ 1 et m ≠ -2 -> UniqueSolution(x=(1/(m + 2), 1/(m + 2), 1/(m + 2)))
+# m = -2 -> EmptySolution(ligne L3 : 0 = 3)
+# m = 1 -> (1, 0, 0) + t_1·(-1, 1, 0) + t_2·(-1, 0, 1)
 ```
 
 Ce code produit automatiquement un `CaseSplit` distinguant :
@@ -133,8 +160,8 @@ Ce code produit automatiquement un `CaseSplit` distinguant :
 
 Pour les systèmes dont la matrice est déjà échelonnée, les algorithmes de substitution évitent le coût complet d'un pivot de Gauss :
 
-- [`ForwardSubstitution`](src/linalg_pedagopy/algorithms/triangular.py#L25-L80) : Résout $L y = b$ pour une matrice triangulaire inférieure $L$ (descente).
-- [`BackSubstitution`](src/linalg_pedagopy/algorithms/triangular.py#L85-L140) : Résout $U x = y$ pour une matrice triangulaire supérieure $U$ (remontée).
+- [`ForwardSubstitution`](../src/linalg_pedagopy/algorithms/triangular.py) : Résout $L y = b$ pour une matrice triangulaire inférieure $L$ (descente).
+- [`BackSubstitution`](../src/linalg_pedagopy/algorithms/triangular.py) : Résout $U x = y$ pour une matrice triangulaire supérieure $U$ (remontée).
 
 ```python
 from linalg_pedagopy import Matrix, Vector, BackSubstitution
@@ -146,17 +173,19 @@ U = Matrix([
 ])
 y = Vector([3, 8, 4])
 
-res = BackSubstitution(U, y).run()
-print(res.x)  # Vector([1, 2, 1])
+res = BackSubstitution(U, y).run()   # TriangularResult(x, A, c)
+print(res.x)  # (1, 2, 1)
 ```
 
 ---
 
 ## 4. Orthogonalisation de Gram-Schmidt (`GramSchmidt`)
 
-La procédure [`GramSchmidt`](src/linalg_pedagopy/algorithms/gram_schmidt.py#L35-L275) transforme une famille libre de vecteurs $(a_1, \dots, a_k)$ en une famille orthogonale $(u_1, \dots, u_k)$ puis orthonormée $(q_1, \dots, q_k)$ :
+La procédure [`GramSchmidt`](../src/linalg_pedagopy/algorithms/gram_schmidt.py) (`GramSchmidt(vectors, *, normalize="end", strict=False, assumptions=None)`) transforme une famille libre de vecteurs $(a_1, \dots, a_k)$ en une famille orthogonale $(u_1, \dots, u_k)$ puis orthonormée $(q_1, \dots, q_k)$ :
 
 $$u_k = a_k - \sum_{i=1}^{k-1} \frac{\langle a_k, u_i \rangle}{\|u_i\|^2} u_i, \quad q_k = \frac{u_k}{\|u_k\|}$$
+
+Avec `normalize="end"` (défaut), les calculs restent rationnels jusqu'à la normalisation finale ; `normalize="each"` suit la présentation de VMLS (normalisation à chaque étape).
 
 ```python
 from linalg_pedagopy import Vector, GramSchmidt
@@ -167,29 +196,36 @@ a3 = Vector([0, 1, 1])
 
 res = GramSchmidt([a1, a2, a3]).run()
 
-# Vecteurs orthogonaux
+# Vecteurs orthogonaux (rationnels)
 for u in res.orthogonal:
-    print(u)
+    print(u)          # (1, 1, 0) / (1/2, -1/2, 1) / (-2/3, 2/3, 2/3)
 
 # Vecteurs orthonormés (avec radicaux exacts)
 for q in res.orthonormal:
-    print(q)
+    print(q)          # (sqrt(2)/2, sqrt(2)/2, 0) / ...
 ```
 
 ### Détection de dépendance linéaire
 
-Si la famille est liée, `GramSchmidt` lève une [`LinearDependenceError`](src/linalg_pedagopy/core/exceptions.py) contenant un témoin de dépendance [`DependenceWitness`](src/linalg_pedagopy/algorithms/gram_schmidt.py#L18-L32) détaillant la combinaison linéaire nulle.
+Si la famille est liée, `GramSchmidt` s'arrête au premier vecteur dépendant : le résultat a `independent=False`, `dependent_index` (indice 0-based) et un témoin [`DependenceWitness`](../src/linalg_pedagopy/algorithms/gram_schmidt.py) (`witness`) qui exprime ce vecteur en fonction des précédents. Avec `strict=True`, une [`LinearDependenceError`](../src/linalg_pedagopy/core/exceptions.py) est levée à la place.
+
+```python
+dep = GramSchmidt([Vector([1, 2]), Vector([2, 4])]).run()
+print(dep.independent, dep.dependent_index)  # False 1
+print(dep.witness)                           # a_2 = (2)·q̃_1
+```
 
 ---
 
 ## 5. Factorisation QR (`QR`)
 
-La classe [`QR`](src/linalg_pedagopy/algorithms/qr.py#L30-L190) factorise une matrice $A$ de rang plein colonne sous la forme $A = Q R$, où $Q$ a des colonnes orthonormales ($Q^T Q = I$) et $R$ est triangulaire supérieure inversible.
+La classe [`QR`](../src/linalg_pedagopy/algorithms/qr.py) factorise une matrice $A$ de rang plein colonne sous la forme $A = Q R$, où $Q$ a des colonnes orthonormales ($Q^T Q = I$) et $R$ est triangulaire supérieure inversible.
 
-Trois méthodes sont supportées :
-1. `method="gram_schmidt"` : Gram-Schmidt classique ou modifié (forme symbolique naturelle).
-2. `method="householder"` : Réflexions orthogonales de Householder (stabilité géométrique).
-3. `method="givens"` : Rotations planes de Givens (idéal pour annuler des coefficients ciblés).
+La factorisation est calculée par Gram-Schmidt (`QR(A, *, strict=False, assumptions=None)` ; il n'y a pas de paramètre `method`, ni Householder ni Givens). Le résultat `QRResult` fournit deux formes :
+- la forme orthonormée `Q`, `R` (avec radicaux) ;
+- la forme rationnelle sans radicaux `Q_tilde`, `R_tilde`, `D_sq` (colonnes orthogonales non normalisées, avec $D^2 = \tilde Q^T \tilde Q$), adaptée au calcul à la main.
+
+Si les colonnes sont liées, `full_rank` vaut `False` et `witness` décrit la dépendance (ou `LinearDependenceError` avec `strict=True`).
 
 ```python
 from linalg_pedagopy import Matrix, QR
@@ -200,10 +236,11 @@ A = Matrix([
     [1,  1]
 ])
 
-qr_res = QR(A, method="gram_schmidt").run()
-print("Q =", qr_res.Q)
-print("R =", qr_res.R)
-print("Vérification Q @ R == A :", qr_res.Q @ qr_res.R == A)
+qr_res = QR(A).run()
+print("Q =", qr_res.Q)                 # colonnes (√3/3, √3/3, √3/3) et (-√2/2, 0, √2/2)
+print("R =", qr_res.R)                 # [[√3, 0], [0, √2]]
+print("Vérification Q @ R == A :", qr_res.Q @ qr_res.R == A)   # True
+print("Q̃ =", qr_res.Q_tilde, " D² =", qr_res.D_sq)            # forme rationnelle
 ```
 
 ---
@@ -213,9 +250,10 @@ print("Vérification Q @ R == A :", qr_res.Q @ qr_res.R == A)
 La régression au sens des moindres carrés résout le problème d'optimisation :
 $$\min_{x} \|A x - b\|^2$$
 
-La classe [`LeastSquares`](src/linalg_pedagopy/algorithms/least_squares.py#L30-L150) calcule la solution exacte $\hat{x}$ via :
-- La factorisation QR de $A$ : $R \hat{x} = Q^T b$.
-- Les équations normales : $(A^T A) \hat{x} = A^T b$.
+La classe [`LeastSquares`](../src/linalg_pedagopy/algorithms/least_squares.py) calcule la solution exacte $\hat{x}$ via :
+- `method="rational_qr"` *(défaut)* : QR rationnelle sans radicaux, $\tilde R \hat{x} = D^{-2} \tilde Q^T b$ ;
+- `method="qr"` : QR orthonormée, $R \hat{x} = Q^T b$ ;
+- `method="normal"` : équations normales $(A^T A) \hat{x} = A^T b$.
 
 ```python
 from linalg_pedagopy import Matrix, Vector, LeastSquares
@@ -232,8 +270,10 @@ ls = LeastSquares(A, b).run()
 print("x_hat =", ls.x_hat)  # Estimateur des paramètres
 print("y_hat =", ls.y_hat)  # Projection y_hat = A x_hat
 print("r_hat =", ls.r_hat)  # Résidu r_hat = A x_hat - b
-print("Norme au carré de l'erreur :", ls.residual_norm_sq)
+print("Norme du résidu :", ls.residual_norm)      # sqrt(70)/10
+print("RMS du résidu :", ls.residual_rms)         # sqrt(70)/20
 
 # Vérification pédagogique fondamentale : A^T r_hat == 0
-print("Orthogonalité du résidu :", ls.verify())  # True
+# verify() renvoie une Explanation qui détaille le contrôle colonne par colonne
+print(ls.verify())
 ```

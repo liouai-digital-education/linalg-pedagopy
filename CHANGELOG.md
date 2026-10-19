@@ -1,5 +1,14 @@
 # Changelog — `linalg_pedagopy`
 
+## [Non publié] — branche `development`
+
+### Corrections
+- Fiches du tuteur : restauration des caractères accentués et des symboles perdus (`§`, `é`, `è`, `à`, `ô`, `⊥`, `≈`) dans les champs `source` et `ecart` des 35 fiches ; test de non-régression `test_fiches_source_ecart_sans_caracteres_corrompus`.
+- `check_row_operation` : une opération qui écrase une ligne sans la conserver (ex. `L1 <- L2`) est désormais diagnostiquée comme `row_overwrite` (avec suggestion d'échange ou de transvection) au lieu d'être confondue avec une dilatation par 0.
+
+### Documentation
+- Correction de la documentation (`docs/*.md`, `README.md`, site HTML `docs/site/`) pour la rendre conforme à l'API réelle : exemples exécutables vérifiés, signatures et champs de résultats exacts, suppression des fonctionnalités non implémentées (QR Householder/Givens, locale anglaise, méthodes de projection, prédicats `is_*`…), liens relatifs vers le code source à la place des chemins absolus `file:///`.
+
 ## [3.0.0] — 2026-10-19
 
 ### Nouveautés majeures (Version 3.0)
@@ -13,7 +22,7 @@
   - Prédiction obligatoire avant exploration au laboratoire de contre-exemples ;
   - Refus de confirmer un « toujours vrai » par de simples essais ;
   - Journal JSON local transparent et fonction `valider_fiche`.
-- **Couverture du recueil VMLS** : 33 exercices couverts complètement (`●`) + exercices `3.3` et `3.13` illustrant le laboratoire de contre-exemples, accompagnés d'un glossaire anglais–français intégré.
+- **Couverture du recueil VMLS** : 35 fiches d'exercices (33 exercices couverts complètement `●` + exercices `3.3` et `3.13` illustrant le laboratoire de contre-exemples), accompagnées d'un glossaire anglais–français intégré.
 - **Architecture formelle complète (D1–D11)** :
   - Corps de travail $\mathbb{R}$ (`real=True`, D1) et politique de coercition des flottants (`float_policy`, D2) ;
   - Oracle de nullité à 4 verdicts (`ZERO`, `NONZERO`, `CONDITIONAL`, `UNKNOWN`, D3) et discussion par cas (`CaseSplit`, D4) ;

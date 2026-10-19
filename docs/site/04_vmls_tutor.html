@@ -148,168 +148,208 @@
 
       <article class="markdown-body">
         <h1 id="04-le-tuteur-interactif-vmls-tutor-tuteur">04. Le Tuteur Interactif VMLS (<code>tutor</code> / <code>tuteur</code>)</h1>
-<p>Le module <a href="src/linalg_pedagopy/tutor/__init__.py"><code>linalg_pedagopy.tutor</code></a> (entièrement accessible sous l'alias francophone <a href="src/linalg_pedagopy/tuteur/__init__.py"><code>linalg_pedagopy.tuteur</code></a>) fournit un environnement d'apprentissage autonome guidé pour les exercices du recueil officiel <em>Additional Exercises for VMLS</em>.</p>
+<p>Le module <a href="../../src/linalg_pedagopy/tutor/__init__.py"><code>linalg_pedagopy.tutor</code></a> (entièrement accessible sous l'alias francophone <a href="../../src/linalg_pedagopy/tuteur/__init__.py"><code>linalg_pedagopy.tuteur</code></a>) fournit un environnement d'apprentissage autonome guidé pour les exercices du recueil officiel <em>Additional Exercises for VMLS</em>.</p>
 <hr/>
 <h2 id="1-architecture-anti-triche-et-coffre-fort-disolation">1. Architecture anti-triche et coffre-fort d'isolation</h2>
 <h3 id="11-le-defi-de-lintrospection-dans-jupyter">1.1 Le défi de l'introspection dans Jupyter</h3>
 <p>Dans un carnet Jupyter interactif, les étudiants disposent de l'interpréteur Python complet. Sans protection rigoureuse, ils pourraient inspecter les objets internes :
 - <code>ex.__dict__</code> ou <code>dir(ex)</code> pour extraire la solution de référence.
 - Instancier <code>Vector(ex.data.x)</code> pour court-circuiter le verrouillage.
-- Remplacer <code>ex.is_solved = True</code> ou modifier les compteurs de tentatives.</p>
+- Écrire <code>ex.unlocked = True</code> ou modifier les compteurs de tentatives.</p>
 <h3 id="12-la-solution-coffres-forts-prives-weakkeydictionary">1.2 La solution : Coffres-forts privés <code>WeakKeyDictionary</code></h3>
 <p><code>linalg_pedagopy</code> isole strictement les données sensibles et les objets de l'exercice :
-- Les données réelles sont stockées dans des dictionnaires à clés faibles privés au module (<a href="src/linalg_pedagopy/tutor/lock.py#L22"><code>_LOCK_VAULT</code></a>, <a href="src/linalg_pedagopy/tutor/catalog.py#L28"><code>_SESSION_VAULT</code></a>, <a href="src/linalg_pedagopy/tutor/lab.py#L20"><code>_LAB_VAULT</code></a>).
-- Les objets visibles par l'étudiant (<a href="src/linalg_pedagopy/tutor/lock.py#L110-L195"><code>LockedVector</code></a>, <a href="src/linalg_pedagopy/tutor/lock.py#L198-L300"><code>LockedMatrix</code></a>, <a href="src/linalg_pedagopy/tutor/lock.py#L45-L95"><code>LockedNamespace</code></a>) définissent <code>__slots__ = ("__weakref__",)</code> : ils ne possèdent aucun <code>__dict__</code> local.
+- Les données réelles sont stockées dans des dictionnaires à clés faibles privés au module (<a href="../../src/linalg_pedagopy/tutor/lock.py"><code>_LOCK_VAULT</code></a>, <a href="../../src/linalg_pedagopy/tutor/catalog.py"><code>_SESSION_VAULT</code></a>, <a href="../../src/linalg_pedagopy/tutor/lab.py"><code>_LAB_VAULT</code></a>).
+- Les objets visibles par l'étudiant (<a href="../../src/linalg_pedagopy/tutor/lock.py"><code>LockedVector</code></a>, <a href="../../src/linalg_pedagopy/tutor/lock.py"><code>LockedMatrix</code></a>, <a href="../../src/linalg_pedagopy/tutor/lock.py"><code>LockedNamespace</code></a>) définissent <code>__slots__ = ("__weakref__",)</code> : ils ne possèdent aucun <code>__dict__</code> local.
 - Toute tentative d'écriture (<code>__setattr__</code>) est interceptée et rejetée.
-- Les constructeurs standards <code>Vector(...)</code> et <code>Matrix(...)</code> détectent la présence d'un objet verrouillé et lèvent une exception <a href="src/linalg_pedagopy/core/exceptions.py"><code>LockedExerciseDataError</code></a>.</p>
+- Les constructeurs standards <code>Vector(...)</code> et <code>Matrix(...)</code> détectent la présence d'un objet verrouillé et lèvent une exception <a href="../../src/linalg_pedagopy/core/exceptions.py"><code>LockedExerciseDataError</code></a>.</p>
 <p><strong>ACADEMIC_TOKEN_0</strong></p>
 <hr/>
 <h2 id="2-le-catalogue-des-35-fiches-vmls">2. Le Catalogue des 35 Fiches VMLS</h2>
-<p>Les fiches d'exercices se trouvent au format YAML dans le répertoire <a href="src/linalg_pedagopy/tuteur/fiches/"><code>src/linalg_pedagopy/tuteur/fiches/</code></a>.</p>
+<p>Les fiches d'exercices se trouvent au format YAML dans le répertoire <a href="../../src/linalg_pedagopy/tuteur/fiches/"><code>src/linalg_pedagopy/tuteur/fiches/</code></a>.</p>
 <h3 id="21-structure-dune-fiche-dexercice">2.1 Structure d'une fiche d'exercice</h3>
-<p>Chaque fiche contient :
-- <code>id</code> : Identifiant de l'exercice VMLS (ex: <code>"6.4"</code>).
-- <code>titre</code> : Intitulé pédagogique.
-- <code>section_vmls</code> : Chapitre de référence dans <em>VMLS</em>.
-- <code>difficulte</code> : Niveau de 1 à 3.
-- <code>source</code> : Référence exacte dans le recueil officiel (ex: <code>"VMLS Additional Exercises, Exercise 6.4"</code>).
-- <code>ecart</code> : Description explicite des éventuelles adaptations didactiques (généralisation formelle, fractions exactes).
-- <code>enonce</code> : Texte de l'énoncé en Markdown avec formules LaTeX.
-- <code>donnees</code> : Paramètres et matrices de départ.
-- <code>indices</code> : 4 paliers d'indices progressifs sans fuite de réponse.
-- <code>jumeau</code> : Énoncé et solution détaillée d'un problème isomorphe.
-- <code>verification</code> : Spécification formelle pour le vérificateur de solution.</p>
+<p>Chaque fiche contient les champs suivants (tous présents dans les 35 fiches fournies) :
+- <code>id</code> : identifiant de l'exercice VMLS (ex. <code>'6.4'</code>).
+- <code>page</code> : page de l'exercice dans le recueil <em>Additional Exercises</em>.
+- <code>type</code> : nature de l'exercice (<code>modelisation</code>, <code>calcul</code>, <code>vrai_faux</code>, <code>contre_exemple</code>, <code>dimensions</code>…).
+- <code>reformulation</code> : énoncé reformulé en français, en Markdown avec formules LaTeX.
+- <code>donnees</code> : paramètres et données de l'exercice (verrouillés côté étudiant).
+- <code>verification</code> : spécification du vérificateur (<code>type</code> parmi <code>produit_scalaire</code>, <code>matrice</code>, <code>formule</code>, <code>valeur</code>, <code>propriete</code>, <code>contre_exemple</code>, <code>labo</code>, <code>egalites</code>, <code>dimensions</code>, et champs propres à chaque type, comme <code>cible</code>).
+- <code>indices</code> : au moins 3 paliers d'indices textuels (le palier 4 est l'exercice jumeau).
+- <code>jumeau</code> : appel d'un générateur d'exercice jumeau, par exemple <code>generateurs.moyenne_glissante(fenetre=2, n=5)</code>.
+- <code>notions</code> : notions mobilisées (affichées avec l'énoncé).
+- <code>source</code> : référence exacte dans le recueil officiel.
+- <code>ecart</code> : description des éventuelles adaptations par rapport à l'énoncé original.</p>
+<p>Exemple (fiche <code>6.4.yaml</code>, abrégée) :</p>
+<div class="code-container"><div class="code-header"><span>Yaml</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-yaml">id: '6.4'
+page: 15
+type: modelisation
+reformulation: $p \in \mathbb{R}^6$ est une série de prix. ... Trouver la matrice $A$ telle que $d = A p$.
+donnees: {n: 6, m: 3}
+verification:
+  type: matrice
+  inconnue: p
+  nom_sortie: d
+  taille_entree: 6
+  taille_sortie: 3
+  cible: d[i] = p[i+3] - (p[i] + p[i+1] + p[i+2]) / 3
+indices:
+- Quelle est la taille de $d$ ? celle de $p$ ? Qu'en déduisez-vous pour $A$ ?
+- ...
+jumeau: generateurs.moyenne_glissante(fenetre=2, n=5)
+</code></pre></div>
 <h3 id="22-validation-croisee-dintegrite-validate_sheet">2.2 Validation croisée d'intégrité (<code>validate_sheet</code>)</h3>
-<p>La fonction <a href="src/linalg_pedagopy/tutor/catalog.py#L416-L497"><code>validate_sheet</code></a> (alias <a href="src/linalg_pedagopy/tuteur/__init__.py"><code>valider_fiche</code></a>) contrôle automatiquement la validité d'une fiche :
-1. Elle charge la fiche en mode isolé (<code>persist_journal=False</code> pour ne pas polluer l'historique étudiant).
-2. Elle résout formellement le problème avec le solveur de référence.
-3. Elle soumet la solution au vérificateur (<code>verify</code>) et s'assure qu'elle est validée à 100 %.
-4. Elle teste des réponses triviales erronées (<strong>ACADEMIC_TOKEN_1</strong>, identité) pour s'assurer que le vérificateur ne valide pas aveuglément les entrées fausses.</p>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.tutor import validate_sheet
+<p>La fonction <a href="../../src/linalg_pedagopy/tutor/catalog.py"><code>validate_sheet</code></a> (alias <a href="../../src/linalg_pedagopy/tuteur/__init__.py"><code>valider_fiche</code></a>) contrôle automatiquement une fiche :
+1. Présence des champs obligatoires (<code>id</code>, <code>type</code>, <code>reformulation</code>, <code>verification</code>, <code>indices</code>) et des champs de traçabilité (<code>source</code>, <code>ecart</code>).
+2. Validité du type de vérificateur et de ses champs (par ex. <code>cible</code> pour <code>matrice</code> ou <code>formule</code>).
+3. Exécution du générateur d'exercice jumeau.
+4. Absence de fuite dans les indices : au moins 3 indices, aucun ne contient littéralement la cible, aucun (ni aucun littéral <code>Vector([...])</code> / <code>Matrix([...])</code> qu'il contient) n'est accepté par le vérificateur. Ces contrôles utilisent une session <code>persist_journal=False</code> pour ne pas polluer le journal de l'étudiant.
+5. Contrôle croisé du vérificateur avec le solveur de référence.</p>
+<p>Le résultat est un <code>ValidationReport</code> immuable : <code>valid</code>, <code>target_ok</code>, <code>twin_ok</code>, <code>hints_leak_free</code>, <code>source_ok</code>, <code>cross_check_ok</code>, <code>errors</code> (alias français <code>valide</code>, <code>cible_ok</code>, <code>jumeau_ok</code>, <code>indices_sans_fuite</code>, <code>erreurs</code>).</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.tutor import validate_sheet, list_exercises
 
 # Validation d'une fiche particulière
 rapport = validate_sheet("6.4")
-print("Fiche valide :", rapport.is_valid)
+print("Fiche valide :", rapport.valid)     # True
+print(rapport.errors)                      # ()
 
-# Validation de l'ensemble des 35 fiches
-from linalg_pedagopy.tutor import list_exercises
-for ex_meta in list_exercises():
-    rep = validate_sheet(ex_meta["id"])
-    assert rep.is_valid, f"Échec sur {ex_meta['id']}"
+# Validation de l'ensemble des fiches (list_exercises renvoie des identifiants)
+ids = list_exercises()
+print(len(ids), ids[:5])                   # 35 ['1.2', '1.3', '1.4', '2.1', '2.2']
+for ex_id in ids:
+    rep = validate_sheet(ex_id)
+    assert rep.valid, f"Échec sur {ex_id} : {rep.errors}"
 </code></pre></div>
 <hr/>
 <h2 id="3-deroulement-dune-seance-avec-exercisesession">3. Déroulement d'une séance avec <code>ExerciseSession</code></h2>
 <h3 id="31-initialisation">3.1 Initialisation</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.tutor import exercise
 
-ex = exercise("6.4")
+ex = exercise("6.4")          # exercise(ex_id, *, journal_path=None)
+print(ex.id, ex.type, ex.page)   # 6.4 modelisation 15
 </code></pre></div>
+<p>Les données de l'exercice sont accessibles via <code>ex.data</code> (alias <code>ex.donnees</code>), un <code>LockedNamespace</code> dont les vecteurs et matrices sont verrouillés tant que l'exercice n'est pas résolu.</p>
 <h3 id="32-consultation-de-lenonce-statement">3.2 Consultation de l'énoncé (<code>statement</code>)</h3>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(ex.statement())
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.statement()          # dans JupyterLab : rendu Markdown + LaTeX
+print(ex.statement())   # en console : texte Markdown brut
 </code></pre></div>
-<p>Affiche l'énoncé complet, les données vectorielles et matricielles associées, ainsi que les consignes de format de réponse.</p>
+<p>Affiche la reformulation, la référence de page dans le recueil, les notions mobilisées et la source.</p>
 <h3 id="33-systeme-dindices-gradues-hint">3.3 Système d'indices gradués (<code>hint</code>)</h3>
-<p>Pour favoriser la recherche autonome sans court-circuiter l'effort de réflexion, les indices sont organisés en 4 paliers :</p>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python"># Déblocage de l'indice 1
-h1 = ex.hint()
+<p>Pour favoriser la recherche autonome, les indices sont organisés en 4 paliers ; chaque appel débloque le palier suivant (on peut aussi demander <code>ex.hint(2)</code> / <code>ex.indice(niveau=2)</code>, sans sauter de palier) :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">h1 = ex.hint()     # **[Niveau 1 — Orientation]** ...
 print(h1)
 
-# Déblocage de l'indice 2
-h2 = ex.hint()
+h2 = ex.hint()     # **[Niveau 2 — Outil]** ...
 print(h2)
 </code></pre></div>
 <table>
 <thead>
 <tr>
 <th style="text-align: center;">Palier</th>
-<th style="text-align: left;">Type d'aide</th>
-<th style="text-align: left;">Exemple</th>
+<th style="text-align: left;">Titre affiché</th>
+<th style="text-align: left;">Contenu (fiche 6.4)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: center;"><strong>Niveau 1</strong></td>
-<td style="text-align: left;">Rappel de définition / concept</td>
-<td style="text-align: left;"><em>"Rappelez-vous qu'une projection orthogonale <strong>ACADEMIC_TOKEN_2</strong> sur <strong>ACADEMIC_TOKEN_3</strong> satisfait <strong>ACADEMIC_TOKEN_4</strong>."</em></td>
+<td style="text-align: left;">Orientation</td>
+<td style="text-align: left;"><em>« Quelle est la taille de <strong>ACADEMIC_TOKEN_7</strong> ? celle de <strong>ACADEMIC_TOKEN_8</strong> ? Qu'en déduisez-vous pour <strong>ACADEMIC_TOKEN_9</strong> ? »</em></td>
 </tr>
 <tr>
 <td style="text-align: center;"><strong>Niveau 2</strong></td>
-<td style="text-align: left;">Stratégie méthodique</td>
-<td style="text-align: left;"><em>"Exprimez <strong>ACADEMIC_TOKEN_5</strong> sous la forme <strong>ACADEMIC_TOKEN_6</strong> puis déterminez le scalaire <strong>ACADEMIC_TOKEN_7</strong> par produit scalaire."</em></td>
+<td style="text-align: left;">Outil</td>
+<td style="text-align: left;"><em>« La ligne <strong>ACADEMIC_TOKEN_10</strong> de <strong>ACADEMIC_TOKEN_11</strong> contient les coefficients de <strong>ACADEMIC_TOKEN_12</strong> exprimé en fonction de <strong>ACADEMIC_TOKEN_13</strong>. »</em></td>
 </tr>
 <tr>
 <td style="text-align: center;"><strong>Niveau 3</strong></td>
-<td style="text-align: left;">Formule générale ou étape clé</td>
-<td style="text-align: left;"><em>"La formule générale est <strong>ACADEMIC_TOKEN_8</strong>."</em></td>
+<td style="text-align: left;">Démarrage</td>
+<td style="text-align: left;"><em>« Écrivez <strong>ACADEMIC_TOKEN_14</strong> en fonction des <strong>ACADEMIC_TOKEN_15</strong>, puis lisez ses coefficients. »</em></td>
 </tr>
 <tr>
 <td style="text-align: center;"><strong>Niveau 4</strong></td>
-<td style="text-align: left;">Exemple jumeau résolu</td>
-<td style="text-align: left;"><em>Renvoie vers l'étude de l'exercice jumeau avec valeurs numériques différentes.</em></td>
+<td style="text-align: left;">Exercice jumeau résolu</td>
+<td style="text-align: left;">Résolution complète d'un exercice analogue (autres dimensions ou valeurs).</td>
 </tr>
 </tbody>
 </table>
-<p><strong>ACADEMIC_TOKEN_11</strong></p>
+<p>Il n'existe pas de niveau 5 « solution » en mode étudiant. Les réglages <code>config.hint_min_attempts</code> et <code>config.hint_min_delay_seconds</code> permettent d'imposer un nombre de tentatives ou un délai entre deux déblocages.</p>
+<p><strong>ACADEMIC_TOKEN_21</strong></p>
 <h3 id="34-lexercice-jumeau-twin">3.4 L'Exercice Jumeau (<code>twin</code>)</h3>
-<p>L'étudiant bloqué peut consulter à tout moment un exercice isomorphe entièrement résolu et commenté :</p>
+<p>L'étudiant bloqué peut consulter un exercice analogue entièrement résolu (cela débloque aussi le palier 4). <code>twin()</code> renvoie un <code>TwinExercise</code> (<code>title</code>, <code>statement</code>, <code>solution_summary</code>, <code>explanation</code>) :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">jumeau = ex.twin()
+print("Titre :", jumeau.title)
 print("Énoncé jumeau :", jumeau.statement)
 print("Solution détaillée :", jumeau.solution_summary)
 </code></pre></div>
-<h3 id="35-prediction-detapes-predict">3.5 Prédiction d'étapes (<code>predict</code>)</h3>
-<p>L'étudiant peut soumettre une étape intermédiaire pour s'assurer qu'il est sur la bonne voie avant de finaliser son calcul :</p>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">res = ex.predict(alpha="2/3")
-print(res)
-</code></pre></div>
-<h3 id="36-le-laboratoire-de-contre-exemples-lab">3.6 Le Laboratoire de contre-exemples (<code>lab</code>)</h3>
-<p>Lorsqu'un exercice demande de démontrer si une propriété est vraie ou fausse (par exemple : <em>"Si <strong>ACADEMIC_TOKEN_9</strong>, alors <strong>ACADEMIC_TOKEN_10</strong> ? "</em>), l'étudiant peut tester sa conjecture dans le laboratoire :</p>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">lab = ex.lab()
-# Teste si la propriété est vraie pour des matrices aléatoires non carrées
-rapport_lab = lab.test_property(lambda A: (A.T @ A).is_identity() and (A @ A.T).is_identity())
-print(rapport_lab)
-</code></pre></div>
-<h3 id="37-verification-formelle-de-la-solution-verify">3.7 Vérification formelle de la solution (<code>verify</code>)</h3>
-<p>L'étudiant soumet sa proposition de réponse finale :</p>
+<h3 id="35-prediction-et-laboratoire-de-contre-exemples-predict-lab">3.5 Prédiction et laboratoire de contre-exemples (<code>predict</code>, <code>lab</code>)</h3>
+<p>Pour les exercices vrai/faux (vérificateur <code>labo</code>), l'étudiant doit <strong>s'engager avant d'explorer</strong> : il enregistre sa prédiction avec <code>predict</code>, puis seulement ouvre le laboratoire. Appeler <code>lab()</code> sans prédiction lève une <code>PedagopyError</code>.</p>
+<p>Exemple avec l'exercice 3.3 (<em><strong>ACADEMIC_TOKEN_16</strong> et <strong>ACADEMIC_TOKEN_17</strong> ; a-t-on (a) <strong>ACADEMIC_TOKEN_18</strong>, (b) <strong>ACADEMIC_TOKEN_19</strong>, (c) <strong>ACADEMIC_TOKEN_20</strong> ?</em>) :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Vector
 
-reponse = Vector([2, 1, 0])
-rapport = ex.verify(reponse)
-print(rapport.message)
-print("Succès :", rapport.is_valid)
+ex33 = exercise("3.3")
+print(ex33.predict(a="peut être faux", b="toujours vrai", c="peut être faux"))
+
+lab = ex33.lab()
+rapport_lab = lab.test(a=Vector([1, 0, 0]), b=Vector([1, 1, 0]), c=Vector([0, 0, 1]))
+print(rapport_lab.hypotheses_satisfied)   # True  (a ⊥ c et b ⊥ c)
+print(dict(rapport_lab.results_by_part))  # {'a': False, 'b': True, 'c': False}
+print(rapport_lab.found_counterexample)   # True
+print(rapport_lab.message)
 </code></pre></div>
-<p>Si la réponse est incorrecte, le vérificateur analyse la cause de l'erreur :
-- Mauvaise dimension.
-- Erreur de signe ou d'inversion d'indices.
-- Non-orthogonalité du résidu.
-- Non-appartenance au sous-espace demandé.</p>
+<p><code>lab.test(**instances)</code> renvoie un <code>LabReport</code> (<code>hypotheses_satisfied</code>, <code>results_by_part</code>, <code>found_counterexample</code>, <code>message</code>). Le laboratoire rappelle qu'un essai concluant ne démontre pas une affirmation « toujours vraie ».</p>
+<h3 id="36-verification-de-la-solution-verify">3.6 Vérification de la solution (<code>verify</code>)</h3>
+<p>L'étudiant soumet sa réponse finale ; <code>verify</code> renvoie un <code>VerificationResult</code> immuable (<code>valid</code>, <code>diagnostic</code>, <code>simplicity_note</code> ; alias <code>valide</code>, <code>note_simplicite</code>) :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix
+
+reponse = Matrix.zeros(3, 6)
+rapport = ex.verify(reponse)
+print("Succès :", rapport.valid)   # False
+print(rapport.diagnostic)
+# Taille correcte (3 x 6).
+# Votre ligne 1 calcule d_1 = 0.
+# Relisez la définition de d_1 : quel est le prix « du jour » pour i = 1 ?
+</code></pre></div>
+<p>Le diagnostic dépend du type de vérificateur : taille incorrecte, ligne ou coefficient erroné, erreur typique (signe, décalage d'indice), propriété non satisfaite, etc. Il ne révèle jamais la réponse attendue. Une réponse correcte déverrouille les données de l'exercice.</p>
 <hr/>
 <h2 id="4-journal-dapprentissage-persistant-et-atomique-exercisejournal">4. Journal d'apprentissage persistant et atomique (<code>ExerciseJournal</code>)</h2>
-<p>Toutes les interactions de l'étudiant sont automatiquement journalisées dans <code>.linalg_pedagopy_journal.json</code> :
-- <strong>Persistance de session</strong> : Si le noyau Python ou Jupyter est redémarré, le rechargement de l'exercice reprend l'historique exact (indices déjà dévoilés, nombre de tentatives, temps de recherche écoulé).
-- <strong>Écriture atomique</strong> : Les données sont écrites dans un fichier temporaire <code>.linalg_pedagopy_journal.json.tmp</code> avant d'écraser le fichier de destination par remplacement atomique, évitant toute corruption en cas d'interruption.</p>
+<p>Toutes les interactions de l'étudiant (tentatives, indices, jumeau, prédictions, essais au laboratoire, temps passé) sont journalisées dans le fichier <code>config.journal_path</code> (par défaut <code>.linalg_pedagopy_journal.json</code> dans le répertoire courant, ou le chemin passé à <code>exercise(..., journal_path=...)</code>) :
+- <strong>Persistance de session</strong> : au rechargement d'un exercice (après redémarrage du noyau par exemple), le journal existant est relu : indices déjà débloqués, nombre de tentatives et temps écoulé sont repris.
+- <strong>Écriture atomique</strong> : les données sont d'abord écrites dans un fichier temporaire <code>&lt;nom&gt;.&lt;pid&gt;.tmp</code> du même dossier, qui remplace ensuite le fichier de destination (<code>os.replace</code>), évitant toute corruption en cas d'interruption.</p>
+<p>Le bilan est accessible par <code>ex.summary()</code> (alias <code>ex.bilan()</code>) :</p>
+<div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">=== Bilan de l'exercice 6.4 ===
+- Statut               : En cours
+- Tentatives soumises  : 1
+- Indices consultés    : 1, 2, 3, 4
+- Exercice jumeau lu   : oui
+- Essais au labo       : 0
+- Temps passé          : 0.3 s
+</code></pre></div>
 <hr/>
 <h2 id="5-interface-interactive-jupyterlab-panel">5. Interface interactive JupyterLab (<code>panel</code>)</h2>
-<p>Dans un carnet Jupyter interactif, l'étudiant peut invoquer le panneau graphique basé sur <code>ipywidgets</code> :</p>
+<p>Dans JupyterLab, avec <code>ipywidgets</code> installé (extra <code>tuteur</code>), l'étudiant peut afficher un petit panneau graphique :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.panel()
 </code></pre></div>
 <p>Ce panneau affiche :
-- Un onglet avec l'énoncé formaté en LaTeX.
-- Des boutons d'indices se débloquant au clic.
-- Une zone de saisie pour soumettre des vecteurs ou matrices.
-- Un retour visuel immédiat avec message formaté en vert ou rouge.</p>
+- un en-tête avec le numéro et l'énoncé de l'exercice ;
+- trois boutons : <strong>Indice suivant (1–4)</strong>, <strong>Exercice jumeau</strong> et <strong>Bilan</strong> ;
+- une zone de texte où s'affiche la réponse du tuteur.</p>
+<p>La soumission d'une réponse se fait dans une cellule avec <code>ex.verify(...)</code>. Sans <code>ipywidgets</code>, <code>panel()</code> renvoie un objet de repli textuel (<code>PanelFallback</code>).</p>
 <hr/>
 <h2 id="6-mode-enseignant">6. Mode Enseignant</h2>
-<p>L'enseignant peut basculer l'environnement en mode superviseur :</p>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.config import config
+<p>L'enseignant peut basculer le tuteur en mode enseignant (<code>"teacher"</code> / <code>"enseignant"</code>, retour avec <code>"student"</code> / <code>"etudiant"</code>) :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tutor
 
-config.tutor_mode = "teacher"
+tutor.mode("teacher")            # équivalent : config.tutor_mode = "teacher"
 
-# Accès à la fiche complète du professeur
 ex = exercise("6.4")
-fiche_prof = ex.teacher_sheet()
-print(fiche_prof.full_solution)
-print(fiche_prof.pedagogical_remarks)
+fiche_prof = ex.teacher_sheet()  # TeacherSheet (dict) ; PermissionError en mode étudiant
+print(list(fiche_prof.keys()))
+print(fiche_prof["verification"]["cible"])
+fiche_prof                       # dans JupyterLab : rendu Markdown complet de la fiche
+
+tutor.mode("student")
 </code></pre></div>
+<p>En mode enseignant, les données de l'exercice sont également déverrouillées.</p>
       </article>
 
       <!-- Navigation entre chapitres -->
@@ -380,15 +420,11 @@ print(fiche_prof.pedagogical_remarks)
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#35-prediction-detapes-predict">3.5 Prédiction d'étapes (predict)</a>
+          <a href="#35-prediction-et-laboratoire-de-contre-exemples-predict-lab">3.5 Prédiction et laboratoire de contre-exemples (predict, lab)</a>
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#36-le-laboratoire-de-contre-exemples-lab">3.6 Le Laboratoire de contre-exemples (lab)</a>
-        </li>
-        
-        <li class="toc-item toc-h3">
-          <a href="#37-verification-formelle-de-la-solution-verify">3.7 Vérification formelle de la solution (verify)</a>
+          <a href="#36-verification-de-la-solution-verify">3.6 Vérification de la solution (verify)</a>
         </li>
         
         <li class="toc-item ">

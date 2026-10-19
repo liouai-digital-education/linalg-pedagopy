@@ -160,11 +160,11 @@
 </li>
 <li>
 <p><a href="02_vectors_and_matrices.html"><strong>02. Vecteurs, Matrices et Métriques VMLS</strong></a><br/>
-   Objets immuables <code>Vector</code> et <code>Matrix</code>, initialisation, métriques VMLS (norme euclidienne, angle, corrélation, distance RMS, projection orthogonale), les 4 vues du produit matriciel (combinaison linéaire des colonnes, produit scalaire ligne-colonne, somme de produits externes, décomposition par blocs), propriétés matricielles (rang, noyau, image, rref, déterminant, inverse, détection de singularité).</p>
+   Objets immuables <code>Vector</code> et <code>Matrix</code>, constructeurs, métriques VMLS (norme, valeur RMS, moyenne, écart type, distance, angle, corrélation), les 4 vues du produit matriciel (<code>view='entries'</code>, <code>'rows'</code>, <code>'columns'</code>, <code>'outer'</code>), matrices par blocs (<code>Matrix.block</code>), matrice de Gram, et propriétés avec discussion paramétrique (<code>rref</code>, <code>rank</code>, <code>nullspace</code>, <code>inv</code>, <code>solve</code>).</p>
 </li>
 <li>
 <p><a href="03_algorithms_and_step_tracing.html"><strong>03. Algorithmes fondamentaux et Traçabilité hiérarchique</strong></a><br/>
-   Architecture de traçabilité (<code>Tracer</code>, context manager <code>tracing()</code>, niveaux de détail 0 à 3, <code>Highlight</code>, <code>Step</code>), élimination de Gauss-Jordan (<code>GaussJordan</code>, pivotage formel, opérations élémentaires, calcul simultané d'inverses), substitutions triangulaires (<code>ForwardSubstitution</code>, <code>BackSubstitution</code>), orthogonalisation de Gram-Schmidt (<code>GramSchmidt</code>), factorisation QR (<code>QR</code>, Householder, Givens) et régression par moindres carrés (<code>LeastSquares</code>, équations normales, QR, projection orthogonale).</p>
+   Architecture de traçabilité (<code>Tracer</code>, context manager <code>tracing()</code>, niveaux de détail 0 à 3, <code>Highlight</code>, <code>Step</code>), élimination de Gauss-Jordan (<code>GaussJordan</code>, pivotage formel, opérations élémentaires, calcul simultané d'inverses), substitutions triangulaires (<code>ForwardSubstitution</code>, <code>BackSubstitution</code>), orthogonalisation de Gram-Schmidt (<code>GramSchmidt</code>), factorisation QR exacte via Gram-Schmidt (<code>QR</code>, forme rationnelle sans radicaux <strong>ACADEMIC_TOKEN_0</strong>) et moindres carrés (<code>LeastSquares</code>, méthodes <code>'rational_qr'</code>, <code>'qr'</code> et <code>'normal'</code>).</p>
 </li>
 <li>
 <p><a href="04_vmls_tutor.html"><strong>04. Le Tuteur Interactif VMLS (<code>tutor</code> / <code>tuteur</code>)</strong></a><br/>
@@ -172,11 +172,11 @@
 </li>
 <li>
 <p><a href="05_pedagogical_exercises_and_sessions.html"><strong>05. Exercices pédagogiques et Sessions interactives</strong></a><br/>
-   Générateurs d'exercices à résultats propres (<code>generators.py</code> : matrices de différence, moyennes mobiles, sommes cumulées, Vandermonde, matrices unimodulaires, orthogonales de Cayley, etc.), sessions interactives guidées (<code>InteractiveSession</code>, modes <code>read</code>, <code>predict_reveal</code>, <code>completion</code>, <code>autonomous</code>), et diagnostic automatique des erreurs étudiantes types (Annexe C).</p>
+   Générateurs d'exercices à résultats propres (matrices unimodulaires, matrices à RREF entière, matrices à QR rationnelle, moindres carrés propres, systèmes paramétriques, orthogonales de Cayley) et générateurs d'exercices jumeaux (<code>generators</code> / <code>generateurs</code>), sessions interactives guidées (<code>InteractiveSession</code>, modes <code>read</code>, <code>predict_reveal</code>, <code>completion</code>, <code>autonomous</code>), et diagnostic automatique des erreurs étudiantes types (<code>check_row_operation</code>, <code>check_gram_schmidt_step</code>).</p>
 </li>
 <li>
 <p><a href="06_rendering_visualization_and_numerics.html"><strong>06. Rendu, Visualisation et Comparaison Numérique</strong></a><br/>
-   Moteurs de rendu multi-formats (<code>Explanation</code>, LaTeX, Markdown, HTML, texte Unicode), localisation multilingue (<code>locales/fr.yaml</code>, <code>locales/en.yaml</code>), figures géométriques 2D et 3D avec Matplotlib (<code>plot</code>), et comparaison du calcul exact avec les bibliothèques numériques flottantes (<code>compare</code> avec NumPy/SciPy, matrices de Hilbert, matrices de Läuchli, perte d'orthogonalité, conditionnement).</p>
+   Moteurs de rendu multi-formats (<code>Explanation</code>, LaTeX, Markdown, HTML, texte Unicode), localisation des libellés (<code>locales/fr.yaml</code>, seule locale fournie), figures géométriques 2D et 3D avec Matplotlib (<code>plot</code>), et comparaison du calcul exact avec les bibliothèques numériques flottantes (<code>compare</code> avec NumPy, matrices de Hilbert, matrices de Läuchli, perte d'orthogonalité, conditionnement).</p>
 </li>
 <li>
 <p><a href="07_api_reference.html"><strong>07. Référence complète de l'API</strong></a><br/>
@@ -225,24 +225,27 @@ print(result.explain())
 <h3 id="premiere-session-avec-le-tuteur-vmls">Première session avec le Tuteur VMLS</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.tutor import exercise
 
-# Chargement d'un exercice VMLS (ex: projection orthogonale)
+# Chargement d'un exercice VMLS (ex. 6.4 : écart à la moyenne glissante, d = Ap)
 ex = exercise("6.4")
 
 # Consultation de l'énoncé mathématique
-print(ex.statement())
+ex.statement()            # objet Markdown, rendu avec LaTeX dans JupyterLab
+print(ex.statement())     # ou en texte brut
 
 # Demande d'un indice progressif (sans divulgation de la solution)
 print(ex.hint())
 
 # Étude de l'exercice jumeau résolu
-print(ex.twin().statement)
-print(ex.twin().solution_summary)
+jumeau = ex.twin()
+print(jumeau.statement)
+print(jumeau.solution_summary)
 
 # Test d'une réponse candidate
 from linalg_pedagopy import Vector
 reponse_etudiant = Vector([1, 2, 3])
-rapport = ex.verify(reponse_etudiant)
-print(rapport)
+rapport = ex.verify(reponse_etudiant)   # VerificationResult(valid, diagnostic)
+print(rapport.valid)
+print(rapport.diagnostic)
 </code></pre></div>
 <hr/>
 <h2 id="philosophie-et-choix-de-conception">🎯 Philosophie et Choix de Conception</h2>
@@ -263,13 +266,13 @@ print(rapport)
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Oracle de nullité à 4 verdicts</strong></td>
-<td style="text-align: left;"><code>Verdict.ZERO</code>, <code>Verdict.NONZERO</code>, <code>Verdict.CONDITIONAL</code>, <code>Verdict.UNKNOWN</code>. Simplification par <code>unrad</code>.</td>
+<td style="text-align: left;"><code>Verdict.ZERO</code>, <code>Verdict.NONZERO</code>, <code>Verdict.CONDITIONAL</code>, <code>Verdict.UNKNOWN</code>. Élimination des radicaux par <code>sympy.unrad</code>.</td>
 <td style="text-align: left;">Empêche les divisions sauvages par une quantité formelle potentiellement nulle.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Branchement paramétrique automatique</strong></td>
 <td style="text-align: left;">Arbre de cas <code>CaseSplit</code> avec partition disjointe et propagation des contraintes (<code>Condition</code>).</td>
-<td style="text-align: left;">L'étudiant visualise la géométrie des sous-espaces exceptionnels (<strong>ACADEMIC_TOKEN_0</strong>, <strong>ACADEMIC_TOKEN_1</strong>).</td>
+<td style="text-align: left;">L'étudiant visualise la géométrie des sous-espaces exceptionnels (<strong>ACADEMIC_TOKEN_1</strong>, <strong>ACADEMIC_TOKEN_2</strong>).</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Immutabilité rigoureuse</strong></td>
@@ -362,13 +365,13 @@ print(rapport)
 </tr>
 <tr>
 <td style="text-align: left;">Mode d'exécution</td>
-<td style="text-align: left;"><code>config.tutor_mode = "student"</code></td>
-<td style="text-align: left;"><code>config.tutor_mode = "etudiant"</code></td>
+<td style="text-align: left;"><code>tutor.mode("student")</code> / <code>tutor.mode("teacher")</code></td>
+<td style="text-align: left;"><code>tuteur.mode("etudiant")</code> / <code>tuteur.mode("enseignant")</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Générateurs</td>
 <td style="text-align: left;"><code>generators.moving_average(...)</code></td>
-<td style="text-align: left;"><code>generateurs.moyenne_mobile(...)</code></td>
+<td style="text-align: left;"><code>generateurs.moyenne_glissante(...)</code></td>
 </tr>
 </tbody>
 </table>

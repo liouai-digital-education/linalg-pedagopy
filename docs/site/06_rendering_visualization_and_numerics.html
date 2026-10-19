@@ -151,7 +151,7 @@
 <p>Le package <code>linalg_pedagopy</code> offre des moteurs d'affichage polyvalents, un module graphique géométrique basé sur Matplotlib, ainsi qu'un banc de comparaison formel/numérique pour illustrer les limites du calcul flottant.</p>
 <hr/>
 <h2 id="1-moteurs-de-rendu-multi-formats-explanation">1. Moteurs de rendu multi-formats (<code>Explanation</code>)</h2>
-<p>Toutes les procédures algorithmiques renvoient un résultat muni d'une méthode <a href="src/linalg_pedagopy/algorithms/base.py"><code>explain(level=...)</code></a> produisant une instance immuable d'<a href="src/linalg_pedagopy/render/explanation.py"><code>Explanation</code></a>.</p>
+<p>Toutes les procédures algorithmiques renvoient un résultat muni d'une méthode <a href="../../src/linalg_pedagopy/algorithms/base.py"><code>explain(level=...)</code></a> produisant une instance immuable d'<a href="../../src/linalg_pedagopy/render/explanation.py"><code>Explanation</code></a>.</p>
 <p><strong>ACADEMIC_TOKEN_0</strong></p>
 <h3 id="11-formats-de-sortie-disponibles">1.1 Formats de sortie disponibles</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, GaussJordan
@@ -172,24 +172,28 @@ print(exp.to_markdown())
 
 # 4. Rendu HTML avec classes CSS
 html_code = exp.to_html()
+
+# 5. Enregistrement dans un fichier (format déduit de l'extension)
+# exp.save("gauss_jordan.tex")
 </code></pre></div>
+<p>Le paramètre <code>fmt</code> de <code>explain(level=..., fmt="auto")</code> fixe le format utilisé pour l'affichage automatique ; les méthodes <code>to_text()</code>, <code>to_latex()</code>, <code>to_markdown()</code> et <code>to_html()</code> acceptent aussi un argument <code>level</code> pour filtrer à nouveau la trace.</p>
 <p>Dans un environnement JupyterLab ou Jupyter Notebook, l'objet <code>Explanation</code> implémente <code>_repr_markdown_()</code> : il s'affiche automatiquement avec un rendu typographique soigné grâce au moteur KaTeX/MathJax sans qu'aucun appel à <code>print()</code> ne soit nécessaire.</p>
 <h3 id="12-localisation-et-multilinguisme-locales">1.2 Localisation et multilinguisme (<code>locales</code>)</h3>
-<p>Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans <a href="src/linalg_pedagopy/render/locales/"><code>src/linalg_pedagopy/render/locales/</code></a> (<code>fr.yaml</code> et <code>en.yaml</code>).</p>
-<p>La langue s'ajuste globalement ou localement :</p>
+<p>Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans <a href="../../src/linalg_pedagopy/render/locales/"><code>src/linalg_pedagopy/render/locales/</code></a>. <strong>Seule la locale française (<code>fr.yaml</code>) est fournie actuellement.</strong></p>
+<p>La locale active est lue dans <code>config.locale</code> (par défaut <code>"fr"</code>) et peut être changée globalement ou localement ; une locale sans fichier YAML (par exemple <code>"en"</code>) retombe sur les messages français :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.config import config, using_config
 
-# Basculement global en anglais
-config.locale = "en"
+print(config.locale)          # fr
 
-# Basculement temporaire en français
-with using_config(locale="fr"):
+# Changement temporaire de locale (ici sans effet visible : en.yaml n'existe pas encore)
+with using_config(locale="en"):
     print(res.explain())
 </code></pre></div>
+<p>Pour ajouter une langue, il suffit de créer <code>locales/&lt;code&gt;.yaml</code> avec les mêmes clés que <code>fr.yaml</code>.</p>
 <hr/>
 <h2 id="2-visualisation-geometrique-2d-et-3d-linalg_pedagopyplot">2. Visualisation géométrique 2D et 3D (<code>linalg_pedagopy.plot</code>)</h2>
-<p>Le sous-module <a href="src/linalg_pedagopy/plot/geometry.py"><code>linalg_pedagopy.plot</code></a> fournit des représentations géométriques directes des concepts vectoriels de VMLS via Matplotlib.</p>
-<p><strong>ACADEMIC_TOKEN_25</strong></p>
+<p>Le sous-module <a href="../../src/linalg_pedagopy/plot/geometry.py"><code>linalg_pedagopy.plot</code></a> fournit des représentations géométriques directes des concepts vectoriels de VMLS via Matplotlib.</p>
+<p><strong>ACADEMIC_TOKEN_23</strong></p>
 <h3 id="21-fonctions-graphiques-disponibles">2.1 Fonctions graphiques disponibles</h3>
 <table>
 <thead>
@@ -201,22 +205,22 @@ with using_config(locale="fr"):
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><code>plot_linear_combination_2d(u, v, c1, c2)</code></td>
+<td style="text-align: left;"><code>plot_linear_combination_2d(u, v, c1=1, c2=1, *, ax=None)</code></td>
 <td style="text-align: left;">Règle du parallélogramme pour la combinaison linéaire <strong>ACADEMIC_TOKEN_2</strong>.</td>
 <td style="text-align: center;"><strong>ACADEMIC_TOKEN_3</strong></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>plot_orthogonal_projection_2d(a, q)</code></td>
+<td style="text-align: left;"><code>plot_orthogonal_projection_2d(a, q, *, ax=None)</code></td>
 <td style="text-align: left;">Projection orthogonale de <strong>ACADEMIC_TOKEN_4</strong> sur la droite <strong>ACADEMIC_TOKEN_5</strong> et vecteur résidu.</td>
 <td style="text-align: center;"><strong>ACADEMIC_TOKEN_6</strong></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>plot_gram_schmidt_2d(vectors)</code></td>
+<td style="text-align: left;"><code>plot_gram_schmidt_2d(vectors, *, ax=None)</code></td>
 <td style="text-align: left;">Tracé simultané des vecteurs initiaux et de la base orthonormée <strong>ACADEMIC_TOKEN_7</strong>.</td>
 <td style="text-align: center;"><strong>ACADEMIC_TOKEN_8</strong></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>plot_least_squares_fit(x_data, y_data, ls_result)</code></td>
+<td style="text-align: left;"><code>plot_least_squares_fit(x_data, y_data, ls_result, *, ax=None)</code></td>
 <td style="text-align: left;">Nuage de points, droite/modèle ajusté <strong>ACADEMIC_TOKEN_9</strong> et résidus verticaux.</td>
 <td style="text-align: center;">Plan</td>
 </tr>
@@ -248,7 +252,7 @@ plt.show()
 </code></pre></div>
 <hr/>
 <h2 id="3-comparaison-exact-vs-virgule-flottante-linalg_pedagopycompare">3. Comparaison Exact vs Virgule Flottante (<code>linalg_pedagopy.compare</code>)</h2>
-<p>Dans l'esprit du chapitre 5 de <em>VMLS</em>, le module <a href="src/linalg_pedagopy/compare/numeric.py"><code>linalg_pedagopy.compare</code></a> permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 <code>float64</code> sous NumPy).</p>
+<p>Dans l'esprit du chapitre 5 de <em>VMLS</em>, le module <a href="../../src/linalg_pedagopy/compare/numeric.py"><code>linalg_pedagopy.compare</code></a> permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 <code>float64</code> sous NumPy).</p>
 <h3 id="31-la-fonction-universelle-compare">3.1 La fonction universelle <code>compare</code></h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, GaussJordan, compare
 
@@ -256,11 +260,11 @@ A = Matrix([[1, 2], [3, 4]])
 b = Vector([5, 11])
 proc = GaussJordan(A, b)
 
-rapport = compare(proc)
-print("Écart absolu maximal :", rapport.max_abs_error)
+rapport = compare(proc)        # ou compare(GaussJordan, (A, b))
+print("Écart absolu maximal :", rapport.max_abs_error)   # 0.0
 print("Résumé :", rapport.summary)
 </code></pre></div>
-<p>Le rapport <a href="src/linalg_pedagopy/compare/numeric.py#L48-L60"><code>ComparisonReport</code></a> résume l'erreur absolue, la dérive relative et, le cas échéant, la perte d'orthogonalité.</p>
+<p>Le rapport <a href="../../src/linalg_pedagopy/compare/numeric.py"><code>ComparisonReport</code></a> contient <code>procedure_name</code>, <code>exact_result</code>, <code>float_result</code>, <code>max_abs_error</code>, <code>orthogonality_defect_float</code> (pour <code>GramSchmidt</code> et <code>QR</code>) et <code>summary</code>.</p>
 <h3 id="32-cas-decole-1-la-matrice-de-lauchli-et-la-perte-dorthogonalite">3.2 Cas d'école 1 : La matrice de Läuchli et la perte d'orthogonalité</h3>
 <p>La matrice de Läuchli <strong>ACADEMIC_TOKEN_16</strong> est définie par :
 <strong>ACADEMIC_TOKEN_1</strong></p>
@@ -270,16 +274,38 @@ from linalg_pedagopy import GramSchmidt
 
 # Matrice de Läuchli avec epsilon = 10^-8
 L = build_lauchli_matrix(n=3, epsilon="1/100000000")
-proc = GramSchmidt(L.columns)
+proc = GramSchmidt(L)          # une Matrix est acceptée (ses colonnes)
 
 rapport = compare(proc)
-print("Défaut d'orthogonalité en float64 :", rapport.orthogonality_defect_float)
+print("Défaut d'orthogonalité en float64 :", rapport.orthogonality_defect_float)  # ≈ 0.5
 # En virgule flottante, les vecteurs q2 et q3 ne sont plus du tout orthogonaux !
 # En calcul formel linalg_pedagopy, l'orthogonalité est rigoureusement exacte.
 </code></pre></div>
+<p>Des expériences prêtes à l'emploi comparent aussi Gram-Schmidt classique, modifié et exact, ainsi que les équations normales et QR :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.compare import (
+    lauchli_gram_schmidt_experiment,
+    lauchli_least_squares_experiment,
+    hilbert_conditioning_experiment,
+    explicit_inverse_vs_solve_experiment,
+)
+
+print(lauchli_gram_schmidt_experiment())
+# Matrice de Läuchli (4x3, ε = 1.0e-08) :
+# - Exact (SymPy)              : max |q_i^T q_j - δ_ij| = 0
+# - Gram-Schmidt classique     : max |q_i^T q_j - δ_ij| = 0.5000 (perte totale d'orthogonalité)
+# - Gram-Schmidt modifié (MGS) : max |q_i^T q_j - δ_ij| = 7.07e-09
+</code></pre></div>
 <h3 id="33-cas-decole-2-la-matrice-de-hilbert-et-le-mauvais-conditionnement">3.3 Cas d'école 2 : La matrice de Hilbert et le mauvais conditionnement</h3>
-<p>La matrice de Hilbert d'ordre <strong>ACADEMIC_TOKEN_20</strong>, <strong>ACADEMIC_TOKEN_21</strong>, est célèbre pour son conditionnement exponentiellement grand (<strong>ACADEMIC_TOKEN_22</strong>).</p>
-<p>Dès <strong>ACADEMIC_TOKEN_23</strong>, un solveur numérique flottant traditionnel produit des solutions complètement fausses (erreur relative <strong>ACADEMIC_TOKEN_24</strong>). Avec <code>linalg_pedagopy</code>, les coefficients restent des fractions rationnelles exactes irréductibles, quelle que soit la dimension.</p>
+<p>La matrice de Hilbert d'ordre <strong>ACADEMIC_TOKEN_20</strong>, <strong>ACADEMIC_TOKEN_21</strong> (indices à partir de 0), est célèbre pour son conditionnement qui croît exponentiellement (<strong>ACADEMIC_TOKEN_22</strong>).</p>
+<p>L'erreur relative d'un solveur flottant croît avec ce conditionnement, alors qu'avec <code>linalg_pedagopy</code> les coefficients restent des fractions exactes, quelle que soit la dimension :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(hilbert_conditioning_experiment())
+# Matrices de Hilbert H_n :
+# - n =  3 : cond(H_n) ≈ 5.24e+02, erreur relative flottante ≈ 8.36e-15 (exact : 0)
+# - n =  5 : cond(H_n) ≈ 4.77e+05, erreur relative flottante ≈ 1.68e-12 (exact : 0)
+# - n =  7 : cond(H_n) ≈ 4.75e+08, erreur relative flottante ≈ 1.01e-09 (exact : 0)
+# - n =  9 : cond(H_n) ≈ 4.93e+11, erreur relative flottante ≈ 1.18e-06 (exact : 0)
+</code></pre></div>
+<p>(les erreurs flottantes exactes peuvent varier légèrement selon la plateforme).</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.compare import build_hilbert_matrix
 from linalg_pedagopy import Vector, GaussJordan
 
@@ -289,7 +315,7 @@ b = Vector([1] * 8)
 
 res = GaussJordan(H, b).run()
 print("Solution exacte rationnelle :")
-print(res.solution.x)
+print(res.solution.x)   # (-8, 504, -7560, 46200, -138600, 216216, -168168, 51480)
 </code></pre></div>
       </article>
 

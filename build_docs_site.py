@@ -1192,6 +1192,10 @@ def preprocess_markdown(text: str) -> tuple[str, list[str]]:
     # 5. Réajuster les liens .md en .html
     text = re.sub(r"\(([\w_-]+)\.md\)", r"(\1.html)", text)
 
+    # 6. Les liens relatifs vers le code source (../src/...) sont écrits depuis docs/ ;
+    #    les pages HTML vivent dans docs/site/, d'où un niveau supplémentaire.
+    text = re.sub(r"\(\.\./((?:src|tests)/[^)\s]*)\)", r"(../../\1)", text)
+
     return text, tokens
 
 

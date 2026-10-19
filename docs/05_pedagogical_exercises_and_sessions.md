@@ -12,54 +12,29 @@ Dans un cours d'algèbre linéaire, générer des matrices avec des entiers alé
 
 Cette complexité arithmétique parasite masque la compréhension des concepts géométriques fondamentaux. `linalg_pedagopy` résout ce problème grâce à des générateurs à **résultats propres garantis**.
 
-### 1.2 Matrices structurelles de VMLS
+### 1.2 Générateurs à résultats propres
 
-Le sous-module [`generators`](src/linalg_pedagopy/exercises/generators.py) fournit les matrices remarquables étudiées dans *VMLS* :
+Le module [`generators.py`](../src/linalg_pedagopy/exercises/generators.py) fournit des fonctions de génération reproductibles (paramètre `seed`) dont les résultats sont garantis « propres » :
 
-```python
-from linalg_pedagopy.exercises import generators
-
-# Matrice de différences D d'ordre 4 (D x = [x₂-x₁, x₃-x₂, x₄-x₃])
-D = generators.difference_matrix(4)
-print(D)
-
-# Matrice de somme cumulée S d'ordre 4 (S = D⁻¹)
-S = generators.running_sum_matrix(4)
-print(S)
-
-# Matrice de moyenne mobile (Moving average) sur n=5 avec fenêtre k=3
-A_ma = generators.moving_average(5, 3)
-print(A_ma)
-
-# Matrice de Vandermonde associée aux points x = [0, 1, 2] de degré 2
-V = generators.vandermonde([0, 1, 2], degree=2)
-print(V)
-
-# Matrice de Gram G = A^T A
-G = generators.gram_matrix(V)
-print(G)
-```
-
-### 1.3 Générateurs aléatoires reproductibles à solutions élégantes
-
-Tous les générateurs acceptent un paramètre `seed` pour assurer la reproductibilité stricte en examen ou devoir :
-
-| Fonction | Description mathématique | Résultat garanti |
+| Fonction | Description mathématique | Valeur renvoyée |
 | :--- | :--- | :--- |
-| `generate_unimodular_matrix(n, seed, difficulty)` | Produit d'opérations élémentaires entières unipotentes. | Matrice entière inversible d'inverse entière ($\det = \pm 1$). |
-| `cayley_orthogonal(S)` | Transformée de Cayley $Q = (I - S)(I + S)^{-1}$ appliquée à une matrice antisymétrique $S$. | Matrice orthogonale exacte à coefficients rationnels. |
-| `generate_rational_qr_matrix(m, n, seed)` | Synthèse d'une matrice $A$ via une base orthogonale rationnelle. | Factorisation $A = QR$ sans radicaux irrationnels. |
-| `generate_integer_rref_matrix(m, n, rank, seed)` | Matrice entière de taille $m \times n$ et de rang prescrit $r$. | Forme échelonnée réduite (RREF) et pivots strictement entiers. |
-| `generate_parametric_system(n, seed)` | Système linéaire $A(a) x = b(a)$ dépendant d'un paramètre $a$. | Valeurs critiques d'incompatibilité ou de rang déficient simples ($a \in \{0, \pm 1, \pm 2\}$). |
-| `generate_clean_least_squares(m, n, seed)` | Problème de régression surdéterminé $\min \|A x - b\|^2$. | Estimateur $\hat{x}$ et résidu $\hat{r}$ à coordonnées rationnelles simples. |
+| `generate_unimodular_matrix(n=3, *, seed=None, difficulty=1)` | Produit d'opérations élémentaires entières. | Matrice entière de déterminant $\pm 1$, d'inverse entière. |
+| `generate_integer_rref_matrix(m=3, n=4, rank=2, *, seed=None, difficulty=1)` | Matrice entière $m \times n$ de rang prescrit. | Couple `(A, R)` avec `R = rref(A)` à coefficients entiers. |
+| `generate_rational_qr_matrix(n=3, *, seed=None, difficulty=1)` | Matrice construite à partir d'une orthogonale de Cayley rationnelle. | Triplet `(A, Q, R)` rationnel exact, sans radicaux. |
+| `generate_clean_least_squares(m=4, n=2, *, seed=None, difficulty=1)` | Problème surdéterminé $\min \|A x - b\|^2$ ($m > n$). | Quadruplet `(A, b, x_hat, r_hat)` avec `x_hat` entier et $A^T \hat r = 0$. |
+| `generate_parametric_system(n=3, *, param_name="a", critical_value=1, seed=None, difficulty=1)` | Système $A(a) x = b$ dont le déterminant s'annule en une valeur critique. | Quadruplet `(A, b, a, a_crit)`. |
+| `cayley_orthogonal(S)` | Transformée de Cayley $Q = (I - S)(I + S)^{-1}$ d'une matrice antisymétrique $S$. | Matrice orthogonale exacte à coefficients rationnels. |
 
 Exemple :
 
 ```python
+from linalg_pedagopy import LeastSquares, Matrix
 from linalg_pedagopy.exercises import (
     generate_unimodular_matrix,
+    generate_integer_rref_matrix,
     generate_clean_least_squares,
-    generate_parametric_system
+    generate_parametric_system,
+    cayley_orthogonal,
 )
 
 # Matrice entière d'ordre 3 d'inverse entière
@@ -67,18 +42,55 @@ U = generate_unimodular_matrix(3, seed=42)
 print("U =\n", U)
 print("U^-1 =\n", U.inv())
 
+# Matrice de rang 2 dont la RREF est entière
+A, R = generate_integer_rref_matrix(3, 4, 2, seed=1)
+print(A.rref() == R)                    # True
+
 # Problème de moindres carrés propre
-A_ls, b_ls = generate_clean_least_squares(4, 2, seed=123)
-from linalg_pedagopy import LeastSquares
+A_ls, b_ls, x_attendu, r_attendu = generate_clean_least_squares(4, 2, seed=123)
 res = LeastSquares(A_ls, b_ls).run()
-print("x_hat =", res.x_hat)  # Fractions simples (ex: 1/2, -1)
+print("x_hat =", res.x_hat, "attendu :", x_attendu)   # coordonnées entières
+
+# Système paramétré et valeur critique
+A_p, b_p, a, a_crit = generate_parametric_system(3, seed=7)
+print(a, a_crit)                        # a 1
+
+# Orthogonale de Cayley
+Q = cayley_orthogonal(Matrix([[0, 1], [-1, 0]]))
+print(Q.has_orthonormal_columns())      # True
+```
+
+### 1.3 Générateurs d'exercices jumeaux (`generators` / `generateurs`)
+
+L'espace de noms `generators` (alias `generateurs`) regroupe les générateurs d'**exercices jumeaux résolus** appelés par les fiches du tuteur (champ `jumeau`). Chacun renvoie un `TwinExercise` (`title`, `statement`, `solution_summary`, `explanation`) :
+
+| Nom anglais | Alias français |
+| :--- | :--- |
+| `moving_average(window=2, n=5)` | `moyenne_glissante(fenetre=2, n=5)` |
+| `inner_product_selection(n=5, indices=(1, 4))` | `produit_scalaire_selection(...)` |
+| `vector_statistics(values=(2, -1, 5, 2))` | `statistiques_vecteur(...)` |
+| `orthogonal_combination(c1=2, c2=-3)` | `combinaison_orthogonale(...)` |
+| `expression_dimensions()` | `dimensions_expressions()` |
+| `counterexample_guide(famille=...)` | `contre_exemple_guide(...)` |
+| `polynomial_convolution(a_vals=(1, 2), b_vals=(3, -1, 1))` | `convolution_polynomes(...)` |
+| `right_inverse_example()` | `inverse_droite_exemple()` |
+| `gram_schmidt_example()` | `gram_schmidt_exemple()` |
+| `least_squares_example()` | `moindres_carres_exemple()` |
+| `kkt_minimum_norm()` | `kkt_norme_minimale()` |
+
+```python
+from linalg_pedagopy import generators
+
+tw = generators.moving_average(window=3, n=6)
+print(tw.title)          # Écart à la moyenne glissante (fenêtre $k=3$, $n=6$)
+print(tw.statement)
 ```
 
 ---
 
 ## 2. Sessions interactives pas-à-pas (`InteractiveSession`)
 
-La classe [`InteractiveSession`](src/linalg_pedagopy/exercises/interactive.py#L19-L180) transforme toute procédure algorithmique en un exercice d'apprentissage actif pour l'étudiant.
+La classe [`InteractiveSession`](../src/linalg_pedagopy/exercises/interactive.py) (`InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)`, ou `procedure.interactive(mode=...)`) transforme une procédure en exercice d'apprentissage actif.
 
 ### 2.1 Les 4 modes interactifs
 
@@ -91,12 +103,14 @@ stateDiagram-v2
     ChoixDuMode --> Autonomous : mode="autonomous" (Piloter les opérations)
 ```
 
-1. **Mode `"read"`** : L'étudiant avance pas à pas dans l'arbre d'exécution en appuyant sur « suivant ».
-2. **Mode `"predict_reveal"`** : L'étudiant doit formuler une prédiction de l'opération ou du coefficient suivant avant que le résultat ne soit affiché.
-3. **Mode `"completion"`** : Une fraction de la matrice ou des opérations est masquée (`mask_ratio=0.5`). L'étudiant doit saisir les coefficients manquants.
-4. **Mode `"autonomous"`** : L'étudiant applique lui-même les opérations élémentaires sur les lignes ou les vecteurs jusqu'à l'obtention de la solution.
+1. **Mode `"read"`** : l'étudiant avance dans les étapes élémentaires de la procédure avec `reveal()`.
+2. **Mode `"predict_reveal"`** : `reveal()` refuse d'afficher l'étape suivante tant qu'une prédiction n'a pas été enregistrée avec `predict("...")`.
+3. **Mode `"completion"`** : `completion_view()` renvoie la liste des étapes dont les dernières (proportion `mask_ratio`) sont masquées (`"??? (étape à compléter)"`).
+4. **Mode `"autonomous"`** *(Gauss-Jordan uniquement)* : l'étudiant applique lui-même les opérations élémentaires avec `propose("L2 <- L2 - 3*L1")` ; `hint()` suggère l'opération utile suivante et `is_complete()` indique si la forme échelonnée réduite est atteinte.
 
 ### 2.2 Exemple de session autonome sur Gauss-Jordan
+
+Les opérations s'écrivent sous forme de texte : échange `"L1 <-> L2"`, dilatation `"L2 <- (1/2)*L2"`, transvection `"L2 <- L2 - 3*L1"` (préfixe `only_A:` ou `propose(..., only_lhs=True)` pour n'agir que sur la partie gauche, ce qui est signalé comme une erreur).
 
 ```python
 from linalg_pedagopy import Matrix, Vector, GaussJordan
@@ -105,30 +119,44 @@ from linalg_pedagopy.exercises import InteractiveSession
 A = Matrix([[1, 2], [3, 8]])
 b = Vector([5, 17])
 
-proc = GaussJordan(A, b)
-session = InteractiveSession(proc, mode="autonomous")
+session = InteractiveSession(GaussJordan(A, b), mode="autonomous")
+print(session.hint())
+# Suggestion : annulez le coefficient (2,1) = 3 à l'aide de la ligne pivot L1.
 
-# L'étudiant propose une opération élémentaire de ligne
-# L2 <- L2 - 3 * L1
-feedback = session.apply_row_operation(target_row=1, source_row=0, factor=-3)
-print(feedback.message)
-print("Matrice courante :\n", session.current_matrix)
+feedback = session.propose("L2 <- L2 - 3*L1")
+print(feedback.status, "|", feedback.message)
+# valid_useful | Valide. Le coefficient (2,1) est maintenant nul : progression vers la forme échelonnée.
 
-# Normalisation du pivot : L2 <- 1/2 * L2
-feedback2 = session.scale_row(target_row=1, factor="1/2")
-print("Matrice courante :\n", session.current_matrix)
+session.propose("L2 <- (1/2)*L2")
+session.propose("L1 <- L1 - 2*L2")
+print(session.current_matrix.entries_grid)   # ((1, 0, 3), (0, 1, 1))
+print(session.is_complete())                 # True
+```
+
+Chaque proposition renvoie un `OperationFeedback` (`status` parmi `"invalid"`, `"valid_no_progress"`, `"valid_useful"`, `message`, `new_matrix`, `error_code`, propriétés `is_valid` et `is_useful`). Une opération valide est appliquée à `session.current_matrix`, même si elle ne fait pas progresser le calcul.
+
+### 2.3 Exemple en mode prédire-puis-révéler
+
+```python
+s = InteractiveSession(GaussJordan(A, b), mode="predict_reveal")
+print(s.reveal())   # Veuillez d'abord enregistrer votre prédiction avec predict(...) ...
+s.predict("L2 <- L2 - 3 L1")
+print(s.reveal())   # On annule le coefficient (2,1) : L2 ← L2 - 3·L1.
 ```
 
 ---
 
 ## 3. Analyseur d'erreurs et rétroactions pédagogiques (Annexe C)
 
-Lorsqu'un étudiant propose une opération incorrecte dans une session autonome, le vérificateur [`check_row_operation`](src/linalg_pedagopy/exercises/checkers.py) ne se contente pas d'un refus brut : il analyse la cause de l'erreur parmi le catalogue didactique :
+Le vérificateur [`check_row_operation`](../src/linalg_pedagopy/exercises/checkers.py) (`check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)`), utilisé par `propose`, ne se contente pas d'un refus brut : il identifie la cause de l'erreur (champ `error_code`). Exemples sur la matrice augmentée $[A \mid b]$ ci-dessus :
 
-| Erreur étudiante type | Détection automatique | Rétroaction fournie |
-| :--- | :--- | :--- |
-| **Multiplication par zéro** | Facteur scalaire nul $\alpha = 0$ sur une ligne. | *"Opération interdite : multiplier une ligne par 0 détruit l'information du système."* |
-| **Écrasement d'une ligne pivot** | Remplacement de la ligne pivot courante par une autre ligne. | *"Attention : vous perdez la forme échelonnée déjà construite."* |
-| **Pivot nul non échangé** | Choix d'un coefficient nul comme pivot sans permutation préalable. | *"Le coefficient en position pivot est nul. Vous devez d'abord permuter avec une ligne inférieure."* |
-| **Erreur de signe** | Utilisation de $+k$ au lieu de $-k$ pour éliminer un terme. | *"Le coefficient ne s'est pas annulé. Vérifiez le signe du multiplicateur."* |
-| **Fausse linéarité** | Opération non linéaire (ex: $L_1 \leftarrow L_1^2$). | *"Les opérations autorisées sont strictement affines : échange, dilatation non nulle, transvection."* |
+| Erreur étudiante type | Opération proposée | `status` / `error_code` | Rétroaction fournie |
+| :--- | :--- | :--- | :--- |
+| **Erreur de signe** | `L2 <- L2 + 3*L1` | `valid_no_progress` / `sign_error` | *« Erreur de signe dans le coefficient de transvection : le coefficient (2,1) vaut maintenant 6 et n'est pas annulé (coefficient attendu : -3). »* |
+| **Dilatation par zéro** | `L2 <- 0*L2` | `invalid` / `zero_scaling` | *« Invalide : une dilatation par 0 n'est pas une opération élémentaire (perte d'information) ; l'opération n'est pas inversible : le système change. »* |
+| **Écrasement d'une ligne** | `L1 <- L2` | `invalid` / `row_overwrite` | *« Invalide : L1 est remplacée par une expression qui ne la contient pas (L2). L'ancienne ligne L1 est perdue : l'opération n'est pas inversible et le système change. Pour échanger deux lignes, écrivez 'L1 <-> L2' ; pour une transvection, conservez L1 : 'L1 <- L1 + λ*L2'. »* |
+| **Opération non linéaire** | `L2 <- L2**2` | `invalid` / `nonlinear_row_op` | *« Invalide : l'expression n'est pas une opération linéaire sur les lignes. »* |
+| **Oubli du second membre** | `only_A: L1 <-> L2` | `invalid` / `only_lhs` | *« Invalide : opération appliquée à A mais pas au second membre. Le système obtenu n'est plus équivalent. »* |
+| **Syntaxe non reconnue** | `échanger 1 et 2` | `invalid` / `syntax_error` | *« Syntaxe d'opération non reconnue : … Exemples attendus : 'L2 <- L2 - 3*L1', 'L1 <-> L2', 'L2 <- (1/2)*L2'. »* |
+
+Le vérificateur analogue [`check_gram_schmidt_step`](../src/linalg_pedagopy/exercises/checkers.py) contrôle une étape d'orthogonalisation de Gram-Schmidt proposée par l'étudiant.

@@ -154,78 +154,57 @@
 <h3 id="11-le-probleme-des-fractions-geantes">1.1 Le problème des fractions géantes</h3>
 <p>Dans un cours d'algèbre linéaire, générer des matrices avec des entiers aléatoires produit presque systématiquement, dès la 3e étape du pivot de Gauss ou de Gram-Schmidt, des fractions avec des numérateurs et dénominateurs à 6 ou 10 chiffres (par exemple <strong>ACADEMIC_TOKEN_1</strong>).</p>
 <p>Cette complexité arithmétique parasite masque la compréhension des concepts géométriques fondamentaux. <code>linalg_pedagopy</code> résout ce problème grâce à des générateurs à <strong>résultats propres garantis</strong>.</p>
-<h3 id="12-matrices-structurelles-de-vmls">1.2 Matrices structurelles de VMLS</h3>
-<p>Le sous-module <a href="src/linalg_pedagopy/exercises/generators.py"><code>generators</code></a> fournit les matrices remarquables étudiées dans <em>VMLS</em> :</p>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.exercises import generators
-
-# Matrice de différences D d'ordre 4 (D x = [x₂-x₁, x₃-x₂, x₄-x₃])
-D = generators.difference_matrix(4)
-print(D)
-
-# Matrice de somme cumulée S d'ordre 4 (S = D⁻¹)
-S = generators.running_sum_matrix(4)
-print(S)
-
-# Matrice de moyenne mobile (Moving average) sur n=5 avec fenêtre k=3
-A_ma = generators.moving_average(5, 3)
-print(A_ma)
-
-# Matrice de Vandermonde associée aux points x = [0, 1, 2] de degré 2
-V = generators.vandermonde([0, 1, 2], degree=2)
-print(V)
-
-# Matrice de Gram G = A^T A
-G = generators.gram_matrix(V)
-print(G)
-</code></pre></div>
-<h3 id="13-generateurs-aleatoires-reproductibles-a-solutions-elegantes">1.3 Générateurs aléatoires reproductibles à solutions élégantes</h3>
-<p>Tous les générateurs acceptent un paramètre <code>seed</code> pour assurer la reproductibilité stricte en examen ou devoir :</p>
+<h3 id="12-generateurs-a-resultats-propres">1.2 Générateurs à résultats propres</h3>
+<p>Le module <a href="../../src/linalg_pedagopy/exercises/generators.py"><code>generators.py</code></a> fournit des fonctions de génération reproductibles (paramètre <code>seed</code>) dont les résultats sont garantis « propres » :</p>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">Fonction</th>
 <th style="text-align: left;">Description mathématique</th>
-<th style="text-align: left;">Résultat garanti</th>
+<th style="text-align: left;">Valeur renvoyée</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><code>generate_unimodular_matrix(n, seed, difficulty)</code></td>
-<td style="text-align: left;">Produit d'opérations élémentaires entières unipotentes.</td>
-<td style="text-align: left;">Matrice entière inversible d'inverse entière (<strong>ACADEMIC_TOKEN_2</strong>).</td>
+<td style="text-align: left;"><code>generate_unimodular_matrix(n=3, *, seed=None, difficulty=1)</code></td>
+<td style="text-align: left;">Produit d'opérations élémentaires entières.</td>
+<td style="text-align: left;">Matrice entière de déterminant <strong>ACADEMIC_TOKEN_2</strong>, d'inverse entière.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>generate_integer_rref_matrix(m=3, n=4, rank=2, *, seed=None, difficulty=1)</code></td>
+<td style="text-align: left;">Matrice entière <strong>ACADEMIC_TOKEN_3</strong> de rang prescrit.</td>
+<td style="text-align: left;">Couple <code>(A, R)</code> avec <code>R = rref(A)</code> à coefficients entiers.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>generate_rational_qr_matrix(n=3, *, seed=None, difficulty=1)</code></td>
+<td style="text-align: left;">Matrice construite à partir d'une orthogonale de Cayley rationnelle.</td>
+<td style="text-align: left;">Triplet <code>(A, Q, R)</code> rationnel exact, sans radicaux.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>generate_clean_least_squares(m=4, n=2, *, seed=None, difficulty=1)</code></td>
+<td style="text-align: left;">Problème surdéterminé <strong>ACADEMIC_TOKEN_4</strong> (<strong>ACADEMIC_TOKEN_5</strong>).</td>
+<td style="text-align: left;">Quadruplet <code>(A, b, x_hat, r_hat)</code> avec <code>x_hat</code> entier et <strong>ACADEMIC_TOKEN_6</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>generate_parametric_system(n=3, *, param_name="a", critical_value=1, seed=None, difficulty=1)</code></td>
+<td style="text-align: left;">Système <strong>ACADEMIC_TOKEN_7</strong> dont le déterminant s'annule en une valeur critique.</td>
+<td style="text-align: left;">Quadruplet <code>(A, b, a, a_crit)</code>.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>cayley_orthogonal(S)</code></td>
-<td style="text-align: left;">Transformée de Cayley <strong>ACADEMIC_TOKEN_3</strong> appliquée à une matrice antisymétrique <strong>ACADEMIC_TOKEN_4</strong>.</td>
+<td style="text-align: left;">Transformée de Cayley <strong>ACADEMIC_TOKEN_8</strong> d'une matrice antisymétrique <strong>ACADEMIC_TOKEN_9</strong>.</td>
 <td style="text-align: left;">Matrice orthogonale exacte à coefficients rationnels.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>generate_rational_qr_matrix(m, n, seed)</code></td>
-<td style="text-align: left;">Synthèse d'une matrice <strong>ACADEMIC_TOKEN_5</strong> via une base orthogonale rationnelle.</td>
-<td style="text-align: left;">Factorisation <strong>ACADEMIC_TOKEN_6</strong> sans radicaux irrationnels.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>generate_integer_rref_matrix(m, n, rank, seed)</code></td>
-<td style="text-align: left;">Matrice entière de taille <strong>ACADEMIC_TOKEN_7</strong> et de rang prescrit <strong>ACADEMIC_TOKEN_8</strong>.</td>
-<td style="text-align: left;">Forme échelonnée réduite (RREF) et pivots strictement entiers.</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>generate_parametric_system(n, seed)</code></td>
-<td style="text-align: left;">Système linéaire <strong>ACADEMIC_TOKEN_9</strong> dépendant d'un paramètre <strong>ACADEMIC_TOKEN_10</strong>.</td>
-<td style="text-align: left;">Valeurs critiques d'incompatibilité ou de rang déficient simples (<strong>ACADEMIC_TOKEN_11</strong>).</td>
-</tr>
-<tr>
-<td style="text-align: left;"><code>generate_clean_least_squares(m, n, seed)</code></td>
-<td style="text-align: left;">Problème de régression surdéterminé <strong>ACADEMIC_TOKEN_12</strong>.</td>
-<td style="text-align: left;">Estimateur <strong>ACADEMIC_TOKEN_13</strong> et résidu <strong>ACADEMIC_TOKEN_14</strong> à coordonnées rationnelles simples.</td>
 </tr>
 </tbody>
 </table>
 <p>Exemple :</p>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.exercises import (
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import LeastSquares, Matrix
+from linalg_pedagopy.exercises import (
     generate_unimodular_matrix,
+    generate_integer_rref_matrix,
     generate_clean_least_squares,
-    generate_parametric_system
+    generate_parametric_system,
+    cayley_orthogonal,
 )
 
 # Matrice entière d'ordre 3 d'inverse entière
@@ -233,82 +212,176 @@ U = generate_unimodular_matrix(3, seed=42)
 print("U =\n", U)
 print("U^-1 =\n", U.inv())
 
+# Matrice de rang 2 dont la RREF est entière
+A, R = generate_integer_rref_matrix(3, 4, 2, seed=1)
+print(A.rref() == R)                    # True
+
 # Problème de moindres carrés propre
-A_ls, b_ls = generate_clean_least_squares(4, 2, seed=123)
-from linalg_pedagopy import LeastSquares
+A_ls, b_ls, x_attendu, r_attendu = generate_clean_least_squares(4, 2, seed=123)
 res = LeastSquares(A_ls, b_ls).run()
-print("x_hat =", res.x_hat)  # Fractions simples (ex: 1/2, -1)
+print("x_hat =", res.x_hat, "attendu :", x_attendu)   # coordonnées entières
+
+# Système paramétré et valeur critique
+A_p, b_p, a, a_crit = generate_parametric_system(3, seed=7)
+print(a, a_crit)                        # a 1
+
+# Orthogonale de Cayley
+Q = cayley_orthogonal(Matrix([[0, 1], [-1, 0]]))
+print(Q.has_orthonormal_columns())      # True
+</code></pre></div>
+<h3 id="13-generateurs-dexercices-jumeaux-generators-generateurs">1.3 Générateurs d'exercices jumeaux (<code>generators</code> / <code>generateurs</code>)</h3>
+<p>L'espace de noms <code>generators</code> (alias <code>generateurs</code>) regroupe les générateurs d'<strong>exercices jumeaux résolus</strong> appelés par les fiches du tuteur (champ <code>jumeau</code>). Chacun renvoie un <code>TwinExercise</code> (<code>title</code>, <code>statement</code>, <code>solution_summary</code>, <code>explanation</code>) :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Nom anglais</th>
+<th style="text-align: left;">Alias français</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>moving_average(window=2, n=5)</code></td>
+<td style="text-align: left;"><code>moyenne_glissante(fenetre=2, n=5)</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>inner_product_selection(n=5, indices=(1, 4))</code></td>
+<td style="text-align: left;"><code>produit_scalaire_selection(...)</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>vector_statistics(values=(2, -1, 5, 2))</code></td>
+<td style="text-align: left;"><code>statistiques_vecteur(...)</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>orthogonal_combination(c1=2, c2=-3)</code></td>
+<td style="text-align: left;"><code>combinaison_orthogonale(...)</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>expression_dimensions()</code></td>
+<td style="text-align: left;"><code>dimensions_expressions()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>counterexample_guide(famille=...)</code></td>
+<td style="text-align: left;"><code>contre_exemple_guide(...)</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>polynomial_convolution(a_vals=(1, 2), b_vals=(3, -1, 1))</code></td>
+<td style="text-align: left;"><code>convolution_polynomes(...)</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>right_inverse_example()</code></td>
+<td style="text-align: left;"><code>inverse_droite_exemple()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gram_schmidt_example()</code></td>
+<td style="text-align: left;"><code>gram_schmidt_exemple()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>least_squares_example()</code></td>
+<td style="text-align: left;"><code>moindres_carres_exemple()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>kkt_minimum_norm()</code></td>
+<td style="text-align: left;"><code>kkt_norme_minimale()</code></td>
+</tr>
+</tbody>
+</table>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import generators
+
+tw = generators.moving_average(window=3, n=6)
+print(tw.title)          # Écart à la moyenne glissante (fenêtre $k=3$, $n=6$)
+print(tw.statement)
 </code></pre></div>
 <hr/>
 <h2 id="2-sessions-interactives-pas-a-pas-interactivesession">2. Sessions interactives pas-à-pas (<code>InteractiveSession</code>)</h2>
-<p>La classe <a href="src/linalg_pedagopy/exercises/interactive.py#L19-L180"><code>InteractiveSession</code></a> transforme toute procédure algorithmique en un exercice d'apprentissage actif pour l'étudiant.</p>
+<p>La classe <a href="../../src/linalg_pedagopy/exercises/interactive.py"><code>InteractiveSession</code></a> (<code>InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)</code>, ou <code>procedure.interactive(mode=...)</code>) transforme une procédure en exercice d'apprentissage actif.</p>
 <h3 id="21-les-4-modes-interactifs">2.1 Les 4 modes interactifs</h3>
 <p><strong>ACADEMIC_TOKEN_0</strong></p>
 <ol>
-<li><strong>Mode <code>"read"</code></strong> : L'étudiant avance pas à pas dans l'arbre d'exécution en appuyant sur « suivant ».</li>
-<li><strong>Mode <code>"predict_reveal"</code></strong> : L'étudiant doit formuler une prédiction de l'opération ou du coefficient suivant avant que le résultat ne soit affiché.</li>
-<li><strong>Mode <code>"completion"</code></strong> : Une fraction de la matrice ou des opérations est masquée (<code>mask_ratio=0.5</code>). L'étudiant doit saisir les coefficients manquants.</li>
-<li><strong>Mode <code>"autonomous"</code></strong> : L'étudiant applique lui-même les opérations élémentaires sur les lignes ou les vecteurs jusqu'à l'obtention de la solution.</li>
+<li><strong>Mode <code>"read"</code></strong> : l'étudiant avance dans les étapes élémentaires de la procédure avec <code>reveal()</code>.</li>
+<li><strong>Mode <code>"predict_reveal"</code></strong> : <code>reveal()</code> refuse d'afficher l'étape suivante tant qu'une prédiction n'a pas été enregistrée avec <code>predict("...")</code>.</li>
+<li><strong>Mode <code>"completion"</code></strong> : <code>completion_view()</code> renvoie la liste des étapes dont les dernières (proportion <code>mask_ratio</code>) sont masquées (<code>"??? (étape à compléter)"</code>).</li>
+<li><strong>Mode <code>"autonomous"</code></strong> <em>(Gauss-Jordan uniquement)</em> : l'étudiant applique lui-même les opérations élémentaires avec <code>propose("L2 &lt;- L2 - 3*L1")</code> ; <code>hint()</code> suggère l'opération utile suivante et <code>is_complete()</code> indique si la forme échelonnée réduite est atteinte.</li>
 </ol>
 <h3 id="22-exemple-de-session-autonome-sur-gauss-jordan">2.2 Exemple de session autonome sur Gauss-Jordan</h3>
+<p>Les opérations s'écrivent sous forme de texte : échange <code>"L1 &lt;-&gt; L2"</code>, dilatation <code>"L2 &lt;- (1/2)*L2"</code>, transvection <code>"L2 &lt;- L2 - 3*L1"</code> (préfixe <code>only_A:</code> ou <code>propose(..., only_lhs=True)</code> pour n'agir que sur la partie gauche, ce qui est signalé comme une erreur).</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, GaussJordan
 from linalg_pedagopy.exercises import InteractiveSession
 
 A = Matrix([[1, 2], [3, 8]])
 b = Vector([5, 17])
 
-proc = GaussJordan(A, b)
-session = InteractiveSession(proc, mode="autonomous")
+session = InteractiveSession(GaussJordan(A, b), mode="autonomous")
+print(session.hint())
+# Suggestion : annulez le coefficient (2,1) = 3 à l'aide de la ligne pivot L1.
 
-# L'étudiant propose une opération élémentaire de ligne
-# L2 &lt;- L2 - 3 * L1
-feedback = session.apply_row_operation(target_row=1, source_row=0, factor=-3)
-print(feedback.message)
-print("Matrice courante :\n", session.current_matrix)
+feedback = session.propose("L2 &lt;- L2 - 3*L1")
+print(feedback.status, "|", feedback.message)
+# valid_useful | Valide. Le coefficient (2,1) est maintenant nul : progression vers la forme échelonnée.
 
-# Normalisation du pivot : L2 &lt;- 1/2 * L2
-feedback2 = session.scale_row(target_row=1, factor="1/2")
-print("Matrice courante :\n", session.current_matrix)
+session.propose("L2 &lt;- (1/2)*L2")
+session.propose("L1 &lt;- L1 - 2*L2")
+print(session.current_matrix.entries_grid)   # ((1, 0, 3), (0, 1, 1))
+print(session.is_complete())                 # True
+</code></pre></div>
+<p>Chaque proposition renvoie un <code>OperationFeedback</code> (<code>status</code> parmi <code>"invalid"</code>, <code>"valid_no_progress"</code>, <code>"valid_useful"</code>, <code>message</code>, <code>new_matrix</code>, <code>error_code</code>, propriétés <code>is_valid</code> et <code>is_useful</code>). Une opération valide est appliquée à <code>session.current_matrix</code>, même si elle ne fait pas progresser le calcul.</p>
+<h3 id="23-exemple-en-mode-predire-puis-reveler">2.3 Exemple en mode prédire-puis-révéler</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">s = InteractiveSession(GaussJordan(A, b), mode="predict_reveal")
+print(s.reveal())   # Veuillez d'abord enregistrer votre prédiction avec predict(...) ...
+s.predict("L2 &lt;- L2 - 3 L1")
+print(s.reveal())   # On annule le coefficient (2,1) : L2 ← L2 - 3·L1.
 </code></pre></div>
 <hr/>
 <h2 id="3-analyseur-derreurs-et-retroactions-pedagogiques-annexe-c">3. Analyseur d'erreurs et rétroactions pédagogiques (Annexe C)</h2>
-<p>Lorsqu'un étudiant propose une opération incorrecte dans une session autonome, le vérificateur <a href="src/linalg_pedagopy/exercises/checkers.py"><code>check_row_operation</code></a> ne se contente pas d'un refus brut : il analyse la cause de l'erreur parmi le catalogue didactique :</p>
+<p>Le vérificateur <a href="../../src/linalg_pedagopy/exercises/checkers.py"><code>check_row_operation</code></a> (<code>check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)</code>), utilisé par <code>propose</code>, ne se contente pas d'un refus brut : il identifie la cause de l'erreur (champ <code>error_code</code>). Exemples sur la matrice augmentée <strong>ACADEMIC_TOKEN_12</strong> ci-dessus :</p>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">Erreur étudiante type</th>
-<th style="text-align: left;">Détection automatique</th>
+<th style="text-align: left;">Opération proposée</th>
+<th style="text-align: left;"><code>status</code> / <code>error_code</code></th>
 <th style="text-align: left;">Rétroaction fournie</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><strong>Multiplication par zéro</strong></td>
-<td style="text-align: left;">Facteur scalaire nul <strong>ACADEMIC_TOKEN_15</strong> sur une ligne.</td>
-<td style="text-align: left;"><em>"Opération interdite : multiplier une ligne par 0 détruit l'information du système."</em></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Écrasement d'une ligne pivot</strong></td>
-<td style="text-align: left;">Remplacement de la ligne pivot courante par une autre ligne.</td>
-<td style="text-align: left;"><em>"Attention : vous perdez la forme échelonnée déjà construite."</em></td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Pivot nul non échangé</strong></td>
-<td style="text-align: left;">Choix d'un coefficient nul comme pivot sans permutation préalable.</td>
-<td style="text-align: left;"><em>"Le coefficient en position pivot est nul. Vous devez d'abord permuter avec une ligne inférieure."</em></td>
-</tr>
-<tr>
 <td style="text-align: left;"><strong>Erreur de signe</strong></td>
-<td style="text-align: left;">Utilisation de <strong>ACADEMIC_TOKEN_16</strong> au lieu de <strong>ACADEMIC_TOKEN_17</strong> pour éliminer un terme.</td>
-<td style="text-align: left;"><em>"Le coefficient ne s'est pas annulé. Vérifiez le signe du multiplicateur."</em></td>
+<td style="text-align: left;"><code>L2 &lt;- L2 + 3*L1</code></td>
+<td style="text-align: left;"><code>valid_no_progress</code> / <code>sign_error</code></td>
+<td style="text-align: left;"><em>« Erreur de signe dans le coefficient de transvection : le coefficient (2,1) vaut maintenant 6 et n'est pas annulé (coefficient attendu : -3). »</em></td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Fausse linéarité</strong></td>
-<td style="text-align: left;">Opération non linéaire (ex: <strong>ACADEMIC_TOKEN_18</strong>).</td>
-<td style="text-align: left;"><em>"Les opérations autorisées sont strictement affines : échange, dilatation non nulle, transvection."</em></td>
+<td style="text-align: left;"><strong>Dilatation par zéro</strong></td>
+<td style="text-align: left;"><code>L2 &lt;- 0*L2</code></td>
+<td style="text-align: left;"><code>invalid</code> / <code>zero_scaling</code></td>
+<td style="text-align: left;"><em>« Invalide : une dilatation par 0 n'est pas une opération élémentaire (perte d'information) ; l'opération n'est pas inversible : le système change. »</em></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Écrasement d'une ligne</strong></td>
+<td style="text-align: left;"><code>L1 &lt;- L2</code></td>
+<td style="text-align: left;"><code>invalid</code> / <code>row_overwrite</code></td>
+<td style="text-align: left;"><em>« Invalide : L1 est remplacée par une expression qui ne la contient pas (L2). L'ancienne ligne L1 est perdue : l'opération n'est pas inversible et le système change. Pour échanger deux lignes, écrivez 'L1 &lt;-&gt; L2' ; pour une transvection, conservez L1 : 'L1 &lt;- L1 + λ</em>L2'. »*</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Opération non linéaire</strong></td>
+<td style="text-align: left;"><code>L2 &lt;- L2**2</code></td>
+<td style="text-align: left;"><code>invalid</code> / <code>nonlinear_row_op</code></td>
+<td style="text-align: left;"><em>« Invalide : l'expression n'est pas une opération linéaire sur les lignes. »</em></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Oubli du second membre</strong></td>
+<td style="text-align: left;"><code>only_A: L1 &lt;-&gt; L2</code></td>
+<td style="text-align: left;"><code>invalid</code> / <code>only_lhs</code></td>
+<td style="text-align: left;"><em>« Invalide : opération appliquée à A mais pas au second membre. Le système obtenu n'est plus équivalent. »</em></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Syntaxe non reconnue</strong></td>
+<td style="text-align: left;"><code>échanger 1 et 2</code></td>
+<td style="text-align: left;"><code>invalid</code> / <code>syntax_error</code></td>
+<td style="text-align: left;"><em>« Syntaxe d'opération non reconnue : … Exemples attendus : 'L2 &lt;- L2 - 3</em>L1', 'L1 &lt;-&gt; L2', 'L2 &lt;- (1/2)<em>L2'. »</em></td>
 </tr>
 </tbody>
 </table>
+<p>Le vérificateur analogue <a href="../../src/linalg_pedagopy/exercises/checkers.py"><code>check_gram_schmidt_step</code></a> contrôle une étape d'orthogonalisation de Gram-Schmidt proposée par l'étudiant.</p>
       </article>
 
       <!-- Navigation entre chapitres -->
@@ -343,11 +416,11 @@ print("Matrice courante :\n", session.current_matrix)
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#12-matrices-structurelles-de-vmls">1.2 Matrices structurelles de VMLS</a>
+          <a href="#12-generateurs-a-resultats-propres">1.2 Générateurs à résultats propres</a>
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#13-generateurs-aleatoires-reproductibles-a-solutions-elegantes">1.3 Générateurs aléatoires reproductibles à solutions élégantes</a>
+          <a href="#13-generateurs-dexercices-jumeaux-generators-generateurs">1.3 Générateurs d'exercices jumeaux (generators / generateurs)</a>
         </li>
         
         <li class="toc-item ">
@@ -360,6 +433,10 @@ print("Matrice courante :\n", session.current_matrix)
         
         <li class="toc-item toc-h3">
           <a href="#22-exemple-de-session-autonome-sur-gauss-jordan">2.2 Exemple de session autonome sur Gauss-Jordan</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#23-exemple-en-mode-predire-puis-reveler">2.3 Exemple en mode prédire-puis-révéler</a>
         </li>
         
         <li class="toc-item ">
