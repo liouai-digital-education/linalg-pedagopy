@@ -1,0 +1,27 @@
+id: "10.10"
+page: 23
+type: modelisation
+reformulation: >
+  Pour une matrice A de taille 2×3 dont la liste des colonnes mises bout à bout est vue
+  ou résumée par les sommes de chaque ligne s = A · 1_3, donner la matrice B de taille
+  1×3 telle que pour tout vecteur v de R^3, le produit B v calcule la somme v_1 + v_2 + v_3.
+donnees:
+  n: 3
+  m: 1
+verification:
+  type: matrice
+  inconnue: v
+  nom_sortie: s
+  taille_entree: 3
+  taille_sortie: 1
+  lignes_cibles:
+    - "s[1] = v[1] + v[2] + v[3]"
+indices:
+  - "Pour sommer toutes les composantes d'un vecteur colonne v de R^3 par un produit matriciel B v, quelle doit être la taille de B ?"
+  - "Rappel (VMLS ch. 10) : la somme des coefficients d'une matrice A (m×n) s'écrit 1_m^T A 1_n."
+  - "Écrivez le vecteur ligne 1_3^T comme une matrice de taille 1×3."
+jumeau: "generateurs.moyenne_glissante(fenetre=2, n=5)"
+notions:
+  - "somme des coefficients d'une matrice"
+  - "multiplication par le vecteur 1"
+  - "VMLS ch. 10"

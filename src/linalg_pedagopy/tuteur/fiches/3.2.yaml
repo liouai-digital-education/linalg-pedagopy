@@ -1,0 +1,21 @@
+id: "3.2"
+page: 6
+type: calcul
+reformulation: >
+  On donne x = (1, 2, -1) et y = (2, 0, 1). Calculer la distance euclidienne ||x - y||
+  entre x et y.
+donnees:
+  x: [1, 2, -1]
+  y: [2, 0, 1]
+verification:
+  type: valeur
+  calcul: "x.distance(y)"
+indices:
+  - "La distance entre deux vecteurs x et y de R^3 est la norme de leur différence : dist(x, y) = ||x - y|| (VMLS ch. 3)."
+  - "Rappel : ||u|| = sqrt(u_1² + u_2² + u_3²). N'oubliez pas la racine carrée finale !"
+  - "Calculez d'abord le vecteur différence x - y composante par composante, puis la somme des carrés de ses composantes."
+jumeau: "generateurs.statistiques_vecteur(values=(2, -1, 5, 2))"
+notions:
+  - "distance euclidienne"
+  - "plus proche voisin"
+  - "VMLS ch. 3"

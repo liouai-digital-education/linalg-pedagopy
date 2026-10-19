@@ -1,0 +1,21 @@
+id: "11.11"
+page: 27
+type: calcul
+reformulation: >
+  On considère la matrice large A = [[1, -1, 2], [0, 1, 1]] de taille 2×3.
+  Trouver deux matrices inverses à droite distinctes B_1 et B_2 (de taille 3×2)
+  telles que A B_1 = I_2, A B_2 = I_2 et B_1 ≠ B_2, et les soumettre sous la forme (B_1, B_2).
+donnees:
+  A: [[1, -1, 2], [0, 1, 1]]
+verification:
+  type: propriete
+  propriete: "two_right_inverses"
+indices:
+  - "Une inverse à droite B de A (2×3) est une matrice 3×2 dont les colonnes b_1, b_2 vérifient A b_1 = e_1 et A b_2 = e_2 (VMLS ch. 11)."
+  - "Comme A a 2 lignes indépendantes et 3 colonnes, chaque système A b = e_j possède une variable libre (la 3e composante)."
+  - "Obtenez une première matrice B_1 en fixant la 3e ligne de B à (0, 0), puis une seconde matrice B_2 en fixant la 3e ligne de B à (1, 1)."
+jumeau: "generateurs.inverse_droite_exemple()"
+notions:
+  - "inverses à droite multiples"
+  - "systèmes sous-déterminés"
+  - "VMLS ch. 11"

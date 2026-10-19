@@ -1,0 +1,31 @@
+id: "10.6"
+page: 23
+type: modelisation
+reformulation: >
+  On considère un réseau d'amitié à 4 personnes dont la matrice d'adjacence symétrique
+  est F = [[0, 1, 1, 0], [1, 0, 1, 1], [1, 1, 0, 1], [0, 1, 1, 0]]. Pour un vecteur
+  de caractéristiques x dans R^4, le vecteur y = F x donne pour chaque personne la somme
+  des caractéristiques de ses amis. Donner la matrice F (4×4) telle que y = F x.
+donnees:
+  n: 4
+  m: 4
+verification:
+  type: matrice
+  inconnue: x
+  nom_sortie: y
+  taille_entree: 4
+  taille_sortie: 4
+  lignes_cibles:
+    - "y[1] = x[2] + x[3]"
+    - "y[2] = x[1] + x[3] + x[4]"
+    - "y[3] = x[1] + x[2] + x[4]"
+    - "y[4] = x[2] + x[3]"
+indices:
+  - "Dans une matrice d'amitié F de taille 4×4, F_(i,j) = 1 si i et j sont amis et 0 sinon (avec F_(i,i) = 0, VMLS ch. 10)."
+  - "La i-ème composante de y = F x est la somme des x_j sur tous les amis j de la personne i."
+  - "Vérifiez ligne par ligne quels individus sont reliés dans la définition de y_1, y_2, y_3 et y_4."
+jumeau: "generateurs.moyenne_glissante(fenetre=2, n=5)"
+notions:
+  - "matrice d'adjacence d'un graphe"
+  - "produit matrice-vecteur"
+  - "VMLS ch. 10"

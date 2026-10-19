@@ -1,0 +1,23 @@
+id: "3.14"
+page: 9
+type: justification
+reformulation: >
+  Soient u et v deux vecteurs orthogonaux de R^n (u ⊥ v). Exprimer rms(u - v)^2
+  en fonction de rms_u (représentant rms(u)) et rms_v (représentant rms(v)).
+donnees:
+  n: 4
+verification:
+  type: formule
+  parametres:
+    - rms_u
+    - rms_v
+  cible: "rms_u**2 + rms_v**2"
+indices:
+  - "Reliez la moyenne quadratique rms(w) à la norme euclidienne ||w|| : rms(w)^2 = ||w||^2 / n (VMLS ch. 3)."
+  - "Rappel : si u ⊥ v, alors ||u - v||^2 = ||u||^2 + ||v||^2."
+  - "Divisez les deux membres de ||u - v||^2 = ||u||^2 + ||v||^2 par n pour faire apparaître rms(u)^2 et rms(v)^2."
+jumeau: "generateurs.combinaison_orthogonale(c1=1, c2=-1)"
+notions:
+  - "rms d'une différence orthogonale"
+  - "orthogonalité"
+  - "VMLS ch. 3"

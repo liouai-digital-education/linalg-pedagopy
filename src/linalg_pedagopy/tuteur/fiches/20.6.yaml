@@ -1,0 +1,22 @@
+id: "20.6"
+page: 47
+type: calcul
+reformulation: >
+  On donne les vecteurs a_1 = (1, 2, -1), a_2 = (2, 0, 1) et a_3 = (0, 4, -3) de R^3.
+  En appliquant Gram-Schmidt, déterminer le résidu orthogonal q_tilde_3 obtenu à la
+  3e étape (ou indiquer son carré de norme ||q_tilde_3||^2 pour tester l'indépendance).
+donnees:
+  a1: [1, 2, -1]
+  a2: [2, 0, 1]
+  a3: [0, 4, -3]
+verification:
+  type: valeur
+  calcul: "0"
+indices:
+  - "L'algorithme de Gram-Schmidt permet de tester si une famille (a_1, a_2, a_3) est libre ou liée : elle est liée si l'un des q_tilde_i est nul (VMLS ch. 5 et 20)."
+  - "Vérifiez d'abord si a_1 et a_2 sont orthogonaux en calculant a_1^T a_2."
+  - "Projetez a_3 sur a_1 et sur a_2, puis retranchez ces projections à a_3 : que vaut ||q_tilde_3||^2 ?"
+jumeau: "generateurs.gram_schmidt_exemple()"
+notions:
+  - "test d'indépendance linéaire par Gram-Schmidt"
+  - "VMLS ch. 5 et 20"

@@ -1,0 +1,22 @@
+id: "20.11"
+page: 49
+type: calcul
+reformulation: >
+  On considère le problème de norme minimale : minimiser ||x||^2 sous la contrainte
+  C x = d, avec C = [[1, 1, 0], [0, 1, 1]] (taille 2×3) et d = (1, 1).
+  Trouver la solution optimale x de R^3 à l'aide des conditions KKT.
+donnees:
+  C: [[1, 1, 0], [0, 1, 1]]
+  d: [1, 1]
+verification:
+  type: propriete
+  propriete: "kkt_minimum_norm"
+indices:
+  - "La solution de norme minimale de C x = d vérifie les équations KKT : 2 x + C^T z = 0 et C x = d (VMLS ch. 16 et 20)."
+  - "En exprimant x = -(1/2) C^T z et en reportant dans C x = d, on obtient x = C^T (C C^T)^(-1) d."
+  - "Calculez la matrice 2×2 C C^T, inversez-la, puis appliquez C^T (C C^T)^(-1) au vecteur d = (1, 1)."
+jumeau: "generateurs.kkt_norme_minimale()"
+notions:
+  - "solution de norme minimale"
+  - "système KKT"
+  - "VMLS ch. 16 et 20"

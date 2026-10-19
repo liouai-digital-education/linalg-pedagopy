@@ -1,0 +1,20 @@
+id: "3.9"
+page: 8
+type: calcul
+reformulation: >
+  On considère les vecteurs x = (1, -2, 3, 2) et y = (2, 1, 0, 1) de R^4.
+  Calculer rms(x) (ou fournir un dictionnaire {'rms': ..., 'avg': ..., 'std': ..., 'corr': ..., 'dist': ...}).
+donnees:
+  x: [1, -2, 3, 2]
+  y: [2, 1, 0, 1]
+verification:
+  type: valeur
+  calcul: "x.rms()"
+indices:
+  - "Cet exercice porte sur les grandeurs statistiques de VMLS ch. 3 : avg(x), rms(x), std(x), corrélation et distance."
+  - "Rappel : rms(x) = ||x|| / sqrt(n), et std(x) = rms(x - avg(x)·1) (attention au dénominateur sqrt(n))."
+  - "Pour x = (1, -2, 3, 2) de taille n = 4, calculez d'abord la somme des carrés des composantes, puis divisez par n avant de prendre la racine carrée."
+jumeau: "generateurs.statistiques_vecteur(values=(2, -1, 5, 2))"
+notions:
+  - "rms, avg, std, corrélation, distance"
+  - "VMLS ch. 3"

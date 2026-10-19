@@ -1,0 +1,20 @@
+id: "20.8"
+page: 48
+type: justification
+reformulation: >
+  Vérifier par une chaîne d'égalités matricielles par blocs l'identité :
+  block([[A, B], [C, D]]) @ block([[I, 0], [0, I]]) == block([[A, B], [C, D]]).
+donnees:
+  n: 2
+verification:
+  type: egalites
+  mode: "blocs"
+indices:
+  - "Le produit de deux matrices par blocs compatibles se calcule comme un produit matriciel usuel en remplaçant les produits scalaires par des produits de blocs (VMLS ch. 10 et 20)."
+  - "Rappel : la matrice par blocs [[I, 0], [0, I]] est la matrice identité de la dimension totale."
+  - "Fournissez la liste des deux maillons ['block([[A, B], [C, D]]) @ block([[I, 0], [0, I]])', 'block([[A, B], [C, D]])'] à ex.verifier(...)."
+jumeau: "generateurs.dimensions_expressions()"
+notions:
+  - "identités sur les matrices par blocs"
+  - "produit matriciel par blocs"
+  - "VMLS ch. 10 et 20"

@@ -1,0 +1,21 @@
+id: "2.2"
+page: 5
+type: contre_exemple
+reformulation: >
+  On considère la fonction f : R^n -> R définie par l'étendue (spread)
+  f(x) = max_k x_k - min_k x_k. Montrer que f n'est pas linéaire en fournissant
+  un contre-exemple explicite {'x': Vector(...), 'y': Vector(...), 'alpha': 1, 'beta': 1}.
+donnees:
+  n: 2
+verification:
+  type: contre_exemple
+  cas: "non_linearite_2_2"
+indices:
+  - "Pour prouver qu'une fonction f n'est pas linéaire, il suffit d'exhiber deux vecteurs x, y et deux scalaires α, β tels que f(αx + βy) ≠ αf(x) + βf(y)."
+  - "Rappel : vous pouvez choisir n = 2 et α = β = 1, c'est-à-dire chercher x et y dans R^2 tels que f(x + y) ≠ f(x) + f(y)."
+  - "Que vaut f(x) pour x = (1, 0) et pour y = (0, 1) ? Que vaut alors f(x + y) ?"
+jumeau: "generateurs.contre_exemple_guide(famille='R^2, coefficients dans {0, 1}')"
+notions:
+  - "superposition et linéarité"
+  - "contre-exemple"
+  - "VMLS ch. 2"

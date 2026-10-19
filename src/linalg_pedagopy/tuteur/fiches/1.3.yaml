@@ -1,0 +1,24 @@
+id: "1.3"
+page: 3
+type: dimensions
+reformulation: >
+  Soient a et b deux vecteurs de R^n (n > 1) et α un scalaire. Indiquer pour chacune
+  des notations (a) a + b, (b) a + α, (c) a^T b, (d) a b si elle est valide ou invalide.
+donnees:
+  n: 4
+verification:
+  type: dimensions
+  attendu:
+    a: "valide"
+    b: "invalide"
+    c: "valide"
+    d: "invalide"
+indices:
+  - "Distinguez dans chaque expression ce qui est un vecteur de R^n (matrice n×1) et ce qui est un scalaire."
+  - "Dans VMLS (ch. 1), l'addition n'est définie qu'entre deux vecteurs de même taille, et le produit de deux vecteurs s'écrit a^T b."
+  - "Peut-on additionner directement un vecteur et un scalaire sans utiliser le vecteur 1 ? Peut-on multiplier deux colonnes n×1 sans transposer la première ?"
+jumeau: "generateurs.dimensions_expressions()"
+notions:
+  - "notations vectorielles"
+  - "dimensions"
+  - "VMLS ch. 1"

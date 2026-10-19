@@ -1,0 +1,26 @@
+id: "10.5"
+page: 22
+type: dimensions
+reformulation: >
+  Soient A de taille 3×4, B de taille 4×2 et C de taille 3×2. Donner pour chacune
+  des expressions (a) A B + C, (b) A^T C, (c) B A la taille (m, n) du résultat
+  ou "invalide" si l'opération n'est pas définie.
+donnees:
+  shape_A: [3, 4]
+  shape_B: [4, 2]
+  shape_C: [3, 2]
+verification:
+  type: dimensions
+  attendu:
+    a: [3, 2]
+    b: [4, 2]
+    c: "invalide"
+indices:
+  - "Rappel (VMLS ch. 10) : le produit X Y de X (m×k) par Y (p×n) est défini si et seulement si k = p, et sa taille est alors (m, n)."
+  - "La transposée d'une matrice de taille m×n est de taille n×m."
+  - "Pour (a), déterminez d'abord la taille de A B et vérifiez si elle coïncide avec celle de C (3×2)."
+jumeau: "generateurs.dimensions_expressions()"
+notions:
+  - "produit matriciel"
+  - "compatibilité des dimensions"
+  - "VMLS ch. 10"

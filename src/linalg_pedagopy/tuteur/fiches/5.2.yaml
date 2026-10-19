@@ -1,0 +1,21 @@
+id: "5.2"
+page: 14
+type: contre_exemple
+reformulation: >
+  L'algorithme de Gram-Schmidt dépend-il de l'ordre des vecteurs d'entrée ?
+  Donner deux vecteurs indépendants (a1, a2) de R^2 tels que Gram-Schmidt appliqué
+  à (a1, a2) puis à (a2, a1) produise deux bases orthonormées différentes.
+donnees:
+  n: 2
+verification:
+  type: contre_exemple
+  cas: "ordre_gram_schmidt_5_2"
+indices:
+  - "Le premier vecteur produit par Gram-Schmidt est toujours q_1 = a_1 / ||a_1|| (VMLS ch. 5)."
+  - "Si l'on inverse l'ordre en (a_2, a_1), le nouveau premier vecteur est p_1 = a_2 / ||a_2||."
+  - "Choisissez a_1 = (1, 0) et un vecteur a_2 qui n'est ni colinéaire ni orthogonal à a_1, par exemple a_2 = (1, 1)."
+jumeau: "generateurs.contre_exemple_guide(famille='R^2, coefficients dans {0, 1}')"
+notions:
+  - "algorithme de Gram-Schmidt"
+  - "influence de l'ordre des vecteurs"
+  - "VMLS ch. 5"

@@ -1,0 +1,23 @@
+id: "11.10"
+page: 27
+type: calcul
+reformulation: >
+  Un flux de trésorerie sur 3 périodes c = (c_1, c_2, c_3) a une valeur actuelle nette
+  (VAN) égale à 2 au taux r = 0 (c_1 + c_2 + c_3 = 2), égale à 1 pour un facteur
+  d'actualisation 1/2 (c_1 + c_2/2 + c_3/4 = 1), et vérifie c_1 = 0.
+  Retrouver le vecteur de flux de trésorerie c dans R^3.
+donnees:
+  A: [[1, 1, 1], [4, 2, 1], [1, 0, 0]]
+  b: [2, 4, 0]
+verification:
+  type: propriete
+  propriete: "linear_system_solution"
+indices:
+  - "Chaque valeur actuelle nette (NPV) donnée fournit une équation linéaire sur les composantes de c = (c_1, c_2, c_3) (VMLS ch. 1 et 11)."
+  - "Avec 3 équations indépendantes pour 3 inconnues, le vecteur c est solution unique d'un système A c = b."
+  - "Utilisez c_1 = 0 dans les deux premières équations c_2 + c_3 = 2 et 2 c_2 + c_3 = 4 pour trouver c_2 puis c_3."
+jumeau: "generateurs.inverse_droite_exemple()"
+notions:
+  - "flux de trésorerie (cash flow) depuis la VAN"
+  - "résolution de système linéaire"
+  - "VMLS ch. 11"
