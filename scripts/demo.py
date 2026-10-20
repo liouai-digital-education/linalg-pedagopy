@@ -7,7 +7,7 @@ from pathlib import Path
 import sys
 
 # Ajout de src/ au chemin Python si le package n'est pas encore installé en mode editable
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from linalg_pedagopy import (
     GaussJordan,

@@ -54,9 +54,10 @@ jupyter lab
 
 Créez un carnet (**File → New → Notebook**, noyau **Python 3**). JupyterLab ayant été lancé depuis l'environnement `pedagopy`, ce noyau est bien celui de l'environnement.
 
-Deux carnets prêts à l'emploi sont fournis à la racine du dépôt :
-- `tutoriel_linalg_pedagopy.ipynb`, généré à partir de `TUTORIAL.md` par `python convert_tutorial_to_ipynb.py` ;
-- `problemes_exploratoires_linalg_pedagopy.ipynb`, généré par `python generate_exploratory_problems_ipynb.py`.
+Des carnets prêts à l'emploi sont fournis dans le dossier `carnets/` du dépôt :
+- `tutoriel_linalg_pedagopy.ipynb`, généré à partir de `TUTORIAL.md` par `python scripts/convert_tutorial_to_ipynb.py` ;
+- `problemes_exploratoires_linalg_pedagopy.ipynb`, généré par `python scripts/generate_exploratory_problems_ipynb.py` ;
+- `problemes_algebre_lineaire_pedagopy.ipynb` et `projet_exploration_algebre_lineaire.ipynb`, générés par `python scripts/build_notebook.py` et `python scripts/build_project.py`.
 - `exercices/vecteurs_matrices.ipynb` : 20 exercices de calcul sur les vecteurs et les matrices, de difficulté croissante, avec `verifier(k, reponse)` et `indice(k)` ; corrigé dans `exercices/corrige_vecteurs_matrices.ipynb`. Ouvrez-les depuis le dossier `exercices/`. Les deux carnets se régénèrent avec `python generer_vecteurs_matrices.py`.
 
 ## 6. Premières cellules

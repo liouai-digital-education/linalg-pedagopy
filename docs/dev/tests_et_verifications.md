@@ -52,6 +52,6 @@ Les carnets sont versionnés **sans leurs sorties**. Si vous exécutez un carnet
 
 ## Qualité du code
 
-- `ruff check src tests` : règles `E4`, `E7`, `E9`, `F` (bloquant).
+- `ruff check src tests scripts` : règles `E4`, `E7`, `E9`, `F` (bloquant).
 - `mypy` (sans argument) : mode strict, **bloquant**, sur le périmètre `files` de `[tool.mypy]` dans `pyproject.toml` : `core`, `algorithms`, `objects`, `render`, `trace`, `plot`, `config.py`, `special.py`.
 - `mypy src/linalg_pedagopy` : tout le paquet, informatif ; les erreurs restantes sont dans le tuteur, les exercices et `compare` (à typer en phase 5).

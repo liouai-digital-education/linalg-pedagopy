@@ -79,7 +79,7 @@ Dans JupyterLab, `ex.panel()` ouvre un panneau avec les indices, l'exercice jume
 
 ## Documentation
 
-La documentation complète est dans [`docs/`](docs/index.md) (version HTML : `docs/site/index.html`, régénérée par `python build_docs_site.py`) :
+La documentation complète est dans [`docs/`](docs/index.md) (version HTML : `docs/site/index.html`, régénérée par `python scripts/build_docs_site.py`) :
 
 | Guide | Contenu |
 | :--- | :--- |
@@ -93,7 +93,7 @@ La documentation complète est dans [`docs/`](docs/index.md) (version HTML : `do
 | [08. Catalogue des exercices](docs/08_catalogue_exercices.md) | les 35 exercices et leurs énoncés |
 | [09. Guide JupyterLab](docs/09_guide_jupyterlab.md) | installation pas à pas et dépannage |
 
-Le [tutoriel](TUTORIAL.md) parcourt l'ensemble du package ; le carnet `tutoriel_linalg_pedagopy.ipynb` en est généré par `python convert_tutorial_to_ipynb.py`.
+Le [tutoriel](TUTORIAL.md) parcourt l'ensemble du package ; le carnet `carnets/tutoriel_linalg_pedagopy.ipynb` en est généré par `python scripts/convert_tutorial_to_ipynb.py`. Le dossier [`carnets/`](carnets/) contient aussi les grands problèmes et le projet d'exploration ; les scripts qui génèrent les carnets et le site sont dans [`scripts/`](scripts/).
 
 Le dossier [`exercices/`](exercices/) contient un cahier de **20 exercices de calcul sur les vecteurs et les matrices**, de difficulté croissante, avec vérification automatique et indices (`vecteurs_matrices.ipynb`), et son corrigé (`corrige_vecteurs_matrices.ipynb`).
 

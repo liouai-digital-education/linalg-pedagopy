@@ -1,6 +1,6 @@
 # Tutoriel — `linalg_pedagopy`
 
-Ce tutoriel fait le tour de **`linalg_pedagopy`**, un package Python d'algèbre linéaire formelle et pédagogique conçu pour l'enseignement en L1–L2. Chaque bloc de code s'exécute tel quel ; le carnet `tutoriel_linalg_pedagopy.ipynb` est généré à partir de ce fichier par `python convert_tutorial_to_ipynb.py`.
+Ce tutoriel fait le tour de **`linalg_pedagopy`**, un package Python d'algèbre linéaire formelle et pédagogique conçu pour l'enseignement en L1–L2. Chaque bloc de code s'exécute tel quel ; le carnet `carnets/tutoriel_linalg_pedagopy.ipynb` est généré à partir de ce fichier par `python scripts/convert_tutorial_to_ipynb.py`.
 
 ---
 
@@ -823,4 +823,4 @@ print(ex.verifier(x_opt))
 | Repartir de zéro sur un exercice | `ex.recommencer()` |
 | Glossaire anglais $\to$ français | `glossaire("least squares")` |
 | Lancer les tests | `python -m pytest tests/ -v` |
-| Lancer la démonstration | `python demo.py` |
+| Lancer la démonstration | `python scripts/demo.py` |

@@ -32,3 +32,6 @@ Algèbre linéaire et géométrie vectorielle.pdf
 
 # Vidages de plantage de Git Bash (Windows)
 *.stackdump
+
+# Carnets d'essai et brouillons locaux (hors du dépôt public)
+archives/

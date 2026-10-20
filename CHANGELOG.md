@@ -15,6 +15,8 @@
 - Manuel « Algèbre linéaire et géométrie vectorielle » (PDF de 28 Mo, ouvrage protégé) retiré de **tout l'historique** git avant la première publication : les empreintes de tous les commits ont changé ; dépôt de 26 Mo ramené à 1,5 Mo. Le fichier reste disponible localement, ignoré par git (`.gitignore` : ce fichier, dossier `ressources/`, vidages `*.stackdump`).
 - Section **Sources et remerciements** dans le `README.md` et l'accueil de la documentation : les 35 exercices du tuteur sont adaptés du recueil *Additional Exercises for Vectors, Matrices, and Least Squares* (Boyd et Vandenberghe) ; droits des auteurs rappelés ; la licence MIT ne porte que sur le code et les textes propres au projet. Les fiches elles-mêmes ne citent toujours pas leur source (pour ne pas orienter vers les solutions).
 - Site HTML régénéré : il rattrape aussi Python 3.10 minimum (guide JupyterLab) et la description du niveau 0 (guide 03).
+- Racine du dépôt rangée : scripts de génération dans `scripts/` (ancrés sur la racine du dépôt, utilisables depuis n'importe quel dossier), carnets dans `carnets/` (ils trouvent `src/` depuis leur dossier ou la racine), plans dans `docs/dev/plans/`. Chemins mis à jour dans le README, le tutoriel, le guide JupyterLab, `tests/run_notebooks.py` ; ruff vérifie aussi `scripts/` (imports inutilisés supprimés).
+- Carnets d'essai `essai1` à `essai4` sortis du dépôt (conservés localement dans `archives/`, ignoré) ; `essai1` et `essai2`, qui contenaient un énoncé du recueil en clair, retirés de **tout l'historique** : les empreintes de tous les commits ont de nouveau changé.
 
 ### Phase 0 du plan v5 — filet de sécurité
 - Python **3.10** minimum (`requires-python`, ruff, mypy, classificateurs).

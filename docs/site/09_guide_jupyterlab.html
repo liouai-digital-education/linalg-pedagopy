@@ -217,9 +217,10 @@ conda activate pedagopy
 <div class="code-container"><div class="code-header"><span>Bat</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bat">jupyter lab
 </code></pre></div>
 <p>Créez un carnet (<strong>File → New → Notebook</strong>, noyau <strong>Python 3</strong>). JupyterLab ayant été lancé depuis l'environnement <code>pedagopy</code>, ce noyau est bien celui de l'environnement.</p>
-<p>Deux carnets prêts à l'emploi sont fournis à la racine du dépôt :
-- <code>tutoriel_linalg_pedagopy.ipynb</code>, généré à partir de <code>TUTORIAL.md</code> par <code>python convert_tutorial_to_ipynb.py</code> ;
-- <code>problemes_exploratoires_linalg_pedagopy.ipynb</code>, généré par <code>python generate_exploratory_problems_ipynb.py</code>.
+<p>Des carnets prêts à l'emploi sont fournis dans le dossier <code>carnets/</code> du dépôt :
+- <code>tutoriel_linalg_pedagopy.ipynb</code>, généré à partir de <code>TUTORIAL.md</code> par <code>python scripts/convert_tutorial_to_ipynb.py</code> ;
+- <code>problemes_exploratoires_linalg_pedagopy.ipynb</code>, généré par <code>python scripts/generate_exploratory_problems_ipynb.py</code> ;
+- <code>problemes_algebre_lineaire_pedagopy.ipynb</code> et <code>projet_exploration_algebre_lineaire.ipynb</code>, générés par <code>python scripts/build_notebook.py</code> et <code>python scripts/build_project.py</code>.
 - <code>exercices/vecteurs_matrices.ipynb</code> : 20 exercices de calcul sur les vecteurs et les matrices, de difficulté croissante, avec <code>verifier(k, reponse)</code> et <code>indice(k)</code> ; corrigé dans <code>exercices/corrige_vecteurs_matrices.ipynb</code>. Ouvrez-les depuis le dossier <code>exercices/</code>. Les deux carnets se régénèrent avec <code>python generer_vecteurs_matrices.py</code>.</p>
 <h2 id="6-premieres-cellules">6. Premières cellules</h2>
 <p><strong>Import</strong></p>

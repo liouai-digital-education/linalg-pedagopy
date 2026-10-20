@@ -13,11 +13,9 @@ from typing import Any
 from bs4 import BeautifulSoup
 import jinja2
 import markdown
-from pygments import highlight
-from pygments.formatters import HtmlFormatter
-from pygments.lexers import get_lexer_by_name, guess_lexer, TextLexer
 
-DOCS_DIR = Path("docs")
+RACINE = Path(__file__).resolve().parent.parent
+DOCS_DIR = RACINE / "docs"
 OUTPUT_DIR = DOCS_DIR / "site"
 ASSETS_DIR = OUTPUT_DIR / "assets"
 CSS_DIR = ASSETS_DIR / "css"

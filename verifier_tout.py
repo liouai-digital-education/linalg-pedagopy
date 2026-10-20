@@ -71,7 +71,7 @@ def main() -> int:
     if not args.rapide:
         ruff = shutil.which("ruff")
         if ruff:
-            resultats["ruff"] = _lancer("Ruff", [ruff, "check", "src", "tests"])
+            resultats["ruff"] = _lancer("Ruff", [ruff, "check", "src", "tests", "scripts"])
         else:
             print("\nruff absent : étape sautée (pip install ruff)")
             resultats["ruff"] = None

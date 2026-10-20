@@ -99,10 +99,13 @@ from fractions import Fraction
 import sympy as sp
 from IPython.display import display, Markdown, Latex
 
-# Configuration du chemin d'accès vers src/ si non installé en mode éditable
-src_path = str(Path.cwd() / "src")
-if src_path not in sys.path:
-    sys.path.insert(0, src_path)
+# Permet d'utiliser le package depuis le dépôt sans installation (pip install -e . reste recommandé) :
+# on cherche src/ dans le dossier courant puis ses parents (carnet ouvert depuis carnets/ ou la racine).
+for _base in (Path.cwd(), *Path.cwd().parents):
+    if (_base / "src" / "linalg_pedagopy").is_dir():
+        if str(_base / "src") not in sys.path:
+            sys.path.insert(0, str(_base / "src"))
+        break
 
 from linalg_pedagopy import (
     Vector, Matrix, symbols, to_exact,
@@ -687,7 +690,7 @@ Ces deux problèmes illustrent comment `linalg_pedagopy` réconcilie :
     )
 
     # Écriture du fichier notebook
-    target_path = Path("problemes_exploratoires_linalg_pedagopy.ipynb")
+    target_path = Path(__file__).resolve().parent.parent / "carnets" / "problemes_exploratoires_linalg_pedagopy.ipynb"
     with open(target_path, "w", encoding="utf-8") as f:
         json.dump(nb, f, ensure_ascii=False, indent=2)
 

@@ -4,7 +4,7 @@ TUTORIAL.md est la source unique : chaque bloc ```python devient une cellule de 
 le texte entre les blocs devient des cellules Markdown. Une cellule d'initialisation
 est ajoutée en tête (accès à src/ si le package n'est pas installé, outils d'affichage).
 
-Usage : python convert_tutorial_to_ipynb.py
+Usage : python scripts/convert_tutorial_to_ipynb.py
 """
 
 from __future__ import annotations
@@ -13,16 +13,20 @@ import json
 import re
 from pathlib import Path
 
-SOURCE = Path("TUTORIAL.md")
-TARGET = Path("tutoriel_linalg_pedagopy.ipynb")
+RACINE = Path(__file__).resolve().parent.parent
+SOURCE = RACINE / "TUTORIAL.md"
+TARGET = RACINE / "carnets" / "tutoriel_linalg_pedagopy.ipynb"
 
 INIT_CELL = '''import sys
 from pathlib import Path
 
-# Permet d'utiliser le package depuis le dépôt sans installation (pip install -e . reste recommandé)
-src_path = str(Path.cwd() / "src")
-if Path(src_path).exists() and src_path not in sys.path:
-    sys.path.insert(0, src_path)
+# Permet d'utiliser le package depuis le dépôt sans installation (pip install -e . reste recommandé) :
+# on cherche src/ dans le dossier courant puis ses parents (carnet ouvert depuis carnets/ ou la racine).
+for _base in (Path.cwd(), *Path.cwd().parents):
+    if (_base / "src" / "linalg_pedagopy").is_dir():
+        if str(_base / "src") not in sys.path:
+            sys.path.insert(0, str(_base / "src"))
+        break
 
 from IPython.display import Markdown, display
 

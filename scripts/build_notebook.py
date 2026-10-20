@@ -1,6 +1,7 @@
 """Script pour générer problemes_algebre_lineaire_pedagopy.ipynb."""
 
 import json
+from pathlib import Path
 
 cells = []
 
@@ -590,7 +591,7 @@ nb = {
     "nbformat_minor": 5,
 }
 
-output_path = "problemes_algebre_lineaire_pedagopy.ipynb"
+output_path = Path(__file__).resolve().parent.parent / "carnets" / "problemes_algebre_lineaire_pedagopy.ipynb"
 with open(output_path, "w", encoding="utf-8") as f:
     json.dump(nb, f, indent=1, ensure_ascii=False)
 

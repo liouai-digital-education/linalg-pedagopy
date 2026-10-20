@@ -45,7 +45,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -e ".[dev,plot,compare,tuteur]"
       - name: Ruff
-        run: ruff check src tests
+        run: ruff check src tests scripts
       - name: Mypy (périmètre strict, bloquant)
         run: mypy --python-version 3.12
       - name: Mypy (paquet complet, informatif)

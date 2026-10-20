@@ -34,10 +34,10 @@ from pathlib import Path
 RACINE = Path(__file__).resolve().parent.parent
 
 CARNETS_MAINTENUS = [
-    "tutoriel_linalg_pedagopy.ipynb",
-    "problemes_exploratoires_linalg_pedagopy.ipynb",
-    "problemes_algebre_lineaire_pedagopy.ipynb",
-    "projet_exploration_algebre_lineaire.ipynb",
+    "carnets/tutoriel_linalg_pedagopy.ipynb",
+    "carnets/problemes_exploratoires_linalg_pedagopy.ipynb",
+    "carnets/problemes_algebre_lineaire_pedagopy.ipynb",
+    "carnets/projet_exploration_algebre_lineaire.ipynb",
     "exercices/vecteurs_matrices.ipynb",
     "exercices/corrige_vecteurs_matrices.ipynb",
 ]

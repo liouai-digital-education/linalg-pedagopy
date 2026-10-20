@@ -48,11 +48,11 @@ Une *séance* désigne une demi-journée à une journée de travail. Les phases 
 
 | Commit | Contenu |
 |:-----------------|:-----------------------------------------------------|
-| `9506787` | Couverture des tests, guide des vérifications, CHANGELOG de la phase 0 |
-| `f20932d` | Exécution des carnets, `verifier_tout.py`, workflow GitHub Actions |
-| `7b0aed5` | Tests de caractérisation : traces, oracle et 35 fiches figés en références |
-| `e68a158` | Python 3.10 minimum, configuration ruff et mypy, dépendances de développement |
-| `005828f` | Corrections ruff sans effet sur le comportement |
+| `9b81aa0` | Couverture des tests, guide des vérifications, CHANGELOG de la phase 0 |
+| `b7d029b` | Exécution des carnets, `verifier_tout.py`, workflow GitHub Actions |
+| `536f01b` | Tests de caractérisation : traces, oracle et 35 fiches figés en références |
+| `caa3c05` | Python 3.10 minimum, configuration ruff et mypy, dépendances de développement |
+| `29441ca` | Corrections ruff sans effet sur le comportement |
 
 Non commité : cinq carnets modifiés (sorties ré-exécutées), `essai3` et `essai4` non suivis.
 

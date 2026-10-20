@@ -1,6 +1,7 @@
 """Générateur du projet d'exploration ouvert en algèbre linéaire."""
 
 import json
+from pathlib import Path
 
 cells = []
 
@@ -429,7 +430,7 @@ nb = {
     "nbformat_minor": 5,
 }
 
-output_path = "projet_exploration_algebre_lineaire.ipynb"
+output_path = Path(__file__).resolve().parent.parent / "carnets" / "projet_exploration_algebre_lineaire.ipynb"
 with open(output_path, "w", encoding="utf-8") as f:
     json.dump(nb, f, indent=1, ensure_ascii=False)
 
