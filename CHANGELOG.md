@@ -8,6 +8,7 @@
 - Oracle : la condition d'annulation d'un verdict conditionnel est complète. Le nouveau champ `ZeroDecision.cases` donne une alternative par facteur, et `format_cases()` l'affiche (`a*b` : « a = 0 ou b = 0 ») ; `condition` reste la première alternative. Le vérificateur d'opérations élémentaires affiche la condition complète.
 - `Vector.is_zero()` et `Matrix.has_orthonormal_columns()` discutent désormais des cas disjoints et exhaustifs (nouvelle fonction `decide_all_zero`). Auparavant, `Vector([a*b, 0]).is_zero()` répondait faux en a = 1, b = 0, et `Vector([a, b - 1]).is_zero()` ne couvrait pas a = 0, b = 2.
 - `explain(level=0)` affiche enfin le **résultat seul** (rang, solution, inverse…), en texte, LaTeX, Markdown et HTML, au lieu d'un texte vide ; c'est le résumé déjà utilisé pour les branches d'une discussion par cas. Tableau des niveaux du guide 03 corrigé.
+- Tuteur : une réponse illisible n'affiche plus le message brut de SymPy ou de Python (en anglais, variable selon la version), mais une raison en français (formule sur plusieurs lignes ou matrice affichée, signe « = », parenthèses déséquilibrées, multiplication sans `*`, nom inconnu, syntaxe invalide) : vérificateur de formule, chaînes d'égalités et panneau JupyterLab (`raison_illisible`). Une matrice ou un vecteur donné à un exercice de formule reçoit le message de forme attendue, avec les variables de l'exercice.
 
 ### Phase 0 du plan v5 — filet de sécurité
 - Python **3.10** minimum (`requires-python`, ruff, mypy, classificateurs).

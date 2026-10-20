@@ -86,31 +86,31 @@ Votre formule (0) ne coïncide pas avec l'expression attendue (par exemple, lors
 Votre formule (0) ne coïncide pas avec l'expression attendue (par exemple, lorsque les paramètres valent 1, votre formule donne 0). Avez-vous bien développé le carré de la norme et utilisé l'hypothèse d'orthogonalité ?
 
 ===== verify(Vector.zeros(2)) -> False =====
-Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, écrite avec les variables d_i, a_ij, e_j.
 
 ===== verify(Vector.zeros(3)) -> False =====
-Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, écrite avec les variables d_i, a_ij, e_j.
 
 ===== verify(Vector.ones(5)) -> False =====
-Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, écrite avec les variables d_i, a_ij, e_j.
 
 ===== verify(Matrix.zeros(2, 2)) -> False =====
-Impossible d'interpréter votre formule (<message d'erreur de SymPy>). Utilisez les variables ['d_i', 'a_ij', 'e_j'].
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, écrite avec les variables d_i, a_ij, e_j.
 
 ===== verify(Matrix.zeros(3, 1)) -> False =====
-Impossible d'interpréter votre formule (<message d'erreur de SymPy>). Utilisez les variables ['d_i', 'a_ij', 'e_j'].
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, écrite avec les variables d_i, a_ij, e_j.
 
 ===== verify(Matrix.identity(3)) -> False =====
-Impossible d'interpréter votre formule (<message d'erreur de SymPy>). Utilisez les variables ['d_i', 'a_ij', 'e_j'].
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, écrite avec les variables d_i, a_ij, e_j.
 
 ===== verify([1, 2]) -> False =====
-Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, écrite avec les variables d_i, a_ij, e_j.
 
 ===== verify({'a': 'valide'}) -> False =====
-Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, écrite avec les variables d_i, a_ij, e_j.
 
 ===== verify(('0', '0')) -> False =====
-Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, écrite avec les variables d_i, a_ij, e_j.
 
 ===== réponse juste =====
 Formule exacte (a_ij*d_i*e_j) !

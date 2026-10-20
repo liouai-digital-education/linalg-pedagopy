@@ -8,7 +8,6 @@ Régénération après un changement voulu : LP_MAJ_REFERENCES=1 pytest tests/te
 
 from __future__ import annotations
 
-import re
 from fractions import Fraction
 from pathlib import Path
 
@@ -56,15 +55,6 @@ REPONSES_JUSTES = {
 }
 
 
-def _sans_message_python(texte: str) -> str:
-    """Remplace le texte brut des exceptions de SymPy/Python, qui varie selon les versions.
-
-    Le tuteur recopie ce texte dans son diagnostic (comportement relevé en phase 0) ;
-    seule la phrase d'aide qui l'entoure est figée.
-    """
-    return re.sub(r"\(Sympify of expression .*?\)\. Utilisez", "(<message d'erreur de SymPy>). Utilisez", texte, flags=re.S)
-
-
 def _sans_temps(texte: str) -> str:
     return "\n".join(l for l in str(texte).splitlines() if not l.startswith("- Temps passé"))
 
@@ -81,7 +71,7 @@ def test_caracterisation_fiche(ex_id: str, tmp_path: Path) -> None:
     parts.append(bloc("jumeau (markdown)", tw._repr_markdown_() if hasattr(tw, "_repr_markdown_") else tw))
     for nom, rep in REPONSES_GENERIQUES:
         res = ex.verify(rep)
-        parts.append(bloc(f"verify({nom}) -> {res.valid}", _sans_message_python(res.diagnostic)))
+        parts.append(bloc(f"verify({nom}) -> {res.valid}", res.diagnostic))
     if ex_id in REPONSES_JUSTES:
         res = ex.verify(REPONSES_JUSTES[ex_id])
         assert res.valid, res.diagnostic

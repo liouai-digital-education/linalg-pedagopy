@@ -401,3 +401,33 @@ def test_fiches_sans_reference_externe_ni_caractere_corrompu() -> None:
         assert data["titre"] and data["theme"] and data["niveau"] in (1, 2, 3)
         numeros.add(data["numero"])
     assert numeros == set(range(1, 36))
+
+
+def test_reponses_illisibles_diagnostic_en_francais() -> None:
+    from linalg_pedagopy import Matrix
+    from linalg_pedagopy.tutor.verifiers import raison_illisible, verify_formula
+
+    spec = {"parametres": ["norm_u", "norm_v"], "cible": "norm_u**2 + norm_v**2"}
+    cas = {
+        "norm_u**2 + norm_v**2 = c": "sans signe « = »",
+        "(norm_u**2 + norm_v**2": "ne sont pas équilibrés",
+        "2norm_u": "s'écrit avec *",
+        str(Matrix.identity(2)): "sur une seule ligne",
+        "norm_u +* norm_v": "la syntaxe n'est pas valide",
+    }
+    for saisie, attendu in cas.items():
+        res = verify_formula(saisie, spec, {})
+        assert not res.valid
+        assert attendu in res.diagnostic
+        # Jamais le message brut de SymPy ou de Python
+        assert "Sympify" not in res.diagnostic and "SyntaxError" not in res.diagnostic
+        assert "Utilisez les variables norm_u, norm_v." in res.diagnostic
+
+    # Un objet qui n'est pas une formule : message de forme, sans passer par SymPy
+    res_m = verify_formula(Matrix.identity(2), spec, {})
+    assert res_m.diagnostic.startswith("Votre réponse n'a pas la forme attendue")
+
+    try:
+        eval("Vectr([1])", {"__builtins__": {}}, {})  # noqa: S307
+    except NameError as exc:
+        assert raison_illisible("Vectr([1])", exc) == "le nom « Vectr » n'est pas connu ici."

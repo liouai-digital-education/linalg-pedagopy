@@ -99,7 +99,9 @@ def build_panel(session: Any) -> Any:
         try:
             obj = _parse_answer(text)
         except Exception as exc:  # noqa: BLE001
-            _show(f"Réponse illisible ({exc}). Exemple attendu : `Vector([1, 2])`.")
+            from linalg_pedagopy.tutor.verifiers import raison_illisible
+
+            _show(f"Réponse illisible : {raison_illisible(text, exc)} Exemple attendu : `Vector([1, 2])`.")
             return
         res = session.verify(obj)
         _show(res._repr_markdown_() if hasattr(res, "_repr_markdown_") else res)

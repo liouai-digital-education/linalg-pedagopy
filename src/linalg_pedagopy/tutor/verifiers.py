@@ -19,6 +19,27 @@ from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.trace.tracer import suspend_tracing
 
 
+def raison_illisible(texte: str, exc: BaseException | None = None) -> str:
+    """Explique en français pourquoi une saisie ne peut pas être lue.
+
+    Le message d'exception de SymPy ou de Python n'est jamais recopié : il est en
+    anglais, peu lisible pour un étudiant et change d'une version à l'autre.
+    """
+    t = str(texte)
+    if "\n" in t.strip() or re.search(r"[⎛-⎯─-╿]", t):
+        return "écrivez la formule sur une seule ligne, en texte (pas une matrice ou une expression affichée)."
+    if re.search(r"(?<![=!<>])=(?!=)", t):
+        return "saisissez seulement l'expression, sans signe « = »."
+    if t.count("(") != t.count(")") or t.count("[") != t.count("]"):
+        return "les parenthèses ou les crochets ne sont pas équilibrés."
+    if re.search(r"\d[A-Za-z_(]|\)\s*[(A-Za-z_\d]|[A-Za-z_]\w*\s+[A-Za-z_(]", t):
+        return "chaque multiplication s'écrit avec * (par exemple 2*x ou (a + b)*c)."
+    if isinstance(exc, NameError):
+        nom = re.search(r"'(\w+)'", str(exc))
+        return f"le nom « {nom.group(1)} » n'est pas connu ici." if nom else "un nom utilisé n'est pas connu ici."
+    return "la syntaxe n'est pas valide (vérifiez les opérateurs : +, -, *, /, ** pour les puissances)."
+
+
 class VerificationResult:
     """Result of a tutor verification with bilingual attribute support."""
 
@@ -376,17 +397,25 @@ def verify_formula(
                 return VerificationResult(False, f"Pour '{key}' : {sub_res.diagnostic}")
         return VerificationResult(True, "Toutes vos formules symboliques sont exactes !")
 
+    variables = ", ".join(param_names)
+    if not isinstance(response, (str, int, sp.Expr)):
+        return VerificationResult(
+            False,
+            "Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, "
+            f"écrite avec les variables {variables}.",
+        )
+    target_expr = sp.sympify(str(cible_raw), locals=local_env)
     try:
         student_expr = (
             response
             if isinstance(response, sp.Expr)
             else sp.sympify(str(response), locals=local_env)
         )
-        target_expr = sp.sympify(str(cible_raw), locals=local_env)
     except Exception as exc:
         return VerificationResult(
             False,
-            f"Impossible d'interpréter votre formule ({exc}). Utilisez les variables {param_names}.",
+            f"Impossible de lire votre formule : {raison_illisible(str(response), exc)} "
+            f"Utilisez les variables {variables}.",
         )
 
     diff = sp.simplify(student_expr - target_expr)
@@ -911,7 +940,8 @@ def verify_equalities(
                 except Exception as exc:
                     return VerificationResult(
                         False,
-                        f"Erreur d'évaluation au maillon {idx} ({exc}).",
+                        f"Impossible de calculer le maillon {idx} : {raison_illisible(str(step_expr), exc)} "
+                        "Utilisez A, B, C, D, I, block([[…], […]]) et les opérations +, -, @.",
                     )
 
             target_block = Matrix.block([[A, B], [C, D]])
@@ -957,7 +987,7 @@ def verify_equalities(
         except Exception as exc:
             return VerificationResult(
                 False,
-                f"Impossible d'analyser le maillon {idx} : {item!r} ({exc}).",
+                f"Impossible de lire le maillon {idx} ({item!r}) : {raison_illisible(str(item), exc)}",
             )
 
     # Check start/end endpoints if specified or prevent constant-only trivial chains
