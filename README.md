@@ -95,6 +95,8 @@ La documentation complète est dans [`docs/`](docs/index.md) (version HTML : `do
 
 Le [tutoriel](TUTORIAL.md) parcourt l'ensemble du package ; le carnet `tutoriel_linalg_pedagopy.ipynb` en est généré par `python convert_tutorial_to_ipynb.py`.
 
+Le dossier [`exercices/`](exercices/) contient un cahier de **20 exercices de calcul sur les vecteurs et les matrices**, de difficulté croissante, avec vérification automatique et indices (`vecteurs_matrices.ipynb`), et son corrigé (`corrige_vecteurs_matrices.ipynb`).
+
 ---
 
 ## Tests
