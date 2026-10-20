@@ -213,7 +213,7 @@ print(len(arbre.children))
 <tr>
 <td style="text-align: center;"><strong>1</strong></td>
 <td style="text-align: left;"><strong>Macro-étapes</strong> <em>(défaut)</em></td>
-<td style="text-align: left;">Opérations élémentaires sur les lignes (<strong>ACADEMIC_TOKEN_3</strong>) avec la matrice après chaque opération, résultat final.</td>
+<td style="text-align: left;">Opérations élémentaires sur les lignes ($L_2 \leftarrow L_2 - 2 L_1$) avec la matrice après chaque opération, résultat final.</td>
 </tr>
 <tr>
 <td style="text-align: center;"><strong>2</strong></td>
@@ -231,10 +231,10 @@ print(len(arbre.children))
 <p>L'arbre de trace est composé de nœuds immuables <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/trace/step.py"><code>Step</code></a>. Chaque étape possède :
 - Un type d'action <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/trace/step.py"><code>StepKind</code></a> (<code>SECTION</code>, <code>INFO</code>, <code>WARNING</code>, <code>ROW_SWAP</code>, <code>ROW_SCALE</code>, <code>ROW_ADD</code>, <code>DOT</code>, <code>NORM</code>, <code>PROJECTION</code>, <code>SUBTRACT</code>, <code>NORMALIZE</code>, <code>BACK_SUBSTITUTION</code>, <code>CASE_SPLIT</code>, <code>CHECK</code>, <code>RESULT</code>).
 - Des instantanés matriciels (<code>snapshot</code>).
-- Une mise en valeur graphique <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/trace/step.py"><code>Highlight</code></a> spécifiant les coordonnées du pivot <strong>ACADEMIC_TOKEN_4</strong>, les lignes modifiées et la barre de séparation augmentée.</p>
+- Une mise en valeur graphique <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/trace/step.py"><code>Highlight</code></a> spécifiant les coordonnées du pivot $(i, j)$, les lignes modifiées et la barre de séparation augmentée.</p>
 <hr/>
 <h2 id="2-elimination-de-gauss-jordan-gaussjordan">2. Élimination de Gauss-Jordan (<code>GaussJordan</code>)</h2>
-<p>La procédure <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/gauss_jordan.py"><code>GaussJordan</code></a> résout les systèmes linéaires formels <strong>ACADEMIC_TOKEN_5</strong> et calcule l'inverse de matrices carrées.</p>
+<p>La procédure <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/gauss_jordan.py"><code>GaussJordan</code></a> résout les systèmes linéaires formels $A x = b$ et calcule l'inverse de matrices carrées.</p>
 <h3 id="21-signature-et-options">2.1 Signature et options</h3>
 <div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">GaussJordan(
     A: Matrix,
@@ -249,25 +249,43 @@ print(len(arbre.children))
 )
 </code></pre></div>
 <ul>
-<li><code>A</code> : Matrice des coefficients <strong>ACADEMIC_TOKEN_6</strong>.</li>
-<li><code>b</code> : Vecteur second membre (optionnel ; sans lui, seule la RREF de <strong>ACADEMIC_TOKEN_7</strong> est calculée).</li>
+<li><code>A</code> : Matrice des coefficients $m \times n$.</li>
+<li><code>b</code> : Vecteur second membre (optionnel ; sans lui, seule la RREF de $A$ est calculée).</li>
 <li><code>pivot_strategy</code> : choix du pivot — le plus simple (<code>"simplest"</code>), le premier non nul (<code>"first"</code>) ou le plus grand en valeur absolue (<code>"partial"</code>).</li>
 <li><code>strict</code> : si <code>True</code>, lève <code>SingularMatrixError</code> pour un système incompatible (ou une matrice non inversible avec <code>compute_inverse=True</code>) au lieu de renvoyer <code>EmptySolution</code> / <code>inverse=None</code>.</li>
 <li><code>max_depth</code>, <code>max_cases</code> : limites de la discussion paramétrique (par défaut <code>config.max_case_depth</code> et <code>config.max_cases</code>).</li>
 <li><code>assumptions</code> : hypothèses initiales sur les paramètres de la branche.</li>
-<li><code>compute_inverse</code> : si <code>True</code>, calcule l'inverse via l'échelonnement simultané de <strong>ACADEMIC_TOKEN_8</strong> (champ <code>inverse</code> du résultat).</li>
+<li><code>compute_inverse</code> : si <code>True</code>, calcule l'inverse via l'échelonnement simultané de $[A \mid I_n]$ (champ <code>inverse</code> du résultat).</li>
 </ul>
 <p>Le résultat <code>GJResult</code> expose <code>A</code>, <code>b</code>, <code>rref</code>, <code>augmented_rref</code>, <code>pivots</code>, <code>rank</code>, <code>free_vars</code>, <code>nullspace_basis</code>, <code>solution</code> et <code>inverse</code>.</p>
 <h3 id="22-typologie-des-ensembles-de-solutions">2.2 Typologie des ensembles de solutions</h3>
 <p>Le résultat renvoyé par <code>GaussJordan.run()</code> est un <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/gauss_jordan.py"><code>GJResult</code></a> dont la propriété <code>solution</code> appartient à l'une des 3 catégories de <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/base.py"><code>SolutionSet</code></a> :</p>
-<p><strong>ACADEMIC_TOKEN_0</strong></p>
+<p><div class="mermaid-wrapper"><pre class="mermaid">classDiagram
+    class SolutionSet
+    class UniqueSolution {
+        +Vector x
+    }
+    class AffineSolution {
+        +Vector x0
+        +tuple[Vector] basis
+        +tuple[int] free_vars
+        +at_params(*t)
+    }
+    class EmptySolution {
+        +int row
+        +Expr witness
+        +tuple inconsistent_rows
+    }
+    SolutionSet &lt;|-- UniqueSolution
+    SolutionSet &lt;|-- AffineSolution
+    SolutionSet &lt;|-- EmptySolution</pre></div></p>
 <ol>
 <li><strong><code>UniqueSolution</code></strong> : Système de Cramer ou système rectangulaire compatible de rang plein colonne.<br/>
-<strong>ACADEMIC_TOKEN_9</strong>.</li>
+   $\mathcal{S} = \{ x_0 \}$.</li>
 <li><strong><code>AffineSolution</code></strong> : Sous-déterminé ou système compatible de rang déficient.<br/>
-<strong>ACADEMIC_TOKEN_10</strong>. L'objet fournit la solution particulière <code>x0</code> (<strong>ACADEMIC_TOKEN_11</strong>), une base du noyau <code>basis</code> (<strong>ACADEMIC_TOKEN_12</strong>) et les indices des variables libres <code>free_vars</code> ; <code>at_params(t1, ..., tk)</code> renvoie la solution pour des valeurs données des paramètres.</li>
-<li><strong><code>EmptySolution</code></strong> : Système incompatible (présence d'une ligne d'incompatibilité <strong>ACADEMIC_TOKEN_13</strong> avec <strong>ACADEMIC_TOKEN_14</strong>).<br/>
-<strong>ACADEMIC_TOKEN_15</strong>. L'objet indique la ligne témoin <code>row</code> (indice 0-based), la valeur non nulle <code>witness</code> du second membre et la liste <code>inconsistent_rows</code>.</li>
+   $\mathcal{S} = x_p + \text{Vect}(v_1, \dots, v_k)$. L'objet fournit la solution particulière <code>x0</code> ($x_p$), une base du noyau <code>basis</code> ($\{v_1, \dots, v_k\}$) et les indices des variables libres <code>free_vars</code> ; <code>at_params(t1, ..., tk)</code> renvoie la solution pour des valeurs données des paramètres.</li>
+<li><strong><code>EmptySolution</code></strong> : Système incompatible (présence d'une ligne d'incompatibilité $[0 \dots 0 \mid \beta]$ avec $\beta \neq 0$).<br/>
+   $\mathcal{S} = \emptyset$. L'objet indique la ligne témoin <code>row</code> (indice 0-based), la valeur non nulle <code>witness</code> du second membre et la liste <code>inconsistent_rows</code>.</li>
 </ol>
 <h3 id="23-exemple-avec-parametre-et-discussion-automatique">2.3 Exemple avec paramètre et discussion automatique</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, symbols, GaussJordan
@@ -290,15 +308,15 @@ for br in res.branches:
 # m = 1 -&gt; (1, 0, 0) + t_1·(-1, 1, 0) + t_2·(-1, 0, 1)
 </code></pre></div>
 <p>Ce code produit automatiquement un <code>CaseSplit</code> distinguant :
-- Le cas <strong>ACADEMIC_TOKEN_16</strong> : infinité de solutions (plan affine de dimension 2).
-- Le cas <strong>ACADEMIC_TOKEN_17</strong> : système incompatible (<strong>ACADEMIC_TOKEN_18</strong>).
-- Le cas <strong>ACADEMIC_TOKEN_19</strong> : solution unique <strong>ACADEMIC_TOKEN_20</strong>.</p>
+- Le cas $m = 1$ : infinité de solutions (plan affine de dimension 2).
+- Le cas $m = -2$ : système incompatible ($\emptyset$).
+- Le cas $m \notin \{1, -2\}$ : solution unique $x = \left(\frac{1}{m+2}, \frac{1}{m+2}, \frac{1}{m+2}\right)$.</p>
 <hr/>
 <h2 id="3-substitutions-triangulaires">3. Substitutions Triangulaires</h2>
 <p>Pour les systèmes dont la matrice est déjà échelonnée, les algorithmes de substitution évitent le coût complet d'un pivot de Gauss :</p>
 <ul>
-<li><a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/triangular.py"><code>ForwardSubstitution</code></a> : Résout <strong>ACADEMIC_TOKEN_21</strong> pour une matrice triangulaire inférieure <strong>ACADEMIC_TOKEN_22</strong> (descente).</li>
-<li><a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/triangular.py"><code>BackSubstitution</code></a> : Résout <strong>ACADEMIC_TOKEN_23</strong> pour une matrice triangulaire supérieure <strong>ACADEMIC_TOKEN_24</strong> (remontée).</li>
+<li><a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/triangular.py"><code>ForwardSubstitution</code></a> : Résout $L y = b$ pour une matrice triangulaire inférieure $L$ (descente).</li>
+<li><a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/triangular.py"><code>BackSubstitution</code></a> : Résout $U x = y$ pour une matrice triangulaire supérieure $U$ (remontée).</li>
 </ul>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, BackSubstitution
 
@@ -314,8 +332,8 @@ print(res.x)  # (1, 2, 1)
 </code></pre></div>
 <hr/>
 <h2 id="4-orthogonalisation-de-gram-schmidt-gramschmidt">4. Orthogonalisation de Gram-Schmidt (<code>GramSchmidt</code>)</h2>
-<p>La procédure <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/gram_schmidt.py"><code>GramSchmidt</code></a> (<code>GramSchmidt(vectors, *, normalize="end", strict=False, assumptions=None)</code>) transforme une famille libre de vecteurs <strong>ACADEMIC_TOKEN_25</strong> en une famille orthogonale <strong>ACADEMIC_TOKEN_26</strong> puis orthonormée <strong>ACADEMIC_TOKEN_27</strong> :</p>
-<p><strong>ACADEMIC_TOKEN_1</strong></p>
+<p>La procédure <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/gram_schmidt.py"><code>GramSchmidt</code></a> (<code>GramSchmidt(vectors, *, normalize="end", strict=False, assumptions=None)</code>) transforme une famille libre de vecteurs $(a_1, \dots, a_k)$ en une famille orthogonale $(u_1, \dots, u_k)$ puis orthonormée $(q_1, \dots, q_k)$ :</p>
+<p><div class="math-display">$$u_k = a_k - \sum_{i=1}^{k-1} \frac{\langle a_k, u_i \rangle}{\|u_i\|^2} u_i, \quad q_k = \frac{u_k}{\|u_k\|}$$</div></p>
 <p>Avec <code>normalize="end"</code> (défaut), les calculs restent rationnels jusqu'à la normalisation finale ; <code>normalize="each"</code> normalise à chaque étape, comme dans la présentation classique de l'algorithme.</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Vector, GramSchmidt
 
@@ -341,10 +359,10 @@ print(dep.witness)                           # a_2 = (2)·q̃_1
 </code></pre></div>
 <hr/>
 <h2 id="5-factorisation-qr-qr">5. Factorisation QR (<code>QR</code>)</h2>
-<p>La classe <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/qr.py"><code>QR</code></a> factorise une matrice <strong>ACADEMIC_TOKEN_28</strong> de rang plein colonne sous la forme <strong>ACADEMIC_TOKEN_29</strong>, où <strong>ACADEMIC_TOKEN_30</strong> a des colonnes orthonormales (<strong>ACADEMIC_TOKEN_31</strong>) et <strong>ACADEMIC_TOKEN_32</strong> est triangulaire supérieure inversible.</p>
+<p>La classe <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/qr.py"><code>QR</code></a> factorise une matrice $A$ de rang plein colonne sous la forme $A = Q R$, où $Q$ a des colonnes orthonormales ($Q^T Q = I$) et $R$ est triangulaire supérieure inversible.</p>
 <p>La factorisation est calculée par Gram-Schmidt (<code>QR(A, *, strict=False, assumptions=None)</code> ; il n'y a pas de paramètre <code>method</code>, ni Householder ni Givens). Le résultat <code>QRResult</code> fournit deux formes :
 - la forme orthonormée <code>Q</code>, <code>R</code> (avec radicaux) ;
-- la forme rationnelle sans radicaux <code>Q_tilde</code>, <code>R_tilde</code>, <code>D_sq</code> (colonnes orthogonales non normalisées, avec <strong>ACADEMIC_TOKEN_33</strong>), adaptée au calcul à la main.</p>
+- la forme rationnelle sans radicaux <code>Q_tilde</code>, <code>R_tilde</code>, <code>D_sq</code> (colonnes orthogonales non normalisées, avec $D^2 = \tilde Q^T \tilde Q$), adaptée au calcul à la main.</p>
 <p>Si les colonnes sont liées, <code>full_rank</code> vaut <code>False</code> et <code>witness</code> décrit la dépendance (ou <code>LinearDependenceError</code> avec <code>strict=True</code>).</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, QR
 
@@ -363,11 +381,11 @@ print("Q̃ =", qr_res.Q_tilde, " D² =", qr_res.D_sq)            # forme rationn
 <hr/>
 <h2 id="6-moindres-carres-lineaires-leastsquares">6. Moindres Carrés Linéaires (<code>LeastSquares</code>)</h2>
 <p>La régression au sens des moindres carrés résout le problème d'optimisation :
-<strong>ACADEMIC_TOKEN_2</strong></p>
-<p>La classe <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/least_squares.py"><code>LeastSquares</code></a> calcule la solution exacte <strong>ACADEMIC_TOKEN_34</strong> via :
-- <code>method="rational_qr"</code> <em>(défaut)</em> : QR rationnelle sans radicaux, <strong>ACADEMIC_TOKEN_35</strong> ;
-- <code>method="qr"</code> : QR orthonormée, <strong>ACADEMIC_TOKEN_36</strong> ;
-- <code>method="normal"</code> : équations normales <strong>ACADEMIC_TOKEN_37</strong>.</p>
+<div class="math-display">$$\min_{x} \|A x - b\|^2$$</div></p>
+<p>La classe <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/least_squares.py"><code>LeastSquares</code></a> calcule la solution exacte $\hat{x}$ via :
+- <code>method="rational_qr"</code> <em>(défaut)</em> : QR rationnelle sans radicaux, $\tilde R \hat{x} = D^{-2} \tilde Q^T b$ ;
+- <code>method="qr"</code> : QR orthonormée, $R \hat{x} = Q^T b$ ;
+- <code>method="normal"</code> : équations normales $(A^T A) \hat{x} = A^T b$.</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, LeastSquares
 
 A = Matrix([

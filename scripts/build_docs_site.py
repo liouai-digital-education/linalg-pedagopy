@@ -1104,13 +1104,26 @@ PAGE_TEMPLATE = jinja2.Template("""<!DOCTYPE html>
 """)
 
 
+def _jeton(i: int) -> str:
+    """Jeton qui remplace un bloc protégé (formule, diagramme) pendant la conversion Markdown.
+
+    Uniquement des lettres et chiffres : un jeton comme « __X_1__ » serait mis en gras par
+    Markdown (<strong>X_1</strong>) et ne serait plus retrouvé à la restitution. Le « Z »
+    final évite que AcadTok1Z soit une sous-chaîne de AcadTok12Z.
+    """
+    return f"AcadTok{i}Z"
+
+
+JETON_RESIDUEL = re.compile(r"AcadTok\d+Z|ACADEMIC_TOKEN")
+
+
 def preprocess_markdown(text: str) -> tuple[str, list[str]]:
     """Protège les formules mathématiques et convertit les callouts et mermaid."""
     tokens: list[str] = []
 
     def save_token(payload: str) -> str:
         tokens.append(payload)
-        return f"__ACADEMIC_TOKEN_{len(tokens)-1}__"
+        return _jeton(len(tokens) - 1)
 
     # 1. Protéger les blocs de diagramme Mermaid
     def replace_mermaid(match: re.Match[str]) -> str:
@@ -1175,8 +1188,15 @@ def preprocess_markdown(text: str) -> tuple[str, list[str]]:
 
 def postprocess_html(html: str, tokens: list[str]) -> str:
     """Restaure les jetons protégés et améliore les blocs de code."""
-    for i, token in enumerate(tokens):
-        html = html.replace(f"__ACADEMIC_TOKEN_{i}__", token)
+    # Ordre décroissant : la restitution d'un bloc ne peut pas réintroduire un jeton déjà traité
+    for i in reversed(range(len(tokens))):
+        html = html.replace(_jeton(i), tokens[i])
+    # Les ancres des titres sont calculées par Markdown sur le texte à jetons : on en retire le jeton
+    # (« …-colonnes-de-acadtok24z » devient « …-colonnes-de »), pour des ancres lisibles et stables.
+    html = re.sub(r"-?acadtok\d+z", "", html)
+    reste = JETON_RESIDUEL.search(html)
+    if reste:
+        raise RuntimeError(f"Jeton non restitué dans le HTML : {html[max(0, reste.start() - 60):reste.end() + 20]!r}")
 
     soup = BeautifulSoup(html, "html.parser")
 

@@ -389,7 +389,7 @@
 <hr/>
 <h2 id="3-module-linalg_pedagopyobjects">3. Module <code>linalg_pedagopy.objects</code></h2>
 <h3 id="31-classe-vector">3.1 Classe <code>Vector</code></h3>
-<p>Vecteur colonne immuable <strong>ACADEMIC_TOKEN_0</strong> à coefficients exacts. Constructeur : <code>Vector(entries)</code>.</p>
+<p>Vecteur colonne immuable $n \times 1$ à coefficients exacts. Constructeur : <code>Vector(entries)</code>.</p>
 <h4 id="proprietes">Propriétés</h4>
 <ul>
 <li><code>entries: tuple[sympy.Expr, ...]</code>, <code>size: int</code>, <code>shape: tuple[int, int]</code> (<code>(n, 1)</code>), <code>rows</code>, <code>cols</code>.</li>
@@ -413,12 +413,12 @@
 <h4 id="constructeurs-et-conversions">Constructeurs et conversions</h4>
 <ul>
 <li><code>Vector.zeros(n)</code>, <code>Vector.ones(n)</code>, <code>Vector.unit(i, n)</code> (indice 0-based).</li>
-<li><code>Vector.combination(vs, cs) -&gt; Vector</code> : <strong>ACADEMIC_TOKEN_1</strong>.</li>
+<li><code>Vector.combination(vs, cs) -&gt; Vector</code> : $\sum_k c_k v_k$.</li>
 <li><code>to_sympy() -&gt; sympy.Matrix</code>, <code>to_domain_matrix() -&gt; DomainMatrix</code>, <code>subs(mapping) -&gt; Vector</code>.</li>
 </ul>
 <hr/>
 <h3 id="32-classe-matrix">3.2 Classe <code>Matrix</code></h3>
-<p>Matrice immuable <strong>ACADEMIC_TOKEN_2</strong> à coefficients exacts. Constructeur : <code>Matrix(rows)</code> (liste de lignes).</p>
+<p>Matrice immuable $m \times n$ à coefficients exacts. Constructeur : <code>Matrix(rows)</code> (liste de lignes).</p>
 <h4 id="proprietes_1">Propriétés</h4>
 <ul>
 <li><code>rows: int</code>, <code>cols: int</code>, <code>shape: tuple[int, int]</code>.</li>
@@ -430,13 +430,13 @@
 <ul>
 <li><code>A + B</code>, <code>A - B</code>, <code>-A</code>, <code>c * A</code>, <code>A * c</code>, <code>A / c</code>, <code>A @ B</code>, <code>A @ v</code> (pas d'opérateur <code>**</code>).</li>
 <li><code>matmul(other, *, view="entries")</code> : produit avec trace selon la vue (<code>"entries"</code>, <code>"rows"</code>, <code>"columns"</code>, <code>"outer"</code>).</li>
-<li><code>gram() -&gt; Matrix</code> : <strong>ACADEMIC_TOKEN_3</strong>.</li>
+<li><code>gram() -&gt; Matrix</code> : $A^T A$.</li>
 <li><code>has_orthonormal_columns(assumptions=None) -&gt; bool | CaseSplit[bool]</code>.</li>
 </ul>
 <h4 id="acces">Accès</h4>
 <ul>
 <li><code>row(i) -&gt; Vector</code>, <code>col(j) -&gt; Vector</code>, <code>columns() -&gt; tuple[Vector, ...]</code>, <code>rows_as_vectors() -&gt; tuple[Vector, ...]</code>.</li>
-<li><code>augment(right) -&gt; Matrix</code> : matrice augmentée <strong>ACADEMIC_TOKEN_4</strong>.</li>
+<li><code>augment(right) -&gt; Matrix</code> : matrice augmentée $[A \mid B]$.</li>
 <li><code>to_sympy()</code>, <code>to_domain_matrix()</code>, <code>subs(mapping)</code>.</li>
 </ul>
 <h4 id="algebre-et-sous-espaces-avec-discussion-parametrique">Algèbre et sous-espaces (avec discussion paramétrique)</h4>
@@ -445,7 +445,7 @@
 <li><code>rank(*, assumptions=None) -&gt; int | CaseSplit[int]</code>.</li>
 <li><code>nullspace(*, assumptions=None) -&gt; tuple[Vector, ...] | CaseSplit[...]</code>.</li>
 <li><code>inv(*, assumptions=None, strict=True) -&gt; Matrix | None | CaseSplit[Matrix | None]</code> : lève <code>SingularMatrixError</code> si <code>strict=True</code> et la matrice peut être singulière.</li>
-<li><code>solve(b, *, assumptions=None, strict=False)</code> : résolution de <strong>ACADEMIC_TOKEN_5</strong> par Gauss-Jordan.</li>
+<li><code>solve(b, *, assumptions=None, strict=False)</code> : résolution de $A x = b$ par Gauss-Jordan.</li>
 </ul>
 <h4 id="constructeurs">Constructeurs</h4>
 <ul>
@@ -457,11 +457,11 @@
 <h3 id="33-module-linalg_pedagopyspecial-matrices-structurees">3.3 Module <code>linalg_pedagopy.special</code> (matrices structurées)</h3>
 <p>Indices comptés à partir de 0 ; toutes les fonctions sont aussi importables depuis <code>linalg_pedagopy</code>.</p>
 <ul>
-<li><code>difference_matrix(n)</code> (alias <code>matrice_differences</code>) : <strong>ACADEMIC_TOKEN_6</strong>, <strong>ACADEMIC_TOKEN_7</strong>.</li>
-<li><code>running_sum_matrix(n)</code> (alias <code>matrice_somme_cumulee</code>) : <strong>ACADEMIC_TOKEN_8</strong>, sommes cumulées.</li>
-<li><code>moving_average_matrix(n, k)</code> (alias <code>matrice_moyenne_glissante</code>) : <strong>ACADEMIC_TOKEN_9</strong>.</li>
-<li><code>vandermonde(points, degree=None)</code> : ligne <strong>ACADEMIC_TOKEN_10</strong> = <strong>ACADEMIC_TOKEN_11</strong>.</li>
-<li><code>convolution_matrix(b, n)</code> (alias <code>matrice_convolution</code>) : Toeplitz <strong>ACADEMIC_TOKEN_12</strong>, <strong>ACADEMIC_TOKEN_13</strong>.</li>
+<li><code>difference_matrix(n)</code> (alias <code>matrice_differences</code>) : $(n-1) \times n$, $(Dx)_i = x_{i+1} - x_i$.</li>
+<li><code>running_sum_matrix(n)</code> (alias <code>matrice_somme_cumulee</code>) : $n \times n$, sommes cumulées.</li>
+<li><code>moving_average_matrix(n, k)</code> (alias <code>matrice_moyenne_glissante</code>) : $(n-k+1) \times n$.</li>
+<li><code>vandermonde(points, degree=None)</code> : ligne $i$ = $(1, t_i, \dots, t_i^{d})$.</li>
+<li><code>convolution_matrix(b, n)</code> (alias <code>matrice_convolution</code>) : Toeplitz $T(b)$, $T(b)a = b * a$.</li>
 <li><code>convolution(a, b) -&gt; Vector</code> : produit de convolution.</li>
 <li><code>selection_matrix(indices, n)</code> (alias <code>matrice_selection</code>), <code>reversal_matrix(n)</code> (alias <code>matrice_renversement</code>).</li>
 </ul>
@@ -512,7 +512,7 @@ BackSubstitution(R, c, *, assumptions=None)
 </code></pre></div>
 <ul>
 <li><code>method</code> : <code>"rational_qr"</code> (défaut), <code>"qr"</code> ou <code>"normal"</code>.</li>
-<li><code>.run()</code> → <code>LSResult | CaseSplit[LSResult]</code> : <code>A</code>, <code>b</code>, <code>x_hat</code>, <code>y_hat</code>, <code>r_hat</code> (<strong>ACADEMIC_TOKEN_14</strong>), <code>residual_norm</code>, <code>residual_rms</code>, <code>method</code>, <code>full_rank</code>, <code>witness</code> ; propriétés <code>residual</code>, <code>pseudoinverse</code>.</li>
+<li><code>.run()</code> → <code>LSResult | CaseSplit[LSResult]</code> : <code>A</code>, <code>b</code>, <code>x_hat</code>, <code>y_hat</code>, <code>r_hat</code> ($A\hat x - b$), <code>residual_norm</code>, <code>residual_rms</code>, <code>method</code>, <code>full_rank</code>, <code>witness</code> ; propriétés <code>residual</code>, <code>pseudoinverse</code>.</li>
 </ul>
 <hr/>
 <h2 id="5-tracabilite-et-rendu">5. Traçabilité et rendu</h2>

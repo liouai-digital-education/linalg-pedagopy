@@ -169,7 +169,7 @@
 - <strong>Protection anti-triche</strong> : Les constructeurs rejettent les proxys verrouillés du tuteur pour empêcher les contournements.</p>
 <hr/>
 <h2 id="1-la-classe-vector">1. La classe <code>Vector</code></h2>
-<p>Un <code>Vector</code> représente un vecteur colonne de <strong>ACADEMIC_TOKEN_4</strong> (de dimension formelle <strong>ACADEMIC_TOKEN_5</strong>).</p>
+<p>Un <code>Vector</code> représente un vecteur colonne de $\mathbb{R}^n$ (de dimension formelle $n \times 1$).</p>
 <h3 id="11-initialisation-et-constructeurs-dusine">1.1 Initialisation et constructeurs d'usine</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Vector
 import sympy as sp
@@ -222,63 +222,63 @@ print(v1[0], len(v1), list(v1))  # 1 3 [1, 2, 3]
 <tbody>
 <tr>
 <td style="text-align: left;"><code>v.dot(w)</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_6</strong></td>
+<td style="text-align: left;">$\langle v, w \rangle = \sum_{i=1}^n v_i w_i$</td>
 <td style="text-align: left;">Produit scalaire standard (l'opérateur <code>@</code> n'est pas défini entre deux vecteurs).</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>v.norm_sq()</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_7</strong></td>
-<td style="text-align: left;">Carré de la norme euclidienne (rationnel si <strong>ACADEMIC_TOKEN_8</strong>).</td>
+<td style="text-align: left;">$\|v\|^2 = \sum_{i=1}^n v_i^2$</td>
+<td style="text-align: left;">Carré de la norme euclidienne (rationnel si $v \in \mathbb{Q}^n$).</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>v.norm()</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_9</strong></td>
+<td style="text-align: left;">$\|v\| = \sqrt{\langle v, v \rangle}$</td>
 <td style="text-align: left;">Norme euclidienne exacte.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>v.distance(w)</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_10</strong></td>
-<td style="text-align: left;">Distance euclidienne entre <strong>ACADEMIC_TOKEN_11</strong> et <strong>ACADEMIC_TOKEN_12</strong>.</td>
+<td style="text-align: left;">$\|v - w\|$</td>
+<td style="text-align: left;">Distance euclidienne entre $v$ et $w$.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>v.rms()</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_13</strong></td>
+<td style="text-align: left;">$\text{rms}(v) = \frac{\|v\|}{\sqrt{n}}$</td>
 <td style="text-align: left;">Valeur efficace (<em>Root-Mean-Square</em>).</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>v.avg()</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_14</strong></td>
+<td style="text-align: left;">$\bar{v} = \frac{1}{n} \sum_{i=1}^n v_i$</td>
 <td style="text-align: left;">Moyenne arithmétique des coefficients.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>v.demean()</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_15</strong></td>
+<td style="text-align: left;">$v - \bar{v}\mathbf{1}$</td>
 <td style="text-align: left;">Vecteur centré (<em>de-meaned</em>).</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>v.std()</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_16</strong></td>
+<td style="text-align: left;">$\sqrt{\frac{1}{n} \sum (v_i - \bar{v})^2}$</td>
 <td style="text-align: left;">Écart-type (écart quadratique moyen à la moyenne).</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>v.angle(w)</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_17</strong></td>
+<td style="text-align: left;">$\theta = \arccos\left(\frac{\langle v, w \rangle}{\|v\| \|w\|}\right)$</td>
 <td style="text-align: left;">Angle non orienté en radians.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>v.correlation(w)</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_18</strong></td>
+<td style="text-align: left;">$\rho = \frac{\langle v - \bar{v}, w - \bar{w} \rangle}{\|v - \bar{v}\| \|w - \bar{w}\|}$</td>
 <td style="text-align: left;">Coefficient de corrélation de Pearson.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>v.is_zero()</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_19</strong></td>
+<td style="text-align: left;">$v = 0$</td>
 <td style="text-align: left;">Test de nullité exact (via l'oracle).</td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p>Il n'existe pas de méthode de projection dédiée : la projection sur <strong>ACADEMIC_TOKEN_20</strong> s'écrit directement <code>(v.dot(w) / w.norm_sq()) * w</code>, ce qui garde la formule visible pour l'étudiant.</p>
+<p>Il n'existe pas de méthode de projection dédiée : la projection sur $\text{Vect}(w)$ s'écrit directement <code>(v.dot(w) / w.norm_sq()) * w</code>, ce qui garde la formule visible pour l'étudiant.</p>
 </blockquote>
 <p>Exemple :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">a = Vector([1, 2, 2])
@@ -309,7 +309,7 @@ print(a.entries)               # (1, 2, 2)
 </code></pre></div>
 <hr/>
 <h2 id="2-la-classe-matrix">2. La classe <code>Matrix</code></h2>
-<p>Une <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>Matrix</code></a> représente une matrice <strong>ACADEMIC_TOKEN_21</strong> sur <strong>ACADEMIC_TOKEN_22</strong>.</p>
+<p>Une <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>Matrix</code></a> représente une matrice $m \times n$ sur $\mathbb{R}$.</p>
 <h3 id="21-initialisation-et-constructeurs-dusine">2.1 Initialisation et constructeurs d'usine</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix
 
@@ -354,17 +354,22 @@ A_cubed = A @ A @ A
 </code></pre></div>
 <hr/>
 <h2 id="3-les-4-vues-du-produit-matriciel">3. Les 4 vues du produit matriciel</h2>
-<p>Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel <strong>ACADEMIC_TOKEN_23</strong>. <code>linalg_pedagopy</code> les rend explicites via <code>A.matmul(B, view=...)</code> : le résultat est identique quelle que soit la vue, mais la trace enregistrée (section <code>matrix.matmul.&lt;vue&gt;</code>) détaille le calcul selon la vue choisie :</p>
-<p><strong>ACADEMIC_TOKEN_0</strong></p>
-<h3 id="31-vue-1-viewcolumns-combinaisons-lineaires-des-colonnes-de-academic_token_24">3.1 Vue 1 (<code>view='columns'</code>) : Combinaisons linéaires des colonnes de <strong>ACADEMIC_TOKEN_24</strong></h3>
-<p>Chaque colonne <strong>ACADEMIC_TOKEN_25</strong> de <strong>ACADEMIC_TOKEN_26</strong> est une combinaison linéaire des colonnes <strong>ACADEMIC_TOKEN_27</strong> de <strong>ACADEMIC_TOKEN_28</strong>, avec pour coefficients les composantes de la <strong>ACADEMIC_TOKEN_29</strong>-ième colonne de <strong>ACADEMIC_TOKEN_30</strong> :
-<strong>ACADEMIC_TOKEN_1</strong></p>
+<p>Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. <code>linalg_pedagopy</code> les rend explicites via <code>A.matmul(B, view=...)</code> : le résultat est identique quelle que soit la vue, mais la trace enregistrée (section <code>matrix.matmul.&lt;vue&gt;</code>) détaille le calcul selon la vue choisie :</p>
+<p><div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
+    AB["Produit Matriciel C = AB"]
+    AB --&gt; V1["1. Combinaison linéaire des colonnes de A"]
+    AB --&gt; V2["2. Produits scalaires ligne-colonne"]
+    AB --&gt; V3["3. Somme de produits externes (Outer Products)"]
+    AB --&gt; V4["4. Coefficients un par un (vue par défaut)"]</pre></div></p>
+<h3 id="31-vue-1-viewcolumns-combinaisons-lineaires-des-colonnes-de">3.1 Vue 1 (<code>view='columns'</code>) : Combinaisons linéaires des colonnes de $A$</h3>
+<p>Chaque colonne $c_j$ de $C$ est une combinaison linéaire des colonnes $a_1, \dots, a_n$ de $A$, avec pour coefficients les composantes de la $j$-ième colonne de $B$ :
+<div class="math-display">$$c_j = A b_j = \sum_{i=1}^n b_{ij} a_i$$</div></p>
 <h3 id="32-vue-2-viewrows-viewentries-produits-scalaires-ligne-colonne">3.2 Vue 2 (<code>view='rows'</code> / <code>view='entries'</code>) : Produits scalaires ligne-colonne</h3>
-<p>Chaque coefficient <strong>ACADEMIC_TOKEN_31</strong> est le produit scalaire standard entre la <strong>ACADEMIC_TOKEN_32</strong>-ième ligne de <strong>ACADEMIC_TOKEN_33</strong> et la <strong>ACADEMIC_TOKEN_34</strong>-ième colonne de <strong>ACADEMIC_TOKEN_35</strong> :
-<strong>ACADEMIC_TOKEN_2</strong></p>
+<p>Chaque coefficient $c_{ij}$ est le produit scalaire standard entre la $i$-ième ligne de $A$ et la $j$-ième colonne de $B$ :
+<div class="math-display">$$c_{ij} = \text{row}_i(A) \cdot \text{col}_j(B) = \sum_{k=1}^n a_{ik} b_{kj}$$</div></p>
 <h3 id="33-vue-3-viewouter-somme-de-produits-externes-outer-products">3.3 Vue 3 (<code>view='outer'</code>) : Somme de produits externes (<em>Outer Products</em>)</h3>
-<p>Le produit <strong>ACADEMIC_TOKEN_36</strong> est la somme de <strong>ACADEMIC_TOKEN_37</strong> matrices de rang 1 formées par les produits externes des colonnes de <strong>ACADEMIC_TOKEN_38</strong> et des lignes de <strong>ACADEMIC_TOKEN_39</strong> :
-<strong>ACADEMIC_TOKEN_3</strong></p>
+<p>Le produit $A B$ est la somme de $n$ matrices de rang 1 formées par les produits externes des colonnes de $A$ et des lignes de $B$ :
+<div class="math-display">$$A B = \sum_{k=1}^n a_k b_k^T$$</div></p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tracing
 
 A = Matrix([[1, 2], [3, 4]])
@@ -457,42 +462,42 @@ print(im)                                 # colonnes pivots de A
 <tr>
 <td style="text-align: left;"><code>difference_matrix(n)</code></td>
 <td style="text-align: left;"><code>matrice_differences</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_40</strong>, <strong>ACADEMIC_TOKEN_41</strong></td>
+<td style="text-align: left;">$(n-1) \times n$, $(D x)_i = x_{i+1} - x_i$</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>running_sum_matrix(n)</code></td>
 <td style="text-align: left;"><code>matrice_somme_cumulee</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_42</strong> triangulaire inférieure de 1, <strong>ACADEMIC_TOKEN_43</strong></td>
+<td style="text-align: left;">$n \times n$ triangulaire inférieure de 1, $(S x)_i = x_1 + \dots + x_i$</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>moving_average_matrix(n, k)</code></td>
 <td style="text-align: left;"><code>matrice_moyenne_glissante</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_44</strong>, moyenne de <strong>ACADEMIC_TOKEN_45</strong> valeurs consécutives</td>
+<td style="text-align: left;">$(n-k+1) \times n$, moyenne de $k$ valeurs consécutives</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>vandermonde(points, degree=None)</code></td>
 <td style="text-align: left;"><code>vandermonde</code></td>
-<td style="text-align: left;">ligne <strong>ACADEMIC_TOKEN_46</strong> : <strong>ACADEMIC_TOKEN_47</strong></td>
+<td style="text-align: left;">ligne $i$ : $(1, t_i, t_i^2, \dots)$</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>convolution_matrix(b, n)</code></td>
 <td style="text-align: left;"><code>matrice_convolution</code></td>
-<td style="text-align: left;">Toeplitz <strong>ACADEMIC_TOKEN_48</strong> telle que <strong>ACADEMIC_TOKEN_49</strong></td>
+<td style="text-align: left;">Toeplitz $T(b)$ telle que $T(b)\,a = b * a$</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>convolution(a, b)</code></td>
 <td style="text-align: left;"><code>convolution</code></td>
-<td style="text-align: left;">le vecteur <strong>ACADEMIC_TOKEN_50</strong> (produit des polynômes associés)</td>
+<td style="text-align: left;">le vecteur $a * b$ (produit des polynômes associés)</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>selection_matrix(indices, n)</code></td>
 <td style="text-align: left;"><code>matrice_selection</code></td>
-<td style="text-align: left;">lignes <strong>ACADEMIC_TOKEN_51</strong> pour les indices choisis</td>
+<td style="text-align: left;">lignes $e_{i}^T$ pour les indices choisis</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>reversal_matrix(n)</code></td>
 <td style="text-align: left;"><code>matrice_renversement</code></td>
-<td style="text-align: left;"><strong>ACADEMIC_TOKEN_52</strong></td>
+<td style="text-align: left;">$(x_n, \dots, x_1)$</td>
 </tr>
 </tbody>
 </table>
@@ -581,7 +586,7 @@ print(reversal_matrix(3) @ Vector([1, 2, 3]))                       # (3, 2, 1)
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#31-vue-1-viewcolumns-combinaisons-lineaires-des-colonnes-de-academic_token_24">3.1 Vue 1 (view='columns') : Combinaisons linéaires des colonnes de ACADEMIC_TOKEN_24</a>
+          <a href="#31-vue-1-viewcolumns-combinaisons-lineaires-des-colonnes-de">3.1 Vue 1 (view='columns') : Combinaisons linéaires des colonnes de $A$</a>
         </li>
         
         <li class="toc-item toc-h3">

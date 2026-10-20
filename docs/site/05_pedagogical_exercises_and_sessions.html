@@ -169,7 +169,7 @@
 <p>Pour les matrices structurées classiques (différences, sommes cumulées, moyenne glissante, Vandermonde, convolution, sélection, renversement), voir la <a href="02_vectors_and_matrices.html">section 5 du guide 02</a>.</p>
 </blockquote>
 <h3 id="11-le-probleme-des-fractions-geantes">1.1 Le problème des fractions géantes</h3>
-<p>Dans un cours d'algèbre linéaire, générer des matrices avec des entiers aléatoires produit presque systématiquement, dès la 3e étape du pivot de Gauss ou de Gram-Schmidt, des fractions avec des numérateurs et dénominateurs à 6 ou 10 chiffres (par exemple <strong>ACADEMIC_TOKEN_1</strong>).</p>
+<p>Dans un cours d'algèbre linéaire, générer des matrices avec des entiers aléatoires produit presque systématiquement, dès la 3e étape du pivot de Gauss ou de Gram-Schmidt, des fractions avec des numérateurs et dénominateurs à 6 ou 10 chiffres (par exemple $x = \frac{138547}{294821}$).</p>
 <p>Cette complexité arithmétique parasite masque la compréhension des concepts géométriques fondamentaux. <code>linalg_pedagopy</code> résout ce problème grâce à des générateurs à <strong>résultats propres garantis</strong>.</p>
 <h3 id="12-generateurs-a-resultats-propres">1.2 Générateurs à résultats propres</h3>
 <p>Le module <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/exercises/generators.py"><code>generators.py</code></a> fournit des fonctions de génération reproductibles (paramètre <code>seed</code>) dont les résultats sont garantis « propres » :</p>
@@ -185,11 +185,11 @@
 <tr>
 <td style="text-align: left;"><code>generate_unimodular_matrix(n=3, *, seed=None, difficulty=1)</code></td>
 <td style="text-align: left;">Produit d'opérations élémentaires entières.</td>
-<td style="text-align: left;">Matrice entière de déterminant <strong>ACADEMIC_TOKEN_2</strong>, d'inverse entière.</td>
+<td style="text-align: left;">Matrice entière de déterminant $\pm 1$, d'inverse entière.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>generate_integer_rref_matrix(m=3, n=4, rank=2, *, seed=None, difficulty=1)</code></td>
-<td style="text-align: left;">Matrice entière <strong>ACADEMIC_TOKEN_3</strong> de rang prescrit.</td>
+<td style="text-align: left;">Matrice entière $m \times n$ de rang prescrit.</td>
 <td style="text-align: left;">Couple <code>(A, R)</code> avec <code>R = rref(A)</code> à coefficients entiers.</td>
 </tr>
 <tr>
@@ -199,17 +199,17 @@
 </tr>
 <tr>
 <td style="text-align: left;"><code>generate_clean_least_squares(m=4, n=2, *, seed=None, difficulty=1)</code></td>
-<td style="text-align: left;">Problème surdéterminé <strong>ACADEMIC_TOKEN_4</strong> (<strong>ACADEMIC_TOKEN_5</strong>).</td>
-<td style="text-align: left;">Quadruplet <code>(A, b, x_hat, r_hat)</code> avec <code>x_hat</code> entier et <strong>ACADEMIC_TOKEN_6</strong>.</td>
+<td style="text-align: left;">Problème surdéterminé $\min \|A x - b\|^2$ ($m &gt; n$).</td>
+<td style="text-align: left;">Quadruplet <code>(A, b, x_hat, r_hat)</code> avec <code>x_hat</code> entier et $A^T \hat r = 0$.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>generate_parametric_system(n=3, *, param_name="a", critical_value=1, seed=None, difficulty=1)</code></td>
-<td style="text-align: left;">Système <strong>ACADEMIC_TOKEN_7</strong> dont le déterminant s'annule en une valeur critique.</td>
+<td style="text-align: left;">Système $A(a) x = b$ dont le déterminant s'annule en une valeur critique.</td>
 <td style="text-align: left;">Quadruplet <code>(A, b, a, a_crit)</code>.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>cayley_orthogonal(S)</code></td>
-<td style="text-align: left;">Transformée de Cayley <strong>ACADEMIC_TOKEN_8</strong> d'une matrice antisymétrique <strong>ACADEMIC_TOKEN_9</strong>.</td>
+<td style="text-align: left;">Transformée de Cayley $Q = (I - S)(I + S)^{-1}$ d'une matrice antisymétrique $S$.</td>
 <td style="text-align: left;">Matrice orthogonale exacte à coefficients rationnels.</td>
 </tr>
 </tbody>
@@ -349,7 +349,12 @@ print(tw.statement)
 <h2 id="2-sessions-interactives-pas-a-pas-interactivesession">2. Sessions interactives pas-à-pas (<code>InteractiveSession</code>)</h2>
 <p>La classe <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/exercises/interactive.py"><code>InteractiveSession</code></a> (<code>InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)</code>, ou <code>procedure.interactive(mode=...)</code>) transforme une procédure en exercice d'apprentissage actif.</p>
 <h3 id="21-les-4-modes-interactifs">2.1 Les 4 modes interactifs</h3>
-<p><strong>ACADEMIC_TOKEN_0</strong></p>
+<p><div class="mermaid-wrapper"><pre class="mermaid">stateDiagram-v2
+    [*] --&gt; ChoixDuMode
+    ChoixDuMode --&gt; Read : mode="read" (Consultation pas-à-pas)
+    ChoixDuMode --&gt; PredictReveal : mode="predict_reveal" (Prédire avant de voir)
+    ChoixDuMode --&gt; Completion : mode="completion" (Compléter les trous)
+    ChoixDuMode --&gt; Autonomous : mode="autonomous" (Piloter les opérations)</pre></div></p>
 <ol>
 <li><strong>Mode <code>"read"</code></strong> : l'étudiant avance dans les étapes élémentaires de la procédure avec <code>reveal()</code>.</li>
 <li><strong>Mode <code>"predict_reveal"</code></strong> : <code>reveal()</code> refuse d'afficher l'étape suivante tant qu'une prédiction n'a pas été enregistrée avec <code>predict("...")</code>.</li>
@@ -386,7 +391,7 @@ print(s.reveal())   # On annule le coefficient (2,1) : L2 ← L2 - 3·L1.
 </code></pre></div>
 <hr/>
 <h2 id="3-analyseur-derreurs-et-retroactions-pedagogiques">3. Analyseur d'erreurs et rétroactions pédagogiques</h2>
-<p>Le vérificateur <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/exercises/checkers.py"><code>check_row_operation</code></a> (<code>check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)</code>), utilisé par <code>propose</code>, ne se contente pas d'un refus brut : il identifie la cause de l'erreur (champ <code>error_code</code>). Exemples sur la matrice augmentée <strong>ACADEMIC_TOKEN_12</strong> ci-dessus :</p>
+<p>Le vérificateur <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/exercises/checkers.py"><code>check_row_operation</code></a> (<code>check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)</code>), utilisé par <code>propose</code>, ne se contente pas d'un refus brut : il identifie la cause de l'erreur (champ <code>error_code</code>). Exemples sur la matrice augmentée $[A \mid b]$ ci-dessus :</p>
 <table>
 <thead>
 <tr>

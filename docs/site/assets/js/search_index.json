@@ -80,15 +80,15 @@
     "pageTitle": "01. Noyau formel & calcul exact",
     "title": "2. Déclaration et gestion des symboles réels (symbols)",
     "url": "01_core_and_formal_computation.html#2-declaration-et-gestion-des-symboles-reels-symbols",
-    "snippet": "Dans les systèmes de calcul formel généralistes, un symbole non qualifié ACADEMIC_TOKEN_4 est supposé complexe (ACADEMIC_TOKEN_5), ce qui empêche de nombreuses ...",
-    "content": "2. Déclaration et gestion des symboles réels (symbols) Dans les systèmes de calcul formel généralistes, un symbole non qualifié ACADEMIC_TOKEN_4 est supposé complexe (ACADEMIC_TOKEN_5), ce qui empêche de nombreuses ..."
+    "snippet": "Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \\in \\mathbb{C}$), ce qui empêche de nombreuses simplificat...",
+    "content": "2. Déclaration et gestion des symboles réels (symbols) Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \\in \\mathbb{C}$), ce qui empêche de nombreuses simplificat..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
     "title": "2.1 Hypothèse real=True par défaut (Décision D1)",
     "url": "01_core_and_formal_computation.html#21-hypothese-realtrue-par-defaut-decision-d1",
-    "snippet": "Dans les systèmes de calcul formel généralistes, un symbole non qualifié ACADEMIC_TOKEN_4 est supposé complexe (ACADEMIC_TOKEN_5), ce qui empêche de nombreuses ...",
-    "content": "2.1 Hypothèse real=True par défaut (Décision D1) Dans les systèmes de calcul formel généralistes, un symbole non qualifié ACADEMIC_TOKEN_4 est supposé complexe (ACADEMIC_TOKEN_5), ce qui empêche de nombreuses ..."
+    "snippet": "Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \\in \\mathbb{C}$), ce qui empêche de nombreuses simplificat...",
+    "content": "2.1 Hypothèse real=True par défaut (Décision D1) Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \\in \\mathbb{C}$), ce qui empêche de nombreuses simplificat..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
@@ -101,43 +101,43 @@
     "pageTitle": "01. Noyau formel & calcul exact",
     "title": "3. L'Oracle de nullité (ZeroOracle)",
     "url": "01_core_and_formal_computation.html#3-loracle-de-nullite-zerooracle",
-    "snippet": "En présence de paramètres symboliques, tester si un scalaire ACADEMIC_TOKEN_7 est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si ACADEMIC_T...",
-    "content": "3. L'Oracle de nullité (ZeroOracle) En présence de paramètres symboliques, tester si un scalaire ACADEMIC_TOKEN_7 est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si ACADEMIC_T..."
+    "snippet": "En présence de paramètres symboliques, tester si un scalaire $v$ est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si $v = a - 1$, la réponse...",
+    "content": "3. L'Oracle de nullité (ZeroOracle) En présence de paramètres symboliques, tester si un scalaire $v$ est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si $v = a - 1$, la réponse..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
     "title": "3.1 Pourquoi un oracle dédié ? (Décision D3)",
     "url": "01_core_and_formal_computation.html#31-pourquoi-un-oracle-dedie-decision-d3",
-    "snippet": "En présence de paramètres symboliques, tester si un scalaire ACADEMIC_TOKEN_7 est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si ACADEMIC_T...",
-    "content": "3.1 Pourquoi un oracle dédié ? (Décision D3) En présence de paramètres symboliques, tester si un scalaire ACADEMIC_TOKEN_7 est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si ACADEMIC_T..."
+    "snippet": "En présence de paramètres symboliques, tester si un scalaire $v$ est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si $v = a - 1$, la réponse...",
+    "content": "3.1 Pourquoi un oracle dédié ? (Décision D3) En présence de paramètres symboliques, tester si un scalaire $v$ est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si $v = a - 1$, la réponse..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
     "title": "3.2 Les 4 Verdicts",
     "url": "01_core_and_formal_computation.html#32-les-4-verdicts",
-    "snippet": "ACADEMIC_TOKEN_0...",
-    "content": "3.2 Les 4 Verdicts ACADEMIC_TOKEN_0..."
+    "snippet": "stateDiagram-v2\n    [*] --> Evaluation\n    Evaluation --> ZERO : Expression constante nulle\n    Evaluation --> NONZERO : Expression constante non nulle\n    Eval...",
+    "content": "3.2 Les 4 Verdicts stateDiagram-v2\n    [*] --> Evaluation\n    Evaluation --> ZERO : Expression constante nulle\n    Evaluation --> NONZERO : Expression constante non nulle\n    Eval..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
     "title": "3.3 Traitement des radicaux paramétriques (unrad)",
     "url": "01_core_and_formal_computation.html#33-traitement-des-radicaux-parametriques-unrad",
-    "snippet": "Les expressions contenant des racines carrées paramétriques (comme ACADEMIC_TOKEN_16 ou ACADEMIC_TOKEN_17) sont traitées via _extract_factors :\n1. L'oracle fait...",
-    "content": "3.3 Traitement des radicaux paramétriques (unrad) Les expressions contenant des racines carrées paramétriques (comme ACADEMIC_TOKEN_16 ou ACADEMIC_TOKEN_17) sont traitées via _extract_factors :\n1. L'oracle fait..."
+    "snippet": "Les expressions contenant des racines carrées paramétriques (comme $\\sqrt{1 - m^2}$ ou $\\sqrt{a^2 + b^2}$) sont traitées via _extract_factors :\n1. L'oracle fait...",
+    "content": "3.3 Traitement des radicaux paramétriques (unrad) Les expressions contenant des racines carrées paramétriques (comme $\\sqrt{1 - m^2}$ ou $\\sqrt{a^2 + b^2}$) sont traitées via _extract_factors :\n1. L'oracle fait..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
     "title": "4. Disjonction de cas paramétriques (CaseSplit)",
     "url": "01_core_and_formal_computation.html#4-disjonction-de-cas-parametriques-casesplit",
-    "snippet": "Une Condition modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :\n- Des égalités formelles : ACADEMIC_TOKEN_22, ACADEMIC_TOKEN_...",
-    "content": "4. Disjonction de cas paramétriques (CaseSplit) Une Condition modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :\n- Des égalités formelles : ACADEMIC_TOKEN_22, ACADEMIC_TOKEN_..."
+    "snippet": "Une Condition modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :\n- Des égalités formelles : $a = 1$, $b = 0$.\n- Des inégalités...",
+    "content": "4. Disjonction de cas paramétriques (CaseSplit) Une Condition modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :\n- Des égalités formelles : $a = 1$, $b = 0$.\n- Des inégalités..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
     "title": "4.1 La classe Condition",
     "url": "01_core_and_formal_computation.html#41-la-classe-condition",
-    "snippet": "Une Condition modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :\n- Des égalités formelles : ACADEMIC_TOKEN_22, ACADEMIC_TOKEN_...",
-    "content": "4.1 La classe Condition Une Condition modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :\n- Des égalités formelles : ACADEMIC_TOKEN_22, ACADEMIC_TOKEN_..."
+    "snippet": "Une Condition modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :\n- Des égalités formelles : $a = 1$, $b = 0$.\n- Des inégalités...",
+    "content": "4.1 La classe Condition Une Condition modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :\n- Des égalités formelles : $a = 1$, $b = 0$.\n- Des inégalités..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
@@ -164,22 +164,22 @@
     "pageTitle": "01. Noyau formel & calcul exact",
     "title": "4.5 Partitionnement disjoint par préfixes d'inégalités",
     "url": "01_core_and_formal_computation.html#45-partitionnement-disjoint-par-prefixes-dinegalites",
-    "snippet": "Lorsqu'un pivot présente plusieurs facteurs d'annulation ACADEMIC_TOKEN_31, l'algorithme génère des branches mutuellement disjointes selon la méthode des préfix...",
-    "content": "4.5 Partitionnement disjoint par préfixes d'inégalités Lorsqu'un pivot présente plusieurs facteurs d'annulation ACADEMIC_TOKEN_31, l'algorithme génère des branches mutuellement disjointes selon la méthode des préfix..."
+    "snippet": "Lorsqu'un pivot présente plusieurs facteurs d'annulation $(f_1, f_2, \\dots, f_k)$, l'algorithme génère des branches mutuellement disjointes selon la méthode des...",
+    "content": "4.5 Partitionnement disjoint par préfixes d'inégalités Lorsqu'un pivot présente plusieurs facteurs d'annulation $(f_1, f_2, \\dots, f_k)$, l'algorithme génère des branches mutuellement disjointes selon la méthode des..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
     "title": "4.6 Commutation de la spécialisation (at)",
     "url": "01_core_and_formal_computation.html#46-commutation-de-la-specialisation-at",
-    "snippet": "Un résultat CaseSplit respecte le principe de commutation fondamentale :\nACADEMIC_TOKEN_2...",
-    "content": "4.6 Commutation de la spécialisation (at) Un résultat CaseSplit respecte le principe de commutation fondamentale :\nACADEMIC_TOKEN_2..."
+    "snippet": "Un résultat CaseSplit respecte le principe de commutation fondamentale :\n$$\\left( \\text{Algorithme}(A(p), b(p)) \\right) \\Big|_{p = p_0} = \\text{Algorithme}\\left...",
+    "content": "4.6 Commutation de la spécialisation (at) Un résultat CaseSplit respecte le principe de commutation fondamentale :\n$$\\left( \\text{Algorithme}(A(p), b(p)) \\right) \\Big|_{p = p_0} = \\text{Algorithme}\\left..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "1. La classe Vector",
     "url": "02_vectors_and_matrices.html#1-la-classe-vector",
-    "snippet": "Un Vector représente un vecteur colonne de ACADEMIC_TOKEN_4 (de dimension formelle ACADEMIC_TOKEN_5)....",
-    "content": "1. La classe Vector Un Vector représente un vecteur colonne de ACADEMIC_TOKEN_4 (de dimension formelle ACADEMIC_TOKEN_5)...."
+    "snippet": "Un Vector représente un vecteur colonne de $\\mathbb{R}^n$ (de dimension formelle $n \\times 1$)....",
+    "content": "1. La classe Vector Un Vector représente un vecteur colonne de $\\mathbb{R}^n$ (de dimension formelle $n \\times 1$)...."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
@@ -206,57 +206,57 @@
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "1.4 Vecteurs empilés et conversions",
     "url": "02_vectors_and_matrices.html#14-vecteurs-empiles-et-conversions",
-    "snippet": "Une Matrix représente une matrice ACADEMIC_TOKEN_21 sur ACADEMIC_TOKEN_22....",
-    "content": "1.4 Vecteurs empilés et conversions Une Matrix représente une matrice ACADEMIC_TOKEN_21 sur ACADEMIC_TOKEN_22...."
+    "snippet": "Une Matrix représente une matrice $m \\times n$ sur $\\mathbb{R}$....",
+    "content": "1.4 Vecteurs empilés et conversions Une Matrix représente une matrice $m \\times n$ sur $\\mathbb{R}$...."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "2. La classe Matrix",
     "url": "02_vectors_and_matrices.html#2-la-classe-matrix",
-    "snippet": "Une Matrix représente une matrice ACADEMIC_TOKEN_21 sur ACADEMIC_TOKEN_22....",
-    "content": "2. La classe Matrix Une Matrix représente une matrice ACADEMIC_TOKEN_21 sur ACADEMIC_TOKEN_22...."
+    "snippet": "Une Matrix représente une matrice $m \\times n$ sur $\\mathbb{R}$....",
+    "content": "2. La classe Matrix Une Matrix représente une matrice $m \\times n$ sur $\\mathbb{R}$...."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "2.1 Initialisation et constructeurs d'usine",
     "url": "02_vectors_and_matrices.html#21-initialisation-et-constructeurs-dusine",
-    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_23. l...",
-    "content": "2.1 Initialisation et constructeurs d'usine Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_23. l..."
+    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. linalg_pe...",
+    "content": "2.1 Initialisation et constructeurs d'usine Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. linalg_pe..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "2.2 Opérations matricielles usuelles",
     "url": "02_vectors_and_matrices.html#22-operations-matricielles-usuelles",
-    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_23. l...",
-    "content": "2.2 Opérations matricielles usuelles Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_23. l..."
+    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. linalg_pe...",
+    "content": "2.2 Opérations matricielles usuelles Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. linalg_pe..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "3. Les 4 vues du produit matriciel",
     "url": "02_vectors_and_matrices.html#3-les-4-vues-du-produit-matriciel",
-    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_23. l...",
-    "content": "3. Les 4 vues du produit matriciel Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel ACADEMIC_TOKEN_23. l..."
+    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. linalg_pe...",
+    "content": "3. Les 4 vues du produit matriciel Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. linalg_pe..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
-    "title": "3.1 Vue 1 (view='columns') : Combinaisons linéaires des colonnes de ACADEMIC_TOKEN_24",
-    "url": "02_vectors_and_matrices.html#31-vue-1-viewcolumns-combinaisons-lineaires-des-colonnes-de-academic_token_24",
-    "snippet": "Chaque colonne ACADEMIC_TOKEN_25 de ACADEMIC_TOKEN_26 est une combinaison linéaire des colonnes ACADEMIC_TOKEN_27 de ACADEMIC_TOKEN_28, avec pour coefficients l...",
-    "content": "3.1 Vue 1 (view='columns') : Combinaisons linéaires des colonnes de ACADEMIC_TOKEN_24 Chaque colonne ACADEMIC_TOKEN_25 de ACADEMIC_TOKEN_26 est une combinaison linéaire des colonnes ACADEMIC_TOKEN_27 de ACADEMIC_TOKEN_28, avec pour coefficients l..."
+    "title": "3.1 Vue 1 (view='columns') : Combinaisons linéaires des colonnes de $A$",
+    "url": "02_vectors_and_matrices.html#31-vue-1-viewcolumns-combinaisons-lineaires-des-colonnes-de",
+    "snippet": "Chaque colonne $c_j$ de $C$ est une combinaison linéaire des colonnes $a_1, \\dots, a_n$ de $A$, avec pour coefficients les composantes de la $j$-ième colonne de...",
+    "content": "3.1 Vue 1 (view='columns') : Combinaisons linéaires des colonnes de $A$ Chaque colonne $c_j$ de $C$ est une combinaison linéaire des colonnes $a_1, \\dots, a_n$ de $A$, avec pour coefficients les composantes de la $j$-ième colonne de..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "3.2 Vue 2 (view='rows' / view='entries') : Produits scalaires ligne-colonne",
     "url": "02_vectors_and_matrices.html#32-vue-2-viewrows-viewentries-produits-scalaires-ligne-colonne",
-    "snippet": "Chaque coefficient ACADEMIC_TOKEN_31 est le produit scalaire standard entre la ACADEMIC_TOKEN_32-ième ligne de ACADEMIC_TOKEN_33 et la ACADEMIC_TOKEN_34-ième co...",
-    "content": "3.2 Vue 2 (view='rows' / view='entries') : Produits scalaires ligne-colonne Chaque coefficient ACADEMIC_TOKEN_31 est le produit scalaire standard entre la ACADEMIC_TOKEN_32-ième ligne de ACADEMIC_TOKEN_33 et la ACADEMIC_TOKEN_34-ième co..."
+    "snippet": "Chaque coefficient $c_{ij}$ est le produit scalaire standard entre la $i$-ième ligne de $A$ et la $j$-ième colonne de $B$ :\n$$c_{ij} = \\text{row}_i(A) \\cdot \\te...",
+    "content": "3.2 Vue 2 (view='rows' / view='entries') : Produits scalaires ligne-colonne Chaque coefficient $c_{ij}$ est le produit scalaire standard entre la $i$-ième ligne de $A$ et la $j$-ième colonne de $B$ :\n$$c_{ij} = \\text{row}_i(A) \\cdot \\te..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "3.3 Vue 3 (view='outer') : Somme de produits externes (Outer Products)",
     "url": "02_vectors_and_matrices.html#33-vue-3-viewouter-somme-de-produits-externes-outer-products",
-    "snippet": "Le produit ACADEMIC_TOKEN_36 est la somme de ACADEMIC_TOKEN_37 matrices de rang 1 formées par les produits externes des colonnes de ACADEMIC_TOKEN_38 et des lig...",
-    "content": "3.3 Vue 3 (view='outer') : Somme de produits externes (Outer Products) Le produit ACADEMIC_TOKEN_36 est la somme de ACADEMIC_TOKEN_37 matrices de rang 1 formées par les produits externes des colonnes de ACADEMIC_TOKEN_38 et des lig..."
+    "snippet": "Le produit $A B$ est la somme de $n$ matrices de rang 1 formées par les produits externes des colonnes de $A$ et des lignes de $B$ :\n$$A B = \\sum_{k=1}^n a_k b_...",
+    "content": "3.3 Vue 3 (view='outer') : Somme de produits externes (Outer Products) Le produit $A B$ est la somme de $n$ matrices de rang 1 formées par les produits externes des colonnes de $A$ et des lignes de $B$ :\n$$A B = \\sum_{k=1}^n a_k b_..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
@@ -332,8 +332,8 @@
     "pageTitle": "03. Algorithmes & traçabilité",
     "title": "2. Élimination de Gauss-Jordan (GaussJordan)",
     "url": "03_algorithms_and_step_tracing.html#2-elimination-de-gauss-jordan-gaussjordan",
-    "snippet": "La procédure GaussJordan résout les systèmes linéaires formels ACADEMIC_TOKEN_5 et calcule l'inverse de matrices carrées....",
-    "content": "2. Élimination de Gauss-Jordan (GaussJordan) La procédure GaussJordan résout les systèmes linéaires formels ACADEMIC_TOKEN_5 et calcule l'inverse de matrices carrées...."
+    "snippet": "La procédure GaussJordan résout les systèmes linéaires formels $A x = b$ et calcule l'inverse de matrices carrées....",
+    "content": "2. Élimination de Gauss-Jordan (GaussJordan) La procédure GaussJordan résout les systèmes linéaires formels $A x = b$ et calcule l'inverse de matrices carrées...."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",
@@ -353,8 +353,8 @@
     "pageTitle": "03. Algorithmes & traçabilité",
     "title": "2.3 Exemple avec paramètre et discussion automatique",
     "url": "03_algorithms_and_step_tracing.html#23-exemple-avec-parametre-et-discussion-automatique",
-    "snippet": "Ce code produit automatiquement un CaseSplit distinguant :\n- Le cas ACADEMIC_TOKEN_16 : infinité de solutions (plan affine de dimension 2).\n- Le cas ACADEMIC_TO...",
-    "content": "2.3 Exemple avec paramètre et discussion automatique Ce code produit automatiquement un CaseSplit distinguant :\n- Le cas ACADEMIC_TOKEN_16 : infinité de solutions (plan affine de dimension 2).\n- Le cas ACADEMIC_TO..."
+    "snippet": "Ce code produit automatiquement un CaseSplit distinguant :\n- Le cas $m = 1$ : infinité de solutions (plan affine de dimension 2).\n- Le cas $m = -2$ : système in...",
+    "content": "2.3 Exemple avec paramètre et discussion automatique Ce code produit automatiquement un CaseSplit distinguant :\n- Le cas $m = 1$ : infinité de solutions (plan affine de dimension 2).\n- Le cas $m = -2$ : système in..."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",
@@ -367,8 +367,8 @@
     "pageTitle": "03. Algorithmes & traçabilité",
     "title": "4. Orthogonalisation de Gram-Schmidt (GramSchmidt)",
     "url": "03_algorithms_and_step_tracing.html#4-orthogonalisation-de-gram-schmidt-gramschmidt",
-    "snippet": "La procédure GramSchmidt (GramSchmidt(vectors, *, normalize=\"end\", strict=False, assumptions=None)) transforme une famille libre de vecteurs ACADEMIC_TOKEN_25 e...",
-    "content": "4. Orthogonalisation de Gram-Schmidt (GramSchmidt) La procédure GramSchmidt (GramSchmidt(vectors, *, normalize=\"end\", strict=False, assumptions=None)) transforme une famille libre de vecteurs ACADEMIC_TOKEN_25 e..."
+    "snippet": "La procédure GramSchmidt (GramSchmidt(vectors, *, normalize=\"end\", strict=False, assumptions=None)) transforme une famille libre de vecteurs $(a_1, \\dots, a_k)$...",
+    "content": "4. Orthogonalisation de Gram-Schmidt (GramSchmidt) La procédure GramSchmidt (GramSchmidt(vectors, *, normalize=\"end\", strict=False, assumptions=None)) transforme une famille libre de vecteurs $(a_1, \\dots, a_k)$..."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",
@@ -381,15 +381,15 @@
     "pageTitle": "03. Algorithmes & traçabilité",
     "title": "5. Factorisation QR (QR)",
     "url": "03_algorithms_and_step_tracing.html#5-factorisation-qr-qr",
-    "snippet": "La classe QR factorise une matrice ACADEMIC_TOKEN_28 de rang plein colonne sous la forme ACADEMIC_TOKEN_29, où ACADEMIC_TOKEN_30 a des colonnes orthonormales (A...",
-    "content": "5. Factorisation QR (QR) La classe QR factorise une matrice ACADEMIC_TOKEN_28 de rang plein colonne sous la forme ACADEMIC_TOKEN_29, où ACADEMIC_TOKEN_30 a des colonnes orthonormales (A..."
+    "snippet": "La classe QR factorise une matrice $A$ de rang plein colonne sous la forme $A = Q R$, où $Q$ a des colonnes orthonormales ($Q^T Q = I$) et $R$ est triangulaire ...",
+    "content": "5. Factorisation QR (QR) La classe QR factorise une matrice $A$ de rang plein colonne sous la forme $A = Q R$, où $Q$ a des colonnes orthonormales ($Q^T Q = I$) et $R$ est triangulaire ..."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",
     "title": "6. Moindres Carrés Linéaires (LeastSquares)",
     "url": "03_algorithms_and_step_tracing.html#6-moindres-carres-lineaires-leastsquares",
-    "snippet": "La régression au sens des moindres carrés résout le problème d'optimisation :\nACADEMIC_TOKEN_2...",
-    "content": "6. Moindres Carrés Linéaires (LeastSquares) La régression au sens des moindres carrés résout le problème d'optimisation :\nACADEMIC_TOKEN_2..."
+    "snippet": "La régression au sens des moindres carrés résout le problème d'optimisation :\n$$\\min_{x} \\|A x - b\\|^2$$...",
+    "content": "6. Moindres Carrés Linéaires (LeastSquares) La régression au sens des moindres carrés résout le problème d'optimisation :\n$$\\min_{x} \\|A x - b\\|^2$$..."
   },
   {
     "pageTitle": "04. Le tuteur interactif",
@@ -535,8 +535,8 @@
     "pageTitle": "05. Exercices & sessions guidées",
     "title": "2.1 Les 4 modes interactifs",
     "url": "05_pedagogical_exercises_and_sessions.html#21-les-4-modes-interactifs",
-    "snippet": "ACADEMIC_TOKEN_0...",
-    "content": "2.1 Les 4 modes interactifs ACADEMIC_TOKEN_0..."
+    "snippet": "stateDiagram-v2\n    [*] --> ChoixDuMode\n    ChoixDuMode --> Read : mode=\"read\" (Consultation pas-à-pas)\n    ChoixDuMode --> PredictReveal : mode=\"predict_reveal...",
+    "content": "2.1 Les 4 modes interactifs stateDiagram-v2\n    [*] --> ChoixDuMode\n    ChoixDuMode --> Read : mode=\"read\" (Consultation pas-à-pas)\n    ChoixDuMode --> PredictReveal : mode=\"predict_reveal..."
   },
   {
     "pageTitle": "05. Exercices & sessions guidées",
@@ -619,15 +619,15 @@
     "pageTitle": "06. Rendu, géométrie & numérique",
     "title": "3.2 Cas d'école 1 : La matrice de Läuchli et la perte d'orthogonalité",
     "url": "06_rendering_visualization_and_numerics.html#32-cas-decole-1-la-matrice-de-lauchli-et-la-perte-dorthogonalite",
-    "snippet": "La matrice de Läuchli ACADEMIC_TOKEN_16 est définie par :\nACADEMIC_TOKEN_1...",
-    "content": "3.2 Cas d'école 1 : La matrice de Läuchli et la perte d'orthogonalité La matrice de Läuchli ACADEMIC_TOKEN_16 est définie par :\nACADEMIC_TOKEN_1..."
+    "snippet": "La matrice de Läuchli $L(\\epsilon) \\in \\mathbb{R}^{(n+1) \\times n}$ est définie par :\n$$L(\\epsilon) = \\begin{bmatrix} 1 & 1 & \\dots & 1 \\\\ \\epsilon & 0 & \\dots ...",
+    "content": "3.2 Cas d'école 1 : La matrice de Läuchli et la perte d'orthogonalité La matrice de Läuchli $L(\\epsilon) \\in \\mathbb{R}^{(n+1) \\times n}$ est définie par :\n$$L(\\epsilon) = \\begin{bmatrix} 1 & 1 & \\dots & 1 \\\\ \\epsilon & 0 & \\dots ..."
   },
   {
     "pageTitle": "06. Rendu, géométrie & numérique",
     "title": "3.3 Cas d'école 2 : La matrice de Hilbert et le mauvais conditionnement",
     "url": "06_rendering_visualization_and_numerics.html#33-cas-decole-2-la-matrice-de-hilbert-et-le-mauvais-conditionnement",
-    "snippet": "La matrice de Hilbert d'ordre ACADEMIC_TOKEN_20, ACADEMIC_TOKEN_21 (indices à partir de 0), est célèbre pour son conditionnement qui croît exponentiellement (AC...",
-    "content": "3.3 Cas d'école 2 : La matrice de Hilbert et le mauvais conditionnement La matrice de Hilbert d'ordre ACADEMIC_TOKEN_20, ACADEMIC_TOKEN_21 (indices à partir de 0), est célèbre pour son conditionnement qui croît exponentiellement (AC..."
+    "snippet": "La matrice de Hilbert d'ordre $n$, $H_{ij} = \\frac{1}{i + j + 1}$ (indices à partir de 0), est célèbre pour son conditionnement qui croît exponentiellement ($\\t...",
+    "content": "3.3 Cas d'école 2 : La matrice de Hilbert et le mauvais conditionnement La matrice de Hilbert d'ordre $n$, $H_{ij} = \\frac{1}{i + j + 1}$ (indices à partir de 0), est célèbre pour son conditionnement qui croît exponentiellement ($\\t..."
   },
   {
     "pageTitle": "07. Référence de l'API",
@@ -668,29 +668,29 @@
     "pageTitle": "07. Référence de l'API",
     "title": "2.4 Hiérarchie des exceptions",
     "url": "07_api_reference.html#24-hierarchie-des-exceptions",
-    "snippet": "Vecteur colonne immuable ACADEMIC_TOKEN_0 à coefficients exacts. Constructeur : Vector(entries)....",
-    "content": "2.4 Hiérarchie des exceptions Vecteur colonne immuable ACADEMIC_TOKEN_0 à coefficients exacts. Constructeur : Vector(entries)...."
+    "snippet": "Vecteur colonne immuable $n \\times 1$ à coefficients exacts. Constructeur : Vector(entries)....",
+    "content": "2.4 Hiérarchie des exceptions Vecteur colonne immuable $n \\times 1$ à coefficients exacts. Constructeur : Vector(entries)...."
   },
   {
     "pageTitle": "07. Référence de l'API",
     "title": "3. Module linalg_pedagopy.objects",
     "url": "07_api_reference.html#3-module-linalg_pedagopyobjects",
-    "snippet": "Vecteur colonne immuable ACADEMIC_TOKEN_0 à coefficients exacts. Constructeur : Vector(entries)....",
-    "content": "3. Module linalg_pedagopy.objects Vecteur colonne immuable ACADEMIC_TOKEN_0 à coefficients exacts. Constructeur : Vector(entries)...."
+    "snippet": "Vecteur colonne immuable $n \\times 1$ à coefficients exacts. Constructeur : Vector(entries)....",
+    "content": "3. Module linalg_pedagopy.objects Vecteur colonne immuable $n \\times 1$ à coefficients exacts. Constructeur : Vector(entries)...."
   },
   {
     "pageTitle": "07. Référence de l'API",
     "title": "3.1 Classe Vector",
     "url": "07_api_reference.html#31-classe-vector",
-    "snippet": "Vecteur colonne immuable ACADEMIC_TOKEN_0 à coefficients exacts. Constructeur : Vector(entries)....",
-    "content": "3.1 Classe Vector Vecteur colonne immuable ACADEMIC_TOKEN_0 à coefficients exacts. Constructeur : Vector(entries)...."
+    "snippet": "Vecteur colonne immuable $n \\times 1$ à coefficients exacts. Constructeur : Vector(entries)....",
+    "content": "3.1 Classe Vector Vecteur colonne immuable $n \\times 1$ à coefficients exacts. Constructeur : Vector(entries)...."
   },
   {
     "pageTitle": "07. Référence de l'API",
     "title": "3.2 Classe Matrix",
     "url": "07_api_reference.html#32-classe-matrix",
-    "snippet": "Matrice immuable ACADEMIC_TOKEN_2 à coefficients exacts. Constructeur : Matrix(rows) (liste de lignes)....",
-    "content": "3.2 Classe Matrix Matrice immuable ACADEMIC_TOKEN_2 à coefficients exacts. Constructeur : Matrix(rows) (liste de lignes)...."
+    "snippet": "Matrice immuable $m \\times n$ à coefficients exacts. Constructeur : Matrix(rows) (liste de lignes)....",
+    "content": "3.2 Classe Matrix Matrice immuable $m \\times n$ à coefficients exacts. Constructeur : Matrix(rows) (liste de lignes)...."
   },
   {
     "pageTitle": "07. Référence de l'API",

@@ -162,7 +162,7 @@
 
       <article class="markdown-body">
         <h1 id="01-noyau-formel-et-calcul-symbolique-exact">01. Noyau formel et Calcul Symbolique Exact</h1>
-<p>Le module <code>linalg_pedagopy.core</code> constitue le socle mathématique fondamental du package. Il garantit la rigueur des calculs formels sur le corps des réels <strong>ACADEMIC_TOKEN_3</strong>, empêche les erreurs de troncature numérique et gère de manière déterministe les discussions paramétriques.</p>
+<p>Le module <code>linalg_pedagopy.core</code> constitue le socle mathématique fondamental du package. Il garantit la rigueur des calculs formels sur le corps des réels $\mathbb{R}$, empêche les erreurs de troncature numérique et gère de manière déterministe les discussions paramétriques.</p>
 <hr/>
 <h2 id="1-representation-des-scalaires-et-coercition-exacte">1. Représentation des scalaires et coercition exacte</h2>
 <h3 id="11-la-fonction-to_exact">1.1 La fonction <code>to_exact</code></h3>
@@ -225,7 +225,7 @@ with using_config(float_policy="reject"):
 <hr/>
 <h2 id="2-declaration-et-gestion-des-symboles-reels-symbols">2. Déclaration et gestion des symboles réels (<code>symbols</code>)</h2>
 <h3 id="21-hypothese-realtrue-par-defaut-decision-d1">2.1 Hypothèse <code>real=True</code> par défaut (Décision D1)</h3>
-<p>Dans les systèmes de calcul formel généralistes, un symbole non qualifié <strong>ACADEMIC_TOKEN_4</strong> est supposé complexe (<strong>ACADEMIC_TOKEN_5</strong>), ce qui empêche de nombreuses simplifications élémentaires (par exemple <strong>ACADEMIC_TOKEN_6</strong> ou la factorisation de carrés).</p>
+<p>Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \in \mathbb{C}$), ce qui empêche de nombreuses simplifications élémentaires (par exemple $\sqrt{a^2} = |a|$ ou la factorisation de carrés).</p>
 <p>Dans <code>linalg_pedagopy</code>, la fonction <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/field.py"><code>symbols</code></a> munit systématiquement les symboles de l'hypothèse <code>real=True</code> :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import symbols
 
@@ -242,10 +242,10 @@ print(x.is_positive, x.is_real)  # True True
 <hr/>
 <h2 id="3-loracle-de-nullite-zerooracle">3. L'Oracle de nullité (<code>ZeroOracle</code>)</h2>
 <h3 id="31-pourquoi-un-oracle-dedie-decision-d3">3.1 Pourquoi un oracle dédié ? (Décision D3)</h3>
-<p>En présence de paramètres symboliques, tester si un scalaire <strong>ACADEMIC_TOKEN_7</strong> est nul (<code>v == 0</code>) ne peut pas être une simple opération booléenne :
-- Si <strong>ACADEMIC_TOKEN_8</strong>, la réponse dépend de la valeur de <strong>ACADEMIC_TOKEN_9</strong>.
-- Si l'on répond aveuglément <code>False</code>, on risque de diviser par <strong>ACADEMIC_TOKEN_10</strong>, rendant le pivotage invalide pour <strong>ACADEMIC_TOKEN_11</strong>.
-- Si l'on répond aveuglément <code>True</code>, on ignore le cas générique <strong>ACADEMIC_TOKEN_12</strong>.</p>
+<p>En présence de paramètres symboliques, tester si un scalaire $v$ est nul (<code>v == 0</code>) ne peut pas être une simple opération booléenne :
+- Si $v = a - 1$, la réponse dépend de la valeur de $a$.
+- Si l'on répond aveuglément <code>False</code>, on risque de diviser par $a - 1$, rendant le pivotage invalide pour $a = 1$.
+- Si l'on répond aveuglément <code>True</code>, on ignore le cas générique $a \neq 1$.</p>
 <p>L'instance globale <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/zero.py"><code>oracle</code></a> évalue la nullité selon quatre verdicts :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.core.zero import Verdict, oracle
 from linalg_pedagopy import symbols
@@ -265,24 +265,30 @@ print(dec3.factors)  # (a - 2,)
 print(oracle.decide(a**2 + 1).verdict)  # Verdict.NONZERO
 </code></pre></div>
 <h3 id="32-les-4-verdicts">3.2 Les 4 Verdicts</h3>
-<p><strong>ACADEMIC_TOKEN_0</strong></p>
+<p><div class="mermaid-wrapper"><pre class="mermaid">stateDiagram-v2
+    [*] --&gt; Evaluation
+    Evaluation --&gt; ZERO : Expression constante nulle
+    Evaluation --&gt; NONZERO : Expression constante non nulle
+    Evaluation --&gt; NONZERO : Symbole strictement positif / non nul
+    Evaluation --&gt; CONDITIONAL : Annulation pour certaines valeurs réelles
+    Evaluation --&gt; UNKNOWN : Indécidable sans hypothèse supplémentaire</pre></div></p>
 <ol>
 <li><strong><code>Verdict.ZERO</code></strong> : L'expression se simplifie formellement en 0 de manière inconditionnelle.</li>
-<li><strong><code>Verdict.NONZERO</code></strong> : L'expression est inconditionnellement non nulle sur <strong>ACADEMIC_TOKEN_13</strong> (ex: <strong>ACADEMIC_TOKEN_14</strong>, <strong>ACADEMIC_TOKEN_15</strong>, ou constante non nulle).</li>
+<li><strong><code>Verdict.NONZERO</code></strong> : L'expression est inconditionnellement non nulle sur $\mathbb{R}$ (ex: $a^2 + 1$, $e^x$, ou constante non nulle).</li>
 <li><strong><code>Verdict.CONDITIONAL</code></strong> : L'expression peut s'annuler pour des valeurs réelles particulières des paramètres. L'oracle extrait les facteurs d'annulation (<code>dec.factors</code>).</li>
 <li><strong><code>Verdict.UNKNOWN</code></strong> : L'expression ne peut être décidée sans hypothèse explicite. L'appel à <code>oracle.is_zero(expr)</code> (qui renvoie <code>True</code>/<code>False</code> quand la réponse est inconditionnelle) lève alors une <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/exceptions.py"><code>UndecidableZeroError</code></a>.</li>
 </ol>
 <h3 id="33-traitement-des-radicaux-parametriques-unrad">3.3 Traitement des radicaux paramétriques (<code>unrad</code>)</h3>
-<p>Les expressions contenant des racines carrées paramétriques (comme <strong>ACADEMIC_TOKEN_16</strong> ou <strong>ACADEMIC_TOKEN_17</strong>) sont traitées via <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/zero.py"><code>_extract_factors</code></a> :
-1. L'oracle fait appel à <code>sympy.solvers.solvers.unrad</code> pour éliminer les radicaux de l'équation <strong>ACADEMIC_TOKEN_18</strong>.
-2. Il résout la partie polynomiale sur <strong>ACADEMIC_TOKEN_19</strong>.
-3. <strong>Filtrage des racines parasites</strong> : Chaque racine candidate <strong>ACADEMIC_TOKEN_20</strong> est réinjectée dans l'expression radicale initiale pour vérifier que <strong>ACADEMIC_TOKEN_21</strong>. Cela élimine les racines parasites introduites par l'élévation au carré de <code>unrad</code>.</p>
+<p>Les expressions contenant des racines carrées paramétriques (comme $\sqrt{1 - m^2}$ ou $\sqrt{a^2 + b^2}$) sont traitées via <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/zero.py"><code>_extract_factors</code></a> :
+1. L'oracle fait appel à <code>sympy.solvers.solvers.unrad</code> pour éliminer les radicaux de l'équation $f(m) = 0$.
+2. Il résout la partie polynomiale sur $\mathbb{R}$.
+3. <strong>Filtrage des racines parasites</strong> : Chaque racine candidate $r$ est réinjectée dans l'expression radicale initiale pour vérifier que $f(r) = 0$. Cela élimine les racines parasites introduites par l'élévation au carré de <code>unrad</code>.</p>
 <hr/>
 <h2 id="4-disjonction-de-cas-parametriques-casesplit">4. Disjonction de cas paramétriques (<code>CaseSplit</code>)</h2>
 <h3 id="41-la-classe-condition">4.1 La classe <code>Condition</code></h3>
 <p>Une <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/cases.py"><code>Condition</code></a> modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :
-- Des égalités formelles : <strong>ACADEMIC_TOKEN_22</strong>, <strong>ACADEMIC_TOKEN_23</strong>.
-- Des inégalités strictes : <strong>ACADEMIC_TOKEN_24</strong>, <strong>ACADEMIC_TOKEN_25</strong>.</p>
+- Des égalités formelles : $a = 1$, $b = 0$.
+- Des inégalités strictes : $a \neq 1$, $a \neq -2$.</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Condition, symbols
 
 a, b = symbols("a b")
@@ -305,25 +311,29 @@ print(Condition.eq(a, b**2).format_latex())   # a = b^{2}
 <h3 id="43-cloture-transitive-et-detection-de-contradictions">4.3 Clôture transitive et détection de contradictions</h3>
 <p>La classe <code>Condition</code> implémente deux propriétés critiques :
 1. <strong>Clôture transitive des substitutions</strong> (<a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/cases.py"><code>_compute_transitive_substitutions</code></a>) :<br/>
-   Si la condition contient <strong>ACADEMIC_TOKEN_26</strong> et <strong>ACADEMIC_TOKEN_27</strong>, la substitution résout automatiquement <strong>ACADEMIC_TOKEN_28</strong> :
+   Si la condition contient $a = b$ et $b = 3$, la substitution résout automatiquement $a \mapsto 3$ :
    <code>(Condition.eq(a, b) &amp; Condition.eq(b, 3)).substitutions()</code> renvoie <code>{a: 3, b: 3}</code>.
 2. <strong>Détection de contradictions et élagage des tautologies</strong> (<a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/cases.py"><code>is_contradictory</code></a>) :<br/>
-   Si une branche tente de combiner <strong>ACADEMIC_TOKEN_29</strong> et <strong>ACADEMIC_TOKEN_30</strong>, la propriété <code>c.is_contradictory</code> vaut <code>True</code> et la branche impossible est immédiatement abandonnée.
+   Si une branche tente de combiner $a = 1$ et $a \neq 1$, la propriété <code>c.is_contradictory</code> vaut <code>True</code> et la branche impossible est immédiatement abandonnée.
 3. <strong>Implication de nullité modulo la branche</strong> (<a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/cases.py"><code>implies_zero</code></a>) :<br/>
    Vérifie si une expression polynomiale s'annule en tenant compte des égalités déjà posées sur la branche : <code>Condition.eq(a, 1).implies_zero(a**2 - 1)</code> renvoie <code>True</code> (et <code>None</code> si la condition ne permet pas de conclure).</p>
 <h3 id="44-structure-dun-casesplit">4.4 Structure d'un <code>CaseSplit</code></h3>
 <p>Un <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/cases.py"><code>CaseSplit[T]</code></a> regroupe un ensemble fini de branches disjointes <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/cases.py"><code>Branch[T]</code></a> couvrant la totalité de l'espace des paramètres :</p>
-<p><strong>ACADEMIC_TOKEN_1</strong></p>
+<p><div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
+    CS["CaseSplit (système [[1, a], [a, 1]] x = (1, 1))"]
+    CS --&gt; B1["Branche générique : a ≠ 1 ∧ a ≠ -1<br/>Solution unique"]
+    CS --&gt; B2["Branche particulière : a = 1<br/>Infinité de solutions (droite affine)"]
+    CS --&gt; B3["Branche particulière : a = -1<br/>Système incompatible (ensemble vide)"]</pre></div></p>
 <h3 id="45-partitionnement-disjoint-par-prefixes-dinegalites">4.5 Partitionnement disjoint par préfixes d'inégalités</h3>
-<p>Lorsqu'un pivot présente plusieurs facteurs d'annulation <strong>ACADEMIC_TOKEN_31</strong>, l'algorithme génère des branches mutuellement disjointes selon la méthode des préfixes d'inégalités :
-- Branche 1 : <strong>ACADEMIC_TOKEN_32</strong>
-- Branche 2 : <strong>ACADEMIC_TOKEN_33</strong>
-- <strong>ACADEMIC_TOKEN_34</strong>
-- Branche <strong>ACADEMIC_TOKEN_35</strong> (générique) : <strong>ACADEMIC_TOKEN_36</strong></p>
+<p>Lorsqu'un pivot présente plusieurs facteurs d'annulation $(f_1, f_2, \dots, f_k)$, l'algorithme génère des branches mutuellement disjointes selon la méthode des préfixes d'inégalités :
+- Branche 1 : $f_1 = 0$
+- Branche 2 : $f_1 \neq 0 \land f_2 = 0$
+- $\dots$
+- Branche $k+1$ (générique) : $\bigwedge_{i=1}^k f_i \neq 0$</p>
 <p>Cette construction garantit que chaque point de l'espace des paramètres appartient à une et une seule branche.</p>
 <h3 id="46-commutation-de-la-specialisation-at">4.6 Commutation de la spécialisation (<code>at</code>)</h3>
 <p>Un résultat <code>CaseSplit</code> respecte le principe de commutation fondamentale :
-<strong>ACADEMIC_TOKEN_2</strong></p>
+<div class="math-display">$$\left( \text{Algorithme}(A(p), b(p)) \right) \Big|_{p = p_0} = \text{Algorithme}\left( A(p_0), b(p_0) \right)$$</div></p>
 <p>On évalue un <code>CaseSplit</code> en un point donné grâce à la méthode <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/cases.py"><code>at</code></a> :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, symbols, GaussJordan
 

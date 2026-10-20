@@ -2,6 +2,9 @@
 
 ## [Non publié] — branche `development`
 
+### Corrections
+- Site de documentation : 54 formules s'affichaient comme `ACADEMIC_TOKEN_n` (pages, sommaires « Sur cette page », index de recherche). Les jetons de protection `__…__` étaient mis en gras par Markdown et n'étaient plus restitués ; ils sont remplacés par des jetons alphanumériques (`AcadTok6Z`), retirés des ancres de titres, et la génération échoue s'il en reste. Nouveau test `tests/test_site_documentation.py`.
+
 ## [3.0.1] — 2026-10-21
 
 Première version publique : fin de la phase 1 du plan v5 (corrections relevées par les tests de caractérisation, préparation et publication du dépôt). Dépôt : https://github.com/liouai-digital-education/linalg-pedagopy ; documentation : https://liouai-digital-education.github.io/linalg-pedagopy/.
