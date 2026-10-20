@@ -1,6 +1,6 @@
 # 04. Le tuteur interactif (`tutor` / `tuteur`)
 
-Le module [`linalg_pedagopy.tutor`](../src/linalg_pedagopy/tutor/__init__.py), aussi accessible sous le nom français [`linalg_pedagopy.tuteur`](../src/linalg_pedagopy/tuteur/__init__.py), accompagne un étudiant sur une banque de **35 exercices nommés**. Il l'aide à trouver la méthode **sans jamais donner la solution** : indices gradués, exercice analogue résolu, laboratoire de contre-exemples et diagnostic précis des réponses fausses.
+Le module [`linalg_pedagopy.tutor`](../src/linalg_pedagopy/tutor/__init__.py), aussi accessible sous le nom français [`linalg_pedagopy.tuteur`](../src/linalg_pedagopy/tuteur/__init__.py), accompagne un étudiant sur une banque de **39 exercices nommés**. Il l'aide à trouver la méthode **sans jamais donner la solution** : indices gradués, exercice analogue résolu, laboratoire de contre-exemples et diagnostic précis des réponses fausses.
 
 ---
 
@@ -21,16 +21,16 @@ Le module [`linalg_pedagopy.tutor`](../src/linalg_pedagopy/tutor/__init__.py), a
 
 ## 2. Trouver un exercice : le catalogue
 
-Chaque exercice a un **numéro** (1 à 35), un **identifiant** lisible, un **titre**, un **thème** et un **niveau** (★ à ★★★). La liste complète figure dans le [catalogue des exercices](08_catalogue_exercices.md).
+Chaque exercice a un **numéro** (1 à 39), un **identifiant** lisible, un **titre**, un **thème** et un **niveau** (★ à ★★★). La liste complète figure dans le [catalogue des exercices](08_catalogue_exercices.md).
 
 ```python
 from linalg_pedagopy import tutor
 
 cat = tutor.catalog()          # tableau Markdown dans JupyterLab
 print(cat)                     # version texte, groupée par thème
-print(len(cat))                # 35
+print(len(cat))                # 39
 
-print(tutor.themes())          # les 8 thèmes, dans l'ordre du cours
+print(tutor.themes())          # les 9 thèmes, dans l'ordre du cours
 print(tutor.list_exercises("convolution"))   # ['convolution-vecteurs', 'produit-polynomes']
 
 tutor.catalog("Inverses")      # filtrer par (partie du) thème
@@ -255,7 +255,7 @@ jumeau: generateurs.moyenne_glissante(fenetre=2, n=5)
 | `type` | `calcul`, `modelisation`, `dimensions`, `justification`, `contre_exemple` ou `vrai_faux`. |
 | `enonce`, `notions` | Texte de l'énoncé (Markdown + LaTeX) et notions mobilisées. |
 | `donnees` | Données verrouillées de l'exercice. |
-| `verification` | Vérificateur : `type` parmi `produit_scalaire`, `matrice`, `formule`, `valeur`, `propriete`, `contre_exemple`, `labo`, `egalites`, `dimensions`, plus ses paramètres (`cible`, `lignes_cibles`…). |
+| `verification` | Vérificateur : `type` parmi `produit_scalaire`, `matrice`, `formule`, `valeur`, `ensemble_valeurs`, `propriete`, `contre_exemple`, `labo`, `egalites`, `dimensions`, plus ses paramètres (`cible`, `lignes_cibles`…). `valeur` accepte une liste `erreurs` d'erreurs typiques (`valeur` : expression sur les données, `diagnostic` : message) ; `ensemble_valeurs` attend `calcul` (par exemple `A.det()`) et `inconnue` (par exemple `a`), et compare la liste de l'étudiant aux racines réelles. |
 | `indices` | Au moins 3 indices textuels (paliers 1 à 3). |
 | `jumeau` | Appel d'un générateur d'exercice jumeau (voir le [guide 05](05_pedagogical_exercises_and_sessions.md)). |
 

@@ -1,0 +1,48 @@
+id: determinant-sarrus
+numero: 36
+titre: Déterminant par la règle de Sarrus
+theme: Déterminants
+niveau: 1
+type: calcul
+enonce: >-
+  Calculer le déterminant de la matrice
+  $A = \begin{bmatrix} 2 & -1 & 3 \\ 1 & 4 & 0 \\ -2 & 1 & 5 \end{bmatrix}$
+  à l'aide de la règle de Sarrus.
+notions:
+- déterminant d'une matrice 3×3
+- règle de Sarrus
+donnees:
+  A:
+  - [2, -1, 3]
+  - [1, 4, 0]
+  - [-2, 1, 5]
+verification:
+  type: valeur
+  calcul: A.det()
+  erreurs:
+  - valeur: A[0,0]*A[1,1]*A[2,2] + A[0,1]*A[1,2]*A[2,0] + A[0,2]*A[1,0]*A[2,1]
+    diagnostic: >-
+      Votre valeur est la somme des seuls produits des diagonales descendantes. Quels autres
+      produits la règle de Sarrus fait-elle intervenir, et avec quel signe ?
+  - valeur: >-
+      A[0,0]*A[1,1]*A[2,2] + A[0,1]*A[1,2]*A[2,0] + A[0,2]*A[1,0]*A[2,1]
+      + A[0,2]*A[1,1]*A[2,0] + A[0,0]*A[1,2]*A[2,1] + A[0,1]*A[1,0]*A[2,2]
+    diagnostic: >-
+      Vous avez additionné les produits des diagonales montantes : dans la règle de Sarrus,
+      ils sont affectés du signe moins.
+  - valeur: A[0,0]*A[1,1]*A[2,2]
+    diagnostic: >-
+      Votre valeur est le produit des coefficients diagonaux. Ce raccourci ne vaut que pour une
+      matrice triangulaire : est-ce le cas ici ?
+indices:
+- >-
+  La matrice est carrée de taille 3 : la règle de Sarrus s'applique. Elle fait intervenir six
+  produits de trois coefficients.
+- >-
+  Rappel : $\det A = (a_{11} a_{22} a_{33} + a_{12} a_{23} a_{31} + a_{13} a_{21} a_{32})
+  - (a_{13} a_{22} a_{31} + a_{11} a_{23} a_{32} + a_{12} a_{21} a_{33})$.
+- >-
+  Recopiez les deux premières colonnes à droite de $A$ : les trois diagonales descendantes
+  donnent les produits affectés du signe plus, les trois montantes ceux du signe moins.
+  Le premier produit descendant vaut $2 \cdot 4 \cdot 5 = 40$.
+jumeau: generateurs.determinant_sarrus()

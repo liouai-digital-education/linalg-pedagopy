@@ -27,6 +27,7 @@ from linalg_pedagopy.tutor.verifiers import (
     VerificationResult,
     _eval_data_expr,
     _parse_indexed_expr,
+    racines_reelles,
     verify_counterexample,
     verify_dimensions,
     verify_equalities,
@@ -35,7 +36,9 @@ from linalg_pedagopy.tutor.verifiers import (
     verify_matrix,
     verify_property,
     verify_value,
+    verify_value_set,
 )
+from linalg_pedagopy.core.field import symbols
 
 _PACKAGE_DIR = Path(__file__).resolve().parent.parent
 _FICHES_DIR = _PACKAGE_DIR / "tuteur" / "fiches"
@@ -100,6 +103,7 @@ THEMES: tuple[str, ...] = (
     "Produit matriciel",
     "Inverses et systèmes linéaires",
     "Moindres carrés et optimisation",
+    "Déterminants",
 )
 
 TYPE_LABELS: dict[str, str] = {
@@ -477,6 +481,8 @@ class ExerciseSession:
                 res = verify_formula(response, spec, raw_data)
             elif v_type in ("valeur", "value"):
                 res = verify_value(response, spec, raw_data)
+            elif v_type in ("ensemble_valeurs", "value_set"):
+                res = verify_value_set(response, spec, raw_data)
             elif v_type in ("propriete", "property"):
                 res = verify_property(response, spec, raw_data)
             elif v_type in ("contre_exemple", "counterexample"):
@@ -621,6 +627,8 @@ _EXPECTED_FORMS: dict[str, str] = {
     "formula": "une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.",
     "valeur": "une valeur exacte (entier, fraction, expression comme sqrt(2)) ou un dictionnaire de valeurs.",
     "value": "une valeur exacte (entier, fraction, expression comme sqrt(2)) ou un dictionnaire de valeurs.",
+    "ensemble_valeurs": "une liste de valeurs exactes, par exemple [1, -2] (liste vide [] s'il n'y en a aucune).",
+    "value_set": "une liste de valeurs exactes, par exemple [1, -2] (liste vide [] s'il n'y en a aucune).",
     "propriete": "l'objet demandé par l'énoncé (vecteur, matrice ou couple de matrices).",
     "property": "l'objet demandé par l'énoncé (vecteur, matrice ou couple de matrices).",
     "contre_exemple": "le contre-exemple sous la forme indiquée dans l'énoncé.",
@@ -642,6 +650,8 @@ _VALID_VERIFIER_TYPES = {
     "formula",
     "valeur",
     "value",
+    "ensemble_valeurs",
+    "value_set",
     "propriete",
     "property",
     "contre_exemple",
@@ -714,6 +724,26 @@ def _cross_check_verifier(
                     sol_val = _eval_data_expr(str(calcul), raw_data)
                     if not session.verify(sol_val).valid:
                         errs.append("Cross-check échoué : la valeur calculée est rejetée.")
+                # Une erreur typique déclarée ne doit jamais coïncider avec la bonne réponse
+                for idx, erreur in enumerate(verif.get("erreurs", ()) or (), start=1):
+                    fausse = _eval_data_expr(str(erreur["valeur"]), raw_data)
+                    if session.verify(fausse).valid:
+                        errs.append(f"Cross-check échoué : l'erreur typique {idx} est acceptée comme bonne réponse.")
+
+            elif v_type in ("ensemble_valeurs", "value_set"):
+                param = symbols(str(verif["inconnue"]))[0]
+                expr = sp.sympify(_eval_data_expr(str(verif["calcul"]), raw_data))
+                attendues = racines_reelles(expr, param)
+                if attendues is None:
+                    errs.append("Cross-check échoué : l'expression ne s'annule pas en un nombre fini de valeurs.")
+                else:
+                    if not session.verify(list(attendues)).valid:
+                        errs.append("Cross-check échoué : l'ensemble exact des valeurs est rejeté.")
+                    if attendues and session.verify(list(attendues)[:-1]).valid:
+                        errs.append("Cross-check échoué : un ensemble incomplet est accepté.")
+                    intrus = max(attendues, default=sp.Integer(0)) + 1
+                    if session.verify([*attendues, intrus]).valid:
+                        errs.append("Cross-check échoué : une valeur qui n'annule pas l'expression est acceptée.")
 
             elif v_type == "dimensions":
                 if not session.verify(verif["attendu"]).valid:
@@ -823,6 +853,9 @@ def validate_sheet(ex_id: str | int) -> ValidationReport:
     elif v_type in ("valeur", "value") and "calcul" not in verif:
         cible_ok = False
         erreurs.append("Le vérificateur 'valeur' requiert un champ 'calcul'.")
+    elif v_type in ("ensemble_valeurs", "value_set") and ("calcul" not in verif or "inconnue" not in verif):
+        cible_ok = False
+        erreurs.append("Le vérificateur 'ensemble_valeurs' requiert les champs 'calcul' et 'inconnue'.")
     elif v_type in ("propriete", "property") and "propriete" not in verif:
         cible_ok = False
         erreurs.append("Le vérificateur 'propriete' requiert un champ 'propriete'.")

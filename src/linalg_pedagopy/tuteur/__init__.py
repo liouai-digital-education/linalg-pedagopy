@@ -42,6 +42,7 @@ from linalg_pedagopy.tutor import (
     verifier_matrice,
     verifier_produit_scalaire,
     verifier_propriete,
+    verifier_ensemble_valeurs,
     verifier_valeur,
     verify_counterexample,
     verify_dimensions,
@@ -51,6 +52,7 @@ from linalg_pedagopy.tutor import (
     verify_matrix,
     verify_property,
     verify_value,
+    verify_value_set,
 )
 
 __all__ = [
@@ -93,6 +95,7 @@ __all__ = [
     "verifier_matrice",
     "verifier_produit_scalaire",
     "verifier_propriete",
+    "verifier_ensemble_valeurs",
     "verifier_valeur",
     "verify_counterexample",
     "verify_dimensions",
@@ -102,4 +105,5 @@ __all__ = [
     "verify_matrix",
     "verify_property",
     "verify_value",
+    "verify_value_set",
 ]

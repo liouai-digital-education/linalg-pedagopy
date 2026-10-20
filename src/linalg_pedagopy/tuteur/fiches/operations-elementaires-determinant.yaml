@@ -1,0 +1,45 @@
+id: operations-elementaires-determinant
+numero: 39
+titre: Opérations élémentaires et déterminant
+theme: Déterminants
+niveau: 2
+type: calcul
+enonce: >-
+  Soit $A$ une matrice carrée d'ordre 3 telle que $\det A = 4$. On obtient la matrice $B$ à
+  partir de $A$ en effectuant successivement les opérations $L_2 \leftarrow L_2 + 3 L_1$,
+  puis $L_1 \leftrightarrow L_3$, puis $L_3 \leftarrow 2 L_3$. Calculer $\det B$.
+notions:
+- effet des opérations élémentaires sur le déterminant
+donnees:
+  det_A: 4
+verification:
+  type: valeur
+  calcul: -2*det_A
+  erreurs:
+  - valeur: 2*det_A
+    diagnostic: >-
+      Avez-vous tenu compte de l'échange $L_1 \leftrightarrow L_3$ ? Un échange de deux lignes
+      change le signe du déterminant.
+  - valeur: -6*det_A
+    diagnostic: >-
+      La transvection $L_2 \leftarrow L_2 + 3 L_1$ ajoute à une ligne un multiple d'une autre :
+      elle ne change pas le déterminant.
+  - valeur: -det_A
+    diagnostic: >-
+      Avez-vous tenu compte de la dernière opération ? Multiplier une ligne par 2 multiplie le
+      déterminant par 2.
+  - valeur: -det_A/2
+    diagnostic: >-
+      Multiplier une ligne par 2 multiplie le déterminant par 2 : il ne faut pas diviser.
+indices:
+- >-
+  Les coefficients de $A$ sont inconnus : il faut suivre l'effet de chaque opération
+  élémentaire sur le déterminant.
+- >-
+  Rappel : échanger deux lignes change le signe du déterminant ; multiplier une ligne par
+  $\lambda$ le multiplie par $\lambda$ ; ajouter à une ligne un multiple d'une autre ne le
+  change pas.
+- >-
+  Écrivez $\det B$ comme le produit de $\det A$ par trois facteurs, un par opération, dans
+  l'ordre où elles sont effectuées.
+jumeau: generateurs.determinant_operations()

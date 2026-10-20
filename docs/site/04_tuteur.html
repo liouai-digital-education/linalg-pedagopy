@@ -162,7 +162,7 @@
 
       <article class="markdown-body">
         <h1 id="04-le-tuteur-interactif-tutor-tuteur">04. Le tuteur interactif (<code>tutor</code> / <code>tuteur</code>)</h1>
-<p>Le module <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/tutor/__init__.py"><code>linalg_pedagopy.tutor</code></a>, aussi accessible sous le nom français <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/tuteur/__init__.py"><code>linalg_pedagopy.tuteur</code></a>, accompagne un étudiant sur une banque de <strong>35 exercices nommés</strong>. Il l'aide à trouver la méthode <strong>sans jamais donner la solution</strong> : indices gradués, exercice analogue résolu, laboratoire de contre-exemples et diagnostic précis des réponses fausses.</p>
+<p>Le module <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/tutor/__init__.py"><code>linalg_pedagopy.tutor</code></a>, aussi accessible sous le nom français <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/tuteur/__init__.py"><code>linalg_pedagopy.tuteur</code></a>, accompagne un étudiant sur une banque de <strong>39 exercices nommés</strong>. Il l'aide à trouver la méthode <strong>sans jamais donner la solution</strong> : indices gradués, exercice analogue résolu, laboratoire de contre-exemples et diagnostic précis des réponses fausses.</p>
 <hr/>
 <h2 id="1-principes-pedagogiques">1. Principes pédagogiques</h2>
 <table>
@@ -209,14 +209,14 @@
 </table>
 <hr/>
 <h2 id="2-trouver-un-exercice-le-catalogue">2. Trouver un exercice : le catalogue</h2>
-<p>Chaque exercice a un <strong>numéro</strong> (1 à 35), un <strong>identifiant</strong> lisible, un <strong>titre</strong>, un <strong>thème</strong> et un <strong>niveau</strong> (★ à ★★★). La liste complète figure dans le <a href="08_catalogue_exercices.html">catalogue des exercices</a>.</p>
+<p>Chaque exercice a un <strong>numéro</strong> (1 à 39), un <strong>identifiant</strong> lisible, un <strong>titre</strong>, un <strong>thème</strong> et un <strong>niveau</strong> (★ à ★★★). La liste complète figure dans le <a href="08_catalogue_exercices.html">catalogue des exercices</a>.</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tutor
 
 cat = tutor.catalog()          # tableau Markdown dans JupyterLab
 print(cat)                     # version texte, groupée par thème
-print(len(cat))                # 35
+print(len(cat))                # 39
 
-print(tutor.themes())          # les 8 thèmes, dans l'ordre du cours
+print(tutor.themes())          # les 9 thèmes, dans l'ordre du cours
 print(tutor.list_exercises("convolution"))   # ['convolution-vecteurs', 'produit-polynomes']
 
 tutor.catalog("Inverses")      # filtrer par (partie du) thème
@@ -428,7 +428,7 @@ jumeau: generateurs.moyenne_glissante(fenetre=2, n=5)
 </tr>
 <tr>
 <td style="text-align: left;"><code>verification</code></td>
-<td style="text-align: left;">Vérificateur : <code>type</code> parmi <code>produit_scalaire</code>, <code>matrice</code>, <code>formule</code>, <code>valeur</code>, <code>propriete</code>, <code>contre_exemple</code>, <code>labo</code>, <code>egalites</code>, <code>dimensions</code>, plus ses paramètres (<code>cible</code>, <code>lignes_cibles</code>…).</td>
+<td style="text-align: left;">Vérificateur : <code>type</code> parmi <code>produit_scalaire</code>, <code>matrice</code>, <code>formule</code>, <code>valeur</code>, <code>ensemble_valeurs</code>, <code>propriete</code>, <code>contre_exemple</code>, <code>labo</code>, <code>egalites</code>, <code>dimensions</code>, plus ses paramètres (<code>cible</code>, <code>lignes_cibles</code>…). <code>valeur</code> accepte une liste <code>erreurs</code> d'erreurs typiques (<code>valeur</code> : expression sur les données, <code>diagnostic</code> : message) ; <code>ensemble_valeurs</code> attend <code>calcul</code> (par exemple <code>A.det()</code>) et <code>inconnue</code> (par exemple <code>a</code>), et compare la liste de l'étudiant aux racines réelles.</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>indices</code></td>

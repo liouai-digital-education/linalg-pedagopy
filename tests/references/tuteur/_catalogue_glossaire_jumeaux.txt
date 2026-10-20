@@ -50,6 +50,12 @@ Moindres carrés et optimisation
   34. Mesures de sommes de paires  [sommes-de-paires]  (modélisation, ★★☆)
   35. Solution de norme minimale  [norme-minimale]  (calcul, ★★★)
 
+Déterminants
+  36. Déterminant par la règle de Sarrus  [determinant-sarrus]  (calcul, ★☆☆)
+  37. Déterminant d'une matrice triangulaire par blocs  [determinant-blocs]  (calcul, ★★☆)
+  38. Matrice singulière selon un paramètre  [parametre-singulier]  (calcul, ★★☆)
+  39. Opérations élémentaires et déterminant  [operations-elementaires-determinant]  (calcul, ★★☆)
+
 ===== catalogue (markdown) =====
 | N° | Exercice | Identifiant | Thème | Type | Niveau |
 |---:|:---|:---|:---|:---|:---|
@@ -88,9 +94,13 @@ Moindres carrés et optimisation
 | 33 | Les signes des coefficients d'une inverse | `inverse-signes` | Inverses et systèmes linéaires | contre-exemple | ★★☆ |
 | 34 | Mesures de sommes de paires | `sommes-de-paires` | Moindres carrés et optimisation | modélisation | ★★☆ |
 | 35 | Solution de norme minimale | `norme-minimale` | Moindres carrés et optimisation | calcul | ★★★ |
+| 36 | Déterminant par la règle de Sarrus | `determinant-sarrus` | Déterminants | calcul | ★☆☆ |
+| 37 | Déterminant d'une matrice triangulaire par blocs | `determinant-blocs` | Déterminants | calcul | ★★☆ |
+| 38 | Matrice singulière selon un paramètre | `parametre-singulier` | Déterminants | calcul | ★★☆ |
+| 39 | Opérations élémentaires et déterminant | `operations-elementaires-determinant` | Déterminants | calcul | ★★☆ |
 
 ===== thèmes =====
-['Vecteurs et produit scalaire', 'Normes, distances et angles', 'Orthogonalisation', 'Matrices et applications linéaires', 'Convolution', 'Produit matriciel', 'Inverses et systèmes linéaires', 'Moindres carrés et optimisation']
+['Vecteurs et produit scalaire', 'Normes, distances et angles', 'Orthogonalisation', 'Matrices et applications linéaires', 'Convolution', 'Produit matriciel', 'Inverses et systèmes linéaires', 'Moindres carrés et optimisation', 'Déterminants']
 
 ===== glossaire =====
 **Glossaire anglais → français**
@@ -147,6 +157,14 @@ Trois personnes sont liées ainsi : 1 est ami avec 2, et 2 est ami avec 3. Pour 
 
 $$F = \begin{bmatrix} 0 & 1 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 0 \end{bmatrix}$$
 
+===== générateur block_determinant =====
+Déterminant d'une matrice triangulaire par blocs
+Calculer le déterminant de $M = \begin{bmatrix} 3 & 1 & 5 & 0 \\ 2 & 2 & 1 & -1 \\ 0 & 0 & 1 & -1 \\ 0 & 0 & 2 & 3 \end{bmatrix}$ en exploitant sa structure par blocs.
+1. Le bloc en bas à gauche est nul : $M = \begin{bmatrix} A & B \\ 0 & D \end{bmatrix}$ est triangulaire supérieure par blocs, avec des blocs diagonaux $A$ et $D$ carrés.
+2. Pour une telle matrice, $\det M = \det A \cdot \det D$ (le bloc $B$ n'intervient pas).
+3. $\det A = 4$ et $\det D = 5$.
+4. $\det M = 4 \times 5 = 20$.
+
 ===== générateur block_product =====
 Produit par blocs
 Pour des blocs de tailles compatibles, calculer $\begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} I \\ 0 \end{bmatrix}$.
@@ -200,6 +218,38 @@ Comment construire méthodiquement un contre-exemple simple en petite dimension 
 1. Choisir la plus petite dimension autorisée par l'énoncé (souvent $n = 2$).
 2. Tester des vecteurs de la base canonique $e_1 = (1, 0)$, $e_2 = (0, 1)$ ou $(1, 1)$ qui vérifient les hypothèses.
 3. Calculer les deux membres de l'affirmation et vérifier qu'ils diffèrent.
+
+===== générateur determinant_blocs =====
+Déterminant d'une matrice triangulaire par blocs
+Calculer le déterminant de $M = \begin{bmatrix} 3 & 1 & 5 & 0 \\ 2 & 2 & 1 & -1 \\ 0 & 0 & 1 & -1 \\ 0 & 0 & 2 & 3 \end{bmatrix}$ en exploitant sa structure par blocs.
+1. Le bloc en bas à gauche est nul : $M = \begin{bmatrix} A & B \\ 0 & D \end{bmatrix}$ est triangulaire supérieure par blocs, avec des blocs diagonaux $A$ et $D$ carrés.
+2. Pour une telle matrice, $\det M = \det A \cdot \det D$ (le bloc $B$ n'intervient pas).
+3. $\det A = 4$ et $\det D = 5$.
+4. $\det M = 4 \times 5 = 20$.
+
+===== générateur determinant_operations =====
+Opérations élémentaires et déterminant
+On sait que $\det A = 13$ pour $A = \begin{bmatrix} 1 & 2 & 0 \\ 0 & 1 & 3 \\ 2 & 0 & 1 \end{bmatrix}$. On obtient $B$ par $L_1 \leftrightarrow L_2$, puis $L_3 \leftarrow L_3 - 2 L_1$, puis $L_2 \leftarrow 3 L_2$. Calculer $\det B$ sans refaire le calcul.
+1. Un échange de lignes multiplie le déterminant par $-1$.
+2. Une transvection $L_i \leftarrow L_i + \lambda L_j$ ne le change pas.
+3. Multiplier une ligne par $3$ multiplie le déterminant par $3$.
+4. $\det B = (-1) \times 1 \times 3 \times 13 = -39$, ce que confirme le calcul direct : $\det B = -39$.
+
+===== générateur determinant_row_operations =====
+Opérations élémentaires et déterminant
+On sait que $\det A = 13$ pour $A = \begin{bmatrix} 1 & 2 & 0 \\ 0 & 1 & 3 \\ 2 & 0 & 1 \end{bmatrix}$. On obtient $B$ par $L_1 \leftrightarrow L_2$, puis $L_3 \leftarrow L_3 - 2 L_1$, puis $L_2 \leftarrow 3 L_2$. Calculer $\det B$ sans refaire le calcul.
+1. Un échange de lignes multiplie le déterminant par $-1$.
+2. Une transvection $L_i \leftarrow L_i + \lambda L_j$ ne le change pas.
+3. Multiplier une ligne par $3$ multiplie le déterminant par $3$.
+4. $\det B = (-1) \times 1 \times 3 \times 13 = -39$, ce que confirme le calcul direct : $\det B = -39$.
+
+===== générateur determinant_sarrus =====
+Déterminant par la règle de Sarrus
+Calculer le déterminant de $A = \begin{bmatrix} 1 & 2 & 0 \\ 3 & -1 & 2 \\ 0 & 1 & 4 \end{bmatrix}$ par la règle de Sarrus.
+1. On recopie les deux premières colonnes à droite de la matrice.
+2. Diagonales descendantes (signe +) : $-4$, $0$, $0$, de somme $-4$.
+3. Diagonales montantes (signe −) : $0$, $2$, $24$, de somme $26$.
+4. $\det A = -4 - (26) = -30$.
 
 ===== générateur diagonal_scaling =====
 Mise à l'échelle des lignes et des colonnes
@@ -454,6 +504,14 @@ Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp v$). Exp
 
    $$\|2 u + (-3) v\|^2 = 4 \|u\|^2 + 9 \|v\|^2$$
 
+===== générateur parametre_singulier =====
+Matrice singulière selon un paramètre
+Pour quelles valeurs réelles de $a$ la matrice $A = \begin{bmatrix} 1 & a & 0 \\ a & 1 & 0 \\ 0 & 0 & 2 \end{bmatrix}$ est-elle singulière ?
+1. $A$ est singulière si et seulement si $\det A = 0$.
+2. Calcul du déterminant (méthode de Bareiss, valable pour tout $a$) : $\det A = - 2 \left(a - 1\right) \left(a + 1\right)$.
+3. Un produit est nul si et seulement si l'un de ses facteurs l'est.
+4. $A$ est singulière exactement pour $a \in \{1, -1\}$.
+
 ===== générateur polynomial_convolution =====
 Produit de convolution de deux vecteurs
 Calculer le produit de convolution $c = a * b$ des vecteurs $a = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ et $b = \begin{bmatrix} 3 \\ -1 \\ 1 \end{bmatrix}$.
@@ -522,6 +580,22 @@ Une matrice $B \in \mathbb{R}^{3 \times 2}$ vérifie $A B = I_2$ si ses deux col
   $$B_2 = \begin{bmatrix} -1 & 2 \\ 1 & 0 \\ 1 & -1 \end{bmatrix}$$
 
 Dans les deux cas, on vérifie $A B_1 = I_2$ et $A B_2 = I_2$ avec $B_1 \neq B_2$.
+
+===== générateur sarrus_determinant =====
+Déterminant par la règle de Sarrus
+Calculer le déterminant de $A = \begin{bmatrix} 1 & 2 & 0 \\ 3 & -1 & 2 \\ 0 & 1 & 4 \end{bmatrix}$ par la règle de Sarrus.
+1. On recopie les deux premières colonnes à droite de la matrice.
+2. Diagonales descendantes (signe +) : $-4$, $0$, $0$, de somme $-4$.
+3. Diagonales montantes (signe −) : $0$, $2$, $24$, de somme $26$.
+4. $\det A = -4 - (26) = -30$.
+
+===== générateur singular_parameter =====
+Matrice singulière selon un paramètre
+Pour quelles valeurs réelles de $a$ la matrice $A = \begin{bmatrix} 1 & a & 0 \\ a & 1 & 0 \\ 0 & 0 & 2 \end{bmatrix}$ est-elle singulière ?
+1. $A$ est singulière si et seulement si $\det A = 0$.
+2. Calcul du déterminant (méthode de Bareiss, valable pour tout $a$) : $\det A = - 2 \left(a - 1\right) \left(a + 1\right)$.
+3. Un produit est nul si et seulement si l'un de ses facteurs l'est.
+4. $A$ est singulière exactement pour $a \in \{1, -1\}$.
 
 ===== générateur statistiques_vecteur =====
 Moyenne, moyenne quadratique ($\text{rms}$) et écart type ($\text{std}$)

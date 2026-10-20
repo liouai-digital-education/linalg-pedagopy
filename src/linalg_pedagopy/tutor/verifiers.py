@@ -497,6 +497,93 @@ def _detect_typical_value_error(
     return None
 
 
+def _erreur_typique_declaree(
+    valeur: sp.Expr,
+    spec: Mapping[str, Any],
+    data: Mapping[str, Any],
+) -> str | None:
+    """Erreurs typiques propres à une fiche : ``erreurs: [{valeur: expr, diagnostic: msg}]``.
+
+    Chaque ``valeur`` est une expression évaluée sur les données de la fiche (la valeur
+    qu'obtient l'étudiant qui commet l'erreur) ; elle est testée avant les détecteurs génériques.
+    """
+    for erreur in spec.get("erreurs", ()) or ():
+        try:
+            fausse = to_exact(_eval_data_expr(str(erreur["valeur"]), data))
+        except Exception:
+            continue
+        if oracle.decide(valeur - fausse).verdict == Verdict.ZERO:
+            return str(erreur["diagnostic"])
+    return None
+
+
+def racines_reelles(expr: sp.Expr, inconnue: sp.Symbol) -> list[sp.Expr] | None:
+    """Racines réelles exactes d'une expression en une inconnue, ou None si l'ensemble n'est pas fini."""
+    solutions = sp.solveset(sp.together(expr), inconnue, domain=sp.S.Reals)
+    if solutions is sp.S.EmptySet:
+        return []
+    if not isinstance(solutions, sp.FiniteSet):
+        return None
+    return sorted((sp.nsimplify(s) if s.is_Float else s for s in solutions), key=lambda s: float(s.evalf()))
+
+
+def verify_value_set(
+    response: Any,
+    spec: Mapping[str, Any],
+    data: Mapping[str, Any],
+) -> VerificationResult:
+    """Vérificateur 10 : ensemble des valeurs d'un paramètre qui annulent une expression (par exemple det A)."""
+    nom = str(spec.get("inconnue", spec.get("unknown", "a")))
+    param = symbols(nom)[0]
+    quoi = str(spec.get("expression", "l'expression"))
+    expr = sp.sympify(_eval_data_expr(str(spec.get("calcul", spec.get("compute"))), data))
+    attendues = racines_reelles(expr, param)
+    if attendues is None:
+        return VerificationResult(False, f"Vérification impossible : {quoi} ne s'annule pas en un nombre fini de valeurs.")
+
+    if isinstance(response, Mapping):
+        return VerificationResult(False, "Attendu une liste de valeurs, par exemple [1, -2].")
+    elements = list(response) if isinstance(response, (list, tuple, set, frozenset)) else [response]
+    valeurs: list[sp.Expr] = []
+    for element in elements:
+        try:
+            v = to_exact(element)
+        except Exception:
+            return VerificationResult(False, "Attendu une liste de valeurs exactes, par exemple [1, -2].")
+        if isinstance(v, sp.Basic) and v.free_symbols:
+            return VerificationResult(
+                False,
+                f"Vous avez donné une expression en {nom} : il reste à trouver les valeurs de {nom} qui annulent {quoi}.",
+            )
+        valeurs.append(v)
+
+    with suspend_tracing():
+        for v in valeurs:
+            en_v = sp.simplify(expr.subs(param, v))
+            if oracle.decide(en_v).verdict != Verdict.ZERO:
+                return VerificationResult(
+                    False,
+                    f"Pour {nom} = {v}, {quoi} vaut {en_v} ≠ 0 : cette valeur ne convient pas.",
+                )
+        manquantes = [
+            e for e in attendues if not any(oracle.decide(v - e).verdict == Verdict.ZERO for v in valeurs)
+        ]
+    if manquantes and not valeurs:
+        return VerificationResult(
+            False,
+            f"Votre liste est vide, or {quoi} s'annule pour certaines valeurs de {nom}. "
+            f"Cherchez les valeurs de {nom} qui annulent {quoi}.",
+        )
+    if manquantes:
+        return VerificationResult(
+            False,
+            f"Vos valeurs annulent bien {quoi}, mais il en manque {len(manquantes)} (sur {len(attendues)}). "
+            f"Avez-vous factorisé complètement {quoi} ?",
+        )
+    ensemble = "{" + ", ".join(str(e) for e in attendues) + "}" if attendues else "∅"
+    return VerificationResult(True, f"Exact : {quoi} s'annule exactement pour {nom} ∈ {ensemble}.")
+
+
 def verify_value(
     response: Any,
     spec: Mapping[str, Any],
@@ -573,6 +660,10 @@ def verify_value(
 
     if oracle.decide(stu_val - exp_val).verdict == Verdict.ZERO:
         return VerificationResult(True, "Exact ! Votre valeur est correcte.")
+
+    declaree = _erreur_typique_declaree(stu_val, spec, data)
+    if declaree is not None:
+        return VerificationResult(False, declaree)
 
     typical = _detect_typical_value_error(stu_val, data)
     if typical is not None:
@@ -1095,6 +1186,7 @@ verifier_produit_scalaire = verify_inner_product
 verifier_matrice = verify_matrix
 verifier_formule = verify_formula
 verifier_valeur = verify_value
+verifier_ensemble_valeurs = verify_value_set
 verifier_propriete = verify_property
 verifier_contre_exemple = verify_counterexample
 verifier_egalites = verify_equalities

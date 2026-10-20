@@ -1,0 +1,214 @@
+===== énoncé =====
+### Exercice 39 — Opérations élémentaires et déterminant
+
+*Déterminants · calcul · niveau ★★☆*
+
+Soit $A$ une matrice carrée d'ordre 3 telle que $\det A = 4$. On obtient la matrice $B$ à partir de $A$ en effectuant successivement les opérations $L_2 \leftarrow L_2 + 3 L_1$, puis $L_1 \leftrightarrow L_3$, puis $L_3 \leftarrow 2 L_3$. Calculer $\det B$.
+
+**Notions** : effet des opérations élémentaires sur le déterminant
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Les coefficients de $A$ sont inconnus : il faut suivre l'effet de chaque opération élémentaire sur le déterminant.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : échanger deux lignes change le signe du déterminant ; multiplier une ligne par $\lambda$ le multiplie par $\lambda$ ; ajouter à une ligne un multiple d'une autre ne le change pas.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Écrivez $\det B$ comme le produit de $\det A$ par trois facteurs, un par opération, dans l'ordre où elles sont effectuées.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Opérations élémentaires et déterminant
+
+**Énoncé analogue** :
+
+On sait que $\det A = 13$ pour $A = \begin{bmatrix} 1 & 2 & 0 \\ 0 & 1 & 3 \\ 2 & 0 & 1 \end{bmatrix}$. On obtient $B$ par $L_1 \leftrightarrow L_2$, puis $L_3 \leftarrow L_3 - 2 L_1$, puis $L_2 \leftarrow 3 L_2$. Calculer $\det B$ sans refaire le calcul.
+
+**Résolution pas à pas** :
+
+1. Un échange de lignes multiplie le déterminant par $-1$.
+2. Une transvection $L_i \leftarrow L_i + \lambda L_j$ ne le change pas.
+3. Multiplier une ligne par $3$ multiplie le déterminant par $3$.
+4. $\det B = (-1) \times 1 \times 3 \times 13 = -39$, ce que confirme le calcul direct : $\det B = -39$.
+
+**Détail des étapes formelles** :
+
+- Calcul du déterminant d'une matrice 3×3 (méthode : élimination).
+  $$\left[\begin{array}{ccc} 0 & 1 & 3 \\ 3 & 6 & 0 \\ 2 & -2 & -5 \end{array}\right]$$
+  - Méthode choisie automatiquement : élimination (Bareiss dès que la matrice contient des paramètres, élimination sinon).
+  - On échange les lignes L1 et L3 : L1 ↔ L3 (le déterminant change de signe).
+    $$\xrightarrow{L_{1} \leftrightarrow L_{3}} \left[\begin{array}{ccc} \boxed{2} & \color{blue}{-2} & \color{blue}{-5} \\ 3 & 6 & 0 \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{3} \end{array}\right]$$
+  - Colonne 1 : pivot 2.
+  - On annule le coefficient (2,1) : L2 ← L2 − (3/2)·L1 (une transvection ne change pas le déterminant).
+    $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(\frac{3}{2}\right) L_{1}} \left[\begin{array}{ccc} \boxed{2} & -2 & -5 \\ \color{blue}{0} & \color{blue}{9} & \color{blue}{\frac{15}{2}} \\ 0 & 1 & 3 \end{array}\right]$$
+  - On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+    $$\xrightarrow{L_{2} \leftrightarrow L_{3}} \left[\begin{array}{ccc} 2 & -2 & -5 \\ \color{blue}{0} & \boxed{1} & \color{blue}{3} \\ \color{blue}{0} & \color{blue}{9} & \color{blue}{\frac{15}{2}} \end{array}\right]$$
+  - Colonne 2 : pivot 1.
+  - On annule le coefficient (3,2) : L3 ← L3 − (9)·L2 (une transvection ne change pas le déterminant).
+    $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(9\right) L_{2}} \left[\begin{array}{ccc} 2 & -2 & -5 \\ 0 & \boxed{1} & 3 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{- \frac{39}{2}} \end{array}\right]$$
+  - Colonne 3 : pivot −39/2.
+  - Matrice triangulaire : det A = (+1) × produit des pivots (2, 1, −39/2) (2 échange(s) de lignes).
+  - det A = −39.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Opérations élémentaires et déterminant ===
+Énoncé analogue : On sait que $\det A = 13$ pour $A = \begin{bmatrix} 1 & 2 & 0 \\ 0 & 1 & 3 \\ 2 & 0 & 1 \end{bmatrix}$. On obtient $B$ par $L_1 \leftrightarrow L_2$, puis $L_3 \leftarrow L_3 - 2 L_1$, puis $L_2 \leftarrow 3 L_2$. Calculer $\det B$ sans refaire le calcul.
+Résolution pas à pas :
+1. Un échange de lignes multiplie le déterminant par $-1$.
+2. Une transvection $L_i \leftarrow L_i + \lambda L_j$ ne le change pas.
+3. Multiplier une ligne par $3$ multiplie le déterminant par $3$.
+4. $\det B = (-1) \times 1 \times 3 \times 13 = -39$, ce que confirme le calcul direct : $\det B = -39$.
+Calcul du déterminant d'une matrice 3×3 (méthode : élimination).
+├─ Méthode choisie automatiquement : élimination (Bareiss dès que la matrice contient des paramètres, élimination sinon).
+├─ On échange les lignes L1 et L3 : L1 ↔ L3 (le déterminant change de signe).
+├─ Colonne 1 : pivot 2.
+├─ On annule le coefficient (2,1) : L2 ← L2 − (3/2)·L1 (une transvection ne change pas le déterminant).
+├─ On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+├─ Colonne 2 : pivot 1.
+├─ On annule le coefficient (3,2) : L3 ← L3 − (9)·L2 (une transvection ne change pas le déterminant).
+├─ Colonne 3 : pivot −39/2.
+├─ Matrice triangulaire : det A = (+1) × produit des pivots (2, 1, −39/2) (2 échange(s) de lignes).
+└─ det A = −39.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Opérations élémentaires et déterminant
+
+**Énoncé analogue** :
+
+On sait que $\det A = 13$ pour $A = \begin{bmatrix} 1 & 2 & 0 \\ 0 & 1 & 3 \\ 2 & 0 & 1 \end{bmatrix}$. On obtient $B$ par $L_1 \leftrightarrow L_2$, puis $L_3 \leftarrow L_3 - 2 L_1$, puis $L_2 \leftarrow 3 L_2$. Calculer $\det B$ sans refaire le calcul.
+
+**Résolution pas à pas** :
+
+1. Un échange de lignes multiplie le déterminant par $-1$.
+2. Une transvection $L_i \leftarrow L_i + \lambda L_j$ ne le change pas.
+3. Multiplier une ligne par $3$ multiplie le déterminant par $3$.
+4. $\det B = (-1) \times 1 \times 3 \times 13 = -39$, ce que confirme le calcul direct : $\det B = -39$.
+
+**Détail des étapes formelles** :
+
+- Calcul du déterminant d'une matrice 3×3 (méthode : élimination).
+  $$\left[\begin{array}{ccc} 0 & 1 & 3 \\ 3 & 6 & 0 \\ 2 & -2 & -5 \end{array}\right]$$
+  - Méthode choisie automatiquement : élimination (Bareiss dès que la matrice contient des paramètres, élimination sinon).
+  - On échange les lignes L1 et L3 : L1 ↔ L3 (le déterminant change de signe).
+    $$\xrightarrow{L_{1} \leftrightarrow L_{3}} \left[\begin{array}{ccc} \boxed{2} & \color{blue}{-2} & \color{blue}{-5} \\ 3 & 6 & 0 \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{3} \end{array}\right]$$
+  - Colonne 1 : pivot 2.
+  - On annule le coefficient (2,1) : L2 ← L2 − (3/2)·L1 (une transvection ne change pas le déterminant).
+    $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(\frac{3}{2}\right) L_{1}} \left[\begin{array}{ccc} \boxed{2} & -2 & -5 \\ \color{blue}{0} & \color{blue}{9} & \color{blue}{\frac{15}{2}} \\ 0 & 1 & 3 \end{array}\right]$$
+  - On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+    $$\xrightarrow{L_{2} \leftrightarrow L_{3}} \left[\begin{array}{ccc} 2 & -2 & -5 \\ \color{blue}{0} & \boxed{1} & \color{blue}{3} \\ \color{blue}{0} & \color{blue}{9} & \color{blue}{\frac{15}{2}} \end{array}\right]$$
+  - Colonne 2 : pivot 1.
+  - On annule le coefficient (3,2) : L3 ← L3 − (9)·L2 (une transvection ne change pas le déterminant).
+    $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(9\right) L_{2}} \left[\begin{array}{ccc} 2 & -2 & -5 \\ 0 & \boxed{1} & 3 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{- \frac{39}{2}} \end{array}\right]$$
+  - Colonne 3 : pivot −39/2.
+  - Matrice triangulaire : det A = (+1) × produit des pivots (2, 1, −39/2) (2 échange(s) de lignes).
+  - det A = −39.
+
+===== verify(0) -> False =====
+Votre valeur (0) n'est pas égale à la valeur exacte attendue. Vérifiez chaque étape de votre calcul.
+
+===== verify('0') -> False =====
+Votre valeur (0) n'est pas égale à la valeur exacte attendue. Vérifiez chaque étape de votre calcul.
+
+===== verify(Vector.zeros(2)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([0, 0])).
+
+===== verify(Vector.zeros(3)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([0, 0, 0])).
+
+===== verify(Vector.ones(5)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([1, 1, 1, 1, 1])).
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[0, 0], [0, 0]])).
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[0], [0], [0]])).
+
+===== verify(Matrix.identity(3)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])).
+
+===== verify([1, 2]) -> False =====
+Réponse scalaire exacte attendue (reçu [1, 2]).
+
+===== verify({'a': 'valide'}) -> False =====
+Réponse scalaire exacte attendue (reçu {'a': 'valide'}).
+
+===== verify(('0', '0')) -> False =====
+Réponse scalaire exacte attendue (reçu ('0', '0')).
+
+===== erreur typique 8 =====
+Avez-vous tenu compte de l'échange $L_1 \leftrightarrow L_3$ ? Un échange de deux lignes change le signe du déterminant.
+
+===== erreur typique -24 =====
+La transvection $L_2 \leftarrow L_2 + 3 L_1$ ajoute à une ligne un multiple d'une autre : elle ne change pas le déterminant.
+
+===== erreur typique -4 =====
+Avez-vous tenu compte de la dernière opération ? Multiplier une ligne par 2 multiplie le déterminant par 2.
+
+===== erreur typique -2 =====
+Multiplier une ligne par 2 multiplie le déterminant par 2 : il ne faut pas diviser.
+
+===== réponse juste =====
+Exact ! Votre valeur est correcte.
+
+===== bilan =====
+**Bilan — Opérations élémentaires et déterminant**
+
+- Statut : ✅ validé
+- Tentatives soumises : 16
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Opérations élémentaires et déterminant
+**Identifiant** : `operations-elementaires-determinant` | **N°** : 39 | **Thème** : Déterminants | **Type** : calcul | **Niveau** : ★★☆
+
+### Énoncé
+Soit $A$ une matrice carrée d'ordre 3 telle que $\det A = 4$. On obtient la matrice $B$ à partir de $A$ en effectuant successivement les opérations $L_2 \leftarrow L_2 + 3 L_1$, puis $L_1 \leftrightarrow L_3$, puis $L_3 \leftarrow 2 L_3$. Calculer $\det B$.
+
+### Spécification de vérification
+```yaml
+calcul: -2*det_A
+erreurs:
+- diagnostic: Avez-vous tenu compte de l'échange $L_1 \leftrightarrow L_3$ ? Un échange
+    de deux lignes change le signe du déterminant.
+  valeur: 2*det_A
+- diagnostic: 'La transvection $L_2 \leftarrow L_2 + 3 L_1$ ajoute à une ligne un
+    multiple d''une autre : elle ne change pas le déterminant.'
+  valeur: -6*det_A
+- diagnostic: Avez-vous tenu compte de la dernière opération ? Multiplier une ligne
+    par 2 multiplie le déterminant par 2.
+  valeur: -det_A
+- diagnostic: 'Multiplier une ligne par 2 multiplie le déterminant par 2 : il ne faut
+    pas diviser.'
+  valeur: -det_A/2
+type: valeur
+```
+
+### Paliers d'indices
+- **Palier 1** : Les coefficients de $A$ sont inconnus : il faut suivre l'effet de chaque opération élémentaire sur le déterminant.
+- **Palier 2** : Rappel : échanger deux lignes change le signe du déterminant ; multiplier une ligne par $\lambda$ le multiplie par $\lambda$ ; ajouter à une ligne un multiple d'une autre ne le change pas.
+- **Palier 3** : Écrivez $\det B$ comme le produit de $\det A$ par trois facteurs, un par opération, dans l'ordre où elles sont effectuées.
+
+### Exercice jumeau
+`generateurs.determinant_operations()`

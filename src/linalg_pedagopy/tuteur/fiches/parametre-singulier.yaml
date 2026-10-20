@@ -1,0 +1,34 @@
+id: parametre-singulier
+numero: 38
+titre: Matrice singulière selon un paramètre
+theme: Déterminants
+niveau: 2
+type: calcul
+enonce: >-
+  Pour quelles valeurs du réel $a$ la matrice
+  $A = \begin{bmatrix} 2 & a & 1 \\ a & 2 & 1 \\ 1 & 1 & 1 \end{bmatrix}$
+  n'est-elle pas inversible ? Donner la liste de ces valeurs, par exemple $[1, -2]$.
+notions:
+- déterminant et inversibilité
+- discussion selon un paramètre
+donnees:
+  A:
+  - [2, a, 1]
+  - [a, 2, 1]
+  - [1, 1, 1]
+verification:
+  type: ensemble_valeurs
+  calcul: A.det()
+  inconnue: a
+  expression: det A
+indices:
+- >-
+  Une matrice carrée est inversible si et seulement si son déterminant est non nul : il faut
+  trouver les valeurs de $a$ qui annulent $\det A$.
+- >-
+  Rappel : développez $\det A$ suivant une ligne ou une colonne, ou utilisez la règle de
+  Sarrus ; vous obtenez un polynôme en $a$.
+- >-
+  Factorisez complètement ce polynôme : un produit est nul si et seulement si l'un de ses
+  facteurs l'est.
+jumeau: generateurs.parametre_singulier()

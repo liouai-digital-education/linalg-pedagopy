@@ -52,8 +52,8 @@
     "pageTitle": "Accueil & démarrage",
     "title": "Sources et remerciements",
     "url": "index.html#sources-et-remerciements",
-    "snippet": "Les 35 exercices du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil Additional Exercises for Vectors, Matrices, and Least Square...",
-    "content": "Sources et remerciements Les 35 exercices du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil Additional Exercises for Vectors, Matrices, and Least Square..."
+    "snippet": "Les exercices 1 à 35 du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil Additional Exercises for Vectors, Matrices, and Least Sq...",
+    "content": "Sources et remerciements Les exercices 1 à 35 du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil Additional Exercises for Vectors, Matrices, and Least Sq..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
@@ -437,15 +437,15 @@
     "pageTitle": "04. Le tuteur interactif",
     "title": "1. Principes pédagogiques",
     "url": "04_tuteur.html#1-principes-pedagogiques",
-    "snippet": "Chaque exercice a un numéro (1 à 35), un identifiant lisible, un titre, un thème et un niveau (★ à ★★★). La liste complète figure dans le catalogue des exercice...",
-    "content": "1. Principes pédagogiques Chaque exercice a un numéro (1 à 35), un identifiant lisible, un titre, un thème et un niveau (★ à ★★★). La liste complète figure dans le catalogue des exercice..."
+    "snippet": "Chaque exercice a un numéro (1 à 39), un identifiant lisible, un titre, un thème et un niveau (★ à ★★★). La liste complète figure dans le catalogue des exercice...",
+    "content": "1. Principes pédagogiques Chaque exercice a un numéro (1 à 39), un identifiant lisible, un titre, un thème et un niveau (★ à ★★★). La liste complète figure dans le catalogue des exercice..."
   },
   {
     "pageTitle": "04. Le tuteur interactif",
     "title": "2. Trouver un exercice : le catalogue",
     "url": "04_tuteur.html#2-trouver-un-exercice-le-catalogue",
-    "snippet": "Chaque exercice a un numéro (1 à 35), un identifiant lisible, un titre, un thème et un niveau (★ à ★★★). La liste complète figure dans le catalogue des exercice...",
-    "content": "2. Trouver un exercice : le catalogue Chaque exercice a un numéro (1 à 35), un identifiant lisible, un titre, un thème et un niveau (★ à ★★★). La liste complète figure dans le catalogue des exercice..."
+    "snippet": "Chaque exercice a un numéro (1 à 39), un identifiant lisible, un titre, un thème et un niveau (★ à ★★★). La liste complète figure dans le catalogue des exercice...",
+    "content": "2. Trouver un exercice : le catalogue Chaque exercice a un numéro (1 à 39), un identifiant lisible, un titre, un thème et un niveau (★ à ★★★). La liste complète figure dans le catalogue des exercice..."
   },
   {
     "pageTitle": "04. Le tuteur interactif",
@@ -901,6 +901,13 @@
     "url": "08_catalogue_exercices.html#moindres-carres-et-optimisation",
     "snippet": "...",
     "content": "Moindres carrés et optimisation ..."
+  },
+  {
+    "pageTitle": "08. Catalogue des exercices",
+    "title": "Déterminants",
+    "url": "08_catalogue_exercices.html#determinants",
+    "snippet": "...",
+    "content": "Déterminants ..."
   },
   {
     "pageTitle": "09. Guide JupyterLab",

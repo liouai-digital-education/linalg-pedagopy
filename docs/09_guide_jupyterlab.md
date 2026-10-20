@@ -87,7 +87,7 @@ res.explain(level=2)        # avec le détail des opérations de lignes
 
 ```python
 from linalg_pedagopy import tutor
-tutor.catalog()             # les 35 exercices
+tutor.catalog()             # les 39 exercices
 ```
 
 ```python

@@ -29,7 +29,7 @@ jobs:
         run: |
           python -m coverage run -m pytest
           python -m coverage report --sort=cover
-      - name: Validation des 35 fiches
+      - name: Validation des fiches du tuteur
         run: python -c "import sys; sys.path.insert(0,'src'); from linalg_pedagopy import tutor; ko=[i for i in tutor.list_exercises() if not tutor.validate_sheet(i).valid]; print(ko); sys.exit(1 if ko else 0)"
 
   qualite:

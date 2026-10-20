@@ -1,0 +1,187 @@
+===== énoncé =====
+### Exercice 38 — Matrice singulière selon un paramètre
+
+*Déterminants · calcul · niveau ★★☆*
+
+Pour quelles valeurs du réel $a$ la matrice $A = \begin{bmatrix} 2 & a & 1 \\ a & 2 & 1 \\ 1 & 1 & 1 \end{bmatrix}$ n'est-elle pas inversible ? Donner la liste de ces valeurs, par exemple $[1, -2]$.
+
+**Notions** : déterminant et inversibilité, discussion selon un paramètre
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Une matrice carrée est inversible si et seulement si son déterminant est non nul : il faut trouver les valeurs de $a$ qui annulent $\det A$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : développez $\det A$ suivant une ligne ou une colonne, ou utilisez la règle de Sarrus ; vous obtenez un polynôme en $a$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Factorisez complètement ce polynôme : un produit est nul si et seulement si l'un de ses facteurs l'est.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Matrice singulière selon un paramètre
+
+**Énoncé analogue** :
+
+Pour quelles valeurs réelles de $a$ la matrice $A = \begin{bmatrix} 1 & a & 0 \\ a & 1 & 0 \\ 0 & 0 & 2 \end{bmatrix}$ est-elle singulière ?
+
+**Résolution pas à pas** :
+
+1. $A$ est singulière si et seulement si $\det A = 0$.
+2. Calcul du déterminant (méthode de Bareiss, valable pour tout $a$) : $\det A = - 2 \left(a - 1\right) \left(a + 1\right)$.
+3. Un produit est nul si et seulement si l'un de ses facteurs l'est.
+4. $A$ est singulière exactement pour $a \in \{1, -1\}$.
+
+**Détail des étapes formelles** :
+
+- Calcul du déterminant d'une matrice 3×3 (méthode : Bareiss).
+  $$\left[\begin{array}{ccc} 1 & a & 0 \\ a & 1 & 0 \\ 0 & 0 & 2 \end{array}\right]$$
+  - Méthode choisie automatiquement : Bareiss (Bareiss dès que la matrice contient des paramètres, élimination sinon).
+  - Algorithme de Bareiss (élimination sans fractions) : à l'étape k, m_ij ← (m_kk·m_ij − m_ik·m_kj) / (pivot précédent). La division est exacte : les coefficients restent polynomiaux, sans discussion de cas.
+  - Étape 1 : pivot 1, division exacte par le pivot précédent 1.
+    $$\left[\begin{array}{ccc} \boxed{1} & a & 0 \\ \color{blue}{0} & \color{blue}{1 - a^{2}} & \color{blue}{0} \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \end{array}\right]$$
+  - Étape 2 : pivot 1 − a², division exacte par le pivot précédent 1.
+    $$\left[\begin{array}{ccc} 1 & a & 0 \\ 0 & \boxed{1 - a^{2}} & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{2 - 2 a^{2}} \end{array}\right]$$
+  - Le dernier coefficient diagonal 2 − 2·a² est le déterminant, au signe des échanges près (0 échange(s)).
+  - det A = −2·(a − 1)·(a + 1).
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Matrice singulière selon un paramètre ===
+Énoncé analogue : Pour quelles valeurs réelles de $a$ la matrice $A = \begin{bmatrix} 1 & a & 0 \\ a & 1 & 0 \\ 0 & 0 & 2 \end{bmatrix}$ est-elle singulière ?
+Résolution pas à pas :
+1. $A$ est singulière si et seulement si $\det A = 0$.
+2. Calcul du déterminant (méthode de Bareiss, valable pour tout $a$) : $\det A = - 2 \left(a - 1\right) \left(a + 1\right)$.
+3. Un produit est nul si et seulement si l'un de ses facteurs l'est.
+4. $A$ est singulière exactement pour $a \in \{1, -1\}$.
+Calcul du déterminant d'une matrice 3×3 (méthode : Bareiss).
+├─ Méthode choisie automatiquement : Bareiss (Bareiss dès que la matrice contient des paramètres, élimination sinon).
+├─ Algorithme de Bareiss (élimination sans fractions) : à l'étape k, m_ij ← (m_kk·m_ij − m_ik·m_kj) / (pivot précédent). La division est exacte : les coefficients restent polynomiaux, sans discussion de cas.
+├─ Étape 1 : pivot 1, division exacte par le pivot précédent 1.
+├─ Étape 2 : pivot 1 − a², division exacte par le pivot précédent 1.
+├─ Le dernier coefficient diagonal 2 − 2·a² est le déterminant, au signe des échanges près (0 échange(s)).
+└─ det A = −2·(a − 1)·(a + 1).
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Matrice singulière selon un paramètre
+
+**Énoncé analogue** :
+
+Pour quelles valeurs réelles de $a$ la matrice $A = \begin{bmatrix} 1 & a & 0 \\ a & 1 & 0 \\ 0 & 0 & 2 \end{bmatrix}$ est-elle singulière ?
+
+**Résolution pas à pas** :
+
+1. $A$ est singulière si et seulement si $\det A = 0$.
+2. Calcul du déterminant (méthode de Bareiss, valable pour tout $a$) : $\det A = - 2 \left(a - 1\right) \left(a + 1\right)$.
+3. Un produit est nul si et seulement si l'un de ses facteurs l'est.
+4. $A$ est singulière exactement pour $a \in \{1, -1\}$.
+
+**Détail des étapes formelles** :
+
+- Calcul du déterminant d'une matrice 3×3 (méthode : Bareiss).
+  $$\left[\begin{array}{ccc} 1 & a & 0 \\ a & 1 & 0 \\ 0 & 0 & 2 \end{array}\right]$$
+  - Méthode choisie automatiquement : Bareiss (Bareiss dès que la matrice contient des paramètres, élimination sinon).
+  - Algorithme de Bareiss (élimination sans fractions) : à l'étape k, m_ij ← (m_kk·m_ij − m_ik·m_kj) / (pivot précédent). La division est exacte : les coefficients restent polynomiaux, sans discussion de cas.
+  - Étape 1 : pivot 1, division exacte par le pivot précédent 1.
+    $$\left[\begin{array}{ccc} \boxed{1} & a & 0 \\ \color{blue}{0} & \color{blue}{1 - a^{2}} & \color{blue}{0} \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \end{array}\right]$$
+  - Étape 2 : pivot 1 − a², division exacte par le pivot précédent 1.
+    $$\left[\begin{array}{ccc} 1 & a & 0 \\ 0 & \boxed{1 - a^{2}} & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{2 - 2 a^{2}} \end{array}\right]$$
+  - Le dernier coefficient diagonal 2 − 2·a² est le déterminant, au signe des échanges près (0 échange(s)).
+  - det A = −2·(a − 1)·(a + 1).
+
+===== verify(0) -> False =====
+Vos valeurs annulent bien det A, mais il en manque 1 (sur 2). Avez-vous factorisé complètement det A ?
+
+===== verify('0') -> False =====
+Vos valeurs annulent bien det A, mais il en manque 1 (sur 2). Avez-vous factorisé complètement det A ?
+
+===== verify(Vector.zeros(2)) -> False =====
+Attendu une liste de valeurs exactes, par exemple [1, -2].
+
+===== verify(Vector.zeros(3)) -> False =====
+Attendu une liste de valeurs exactes, par exemple [1, -2].
+
+===== verify(Vector.ones(5)) -> False =====
+Attendu une liste de valeurs exactes, par exemple [1, -2].
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Attendu une liste de valeurs exactes, par exemple [1, -2].
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Attendu une liste de valeurs exactes, par exemple [1, -2].
+
+===== verify(Matrix.identity(3)) -> False =====
+Attendu une liste de valeurs exactes, par exemple [1, -2].
+
+===== verify([1, 2]) -> False =====
+Pour a = 1, det A vaut 1 ≠ 0 : cette valeur ne convient pas.
+
+===== verify({'a': 'valide'}) -> False =====
+Attendu une liste de valeurs, par exemple [1, -2].
+
+===== verify(('0', '0')) -> False =====
+Vos valeurs annulent bien det A, mais il en manque 1 (sur 2). Avez-vous factorisé complètement det A ?
+
+===== erreur typique [2] =====
+Vos valeurs annulent bien det A, mais il en manque 1 (sur 2). Avez-vous factorisé complètement det A ?
+
+===== erreur typique [1, 2] =====
+Pour a = 1, det A vaut 1 ≠ 0 : cette valeur ne convient pas.
+
+===== erreur typique '-a*(a - 2)' =====
+Vous avez donné une expression en a : il reste à trouver les valeurs de a qui annulent det A.
+
+===== erreur typique [] =====
+Votre liste est vide, or det A s'annule pour certaines valeurs de a. Cherchez les valeurs de a qui annulent det A.
+
+===== réponse juste =====
+Exact : det A s'annule exactement pour a ∈ {0, 2}.
+
+===== bilan =====
+**Bilan — Matrice singulière selon un paramètre**
+
+- Statut : ✅ validé
+- Tentatives soumises : 16
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Matrice singulière selon un paramètre
+**Identifiant** : `parametre-singulier` | **N°** : 38 | **Thème** : Déterminants | **Type** : calcul | **Niveau** : ★★☆
+
+### Énoncé
+Pour quelles valeurs du réel $a$ la matrice $A = \begin{bmatrix} 2 & a & 1 \\ a & 2 & 1 \\ 1 & 1 & 1 \end{bmatrix}$ n'est-elle pas inversible ? Donner la liste de ces valeurs, par exemple $[1, -2]$.
+
+### Spécification de vérification
+```yaml
+calcul: A.det()
+expression: det A
+inconnue: a
+type: ensemble_valeurs
+```
+
+### Paliers d'indices
+- **Palier 1** : Une matrice carrée est inversible si et seulement si son déterminant est non nul : il faut trouver les valeurs de $a$ qui annulent $\det A$.
+- **Palier 2** : Rappel : développez $\det A$ suivant une ligne ou une colonne, ou utilisez la règle de Sarrus ; vous obtenez un polynôme en $a$.
+- **Palier 3** : Factorisez complètement ce polynôme : un produit est nul si et seulement si l'un de ses facteurs l'est.
+
+### Exercice jumeau
+`generateurs.parametre_singulier()`

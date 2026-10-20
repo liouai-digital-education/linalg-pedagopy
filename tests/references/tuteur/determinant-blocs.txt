@@ -1,0 +1,183 @@
+===== énoncé =====
+### Exercice 37 — Déterminant d'une matrice triangulaire par blocs
+
+*Déterminants · calcul · niveau ★★☆*
+
+Calculer le déterminant de la matrice $M = \begin{bmatrix} 2 & 1 & 4 & -1 \\ 1 & 3 & 0 & 2 \\ 0 & 0 & 1 & 2 \\ 0 & 0 & -1 & 4 \end{bmatrix}$ sans développer complètement, en exploitant sa structure par blocs.
+
+**Notions** : matrice triangulaire par blocs, déterminant d'un produit de blocs
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Découpez $M$ en quatre blocs $2 \times 2$. Que remarquez-vous sur le bloc situé en bas à gauche ?
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : si $M = \begin{bmatrix} A & B \\ 0 & D \end{bmatrix}$ avec $A$ et $D$ carrées, alors $\det M = \det A \cdot \det D$ ; le bloc $B$ n'intervient pas.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Calculez séparément le déterminant du bloc $A$ (lignes et colonnes 1 et 2) et celui du bloc $D$ (lignes et colonnes 3 et 4) : ce sont deux déterminants $2 \times 2$.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Déterminant d'une matrice triangulaire par blocs
+
+**Énoncé analogue** :
+
+Calculer le déterminant de $M = \begin{bmatrix} 3 & 1 & 5 & 0 \\ 2 & 2 & 1 & -1 \\ 0 & 0 & 1 & -1 \\ 0 & 0 & 2 & 3 \end{bmatrix}$ en exploitant sa structure par blocs.
+
+**Résolution pas à pas** :
+
+1. Le bloc en bas à gauche est nul : $M = \begin{bmatrix} A & B \\ 0 & D \end{bmatrix}$ est triangulaire supérieure par blocs, avec des blocs diagonaux $A$ et $D$ carrés.
+2. Pour une telle matrice, $\det M = \det A \cdot \det D$ (le bloc $B$ n'intervient pas).
+3. $\det A = 4$ et $\det D = 5$.
+4. $\det M = 4 \times 5 = 20$.
+
+**Détail des étapes formelles** :
+
+- Calcul du déterminant d'une matrice 2×2 (méthode : cofacteurs).
+  $$\left[\begin{array}{cc} 3 & 1 \\ 2 & 2 \end{array}\right]$$
+  - Déterminant 2×2 : (3)·(2) − (1)·(2) = 4.
+  - det A = 4.
+- Calcul du déterminant d'une matrice 2×2 (méthode : cofacteurs).
+  $$\left[\begin{array}{cc} 1 & -1 \\ 2 & 3 \end{array}\right]$$
+  - Déterminant 2×2 : (1)·(3) − (−1)·(2) = 5.
+  - det A = 5.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Déterminant d'une matrice triangulaire par blocs ===
+Énoncé analogue : Calculer le déterminant de $M = \begin{bmatrix} 3 & 1 & 5 & 0 \\ 2 & 2 & 1 & -1 \\ 0 & 0 & 1 & -1 \\ 0 & 0 & 2 & 3 \end{bmatrix}$ en exploitant sa structure par blocs.
+Résolution pas à pas :
+1. Le bloc en bas à gauche est nul : $M = \begin{bmatrix} A & B \\ 0 & D \end{bmatrix}$ est triangulaire supérieure par blocs, avec des blocs diagonaux $A$ et $D$ carrés.
+2. Pour une telle matrice, $\det M = \det A \cdot \det D$ (le bloc $B$ n'intervient pas).
+3. $\det A = 4$ et $\det D = 5$.
+4. $\det M = 4 \times 5 = 20$.
+Calcul du déterminant d'une matrice 2×2 (méthode : cofacteurs).
+├─ Déterminant 2×2 : (3)·(2) − (1)·(2) = 4.
+└─ det A = 4.
+Calcul du déterminant d'une matrice 2×2 (méthode : cofacteurs).
+├─ Déterminant 2×2 : (1)·(3) − (−1)·(2) = 5.
+└─ det A = 5.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Déterminant d'une matrice triangulaire par blocs
+
+**Énoncé analogue** :
+
+Calculer le déterminant de $M = \begin{bmatrix} 3 & 1 & 5 & 0 \\ 2 & 2 & 1 & -1 \\ 0 & 0 & 1 & -1 \\ 0 & 0 & 2 & 3 \end{bmatrix}$ en exploitant sa structure par blocs.
+
+**Résolution pas à pas** :
+
+1. Le bloc en bas à gauche est nul : $M = \begin{bmatrix} A & B \\ 0 & D \end{bmatrix}$ est triangulaire supérieure par blocs, avec des blocs diagonaux $A$ et $D$ carrés.
+2. Pour une telle matrice, $\det M = \det A \cdot \det D$ (le bloc $B$ n'intervient pas).
+3. $\det A = 4$ et $\det D = 5$.
+4. $\det M = 4 \times 5 = 20$.
+
+**Détail des étapes formelles** :
+
+- Calcul du déterminant d'une matrice 2×2 (méthode : cofacteurs).
+  $$\left[\begin{array}{cc} 3 & 1 \\ 2 & 2 \end{array}\right]$$
+  - Déterminant 2×2 : (3)·(2) − (1)·(2) = 4.
+  - det A = 4.
+- Calcul du déterminant d'une matrice 2×2 (méthode : cofacteurs).
+  $$\left[\begin{array}{cc} 1 & -1 \\ 2 & 3 \end{array}\right]$$
+  - Déterminant 2×2 : (1)·(3) − (−1)·(2) = 5.
+  - det A = 5.
+
+===== verify(0) -> False =====
+Votre valeur (0) n'est pas égale à la valeur exacte attendue. Vérifiez chaque étape de votre calcul.
+
+===== verify('0') -> False =====
+Votre valeur (0) n'est pas égale à la valeur exacte attendue. Vérifiez chaque étape de votre calcul.
+
+===== verify(Vector.zeros(2)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([0, 0])).
+
+===== verify(Vector.zeros(3)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([0, 0, 0])).
+
+===== verify(Vector.ones(5)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([1, 1, 1, 1, 1])).
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[0, 0], [0, 0]])).
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[0], [0], [0]])).
+
+===== verify(Matrix.identity(3)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])).
+
+===== verify([1, 2]) -> False =====
+Réponse scalaire exacte attendue (reçu [1, 2]).
+
+===== verify({'a': 'valide'}) -> False =====
+Réponse scalaire exacte attendue (reçu {'a': 'valide'}).
+
+===== verify(('0', '0')) -> False =====
+Réponse scalaire exacte attendue (reçu ('0', '0')).
+
+===== erreur typique 11 =====
+Vous avez additionné les déterminants des blocs diagonaux. Pour une matrice triangulaire par blocs, ces déterminants se combinent autrement : par quelle opération ?
+
+===== erreur typique 24 =====
+Votre valeur est le produit des coefficients diagonaux de $M$. Ce raccourci vaut pour une matrice triangulaire, mais ici les blocs diagonaux ne sont pas eux-mêmes triangulaires.
+
+===== réponse juste =====
+Exact ! Votre valeur est correcte.
+
+===== bilan =====
+**Bilan — Déterminant d'une matrice triangulaire par blocs**
+
+- Statut : ✅ validé
+- Tentatives soumises : 14
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Déterminant d'une matrice triangulaire par blocs
+**Identifiant** : `determinant-blocs` | **N°** : 37 | **Thème** : Déterminants | **Type** : calcul | **Niveau** : ★★☆
+
+### Énoncé
+Calculer le déterminant de la matrice $M = \begin{bmatrix} 2 & 1 & 4 & -1 \\ 1 & 3 & 0 & 2 \\ 0 & 0 & 1 & 2 \\ 0 & 0 & -1 & 4 \end{bmatrix}$ sans développer complètement, en exploitant sa structure par blocs.
+
+### Spécification de vérification
+```yaml
+calcul: M.det()
+erreurs:
+- diagnostic: 'Vous avez additionné les déterminants des blocs diagonaux. Pour une
+    matrice triangulaire par blocs, ces déterminants se combinent autrement : par
+    quelle opération ?'
+  valeur: (M[0,0]*M[1,1] - M[0,1]*M[1,0]) + (M[2,2]*M[3,3] - M[2,3]*M[3,2])
+- diagnostic: Votre valeur est le produit des coefficients diagonaux de $M$. Ce raccourci
+    vaut pour une matrice triangulaire, mais ici les blocs diagonaux ne sont pas eux-mêmes
+    triangulaires.
+  valeur: M[0,0]*M[1,1]*M[2,2]*M[3,3]
+type: valeur
+```
+
+### Paliers d'indices
+- **Palier 1** : Découpez $M$ en quatre blocs $2 \times 2$. Que remarquez-vous sur le bloc situé en bas à gauche ?
+- **Palier 2** : Rappel : si $M = \begin{bmatrix} A & B \\ 0 & D \end{bmatrix}$ avec $A$ et $D$ carrées, alors $\det M = \det A \cdot \det D$ ; le bloc $B$ n'intervient pas.
+- **Palier 3** : Calculez séparément le déterminant du bloc $A$ (lignes et colonnes 1 et 2) et celui du bloc $D$ (lignes et colonnes 3 et 4) : ce sont deux déterminants $2 \times 2$.
+
+### Exercice jumeau
+`generateurs.determinant_blocs()`

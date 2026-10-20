@@ -1,6 +1,6 @@
 # Documentation de `linalg_pedagopy`
 
-**`linalg_pedagopy`** est un package Python d'**algèbre linéaire formelle et pédagogique** pour l'enseignement en L1–L2 (licence, classes préparatoires, écoles d'ingénieurs). Il calcule en **arithmétique exacte**, **discute automatiquement les cas** quand un calcul dépend d'un paramètre, **explique chaque étape** au niveau de détail voulu, et propose un **tuteur** qui guide l'étudiant sur 35 exercices sans jamais donner la solution.
+**`linalg_pedagopy`** est un package Python d'**algèbre linéaire formelle et pédagogique** pour l'enseignement en L1–L2 (licence, classes préparatoires, écoles d'ingénieurs). Il calcule en **arithmétique exacte**, **discute automatiquement les cas** quand un calcul dépend d'un paramètre, **explique chaque étape** au niveau de détail voulu, et propose un **tuteur** qui guide l'étudiant sur 39 exercices sans jamais donner la solution.
 
 ---
 
@@ -28,7 +28,7 @@
    Classes, fonctions, signatures, exceptions et table des alias français.
 
 8. [**08. Catalogue des exercices**](08_catalogue_exercices.md)  
-   Les 35 exercices du tuteur, par thème et par niveau, avec leurs énoncés.
+   Les 39 exercices du tuteur, par thème et par niveau, avec leurs énoncés.
 
 9. [**09. Utiliser le package dans JupyterLab**](09_guide_jupyterlab.md)  
    Installation pas à pas, premières cellules et dépannage.
@@ -76,7 +76,7 @@ print(result.at(a=0).solution)   # UniqueSolution(x=(4, -1, -2))
 ```python
 from linalg_pedagopy import tutor, Matrix
 
-print(tutor.catalog())                     # les 35 exercices, par thème
+print(tutor.catalog())                     # les 39 exercices, par thème
 
 ex = tutor.exercise("moyenne-glissante")   # ou tutor.exercise(16)
 print(ex.statement())                      # dans JupyterLab : ex.statement() suffit
@@ -131,6 +131,6 @@ L'API principale est en anglais ; chaque élément du tuteur a un alias françai
 
 ## Sources et remerciements
 
-Les 35 exercices du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil *Additional Exercises for Vectors, Matrices, and Least Squares* de Stephen Boyd et Lieven Vandenberghe, compagnon de leur livre *Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares* (Cambridge University Press, 2018), disponibles sur [le site des auteurs](https://web.stanford.edu/~boyd/vmls/). Plusieurs conventions du package en viennent aussi (résidu des moindres carrés r̂ = A x̂ − b, variantes de Gram-Schmidt).
+Les exercices 1 à 35 du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil *Additional Exercises for Vectors, Matrices, and Least Squares* de Stephen Boyd et Lieven Vandenberghe, compagnon de leur livre *Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares* (Cambridge University Press, 2018), disponibles sur [le site des auteurs](https://web.stanford.edu/~boyd/vmls/). Plusieurs conventions du package en viennent aussi (résidu des moindres carrés r̂ = A x̂ − b, variantes de Gram-Schmidt). Les exercices du thème « Déterminants » (numéros 36 à 39) sont originaux.
 
 Les droits sur les exercices originaux appartiennent à leurs auteurs ; `linalg_pedagopy` est un projet indépendant, sans lien avec les auteurs ni avec l'éditeur. Les énoncés des fiches ne citent pas leur source, pour que l'étudiant ne puisse pas aller chercher la solution à l'extérieur : cette page et le `README.md` en tiennent lieu.

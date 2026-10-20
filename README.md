@@ -11,7 +11,7 @@
 - **Discussion de cas automatique** : quand un pivot dépend d'un paramètre, le calcul se sépare en cas disjoints (`CaseSplit`), affichés en clair (`a ≠ 1 et a ≠ −1`, `b²`…).
 - **Déterminant exact** : `A.det()`, avec la trace de la méthode de Bareiss (sans discussion de cas même avec paramètres), de l'élimination, du développement par cofacteurs ou de la règle de Sarrus, et les valeurs du paramètre qui rendent la matrice singulière.
 - **Explications pas à pas** : chaque résultat garde la trace de ses opérations ; `explain(level=0..3)` choisit le niveau de détail, en texte, LaTeX, Markdown ou HTML.
-- **Tuteur interactif** : 35 exercices nommés, classés en 8 thèmes et 3 niveaux, avec indices gradués, exercice jumeau résolu, diagnostic des erreurs et laboratoire de contre-exemples — sans jamais donner la solution.
+- **Tuteur interactif** : 39 exercices nommés, classés en 9 thèmes et 3 niveaux, avec indices gradués, exercice jumeau résolu, diagnostic des erreurs et laboratoire de contre-exemples — sans jamais donner la solution.
 
 ---
 
@@ -64,7 +64,7 @@ print(ls.verify())       # contrôle de A^T r_hat = 0, colonne par colonne
 ```python
 from linalg_pedagopy import tutor, Matrix
 
-print(tutor.catalog())                       # les 35 exercices, par thème
+print(tutor.catalog())                       # les 39 exercices, par thème
 
 ex = tutor.exercise("moyenne-glissante")     # ou tutor.exercise(16)
 print(ex.statement())
@@ -92,7 +92,7 @@ La documentation complète est dans [`docs/`](docs/index.md) (version HTML : `do
 | [05. Exercices et sessions](docs/05_pedagogical_exercises_and_sessions.md) | générateurs, exercices jumeaux, sessions interactives, diagnostic d'erreurs |
 | [06. Rendu et numérique](docs/06_rendering_visualization_and_numerics.md) | `Explanation`, figures, comparaison exact / flottant |
 | [07. Référence de l'API](docs/07_api_reference.md) | signatures, exceptions, alias français |
-| [08. Catalogue des exercices](docs/08_catalogue_exercices.md) | les 35 exercices et leurs énoncés |
+| [08. Catalogue des exercices](docs/08_catalogue_exercices.md) | les 39 exercices et leurs énoncés |
 | [09. Guide JupyterLab](docs/09_guide_jupyterlab.md) | installation pas à pas et dépannage |
 
 Le [tutoriel](TUTORIAL.md) parcourt l'ensemble du package ; le carnet `carnets/tutoriel_linalg_pedagopy.ipynb` en est généré par `python scripts/convert_tutorial_to_ipynb.py`. Le dossier [`carnets/`](carnets/) contient aussi les grands problèmes et le projet d'exploration ; les scripts qui génèrent les carnets et le site sont dans [`scripts/`](scripts/).
@@ -108,7 +108,7 @@ pytest tests/ -v                 # tests unitaires et de caractérisation
 python verifier_tout.py          # tout : tests + couverture, fiches, ruff, mypy, carnets
 ```
 
-Les tests couvrent notamment la partition disjointe des cas et la commutation `CaseSplit.at(**p)` = calcul direct en `p`, les radicaux paramétriques, la validation des 35 fiches (absence de fuite dans les indices, contrôle croisé avec le solveur), la robustesse du tuteur face aux réponses mal formées et l'impossibilité d'extraire les données verrouillées par introspection.
+Les tests couvrent notamment la partition disjointe des cas et la commutation `CaseSplit.at(**p)` = calcul direct en `p`, les radicaux paramétriques, la validation des 39 fiches (absence de fuite dans les indices, contrôle croisé avec le solveur), la robustesse du tuteur face aux réponses mal formées et l'impossibilité d'extraire les données verrouillées par introspection.
 
 Les tests de caractérisation figent les traces et les diagnostics du tuteur dans `tests/references/` pour sécuriser les refactorisations ; voir [docs/dev/tests_et_verifications.md](docs/dev/tests_et_verifications.md).
 
@@ -116,7 +116,7 @@ Les tests de caractérisation figent les traces et les diagnostics du tuteur dan
 
 ## Sources et remerciements
 
-Les 35 exercices du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil *Additional Exercises for Vectors, Matrices, and Least Squares* de Stephen Boyd et Lieven Vandenberghe, compagnon de leur livre *Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares* (Cambridge University Press, 2018). Le livre et le recueil sont disponibles sur [le site des auteurs](https://web.stanford.edu/~boyd/vmls/). Plusieurs conventions du package en viennent aussi, par exemple le résidu des moindres carrés r̂ = A x̂ − b et les deux variantes de Gram-Schmidt.
+Les exercices 1 à 35 du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil *Additional Exercises for Vectors, Matrices, and Least Squares* de Stephen Boyd et Lieven Vandenberghe, compagnon de leur livre *Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares* (Cambridge University Press, 2018). Le livre et le recueil sont disponibles sur [le site des auteurs](https://web.stanford.edu/~boyd/vmls/). Plusieurs conventions du package en viennent aussi, par exemple le résidu des moindres carrés r̂ = A x̂ − b et les deux variantes de Gram-Schmidt. Les exercices du thème « Déterminants » (numéros 36 à 39) sont originaux.
 
 Les droits sur les exercices originaux appartiennent à leurs auteurs. `linalg_pedagopy` est un projet indépendant, sans lien avec les auteurs ni avec l'éditeur, qui ne l'approuvent pas formellement. Les énoncés des fiches ne citent pas leur source, pour que l'étudiant ne puisse pas aller chercher la solution à l'extérieur, d'où cette mention groupée.
 

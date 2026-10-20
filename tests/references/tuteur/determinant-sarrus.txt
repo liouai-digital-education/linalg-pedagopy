@@ -1,0 +1,181 @@
+===== énoncé =====
+### Exercice 36 — Déterminant par la règle de Sarrus
+
+*Déterminants · calcul · niveau ★☆☆*
+
+Calculer le déterminant de la matrice $A = \begin{bmatrix} 2 & -1 & 3 \\ 1 & 4 & 0 \\ -2 & 1 & 5 \end{bmatrix}$ à l'aide de la règle de Sarrus.
+
+**Notions** : déterminant d'une matrice 3×3, règle de Sarrus
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+La matrice est carrée de taille 3 : la règle de Sarrus s'applique. Elle fait intervenir six produits de trois coefficients.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : $\det A = (a_{11} a_{22} a_{33} + a_{12} a_{23} a_{31} + a_{13} a_{21} a_{32}) - (a_{13} a_{22} a_{31} + a_{11} a_{23} a_{32} + a_{12} a_{21} a_{33})$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Recopiez les deux premières colonnes à droite de $A$ : les trois diagonales descendantes donnent les produits affectés du signe plus, les trois montantes ceux du signe moins. Le premier produit descendant vaut $2 \cdot 4 \cdot 5 = 40$.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Déterminant par la règle de Sarrus
+
+**Énoncé analogue** :
+
+Calculer le déterminant de $A = \begin{bmatrix} 1 & 2 & 0 \\ 3 & -1 & 2 \\ 0 & 1 & 4 \end{bmatrix}$ par la règle de Sarrus.
+
+**Résolution pas à pas** :
+
+1. On recopie les deux premières colonnes à droite de la matrice.
+2. Diagonales descendantes (signe +) : $-4$, $0$, $0$, de somme $-4$.
+3. Diagonales montantes (signe −) : $0$, $2$, $24$, de somme $26$.
+4. $\det A = -4 - (26) = -30$.
+
+**Détail des étapes formelles** :
+
+- Calcul du déterminant d'une matrice 3×3 (méthode : Sarrus).
+  $$\left[\begin{array}{ccc} 1 & 2 & 0 \\ 3 & -1 & 2 \\ 0 & 1 & 4 \end{array}\right]$$
+  - Règle de Sarrus, diagonales descendantes (signe +) : (−4, 0, 0).
+  - Règle de Sarrus, diagonales montantes (signe −) : (0, 2, 24).
+  - det A = −30.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Déterminant par la règle de Sarrus ===
+Énoncé analogue : Calculer le déterminant de $A = \begin{bmatrix} 1 & 2 & 0 \\ 3 & -1 & 2 \\ 0 & 1 & 4 \end{bmatrix}$ par la règle de Sarrus.
+Résolution pas à pas :
+1. On recopie les deux premières colonnes à droite de la matrice.
+2. Diagonales descendantes (signe +) : $-4$, $0$, $0$, de somme $-4$.
+3. Diagonales montantes (signe −) : $0$, $2$, $24$, de somme $26$.
+4. $\det A = -4 - (26) = -30$.
+Calcul du déterminant d'une matrice 3×3 (méthode : Sarrus).
+├─ Règle de Sarrus, diagonales descendantes (signe +) : (−4, 0, 0).
+├─ Règle de Sarrus, diagonales montantes (signe −) : (0, 2, 24).
+└─ det A = −30.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Déterminant par la règle de Sarrus
+
+**Énoncé analogue** :
+
+Calculer le déterminant de $A = \begin{bmatrix} 1 & 2 & 0 \\ 3 & -1 & 2 \\ 0 & 1 & 4 \end{bmatrix}$ par la règle de Sarrus.
+
+**Résolution pas à pas** :
+
+1. On recopie les deux premières colonnes à droite de la matrice.
+2. Diagonales descendantes (signe +) : $-4$, $0$, $0$, de somme $-4$.
+3. Diagonales montantes (signe −) : $0$, $2$, $24$, de somme $26$.
+4. $\det A = -4 - (26) = -30$.
+
+**Détail des étapes formelles** :
+
+- Calcul du déterminant d'une matrice 3×3 (méthode : Sarrus).
+  $$\left[\begin{array}{ccc} 1 & 2 & 0 \\ 3 & -1 & 2 \\ 0 & 1 & 4 \end{array}\right]$$
+  - Règle de Sarrus, diagonales descendantes (signe +) : (−4, 0, 0).
+  - Règle de Sarrus, diagonales montantes (signe −) : (0, 2, 24).
+  - det A = −30.
+
+===== verify(0) -> False =====
+Votre valeur (0) n'est pas égale à la valeur exacte attendue. Vérifiez chaque étape de votre calcul.
+
+===== verify('0') -> False =====
+Votre valeur (0) n'est pas égale à la valeur exacte attendue. Vérifiez chaque étape de votre calcul.
+
+===== verify(Vector.zeros(2)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([0, 0])).
+
+===== verify(Vector.zeros(3)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([0, 0, 0])).
+
+===== verify(Vector.ones(5)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([1, 1, 1, 1, 1])).
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[0, 0], [0, 0]])).
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[0], [0], [0]])).
+
+===== verify(Matrix.identity(3)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])).
+
+===== verify([1, 2]) -> False =====
+Réponse scalaire exacte attendue (reçu [1, 2]).
+
+===== verify({'a': 'valide'}) -> False =====
+Réponse scalaire exacte attendue (reçu {'a': 'valide'}).
+
+===== verify(('0', '0')) -> False =====
+Réponse scalaire exacte attendue (reçu ('0', '0')).
+
+===== erreur typique 43 =====
+Votre valeur est la somme des seuls produits des diagonales descendantes. Quels autres produits la règle de Sarrus fait-elle intervenir, et avec quel signe ?
+
+===== erreur typique 14 =====
+Vous avez additionné les produits des diagonales montantes : dans la règle de Sarrus, ils sont affectés du signe moins.
+
+===== erreur typique 40 =====
+Votre valeur est le produit des coefficients diagonaux. Ce raccourci ne vaut que pour une matrice triangulaire : est-ce le cas ici ?
+
+===== réponse juste =====
+Exact ! Votre valeur est correcte.
+
+===== bilan =====
+**Bilan — Déterminant par la règle de Sarrus**
+
+- Statut : ✅ validé
+- Tentatives soumises : 15
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Déterminant par la règle de Sarrus
+**Identifiant** : `determinant-sarrus` | **N°** : 36 | **Thème** : Déterminants | **Type** : calcul | **Niveau** : ★☆☆
+
+### Énoncé
+Calculer le déterminant de la matrice $A = \begin{bmatrix} 2 & -1 & 3 \\ 1 & 4 & 0 \\ -2 & 1 & 5 \end{bmatrix}$ à l'aide de la règle de Sarrus.
+
+### Spécification de vérification
+```yaml
+calcul: A.det()
+erreurs:
+- diagnostic: Votre valeur est la somme des seuls produits des diagonales descendantes.
+    Quels autres produits la règle de Sarrus fait-elle intervenir, et avec quel signe
+    ?
+  valeur: A[0,0]*A[1,1]*A[2,2] + A[0,1]*A[1,2]*A[2,0] + A[0,2]*A[1,0]*A[2,1]
+- diagnostic: 'Vous avez additionné les produits des diagonales montantes : dans la
+    règle de Sarrus, ils sont affectés du signe moins.'
+  valeur: A[0,0]*A[1,1]*A[2,2] + A[0,1]*A[1,2]*A[2,0] + A[0,2]*A[1,0]*A[2,1] + A[0,2]*A[1,1]*A[2,0]
+    + A[0,0]*A[1,2]*A[2,1] + A[0,1]*A[1,0]*A[2,2]
+- diagnostic: 'Votre valeur est le produit des coefficients diagonaux. Ce raccourci
+    ne vaut que pour une matrice triangulaire : est-ce le cas ici ?'
+  valeur: A[0,0]*A[1,1]*A[2,2]
+type: valeur
+```
+
+### Paliers d'indices
+- **Palier 1** : La matrice est carrée de taille 3 : la règle de Sarrus s'applique. Elle fait intervenir six produits de trois coefficients.
+- **Palier 2** : Rappel : $\det A = (a_{11} a_{22} a_{33} + a_{12} a_{23} a_{31} + a_{13} a_{21} a_{32}) - (a_{13} a_{22} a_{31} + a_{11} a_{23} a_{32} + a_{12} a_{21} a_{33})$.
+- **Palier 3** : Recopiez les deux premières colonnes à droite de $A$ : les trois diagonales descendantes donnent les produits affectés du signe plus, les trois montantes ceux du signe moins. Le premier produit descendant vaut $2 \cdot 4 \cdot 5 = 40$.
+
+### Exercice jumeau
+`generateurs.determinant_sarrus()`

@@ -9,6 +9,7 @@ from typing import Any
 
 import sympy as sp
 
+from linalg_pedagopy.algorithms.determinant import Determinant
 from linalg_pedagopy.algorithms.gauss_jordan import GaussJordan
 from linalg_pedagopy.algorithms.gram_schmidt import GramSchmidt
 from linalg_pedagopy.algorithms.least_squares import LeastSquares
@@ -689,6 +690,113 @@ class _TwinGeneratorNamespace:
         )
         return TwinExercise(title="Inégalité triangulaire", statement=stmt, solution_summary=sol)
 
+    @staticmethod
+    def determinant_sarrus() -> TwinExercise:
+        """Jumeau : déterminant 3×3 par la règle de Sarrus."""
+        A = Matrix([[1, 2, 0], [3, -1, 2], [0, 1, 4]])
+        (a, b, c), (d, e, f), (g, h, i) = A.entries_grid
+        plus = (a * e * i, b * f * g, c * d * h)
+        moins = (c * e * g, a * f * h, b * d * i)
+        with tracing(level=1) as t:
+            valeur = Determinant(A, method="sarrus").run().value
+        stmt = f"Calculer le déterminant de $A = {_matrix_to_latex(A)}$ par la règle de Sarrus."
+        sol = (
+            "1. On recopie les deux premières colonnes à droite de la matrice.\n"
+            f"2. Diagonales descendantes (signe +) : ${sp.latex(plus[0])}$, ${sp.latex(plus[1])}$, "
+            f"${sp.latex(plus[2])}$, de somme ${sp.latex(sum(plus))}$.\n"
+            f"3. Diagonales montantes (signe −) : ${sp.latex(moins[0])}$, ${sp.latex(moins[1])}$, "
+            f"${sp.latex(moins[2])}$, de somme ${sp.latex(sum(moins))}$.\n"
+            f"4. $\\det A = {sp.latex(sum(plus))} - ({sp.latex(sum(moins))}) = {sp.latex(valeur)}$."
+        )
+        return TwinExercise(
+            title="Déterminant par la règle de Sarrus",
+            statement=stmt,
+            solution_summary=sol,
+            explanation=Explanation(t.tree, level=1),
+        )
+
+    @staticmethod
+    def determinant_blocs() -> TwinExercise:
+        """Jumeau : déterminant d'une matrice triangulaire par blocs."""
+        A = Matrix([[3, 1], [2, 2]])
+        B = Matrix([[5, 0], [1, -1]])
+        D = Matrix([[1, -1], [2, 3]])
+        M = Matrix.block([[A, B], [Matrix.zeros(2, 2), D]])
+        with tracing(level=1) as t:
+            det_a = Determinant(A, method="cofactors").run().value
+            det_d = Determinant(D, method="cofactors").run().value
+        stmt = (
+            f"Calculer le déterminant de $M = {_matrix_to_latex(M)}$ "
+            "en exploitant sa structure par blocs."
+        )
+        sol = (
+            "1. Le bloc en bas à gauche est nul : $M = \\begin{bmatrix} A & B \\\\ 0 & D \\end{bmatrix}$ "
+            "est triangulaire supérieure par blocs, avec des blocs diagonaux $A$ et $D$ carrés.\n"
+            "2. Pour une telle matrice, $\\det M = \\det A \\cdot \\det D$ (le bloc $B$ n'intervient pas).\n"
+            f"3. $\\det A = {sp.latex(det_a)}$ et $\\det D = {sp.latex(det_d)}$.\n"
+            f"4. $\\det M = {sp.latex(det_a)} \\times {sp.latex(det_d)} = {sp.latex(det_a * det_d)}$."
+        )
+        return TwinExercise(
+            title="Déterminant d'une matrice triangulaire par blocs",
+            statement=stmt,
+            solution_summary=sol,
+            explanation=Explanation(t.tree, level=1),
+        )
+
+    @staticmethod
+    def parametre_singulier() -> TwinExercise:
+        """Jumeau : valeurs d'un paramètre qui rendent une matrice singulière."""
+        (a,) = symbols("a")
+        A = Matrix([[1, a, 0], [a, 1, 0], [0, 0, 2]])
+        with tracing(level=1) as t:
+            res = Determinant(A).run()
+        valeurs = ", ".join(sp.latex(c.eqs[0][1]) for c in res.zeros())
+        stmt = f"Pour quelles valeurs réelles de $a$ la matrice $A = {_matrix_to_latex(A)}$ est-elle singulière ?"
+        sol = (
+            "1. $A$ est singulière si et seulement si $\\det A = 0$.\n"
+            f"2. Calcul du déterminant (méthode de Bareiss, valable pour tout $a$) : $\\det A = {sp.latex(res.value)}$.\n"
+            "3. Un produit est nul si et seulement si l'un de ses facteurs l'est.\n"
+            f"4. $A$ est singulière exactement pour $a \\in \\{{{valeurs}\\}}$."
+        )
+        return TwinExercise(
+            title="Matrice singulière selon un paramètre",
+            statement=stmt,
+            solution_summary=sol,
+            explanation=Explanation(t.tree, level=1),
+        )
+
+    @staticmethod
+    def determinant_operations() -> TwinExercise:
+        """Jumeau : effet des opérations élémentaires sur le déterminant."""
+        A = Matrix([[1, 2, 0], [0, 1, 3], [2, 0, 1]])
+        L1, L2, L3 = A.rows_as_vectors()
+        etape1 = Matrix.from_rows([L2, L1, L3])             # L1 ↔ L2
+        r1, r2, r3 = etape1.rows_as_vectors()
+        etape2 = Matrix.from_rows([r1, r2, r3 - 2 * r1])    # L3 ← L3 − 2 L1
+        s1, s2, s3 = etape2.rows_as_vectors()
+        B = Matrix.from_rows([s1, 3 * s2, s3])              # L2 ← 3 L2
+        with tracing(level=1) as t:
+            det_b = Determinant(B).run().value
+        det_a = A.det()
+        stmt = (
+            f"On sait que $\\det A = {sp.latex(det_a)}$ pour $A = {_matrix_to_latex(A)}$. On obtient $B$ par "
+            "$L_1 \\leftrightarrow L_2$, puis $L_3 \\leftarrow L_3 - 2 L_1$, puis $L_2 \\leftarrow 3 L_2$. "
+            "Calculer $\\det B$ sans refaire le calcul."
+        )
+        sol = (
+            "1. Un échange de lignes multiplie le déterminant par $-1$.\n"
+            "2. Une transvection $L_i \\leftarrow L_i + \\lambda L_j$ ne le change pas.\n"
+            "3. Multiplier une ligne par $3$ multiplie le déterminant par $3$.\n"
+            f"4. $\\det B = (-1) \\times 1 \\times 3 \\times {sp.latex(det_a)} = {sp.latex(-3 * det_a)}$, "
+            f"ce que confirme le calcul direct : $\\det B = {sp.latex(det_b)}$."
+        )
+        return TwinExercise(
+            title="Opérations élémentaires et déterminant",
+            statement=stmt,
+            solution_summary=sol,
+            explanation=Explanation(t.tree, level=1),
+        )
+
     # English aliases for twin exercise generators
     @staticmethod
     def moving_average(window: int = 2, n: int = 5, *, fenetre: int | None = None) -> TwinExercise:
@@ -716,6 +824,10 @@ class _TwinGeneratorNamespace:
     system_solving = resolution_systeme
     block_product = identite_blocs
     triangle_inequality = inegalite_triangulaire
+    sarrus_determinant = determinant_sarrus
+    block_determinant = determinant_blocs
+    singular_parameter = parametre_singulier
+    determinant_row_operations = determinant_operations
 
 
 generators = _TwinGeneratorNamespace()

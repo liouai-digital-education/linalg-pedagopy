@@ -1,6 +1,6 @@
 """Tests de caractérisation du tuteur : énoncés, indices, jumeaux et diagnostics figés.
 
-Pour chacune des 35 fiches, on fige l'énoncé, les paliers d'indices, l'exercice jumeau et le
+Pour chacune des fiches, on fige l'énoncé, les paliers d'indices, l'exercice jumeau et le
 diagnostic produit pour une série de réponses fausses génériques, ainsi que le message de
 réponses justes connues. Ces tests protègent le découpage du tuteur (phase 3).
 Régénération après un changement voulu : LP_MAJ_REFERENCES=1 pytest tests/test_caracterisation_tuteur.py
@@ -52,6 +52,18 @@ REPONSES_JUSTES = {
         [0, -Fraction(1, 3), -Fraction(1, 3), -Fraction(1, 3), 1, 0],
         [0, 0, -Fraction(1, 3), -Fraction(1, 3), -Fraction(1, 3), 1],
     ]),
+    "determinant-sarrus": 72,
+    "determinant-blocs": 30,
+    "parametre-singulier": [0, 2],
+    "operations-elementaires-determinant": -8,
+}
+
+# Erreurs typiques déclarées dans les fiches de déterminants : diagnostic figé pour chacune
+REPONSES_ERRONEES = {
+    "determinant-sarrus": [43, 14, 40],
+    "determinant-blocs": [11, 24],
+    "parametre-singulier": [[2], [1, 2], "-a*(a - 2)", []],
+    "operations-elementaires-determinant": [8, -24, -4, -2],
 }
 
 
@@ -72,6 +84,10 @@ def test_caracterisation_fiche(ex_id: str, tmp_path: Path) -> None:
     for nom, rep in REPONSES_GENERIQUES:
         res = ex.verify(rep)
         parts.append(bloc(f"verify({nom}) -> {res.valid}", res.diagnostic))
+    for reponse in REPONSES_ERRONEES.get(ex_id, []):
+        res = ex.verify(reponse)
+        assert not res.valid, reponse
+        parts.append(bloc(f"erreur typique {reponse!r}", res.diagnostic))
     if ex_id in REPONSES_JUSTES:
         res = ex.verify(REPONSES_JUSTES[ex_id])
         assert res.valid, res.diagnostic

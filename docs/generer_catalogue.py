@@ -19,6 +19,7 @@ VERIF_LABELS = {
     "matrice": "une matrice",
     "formule": "une formule (chaîne)",
     "valeur": "une valeur exacte (ou un dictionnaire de valeurs)",
+    "ensemble_valeurs": "la liste des valeurs du paramètre",
     "propriete": "l'objet demandé (vérifié par sa propriété)",
     "contre_exemple": "un contre-exemple",
     "labo": "prédiction puis essais au laboratoire",
@@ -28,10 +29,12 @@ VERIF_LABELS = {
 
 
 def main() -> None:
+    fiches = list(_all_fiches())
     lines = [
         "# 08. Catalogue des exercices",
         "",
-        "Le tuteur propose **35 exercices** répartis en 8 thèmes, du plus simple (★☆☆) au plus exigeant (★★★).",
+        f"Le tuteur propose **{len(fiches)} exercices** répartis en {len(tutor.themes())} thèmes, "
+        "du plus simple (★☆☆) au plus exigeant (★★★).",
         "Chaque exercice s'ouvre par son identifiant, son numéro ou son titre :",
         "",
         "```python",
@@ -49,7 +52,6 @@ def main() -> None:
         "| N° | Exercice | Identifiant | Type | Niveau |",
         "|---:|:---|:---|:---|:---:|",
     ]
-    fiches = list(_all_fiches())
     theme = None
     for f in fiches:
         if f["theme"] != theme:

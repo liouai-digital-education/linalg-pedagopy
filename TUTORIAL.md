@@ -39,7 +39,7 @@ Ce tutoriel fait le tour de **`linalg_pedagopy`**, un package Python d'algèbre 
    - Les algorithmes produisent un arbre d'étapes consultable à plusieurs niveaux de détail (niveau 0 : résultat seul, 1 : grandes étapes, 2 : sous-calculs, 3 : arithmétique élémentaire).
 4. **Pédagogie active** :
    - Des sessions interactives permettent à l'élève de proposer des opérations de ligne, prédire des étapes, et recevoir un diagnostic ciblé sur ses erreurs.
-   - Un **tuteur** accompagne la résolution de 35 exercices nommés sans jamais divulguer la solution en mode étudiant.
+   - Un **tuteur** accompagne la résolution de 39 exercices nommés sans jamais divulguer la solution en mode étudiant.
 
 ---
 
@@ -577,7 +577,7 @@ print(hilbert_conditioning_experiment(sizes=[3, 5, 7]))
 
 ## 13. Le tuteur interactif (`tutor` / `tuteur`)
 
-Le tuteur accompagne l'étudiant sur **35 exercices nommés**, classés en 8 thèmes et 3 niveaux, sans jamais donner la solution.
+Le tuteur accompagne l'étudiant sur **39 exercices nommés**, classés en 9 thèmes et 3 niveaux, sans jamais donner la solution.
 
 ### Les 8 principes pédagogiques
 1. **Vérification par propriété** : le tuteur ne stocke pas de corrigé figé. Il vérifie que la réponse satisfait la définition mathématique ($A B = I$, résidu orthogonal, etc.).

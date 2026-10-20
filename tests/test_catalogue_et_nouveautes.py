@@ -27,8 +27,8 @@ from linalg_pedagopy import (
 
 def test_catalogue_ordonne_par_theme_et_numero() -> None:
     cat = tutor.catalog()
-    assert len(cat) == 35
-    assert [row["numero"] for row in cat] == list(range(1, 36))
+    assert len(cat) == 39
+    assert [row["numero"] for row in cat] == list(range(1, 40))
     assert cat[0]["id"] == "selection-composantes"
     assert set(tutor.themes()) == {row["theme"] for row in cat}
     md = cat._repr_markdown_()

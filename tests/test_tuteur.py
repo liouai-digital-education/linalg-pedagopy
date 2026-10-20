@@ -1,4 +1,4 @@
-"""Tests du tuteur : validation des 35 fiches, 9 vérificateurs, verrou, laboratoire, journal."""
+"""Tests du tuteur : validation des 39 fiches, 10 vérificateurs, verrou, laboratoire, journal."""
 
 from __future__ import annotations
 
@@ -356,7 +356,7 @@ def test_phase0_english_nomenclature_api(tmp_path: Path) -> None:
 
     j_path = tmp_path / "journal_en.json"
     ids = tutor.list_exercises()
-    assert len(ids) == 35
+    assert len(ids) == 39
     assert "Moindres carrés" in tutor.glossary("least squares")
 
     ex = tutor.exercise("selection-composantes", journal_path=j_path)
@@ -390,7 +390,7 @@ def test_fiches_sans_reference_externe_ni_caractere_corrompu() -> None:
 
     fiches = Path(linalg_pedagopy.__file__).parent / "tuteur" / "fiches"
     files = sorted(fiches.glob("*.yaml"))
-    assert len(files) == 35
+    assert len(files) == 39
     numeros = set()
     for f in files:
         raw = f.read_text(encoding="utf-8")
@@ -400,7 +400,7 @@ def test_fiches_sans_reference_externe_ni_caractere_corrompu() -> None:
         assert data["id"] == f.stem
         assert data["titre"] and data["theme"] and data["niveau"] in (1, 2, 3)
         numeros.add(data["numero"])
-    assert numeros == set(range(1, 36))
+    assert numeros == set(range(1, 40))
 
 
 def test_reponses_illisibles_diagnostic_en_francais() -> None:
@@ -431,3 +431,24 @@ def test_reponses_illisibles_diagnostic_en_francais() -> None:
         eval("Vectr([1])", {"__builtins__": {}}, {})  # noqa: S307
     except NameError as exc:
         assert raison_illisible("Vectr([1])", exc) == "le nom « Vectr » n'est pas connu ici."
+
+
+def test_verificateur_ensemble_valeurs_et_erreurs_declarees() -> None:
+    from linalg_pedagopy import symbols
+    from linalg_pedagopy.tutor.verifiers import verify_value, verify_value_set
+
+    a = symbols("a")[0]
+    donnees = {"A": Matrix([[2, a, 1], [a, 2, 1], [1, 1, 1]])}
+    spec = {"calcul": "A.det()", "inconnue": "a", "expression": "det A"}
+    assert verify_value_set([0, 2], spec, donnees).valid
+    assert verify_value_set((2, 0, 2), spec, donnees).valid
+    assert "il en manque 1" in verify_value_set([2], spec, donnees).diagnostic
+    assert "Pour a = 1" in verify_value_set([1, 2], spec, donnees).diagnostic
+    assert "expression en a" in verify_value_set("-a*(a - 2)", spec, donnees).diagnostic
+    assert "liste est vide" in verify_value_set([], spec, donnees).diagnostic
+    # Aucune valeur singulière : la liste vide est la bonne réponse
+    assert verify_value_set([], spec, {"A": Matrix([[1, a], [0, 1]])}).valid
+
+    erreurs = {"calcul": "-2*d", "erreurs": [{"valeur": "2*d", "diagnostic": "signe de l'échange"}]}
+    assert verify_value(8, erreurs, {"d": 4}).diagnostic == "signe de l'échange"
+    assert verify_value(-8, erreurs, {"d": 4}).valid

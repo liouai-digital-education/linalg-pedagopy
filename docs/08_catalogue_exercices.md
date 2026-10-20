@@ -1,6 +1,6 @@
 # 08. Catalogue des exercices
 
-Le tuteur propose **35 exercices** répartis en 8 thèmes, du plus simple (★☆☆) au plus exigeant (★★★).
+Le tuteur propose **39 exercices** répartis en 9 thèmes, du plus simple (★☆☆) au plus exigeant (★★★).
 Chaque exercice s'ouvre par son identifiant, son numéro ou son titre :
 
 ```python
@@ -59,6 +59,11 @@ Ce tableau est produit par `python docs/generer_catalogue.py` à partir des fich
 | | **Moindres carrés et optimisation** | | | |
 | 34 | [Mesures de sommes de paires](#sommes-de-paires) | `sommes-de-paires` | modélisation | ★★☆ |
 | 35 | [Solution de norme minimale](#norme-minimale) | `norme-minimale` | calcul | ★★★ |
+| | **Déterminants** | | | |
+| 36 | [Déterminant par la règle de Sarrus](#determinant-sarrus) | `determinant-sarrus` | calcul | ★☆☆ |
+| 37 | [Déterminant d'une matrice triangulaire par blocs](#determinant-blocs) | `determinant-blocs` | calcul | ★★☆ |
+| 38 | [Matrice singulière selon un paramètre](#parametre-singulier) | `parametre-singulier` | calcul | ★★☆ |
+| 39 | [Opérations élémentaires et déterminant](#operations-elementaires-determinant) | `operations-elementaires-determinant` | calcul | ★★☆ |
 
 ## Énoncés
 
@@ -427,3 +432,45 @@ On cherche à estimer $x \in \mathbb{R}^3$ à partir des 6 mesures bruitées de 
 On considère le problème de norme minimale : minimiser $\|x\|^2$ sous la contrainte $C x = d$, avec $C = \begin{bmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \end{bmatrix}$ (taille $2 \times 3$) et $d = (1, 1)$. Trouver la solution optimale $x \in \mathbb{R}^3$ à l'aide des conditions KKT.
 
 **Notions** : solution de norme minimale, système KKT
+
+### Déterminants
+
+<a id="determinant-sarrus"></a>
+
+#### 36. Déterminant par la règle de Sarrus
+
+*Identifiant* `determinant-sarrus` · *type* calcul · *niveau* ★☆☆ · *réponse attendue* : une valeur exacte (ou un dictionnaire de valeurs)
+
+Calculer le déterminant de la matrice $A = \begin{bmatrix} 2 & -1 & 3 \\ 1 & 4 & 0 \\ -2 & 1 & 5 \end{bmatrix}$ à l'aide de la règle de Sarrus.
+
+**Notions** : déterminant d'une matrice 3×3, règle de Sarrus
+
+<a id="determinant-blocs"></a>
+
+#### 37. Déterminant d'une matrice triangulaire par blocs
+
+*Identifiant* `determinant-blocs` · *type* calcul · *niveau* ★★☆ · *réponse attendue* : une valeur exacte (ou un dictionnaire de valeurs)
+
+Calculer le déterminant de la matrice $M = \begin{bmatrix} 2 & 1 & 4 & -1 \\ 1 & 3 & 0 & 2 \\ 0 & 0 & 1 & 2 \\ 0 & 0 & -1 & 4 \end{bmatrix}$ sans développer complètement, en exploitant sa structure par blocs.
+
+**Notions** : matrice triangulaire par blocs, déterminant d'un produit de blocs
+
+<a id="parametre-singulier"></a>
+
+#### 38. Matrice singulière selon un paramètre
+
+*Identifiant* `parametre-singulier` · *type* calcul · *niveau* ★★☆ · *réponse attendue* : la liste des valeurs du paramètre
+
+Pour quelles valeurs du réel $a$ la matrice $A = \begin{bmatrix} 2 & a & 1 \\ a & 2 & 1 \\ 1 & 1 & 1 \end{bmatrix}$ n'est-elle pas inversible ? Donner la liste de ces valeurs, par exemple $[1, -2]$.
+
+**Notions** : déterminant et inversibilité, discussion selon un paramètre
+
+<a id="operations-elementaires-determinant"></a>
+
+#### 39. Opérations élémentaires et déterminant
+
+*Identifiant* `operations-elementaires-determinant` · *type* calcul · *niveau* ★★☆ · *réponse attendue* : une valeur exacte (ou un dictionnaire de valeurs)
+
+Soit $A$ une matrice carrée d'ordre 3 telle que $\det A = 4$. On obtient la matrice $B$ à partir de $A$ en effectuant successivement les opérations $L_2 \leftarrow L_2 + 3 L_1$, puis $L_1 \leftrightarrow L_3$, puis $L_3 \leftarrow 2 L_3$. Calculer $\det B$.
+
+**Notions** : effet des opérations élémentaires sur le déterminant

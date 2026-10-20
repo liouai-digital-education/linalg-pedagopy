@@ -162,7 +162,7 @@
 
       <article class="markdown-body">
         <h1 id="08-catalogue-des-exercices">08. Catalogue des exercices</h1>
-<p>Le tuteur propose <strong>35 exercices</strong> répartis en 8 thèmes, du plus simple (★☆☆) au plus exigeant (★★★).
+<p>Le tuteur propose <strong>39 exercices</strong> répartis en 9 thèmes, du plus simple (★☆☆) au plus exigeant (★★★).
 Chaque exercice s'ouvre par son identifiant, son numéro ou son titre :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tutor
 
@@ -483,6 +483,41 @@ ex.statement()
 <td style="text-align: left;">calcul</td>
 <td style="text-align: center;">★★★</td>
 </tr>
+<tr>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"><strong>Déterminants</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: right;">36</td>
+<td style="text-align: left;"><a href="#determinant-sarrus">Déterminant par la règle de Sarrus</a></td>
+<td style="text-align: left;"><code>determinant-sarrus</code></td>
+<td style="text-align: left;">calcul</td>
+<td style="text-align: center;">★☆☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">37</td>
+<td style="text-align: left;"><a href="#determinant-blocs">Déterminant d'une matrice triangulaire par blocs</a></td>
+<td style="text-align: left;"><code>determinant-blocs</code></td>
+<td style="text-align: left;">calcul</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">38</td>
+<td style="text-align: left;"><a href="#parametre-singulier">Matrice singulière selon un paramètre</a></td>
+<td style="text-align: left;"><code>parametre-singulier</code></td>
+<td style="text-align: left;">calcul</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
+<tr>
+<td style="text-align: right;">39</td>
+<td style="text-align: left;"><a href="#operations-elementaires-determinant">Opérations élémentaires et déterminant</a></td>
+<td style="text-align: left;"><code>operations-elementaires-determinant</code></td>
+<td style="text-align: left;">calcul</td>
+<td style="text-align: center;">★★☆</td>
+</tr>
 </tbody>
 </table>
 <h2 id="enonces">Énoncés</h2>
@@ -669,6 +704,27 @@ ex.statement()
 <p><em>Identifiant</em> <code>norme-minimale</code> · <em>type</em> calcul · <em>niveau</em> ★★★ · <em>réponse attendue</em> : l'objet demandé (vérifié par sa propriété)</p>
 <p>On considère le problème de norme minimale : minimiser $\|x\|^2$ sous la contrainte $C x = d$, avec $C = \begin{bmatrix} 1 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 1 \end{bmatrix}$ (taille $2 \times 3$) et $d = (1, 1)$. Trouver la solution optimale $x \in \mathbb{R}^3$ à l'aide des conditions KKT.</p>
 <p><strong>Notions</strong> : solution de norme minimale, système KKT</p>
+<h3 id="determinants">Déterminants</h3>
+<p><a id="determinant-sarrus"></a></p>
+<h4 id="36-determinant-par-la-regle-de-sarrus">36. Déterminant par la règle de Sarrus</h4>
+<p><em>Identifiant</em> <code>determinant-sarrus</code> · <em>type</em> calcul · <em>niveau</em> ★☆☆ · <em>réponse attendue</em> : une valeur exacte (ou un dictionnaire de valeurs)</p>
+<p>Calculer le déterminant de la matrice $A = \begin{bmatrix} 2 &amp; -1 &amp; 3 \\ 1 &amp; 4 &amp; 0 \\ -2 &amp; 1 &amp; 5 \end{bmatrix}$ à l'aide de la règle de Sarrus.</p>
+<p><strong>Notions</strong> : déterminant d'une matrice 3×3, règle de Sarrus</p>
+<p><a id="determinant-blocs"></a></p>
+<h4 id="37-determinant-dune-matrice-triangulaire-par-blocs">37. Déterminant d'une matrice triangulaire par blocs</h4>
+<p><em>Identifiant</em> <code>determinant-blocs</code> · <em>type</em> calcul · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : une valeur exacte (ou un dictionnaire de valeurs)</p>
+<p>Calculer le déterminant de la matrice $M = \begin{bmatrix} 2 &amp; 1 &amp; 4 &amp; -1 \\ 1 &amp; 3 &amp; 0 &amp; 2 \\ 0 &amp; 0 &amp; 1 &amp; 2 \\ 0 &amp; 0 &amp; -1 &amp; 4 \end{bmatrix}$ sans développer complètement, en exploitant sa structure par blocs.</p>
+<p><strong>Notions</strong> : matrice triangulaire par blocs, déterminant d'un produit de blocs</p>
+<p><a id="parametre-singulier"></a></p>
+<h4 id="38-matrice-singuliere-selon-un-parametre">38. Matrice singulière selon un paramètre</h4>
+<p><em>Identifiant</em> <code>parametre-singulier</code> · <em>type</em> calcul · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : la liste des valeurs du paramètre</p>
+<p>Pour quelles valeurs du réel $a$ la matrice $A = \begin{bmatrix} 2 &amp; a &amp; 1 \\ a &amp; 2 &amp; 1 \\ 1 &amp; 1 &amp; 1 \end{bmatrix}$ n'est-elle pas inversible ? Donner la liste de ces valeurs, par exemple $[1, -2]$.</p>
+<p><strong>Notions</strong> : déterminant et inversibilité, discussion selon un paramètre</p>
+<p><a id="operations-elementaires-determinant"></a></p>
+<h4 id="39-operations-elementaires-et-determinant">39. Opérations élémentaires et déterminant</h4>
+<p><em>Identifiant</em> <code>operations-elementaires-determinant</code> · <em>type</em> calcul · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : une valeur exacte (ou un dictionnaire de valeurs)</p>
+<p>Soit $A$ une matrice carrée d'ordre 3 telle que $\det A = 4$. On obtient la matrice $B$ à partir de $A$ en effectuant successivement les opérations $L_2 \leftarrow L_2 + 3 L_1$, puis $L_1 \leftrightarrow L_3$, puis $L_3 \leftarrow 2 L_3$. Calculer $\det B$.</p>
+<p><strong>Notions</strong> : effet des opérations élémentaires sur le déterminant</p>
       </article>
 
       <!-- Navigation entre chapitres -->
@@ -732,6 +788,10 @@ ex.statement()
         
         <li class="toc-item toc-h3">
           <a href="#moindres-carres-et-optimisation">Moindres carrés et optimisation</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#determinants">Déterminants</a>
         </li>
         
       </ul>
