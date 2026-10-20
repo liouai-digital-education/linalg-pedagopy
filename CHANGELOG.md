@@ -11,6 +11,9 @@
 - Tuteur : une réponse illisible n'affiche plus le message brut de SymPy ou de Python (en anglais, variable selon la version), mais une raison en français (formule sur plusieurs lignes ou matrice affichée, signe « = », parenthèses déséquilibrées, multiplication sans `*`, nom inconnu, syntaxe invalide) : vérificateur de formule, chaînes d'égalités et panneau JupyterLab (`raison_illisible`). Une matrice ou un vecteur donné à un exercice de formule reçoit le message de forme attendue, avec les variables de l'exercice.
 - mypy : attributs de `Matrix` et `Vector` (classes à `__slots__`) annotés, quelques retours `Any` explicités. `mypy --strict` ne signale plus aucune erreur sur `core`, `algorithms`, `objects`, `render`, `trace`, `plot`, `config.py` et `special.py` (périmètre `files` de `[tool.mypy]`), désormais **bloquant** dans la CI et `verifier_tout.py` ; sur tout le paquet, 71 erreurs au lieu de 212 (tuteur, exercices, `compare`), vérifiées à titre informatif.
 
+### Phase 1 du plan v5 — préparation de la publication
+- Manuel « Algèbre linéaire et géométrie vectorielle » (PDF de 28 Mo, ouvrage protégé) retiré de **tout l'historique** git avant la première publication : les empreintes de tous les commits ont changé ; dépôt de 26 Mo ramené à 1,5 Mo. Le fichier reste disponible localement, ignoré par git (`.gitignore` : ce fichier, dossier `ressources/`, vidages `*.stackdump`).
+
 ### Phase 0 du plan v5 — filet de sécurité
 - Python **3.10** minimum (`requires-python`, ruff, mypy, classificateurs).
 - Tests de caractérisation : traces, discussions de cas et oracle (`tests/test_caracterisation_algorithmes.py`), énoncés, indices, jumeaux et diagnostics des 35 fiches (`tests/test_caracterisation_tuteur.py`), références dans `tests/references/` (régénération : `LP_MAJ_REFERENCES=1`).

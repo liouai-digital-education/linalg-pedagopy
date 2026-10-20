@@ -25,3 +25,10 @@ dist/
 
 # Local journals
 .linalg_pedagopy_journal.json
+
+# Ressources de référence locales (ouvrages protégés : jamais dans le dépôt public)
+ressources/
+Algèbre linéaire et géométrie vectorielle.pdf
+
+# Vidages de plantage de Git Bash (Windows)
+*.stackdump
