@@ -119,6 +119,15 @@ def test_cas_limites() -> None:
         Determinant(Matrix.identity(2), method="laplace")  # type: ignore[arg-type]
 
 
+def test_nombre_d_echanges_annonce() -> None:
+    # Deux échanges (pivots les plus simples) : signe +, et la trace annonce bien 2 échanges
+    res = Determinant(Matrix([[2, 4, 1], [1, 3, 2], [0, 1, 5]]), method="elimination").run()
+    texte = res.explain(level=1).to_text()
+    assert texte.count("On échange les lignes") == 2
+    assert "(2 échange(s) de lignes)" in texte
+    assert res.value == 7
+
+
 def test_elimination_interrompue_sur_pivot_conditionnel() -> None:
     (a,) = symbols("a")
     A = Matrix([[a, 1, 1], [1, a, 1], [1, 1, a]])

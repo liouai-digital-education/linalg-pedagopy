@@ -204,6 +204,7 @@ class Determinant(Procedure[DetResult]):
     def _bareiss(M: list[list[sp.Expr]], cond: Condition) -> sp.Expr:
         n = len(M)
         signe = 1
+        echanges = 0
         precedent: sp.Expr = sp.Integer(1)
         record(StepKind.INFO, "det.bareiss_intro", level=1)
         for k in range(n - 1):
@@ -215,6 +216,7 @@ class Determinant(Procedure[DetResult]):
                     return sp.Integer(0)
                 M[k], M[autre] = M[autre], M[k]
                 signe = -signe
+                echanges += 1
                 record(
                     StepKind.ROW_SWAP,
                     "det.row_swap",
@@ -254,7 +256,7 @@ class Determinant(Procedure[DetResult]):
             )
             precedent = pivot
         resultat = M[n - 1][n - 1] if signe == 1 else -M[n - 1][n - 1]
-        record(StepKind.INFO, "det.bareiss_last", level=1, value=M[n - 1][n - 1], swaps=(1 - signe) // 2)
+        record(StepKind.INFO, "det.bareiss_last", level=1, value=M[n - 1][n - 1], swaps=echanges)
         return resultat
 
     # --- Élimination sans dilatation --------------------------------------------------------
@@ -263,6 +265,7 @@ class Determinant(Procedure[DetResult]):
     def _elimination(M: list[list[sp.Expr]], cond: Condition) -> sp.Expr:
         n = len(M)
         signe = 1
+        echanges = 0
         pivots: list[sp.Expr] = []
         for k in range(n):
             candidats = [(i, M[i][k]) for i in range(k, n)]
@@ -285,6 +288,7 @@ class Determinant(Procedure[DetResult]):
             if ligne != k:
                 M[k], M[ligne] = M[ligne], M[k]
                 signe = -signe
+                echanges += 1
                 record(
                     StepKind.ROW_SWAP,
                     "det.row_swap",
@@ -328,7 +332,7 @@ class Determinant(Procedure[DetResult]):
             level=1,
             pivots=tuple(pivots),
             sign="+" if signe == 1 else "−",
-            swaps=(1 - signe) // 2,
+            swaps=echanges,
         )
         return produit if signe == 1 else -produit
 
