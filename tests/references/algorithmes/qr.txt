@@ -2,7 +2,7 @@
 QRResult(A=Matrix([[1, -1], [1, 0], [1, 1]]), Q=Matrix([[sqrt(3)/3, -sqrt(2)/2], [sqrt(3)/3, 0], [sqrt(3)/3, sqrt(2)/2]]), R=Matrix([[sqrt(3), 0], [0, sqrt(2)]]), Q_tilde=Matrix([[1, -1], [1, 0], [1, 1]]), R_tilde=Matrix([[1, 0], [0, 1]]), D_sq=Matrix([[3, 0], [0, 2]]), d_sq=(3, 2), full_rank=True, witness=None)
 
 ===== texte niveau 0 =====
-
+rang plein (2), factorisation A = Q R
 
 ===== texte niveau 1 =====
 Factorisation QR de la matrice A de taille 3×2.

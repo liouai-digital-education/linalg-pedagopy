@@ -2,7 +2,7 @@
 GJResult(A=Matrix([[1, 2, 3], [0, 1, 4], [5, 6, 0]]), b=Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]]), rref=Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]]), augmented_rref=Matrix([[1, 0, 0, -24, 18, 5], [0, 1, 0, 20, -15, -4], [0, 0, 1, -5, 4, 1]]), pivots=(0, 1, 2), rank=3, free_vars=(), nullspace_basis=(), solution=None, inverse=Matrix([[-24, 18, 5], [20, -15, -4], [-5, 4, 1]]))
 
 ===== texte niveau 0 =====
-
+matrice inversible de rang 3
 
 ===== texte niveau 1 =====
 Réduction de Gauss-Jordan d'une matrice 3×3.

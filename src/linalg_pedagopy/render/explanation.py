@@ -7,21 +7,26 @@ from pathlib import Path
 from typing import Any
 
 from linalg_pedagopy.core.cases import CaseSplit, register_casesplit_explain_hook
-from linalg_pedagopy.render.html import render_casesplit_html, render_step_html
-from linalg_pedagopy.render.latex import render_casesplit_latex, render_step_latex
+from linalg_pedagopy.render.html import render_casesplit_html, render_result_html, render_step_html
+from linalg_pedagopy.render.latex import render_casesplit_latex, render_result_latex, render_step_latex
 from linalg_pedagopy.render.markdown import (
     render_casesplit_markdown,
+    render_result_markdown,
     render_step_markdown,
 )
-from linalg_pedagopy.render.text import render_casesplit_text, render_step_text
+from linalg_pedagopy.render.text import render_casesplit_text, render_result_text, render_step_text
 from linalg_pedagopy.trace.step import Step
 
 
 @dataclass(frozen=True)
 class Explanation:
-    """Représentation multi-format d'une trace de calcul ou d'une discussion par cas."""
+    """Représentation multi-format d'une trace de calcul ou d'une discussion par cas.
 
-    source: Step | CaseSplit[Any]
+    La source peut aussi être un résultat d'algorithme : c'est le niveau 0
+    (résultat seul), qui n'affiche que le résumé du résultat.
+    """
+
+    source: Step | CaseSplit[Any] | Any
     level: int = 1
     fmt: str = "auto"
     locale: str | None = None
@@ -31,6 +36,8 @@ class Explanation:
         lvl = self.level if level is None else level
         if isinstance(self.source, CaseSplit):
             return render_casesplit_text(self.source, max_level=lvl, locale=self.locale)
+        if not isinstance(self.source, Step):
+            return render_result_text(self.source)
         return render_step_text(self.source, max_level=lvl, locale=self.locale)
 
     def to_latex(self, level: int | None = None) -> str:
@@ -38,6 +45,8 @@ class Explanation:
         lvl = self.level if level is None else level
         if isinstance(self.source, CaseSplit):
             return render_casesplit_latex(self.source, max_level=lvl, locale=self.locale)
+        if not isinstance(self.source, Step):
+            return render_result_latex(self.source)
         return render_step_latex(self.source, max_level=lvl, locale=self.locale)
 
     def to_markdown(self, level: int | None = None) -> str:
@@ -45,6 +54,8 @@ class Explanation:
         lvl = self.level if level is None else level
         if isinstance(self.source, CaseSplit):
             return render_casesplit_markdown(self.source, max_level=lvl, locale=self.locale)
+        if not isinstance(self.source, Step):
+            return render_result_markdown(self.source)
         return render_step_markdown(self.source, max_level=lvl, locale=self.locale)
 
     def to_html(self, level: int | None = None, *, standalone: bool = True) -> str:
@@ -54,6 +65,8 @@ class Explanation:
             return render_casesplit_html(
                 self.source, max_level=lvl, locale=self.locale, standalone=standalone
             )
+        if not isinstance(self.source, Step):
+            return render_result_html(self.source, standalone=standalone)
         return render_step_html(
             self.source, max_level=lvl, locale=self.locale, standalone=standalone
         )
@@ -107,7 +120,7 @@ def _casesplit_hook(cs: CaseSplit[Any], level: int, fmt: str) -> Explanation:
     return Explanation(source=cs, level=level, fmt=fmt)
 
 
-def _step_hook(step: Step, level: int, fmt: str) -> Explanation:
+def _step_hook(step: Any, level: int, fmt: str) -> Explanation:
     return Explanation(source=step, level=level, fmt=fmt)
 
 

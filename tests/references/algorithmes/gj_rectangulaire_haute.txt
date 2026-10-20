@@ -2,7 +2,8 @@
 GJResult(A=Matrix([[1, 0], [0, 1], [1, 1]]), b=Vector([1, 2, 3]), rref=Matrix([[1, 0], [0, 1], [0, 0]]), augmented_rref=Matrix([[1, 0, 1], [0, 1, 2], [0, 0, 0]]), pivots=(0, 1), rank=2, free_vars=(), nullspace_basis=(), solution=UniqueSolution(x=Vector([1, 2])), inverse=None)
 
 ===== texte niveau 0 =====
-
+pivots non nuls, rang 2, solution unique
+x = ( 1, 2 )
 
 ===== texte niveau 1 =====
 Réduction de Gauss-Jordan d'une matrice 3×2.

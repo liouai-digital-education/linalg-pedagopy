@@ -2,7 +2,8 @@
 GJResult(A=Matrix([[1/2, 1/3], [1/4, 1]]), b=Vector([1, 2]), rref=Matrix([[1, 0], [0, 1]]), augmented_rref=Matrix([[1, 0, 4/5], [0, 1, 9/5]]), pivots=(0, 1), rank=2, free_vars=(), nullspace_basis=(), solution=UniqueSolution(x=Vector([4/5, 9/5])), inverse=None)
 
 ===== texte niveau 0 =====
-
+pivots non nuls, rang 2, solution unique
+x = ( 4/5, 9/5 )
 
 ===== texte niveau 1 =====
 Réduction de Gauss-Jordan d'une matrice 2×2.

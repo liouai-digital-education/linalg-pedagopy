@@ -2,7 +2,7 @@
 GJResult(A=Matrix([[1, 2], [2, 4]]), b=Matrix([[1, 0], [0, 1]]), rref=Matrix([[1, 2], [0, 0]]), augmented_rref=Matrix([[1, 2, 1, 0], [0, 0, -2, 1]]), pivots=(0,), rank=1, free_vars=(1,), nullspace_basis=(Vector([-2, 1]),), solution=None, inverse=None)
 
 ===== texte niveau 0 =====
-
+rang 1, colonnes pivots [1]
 
 ===== texte niveau 1 =====
 Réduction de Gauss-Jordan d'une matrice 2×2.

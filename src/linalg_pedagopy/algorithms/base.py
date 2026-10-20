@@ -16,11 +16,11 @@ from linalg_pedagopy.trace.tracer import current_tracer, record, tracing
 
 R = TypeVar("R")
 
-_explain_step_hook: Callable[[Step, int, str], Any] | None = None
+_explain_step_hook: Callable[[Any, int, str], Any] | None = None
 _interactive_session_hook: Callable[..., Any] | None = None
 
 
-def register_explain_step_hook(hook: Callable[[Step, int, str], Any]) -> None:
+def register_explain_step_hook(hook: Callable[[Any, int, str], Any]) -> None:
     """Enregistre la fabrique d'Explanation pour Result.explain() et Result.verify()."""
     global _explain_step_hook
     _explain_step_hook = hook
@@ -32,7 +32,8 @@ def register_interactive_session_hook(hook: Callable[..., Any]) -> None:
     _interactive_session_hook = hook
 
 
-def make_explanation(tree: Step, level: int = 1, fmt: str = "auto") -> Any:
+def make_explanation(tree: Any, level: int = 1, fmt: str = "auto") -> Any:
+    """Fabrique une Explanation à partir d'une trace (ou d'un résultat, pour le niveau 0)."""
     if _explain_step_hook is None:
         raise RuntimeError("Le module render n'est pas initialisé.")
     return _explain_step_hook(tree, level, fmt)
@@ -49,10 +50,12 @@ class Result:
     )
 
     def explain(self, level: int | None = None, fmt: str = "auto") -> Any:
-        """Renvoie un objet Explanation filtré au niveau de détail demandé."""
+        """Renvoie un objet Explanation filtré au niveau de détail demandé (0 : résultat seul)."""
         from linalg_pedagopy.config import config
 
         lvl = level if level is not None else config.default_trace_level
+        if lvl <= 0:
+            return make_explanation(self, level=0, fmt=fmt)
         return make_explanation(self.trace, level=lvl, fmt=fmt)
 
     def verify(self) -> Any:

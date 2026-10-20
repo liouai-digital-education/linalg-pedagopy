@@ -2,7 +2,8 @@
 GJResult(A=Matrix([[1, -1, 2], [0, 1, 1]]), b=Vector([1, 0]), rref=Matrix([[1, 0, 3], [0, 1, 1]]), augmented_rref=Matrix([[1, 0, 3, 1], [0, 1, 1, 0]]), pivots=(0, 1), rank=2, free_vars=(2,), nullspace_basis=(Vector([-3, -1, 1]),), solution=AffineSolution(x0=Vector([1, 0, 0]), basis=(Vector([-3, -1, 1]),), free_vars=(2,)), inverse=None)
 
 ===== texte niveau 0 =====
-
+rang 2, infinité de solutions (1 variable(s) libre(s))
+x = (1, 0, 0) + t_1·(-3, -1, 1)
 
 ===== texte niveau 1 =====
 Réduction de Gauss-Jordan d'une matrice 2×3.

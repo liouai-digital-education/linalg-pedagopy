@@ -117,3 +117,15 @@ def render_casesplit_html(
     if standalone:
         return _MATHJAX_HEAD + body + _MATHJAX_FOOT
     return body
+
+
+def render_result_html(res: Any, *, standalone: bool = True) -> str:
+    """Niveau 0 : résultat seul, sans les étapes du calcul."""
+    paragraphs = "\n".join(
+        f"<p>\\({tex}\\)</p>" if tex else f"<p>{html.escape(txt)}</p>"
+        for txt, tex in branch_summary_parts(res)
+    )
+    body = "<div class='pedagopy-result'>\n" + paragraphs + "\n</div>"
+    if standalone:
+        return _MATHJAX_HEAD + body + _MATHJAX_FOOT
+    return body

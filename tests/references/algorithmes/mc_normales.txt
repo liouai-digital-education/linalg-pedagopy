@@ -2,7 +2,8 @@
 LSResult(A=Matrix([[1, 0], [1, 1], [1, 2], [1, 3]]), b=Vector([1, 2, 2, 4]), x_hat=Vector([9/10, 9/10]), y_hat=Vector([9/10, 9/5, 27/10, 18/5]), r_hat=Vector([-1/10, -1/5, 7/10, -2/5]), residual_norm=sqrt(70)/10, residual_rms=sqrt(70)/20, method='normal', full_rank=True, witness=None)
 
 ===== texte niveau 0 =====
-
+rang plein (2), solution des moindres carrés x_hat = (9/10, 9/10)
+résidu r_hat = (-1/10, -1/5, 7/10, -2/5), ||r_hat|| = sqrt(70)/10
 
 ===== texte niveau 1 =====
 Résolution au sens des moindres carrés min ||A x - b|| (A de taille 4×2, méthode 'normal').

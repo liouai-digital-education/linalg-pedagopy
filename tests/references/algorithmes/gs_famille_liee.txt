@@ -2,7 +2,7 @@
 GSResult(independent=False, vectors=(Vector([1, 1, 0]), Vector([1, 0, 1]), Vector([2, 1, 1])), orthogonal=(Vector([1, 1, 0]), Vector([1/2, -1/2, 1])), orthonormal=(), r_tilde=Matrix([[1, 1/2], [0, 1]]), d_sq=(2, 3/2), dependent_index=2, witness=DependenceWitness(index=2, q_tilde_coeffs=(3/2, 1), a_coeffs=(1, 1), expression='a_3 = (3/2)·q̃_1 + q̃_2'))
 
 ===== texte niveau 0 =====
-
+famille liée (a_3 dépendant, témoin : a_3 = (3/2)·q̃_1 + q̃_2)
 
 ===== texte niveau 1 =====
 Orthogonalisation de Gram-Schmidt de 3 vecteurs dans R^3 (variante normalize='end').

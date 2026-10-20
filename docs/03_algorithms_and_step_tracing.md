@@ -49,7 +49,7 @@ print(len(arbre.children))
 
 | Niveau | Nom | Description du contenu de la trace |
 | :---: | :--- | :--- |
-| **0** | **Résultat seul** | Seules les étapes de niveau 0 (en-tête de la procédure). |
+| **0** | **Résultat seul** | Aucune étape du calcul : seulement le résumé du résultat (rang, solution, inverse…), comme pour une branche de discussion par cas. |
 | **1** | **Macro-étapes** *(défaut)* | Opérations élémentaires sur les lignes ($L_2 \leftarrow L_2 - 2 L_1$) avec la matrice après chaque opération, résultat final. |
 | **2** | **Micro-étapes** *(recommandé en TD)* | Ajoute le traitement colonne par colonne, le choix et la stratégie de pivot, les projections et normalisations. |
 | **3** | **Contrôles élémentaires** | Ajoute les vérifications de nullité de l'oracle (`CHECK`) et les détails arithmétiques. |

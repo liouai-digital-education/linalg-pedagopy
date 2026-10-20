@@ -2,7 +2,7 @@
 TriangularResult(x=Vector([1, 2, 1]), A=Matrix([[2, 1, -1], [0, 3, 2], [0, 0, 4]]), c=Vector([3, 8, 4]))
 
 ===== texte niveau 0 =====
-
+x = (1, 2, 1)
 
 ===== texte niveau 1 =====
 Résolution par substitution arrière de R x = c (taille 3×3).

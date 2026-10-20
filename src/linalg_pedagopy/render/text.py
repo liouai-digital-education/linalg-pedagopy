@@ -188,3 +188,8 @@ def _summarize_branch_result_text(res: Any) -> list[str]:
     if hasattr(res, "_branch_summary_lines"):
         return list(res._branch_summary_lines())
     return [format_value_text(res)]
+
+
+def render_result_text(res: Any) -> str:
+    """Niveau 0 : résultat seul, sans les étapes du calcul."""
+    return "\n".join(_summarize_branch_result_text(res))

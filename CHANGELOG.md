@@ -7,6 +7,7 @@
 - Gauss-Jordan (et donc `rref`, `rank`, `nullspace`, `inv`, `solve`) tient compte du domaine de définition des coefficients : les valeurs interdites par leurs dénominateurs restreignent toutes les branches (pour `[[(a²−1)/(a−1), 1], [1, 1]]`, la branche générique devient « a ≠ 1 et a ≠ 0 »), la trace l'annonce (`gj.domain`), et des hypothèses incompatibles lèvent une `PedagopyError` explicite. Nouvelle fonction `domain_of` dans `core.zero`.
 - Oracle : la condition d'annulation d'un verdict conditionnel est complète. Le nouveau champ `ZeroDecision.cases` donne une alternative par facteur, et `format_cases()` l'affiche (`a*b` : « a = 0 ou b = 0 ») ; `condition` reste la première alternative. Le vérificateur d'opérations élémentaires affiche la condition complète.
 - `Vector.is_zero()` et `Matrix.has_orthonormal_columns()` discutent désormais des cas disjoints et exhaustifs (nouvelle fonction `decide_all_zero`). Auparavant, `Vector([a*b, 0]).is_zero()` répondait faux en a = 1, b = 0, et `Vector([a, b - 1]).is_zero()` ne couvrait pas a = 0, b = 2.
+- `explain(level=0)` affiche enfin le **résultat seul** (rang, solution, inverse…), en texte, LaTeX, Markdown et HTML, au lieu d'un texte vide ; c'est le résumé déjà utilisé pour les branches d'une discussion par cas. Tableau des niveaux du guide 03 corrigé.
 
 ### Phase 0 du plan v5 — filet de sécurité
 - Python **3.10** minimum (`requires-python`, ruff, mypy, classificateurs).

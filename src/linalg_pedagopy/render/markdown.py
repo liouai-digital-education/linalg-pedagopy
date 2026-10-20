@@ -77,3 +77,8 @@ def render_casesplit_markdown(
                 for sl in sub_md.splitlines():
                     lines.append("  " + sl)
     return "\n".join(lines)
+
+
+def render_result_markdown(res: Any) -> str:
+    """Niveau 0 : résultat seul, sans les étapes du calcul."""
+    return "\n\n".join((f"${tex}$" if tex else txt) for txt, tex in branch_summary_parts(res))

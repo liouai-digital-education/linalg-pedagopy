@@ -53,3 +53,19 @@ def test_format_augmented_matrix_latex_features() -> None:
     assert "\\boxed{4}" in tex
     assert "\\color{blue}{5}" in tex
     assert "\\xrightarrow{L_2 \\leftarrow L_2 - 3 L_1}" in tex
+
+
+def test_explain_level_0_shows_result_only() -> None:
+    A = Matrix([[1, 2], [3, 4]])
+    res = GaussJordan(A, Vector([1, 1])).run()
+    expl = res.explain(level=0)
+    texte = expl.to_text()
+    assert texte == "pivots non nuls, rang 2, solution unique\nx = ( −1, 1 )"
+    # Aucune étape du calcul : ni opération sur les lignes, ni en-tête de procédure
+    assert "←" not in texte and "Réduction" not in texte
+    assert r"x = \left[" in expl.to_markdown()
+    assert r"x = \left[" in expl.to_latex()
+    html = expl.to_html(standalone=False)
+    assert html.startswith("<div class='pedagopy-result'>") and r"\(x = " in html
+    # Le niveau 1 garde la trace complète
+    assert "Réduction de Gauss-Jordan" in res.explain(level=1).to_text()

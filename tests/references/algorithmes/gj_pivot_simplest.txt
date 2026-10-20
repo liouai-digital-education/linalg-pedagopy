@@ -2,7 +2,8 @@
 GJResult(A=Matrix([[0, 2, 1], [3, 1, 2], [1, 1, 1]]), b=Vector([1, 2, 3]), rref=Matrix([[1, 0, 1/2], [0, 1, 1/2], [0, 0, 0]]), augmented_rref=Matrix([[1, 0, 1/2, 5/2], [0, 1, 1/2, 1/2], [0, 0, 0, -6]]), pivots=(0, 1), rank=2, free_vars=(2,), nullspace_basis=(Vector([-1/2, -1/2, 1]),), solution=EmptySolution(row=2, witness=-6, inconsistent_rows=((2, -6),)), inverse=None)
 
 ===== texte niveau 0 =====
-
+L3 devient (0 0 0 | -6)
+système incompatible (témoin : 0 = -6)
 
 ===== texte niveau 1 =====
 Réduction de Gauss-Jordan d'une matrice 3×3.

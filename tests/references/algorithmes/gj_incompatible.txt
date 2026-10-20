@@ -2,7 +2,8 @@
 GJResult(A=Matrix([[1, 1], [1, 1]]), b=Vector([1, 2]), rref=Matrix([[1, 1], [0, 0]]), augmented_rref=Matrix([[1, 1, 1], [0, 0, 1]]), pivots=(0,), rank=1, free_vars=(1,), nullspace_basis=(Vector([-1, 1]),), solution=EmptySolution(row=1, witness=1, inconsistent_rows=((1, 1),)), inverse=None)
 
 ===== texte niveau 0 =====
-
+L2 devient (0 0 | 1)
+système incompatible (témoin : 0 = 1)
 
 ===== texte niveau 1 =====
 Réduction de Gauss-Jordan d'une matrice 2×2.

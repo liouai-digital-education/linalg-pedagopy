@@ -2,7 +2,7 @@
 QRResult(A=Matrix([[1, 2], [2, 4], [3, 6]]), Q=Matrix([]), R=Matrix([]), Q_tilde=Matrix([[1], [2], [3]]), R_tilde=Matrix([[1]]), D_sq=Matrix([[14]]), d_sq=(14,), full_rank=False, witness=DependenceWitness(index=1, q_tilde_coeffs=(2,), a_coeffs=(2,), expression='a_2 = (2)·q̃_1'))
 
 ===== texte niveau 0 =====
-
+colonnes liées (a_2 = (2)·q̃_1)
 
 ===== texte niveau 1 =====
 Factorisation QR de la matrice A de taille 3×2.

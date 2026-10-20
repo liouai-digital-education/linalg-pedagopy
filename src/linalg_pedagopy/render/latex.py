@@ -161,3 +161,10 @@ def render_casesplit_latex(
                 lines.append(sub_tex)
     lines.append("\\end{itemize}")
     return "\n".join(lines)
+
+
+def render_result_latex(res: Any) -> str:
+    """Niveau 0 : résultat seul, sans les étapes du calcul."""
+    return "\n\n".join(
+        (f"${tex}$" if tex else _latex_escape_text(txt)) for txt, tex in branch_summary_parts(res)
+    )
