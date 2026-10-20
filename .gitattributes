@@ -1,2 +1,6 @@
 # Fichiers de référence des tests de caractérisation : fins de ligne LF sur toutes les plateformes
 tests/references/** text eol=lf
+
+# Carnets Jupyter versionnés sans sorties : filtre facultatif, à activer une fois par clone
+# (voir scripts/nettoyer_carnets.py). Sans configuration, git ignore ce filtre ; la CI vérifie.
+*.ipynb filter=carnets

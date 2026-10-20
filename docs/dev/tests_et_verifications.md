@@ -48,7 +48,19 @@ python tests/run_notebooks.py exercices/vecteurs_matrices.ipynb
 
 Chaque carnet est exécuté dans un dossier de travail temporaire, avec un journal du tuteur temporaire : les fichiers qu'il exporte n'atterrissent pas dans le dépôt, votre journal personnel n'est pas modifié, et les carnets eux-mêmes ne sont pas réécrits.
 
-Les carnets sont versionnés **sans leurs sorties**. Si vous exécutez un carnet dans JupyterLab, effacez les sorties (*Edit → Clear Outputs of All Cells*) avant de le commiter.
+Les carnets sont versionnés **sans leurs sorties** : `tests/test_carnets_propres.py` le vérifie (donc la CI aussi). Pour nettoyer, sans dépendance externe :
+
+```bash
+python scripts/nettoyer_carnets.py              # nettoie les carnets de carnets/ et exercices/
+python scripts/nettoyer_carnets.py --verifier   # échoue si un carnet a encore des sorties
+```
+
+Le plus simple est d'activer une fois, dans votre clone, le filtre git déclaré dans `.gitattributes` : les carnets sont alors nettoyés à chaque commit, tout en gardant leurs sorties sur votre disque.
+
+```bash
+git config filter.carnets.clean "python scripts/nettoyer_carnets.py --filtre"
+git config filter.carnets.smudge cat
+```
 
 ## Qualité du code
 
