@@ -70,6 +70,19 @@ addopts = "-q"
 python_version = "3.10"
 strict = true
 mypy_path = "src"
+# Périmètre bloquant de « mypy » sans argument (CI, verifier_tout.py) : sans erreur en mode strict.
+# Le tuteur, les exercices et les comparaisons numériques restent à typer (phase 5 du plan v5) ;
+# « mypy src/linalg_pedagopy » les vérifie à titre informatif.
+files = [
+    "src/linalg_pedagopy/core",
+    "src/linalg_pedagopy/algorithms",
+    "src/linalg_pedagopy/objects",
+    "src/linalg_pedagopy/render",
+    "src/linalg_pedagopy/trace",
+    "src/linalg_pedagopy/plot",
+    "src/linalg_pedagopy/config.py",
+    "src/linalg_pedagopy/special.py",
+]
 
 [[tool.mypy.overrides]]
 module = ["sympy.*", "yaml.*", "numpy.*", "matplotlib.*", "mpl_toolkits.*", "ipywidgets.*", "IPython.*", "nbclient.*", "nbformat.*"]

@@ -1,4 +1,4 @@
-# Intégration continue de linalg_pedagopy : tests, fiches du tuteur, ruff, mypy (informatif) et carnets.
+# Intégration continue de linalg_pedagopy : tests, fiches du tuteur, ruff, mypy et carnets.
 name: Tests
 
 on:
@@ -46,7 +46,9 @@ jobs:
           python -m pip install -e ".[dev,plot,compare,tuteur]"
       - name: Ruff
         run: ruff check src tests
-      - name: Mypy (informatif)
+      - name: Mypy (périmètre strict, bloquant)
+        run: mypy --python-version 3.12
+      - name: Mypy (paquet complet, informatif)
         continue-on-error: true
         run: mypy --python-version 3.12 src/linalg_pedagopy
       - name: Carnets

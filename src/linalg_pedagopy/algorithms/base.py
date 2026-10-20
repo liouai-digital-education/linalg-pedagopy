@@ -72,14 +72,14 @@ class Result:
         from linalg_pedagopy.config import config
 
         lvl = max(config.default_trace_level, 2)
-        return self.explain(level=lvl).to_markdown()
+        return str(self.explain(level=lvl).to_markdown())
 
     def _repr_latex_(self) -> str:
         """Rendu LaTeX dans Jupyter."""
         from linalg_pedagopy.config import config
 
         lvl = max(config.default_trace_level, 2)
-        return self.explain(level=lvl).to_latex()
+        return str(self.explain(level=lvl).to_latex())
 
 
 class Procedure(ABC, Generic[R]):

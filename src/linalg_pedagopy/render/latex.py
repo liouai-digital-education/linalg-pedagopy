@@ -21,7 +21,7 @@ def format_value_latex(val: Any) -> str:
     if isinstance(val, Matrix):
         return format_matrix_latex(val)
     if isinstance(val, sp.Basic):
-        return sp.latex(val)
+        return str(sp.latex(val))
     if isinstance(val, (tuple, list)):
         return "\\left(" + ", ".join(format_value_latex(x) for x in val) + "\\right)"
     return str(val)

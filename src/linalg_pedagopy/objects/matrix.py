@@ -35,6 +35,12 @@ class Matrix:
 
     __slots__ = ("_rows", "_nrows", "_ncols", "_domain_matrix")
 
+    # Attributs posés par object.__setattr__ (objet immuable) ; annotés pour mypy.
+    _rows: tuple[tuple[sp.Expr, ...], ...]
+    _nrows: int
+    _ncols: int
+    _domain_matrix: DomainMatrix | None  # cache, calculé à la demande
+
     def __init__(self, data: Iterable[Any]) -> None:
         if getattr(data, "_is_locked_tutor_proxy", False):
             data = data._unwrap_for_constructor("Matrix(...)")  # type: ignore[attr-defined]
@@ -425,7 +431,7 @@ class Matrix:
         c = to_exact(scalar)
         if oracle.decide(c).verdict == Verdict.ZERO:
             raise UndefinedOperationError("Division d'une matrice par le scalaire nul.")
-        return self * (sp.Integer(1) / c)
+        return self.__mul__(sp.Integer(1) / c)
 
     @overload
     def __matmul__(self, other: Vector) -> Vector: ...
@@ -459,7 +465,7 @@ class Matrix:
         - 'outer'   : somme de produits extérieurs sum_{k=1}^n a_k * b_k^T.
         """
         is_vec = isinstance(other, Vector)
-        rhs_mat = Matrix(other) if is_vec else other
+        rhs_mat = Matrix(other) if isinstance(other, Vector) else other
         if self._ncols != rhs_mat.rows:
             raise DimensionMismatchError(
                 f"Dimensions incompatibles pour le produit matriciel : "
@@ -533,14 +539,14 @@ class Matrix:
             elif view == "columns":
                 a_cols = self.columns()
                 for j in range(p):
-                    coeffs = [rhs_mat._rows[idx][j] for idx in range(k_dim)]
+                    col_coeffs = [rhs_mat._rows[idx][j] for idx in range(k_dim)]
                     col_res = res_mat.col(j)
                     record(
                         StepKind.INFO,
                         "matrix.matmul_col",
                         level=2,
                         j=j + 1,
-                        coeffs=tuple(coeffs),
+                        coeffs=tuple(col_coeffs),
                         a_cols=a_cols,
                         col_result=col_res,
                     )

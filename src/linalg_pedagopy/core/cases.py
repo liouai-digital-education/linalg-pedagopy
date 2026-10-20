@@ -422,8 +422,8 @@ class CaseSplit(Generic[R]):
 
     def _repr_markdown_(self) -> str:
         """Rendu Markdown avec formules LaTeX dans Jupyter."""
-        return self.explain().to_markdown()
+        return str(self.explain().to_markdown())
 
     def _repr_latex_(self) -> str:
         """Rendu LaTeX dans Jupyter."""
-        return self.explain().to_latex()
+        return str(self.explain().to_latex())

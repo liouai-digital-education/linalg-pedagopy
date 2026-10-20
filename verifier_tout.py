@@ -6,8 +6,9 @@ Usage (depuis la racine du dépôt, avec ``pip install -e ".[dev,plot,compare]"`
     python verifier_tout.py --rapide   # tests et fiches seulement
     python verifier_tout.py --sans-carnets
 
-Étapes bloquantes : tests, validation des fiches, ruff, carnets.
-Étape informative : mypy (le nombre d'erreurs est affiché, sans faire échouer la vérification).
+Étapes bloquantes : tests, validation des fiches, ruff, mypy sur le périmètre strict
+(``files`` de ``[tool.mypy]`` dans pyproject.toml), carnets.
+Étape informative : mypy sur tout le paquet (erreurs affichées, sans faire échouer la vérification).
 Les outils absents sont signalés et l'étape est sautée.
 """
 
@@ -76,9 +77,12 @@ def main() -> int:
             resultats["ruff"] = None
         mypy = shutil.which("mypy")
         if mypy:
-            _lancer("Mypy (informatif)", [mypy, "--python-version", f"{sys.version_info.major}.{sys.version_info.minor}", "src/linalg_pedagopy"], bloquant=False)
+            version = f"{sys.version_info.major}.{sys.version_info.minor}"
+            resultats["mypy"] = _lancer("Mypy (périmètre strict)", [mypy, "--python-version", version])
+            _lancer("Mypy (paquet complet, informatif)", [mypy, "--python-version", version, "src/linalg_pedagopy"], bloquant=False)
         else:
             print("\nmypy absent : étape sautée (pip install mypy)")
+            resultats["mypy"] = None
         if not args.sans_carnets:
             resultats["carnets"] = _lancer("Carnets", [py, "tests/run_notebooks.py"])
 

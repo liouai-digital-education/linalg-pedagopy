@@ -23,6 +23,10 @@ class Vector:
 
     __slots__ = ("_entries", "_domain_matrix")
 
+    # Attributs posés par object.__setattr__ (objet immuable) ; annotés pour mypy.
+    _entries: tuple[sp.Expr, ...]
+    _domain_matrix: DomainMatrix | None  # cache, calculé à la demande
+
     def __init__(self, entries: Iterable[Any]) -> None:
         if getattr(entries, "_is_locked_tutor_proxy", False):
             entries = entries._unwrap_for_constructor("Vector(...)")  # type: ignore[attr-defined]
@@ -270,7 +274,7 @@ class Vector:
         dec = oracle.decide(c)
         if dec.verdict == Verdict.ZERO:
             raise UndefinedOperationError("Division d'un vecteur par le scalaire nul.")
-        return self * (sp.Integer(1) / c)
+        return self.__mul__(sp.Integer(1) / c)
 
     def dot(self, other: Vector) -> sp.Expr:
         """Produit scalaire u^T v = sum_i u_i * v_i."""
