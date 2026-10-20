@@ -2,6 +2,10 @@
 
 ## [Non publié] — branche `development`
 
+## [3.1.0] — 2026-10-21
+
+Phase 2 du plan v5 : déterminant exact tracé, thème « Déterminants » du tuteur, annonce des cas singuliers dans `Matrix.inv()`.
+
 ### Nouveautés — phase 2 du plan v5 (déterminant)
 - **Déterminant exact tracé** : `Determinant(A, method=...)` et `Matrix.det()`. Méthodes `bareiss` (défaut avec paramètres : divisions exactes, aucune discussion de cas), `elimination` (sans dilatation ; arrêt expliqué sur un pivot conditionnel), `cofactors` (n ≤ 4, ligne ou colonne la plus creuse) et `sarrus` (n = 3). `DetResult` : valeur factorisée, facteurs, `zeros()` (valeurs singulières du paramètre), `zeros(split=True)` (inversible / non inversible), `verify()` (contrôle par l'algorithme de Berkowitz). Messages de trace en français.
 - Documentation : section 7 du guide 03, § 4.4 du guide 02, référence de l'API (§ 4.6), tutoriel (§ 5.5), README.
