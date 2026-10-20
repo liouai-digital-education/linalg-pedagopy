@@ -18,6 +18,7 @@
 - Racine du dépôt rangée : scripts de génération dans `scripts/` (ancrés sur la racine du dépôt, utilisables depuis n'importe quel dossier), carnets dans `carnets/` (ils trouvent `src/` depuis leur dossier ou la racine), plans dans `docs/dev/plans/`. Chemins mis à jour dans le README, le tutoriel, le guide JupyterLab, `tests/run_notebooks.py` ; ruff vérifie aussi `scripts/` (imports inutilisés supprimés).
 - Carnets d'essai `essai1` à `essai4` sortis du dépôt (conservés localement dans `archives/`, ignoré) ; `essai1` et `essai2`, qui contenaient un énoncé du recueil en clair, retirés de **tout l'historique** : les empreintes de tous les commits ont de nouveau changé.
 - Carnets versionnés **sans sorties** : `scripts/nettoyer_carnets.py` (sans dépendance ; modes `--verifier` et `--filtre`), filtre git facultatif `carnets` déclaré dans `.gitattributes`, test `tests/test_carnets_propres.py`. Les 6 carnets suivis sont nettoyés : seules leurs sorties, souvent issues d'exécutions partielles, sont retirées.
+- Métadonnées du paquet : statut **Beta** (au lieu de « Production/Stable ») tant que l'API du tuteur évolue, classificateurs « Natural Language :: French » et « Topic :: Education ». Les URL du dépôt et de la documentation viendront avec la publication.
 
 ### Phase 0 du plan v5 — filet de sécurité
 - Python **3.10** minimum (`requires-python`, ruff, mypy, classificateurs).

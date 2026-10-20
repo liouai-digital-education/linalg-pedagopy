@@ -14,16 +14,20 @@ authors = [
 ]
 keywords = ["linear-algebra", "sympy", "pedagogy", "formal-computation", "jupyter", "tutor"]
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Education",
     "License :: OSI Approved :: MIT License",
+    "Natural Language :: French",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Topic :: Education",
     "Topic :: Scientific/Engineering :: Mathematics",
 ]
+# [project.urls] (dépôt, documentation sur GitHub Pages, suivi des problèmes) : ajoutées à la
+# création du dépôt public linalg-pedagopy (tâche 1.9 du plan v5).
 dependencies = [
     "sympy>=1.12",
     "pyyaml>=6.0",
