@@ -49,6 +49,13 @@
     "content": "Noms anglais et alias français L'API principale est en anglais ; chaque élément du tuteur a un alias français :..."
   },
   {
+    "pageTitle": "Accueil & démarrage",
+    "title": "Sources et remerciements",
+    "url": "index.html#sources-et-remerciements",
+    "snippet": "Les 35 exercices du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil Additional Exercises for Vectors, Matrices, and Least Square...",
+    "content": "Sources et remerciements Les 35 exercices du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil Additional Exercises for Vectors, Matrices, and Least Square..."
+  },
+  {
     "pageTitle": "01. Noyau formel & calcul exact",
     "title": "1. Représentation des scalaires et coercition exacte",
     "url": "01_core_and_formal_computation.html#1-representation-des-scalaires-et-coercition-exacte",

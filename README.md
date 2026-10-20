@@ -112,6 +112,14 @@ Les tests de caractérisation figent les traces et les diagnostics du tuteur dan
 
 ---
 
+## Sources et remerciements
+
+Les 35 exercices du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil *Additional Exercises for Vectors, Matrices, and Least Squares* de Stephen Boyd et Lieven Vandenberghe, compagnon de leur livre *Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares* (Cambridge University Press, 2018). Le livre et le recueil sont disponibles sur [le site des auteurs](https://web.stanford.edu/~boyd/vmls/). Plusieurs conventions du package en viennent aussi, par exemple le résidu des moindres carrés r̂ = A x̂ − b et les deux variantes de Gram-Schmidt.
+
+Les droits sur les exercices originaux appartiennent à leurs auteurs. `linalg_pedagopy` est un projet indépendant, sans lien avec les auteurs ni avec l'éditeur, qui ne l'approuvent pas formellement. Les énoncés des fiches ne citent pas leur source, pour que l'étudiant ne puisse pas aller chercher la solution à l'extérieur, d'où cette mention groupée.
+
+---
+
 ## Licence
 
-MIT — voir [`LICENSE`](LICENSE).
+MIT — voir [`LICENSE`](LICENSE). La licence porte sur le code et les textes propres au projet, pas sur les œuvres citées ci-dessus.

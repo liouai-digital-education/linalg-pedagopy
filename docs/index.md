@@ -126,3 +126,11 @@ L'API principale est en anglais ; chaque élément du tuteur a un alias françai
 | Mode | `tutor.mode("teacher")` | `tuteur.mode("enseignant")` |
 | Jumeaux | `generators.moving_average(...)` | `generateurs.moyenne_glissante(...)` |
 | Matrices structurées | `difference_matrix(n)` | `matrice_differences(n)` |
+
+---
+
+## Sources et remerciements
+
+Les 35 exercices du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil *Additional Exercises for Vectors, Matrices, and Least Squares* de Stephen Boyd et Lieven Vandenberghe, compagnon de leur livre *Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares* (Cambridge University Press, 2018), disponibles sur [le site des auteurs](https://web.stanford.edu/~boyd/vmls/). Plusieurs conventions du package en viennent aussi (résidu des moindres carrés r̂ = A x̂ − b, variantes de Gram-Schmidt).
+
+Les droits sur les exercices originaux appartiennent à leurs auteurs ; `linalg_pedagopy` est un projet indépendant, sans lien avec les auteurs ni avec l'éditeur. Les énoncés des fiches ne citent pas leur source, pour que l'étudiant ne puisse pas aller chercher la solution à l'extérieur : cette page et le `README.md` en tiennent lieu.
