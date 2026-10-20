@@ -1,0 +1,2 @@
+# Fichiers de référence des tests de caractérisation : fins de ligne LF sur toutes les plateformes
+tests/references/** text eol=lf

@@ -1,0 +1,161 @@
+===== énoncé =====
+### Exercice 29 — Inverse à droite d'une matrice ligne
+
+*Inverses et systèmes linéaires · calcul · niveau ★☆☆*
+
+On considère la matrice ligne $A = \begin{bmatrix} 1 & 2 & -1 \end{bmatrix}$ de taille $1 \times 3$. Trouver une matrice colonne $B$ de taille $3 \times 1$ qui soit une inverse à droite de $A$ (c'est-à-dire telle que $A B = [1]$).
+
+**Notions** : inverses à gauche et à droite d'un vecteur ligne
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Pour une matrice ligne $A$ de taille $1 \times 3$, une inverse à droite $B$ est une matrice $3 \times 1$ telle que $A B = I_1 = [1]$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : une matrice large ($1 < 3$) non nulle possède une infinité d'inverses à droite, mais aucune inverse à gauche.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Écrivez la condition $b_1 + 2 b_2 - b_3 = 1$ et choisissez n'importe quel triplet simple $(b_1, b_2, b_3)$ qui la satisfait.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Construction de plusieurs inverses à droite
+
+**Énoncé analogue** :
+
+Pour la matrice $A = \begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & -1 \end{bmatrix}$ de taille $2 \times 3$ (lignes indépendantes), trouver deux inverses à droite $B$ distinctes (telles que $A B = I_2$).
+
+**Résolution pas à pas** :
+
+Une matrice $B \in \mathbb{R}^{3 \times 2}$ vérifie $A B = I_2$ si ses deux colonnes $b_1, b_2$ satisfont $A b_1 = e_1$ et $A b_2 = e_2$ :
+
+- En fixant la 3ᵉ composante libre à 0, on obtient :
+
+  $$B_1 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 0 & 0 \end{bmatrix}$$
+
+- En fixant la 3ᵉ composante à $(1, -1)$, on obtient :
+
+  $$B_2 = \begin{bmatrix} -1 & 2 \\ 1 & 0 \\ 1 & -1 \end{bmatrix}$$
+
+Dans les deux cas, on vérifie $A B_1 = I_2$ et $A B_2 = I_2$ avec $B_1 \neq B_2$.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Construction de plusieurs inverses à droite ===
+Énoncé analogue : Pour la matrice $A = \begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & -1 \end{bmatrix}$ de taille $2 \times 3$ (lignes indépendantes), trouver deux inverses à droite $B$ distinctes (telles que $A B = I_2$).
+Résolution pas à pas :
+Une matrice $B \in \mathbb{R}^{3 \times 2}$ vérifie $A B = I_2$ si ses deux colonnes $b_1, b_2$ satisfont $A b_1 = e_1$ et $A b_2 = e_2$ :
+
+- En fixant la 3ᵉ composante libre à 0, on obtient :
+
+  $$B_1 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 0 & 0 \end{bmatrix}$$
+
+- En fixant la 3ᵉ composante à $(1, -1)$, on obtient :
+
+  $$B_2 = \begin{bmatrix} -1 & 2 \\ 1 & 0 \\ 1 & -1 \end{bmatrix}$$
+
+Dans les deux cas, on vérifie $A B_1 = I_2$ et $A B_2 = I_2$ avec $B_1 \neq B_2$.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Construction de plusieurs inverses à droite
+
+**Énoncé analogue** :
+
+Pour la matrice $A = \begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & -1 \end{bmatrix}$ de taille $2 \times 3$ (lignes indépendantes), trouver deux inverses à droite $B$ distinctes (telles que $A B = I_2$).
+
+**Résolution pas à pas** :
+
+Une matrice $B \in \mathbb{R}^{3 \times 2}$ vérifie $A B = I_2$ si ses deux colonnes $b_1, b_2$ satisfont $A b_1 = e_1$ et $A b_2 = e_2$ :
+
+- En fixant la 3ᵉ composante libre à 0, on obtient :
+
+  $$B_1 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 0 & 0 \end{bmatrix}$$
+
+- En fixant la 3ᵉ composante à $(1, -1)$, on obtient :
+
+  $$B_2 = \begin{bmatrix} -1 & 2 \\ 1 & 0 \\ 1 & -1 \end{bmatrix}$$
+
+Dans les deux cas, on vérifie $A B_1 = I_2$ et $A B_2 = I_2$ avec $B_1 \neq B_2$.
+
+===== verify(0) -> False =====
+Votre réponse doit être une matrice colonne B.
+
+===== verify('0') -> False =====
+Pour une matrice ligne A de taille (1, 3), une inverse à droite B doit être de taille (3, 1).
+
+===== verify(Vector.zeros(2)) -> False =====
+Pour une matrice ligne A de taille (1, 3), une inverse à droite B doit être de taille (3, 1).
+
+===== verify(Vector.zeros(3)) -> False =====
+Avec votre matrice B, le produit A B vaut [0] au lieu de [1].
+
+===== verify(Vector.ones(5)) -> False =====
+Pour une matrice ligne A de taille (1, 3), une inverse à droite B doit être de taille (3, 1).
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Pour une matrice ligne A de taille (1, 3), une inverse à droite B doit être de taille (3, 1).
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Avec votre matrice B, le produit A B vaut [0] au lieu de [1].
+
+===== verify(Matrix.identity(3)) -> False =====
+Pour une matrice ligne A de taille (1, 3), une inverse à droite B doit être de taille (3, 1).
+
+===== verify([1, 2]) -> False =====
+Votre réponse doit être une matrice colonne B.
+
+===== verify({'a': 'valide'}) -> False =====
+Pour une matrice ligne A de taille (1, 3), une inverse à droite B doit être de taille (3, 1).
+
+===== verify(('0', '0')) -> False =====
+Pour une matrice ligne A de taille (1, 3), une inverse à droite B doit être de taille (3, 1).
+
+===== réponse juste =====
+Exact ! A B = [1] : votre colonne B est bien une inverse à droite de A (et A n'a pas d'inverse à gauche car ses colonnes sont liées).
+
+===== bilan =====
+**Bilan — Inverse à droite d'une matrice ligne**
+
+- Statut : ✅ validé
+- Tentatives soumises : 12
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Inverse à droite d'une matrice ligne
+**Identifiant** : `inverse-droite-ligne` | **N°** : 29 | **Thème** : Inverses et systèmes linéaires | **Type** : calcul | **Niveau** : ★☆☆
+
+### Énoncé
+On considère la matrice ligne $A = \begin{bmatrix} 1 & 2 & -1 \end{bmatrix}$ de taille $1 \times 3$. Trouver une matrice colonne $B$ de taille $3 \times 1$ qui soit une inverse à droite de $A$ (c'est-à-dire telle que $A B = [1]$).
+
+### Spécification de vérification
+```yaml
+propriete: left_right_inverse_row
+type: propriete
+```
+
+### Paliers d'indices
+- **Palier 1** : Pour une matrice ligne $A$ de taille $1 \times 3$, une inverse à droite $B$ est une matrice $3 \times 1$ telle que $A B = I_1 = [1]$.
+- **Palier 2** : Rappel : une matrice large ($1 < 3$) non nulle possède une infinité d'inverses à droite, mais aucune inverse à gauche.
+- **Palier 3** : Écrivez la condition $b_1 + 2 b_2 - b_3 = 1$ et choisissez n'importe quel triplet simple $(b_1, b_2, b_3)$ qui la satisfait.
+
+### Exercice jumeau
+`generateurs.inverse_droite_exemple()`

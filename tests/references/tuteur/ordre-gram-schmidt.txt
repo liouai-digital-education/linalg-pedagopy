@@ -1,0 +1,146 @@
+===== énoncé =====
+### Exercice 14 — Gram-Schmidt dépend-il de l'ordre ?
+
+*Orthogonalisation · contre-exemple · niveau ★★☆*
+
+L'algorithme de Gram-Schmidt dépend-il de l'ordre des vecteurs d'entrée ? Donner deux vecteurs indépendants $(a_1, a_2)$ de $\mathbb{R}^2$ tels que Gram-Schmidt appliqué à $(a_1, a_2)$ puis à $(a_2, a_1)$ produise deux bases orthonormées différentes.
+
+**Notions** : algorithme de Gram-Schmidt, influence de l'ordre des vecteurs
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Le premier vecteur produit par Gram-Schmidt est toujours $q_1 = \frac{a_1}{\|a_1\|}$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Si l'on inverse l'ordre en $(a_2, a_1)$, le nouveau premier vecteur est $p_1 = \frac{a_2}{\|a_2\|}$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Pour que les deux bases orthonormées diffèrent, choisissez dans $\mathbb{R}^2$ deux vecteurs indépendants qui ne sont pas déjà orthogonaux entre eux.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Méthode de construction d'un contre-exemple
+
+**Énoncé analogue** :
+
+Comment construire méthodiquement un contre-exemple simple en petite dimension ?
+
+**Résolution pas à pas** :
+
+**Indication d'existence** : un contre-exemple existe dans $R^2, coefficients dans {0, 1}$.
+
+**Méthode** :
+1. Choisir la plus petite dimension autorisée par l'énoncé (souvent $n = 2$).
+2. Tester des vecteurs de la base canonique $e_1 = (1, 0)$, $e_2 = (0, 1)$ ou $(1, 1)$ qui vérifient les hypothèses.
+3. Calculer les deux membres de l'affirmation et vérifier qu'ils diffèrent.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Méthode de construction d'un contre-exemple ===
+Énoncé analogue : Comment construire méthodiquement un contre-exemple simple en petite dimension ?
+Résolution pas à pas :
+**Indication d'existence** : un contre-exemple existe dans $R^2, coefficients dans {0, 1}$.
+
+**Méthode** :
+1. Choisir la plus petite dimension autorisée par l'énoncé (souvent $n = 2$).
+2. Tester des vecteurs de la base canonique $e_1 = (1, 0)$, $e_2 = (0, 1)$ ou $(1, 1)$ qui vérifient les hypothèses.
+3. Calculer les deux membres de l'affirmation et vérifier qu'ils diffèrent.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Méthode de construction d'un contre-exemple
+
+**Énoncé analogue** :
+
+Comment construire méthodiquement un contre-exemple simple en petite dimension ?
+
+**Résolution pas à pas** :
+
+**Indication d'existence** : un contre-exemple existe dans $R^2, coefficients dans {0, 1}$.
+
+**Méthode** :
+1. Choisir la plus petite dimension autorisée par l'énoncé (souvent $n = 2$).
+2. Tester des vecteurs de la base canonique $e_1 = (1, 0)$, $e_2 = (0, 1)$ ou $(1, 1)$ qui vérifient les hypothèses.
+3. Calculer les deux membres de l'affirmation et vérifier qu'ils diffèrent.
+
+===== verify(0) -> False =====
+Fournissez un couple de deux vecteurs (a1, a2).
+
+===== verify('0') -> False =====
+Fournissez un couple de deux vecteurs (a1, a2).
+
+===== verify(Vector.zeros(2)) -> False =====
+Fournissez un couple de deux vecteurs (a1, a2).
+
+===== verify(Vector.zeros(3)) -> False =====
+Fournissez un couple de deux vecteurs (a1, a2).
+
+===== verify(Vector.ones(5)) -> False =====
+Fournissez un couple de deux vecteurs (a1, a2).
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Fournissez un couple de deux vecteurs (a1, a2).
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Fournissez un couple de deux vecteurs (a1, a2).
+
+===== verify(Matrix.identity(3)) -> False =====
+Fournissez un couple de deux vecteurs (a1, a2).
+
+===== verify([1, 2]) -> False =====
+Fournissez un couple de deux vecteurs (a1, a2).
+
+===== verify({'a': 'valide'}) -> False =====
+Fournissez un couple de deux vecteurs (a1, a2).
+
+===== verify(('0', '0')) -> False =====
+Les deux vecteurs a1 et a2 doivent être de même taille n >= 2.
+
+===== réponse juste =====
+Contre-exemple valide ! L'ordre (a1, a2) donne ((1, 0), (0, 1)) tandis que (a2, a1) donne ((sqrt(2)/2, sqrt(2)/2), (sqrt(2)/2, -sqrt(2)/2)). Note de simplicité : dimension max = 2, hauteur max des coefficients = 1 (excellente (très simple)).
+
+===== bilan =====
+**Bilan — Gram-Schmidt dépend-il de l'ordre ?**
+
+- Statut : ✅ validé
+- Tentatives soumises : 12
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Gram-Schmidt dépend-il de l'ordre ?
+**Identifiant** : `ordre-gram-schmidt` | **N°** : 14 | **Thème** : Orthogonalisation | **Type** : contre_exemple | **Niveau** : ★★☆
+
+### Énoncé
+L'algorithme de Gram-Schmidt dépend-il de l'ordre des vecteurs d'entrée ? Donner deux vecteurs indépendants $(a_1, a_2)$ de $\mathbb{R}^2$ tels que Gram-Schmidt appliqué à $(a_1, a_2)$ puis à $(a_2, a_1)$ produise deux bases orthonormées différentes.
+
+### Spécification de vérification
+```yaml
+cas: ordre_gram_schmidt
+type: contre_exemple
+```
+
+### Paliers d'indices
+- **Palier 1** : Le premier vecteur produit par Gram-Schmidt est toujours $q_1 = \frac{a_1}{\|a_1\|}$.
+- **Palier 2** : Si l'on inverse l'ordre en $(a_2, a_1)$, le nouveau premier vecteur est $p_1 = \frac{a_2}{\|a_2\|}$.
+- **Palier 3** : Pour que les deux bases orthonormées diffèrent, choisissez dans $\mathbb{R}^2$ deux vecteurs indépendants qui ne sont pas déjà orthogonaux entre eux.
+
+### Exercice jumeau
+`generateurs.contre_exemple_guide(famille='R^2, coefficients dans {0, 1}')`

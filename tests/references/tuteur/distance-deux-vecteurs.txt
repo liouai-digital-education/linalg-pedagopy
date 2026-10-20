@@ -1,0 +1,192 @@
+===== énoncé =====
+### Exercice 6 — Distance entre deux vecteurs
+
+*Normes, distances et angles · calcul · niveau ★☆☆*
+
+On donne $x = (1, 2, -1)$ et $y = (2, 0, 1)$ dans $\mathbb{R}^3$. Calculer la distance euclidienne $\|x - y\|$ entre $x$ et $y$.
+
+**Notions** : distance euclidienne, plus proche voisin
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+La distance entre deux vecteurs $x$ et $y$ de $\mathbb{R}^3$ est la norme de leur différence : $\text{dist}(x, y) = \|x - y\|$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : $\|u\| = \sqrt{u_1^2 + u_2^2 + u_3^2}$. N'oubliez pas la racine carrée finale !
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Calculez d'abord le vecteur différence $x - y$ composante par composante, puis la somme des carrés de ses composantes.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Moyenne, moyenne quadratique ($\text{rms}$) et écart type ($\text{std}$)
+
+**Énoncé analogue** :
+
+Pour le vecteur $x = \begin{bmatrix} 2 \\ -1 \\ 5 \\ 2 \end{bmatrix}$ dans $\mathbb{R}^{4}$, calculer $\text{avg}(x)$, $\text{rms}(x)$ et $\text{std}(x)$.
+
+**Résolution pas à pas** :
+
+- **Moyenne** : $\text{avg}(x) = 2$
+- **Moyenne quadratique** : $\text{rms}(x) = \frac{\|x\|}{\sqrt{4}} = \frac{\sqrt{34}}{2}$
+- **Vecteur centré** : $x - \text{avg}(x) \mathbf{1} = \begin{bmatrix} 0 \\ -3 \\ 3 \\ 0 \end{bmatrix}$
+- **Écart type** : $\text{std}(x) = \text{rms}(x - \text{avg}(x) \mathbf{1}) = \frac{3 \sqrt{2}}{2}$
+
+**Détail des étapes formelles** :
+
+- Calcul de la moyenne arithmétique avg(v) sur n = 4 composantes.
+  - avg(v) = (8) / 4 = 2.
+- Calcul de la moyenne quadratique rms(v) sur n = 4 composantes.
+  - Calcul de la norme euclidienne ||v||.
+    - Norme euclidienne : ||v|| = sqrt(34) = √(34).
+  - rms(v) = ||v|| / sqrt(4) = √(34)/2.
+- Calcul de l'écart type std(v) = rms(v - avg(v)·1) (division par n).
+  - Centrage du vecteur : v - avg(v)·1.
+    - Calcul de la moyenne arithmétique avg(v) sur n = 4 composantes.
+      - avg(v) = (8) / 4 = 2.
+    - Moyenne avg(v) = 2 ; vecteur centré = ( 0, −3, 3, 0 ).
+  - Calcul de la moyenne quadratique rms(v) sur n = 4 composantes.
+    - Calcul de la norme euclidienne ||v||.
+      - Norme euclidienne : ||v|| = sqrt(18) = 3·√(2).
+    - rms(v) = ||v|| / sqrt(4) = 3·√(2)/2.
+  - std(v) = 3·√(2)/2.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Moyenne, moyenne quadratique ($\text{rms}$) et écart type ($\text{std}$) ===
+Énoncé analogue : Pour le vecteur $x = \begin{bmatrix} 2 \\ -1 \\ 5 \\ 2 \end{bmatrix}$ dans $\mathbb{R}^{4}$, calculer $\text{avg}(x)$, $\text{rms}(x)$ et $\text{std}(x)$.
+Résolution pas à pas :
+- **Moyenne** : $\text{avg}(x) = 2$
+- **Moyenne quadratique** : $\text{rms}(x) = \frac{\|x\|}{\sqrt{4}} = \frac{\sqrt{34}}{2}$
+- **Vecteur centré** : $x - \text{avg}(x) \mathbf{1} = \begin{bmatrix} 0 \\ -3 \\ 3 \\ 0 \end{bmatrix}$
+- **Écart type** : $\text{std}(x) = \text{rms}(x - \text{avg}(x) \mathbf{1}) = \frac{3 \sqrt{2}}{2}$
+Calcul de la moyenne arithmétique avg(v) sur n = 4 composantes.
+└─ avg(v) = (8) / 4 = 2.
+Calcul de la moyenne quadratique rms(v) sur n = 4 composantes.
+├─ Calcul de la norme euclidienne ||v||.
+│  └─ Norme euclidienne : ||v|| = sqrt(34) = √(34).
+└─ rms(v) = ||v|| / sqrt(4) = √(34)/2.
+Calcul de l'écart type std(v) = rms(v - avg(v)·1) (division par n).
+├─ Centrage du vecteur : v - avg(v)·1.
+│  ├─ Calcul de la moyenne arithmétique avg(v) sur n = 4 composantes.
+│  │  └─ avg(v) = (8) / 4 = 2.
+│  └─ Moyenne avg(v) = 2 ; vecteur centré = ( 0, −3, 3, 0 ).
+├─ Calcul de la moyenne quadratique rms(v) sur n = 4 composantes.
+│  ├─ Calcul de la norme euclidienne ||v||.
+│  │  └─ Norme euclidienne : ||v|| = sqrt(18) = 3·√(2).
+│  └─ rms(v) = ||v|| / sqrt(4) = 3·√(2)/2.
+└─ std(v) = 3·√(2)/2.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Moyenne, moyenne quadratique ($\text{rms}$) et écart type ($\text{std}$)
+
+**Énoncé analogue** :
+
+Pour le vecteur $x = \begin{bmatrix} 2 \\ -1 \\ 5 \\ 2 \end{bmatrix}$ dans $\mathbb{R}^{4}$, calculer $\text{avg}(x)$, $\text{rms}(x)$ et $\text{std}(x)$.
+
+**Résolution pas à pas** :
+
+- **Moyenne** : $\text{avg}(x) = 2$
+- **Moyenne quadratique** : $\text{rms}(x) = \frac{\|x\|}{\sqrt{4}} = \frac{\sqrt{34}}{2}$
+- **Vecteur centré** : $x - \text{avg}(x) \mathbf{1} = \begin{bmatrix} 0 \\ -3 \\ 3 \\ 0 \end{bmatrix}$
+- **Écart type** : $\text{std}(x) = \text{rms}(x - \text{avg}(x) \mathbf{1}) = \frac{3 \sqrt{2}}{2}$
+
+**Détail des étapes formelles** :
+
+- Calcul de la moyenne arithmétique avg(v) sur n = 4 composantes.
+  - avg(v) = (8) / 4 = 2.
+- Calcul de la moyenne quadratique rms(v) sur n = 4 composantes.
+  - Calcul de la norme euclidienne ||v||.
+    - Norme euclidienne : ||v|| = sqrt(34) = √(34).
+  - rms(v) = ||v|| / sqrt(4) = √(34)/2.
+- Calcul de l'écart type std(v) = rms(v - avg(v)·1) (division par n).
+  - Centrage du vecteur : v - avg(v)·1.
+    - Calcul de la moyenne arithmétique avg(v) sur n = 4 composantes.
+      - avg(v) = (8) / 4 = 2.
+    - Moyenne avg(v) = 2 ; vecteur centré = ( 0, −3, 3, 0 ).
+  - Calcul de la moyenne quadratique rms(v) sur n = 4 composantes.
+    - Calcul de la norme euclidienne ||v||.
+      - Norme euclidienne : ||v|| = sqrt(18) = 3·√(2).
+    - rms(v) = ||v|| / sqrt(4) = 3·√(2)/2.
+  - std(v) = 3·√(2)/2.
+
+===== verify(0) -> False =====
+Votre valeur (0) n'est pas égale à la valeur exacte attendue. Vérifiez chaque étape de votre calcul.
+
+===== verify('0') -> False =====
+Votre valeur (0) n'est pas égale à la valeur exacte attendue. Vérifiez chaque étape de votre calcul.
+
+===== verify(Vector.zeros(2)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([0, 0])).
+
+===== verify(Vector.zeros(3)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([0, 0, 0])).
+
+===== verify(Vector.ones(5)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([1, 1, 1, 1, 1])).
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[0, 0], [0, 0]])).
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[0], [0], [0]])).
+
+===== verify(Matrix.identity(3)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])).
+
+===== verify([1, 2]) -> False =====
+Réponse scalaire exacte attendue (reçu [1, 2]).
+
+===== verify({'a': 'valide'}) -> False =====
+Réponse scalaire exacte attendue (reçu {'a': 'valide'}).
+
+===== verify(('0', '0')) -> False =====
+Réponse scalaire exacte attendue (reçu ('0', '0')).
+
+===== bilan =====
+**Bilan — Distance entre deux vecteurs**
+
+- Statut : en cours
+- Tentatives soumises : 11
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+- Dernier diagnostic : Réponse scalaire exacte attendue (reçu ('0', '0')).
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Distance entre deux vecteurs
+**Identifiant** : `distance-deux-vecteurs` | **N°** : 6 | **Thème** : Normes, distances et angles | **Type** : calcul | **Niveau** : ★☆☆
+
+### Énoncé
+On donne $x = (1, 2, -1)$ et $y = (2, 0, 1)$ dans $\mathbb{R}^3$. Calculer la distance euclidienne $\|x - y\|$ entre $x$ et $y$.
+
+### Spécification de vérification
+```yaml
+calcul: x.distance(y)
+type: valeur
+```
+
+### Paliers d'indices
+- **Palier 1** : La distance entre deux vecteurs $x$ et $y$ de $\mathbb{R}^3$ est la norme de leur différence : $\text{dist}(x, y) = \|x - y\|$.
+- **Palier 2** : Rappel : $\|u\| = \sqrt{u_1^2 + u_2^2 + u_3^2}$. N'oubliez pas la racine carrée finale !
+- **Palier 3** : Calculez d'abord le vecteur différence $x - y$ composante par composante, puis la somme des carrés de ses composantes.
+
+### Exercice jumeau
+`generateurs.statistiques_vecteur(values=(2, -1, 5, 2))`

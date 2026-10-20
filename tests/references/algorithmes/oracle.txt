@@ -1,0 +1,48 @@
+===== décisions =====
+0                            | ZERO        | facteurs () | condition — | méthode domain
+3                            | NONZERO     | facteurs () | condition — | méthode domain
+-2/7                         | NONZERO     | facteurs () | condition — | méthode domain
+a - 2                        | CONDITIONAL | facteurs ('a - 2',) | condition a = 2 | méthode domain
+a**2 + 1                     | NONZERO     | facteurs () | condition — | méthode domain
+(a - 1)**2                   | CONDITIONAL | facteurs ('a - 1',) | condition a = 1 | méthode domain
+a*b                          | CONDITIONAL | facteurs ('a', 'b') | condition a = 0 | méthode domain
+a**2 - b**2                  | CONDITIONAL | facteurs ('a - b', 'a + b') | condition a = b | méthode domain
+0                            | ZERO        | facteurs () | condition — | méthode domain
+sqrt(2) + sqrt(3)            | NONZERO     | facteurs () | condition — | méthode minpoly
+sqrt(1 - m**2)               | CONDITIONAL | facteurs ('m - 1', 'm + 1') | condition m = 1 | méthode domain
+sqrt(a**2 + 1) - 1           | CONDITIONAL | facteurs ('a',) | condition a = 0 | méthode domain
+sqrt(a) - 2                  | CONDITIONAL | facteurs ('a - 4',) | condition a = 4 | méthode domain
+p                            | NONZERO     | facteurs () | condition — | méthode domain
+p - 1                        | CONDITIONAL | facteurs ('p - 1',) | condition p = 1 | méthode domain
+exp(x)                       | NONZERO     | facteurs () | condition — | méthode domain
+sin(x)                       | UNKNOWN     | facteurs () | condition — | méthode unknown
+x*exp(x)                     | CONDITIONAL | facteurs ('x',) | condition x = 0 | méthode domain
+Abs(a) + 1                   | NONZERO     | facteurs () | condition — | méthode domain
+-1 + 1/(a - 1)               | CONDITIONAL | facteurs ('a - 2',) | condition a = 2 | méthode domain
+(a**2 - 1)/(a - 1)           | CONDITIONAL | facteurs ('a + 1',) | condition a = −1 | méthode domain
+-3 + pi                      | NONZERO     | facteurs () | condition — | méthode simplify
+
+===== avec hypothèses et cas particuliers =====
+a - 2 sous a ≠ 2 : NONZERO (facteurs ())
+a - 2 sous a = 2 : ZERO (facteurs ())
+a**2 - 4 sous a = −2 : ZERO (facteurs ())
+a*b sous a ≠ 0 : CONDITIONAL (facteurs ('b',))
+-1 + cos(1)**2 + sin(1)**2 : ZERO (méthode simplify)
+-log(6) + log(2) + log(3) : ZERO (méthode simplify)
+-2 + E : NONZERO (méthode simplify)
+0 : ZERO (méthode domain)
+0 : ZERO (méthode domain)
+sin(a)**2 + cos(a)**2 - 1 : ZERO (méthode domain)
+-a + (sqrt(a) - 1)*(sqrt(a) + 1) + 1 : ZERO (méthode domain)
+hypothèse 'a != 1' : CONDITIONAL (facteurs ('a - 2', 'a'))
+hypothèse 'a == 2' : ZERO (facteurs ())
+hypothèse 'a = 3' : NONZERO (facteurs ())
+hypothèse ['a != 1', 'b != 0'] : CONDITIONAL (facteurs ('a - 2', 'a'))
+hypothèse {'a': '!=1'} : CONDITIONAL (facteurs ('a - 2', 'a'))
+hypothèse {'a': 2} : ZERO (facteurs ())
+hypothèse {'a': ['!=1', '!=2']} : CONDITIONAL (facteurs ('a',))
+hypothèse {a: '==0'} : ZERO (facteurs ())
+is_zero(0) = True
+is_zero(5) = False
+is_zero(a - 1) lève UndecidableZeroError (Impossible de décider formellement si l'expression a - 1 est nulle. Fournissez une hypothèse explicite (assumptions=...).)
+is_zero(sin(a)) lève UndecidableZeroError (Impossible de décider formellement si l'expression sin(a) est nulle. Fournissez une hypothèse explicite (assumptions=...).)

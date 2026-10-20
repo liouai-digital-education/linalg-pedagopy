@@ -1,0 +1,150 @@
+===== repr =====
+GJResult(A=Matrix([[0, 2, 1], [3, 1, 2], [1, 1, 1]]), b=Vector([1, 2, 3]), rref=Matrix([[1, 0, 1/2], [0, 1, 1/2], [0, 0, 0]]), augmented_rref=Matrix([[1, 0, 1/2, 1/2], [0, 1, 1/2, 1/2], [0, 0, 0, 2]]), pivots=(0, 1), rank=2, free_vars=(2,), nullspace_basis=(Vector([-1/2, -1/2, 1]),), solution=EmptySolution(row=2, witness=2, inconsistent_rows=((2, 2),)), inverse=None)
+
+===== texte niveau 0 =====
+
+
+===== texte niveau 1 =====
+Réduction de Gauss-Jordan d'une matrice 3×3.
+   [(0 2 1 | 1); (3 1 2 | 2); (1 1 1 | 3)]
+├─ Système incompatible : la ligne L3 donne 0 = 2 (témoin : 0 = 1).
+└─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+   [(1 0 1/2 | 1/2); (0 1 1/2 | 1/2); (0 0 0 | 2)]
+
+===== texte niveau 2 =====
+Réduction de Gauss-Jordan d'une matrice 3×3.
+   [(0 2 1 | 1); (3 1 2 | 2); (1 1 1 | 3)]
+├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│  ├─ Choix du pivot en (2,1) de valeur 3 (stratégie : first).
+│  ├─ On échange les lignes L1 et L2 : L1 ↔ L2.
+│  │  [(3 1 2 | 2); (0 2 1 | 1); (1 1 1 | 3)]
+│  ├─ On normalise le pivot de la ligne 1 : L1 ← (1/3)·L1.
+│  │  [(1 1/3 2/3 | 2/3); (0 2 1 | 1); (1 1 1 | 3)]
+│  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│     [(1 1/3 2/3 | 2/3); (0 2 1 | 1); (0 2/3 1/3 | 7/3)]
+├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│  ├─ Choix du pivot en (2,2) de valeur 2 (stratégie : first).
+│  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/2)·L2.
+│  │  [(1 1/3 2/3 | 2/3); (0 1 1/2 | 1/2); (0 2/3 1/3 | 7/3)]
+│  ├─ On annule le coefficient (1,2) : L1 ← L1 - 1/3·L2.
+│  │  [(1 0 1/2 | 1/2); (0 1 1/2 | 1/2); (0 2/3 1/3 | 7/3)]
+│  └─ On annule le coefficient (3,2) : L3 ← L3 - 2/3·L2.
+│     [(1 0 1/2 | 1/2); (0 1 1/2 | 1/2); (0 0 0 | 2)]
+├─ Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+├─ Système incompatible : la ligne L3 donne 0 = 2 (témoin : 0 = 1).
+└─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+   [(1 0 1/2 | 1/2); (0 1 1/2 | 1/2); (0 0 0 | 2)]
+
+===== texte niveau 3 =====
+Réduction de Gauss-Jordan d'une matrice 3×3.
+   [(0 2 1 | 1); (3 1 2 | 2); (1 1 1 | 3)]
+├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│  ├─ Choix du pivot en (2,1) de valeur 3 (stratégie : first).
+│  ├─ On échange les lignes L1 et L2 : L1 ↔ L2.
+│  │  [(3 1 2 | 2); (0 2 1 | 1); (1 1 1 | 3)]
+│  ├─ On normalise le pivot de la ligne 1 : L1 ← (1/3)·L1.
+│  │  [(1 1/3 2/3 | 2/3); (0 2 1 | 1); (1 1 1 | 3)]
+│  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│     [(1 1/3 2/3 | 2/3); (0 2 1 | 1); (0 2/3 1/3 | 7/3)]
+├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│  ├─ Choix du pivot en (2,2) de valeur 2 (stratégie : first).
+│  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/2)·L2.
+│  │  [(1 1/3 2/3 | 2/3); (0 1 1/2 | 1/2); (0 2/3 1/3 | 7/3)]
+│  ├─ On annule le coefficient (1,2) : L1 ← L1 - 1/3·L2.
+│  │  [(1 0 1/2 | 1/2); (0 1 1/2 | 1/2); (0 2/3 1/3 | 7/3)]
+│  └─ On annule le coefficient (3,2) : L3 ← L3 - 2/3·L2.
+│     [(1 0 1/2 | 1/2); (0 1 1/2 | 1/2); (0 0 0 | 2)]
+├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+├─ Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+├─ Système incompatible : la ligne L3 donne 0 = 2 (témoin : 0 = 1).
+└─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+   [(1 0 1/2 | 1/2); (0 1 1/2 | 1/2); (0 0 0 | 2)]
+
+===== markdown niveau 2 =====
+- Réduction de Gauss-Jordan d'une matrice 3×3.
+  $$\left[\begin{array}{ccc|c} 0 & 2 & 1 & 1 \\ 3 & 1 & 2 & 2 \\ 1 & 1 & 1 & 3 \end{array}\right]$$
+  - Traitement de la colonne 1 (ligne pivot courante : 1).
+    - Choix du pivot en (2,1) de valeur 3 (stratégie : first).
+    - On échange les lignes L1 et L2 : L1 ↔ L2.
+      $$\xrightarrow{L_{1} \leftrightarrow L_{2}} \left[\begin{array}{ccc|c} \boxed{3} & \color{blue}{1} & \color{blue}{2} & \color{blue}{2} \\ \color{blue}{0} & \color{blue}{2} & \color{blue}{1} & \color{blue}{1} \\ 1 & 1 & 1 & 3 \end{array}\right]$$
+    - On normalise le pivot de la ligne 1 : L1 ← (1/3)·L1.
+      $$\xrightarrow{L_{1} \leftarrow \left(\frac{1}{3}\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & \color{blue}{\frac{1}{3}} & \color{blue}{\frac{2}{3}} & \color{blue}{\frac{2}{3}} \\ 0 & 2 & 1 & 1 \\ 1 & 1 & 1 & 3 \end{array}\right]$$
+    - On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+      $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & \frac{1}{3} & \frac{2}{3} & \frac{2}{3} \\ 0 & 2 & 1 & 1 \\ \color{blue}{0} & \color{blue}{\frac{2}{3}} & \color{blue}{\frac{1}{3}} & \color{blue}{\frac{7}{3}} \end{array}\right]$$
+  - Traitement de la colonne 2 (ligne pivot courante : 2).
+    - Choix du pivot en (2,2) de valeur 2 (stratégie : first).
+    - On normalise le pivot de la ligne 2 : L2 ← (1/2)·L2.
+      $$\xrightarrow{L_{2} \leftarrow \left(\frac{1}{2}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & \frac{1}{3} & \frac{2}{3} & \frac{2}{3} \\ \color{blue}{0} & \boxed{1} & \color{blue}{\frac{1}{2}} & \color{blue}{\frac{1}{2}} \\ 0 & \frac{2}{3} & \frac{1}{3} & \frac{7}{3} \end{array}\right]$$
+    - On annule le coefficient (1,2) : L1 ← L1 - 1/3·L2.
+      $$\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{1}{3}\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{\frac{1}{2}} & \color{blue}{\frac{1}{2}} \\ 0 & \boxed{1} & \frac{1}{2} & \frac{1}{2} \\ 0 & \frac{2}{3} & \frac{1}{3} & \frac{7}{3} \end{array}\right]$$
+    - On annule le coefficient (3,2) : L3 ← L3 - 2/3·L2.
+      $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(\frac{2}{3}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & 0 & \frac{1}{2} & \frac{1}{2} \\ 0 & \boxed{1} & \frac{1}{2} & \frac{1}{2} \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \end{array}\right]$$
+  - Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+  - Système incompatible : la ligne L3 donne 0 = 2 (témoin : 0 = 1).
+  - Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+    $$\left[\begin{array}{ccc|c} 1 & 0 & \frac{1}{2} & \frac{1}{2} \\ 0 & 1 & \frac{1}{2} & \frac{1}{2} \\ 0 & 0 & 0 & 2 \end{array}\right]$$
+
+===== latex niveau 2 =====
+\begin{itemize}
+  \item Réduction de Gauss-Jordan d'une matrice 3×3.
+  \[\left[\begin{array}{ccc|c} 0 & 2 & 1 & 1 \\ 3 & 1 & 2 & 2 \\ 1 & 1 & 1 & 3 \end{array}\right]\]
+  \begin{itemize}
+    \item Traitement de la colonne 1 (ligne pivot courante : 1).
+    \begin{itemize}
+      \item Choix du pivot en (2,1) de valeur 3 (stratégie : first).
+      \item On échange les lignes L1 et L2 : L1 ↔ L2.
+      \[\xrightarrow{L_{1} \leftrightarrow L_{2}} \left[\begin{array}{ccc|c} \boxed{3} & \color{blue}{1} & \color{blue}{2} & \color{blue}{2} \\ \color{blue}{0} & \color{blue}{2} & \color{blue}{1} & \color{blue}{1} \\ 1 & 1 & 1 & 3 \end{array}\right]\]
+      \item On normalise le pivot de la ligne 1 : L1 ← (1/3)·L1.
+      \[\xrightarrow{L_{1} \leftarrow \left(\frac{1}{3}\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & \color{blue}{\frac{1}{3}} & \color{blue}{\frac{2}{3}} & \color{blue}{\frac{2}{3}} \\ 0 & 2 & 1 & 1 \\ 1 & 1 & 1 & 3 \end{array}\right]\]
+      \item On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+      \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & \frac{1}{3} & \frac{2}{3} & \frac{2}{3} \\ 0 & 2 & 1 & 1 \\ \color{blue}{0} & \color{blue}{\frac{2}{3}} & \color{blue}{\frac{1}{3}} & \color{blue}{\frac{7}{3}} \end{array}\right]\]
+    \end{itemize}
+    \item Traitement de la colonne 2 (ligne pivot courante : 2).
+    \begin{itemize}
+      \item Choix du pivot en (2,2) de valeur 2 (stratégie : first).
+      \item On normalise le pivot de la ligne 2 : L2 ← (1/2)·L2.
+      \[\xrightarrow{L_{2} \leftarrow \left(\frac{1}{2}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & \frac{1}{3} & \frac{2}{3} & \frac{2}{3} \\ \color{blue}{0} & \boxed{1} & \color{blue}{\frac{1}{2}} & \color{blue}{\frac{1}{2}} \\ 0 & \frac{2}{3} & \frac{1}{3} & \frac{7}{3} \end{array}\right]\]
+      \item On annule le coefficient (1,2) : L1 ← L1 - 1/3·L2.
+      \[\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{1}{3}\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{\frac{1}{2}} & \color{blue}{\frac{1}{2}} \\ 0 & \boxed{1} & \frac{1}{2} & \frac{1}{2} \\ 0 & \frac{2}{3} & \frac{1}{3} & \frac{7}{3} \end{array}\right]\]
+      \item On annule le coefficient (3,2) : L3 ← L3 - 2/3·L2.
+      \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(\frac{2}{3}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & 0 & \frac{1}{2} & \frac{1}{2} \\ 0 & \boxed{1} & \frac{1}{2} & \frac{1}{2} \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \end{array}\right]\]
+    \end{itemize}
+    \item Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+    \item Système incompatible : la ligne L3 donne 0 = 2 (témoin : 0 = 1).
+    \item Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+    \[\left[\begin{array}{ccc|c} 1 & 0 & \frac{1}{2} & \frac{1}{2} \\ 0 & 1 & \frac{1}{2} & \frac{1}{2} \\ 0 & 0 & 0 & 2 \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-explanation'>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 3×3.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{ccc|c} 0 & 2 & 1 & 1 \\ 3 & 1 & 2 & 2 \\ 1 & 1 & 1 & 3 \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (2,1) de valeur 3 (stratégie : first).</div>
+<div class='pedagopy-step'>On échange les lignes L1 et L2 : L1 ↔ L2.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftrightarrow L_{2}} \left[\begin{array}{ccc|c} \boxed{3} & \color{blue}{1} & \color{blue}{2} & \color{blue}{2} \\ \color{blue}{0} & \color{blue}{2} & \color{blue}{1} & \color{blue}{1} \\ 1 & 1 & 1 & 3 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On normalise le pivot de la ligne 1 : L1 ← (1/3)·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow \left(\frac{1}{3}\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & \color{blue}{\frac{1}{3}} & \color{blue}{\frac{2}{3}} & \color{blue}{\frac{2}{3}} \\ 0 & 2 & 1 & 1 \\ 1 & 1 & 1 & 3 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (3,1) : L3 ← L3 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & \frac{1}{3} & \frac{2}{3} & \frac{2}{3} \\ 0 & 2 & 1 & 1 \\ \color{blue}{0} & \color{blue}{\frac{2}{3}} & \color{blue}{\frac{1}{3}} & \color{blue}{\frac{7}{3}} \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Traitement de la colonne 2 (ligne pivot courante : 2).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (2,2) de valeur 2 (stratégie : first).</div>
+<div class='pedagopy-step'>On normalise le pivot de la ligne 2 : L2 ← (1/2)·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow \left(\frac{1}{2}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & \frac{1}{3} & \frac{2}{3} & \frac{2}{3} \\ \color{blue}{0} & \boxed{1} & \color{blue}{\frac{1}{2}} & \color{blue}{\frac{1}{2}} \\ 0 & \frac{2}{3} & \frac{1}{3} & \frac{7}{3} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (1,2) : L1 ← L1 - 1/3·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{1}{3}\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{\frac{1}{2}} & \color{blue}{\frac{1}{2}} \\ 0 & \boxed{1} & \frac{1}{2} & \frac{1}{2} \\ 0 & \frac{2}{3} & \frac{1}{3} & \frac{7}{3} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (3,2) : L3 ← L3 - 2/3·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(\frac{2}{3}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & 0 & \frac{1}{2} & \frac{1}{2} \\ 0 & \boxed{1} & \frac{1}{2} & \frac{1}{2} \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.</div>
+<div class='pedagopy-step'>Système incompatible : la ligne L3 donne 0 = 2 (témoin : 0 = 1).</div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).<div class='pedagopy-math'>\[\left[\begin{array}{ccc|c} 1 & 0 & \frac{1}{2} & \frac{1}{2} \\ 0 & 1 & \frac{1}{2} & \frac{1}{2} \\ 0 & 0 & 0 & 2 \end{array}\right]\]</div></div>
+</details>
+</div>
+
+===== verify =====
+Vérification a posteriori du résultat de Gauss-Jordan.
+└─ Contrôle vérifié : Forme échelonnée réduite de rang 2.

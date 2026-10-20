@@ -1,0 +1,143 @@
+===== énoncé =====
+### Exercice 4 — Valeurs centrales contre valeurs extrêmes
+
+*Vecteurs et produit scalaire · modélisation · niveau ★★☆*
+
+Soit $f : \mathbb{R}^4 \to \mathbb{R}$ la fonction linéaire qui associe à $x$ l'écart entre sa valeur centrale $\frac{x_2 + x_3}{2}$ et la moyenne de ses valeurs extrêmes $\frac{x_1 + x_4}{2}$. Trouver le vecteur $a \in \mathbb{R}^4$ tel que $f(x) = a^T x$.
+
+**Notions** : fonction linéaire, représentation par produit scalaire
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Toute fonction linéaire de $\mathbb{R}^4$ dans $\mathbb{R}$ s'écrit de manière unique sous la forme $f(x) = a^T x$ avec $a \in \mathbb{R}^4$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+La $i$-ième composante de $a$ est $a_i = f(e_i)$, c'est-à-dire le coefficient devant $x_i$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Développez $\frac{x_2 + x_3}{2} - \frac{x_1 + x_4}{2}$ et lisez le coefficient devant chacune des 4 composantes.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Modélisation sous la forme $a^T x$
+
+**Énoncé analogue** :
+
+Pour $x \in \mathbb{R}^{4}$, écrire la somme $x_2 + x_3$ sous la forme $a^T x$.
+
+**Résolution pas à pas** :
+
+On identifie le coefficient devant chaque composante $x_k$ ($k = 1, \dots, 4$) :
+- Les composantes sélectionnées sont (2, 3) (coefficient 1) et les autres ont un coefficient 0.
+- On obtient le vecteur $a$ :
+
+$$a = \begin{bmatrix} 0 \\ 1 \\ 1 \\ 0 \end{bmatrix}$$
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Modélisation sous la forme $a^T x$ ===
+Énoncé analogue : Pour $x \in \mathbb{R}^{4}$, écrire la somme $x_2 + x_3$ sous la forme $a^T x$.
+Résolution pas à pas :
+On identifie le coefficient devant chaque composante $x_k$ ($k = 1, \dots, 4$) :
+- Les composantes sélectionnées sont (2, 3) (coefficient 1) et les autres ont un coefficient 0.
+- On obtient le vecteur $a$ :
+
+$$a = \begin{bmatrix} 0 \\ 1 \\ 1 \\ 0 \end{bmatrix}$$
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Modélisation sous la forme $a^T x$
+
+**Énoncé analogue** :
+
+Pour $x \in \mathbb{R}^{4}$, écrire la somme $x_2 + x_3$ sous la forme $a^T x$.
+
+**Résolution pas à pas** :
+
+On identifie le coefficient devant chaque composante $x_k$ ($k = 1, \dots, 4$) :
+- Les composantes sélectionnées sont (2, 3) (coefficient 1) et les autres ont un coefficient 0.
+- On obtient le vecteur $a$ :
+
+$$a = \begin{bmatrix} 0 \\ 1 \\ 1 \\ 0 \end{bmatrix}$$
+
+===== verify(0) -> False =====
+Votre réponse doit être un vecteur (ex. Vector([...])).
+
+===== verify('0') -> False =====
+Taille incorrecte : votre vecteur est de taille 1, alors que x est dans R^4.
+
+===== verify(Vector.zeros(2)) -> False =====
+Taille incorrecte : votre vecteur est de taille 2, alors que x est dans R^4.
+
+===== verify(Vector.zeros(3)) -> False =====
+Taille incorrecte : votre vecteur est de taille 3, alors que x est dans R^4.
+
+===== verify(Vector.ones(5)) -> False =====
+Taille incorrecte : votre vecteur est de taille 5, alors que x est dans R^4.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Votre réponse doit être un vecteur (ex. Vector([...])).
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Votre réponse doit être un vecteur (ex. Vector([...])).
+
+===== verify(Matrix.identity(3)) -> False =====
+Votre réponse doit être un vecteur (ex. Vector([...])).
+
+===== verify([1, 2]) -> False =====
+Taille incorrecte : votre vecteur est de taille 2, alors que x est dans R^4.
+
+===== verify({'a': 'valide'}) -> False =====
+Taille incorrecte : votre vecteur est de taille 1, alors que x est dans R^4.
+
+===== verify(('0', '0')) -> False =====
+Taille incorrecte : votre vecteur est de taille 2, alors que x est dans R^4.
+
+===== bilan =====
+**Bilan — Valeurs centrales contre valeurs extrêmes**
+
+- Statut : en cours
+- Tentatives soumises : 11
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+- Dernier diagnostic : Taille incorrecte : votre vecteur est de taille 2, alors que x est dans R^4.
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Valeurs centrales contre valeurs extrêmes
+**Identifiant** : `centre-moins-extremes` | **N°** : 4 | **Thème** : Vecteurs et produit scalaire | **Type** : modelisation | **Niveau** : ★★☆
+
+### Énoncé
+Soit $f : \mathbb{R}^4 \to \mathbb{R}$ la fonction linéaire qui associe à $x$ l'écart entre sa valeur centrale $\frac{x_2 + x_3}{2}$ et la moyenne de ses valeurs extrêmes $\frac{x_1 + x_4}{2}$. Trouver le vecteur $a \in \mathbb{R}^4$ tel que $f(x) = a^T x$.
+
+### Spécification de vérification
+```yaml
+cible: (x[2] + x[3])/2 - (x[1] + x[4])/2
+inconnue: x
+taille: 4
+type: produit_scalaire
+```
+
+### Paliers d'indices
+- **Palier 1** : Toute fonction linéaire de $\mathbb{R}^4$ dans $\mathbb{R}$ s'écrit de manière unique sous la forme $f(x) = a^T x$ avec $a \in \mathbb{R}^4$.
+- **Palier 2** : La $i$-ième composante de $a$ est $a_i = f(e_i)$, c'est-à-dire le coefficient devant $x_i$.
+- **Palier 3** : Développez $\frac{x_2 + x_3}{2} - \frac{x_1 + x_4}{2}$ et lisez le coefficient devant chacune des 4 composantes.
+
+### Exercice jumeau
+`generateurs.produit_scalaire_selection(n=4, indices=(2, 3))`

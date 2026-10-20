@@ -1,0 +1,158 @@
+===== énoncé =====
+### Exercice 10 — Le théorème de Pythagore
+
+*Normes, distances et angles · justification · niveau ★★☆*
+
+Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp v$). Exprimer $\|u + v\|^2$ en fonction de norm_u (représentant $\|u\|$) et norm_v (représentant $\|v\|$) (théorème de Pythagore).
+
+**Notions** : norme d'une somme orthogonale, théorème de Pythagore
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+On cherche à exprimer le carré de la norme de la somme $u + v$ en fonction de $\|u\|$ et $\|v\|$ lorsque $u \perp v$ (théorème de Pythagore vectoriel).
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : pour tout vecteur $w$, $\|w\|^2 = w^T w$. Appliquez cette identité à $w = u + v$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Développez $(u + v)^T (u + v)$ et utilisez l'hypothèse d'orthogonalité $u^T v = 0$.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Norme d'une combinaison de vecteurs orthogonaux
+
+**Énoncé analogue** :
+
+Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp v$). Exprimer $\|2 u + (-3) v\|^2$ en fonction de $\|u\|$ et $\|v\|$.
+
+**Résolution pas à pas** :
+
+1. On développe le produit scalaire :
+
+   $$\|2 u + (-3) v\|^2 = (2 u + (-3) v)^T (2 u + (-3) v)$$
+   $$= 4 \|u\|^2 + 2 \cdot (-6) (u^T v) + 9 \|v\|^2$$
+
+2. Comme $u \perp v$, le produit scalaire est nul : $u^T v = 0$.
+3. Conclusion :
+
+   $$\|2 u + (-3) v\|^2 = 4 \|u\|^2 + 9 \|v\|^2$$
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Norme d'une combinaison de vecteurs orthogonaux ===
+Énoncé analogue : Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp v$). Exprimer $\|2 u + (-3) v\|^2$ en fonction de $\|u\|$ et $\|v\|$.
+Résolution pas à pas :
+1. On développe le produit scalaire :
+
+   $$\|2 u + (-3) v\|^2 = (2 u + (-3) v)^T (2 u + (-3) v)$$
+   $$= 4 \|u\|^2 + 2 \cdot (-6) (u^T v) + 9 \|v\|^2$$
+
+2. Comme $u \perp v$, le produit scalaire est nul : $u^T v = 0$.
+3. Conclusion :
+
+   $$\|2 u + (-3) v\|^2 = 4 \|u\|^2 + 9 \|v\|^2$$
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Norme d'une combinaison de vecteurs orthogonaux
+
+**Énoncé analogue** :
+
+Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp v$). Exprimer $\|2 u + (-3) v\|^2$ en fonction de $\|u\|$ et $\|v\|$.
+
+**Résolution pas à pas** :
+
+1. On développe le produit scalaire :
+
+   $$\|2 u + (-3) v\|^2 = (2 u + (-3) v)^T (2 u + (-3) v)$$
+   $$= 4 \|u\|^2 + 2 \cdot (-6) (u^T v) + 9 \|v\|^2$$
+
+2. Comme $u \perp v$, le produit scalaire est nul : $u^T v = 0$.
+3. Conclusion :
+
+   $$\|2 u + (-3) v\|^2 = 4 \|u\|^2 + 9 \|v\|^2$$
+
+===== verify(0) -> False =====
+Votre formule (0) ne coïncide pas avec l'expression attendue (par exemple, lorsque les paramètres valent 1, votre formule donne 0). Avez-vous bien développé le carré de la norme et utilisé l'hypothèse d'orthogonalité ?
+
+===== verify('0') -> False =====
+Votre formule (0) ne coïncide pas avec l'expression attendue (par exemple, lorsque les paramètres valent 1, votre formule donne 0). Avez-vous bien développé le carré de la norme et utilisé l'hypothèse d'orthogonalité ?
+
+===== verify(Vector.zeros(2)) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== verify(Vector.zeros(3)) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== verify(Vector.ones(5)) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Impossible d'interpréter votre formule (<message d'erreur de SymPy>). Utilisez les variables ['norm_u', 'norm_v'].
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Impossible d'interpréter votre formule (<message d'erreur de SymPy>). Utilisez les variables ['norm_u', 'norm_v'].
+
+===== verify(Matrix.identity(3)) -> False =====
+Impossible d'interpréter votre formule (<message d'erreur de SymPy>). Utilisez les variables ['norm_u', 'norm_v'].
+
+===== verify([1, 2]) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== verify({'a': 'valide'}) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== verify(('0', '0')) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== réponse juste =====
+Formule exacte (norm_u**2 + norm_v**2) !
+
+===== bilan =====
+**Bilan — Le théorème de Pythagore**
+
+- Statut : ✅ validé
+- Tentatives soumises : 12
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Le théorème de Pythagore
+**Identifiant** : `pythagore` | **N°** : 10 | **Thème** : Normes, distances et angles | **Type** : justification | **Niveau** : ★★☆
+
+### Énoncé
+Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp v$). Exprimer $\|u + v\|^2$ en fonction de norm_u (représentant $\|u\|$) et norm_v (représentant $\|v\|$) (théorème de Pythagore).
+
+### Spécification de vérification
+```yaml
+cible: norm_u**2 + norm_v**2
+parametres:
+- norm_u
+- norm_v
+type: formule
+```
+
+### Paliers d'indices
+- **Palier 1** : On cherche à exprimer le carré de la norme de la somme $u + v$ en fonction de $\|u\|$ et $\|v\|$ lorsque $u \perp v$ (théorème de Pythagore vectoriel).
+- **Palier 2** : Rappel : pour tout vecteur $w$, $\|w\|^2 = w^T w$. Appliquez cette identité à $w = u + v$.
+- **Palier 3** : Développez $(u + v)^T (u + v)$ et utilisez l'hypothèse d'orthogonalité $u^T v = 0$.
+
+### Exercice jumeau
+`generateurs.combinaison_orthogonale(c1=2, c2=-3)`

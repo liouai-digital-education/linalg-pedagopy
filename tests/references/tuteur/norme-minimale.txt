@@ -1,0 +1,152 @@
+===== énoncé =====
+### Exercice 35 — Solution de norme minimale
+
+*Moindres carrés et optimisation · calcul · niveau ★★★*
+
+On considère le problème de norme minimale : minimiser $\|x\|^2$ sous la contrainte $C x = d$, avec $C = \begin{bmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \end{bmatrix}$ (taille $2 \times 3$) et $d = (1, 1)$. Trouver la solution optimale $x \in \mathbb{R}^3$ à l'aide des conditions KKT.
+
+**Notions** : solution de norme minimale, système KKT
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+La solution de norme minimale de $C x = d$ vérifie les équations KKT : $2 x + C^T z = 0$ et $C x = d$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+En exprimant $x = -\frac{1}{2} C^T z$ et en reportant dans $C x = d$, on obtient $x = C^T (C C^T)^{-1} d$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Calculez la matrice $2 \times 2$ $C C^T$, inversez-la, puis appliquez $C^T (C C^T)^{-1}$ au vecteur $d = (1, 1)$.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Système KKT et solution de norme minimale
+
+**Énoncé analogue** :
+
+Exprimer les conditions d'optimalité KKT du problème de norme minimale :
+
+$$\min_x \|x\|^2 \quad \text{sous la contrainte} \quad C x = d$$
+
+**Résolution pas à pas** :
+
+1. C'est un problème de moindres carrés sous contrainte avec $A = I_n$ et $b = 0$.
+2. Le lagrangien est $L(x, z) = \|x\|^2 + z^T (C x - d)$.
+3. En annulant le gradient par rapport à $x$ : $2 x + C^T z = 0$, avec $C x = d$.
+4. Sous forme matricielle par blocs :
+
+   $$\begin{bmatrix} 2 I & C^T \\ C & 0 \end{bmatrix} \begin{bmatrix} x \\ z \end{bmatrix} = \begin{bmatrix} 0 \\ d \end{bmatrix}$$
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Système KKT et solution de norme minimale ===
+Énoncé analogue : Exprimer les conditions d'optimalité KKT du problème de norme minimale :
+
+$$\min_x \|x\|^2 \quad \text{sous la contrainte} \quad C x = d$$
+Résolution pas à pas :
+1. C'est un problème de moindres carrés sous contrainte avec $A = I_n$ et $b = 0$.
+2. Le lagrangien est $L(x, z) = \|x\|^2 + z^T (C x - d)$.
+3. En annulant le gradient par rapport à $x$ : $2 x + C^T z = 0$, avec $C x = d$.
+4. Sous forme matricielle par blocs :
+
+   $$\begin{bmatrix} 2 I & C^T \\ C & 0 \end{bmatrix} \begin{bmatrix} x \\ z \end{bmatrix} = \begin{bmatrix} 0 \\ d \end{bmatrix}$$
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Système KKT et solution de norme minimale
+
+**Énoncé analogue** :
+
+Exprimer les conditions d'optimalité KKT du problème de norme minimale :
+
+$$\min_x \|x\|^2 \quad \text{sous la contrainte} \quad C x = d$$
+
+**Résolution pas à pas** :
+
+1. C'est un problème de moindres carrés sous contrainte avec $A = I_n$ et $b = 0$.
+2. Le lagrangien est $L(x, z) = \|x\|^2 + z^T (C x - d)$.
+3. En annulant le gradient par rapport à $x$ : $2 x + C^T z = 0$, avec $C x = d$.
+4. Sous forme matricielle par blocs :
+
+   $$\begin{bmatrix} 2 I & C^T \\ C & 0 \end{bmatrix} \begin{bmatrix} x \\ z \end{bmatrix} = \begin{bmatrix} 0 \\ d \end{bmatrix}$$
+
+===== verify(0) -> False =====
+Votre réponse doit être un vecteur x.
+
+===== verify('0') -> False =====
+Votre vecteur x est de taille 1, attendu 3.
+
+===== verify(Vector.zeros(2)) -> False =====
+Votre vecteur x est de taille 2, attendu 3.
+
+===== verify(Vector.zeros(3)) -> False =====
+Votre vecteur ne satisfait pas la contrainte C x = d : C x = (0, 0) ≠ (1, 1).
+
+===== verify(Vector.ones(5)) -> False =====
+Votre vecteur x est de taille 5, attendu 3.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Votre réponse doit être un vecteur x.
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Votre réponse doit être un vecteur x.
+
+===== verify(Matrix.identity(3)) -> False =====
+Votre réponse doit être un vecteur x.
+
+===== verify([1, 2]) -> False =====
+Votre vecteur x est de taille 2, attendu 3.
+
+===== verify({'a': 'valide'}) -> False =====
+Votre vecteur x est de taille 1, attendu 3.
+
+===== verify(('0', '0')) -> False =====
+Votre vecteur x est de taille 2, attendu 3.
+
+===== réponse juste =====
+Exact ! Votre vecteur x vérifie C x = d et les conditions KKT de norme minimale.
+
+===== bilan =====
+**Bilan — Solution de norme minimale**
+
+- Statut : ✅ validé
+- Tentatives soumises : 12
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Solution de norme minimale
+**Identifiant** : `norme-minimale` | **N°** : 35 | **Thème** : Moindres carrés et optimisation | **Type** : calcul | **Niveau** : ★★★
+
+### Énoncé
+On considère le problème de norme minimale : minimiser $\|x\|^2$ sous la contrainte $C x = d$, avec $C = \begin{bmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \end{bmatrix}$ (taille $2 \times 3$) et $d = (1, 1)$. Trouver la solution optimale $x \in \mathbb{R}^3$ à l'aide des conditions KKT.
+
+### Spécification de vérification
+```yaml
+propriete: kkt_minimum_norm
+type: propriete
+```
+
+### Paliers d'indices
+- **Palier 1** : La solution de norme minimale de $C x = d$ vérifie les équations KKT : $2 x + C^T z = 0$ et $C x = d$.
+- **Palier 2** : En exprimant $x = -\frac{1}{2} C^T z$ et en reportant dans $C x = d$, on obtient $x = C^T (C C^T)^{-1} d$.
+- **Palier 3** : Calculez la matrice $2 \times 2$ $C C^T$, inversez-la, puis appliquez $C^T (C C^T)^{-1}$ au vecteur $d = (1, 1)$.
+
+### Exercice jumeau
+`generateurs.kkt_norme_minimale()`

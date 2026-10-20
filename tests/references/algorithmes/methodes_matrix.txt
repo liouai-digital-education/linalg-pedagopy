@@ -1,0 +1,47 @@
+===== rref paramétrée =====
+<CaseSplit selon a : 3 cas — a ≠ 1 et a ≠ −2 | a = −2 | a = 1>
+
+===== rang paramétré =====
+<CaseSplit selon a : 3 cas — a ≠ 1 et a ≠ −2 | a = −2 | a = 1>
+
+===== rang paramétré (texte) =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −2 (générique) : 3
+├─ Cas a = −2 : 2
+└─ Cas a = 1 : 1
+
+===== noyau paramétré =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −2 (générique) : ()
+├─ Cas a = −2 : (( 1, 1, 1 ))
+└─ Cas a = 1 : (( −1, 1, 0 ), ( −1, 0, 1 ))
+
+===== rref =====
+⎡1  2  0  1⎤
+⎢          ⎥
+⎢0  0  1  1⎥
+⎢          ⎥
+⎣0  0  0  0⎦
+
+===== rang =====
+2
+
+===== noyau =====
+(Vector([-2, 1, 0, 0]), Vector([-1, 0, -1, 1]))
+
+===== inverse paramétrée (strict=False) =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −1 (générique) : [(-1/((a - 1)*(a + 1)) a/((a - 1)*(a + 1))); (a/((a - 1)*(a + 1)) -1/((a - 1)*(a + 1)))]
+├─ Cas a = 1 : None
+└─ Cas a = −1 : None
+
+===== solve =====
+(1, 0, 1, 0) + t_1·(-2, 1, 0, 0) + t_2·(-1, 0, -1, 1)
+
+===== gram =====
+⎡6  0⎤
+⎢    ⎥
+⎣0  2⎦
+
+===== colonnes orthonormées =====
+True

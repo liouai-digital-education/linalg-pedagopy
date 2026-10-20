@@ -1,0 +1,237 @@
+===== repr =====
+<CaseSplit selon m : 2 cas — m ≠ 0 | m = 0>
+
+===== str =====
+Discussion selon m
+├─ Cas m ≠ 0 (générique) : pivots non nuls, rang 2, solution unique
+│    x = ( m + √(1 − m²), −m + √(1 − m²) )
+└─ Cas m = 0 : pivots non nuls, rang 2, solution unique
+     x = ( 1, 1 )
+
+===== texte niveau 0 =====
+Discussion selon m
+├─ Cas m ≠ 0 (générique) : pivots non nuls, rang 2, solution unique
+│    x = ( m + √(1 − m²), −m + √(1 − m²) )
+└─ Cas m = 0 : pivots non nuls, rang 2, solution unique
+     x = ( 1, 1 )
+
+===== texte niveau 1 =====
+Discussion selon m
+├─ Cas m ≠ 0 (générique) : pivots non nuls, rang 2, solution unique
+│    x = ( m + √(1 − m²), −m + √(1 − m²) )
+└─ Cas m = 0 : pivots non nuls, rang 2, solution unique
+     x = ( 1, 1 )
+
+===== texte niveau 2 =====
+Discussion selon m
+├─ Cas m ≠ 0 (générique) : pivots non nuls, rang 2, solution unique
+│    x = ( m + √(1 − m²), −m + √(1 − m²) )
+│    Réduction de Gauss-Jordan d'une matrice 2×2.
+│       [(m sqrt(1 - m**2) | 1); (sqrt(1 - m**2) -m | 1)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur m (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 1 : L1 ← (1/m)·L1.
+│    │  │  [(1 sqrt(1 - m**2)/m | 1/m); (sqrt(1 - m**2) -m | 1)]
+│    │  └─ On annule le coefficient (2,1) : L2 ← L2 - √(1 − m²)·L1.
+│    │     [(1 sqrt(1 - m**2)/m | 1/m); (0 -1/m | (m - sqrt(1 - m**2))/m)]
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (2,2) de valeur −1/m (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−m)·L2.
+│    │  │  [(1 sqrt(1 - m**2)/m | 1/m); (0 1 | -m + sqrt(1 - m**2))]
+│    │  └─ On annule le coefficient (1,2) : L1 ← L1 - √(1 − m²)/m·L2.
+│    │     [(1 0 | m + sqrt(1 - m**2)); (0 1 | -m + sqrt(1 - m**2))]
+│    ├─ Pivots non nuls, rang 2, solution unique : x = ( m + √(1 − m²), −m + √(1 − m²) ).
+│    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+│       [(1 0 | m + sqrt(1 - m**2)); (0 1 | -m + sqrt(1 - m**2))]
+└─ Cas m = 0 : pivots non nuls, rang 2, solution unique
+     x = ( 1, 1 )
+     Réduction de Gauss-Jordan d'une matrice 2×2.
+        [(0 1 | 1); (1 0 | 1)]
+     ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+     │  ├─ Choix du pivot en (2,1) de valeur 1 (stratégie : simplest).
+     │  └─ On échange les lignes L1 et L2 : L1 ↔ L2.
+     │     [(1 0 | 1); (0 1 | 1)]
+     ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+     │  └─ Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).
+     ├─ Pivots non nuls, rang 2, solution unique : x = ( 1, 1 ).
+     └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+        [(1 0 | 1); (0 1 | 1)]
+
+===== texte niveau 3 =====
+Discussion selon m
+├─ Cas m ≠ 0 (générique) : pivots non nuls, rang 2, solution unique
+│    x = ( m + √(1 − m²), −m + √(1 − m²) )
+│    Réduction de Gauss-Jordan d'une matrice 2×2.
+│       [(m sqrt(1 - m**2) | 1); (sqrt(1 - m**2) -m | 1)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur m (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 1 : L1 ← (1/m)·L1.
+│    │  │  [(1 sqrt(1 - m**2)/m | 1/m); (sqrt(1 - m**2) -m | 1)]
+│    │  └─ On annule le coefficient (2,1) : L2 ← L2 - √(1 − m²)·L1.
+│    │     [(1 sqrt(1 - m**2)/m | 1/m); (0 -1/m | (m - sqrt(1 - m**2))/m)]
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (2,2) de valeur −1/m (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−m)·L2.
+│    │  │  [(1 sqrt(1 - m**2)/m | 1/m); (0 1 | -m + sqrt(1 - m**2))]
+│    │  └─ On annule le coefficient (1,2) : L1 ← L1 - √(1 − m²)/m·L2.
+│    │     [(1 0 | m + sqrt(1 - m**2)); (0 1 | -m + sqrt(1 - m**2))]
+│    ├─ Pivots non nuls, rang 2, solution unique : x = ( m + √(1 − m²), −m + √(1 − m²) ).
+│    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+│       [(1 0 | m + sqrt(1 - m**2)); (0 1 | -m + sqrt(1 - m**2))]
+└─ Cas m = 0 : pivots non nuls, rang 2, solution unique
+     x = ( 1, 1 )
+     Réduction de Gauss-Jordan d'une matrice 2×2.
+        [(0 1 | 1); (1 0 | 1)]
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+     │  ├─ Choix du pivot en (2,1) de valeur 1 (stratégie : simplest).
+     │  ├─ On échange les lignes L1 et L2 : L1 ↔ L2.
+     │  │  [(1 0 | 1); (0 1 | 1)]
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  └─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+     │  ├─ Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  └─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Pivots non nuls, rang 2, solution unique : x = ( 1, 1 ).
+     └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+        [(1 0 | 1); (0 1 | 1)]
+
+===== markdown niveau 2 =====
+### Discussion selon $m$
+
+- **Cas $m \neq 0$ (générique)** : pivots non nuls, rang 2, solution unique
+  - $x = \left[\begin{array}{c} m + \sqrt{1 - m^{2}} \\ - m + \sqrt{1 - m^{2}} \end{array}\right]$
+  - Réduction de Gauss-Jordan d'une matrice 2×2.
+    $$\left[\begin{array}{cc|c} m & \sqrt{1 - m^{2}} & 1 \\ \sqrt{1 - m^{2}} & - m & 1 \end{array}\right]$$
+    - Traitement de la colonne 1 (ligne pivot courante : 1).
+      - Choix du pivot en (1,1) de valeur m (stratégie : simplest).
+      - On normalise le pivot de la ligne 1 : L1 ← (1/m)·L1.
+        $$\xrightarrow{L_{1} \leftarrow \left(\frac{1}{m}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \color{blue}{\frac{\sqrt{1 - m^{2}}}{m}} & \color{blue}{\frac{1}{m}} \\ \sqrt{1 - m^{2}} & - m & 1 \end{array}\right]$$
+      - On annule le coefficient (2,1) : L2 ← L2 - √(1 − m²)·L1.
+        $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(\sqrt{1 - m^{2}}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \frac{\sqrt{1 - m^{2}}}{m} & \frac{1}{m} \\ \color{blue}{0} & \color{blue}{- \frac{1}{m}} & \color{blue}{\frac{m - \sqrt{1 - m^{2}}}{m}} \end{array}\right]$$
+    - Traitement de la colonne 2 (ligne pivot courante : 2).
+      - Choix du pivot en (2,2) de valeur −1/m (stratégie : simplest).
+      - On normalise le pivot de la ligne 2 : L2 ← (−m)·L2.
+        $$\xrightarrow{L_{2} \leftarrow \left(- m\right) L_{2}} \left[\begin{array}{cc|c} 1 & \frac{\sqrt{1 - m^{2}}}{m} & \frac{1}{m} \\ \color{blue}{0} & \boxed{1} & \color{blue}{- m + \sqrt{1 - m^{2}}} \end{array}\right]$$
+      - On annule le coefficient (1,2) : L1 ← L1 - √(1 − m²)/m·L2.
+        $$\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{\sqrt{1 - m^{2}}}{m}\right) L_{2}} \left[\begin{array}{cc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{m + \sqrt{1 - m^{2}}} \\ 0 & \boxed{1} & - m + \sqrt{1 - m^{2}} \end{array}\right]$$
+    - Pivots non nuls, rang 2, solution unique : x = ( m + √(1 − m²), −m + √(1 − m²) ).
+      $$\left[\begin{array}{c} m + \sqrt{1 - m^{2}} \\ - m + \sqrt{1 - m^{2}} \end{array}\right]$$
+    - Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+      $$\left[\begin{array}{cc|c} 1 & 0 & m + \sqrt{1 - m^{2}} \\ 0 & 1 & - m + \sqrt{1 - m^{2}} \end{array}\right]$$
+- **Cas $m = 0$** : pivots non nuls, rang 2, solution unique
+  - $x = \left[\begin{array}{c} 1 \\ 1 \end{array}\right]$
+  - Réduction de Gauss-Jordan d'une matrice 2×2.
+    $$\left[\begin{array}{cc|c} 0 & 1 & 1 \\ 1 & 0 & 1 \end{array}\right]$$
+    - Traitement de la colonne 1 (ligne pivot courante : 1).
+      - Choix du pivot en (2,1) de valeur 1 (stratégie : simplest).
+      - On échange les lignes L1 et L2 : L1 ↔ L2.
+        $$\xrightarrow{L_{1} \leftrightarrow L_{2}} \left[\begin{array}{cc|c} \boxed{1} & \color{blue}{0} & \color{blue}{1} \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{1} \end{array}\right]$$
+    - Traitement de la colonne 2 (ligne pivot courante : 2).
+      - Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).
+    - Pivots non nuls, rang 2, solution unique : x = ( 1, 1 ).
+      $$\left[\begin{array}{c} 1 \\ 1 \end{array}\right]$$
+    - Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+      $$\left[\begin{array}{cc|c} 1 & 0 & 1 \\ 0 & 1 & 1 \end{array}\right]$$
+
+===== latex niveau 2 =====
+\textbf{Discussion selon $m$}
+\begin{itemize}
+  \item \textbf{Cas $m \neq 0 \text{ (générique)}$} : pivots non nuls, rang 2, solution unique — $x = \left[\begin{array}{c} m + \sqrt{1 - m^{2}} \\ - m + \sqrt{1 - m^{2}} \end{array}\right]$
+\begin{itemize}
+  \item Réduction de Gauss-Jordan d'une matrice 2×2.
+  \[\left[\begin{array}{cc|c} m & \sqrt{1 - m^{2}} & 1 \\ \sqrt{1 - m^{2}} & - m & 1 \end{array}\right]\]
+  \begin{itemize}
+    \item Traitement de la colonne 1 (ligne pivot courante : 1).
+    \begin{itemize}
+      \item Choix du pivot en (1,1) de valeur m (stratégie : simplest).
+      \item On normalise le pivot de la ligne 1 : L1 ← (1/m)·L1.
+      \[\xrightarrow{L_{1} \leftarrow \left(\frac{1}{m}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \color{blue}{\frac{\sqrt{1 - m^{2}}}{m}} & \color{blue}{\frac{1}{m}} \\ \sqrt{1 - m^{2}} & - m & 1 \end{array}\right]\]
+      \item On annule le coefficient (2,1) : L2 ← L2 - √(1 − m²)·L1.
+      \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(\sqrt{1 - m^{2}}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \frac{\sqrt{1 - m^{2}}}{m} & \frac{1}{m} \\ \color{blue}{0} & \color{blue}{- \frac{1}{m}} & \color{blue}{\frac{m - \sqrt{1 - m^{2}}}{m}} \end{array}\right]\]
+    \end{itemize}
+    \item Traitement de la colonne 2 (ligne pivot courante : 2).
+    \begin{itemize}
+      \item Choix du pivot en (2,2) de valeur −1/m (stratégie : simplest).
+      \item On normalise le pivot de la ligne 2 : L2 ← (−m)·L2.
+      \[\xrightarrow{L_{2} \leftarrow \left(- m\right) L_{2}} \left[\begin{array}{cc|c} 1 & \frac{\sqrt{1 - m^{2}}}{m} & \frac{1}{m} \\ \color{blue}{0} & \boxed{1} & \color{blue}{- m + \sqrt{1 - m^{2}}} \end{array}\right]\]
+      \item On annule le coefficient (1,2) : L1 ← L1 - √(1 − m²)/m·L2.
+      \[\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{\sqrt{1 - m^{2}}}{m}\right) L_{2}} \left[\begin{array}{cc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{m + \sqrt{1 - m^{2}}} \\ 0 & \boxed{1} & - m + \sqrt{1 - m^{2}} \end{array}\right]\]
+    \end{itemize}
+    \item Pivots non nuls, rang 2, solution unique : x = ( m + √(1 − m²), −m + √(1 − m²) ).
+    \[\left[\begin{array}{c} m + \sqrt{1 - m^{2}} \\ - m + \sqrt{1 - m^{2}} \end{array}\right]\]
+    \item Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+    \[\left[\begin{array}{cc|c} 1 & 0 & m + \sqrt{1 - m^{2}} \\ 0 & 1 & - m + \sqrt{1 - m^{2}} \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+  \item \textbf{Cas $m = 0$} : pivots non nuls, rang 2, solution unique — $x = \left[\begin{array}{c} 1 \\ 1 \end{array}\right]$
+\begin{itemize}
+  \item Réduction de Gauss-Jordan d'une matrice 2×2.
+  \[\left[\begin{array}{cc|c} 0 & 1 & 1 \\ 1 & 0 & 1 \end{array}\right]\]
+  \begin{itemize}
+    \item Traitement de la colonne 1 (ligne pivot courante : 1).
+    \begin{itemize}
+      \item Choix du pivot en (2,1) de valeur 1 (stratégie : simplest).
+      \item On échange les lignes L1 et L2 : L1 ↔ L2.
+      \[\xrightarrow{L_{1} \leftrightarrow L_{2}} \left[\begin{array}{cc|c} \boxed{1} & \color{blue}{0} & \color{blue}{1} \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{1} \end{array}\right]\]
+    \end{itemize}
+    \item Traitement de la colonne 2 (ligne pivot courante : 2).
+    \begin{itemize}
+      \item Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).
+    \end{itemize}
+    \item Pivots non nuls, rang 2, solution unique : x = ( 1, 1 ).
+    \[\left[\begin{array}{c} 1 \\ 1 \end{array}\right]\]
+    \item Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+    \[\left[\begin{array}{cc|c} 1 & 0 & 1 \\ 0 & 1 & 1 \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-casesplit'>
+<h3>Discussion selon \(m\)</h3>
+<ul>
+<li><strong>Cas \(m \neq 0\) (générique)</strong> : pivots non nuls, rang 2, solution unique<br>\(x = \left[\begin{array}{c} m + \sqrt{1 - m^{2}} \\ - m + \sqrt{1 - m^{2}} \end{array}\right]\)<div class='pedagopy-explanation'>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 2×2.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{cc|c} m & \sqrt{1 - m^{2}} & 1 \\ \sqrt{1 - m^{2}} & - m & 1 \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur m (stratégie : simplest).</div>
+<div class='pedagopy-step'>On normalise le pivot de la ligne 1 : L1 ← (1/m)·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow \left(\frac{1}{m}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \color{blue}{\frac{\sqrt{1 - m^{2}}}{m}} & \color{blue}{\frac{1}{m}} \\ \sqrt{1 - m^{2}} & - m & 1 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 - √(1 − m²)·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(\sqrt{1 - m^{2}}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \frac{\sqrt{1 - m^{2}}}{m} & \frac{1}{m} \\ \color{blue}{0} & \color{blue}{- \frac{1}{m}} & \color{blue}{\frac{m - \sqrt{1 - m^{2}}}{m}} \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Traitement de la colonne 2 (ligne pivot courante : 2).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (2,2) de valeur −1/m (stratégie : simplest).</div>
+<div class='pedagopy-step'>On normalise le pivot de la ligne 2 : L2 ← (−m)·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow \left(- m\right) L_{2}} \left[\begin{array}{cc|c} 1 & \frac{\sqrt{1 - m^{2}}}{m} & \frac{1}{m} \\ \color{blue}{0} & \boxed{1} & \color{blue}{- m + \sqrt{1 - m^{2}}} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (1,2) : L1 ← L1 - √(1 − m²)/m·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{\sqrt{1 - m^{2}}}{m}\right) L_{2}} \left[\begin{array}{cc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{m + \sqrt{1 - m^{2}}} \\ 0 & \boxed{1} & - m + \sqrt{1 - m^{2}} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Pivots non nuls, rang 2, solution unique : x = ( m + √(1 − m²), −m + √(1 − m²) ).<div class='pedagopy-math'>\[\left[\begin{array}{c} m + \sqrt{1 - m^{2}} \\ - m + \sqrt{1 - m^{2}} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).<div class='pedagopy-math'>\[\left[\begin{array}{cc|c} 1 & 0 & m + \sqrt{1 - m^{2}} \\ 0 & 1 & - m + \sqrt{1 - m^{2}} \end{array}\right]\]</div></div>
+</details>
+</div></li>
+<li><strong>Cas \(m = 0\)</strong> : pivots non nuls, rang 2, solution unique<br>\(x = \left[\begin{array}{c} 1 \\ 1 \end{array}\right]\)<div class='pedagopy-explanation'>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 2×2.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{cc|c} 0 & 1 & 1 \\ 1 & 0 & 1 \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (2,1) de valeur 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On échange les lignes L1 et L2 : L1 ↔ L2.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftrightarrow L_{2}} \left[\begin{array}{cc|c} \boxed{1} & \color{blue}{0} & \color{blue}{1} \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{1} \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Traitement de la colonne 2 (ligne pivot courante : 2).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).</div>
+</details>
+<div class='pedagopy-step'>Pivots non nuls, rang 2, solution unique : x = ( 1, 1 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 1 \\ 1 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).<div class='pedagopy-math'>\[\left[\begin{array}{cc|c} 1 & 0 & 1 \\ 0 & 1 & 1 \end{array}\right]\]</div></div>
+</details>
+</div></li>
+</ul>
+</div>

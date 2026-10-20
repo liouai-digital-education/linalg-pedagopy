@@ -1,0 +1,161 @@
+===== énoncé =====
+### Exercice 32 — Deux inverses à droite
+
+*Inverses et systèmes linéaires · calcul · niveau ★★★*
+
+On considère la matrice large $A = \begin{bmatrix} 1 & -1 & 2 \\ 0 & 1 & 1 \end{bmatrix}$ de taille $2 \times 3$. Trouver deux matrices inverses à droite distinctes $B_1$ et $B_2$ (de taille $3 \times 2$) telles que $A B_1 = I_2$, $A B_2 = I_2$ et $B_1 \neq B_2$, et les soumettre sous la forme $(B_1, B_2)$.
+
+**Notions** : inverses à droite multiples, systèmes sous-déterminés
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Une inverse à droite $B$ de $A$ ($2 \times 3$) est une matrice $3 \times 2$ dont les colonnes $b_1, b_2$ vérifient $A b_1 = e_1$ et $A b_2 = e_2$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Comme $A$ a 2 lignes indépendantes et 3 colonnes, chaque système $A b = e_j$ possède une variable libre (la 3ᵉ composante).
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Choisissez deux affectations différentes pour les variables libres de la 3ᵉ ligne de $B$, puis déduisez les deux premières lignes pour obtenir $B_1$ et $B_2$ distinctes.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Construction de plusieurs inverses à droite
+
+**Énoncé analogue** :
+
+Pour la matrice $A = \begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & -1 \end{bmatrix}$ de taille $2 \times 3$ (lignes indépendantes), trouver deux inverses à droite $B$ distinctes (telles que $A B = I_2$).
+
+**Résolution pas à pas** :
+
+Une matrice $B \in \mathbb{R}^{3 \times 2}$ vérifie $A B = I_2$ si ses deux colonnes $b_1, b_2$ satisfont $A b_1 = e_1$ et $A b_2 = e_2$ :
+
+- En fixant la 3ᵉ composante libre à 0, on obtient :
+
+  $$B_1 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 0 & 0 \end{bmatrix}$$
+
+- En fixant la 3ᵉ composante à $(1, -1)$, on obtient :
+
+  $$B_2 = \begin{bmatrix} -1 & 2 \\ 1 & 0 \\ 1 & -1 \end{bmatrix}$$
+
+Dans les deux cas, on vérifie $A B_1 = I_2$ et $A B_2 = I_2$ avec $B_1 \neq B_2$.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Construction de plusieurs inverses à droite ===
+Énoncé analogue : Pour la matrice $A = \begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & -1 \end{bmatrix}$ de taille $2 \times 3$ (lignes indépendantes), trouver deux inverses à droite $B$ distinctes (telles que $A B = I_2$).
+Résolution pas à pas :
+Une matrice $B \in \mathbb{R}^{3 \times 2}$ vérifie $A B = I_2$ si ses deux colonnes $b_1, b_2$ satisfont $A b_1 = e_1$ et $A b_2 = e_2$ :
+
+- En fixant la 3ᵉ composante libre à 0, on obtient :
+
+  $$B_1 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 0 & 0 \end{bmatrix}$$
+
+- En fixant la 3ᵉ composante à $(1, -1)$, on obtient :
+
+  $$B_2 = \begin{bmatrix} -1 & 2 \\ 1 & 0 \\ 1 & -1 \end{bmatrix}$$
+
+Dans les deux cas, on vérifie $A B_1 = I_2$ et $A B_2 = I_2$ avec $B_1 \neq B_2$.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Construction de plusieurs inverses à droite
+
+**Énoncé analogue** :
+
+Pour la matrice $A = \begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & -1 \end{bmatrix}$ de taille $2 \times 3$ (lignes indépendantes), trouver deux inverses à droite $B$ distinctes (telles que $A B = I_2$).
+
+**Résolution pas à pas** :
+
+Une matrice $B \in \mathbb{R}^{3 \times 2}$ vérifie $A B = I_2$ si ses deux colonnes $b_1, b_2$ satisfont $A b_1 = e_1$ et $A b_2 = e_2$ :
+
+- En fixant la 3ᵉ composante libre à 0, on obtient :
+
+  $$B_1 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 0 & 0 \end{bmatrix}$$
+
+- En fixant la 3ᵉ composante à $(1, -1)$, on obtient :
+
+  $$B_2 = \begin{bmatrix} -1 & 2 \\ 1 & 0 \\ 1 & -1 \end{bmatrix}$$
+
+Dans les deux cas, on vérifie $A B_1 = I_2$ et $A B_2 = I_2$ avec $B_1 \neq B_2$.
+
+===== verify(0) -> False =====
+Fournissez un couple (B1, B2) de deux matrices inverses à droite distinctes.
+
+===== verify('0') -> False =====
+Fournissez un couple (B1, B2) de deux matrices inverses à droite distinctes.
+
+===== verify(Vector.zeros(2)) -> False =====
+Fournissez un couple (B1, B2) de deux matrices inverses à droite distinctes.
+
+===== verify(Vector.zeros(3)) -> False =====
+Fournissez un couple (B1, B2) de deux matrices inverses à droite distinctes.
+
+===== verify(Vector.ones(5)) -> False =====
+Fournissez un couple (B1, B2) de deux matrices inverses à droite distinctes.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Fournissez un couple (B1, B2) de deux matrices inverses à droite distinctes.
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Fournissez un couple (B1, B2) de deux matrices inverses à droite distinctes.
+
+===== verify(Matrix.identity(3)) -> False =====
+Fournissez un couple (B1, B2) de deux matrices inverses à droite distinctes.
+
+===== verify([1, 2]) -> False =====
+B1 et B2 doivent être deux matrices valides.
+
+===== verify({'a': 'valide'}) -> False =====
+Fournissez un couple (B1, B2) de deux matrices inverses à droite distinctes.
+
+===== verify(('0', '0')) -> False =====
+B1 a la taille (1, 1), alors qu'une inverse à droite de A ((2, 3)) doit être de taille (3, 2).
+
+===== réponse juste =====
+Bravo ! A B1 = I_2, A B2 = I_2 et B1 ≠ B2 : vos deux inverses à droite sont valides.
+
+===== bilan =====
+**Bilan — Deux inverses à droite**
+
+- Statut : ✅ validé
+- Tentatives soumises : 12
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Deux inverses à droite
+**Identifiant** : `deux-inverses-droite` | **N°** : 32 | **Thème** : Inverses et systèmes linéaires | **Type** : calcul | **Niveau** : ★★★
+
+### Énoncé
+On considère la matrice large $A = \begin{bmatrix} 1 & -1 & 2 \\ 0 & 1 & 1 \end{bmatrix}$ de taille $2 \times 3$. Trouver deux matrices inverses à droite distinctes $B_1$ et $B_2$ (de taille $3 \times 2$) telles que $A B_1 = I_2$, $A B_2 = I_2$ et $B_1 \neq B_2$, et les soumettre sous la forme $(B_1, B_2)$.
+
+### Spécification de vérification
+```yaml
+propriete: two_right_inverses
+type: propriete
+```
+
+### Paliers d'indices
+- **Palier 1** : Une inverse à droite $B$ de $A$ ($2 \times 3$) est une matrice $3 \times 2$ dont les colonnes $b_1, b_2$ vérifient $A b_1 = e_1$ et $A b_2 = e_2$.
+- **Palier 2** : Comme $A$ a 2 lignes indépendantes et 3 colonnes, chaque système $A b = e_j$ possède une variable libre (la 3ᵉ composante).
+- **Palier 3** : Choisissez deux affectations différentes pour les variables libres de la 3ᵉ ligne de $B$, puis déduisez les deux premières lignes pour obtenir $B_1$ et $B_2$ distinctes.
+
+### Exercice jumeau
+`generateurs.inverse_droite_exemple()`

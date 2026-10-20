@@ -1,0 +1,251 @@
+===== repr =====
+LSResult(A=Matrix([[1, 0], [1, 1], [1, 2], [1, 3]]), b=Vector([1, 2, 2, 4]), x_hat=Vector([9/10, 9/10]), y_hat=Vector([9/10, 9/5, 27/10, 18/5]), r_hat=Vector([-1/10, -1/5, 7/10, -2/5]), residual_norm=sqrt(70)/10, residual_rms=sqrt(70)/20, method='normal', full_rank=True, witness=None)
+
+===== texte niveau 0 =====
+
+
+===== texte niveau 1 =====
+Résolution au sens des moindres carrés min ||A x - b|| (A de taille 4×2, méthode 'normal').
+├─ Vérification du rang plein en colonnes : rang(A) = 2 = 2.
+├─ Construction de la matrice de Gram G = A^T A (2×2).
+│  └─ Matrice de Gram G = A^T A obtenue.
+├─ Produit matriciel (2×4) @ (4×1) — vue par coefficients (produits scalaires ligne·colonne).
+│  └─ Résultat du produit matriciel : ( 9, 18 ).
+├─ Formation des équations normales : (A^T A) x_hat = A^T b.
+├─ Réduction de Gauss-Jordan d'une matrice 2×2.
+│  [(4 6 | 9); (6 14 | 18)]
+│  ├─ Pivots non nuls, rang 2, solution unique : x = ( 9/10, 9/10 ).
+│  └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+│     [(1 0 | 9/10); (0 1 | 9/10)]
+├─ Analyse de la solution : x_hat = ( 9/10, 9/10 ), projection y_hat = A x_hat = ( 9/10, 9/5, 27/10, 18/5 ), résidu r_hat = A x_hat - b = ( −1/10, −1/5, 7/10, −2/5 ).
+└─ Norme du résidu ||r_hat|| = √(70)/10, moyenne quadratique rms(r_hat) = √(70)/20.
+
+===== texte niveau 2 =====
+Résolution au sens des moindres carrés min ||A x - b|| (A de taille 4×2, méthode 'normal').
+├─ Vérification du rang plein en colonnes : rang(A) = 2 = 2.
+├─ Note théorique : la pseudo-inverse est A† = (A^T A)^(-1) A^T, mais on résout par substitution sans inverser.
+├─ Construction de la matrice de Gram G = A^T A (2×2).
+│  ├─ Coefficient G_(1,1) = a_1^T a_1 = 4.
+│  ├─ Coefficient G_(1,2) = a_1^T a_2 = 6.
+│  ├─ Coefficient G_(2,2) = a_2^T a_2 = 14.
+│  └─ Matrice de Gram G = A^T A obtenue.
+├─ Transposition de la matrice de taille (4, 2) : (A^T)_(i,j) = A_(j,i).
+│  └─ Matrice transposée A^T obtenue.
+├─ Produit matriciel (2×4) @ (4×1) — vue par coefficients (produits scalaires ligne·colonne).
+│  ├─ Coefficient (1,1) : ligne 1 de A · colonne 1 de B = 9.
+│  ├─ Coefficient (2,1) : ligne 2 de A · colonne 1 de B = 18.
+│  └─ Résultat du produit matriciel : ( 9, 18 ).
+├─ Formation des équations normales : (A^T A) x_hat = A^T b.
+├─ Réduction de Gauss-Jordan d'une matrice 2×2.
+│  [(4 6 | 9); (6 14 | 18)]
+│  ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│  │  ├─ Choix du pivot en (1,1) de valeur 4 (stratégie : simplest).
+│  │  ├─ On normalise le pivot de la ligne 1 : L1 ← (1/4)·L1.
+│  │  │  [(1 3/2 | 9/4); (6 14 | 18)]
+│  │  └─ On annule le coefficient (2,1) : L2 ← L2 - 6·L1.
+│  │     [(1 3/2 | 9/4); (0 5 | 9/2)]
+│  ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│  │  ├─ Choix du pivot en (2,2) de valeur 5 (stratégie : simplest).
+│  │  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/5)·L2.
+│  │  │  [(1 3/2 | 9/4); (0 1 | 9/10)]
+│  │  └─ On annule le coefficient (1,2) : L1 ← L1 - 3/2·L2.
+│  │     [(1 0 | 9/10); (0 1 | 9/10)]
+│  ├─ Pivots non nuls, rang 2, solution unique : x = ( 9/10, 9/10 ).
+│  └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+│     [(1 0 | 9/10); (0 1 | 9/10)]
+├─ Analyse de la solution : x_hat = ( 9/10, 9/10 ), projection y_hat = A x_hat = ( 9/10, 9/5, 27/10, 18/5 ), résidu r_hat = A x_hat - b = ( −1/10, −1/5, 7/10, −2/5 ).
+└─ Norme du résidu ||r_hat|| = √(70)/10, moyenne quadratique rms(r_hat) = √(70)/20.
+
+===== texte niveau 3 =====
+Résolution au sens des moindres carrés min ||A x - b|| (A de taille 4×2, méthode 'normal').
+├─ Vérification du rang plein en colonnes : rang(A) = 2 = 2.
+├─ Note théorique : la pseudo-inverse est A† = (A^T A)^(-1) A^T, mais on résout par substitution sans inverser.
+├─ Construction de la matrice de Gram G = A^T A (2×2).
+│  ├─ Coefficient G_(1,1) = a_1^T a_1 = 4.
+│  ├─ Coefficient G_(1,2) = a_1^T a_2 = 6.
+│  ├─ Coefficient G_(2,2) = a_2^T a_2 = 14.
+│  └─ Matrice de Gram G = A^T A obtenue.
+├─ Transposition de la matrice de taille (4, 2) : (A^T)_(i,j) = A_(j,i).
+│  └─ Matrice transposée A^T obtenue.
+├─ Produit matriciel (2×4) @ (4×1) — vue par coefficients (produits scalaires ligne·colonne).
+│  ├─ Coefficient (1,1) : ligne 1 de A · colonne 1 de B = 9.
+│  ├─ Coefficient (2,1) : ligne 2 de A · colonne 1 de B = 18.
+│  └─ Résultat du produit matriciel : ( 9, 18 ).
+├─ Formation des équations normales : (A^T A) x_hat = A^T b.
+├─ Réduction de Gauss-Jordan d'une matrice 2×2.
+│  [(4 6 | 9); (6 14 | 18)]
+│  ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│  │  ├─ Choix du pivot en (1,1) de valeur 4 (stratégie : simplest).
+│  │  ├─ On normalise le pivot de la ligne 1 : L1 ← (1/4)·L1.
+│  │  │  [(1 3/2 | 9/4); (6 14 | 18)]
+│  │  └─ On annule le coefficient (2,1) : L2 ← L2 - 6·L1.
+│  │     [(1 3/2 | 9/4); (0 5 | 9/2)]
+│  ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│  │  ├─ Choix du pivot en (2,2) de valeur 5 (stratégie : simplest).
+│  │  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/5)·L2.
+│  │  │  [(1 3/2 | 9/4); (0 1 | 9/10)]
+│  │  └─ On annule le coefficient (1,2) : L1 ← L1 - 3/2·L2.
+│  │     [(1 0 | 9/10); (0 1 | 9/10)]
+│  ├─ Pivots non nuls, rang 2, solution unique : x = ( 9/10, 9/10 ).
+│  └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+│     [(1 0 | 9/10); (0 1 | 9/10)]
+├─ Analyse de la solution : x_hat = ( 9/10, 9/10 ), projection y_hat = A x_hat = ( 9/10, 9/5, 27/10, 18/5 ), résidu r_hat = A x_hat - b = ( −1/10, −1/5, 7/10, −2/5 ).
+└─ Norme du résidu ||r_hat|| = √(70)/10, moyenne quadratique rms(r_hat) = √(70)/20.
+
+===== markdown niveau 2 =====
+- Résolution au sens des moindres carrés min ||A x - b|| (A de taille 4×2, méthode 'normal').
+  - Vérification du rang plein en colonnes : rang(A) = 2 = 2.
+  - Note théorique : la pseudo-inverse est A† = (A^T A)^(-1) A^T, mais on résout par substitution sans inverser.
+  - Construction de la matrice de Gram G = A^T A (2×2).
+    - Coefficient G_(1,1) = a_1^T a_1 = 4.
+    - Coefficient G_(1,2) = a_1^T a_2 = 6.
+    - Coefficient G_(2,2) = a_2^T a_2 = 14.
+    - Matrice de Gram G = A^T A obtenue.
+      $$\left[\begin{array}{cc} 4 & 6 \\ 6 & 14 \end{array}\right]$$
+  - Transposition de la matrice de taille (4, 2) : (A^T)_(i,j) = A_(j,i).
+    - Matrice transposée A^T obtenue.
+      $$\left[\begin{array}{cccc} 1 & 1 & 1 & 1 \\ 0 & 1 & 2 & 3 \end{array}\right]$$
+  - Produit matriciel (2×4) @ (4×1) — vue par coefficients (produits scalaires ligne·colonne).
+    - Coefficient (1,1) : ligne 1 de A · colonne 1 de B = 9.
+    - Coefficient (2,1) : ligne 2 de A · colonne 1 de B = 18.
+    - Résultat du produit matriciel : ( 9, 18 ).
+      $$\left[\begin{array}{c} 9 \\ 18 \end{array}\right]$$
+  - Formation des équations normales : (A^T A) x_hat = A^T b.
+    $$\left[\begin{array}{cc} 4 & 6 \\ 6 & 14 \end{array}\right]$$
+  - Réduction de Gauss-Jordan d'une matrice 2×2.
+    $$\left[\begin{array}{cc|c} 4 & 6 & 9 \\ 6 & 14 & 18 \end{array}\right]$$
+    - Traitement de la colonne 1 (ligne pivot courante : 1).
+      - Choix du pivot en (1,1) de valeur 4 (stratégie : simplest).
+      - On normalise le pivot de la ligne 1 : L1 ← (1/4)·L1.
+        $$\xrightarrow{L_{1} \leftarrow \left(\frac{1}{4}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \color{blue}{\frac{3}{2}} & \color{blue}{\frac{9}{4}} \\ 6 & 14 & 18 \end{array}\right]$$
+      - On annule le coefficient (2,1) : L2 ← L2 - 6·L1.
+        $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(6\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \frac{3}{2} & \frac{9}{4} \\ \color{blue}{0} & \color{blue}{5} & \color{blue}{\frac{9}{2}} \end{array}\right]$$
+    - Traitement de la colonne 2 (ligne pivot courante : 2).
+      - Choix du pivot en (2,2) de valeur 5 (stratégie : simplest).
+      - On normalise le pivot de la ligne 2 : L2 ← (1/5)·L2.
+        $$\xrightarrow{L_{2} \leftarrow \left(\frac{1}{5}\right) L_{2}} \left[\begin{array}{cc|c} 1 & \frac{3}{2} & \frac{9}{4} \\ \color{blue}{0} & \boxed{1} & \color{blue}{\frac{9}{10}} \end{array}\right]$$
+      - On annule le coefficient (1,2) : L1 ← L1 - 3/2·L2.
+        $$\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{3}{2}\right) L_{2}} \left[\begin{array}{cc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{\frac{9}{10}} \\ 0 & \boxed{1} & \frac{9}{10} \end{array}\right]$$
+    - Pivots non nuls, rang 2, solution unique : x = ( 9/10, 9/10 ).
+      $$\left[\begin{array}{c} \frac{9}{10} \\ \frac{9}{10} \end{array}\right]$$
+    - Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+      $$\left[\begin{array}{cc|c} 1 & 0 & \frac{9}{10} \\ 0 & 1 & \frac{9}{10} \end{array}\right]$$
+  - Analyse de la solution : x_hat = ( 9/10, 9/10 ), projection y_hat = A x_hat = ( 9/10, 9/5, 27/10, 18/5 ), résidu r_hat = A x_hat - b = ( −1/10, −1/5, 7/10, −2/5 ).
+    $$\left[\begin{array}{c} \frac{9}{10} \\ \frac{9}{10} \end{array}\right]$$
+  - Norme du résidu ||r_hat|| = √(70)/10, moyenne quadratique rms(r_hat) = √(70)/20.
+
+===== latex niveau 2 =====
+\begin{itemize}
+  \item Résolution au sens des moindres carrés min ||A x - b|| (A de taille 4×2, méthode 'normal').
+  \begin{itemize}
+    \item Vérification du rang plein en colonnes : rang(A) = 2 = 2.
+    \item Note théorique : la pseudo-inverse est A† = (A^T A)^(-1) A^T, mais on résout par substitution sans inverser.
+    \item Construction de la matrice de Gram G = A^T A (2×2).
+    \begin{itemize}
+      \item Coefficient G_(1,1) = a_1^T a_1 = 4.
+      \item Coefficient G_(1,2) = a_1^T a_2 = 6.
+      \item Coefficient G_(2,2) = a_2^T a_2 = 14.
+      \item Matrice de Gram G = A^T A obtenue.
+      \[\left[\begin{array}{cc} 4 & 6 \\ 6 & 14 \end{array}\right]\]
+    \end{itemize}
+    \item Transposition de la matrice de taille (4, 2) : (A^T)_(i,j) = A_(j,i).
+    \begin{itemize}
+      \item Matrice transposée A^T obtenue.
+      \[\left[\begin{array}{cccc} 1 & 1 & 1 & 1 \\ 0 & 1 & 2 & 3 \end{array}\right]\]
+    \end{itemize}
+    \item Produit matriciel (2×4) @ (4×1) — vue par coefficients (produits scalaires ligne·colonne).
+    \begin{itemize}
+      \item Coefficient (1,1) : ligne 1 de A · colonne 1 de B = 9.
+      \item Coefficient (2,1) : ligne 2 de A · colonne 1 de B = 18.
+      \item Résultat du produit matriciel : ( 9, 18 ).
+      \[\left[\begin{array}{c} 9 \\ 18 \end{array}\right]\]
+    \end{itemize}
+    \item Formation des équations normales : (A^T A) x_hat = A^T b.
+    \[\left[\begin{array}{cc} 4 & 6 \\ 6 & 14 \end{array}\right]\]
+    \item Réduction de Gauss-Jordan d'une matrice 2×2.
+    \[\left[\begin{array}{cc|c} 4 & 6 & 9 \\ 6 & 14 & 18 \end{array}\right]\]
+    \begin{itemize}
+      \item Traitement de la colonne 1 (ligne pivot courante : 1).
+      \begin{itemize}
+        \item Choix du pivot en (1,1) de valeur 4 (stratégie : simplest).
+        \item On normalise le pivot de la ligne 1 : L1 ← (1/4)·L1.
+        \[\xrightarrow{L_{1} \leftarrow \left(\frac{1}{4}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \color{blue}{\frac{3}{2}} & \color{blue}{\frac{9}{4}} \\ 6 & 14 & 18 \end{array}\right]\]
+        \item On annule le coefficient (2,1) : L2 ← L2 - 6·L1.
+        \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(6\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \frac{3}{2} & \frac{9}{4} \\ \color{blue}{0} & \color{blue}{5} & \color{blue}{\frac{9}{2}} \end{array}\right]\]
+      \end{itemize}
+      \item Traitement de la colonne 2 (ligne pivot courante : 2).
+      \begin{itemize}
+        \item Choix du pivot en (2,2) de valeur 5 (stratégie : simplest).
+        \item On normalise le pivot de la ligne 2 : L2 ← (1/5)·L2.
+        \[\xrightarrow{L_{2} \leftarrow \left(\frac{1}{5}\right) L_{2}} \left[\begin{array}{cc|c} 1 & \frac{3}{2} & \frac{9}{4} \\ \color{blue}{0} & \boxed{1} & \color{blue}{\frac{9}{10}} \end{array}\right]\]
+        \item On annule le coefficient (1,2) : L1 ← L1 - 3/2·L2.
+        \[\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{3}{2}\right) L_{2}} \left[\begin{array}{cc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{\frac{9}{10}} \\ 0 & \boxed{1} & \frac{9}{10} \end{array}\right]\]
+      \end{itemize}
+      \item Pivots non nuls, rang 2, solution unique : x = ( 9/10, 9/10 ).
+      \[\left[\begin{array}{c} \frac{9}{10} \\ \frac{9}{10} \end{array}\right]\]
+      \item Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+      \[\left[\begin{array}{cc|c} 1 & 0 & \frac{9}{10} \\ 0 & 1 & \frac{9}{10} \end{array}\right]\]
+    \end{itemize}
+    \item Analyse de la solution : x_hat = ( 9/10, 9/10 ), projection y_hat = A x_hat = ( 9/10, 9/5, 27/10, 18/5 ), résidu r_hat = A x_hat - b = ( −1/10, −1/5, 7/10, −2/5 ).
+    \[\left[\begin{array}{c} \frac{9}{10} \\ \frac{9}{10} \end{array}\right]\]
+    \item Norme du résidu ||r_hat|| = √(70)/10, moyenne quadratique rms(r_hat) = √(70)/20.
+  \end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-explanation'>
+<details open>
+  <summary>Résolution au sens des moindres carrés min ||A x - b|| (A de taille 4×2, méthode &#x27;normal&#x27;).</summary>
+  
+  <div class='pedagopy-step'>Vérification du rang plein en colonnes : rang(A) = 2 = 2.</div>
+<div class='pedagopy-step'>Note théorique : la pseudo-inverse est A† = (A^T A)^(-1) A^T, mais on résout par substitution sans inverser.</div>
+<details open>
+  <summary>Construction de la matrice de Gram G = A^T A (2×2).</summary>
+  
+  <div class='pedagopy-step'>Coefficient G_(1,1) = a_1^T a_1 = 4.</div>
+<div class='pedagopy-step'>Coefficient G_(1,2) = a_1^T a_2 = 6.</div>
+<div class='pedagopy-step'>Coefficient G_(2,2) = a_2^T a_2 = 14.</div>
+<div class='pedagopy-step'>Matrice de Gram G = A^T A obtenue.<div class='pedagopy-math'>\[\left[\begin{array}{cc} 4 & 6 \\ 6 & 14 \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Transposition de la matrice de taille (4, 2) : (A^T)_(i,j) = A_(j,i).</summary>
+  
+  <div class='pedagopy-step'>Matrice transposée A^T obtenue.<div class='pedagopy-math'>\[\left[\begin{array}{cccc} 1 & 1 & 1 & 1 \\ 0 & 1 & 2 & 3 \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Produit matriciel (2×4) @ (4×1) — vue par coefficients (produits scalaires ligne·colonne).</summary>
+  
+  <div class='pedagopy-step'>Coefficient (1,1) : ligne 1 de A · colonne 1 de B = 9.</div>
+<div class='pedagopy-step'>Coefficient (2,1) : ligne 2 de A · colonne 1 de B = 18.</div>
+<div class='pedagopy-step'>Résultat du produit matriciel : ( 9, 18 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 9 \\ 18 \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Formation des équations normales : (A^T A) x_hat = A^T b.<div class='pedagopy-math'>\[\left[\begin{array}{cc} 4 & 6 \\ 6 & 14 \end{array}\right]\]</div></div>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 2×2.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{cc|c} 4 & 6 & 9 \\ 6 & 14 & 18 \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 4 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On normalise le pivot de la ligne 1 : L1 ← (1/4)·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow \left(\frac{1}{4}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \color{blue}{\frac{3}{2}} & \color{blue}{\frac{9}{4}} \\ 6 & 14 & 18 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 - 6·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(6\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \frac{3}{2} & \frac{9}{4} \\ \color{blue}{0} & \color{blue}{5} & \color{blue}{\frac{9}{2}} \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Traitement de la colonne 2 (ligne pivot courante : 2).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (2,2) de valeur 5 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On normalise le pivot de la ligne 2 : L2 ← (1/5)·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow \left(\frac{1}{5}\right) L_{2}} \left[\begin{array}{cc|c} 1 & \frac{3}{2} & \frac{9}{4} \\ \color{blue}{0} & \boxed{1} & \color{blue}{\frac{9}{10}} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (1,2) : L1 ← L1 - 3/2·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{3}{2}\right) L_{2}} \left[\begin{array}{cc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{\frac{9}{10}} \\ 0 & \boxed{1} & \frac{9}{10} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Pivots non nuls, rang 2, solution unique : x = ( 9/10, 9/10 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} \frac{9}{10} \\ \frac{9}{10} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).<div class='pedagopy-math'>\[\left[\begin{array}{cc|c} 1 & 0 & \frac{9}{10} \\ 0 & 1 & \frac{9}{10} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Analyse de la solution : x_hat = ( 9/10, 9/10 ), projection y_hat = A x_hat = ( 9/10, 9/5, 27/10, 18/5 ), résidu r_hat = A x_hat - b = ( −1/10, −1/5, 7/10, −2/5 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} \frac{9}{10} \\ \frac{9}{10} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Norme du résidu ||r_hat|| = √(70)/10, moyenne quadratique rms(r_hat) = √(70)/20.</div>
+</details>
+</div>
+
+===== verify =====
+Vérification de la condition d'orthogonalité du résidu : A^T r_hat = 0 colonne par colonne.
+├─ Colonne a_1 : a_1^T r_hat = 0 (verdict : ZERO).
+└─ Colonne a_2 : a_2^T r_hat = 0 (verdict : ZERO).

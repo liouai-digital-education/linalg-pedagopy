@@ -1,0 +1,116 @@
+===== repr =====
+GJResult(A=Matrix([[1, 0], [0, 1], [1, 1]]), b=Vector([1, 2, 3]), rref=Matrix([[1, 0], [0, 1], [0, 0]]), augmented_rref=Matrix([[1, 0, 1], [0, 1, 2], [0, 0, 0]]), pivots=(0, 1), rank=2, free_vars=(), nullspace_basis=(), solution=UniqueSolution(x=Vector([1, 2])), inverse=None)
+
+===== texte niveau 0 =====
+
+
+===== texte niveau 1 =====
+Réduction de Gauss-Jordan d'une matrice 3×2.
+   [(1 0 | 1); (0 1 | 2); (1 1 | 3)]
+├─ Pivots non nuls, rang 2, solution unique : x = ( 1, 2 ).
+└─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+   [(1 0 | 1); (0 1 | 2); (0 0 | 0)]
+
+===== texte niveau 2 =====
+Réduction de Gauss-Jordan d'une matrice 3×2.
+   [(1 0 | 1); (0 1 | 2); (1 1 | 3)]
+├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│     [(1 0 | 1); (0 1 | 2); (0 1 | 2)]
+├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│  ├─ Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).
+│  └─ On annule le coefficient (3,2) : L3 ← L3 - 1·L2.
+│     [(1 0 | 1); (0 1 | 2); (0 0 | 0)]
+├─ Pivots non nuls, rang 2, solution unique : x = ( 1, 2 ).
+└─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+   [(1 0 | 1); (0 1 | 2); (0 0 | 0)]
+
+===== texte niveau 3 =====
+Réduction de Gauss-Jordan d'une matrice 3×2.
+   [(1 0 | 1); (0 1 | 2); (1 1 | 3)]
+├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│     [(1 0 | 1); (0 1 | 2); (0 1 | 2)]
+├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│  ├─ Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).
+│  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│  └─ On annule le coefficient (3,2) : L3 ← L3 - 1·L2.
+│     [(1 0 | 1); (0 1 | 2); (0 0 | 0)]
+├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+├─ Pivots non nuls, rang 2, solution unique : x = ( 1, 2 ).
+└─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+   [(1 0 | 1); (0 1 | 2); (0 0 | 0)]
+
+===== markdown niveau 2 =====
+- Réduction de Gauss-Jordan d'une matrice 3×2.
+  $$\left[\begin{array}{cc|c} 1 & 0 & 1 \\ 0 & 1 & 2 \\ 1 & 1 & 3 \end{array}\right]$$
+  - Traitement de la colonne 1 (ligne pivot courante : 1).
+    - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+    - On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+      $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 0 & 1 \\ 0 & 1 & 2 \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{2} \end{array}\right]$$
+  - Traitement de la colonne 2 (ligne pivot courante : 2).
+    - Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).
+    - On annule le coefficient (3,2) : L3 ← L3 - 1·L2.
+      $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{2}} \left[\begin{array}{cc|c} 1 & 0 & 1 \\ 0 & \boxed{1} & 2 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]$$
+  - Pivots non nuls, rang 2, solution unique : x = ( 1, 2 ).
+    $$\left[\begin{array}{c} 1 \\ 2 \end{array}\right]$$
+  - Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+    $$\left[\begin{array}{cc|c} 1 & 0 & 1 \\ 0 & 1 & 2 \\ 0 & 0 & 0 \end{array}\right]$$
+
+===== latex niveau 2 =====
+\begin{itemize}
+  \item Réduction de Gauss-Jordan d'une matrice 3×2.
+  \[\left[\begin{array}{cc|c} 1 & 0 & 1 \\ 0 & 1 & 2 \\ 1 & 1 & 3 \end{array}\right]\]
+  \begin{itemize}
+    \item Traitement de la colonne 1 (ligne pivot courante : 1).
+    \begin{itemize}
+      \item Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      \item On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+      \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 0 & 1 \\ 0 & 1 & 2 \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{2} \end{array}\right]\]
+    \end{itemize}
+    \item Traitement de la colonne 2 (ligne pivot courante : 2).
+    \begin{itemize}
+      \item Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).
+      \item On annule le coefficient (3,2) : L3 ← L3 - 1·L2.
+      \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{2}} \left[\begin{array}{cc|c} 1 & 0 & 1 \\ 0 & \boxed{1} & 2 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]
+    \end{itemize}
+    \item Pivots non nuls, rang 2, solution unique : x = ( 1, 2 ).
+    \[\left[\begin{array}{c} 1 \\ 2 \end{array}\right]\]
+    \item Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+    \[\left[\begin{array}{cc|c} 1 & 0 & 1 \\ 0 & 1 & 2 \\ 0 & 0 & 0 \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-explanation'>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 3×2.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{cc|c} 1 & 0 & 1 \\ 0 & 1 & 2 \\ 1 & 1 & 3 \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On annule le coefficient (3,1) : L3 ← L3 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 0 & 1 \\ 0 & 1 & 2 \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{2} \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Traitement de la colonne 2 (ligne pivot courante : 2).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On annule le coefficient (3,2) : L3 ← L3 - 1·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{2}} \left[\begin{array}{cc|c} 1 & 0 & 1 \\ 0 & \boxed{1} & 2 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Pivots non nuls, rang 2, solution unique : x = ( 1, 2 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 1 \\ 2 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).<div class='pedagopy-math'>\[\left[\begin{array}{cc|c} 1 & 0 & 1 \\ 0 & 1 & 2 \\ 0 & 0 & 0 \end{array}\right]\]</div></div>
+</details>
+</div>
+
+===== verify =====
+Vérification a posteriori du résultat de Gauss-Jordan.
+└─ Contrôle vérifié : A x - b = (0, 0, 0).

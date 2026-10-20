@@ -1,0 +1,146 @@
+===== énoncé =====
+### Exercice 25 — Un réseau d'amitié
+
+*Produit matriciel · modélisation · niveau ★★☆*
+
+On considère un réseau d'amitié entre 4 personnes : 1 est amie avec 2 et 3 ; 2 est amie avec 1, 3 et 4 ; 3 est amie avec 1, 2 et 4 ; 4 est amie avec 2 et 3. Pour un vecteur de caractéristiques $x \in \mathbb{R}^4$, le vecteur $y$ donne pour chaque personne la somme des caractéristiques de ses amis. Donner la matrice $F$ ($4 \times 4$) telle que $y = F x$.
+
+**Notions** : matrice d'adjacence d'un graphe, produit matrice-vecteur
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Dans une matrice d'amitié $F$ de taille $4 \times 4$, $F_{ij} = 1$ si $i$ et $j$ sont amis et $0$ sinon (avec $F_{ii} = 0$).
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+La $i$-ième composante de $y = F x$ est la somme des $x_j$ sur tous les amis $j$ de la personne $i$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Vérifiez ligne par ligne quels individus sont reliés dans la définition de $y_1, y_2, y_3$ et $y_4$.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Matrice d'adjacence d'un petit réseau
+
+**Énoncé analogue** :
+
+Trois personnes sont liées ainsi : 1 est ami avec 2, et 2 est ami avec 3. Pour $x \in \mathbb{R}^3$, $y_i$ est la somme des $x_j$ sur les amis $j$ de $i$. Trouver $F$ telle que $y = F x$.
+
+**Résolution pas à pas** :
+
+1. $y_1 = x_2$, $y_2 = x_1 + x_3$, $y_3 = x_2$.
+2. La ligne $i$ de $F$ contient un 1 dans chaque colonne $j$ telle que $i$ et $j$ sont amis : c'est la matrice d'adjacence du graphe (symétrique, diagonale nulle).
+
+$$F = \begin{bmatrix} 0 & 1 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 0 \end{bmatrix}$$
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Matrice d'adjacence d'un petit réseau ===
+Énoncé analogue : Trois personnes sont liées ainsi : 1 est ami avec 2, et 2 est ami avec 3. Pour $x \in \mathbb{R}^3$, $y_i$ est la somme des $x_j$ sur les amis $j$ de $i$. Trouver $F$ telle que $y = F x$.
+Résolution pas à pas :
+1. $y_1 = x_2$, $y_2 = x_1 + x_3$, $y_3 = x_2$.
+2. La ligne $i$ de $F$ contient un 1 dans chaque colonne $j$ telle que $i$ et $j$ sont amis : c'est la matrice d'adjacence du graphe (symétrique, diagonale nulle).
+
+$$F = \begin{bmatrix} 0 & 1 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 0 \end{bmatrix}$$
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Matrice d'adjacence d'un petit réseau
+
+**Énoncé analogue** :
+
+Trois personnes sont liées ainsi : 1 est ami avec 2, et 2 est ami avec 3. Pour $x \in \mathbb{R}^3$, $y_i$ est la somme des $x_j$ sur les amis $j$ de $i$. Trouver $F$ telle que $y = F x$.
+
+**Résolution pas à pas** :
+
+1. $y_1 = x_2$, $y_2 = x_1 + x_3$, $y_3 = x_2$.
+2. La ligne $i$ de $F$ contient un 1 dans chaque colonne $j$ telle que $i$ et $j$ sont amis : c'est la matrice d'adjacence du graphe (symétrique, diagonale nulle).
+
+$$F = \begin{bmatrix} 0 & 1 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 0 \end{bmatrix}$$
+
+===== verify(0) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify('0') -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify(Vector.zeros(2)) -> False =====
+Taille incorrecte : votre matrice est de taille (2 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify(Vector.zeros(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify(Vector.ones(5)) -> False =====
+Taille incorrecte : votre matrice est de taille (5 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Taille incorrecte : votre matrice est de taille (2 x 2), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify(Matrix.identity(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 3), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify([1, 2]) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify({'a': 'valide'}) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify(('0', '0')) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== bilan =====
+**Bilan — Un réseau d'amitié**
+
+- Statut : en cours
+- Tentatives soumises : 11
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+- Dernier diagnostic : Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Un réseau d'amitié
+**Identifiant** : `reseau-amitie` | **N°** : 25 | **Thème** : Produit matriciel | **Type** : modelisation | **Niveau** : ★★☆
+
+### Énoncé
+On considère un réseau d'amitié entre 4 personnes : 1 est amie avec 2 et 3 ; 2 est amie avec 1, 3 et 4 ; 3 est amie avec 1, 2 et 4 ; 4 est amie avec 2 et 3. Pour un vecteur de caractéristiques $x \in \mathbb{R}^4$, le vecteur $y$ donne pour chaque personne la somme des caractéristiques de ses amis. Donner la matrice $F$ ($4 \times 4$) telle que $y = F x$.
+
+### Spécification de vérification
+```yaml
+inconnue: x
+lignes_cibles:
+- y[1] = x[2] + x[3]
+- y[2] = x[1] + x[3] + x[4]
+- y[3] = x[1] + x[2] + x[4]
+- y[4] = x[2] + x[3]
+nom_sortie: y
+taille_entree: 4
+taille_sortie: 4
+type: matrice
+```
+
+### Paliers d'indices
+- **Palier 1** : Dans une matrice d'amitié $F$ de taille $4 \times 4$, $F_{ij} = 1$ si $i$ et $j$ sont amis et $0$ sinon (avec $F_{ii} = 0$).
+- **Palier 2** : La $i$-ième composante de $y = F x$ est la somme des $x_j$ sur tous les amis $j$ de la personne $i$.
+- **Palier 3** : Vérifiez ligne par ligne quels individus sont reliés dans la définition de $y_1, y_2, y_3$ et $y_4$.
+
+### Exercice jumeau
+`generateurs.matrice_adjacence()`

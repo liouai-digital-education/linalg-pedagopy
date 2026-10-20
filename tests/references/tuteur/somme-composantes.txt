@@ -1,0 +1,152 @@
+===== énoncé =====
+### Exercice 24 — Sommer les composantes d'un vecteur
+
+*Produit matriciel · modélisation · niveau ★☆☆*
+
+Pour tout vecteur $v \in \mathbb{R}^3$, on veut calculer la somme de ses composantes $v_1 + v_2 + v_3$ par un produit matriciel $B v$. Donner la matrice $B$ de taille $1 \times 3$.
+
+**Notions** : somme des coefficients d'une matrice, multiplication par le vecteur 1
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Pour sommer toutes les composantes d'un vecteur colonne $v \in \mathbb{R}^3$ par un produit matriciel $B v$, quelle doit être la taille de $B$ ?
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : la somme des coefficients d'une matrice $A$ ($m \times n$) s'écrit $\mathbf{1}_m^T A \mathbf{1}_n$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Écrivez le vecteur ligne $\mathbf{1}_3^T$ comme une matrice de taille $1 \times 3$.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Matrice d'une application décrite par son effet
+
+**Énoncé analogue** :
+
+Pour $x = (x_1, x_2) \in \mathbb{R}^2$, on définit $y \in \mathbb{R}^3$ par $y_1 = x_2$, $y_2 = x_1 + x_2$, $y_3 = 2 x_1$. Trouver la matrice $A$ telle que $y = A x$.
+
+**Résolution pas à pas** :
+
+1. **Taille** : l'entrée est dans $\mathbb{R}^2$ et la sortie dans $\mathbb{R}^3$, donc $A$ est de taille $3 \times 2$.
+2. **Méthode des colonnes** : la colonne $j$ de $A$ est l'image du vecteur de base $e_j$.
+   - $x = e_1 = (1, 0)$ donne $y = (0, 1, 2)$ : c'est la colonne 1.
+   - $x = e_2 = (0, 1)$ donne $y = (1, 1, 0)$ : c'est la colonne 2.
+3. **Méthode des lignes** (équivalente) : la ligne $i$ contient les coefficients de $y_i$ devant $x_1, x_2$.
+
+$$A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 2 & 0 \end{bmatrix}$$
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Matrice d'une application décrite par son effet ===
+Énoncé analogue : Pour $x = (x_1, x_2) \in \mathbb{R}^2$, on définit $y \in \mathbb{R}^3$ par $y_1 = x_2$, $y_2 = x_1 + x_2$, $y_3 = 2 x_1$. Trouver la matrice $A$ telle que $y = A x$.
+Résolution pas à pas :
+1. **Taille** : l'entrée est dans $\mathbb{R}^2$ et la sortie dans $\mathbb{R}^3$, donc $A$ est de taille $3 \times 2$.
+2. **Méthode des colonnes** : la colonne $j$ de $A$ est l'image du vecteur de base $e_j$.
+   - $x = e_1 = (1, 0)$ donne $y = (0, 1, 2)$ : c'est la colonne 1.
+   - $x = e_2 = (0, 1)$ donne $y = (1, 1, 0)$ : c'est la colonne 2.
+3. **Méthode des lignes** (équivalente) : la ligne $i$ contient les coefficients de $y_i$ devant $x_1, x_2$.
+
+$$A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 2 & 0 \end{bmatrix}$$
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Matrice d'une application décrite par son effet
+
+**Énoncé analogue** :
+
+Pour $x = (x_1, x_2) \in \mathbb{R}^2$, on définit $y \in \mathbb{R}^3$ par $y_1 = x_2$, $y_2 = x_1 + x_2$, $y_3 = 2 x_1$. Trouver la matrice $A$ telle que $y = A x$.
+
+**Résolution pas à pas** :
+
+1. **Taille** : l'entrée est dans $\mathbb{R}^2$ et la sortie dans $\mathbb{R}^3$, donc $A$ est de taille $3 \times 2$.
+2. **Méthode des colonnes** : la colonne $j$ de $A$ est l'image du vecteur de base $e_j$.
+   - $x = e_1 = (1, 0)$ donne $y = (0, 1, 2)$ : c'est la colonne 1.
+   - $x = e_2 = (0, 1)$ donne $y = (1, 1, 0)$ : c'est la colonne 2.
+3. **Méthode des lignes** (équivalente) : la ligne $i$ contient les coefficients de $y_i$ devant $x_1, x_2$.
+
+$$A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 2 & 0 \end{bmatrix}$$
+
+===== verify(0) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify('0') -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée v est de taille 3 et la sortie s de taille 1.
+
+===== verify(Vector.zeros(2)) -> False =====
+Taille incorrecte : votre matrice est de taille (2 x 1), alors que l'entrée v est de taille 3 et la sortie s de taille 1.
+
+===== verify(Vector.zeros(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée v est de taille 3 et la sortie s de taille 1.
+
+===== verify(Vector.ones(5)) -> False =====
+Taille incorrecte : votre matrice est de taille (5 x 1), alors que l'entrée v est de taille 3 et la sortie s de taille 1.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Taille incorrecte : votre matrice est de taille (2 x 2), alors que l'entrée v est de taille 3 et la sortie s de taille 1.
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée v est de taille 3 et la sortie s de taille 1.
+
+===== verify(Matrix.identity(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 3), alors que l'entrée v est de taille 3 et la sortie s de taille 1.
+
+===== verify([1, 2]) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify({'a': 'valide'}) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée v est de taille 3 et la sortie s de taille 1.
+
+===== verify(('0', '0')) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée v est de taille 3 et la sortie s de taille 1.
+
+===== bilan =====
+**Bilan — Sommer les composantes d'un vecteur**
+
+- Statut : en cours
+- Tentatives soumises : 11
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+- Dernier diagnostic : Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée v est de taille 3 et la sortie s de taille 1.
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Sommer les composantes d'un vecteur
+**Identifiant** : `somme-composantes` | **N°** : 24 | **Thème** : Produit matriciel | **Type** : modelisation | **Niveau** : ★☆☆
+
+### Énoncé
+Pour tout vecteur $v \in \mathbb{R}^3$, on veut calculer la somme de ses composantes $v_1 + v_2 + v_3$ par un produit matriciel $B v$. Donner la matrice $B$ de taille $1 \times 3$.
+
+### Spécification de vérification
+```yaml
+inconnue: v
+lignes_cibles:
+- s[1] = v[1] + v[2] + v[3]
+nom_sortie: s
+taille_entree: 3
+taille_sortie: 1
+type: matrice
+```
+
+### Paliers d'indices
+- **Palier 1** : Pour sommer toutes les composantes d'un vecteur colonne $v \in \mathbb{R}^3$ par un produit matriciel $B v$, quelle doit être la taille de $B$ ?
+- **Palier 2** : Rappel : la somme des coefficients d'une matrice $A$ ($m \times n$) s'écrit $\mathbf{1}_m^T A \mathbf{1}_n$.
+- **Palier 3** : Écrivez le vecteur ligne $\mathbf{1}_3^T$ comme une matrice de taille $1 \times 3$.
+
+### Exercice jumeau
+`generateurs.matrice_par_effet()`

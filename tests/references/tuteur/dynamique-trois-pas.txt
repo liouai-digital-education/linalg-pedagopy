@@ -1,0 +1,152 @@
+===== énoncé =====
+### Exercice 26 — Dynamique linéaire : trois pas de temps
+
+*Produit matriciel · modélisation · niveau ★★☆*
+
+Un système dynamique linéaire évolue selon $x_{t+1} = A x_t$ avec $A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$. Exprimer l'état à l'instant $t + 3$ sous la forme $x_{t+3} = M x_t$ en donnant la matrice $M = A^3$ de taille $2 \times 2$.
+
+**Notions** : puissances d'une matrice, évolution à t + 3
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Si $x_{t+1} = A x_t$, alors $x_{t+2} = A^2 x_t$ et $x_{t+3} = A^3 x_t$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : la puissance de matrice $A^3$ se calcule par produits matriciels successifs $A \cdot (A \cdot A)$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Calculez d'abord $A^2$ pour $A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$, puis multipliez le résultat par $A$.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Deux pas d'un système dynamique
+
+**Énoncé analogue** :
+
+Un système évolue selon $x_{t+1} = A x_t$ avec $A = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}$. Exprimer $x_{t+2}$ en fonction de $x_t$.
+
+**Résolution pas à pas** :
+
+1. $x_{t+2} = A x_{t+1} = A (A x_t) = A^2 x_t$ : on applique deux fois la matrice.
+2. On calcule le produit $A^2 = A A$ (ligne de gauche · colonne de droite) :
+
+$$A^2 = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 4 & 1 \end{bmatrix}$$
+
+3. Donc $x_{t+2} = A^2 x_t$. Pour trois pas, on calculerait de même $A^3 = A^2 A$.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Deux pas d'un système dynamique ===
+Énoncé analogue : Un système évolue selon $x_{t+1} = A x_t$ avec $A = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}$. Exprimer $x_{t+2}$ en fonction de $x_t$.
+Résolution pas à pas :
+1. $x_{t+2} = A x_{t+1} = A (A x_t) = A^2 x_t$ : on applique deux fois la matrice.
+2. On calcule le produit $A^2 = A A$ (ligne de gauche · colonne de droite) :
+
+$$A^2 = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 4 & 1 \end{bmatrix}$$
+
+3. Donc $x_{t+2} = A^2 x_t$. Pour trois pas, on calculerait de même $A^3 = A^2 A$.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Deux pas d'un système dynamique
+
+**Énoncé analogue** :
+
+Un système évolue selon $x_{t+1} = A x_t$ avec $A = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}$. Exprimer $x_{t+2}$ en fonction de $x_t$.
+
+**Résolution pas à pas** :
+
+1. $x_{t+2} = A x_{t+1} = A (A x_t) = A^2 x_t$ : on applique deux fois la matrice.
+2. On calcule le produit $A^2 = A A$ (ligne de gauche · colonne de droite) :
+
+$$A^2 = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 4 & 1 \end{bmatrix}$$
+
+3. Donc $x_{t+2} = A^2 x_t$. Pour trois pas, on calculerait de même $A^3 = A^2 A$.
+
+===== verify(0) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify('0') -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== verify(Vector.zeros(2)) -> False =====
+Taille incorrecte : votre matrice est de taille (2 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== verify(Vector.zeros(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== verify(Vector.ones(5)) -> False =====
+Taille incorrecte : votre matrice est de taille (5 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Taille correcte (2 x 2).
+Votre ligne 1 calcule y_1 = 0.
+Relisez la définition de la composante y_1 pour i = 1.
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== verify(Matrix.identity(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 3), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== verify([1, 2]) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify({'a': 'valide'}) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== verify(('0', '0')) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== bilan =====
+**Bilan — Dynamique linéaire : trois pas de temps**
+
+- Statut : en cours
+- Tentatives soumises : 11
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+- Dernier diagnostic : Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Dynamique linéaire : trois pas de temps
+**Identifiant** : `dynamique-trois-pas` | **N°** : 26 | **Thème** : Produit matriciel | **Type** : modelisation | **Niveau** : ★★☆
+
+### Énoncé
+Un système dynamique linéaire évolue selon $x_{t+1} = A x_t$ avec $A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$. Exprimer l'état à l'instant $t + 3$ sous la forme $x_{t+3} = M x_t$ en donnant la matrice $M = A^3$ de taille $2 \times 2$.
+
+### Spécification de vérification
+```yaml
+inconnue: x
+lignes_cibles:
+- y[1] = x[1] + 3*x[2]
+- y[2] = x[2]
+nom_sortie: y
+taille_entree: 2
+taille_sortie: 2
+type: matrice
+```
+
+### Paliers d'indices
+- **Palier 1** : Si $x_{t+1} = A x_t$, alors $x_{t+2} = A^2 x_t$ et $x_{t+3} = A^3 x_t$.
+- **Palier 2** : Rappel : la puissance de matrice $A^3$ se calcule par produits matriciels successifs $A \cdot (A \cdot A)$.
+- **Palier 3** : Calculez d'abord $A^2$ pour $A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$, puis multipliez le résultat par $A$.
+
+### Exercice jumeau
+`generateurs.puissance_matrice()`

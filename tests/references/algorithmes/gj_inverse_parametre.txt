@@ -1,0 +1,272 @@
+===== repr =====
+<CaseSplit selon a : 3 cas — a ≠ 1 et a ≠ −1 | a = 1 | a = −1>
+
+===== str =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −1 (générique) : matrice inversible de rang 2
+├─ Cas a = 1 : rang 1, colonnes pivots [1]
+└─ Cas a = −1 : rang 1, colonnes pivots [1]
+
+===== texte niveau 0 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −1 (générique) : matrice inversible de rang 2
+├─ Cas a = 1 : rang 1, colonnes pivots [1]
+└─ Cas a = −1 : rang 1, colonnes pivots [1]
+
+===== texte niveau 1 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −1 (générique) : matrice inversible de rang 2
+├─ Cas a = 1 : rang 1, colonnes pivots [1]
+└─ Cas a = −1 : rang 1, colonnes pivots [1]
+
+===== texte niveau 2 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −1 (générique) : matrice inversible de rang 2
+│    Réduction de Gauss-Jordan d'une matrice 2×2.
+│       [(1 a | 1 0); (a 1 | 0 1)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│    │  └─ On annule le coefficient (2,1) : L2 ← L2 - a·L1.
+│    │     [(1 a | 1 0); (0 1 - a**2 | -a 1)]
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (2,2) de valeur 1 − a² (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1/((a − 1)·(a + 1)))·L2.
+│    │  │  [(1 a | 1 0); (0 1 | a/((a - 1)*(a + 1)) -1/((a - 1)*(a + 1)))]
+│    │  └─ On annule le coefficient (1,2) : L1 ← L1 - a·L2.
+│    │     [(1 0 | -1/((a - 1)*(a + 1)) a/((a - 1)*(a + 1))); (0 1 | a/((a - 1)*(a + 1)) -1/((a - 1)*(a + 1)))]
+│    ├─ Matrice réduite à I_2 à gauche : l'inverse A^(-1) est extraite à droite.
+│    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+│       [(1 0 | -1/((a - 1)*(a + 1)) a/((a - 1)*(a + 1))); (0 1 | a/((a - 1)*(a + 1)) -1/((a - 1)*(a + 1)))]
+├─ Cas a = 1 : rang 1, colonnes pivots [1]
+│    Réduction de Gauss-Jordan d'une matrice 2×2.
+│       [(1 1 | 1 0); (1 1 | 0 1)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│    │  └─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+│    │     [(1 1 | 1 0); (0 0 | -1 1)]
+│    ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+│    ├─ La matrice est singulière (rang 1 < 2) : elle n'est pas inversible.
+│    └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+│       [(1 1 | 1 0); (0 0 | -1 1)]
+└─ Cas a = −1 : rang 1, colonnes pivots [1]
+     Réduction de Gauss-Jordan d'une matrice 2×2.
+        [(1 -1 | 1 0); (-1 1 | 0 1)]
+     ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+     │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+     │  └─ On annule le coefficient (2,1) : L2 ← L2 + 1·L1.
+     │     [(1 -1 | 1 0); (0 0 | 1 1)]
+     ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+     ├─ La matrice est singulière (rang 1 < 2) : elle n'est pas inversible.
+     └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+        [(1 -1 | 1 0); (0 0 | 1 1)]
+
+===== texte niveau 3 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −1 (générique) : matrice inversible de rang 2
+│    Réduction de Gauss-Jordan d'une matrice 2×2.
+│       [(1 a | 1 0); (a 1 | 0 1)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  └─ On annule le coefficient (2,1) : L2 ← L2 - a·L1.
+│    │     [(1 a | 1 0); (0 1 - a**2 | -a 1)]
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (2,2) de valeur 1 − a² (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1/((a − 1)·(a + 1)))·L2.
+│    │  │  [(1 a | 1 0); (0 1 | a/((a - 1)*(a + 1)) -1/((a - 1)*(a + 1)))]
+│    │  └─ On annule le coefficient (1,2) : L1 ← L1 - a·L2.
+│    │     [(1 0 | -1/((a - 1)*(a + 1)) a/((a - 1)*(a + 1))); (0 1 | a/((a - 1)*(a + 1)) -1/((a - 1)*(a + 1)))]
+│    ├─ Matrice réduite à I_2 à gauche : l'inverse A^(-1) est extraite à droite.
+│    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+│       [(1 0 | -1/((a - 1)*(a + 1)) a/((a - 1)*(a + 1))); (0 1 | a/((a - 1)*(a + 1)) -1/((a - 1)*(a + 1)))]
+├─ Cas a = 1 : rang 1, colonnes pivots [1]
+│    Réduction de Gauss-Jordan d'une matrice 2×2.
+│       [(1 1 | 1 0); (1 1 | 0 1)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  └─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+│    │     [(1 1 | 1 0); (0 0 | -1 1)]
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+│    ├─ La matrice est singulière (rang 1 < 2) : elle n'est pas inversible.
+│    └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+│       [(1 1 | 1 0); (0 0 | -1 1)]
+└─ Cas a = −1 : rang 1, colonnes pivots [1]
+     Réduction de Gauss-Jordan d'une matrice 2×2.
+        [(1 -1 | 1 0); (-1 1 | 0 1)]
+     ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+     │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  └─ On annule le coefficient (2,1) : L2 ← L2 + 1·L1.
+     │     [(1 -1 | 1 0); (0 0 | 1 1)]
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+     ├─ La matrice est singulière (rang 1 < 2) : elle n'est pas inversible.
+     └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+        [(1 -1 | 1 0); (0 0 | 1 1)]
+
+===== markdown niveau 2 =====
+### Discussion selon $a$
+
+- **Cas $a \neq 1 \text{ et } a \neq -1$ (générique)** : matrice inversible de rang 2
+  - Réduction de Gauss-Jordan d'une matrice 2×2.
+    $$\left[\begin{array}{cc|cc} 1 & a & 1 & 0 \\ a & 1 & 0 & 1 \end{array}\right]$$
+    - Traitement de la colonne 1 (ligne pivot courante : 1).
+      - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      - On annule le coefficient (2,1) : L2 ← L2 - a·L1.
+        $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(a\right) L_{1}} \left[\begin{array}{cc|cc} \boxed{1} & a & 1 & 0 \\ \color{blue}{0} & \color{blue}{1 - a^{2}} & \color{blue}{- a} & \color{blue}{1} \end{array}\right]$$
+    - Traitement de la colonne 2 (ligne pivot courante : 2).
+      - Choix du pivot en (2,2) de valeur 1 − a² (stratégie : simplest).
+      - On normalise le pivot de la ligne 2 : L2 ← (−1/((a − 1)·(a + 1)))·L2.
+        $$\xrightarrow{L_{2} \leftarrow \left(- \frac{1}{\left(a - 1\right) \left(a + 1\right)}\right) L_{2}} \left[\begin{array}{cc|cc} 1 & a & 1 & 0 \\ \color{blue}{0} & \boxed{1} & \color{blue}{\frac{a}{\left(a - 1\right) \left(a + 1\right)}} & \color{blue}{- \frac{1}{\left(a - 1\right) \left(a + 1\right)}} \end{array}\right]$$
+      - On annule le coefficient (1,2) : L1 ← L1 - a·L2.
+        $$\xrightarrow{L_{1} \leftarrow L_{1} - \left(a\right) L_{2}} \left[\begin{array}{cc|cc} \color{blue}{1} & \color{blue}{0} & \color{blue}{- \frac{1}{\left(a - 1\right) \left(a + 1\right)}} & \color{blue}{\frac{a}{\left(a - 1\right) \left(a + 1\right)}} \\ 0 & \boxed{1} & \frac{a}{\left(a - 1\right) \left(a + 1\right)} & - \frac{1}{\left(a - 1\right) \left(a + 1\right)} \end{array}\right]$$
+    - Matrice réduite à I_2 à gauche : l'inverse A^(-1) est extraite à droite.
+      $$\left[\begin{array}{cc} - \frac{1}{\left(a - 1\right) \left(a + 1\right)} & \frac{a}{\left(a - 1\right) \left(a + 1\right)} \\ \frac{a}{\left(a - 1\right) \left(a + 1\right)} & - \frac{1}{\left(a - 1\right) \left(a + 1\right)} \end{array}\right]$$
+    - Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+      $$\left[\begin{array}{cc|cc} 1 & 0 & - \frac{1}{\left(a - 1\right) \left(a + 1\right)} & \frac{a}{\left(a - 1\right) \left(a + 1\right)} \\ 0 & 1 & \frac{a}{\left(a - 1\right) \left(a + 1\right)} & - \frac{1}{\left(a - 1\right) \left(a + 1\right)} \end{array}\right]$$
+- **Cas $a = 1$** : rang 1, colonnes pivots [1]
+  - Réduction de Gauss-Jordan d'une matrice 2×2.
+    $$\left[\begin{array}{cc|cc} 1 & 1 & 1 & 0 \\ 1 & 1 & 0 & 1 \end{array}\right]$$
+    - Traitement de la colonne 1 (ligne pivot courante : 1).
+      - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      - On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+        $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|cc} \boxed{1} & 1 & 1 & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{-1} & \color{blue}{1} \end{array}\right]$$
+    - Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    - La matrice est singulière (rang 1 < 2) : elle n'est pas inversible.
+    - Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+      $$\left[\begin{array}{cc|cc} 1 & 1 & 1 & 0 \\ 0 & 0 & -1 & 1 \end{array}\right]$$
+- **Cas $a = -1$** : rang 1, colonnes pivots [1]
+  - Réduction de Gauss-Jordan d'une matrice 2×2.
+    $$\left[\begin{array}{cc|cc} 1 & -1 & 1 & 0 \\ -1 & 1 & 0 & 1 \end{array}\right]$$
+    - Traitement de la colonne 1 (ligne pivot courante : 1).
+      - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      - On annule le coefficient (2,1) : L2 ← L2 + 1·L1.
+        $$\xrightarrow{L_{2} \leftarrow L_{2} + \left(1\right) L_{1}} \left[\begin{array}{cc|cc} \boxed{1} & -1 & 1 & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{1} & \color{blue}{1} \end{array}\right]$$
+    - Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    - La matrice est singulière (rang 1 < 2) : elle n'est pas inversible.
+    - Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+      $$\left[\begin{array}{cc|cc} 1 & -1 & 1 & 0 \\ 0 & 0 & 1 & 1 \end{array}\right]$$
+
+===== latex niveau 2 =====
+\textbf{Discussion selon $a$}
+\begin{itemize}
+  \item \textbf{Cas $a \neq 1 \text{ et } a \neq -1 \text{ (générique)}$} : matrice inversible de rang 2
+\begin{itemize}
+  \item Réduction de Gauss-Jordan d'une matrice 2×2.
+  \[\left[\begin{array}{cc|cc} 1 & a & 1 & 0 \\ a & 1 & 0 & 1 \end{array}\right]\]
+  \begin{itemize}
+    \item Traitement de la colonne 1 (ligne pivot courante : 1).
+    \begin{itemize}
+      \item Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      \item On annule le coefficient (2,1) : L2 ← L2 - a·L1.
+      \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(a\right) L_{1}} \left[\begin{array}{cc|cc} \boxed{1} & a & 1 & 0 \\ \color{blue}{0} & \color{blue}{1 - a^{2}} & \color{blue}{- a} & \color{blue}{1} \end{array}\right]\]
+    \end{itemize}
+    \item Traitement de la colonne 2 (ligne pivot courante : 2).
+    \begin{itemize}
+      \item Choix du pivot en (2,2) de valeur 1 − a² (stratégie : simplest).
+      \item On normalise le pivot de la ligne 2 : L2 ← (−1/((a − 1)·(a + 1)))·L2.
+      \[\xrightarrow{L_{2} \leftarrow \left(- \frac{1}{\left(a - 1\right) \left(a + 1\right)}\right) L_{2}} \left[\begin{array}{cc|cc} 1 & a & 1 & 0 \\ \color{blue}{0} & \boxed{1} & \color{blue}{\frac{a}{\left(a - 1\right) \left(a + 1\right)}} & \color{blue}{- \frac{1}{\left(a - 1\right) \left(a + 1\right)}} \end{array}\right]\]
+      \item On annule le coefficient (1,2) : L1 ← L1 - a·L2.
+      \[\xrightarrow{L_{1} \leftarrow L_{1} - \left(a\right) L_{2}} \left[\begin{array}{cc|cc} \color{blue}{1} & \color{blue}{0} & \color{blue}{- \frac{1}{\left(a - 1\right) \left(a + 1\right)}} & \color{blue}{\frac{a}{\left(a - 1\right) \left(a + 1\right)}} \\ 0 & \boxed{1} & \frac{a}{\left(a - 1\right) \left(a + 1\right)} & - \frac{1}{\left(a - 1\right) \left(a + 1\right)} \end{array}\right]\]
+    \end{itemize}
+    \item Matrice réduite à I_2 à gauche : l'inverse A^(-1) est extraite à droite.
+    \[\left[\begin{array}{cc} - \frac{1}{\left(a - 1\right) \left(a + 1\right)} & \frac{a}{\left(a - 1\right) \left(a + 1\right)} \\ \frac{a}{\left(a - 1\right) \left(a + 1\right)} & - \frac{1}{\left(a - 1\right) \left(a + 1\right)} \end{array}\right]\]
+    \item Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+    \[\left[\begin{array}{cc|cc} 1 & 0 & - \frac{1}{\left(a - 1\right) \left(a + 1\right)} & \frac{a}{\left(a - 1\right) \left(a + 1\right)} \\ 0 & 1 & \frac{a}{\left(a - 1\right) \left(a + 1\right)} & - \frac{1}{\left(a - 1\right) \left(a + 1\right)} \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+  \item \textbf{Cas $a = 1$} : rang 1, colonnes pivots [1]
+\begin{itemize}
+  \item Réduction de Gauss-Jordan d'une matrice 2×2.
+  \[\left[\begin{array}{cc|cc} 1 & 1 & 1 & 0 \\ 1 & 1 & 0 & 1 \end{array}\right]\]
+  \begin{itemize}
+    \item Traitement de la colonne 1 (ligne pivot courante : 1).
+    \begin{itemize}
+      \item Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      \item On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+      \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|cc} \boxed{1} & 1 & 1 & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{-1} & \color{blue}{1} \end{array}\right]\]
+    \end{itemize}
+    \item Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    \item La matrice est singulière (rang 1 < 2) : elle n'est pas inversible.
+    \item Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+    \[\left[\begin{array}{cc|cc} 1 & 1 & 1 & 0 \\ 0 & 0 & -1 & 1 \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+  \item \textbf{Cas $a = -1$} : rang 1, colonnes pivots [1]
+\begin{itemize}
+  \item Réduction de Gauss-Jordan d'une matrice 2×2.
+  \[\left[\begin{array}{cc|cc} 1 & -1 & 1 & 0 \\ -1 & 1 & 0 & 1 \end{array}\right]\]
+  \begin{itemize}
+    \item Traitement de la colonne 1 (ligne pivot courante : 1).
+    \begin{itemize}
+      \item Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      \item On annule le coefficient (2,1) : L2 ← L2 + 1·L1.
+      \[\xrightarrow{L_{2} \leftarrow L_{2} + \left(1\right) L_{1}} \left[\begin{array}{cc|cc} \boxed{1} & -1 & 1 & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{1} & \color{blue}{1} \end{array}\right]\]
+    \end{itemize}
+    \item Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    \item La matrice est singulière (rang 1 < 2) : elle n'est pas inversible.
+    \item Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+    \[\left[\begin{array}{cc|cc} 1 & -1 & 1 & 0 \\ 0 & 0 & 1 & 1 \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-casesplit'>
+<h3>Discussion selon \(a\)</h3>
+<ul>
+<li><strong>Cas \(a \neq 1 \text{ et } a \neq -1\) (générique)</strong> : matrice inversible de rang 2<div class='pedagopy-explanation'>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 2×2.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{cc|cc} 1 & a & 1 & 0 \\ a & 1 & 0 & 1 \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 - a·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(a\right) L_{1}} \left[\begin{array}{cc|cc} \boxed{1} & a & 1 & 0 \\ \color{blue}{0} & \color{blue}{1 - a^{2}} & \color{blue}{- a} & \color{blue}{1} \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Traitement de la colonne 2 (ligne pivot courante : 2).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (2,2) de valeur 1 − a² (stratégie : simplest).</div>
+<div class='pedagopy-step'>On normalise le pivot de la ligne 2 : L2 ← (−1/((a − 1)·(a + 1)))·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow \left(- \frac{1}{\left(a - 1\right) \left(a + 1\right)}\right) L_{2}} \left[\begin{array}{cc|cc} 1 & a & 1 & 0 \\ \color{blue}{0} & \boxed{1} & \color{blue}{\frac{a}{\left(a - 1\right) \left(a + 1\right)}} & \color{blue}{- \frac{1}{\left(a - 1\right) \left(a + 1\right)}} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (1,2) : L1 ← L1 - a·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow L_{1} - \left(a\right) L_{2}} \left[\begin{array}{cc|cc} \color{blue}{1} & \color{blue}{0} & \color{blue}{- \frac{1}{\left(a - 1\right) \left(a + 1\right)}} & \color{blue}{\frac{a}{\left(a - 1\right) \left(a + 1\right)}} \\ 0 & \boxed{1} & \frac{a}{\left(a - 1\right) \left(a + 1\right)} & - \frac{1}{\left(a - 1\right) \left(a + 1\right)} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Matrice réduite à I_2 à gauche : l&#x27;inverse A^(-1) est extraite à droite.<div class='pedagopy-math'>\[\left[\begin{array}{cc} - \frac{1}{\left(a - 1\right) \left(a + 1\right)} & \frac{a}{\left(a - 1\right) \left(a + 1\right)} \\ \frac{a}{\left(a - 1\right) \left(a + 1\right)} & - \frac{1}{\left(a - 1\right) \left(a + 1\right)} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).<div class='pedagopy-math'>\[\left[\begin{array}{cc|cc} 1 & 0 & - \frac{1}{\left(a - 1\right) \left(a + 1\right)} & \frac{a}{\left(a - 1\right) \left(a + 1\right)} \\ 0 & 1 & \frac{a}{\left(a - 1\right) \left(a + 1\right)} & - \frac{1}{\left(a - 1\right) \left(a + 1\right)} \end{array}\right]\]</div></div>
+</details>
+</div></li>
+<li><strong>Cas \(a = 1\)</strong> : rang 1, colonnes pivots [1]<div class='pedagopy-explanation'>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 2×2.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{cc|cc} 1 & 1 & 1 & 0 \\ 1 & 1 & 0 & 1 \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|cc} \boxed{1} & 1 & 1 & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{-1} & \color{blue}{1} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.</div>
+<div class='pedagopy-step'>La matrice est singulière (rang 1 &lt; 2) : elle n&#x27;est pas inversible.</div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).<div class='pedagopy-math'>\[\left[\begin{array}{cc|cc} 1 & 1 & 1 & 0 \\ 0 & 0 & -1 & 1 \end{array}\right]\]</div></div>
+</details>
+</div></li>
+<li><strong>Cas \(a = -1\)</strong> : rang 1, colonnes pivots [1]<div class='pedagopy-explanation'>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 2×2.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{cc|cc} 1 & -1 & 1 & 0 \\ -1 & 1 & 0 & 1 \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 + 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} + \left(1\right) L_{1}} \left[\begin{array}{cc|cc} \boxed{1} & -1 & 1 & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{1} & \color{blue}{1} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.</div>
+<div class='pedagopy-step'>La matrice est singulière (rang 1 &lt; 2) : elle n&#x27;est pas inversible.</div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).<div class='pedagopy-math'>\[\left[\begin{array}{cc|cc} 1 & -1 & 1 & 0 \\ 0 & 0 & 1 & 1 \end{array}\right]\]</div></div>
+</details>
+</div></li>
+</ul>
+</div>

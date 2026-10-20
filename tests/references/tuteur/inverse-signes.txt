@@ -1,0 +1,148 @@
+===== énoncé =====
+### Exercice 33 — Les signes des coefficients d'une inverse
+
+*Inverses et systèmes linéaires · contre-exemple · niveau ★★☆*
+
+L'inverse d'une matrice carrée inversible à coefficients strictement positifs ($> 0$) a-t-elle toujours ses coefficients positifs ? Fournir une matrice $A$ de taille $2 \times 2$ à coefficients $> 0$ qui soit inversible et dont l'inverse $A^{-1}$ comporte au moins un coefficient strictement négatif.
+
+**Notions** : inverse d'une matrice 2×2, signe des coefficients de l'inverse
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Rappelez-vous la formule de l'inverse d'une matrice $2 \times 2$ : $A^{-1} = \frac{1}{ad - bc} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Si $a, b, c, d$ sont tous strictement positifs ($> 0$) et $ad - bc \neq 0$, quels signes ont les coefficients hors diagonale $-b$ et $-c$ ?
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Choisissez quatre petits entiers strictement positifs (par exemple 1 et 2) tels que $ad - bc \neq 0$.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Méthode de construction d'un contre-exemple
+
+**Énoncé analogue** :
+
+Comment construire méthodiquement un contre-exemple simple en petite dimension ?
+
+**Résolution pas à pas** :
+
+**Indication d'existence** : un contre-exemple existe dans $matrices 2×2 à coefficients dans {1, 2}$.
+
+**Méthode** :
+1. Choisir la plus petite dimension autorisée par l'énoncé (souvent $n = 2$).
+2. Tester des vecteurs de la base canonique $e_1 = (1, 0)$, $e_2 = (0, 1)$ ou $(1, 1)$ qui vérifient les hypothèses.
+3. Calculer les deux membres de l'affirmation et vérifier qu'ils diffèrent.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Méthode de construction d'un contre-exemple ===
+Énoncé analogue : Comment construire méthodiquement un contre-exemple simple en petite dimension ?
+Résolution pas à pas :
+**Indication d'existence** : un contre-exemple existe dans $matrices 2×2 à coefficients dans {1, 2}$.
+
+**Méthode** :
+1. Choisir la plus petite dimension autorisée par l'énoncé (souvent $n = 2$).
+2. Tester des vecteurs de la base canonique $e_1 = (1, 0)$, $e_2 = (0, 1)$ ou $(1, 1)$ qui vérifient les hypothèses.
+3. Calculer les deux membres de l'affirmation et vérifier qu'ils diffèrent.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Méthode de construction d'un contre-exemple
+
+**Énoncé analogue** :
+
+Comment construire méthodiquement un contre-exemple simple en petite dimension ?
+
+**Résolution pas à pas** :
+
+**Indication d'existence** : un contre-exemple existe dans $matrices 2×2 à coefficients dans {1, 2}$.
+
+**Méthode** :
+1. Choisir la plus petite dimension autorisée par l'énoncé (souvent $n = 2$).
+2. Tester des vecteurs de la base canonique $e_1 = (1, 0)$, $e_2 = (0, 1)$ ou $(1, 1)$ qui vérifient les hypothèses.
+3. Calculer les deux membres de l'affirmation et vérifier qu'ils diffèrent.
+
+===== verify(0) -> False =====
+Fournissez une matrice carrée A.
+
+===== verify('0') -> False =====
+Fournissez une matrice carrée A de taille au moins 2×2.
+
+===== verify(Vector.zeros(2)) -> False =====
+Fournissez une matrice carrée A de taille au moins 2×2.
+
+===== verify(Vector.zeros(3)) -> False =====
+Fournissez une matrice carrée A de taille au moins 2×2.
+
+===== verify(Vector.ones(5)) -> False =====
+Fournissez une matrice carrée A de taille au moins 2×2.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Hypothèse non respectée : tous les coefficients de A doivent être strictement positifs (> 0).
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Fournissez une matrice carrée A de taille au moins 2×2.
+
+===== verify(Matrix.identity(3)) -> False =====
+Hypothèse non respectée : tous les coefficients de A doivent être strictement positifs (> 0).
+
+===== verify([1, 2]) -> False =====
+Fournissez une matrice carrée A.
+
+===== verify({'a': 'valide'}) -> False =====
+Fournissez une matrice carrée A de taille au moins 2×2.
+
+===== verify(('0', '0')) -> False =====
+Fournissez une matrice carrée A de taille au moins 2×2.
+
+===== réponse juste =====
+Contre-exemple valide ! A est inversible à coefficients strictement positifs, et A⁻¹ = ⎡2/3   -1/3⎤
+⎢          ⎥
+⎣-1/3  2/3 ⎦ possède des coefficients négatifs. Note de simplicité : dimension max = 2, hauteur max des coefficients = 2 (excellente (très simple)).
+
+===== bilan =====
+**Bilan — Les signes des coefficients d'une inverse**
+
+- Statut : ✅ validé
+- Tentatives soumises : 12
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Les signes des coefficients d'une inverse
+**Identifiant** : `inverse-signes` | **N°** : 33 | **Thème** : Inverses et systèmes linéaires | **Type** : contre_exemple | **Niveau** : ★★☆
+
+### Énoncé
+L'inverse d'une matrice carrée inversible à coefficients strictement positifs ($> 0$) a-t-elle toujours ses coefficients positifs ? Fournir une matrice $A$ de taille $2 \times 2$ à coefficients $> 0$ qui soit inversible et dont l'inverse $A^{-1}$ comporte au moins un coefficient strictement négatif.
+
+### Spécification de vérification
+```yaml
+cas: inverse_matrice_positive
+type: contre_exemple
+```
+
+### Paliers d'indices
+- **Palier 1** : Rappelez-vous la formule de l'inverse d'une matrice $2 \times 2$ : $A^{-1} = \frac{1}{ad - bc} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$.
+- **Palier 2** : Si $a, b, c, d$ sont tous strictement positifs ($> 0$) et $ad - bc \neq 0$, quels signes ont les coefficients hors diagonale $-b$ et $-c$ ?
+- **Palier 3** : Choisissez quatre petits entiers strictement positifs (par exemple 1 et 2) tels que $ad - bc \neq 0$.
+
+### Exercice jumeau
+`generateurs.contre_exemple_guide(famille='matrices 2×2 à coefficients dans {1, 2}')`

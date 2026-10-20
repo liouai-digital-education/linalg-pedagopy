@@ -1,0 +1,159 @@
+===== énoncé =====
+### Exercice 16 — Écart à la moyenne glissante
+
+*Matrices et applications linéaires · modélisation · niveau ★★☆*
+
+$p \in \mathbb{R}^6$ est une série de prix. $d \in \mathbb{R}^3$ mesure, à partir du 4ᵉ jour, l'écart entre le prix du jour et la moyenne des trois jours précédents. Trouver la matrice $A$ telle que $d = A p$ (donner sa taille et ses coefficients).
+
+**Notions** : matrice comme application linéaire
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Quelle est la taille de $d$ ? celle de $p$ ? Qu'en déduisez-vous pour $A$ ?
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+La ligne $i$ de $A$ contient les coefficients de $d_i$ exprimé en fonction de $p_1, \dots, p_6$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Écrivez $d_1$ en fonction des $p_j$, puis lisez ses coefficients.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Écart à la moyenne glissante (fenêtre $k=2$, $n=5$)
+
+**Énoncé analogue** :
+
+$p \in \mathbb{R}^{5}$ est une série de prix. $d \in \mathbb{R}^{3}$ mesure, à partir du jour 3, l'écart entre le prix du jour et la moyenne des 2 jours précédents :
+
+$$d_i = p_{i+2} - \frac{1}{2} \sum_{k=0}^{1} p_{i+k}$$
+
+Construire la matrice $A$ telle que $d = A p$.
+
+**Résolution pas à pas** :
+
+1. **Taille** : $d$ possède 3 composantes et $p$ en a 5, donc $A$ est de taille $3 \times 5$.
+2. **Ligne 1 ($i=1$)** : $d_1 = p_{3} - \frac{1}{2}(p_1 + \dots + p_{2})$, ce qui donne la ligne 1 : \begin{bmatrix} - \frac{1}{2} \\ - \frac{1}{2} \\ 1 \\ 0 \\ 0 \end{bmatrix}^T.
+3. En décalant d'une colonne à chaque ligne, on obtient la matrice $A$ :
+
+$$A = \begin{bmatrix} - \frac{1}{2} & - \frac{1}{2} & 1 & 0 & 0 \\ 0 & - \frac{1}{2} & - \frac{1}{2} & 1 & 0 \\ 0 & 0 & - \frac{1}{2} & - \frac{1}{2} & 1 \end{bmatrix}$$
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Écart à la moyenne glissante (fenêtre $k=2$, $n=5$) ===
+Énoncé analogue : $p \in \mathbb{R}^{5}$ est une série de prix. $d \in \mathbb{R}^{3}$ mesure, à partir du jour 3, l'écart entre le prix du jour et la moyenne des 2 jours précédents :
+
+$$d_i = p_{i+2} - \frac{1}{2} \sum_{k=0}^{1} p_{i+k}$$
+
+Construire la matrice $A$ telle que $d = A p$.
+Résolution pas à pas :
+1. **Taille** : $d$ possède 3 composantes et $p$ en a 5, donc $A$ est de taille $3 \times 5$.
+2. **Ligne 1 ($i=1$)** : $d_1 = p_{3} - \frac{1}{2}(p_1 + \dots + p_{2})$, ce qui donne la ligne 1 : \begin{bmatrix} - \frac{1}{2} \\ - \frac{1}{2} \\ 1 \\ 0 \\ 0 \end{bmatrix}^T.
+3. En décalant d'une colonne à chaque ligne, on obtient la matrice $A$ :
+
+$$A = \begin{bmatrix} - \frac{1}{2} & - \frac{1}{2} & 1 & 0 & 0 \\ 0 & - \frac{1}{2} & - \frac{1}{2} & 1 & 0 \\ 0 & 0 & - \frac{1}{2} & - \frac{1}{2} & 1 \end{bmatrix}$$
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Écart à la moyenne glissante (fenêtre $k=2$, $n=5$)
+
+**Énoncé analogue** :
+
+$p \in \mathbb{R}^{5}$ est une série de prix. $d \in \mathbb{R}^{3}$ mesure, à partir du jour 3, l'écart entre le prix du jour et la moyenne des 2 jours précédents :
+
+$$d_i = p_{i+2} - \frac{1}{2} \sum_{k=0}^{1} p_{i+k}$$
+
+Construire la matrice $A$ telle que $d = A p$.
+
+**Résolution pas à pas** :
+
+1. **Taille** : $d$ possède 3 composantes et $p$ en a 5, donc $A$ est de taille $3 \times 5$.
+2. **Ligne 1 ($i=1$)** : $d_1 = p_{3} - \frac{1}{2}(p_1 + \dots + p_{2})$, ce qui donne la ligne 1 : \begin{bmatrix} - \frac{1}{2} \\ - \frac{1}{2} \\ 1 \\ 0 \\ 0 \end{bmatrix}^T.
+3. En décalant d'une colonne à chaque ligne, on obtient la matrice $A$ :
+
+$$A = \begin{bmatrix} - \frac{1}{2} & - \frac{1}{2} & 1 & 0 & 0 \\ 0 & - \frac{1}{2} & - \frac{1}{2} & 1 & 0 \\ 0 & 0 & - \frac{1}{2} & - \frac{1}{2} & 1 \end{bmatrix}$$
+
+===== verify(0) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify('0') -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée p est de taille 6 et la sortie d de taille 3.
+
+===== verify(Vector.zeros(2)) -> False =====
+Taille incorrecte : votre matrice est de taille (2 x 1), alors que l'entrée p est de taille 6 et la sortie d de taille 3.
+
+===== verify(Vector.zeros(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée p est de taille 6 et la sortie d de taille 3.
+
+===== verify(Vector.ones(5)) -> False =====
+Taille incorrecte : votre matrice est de taille (5 x 1), alors que l'entrée p est de taille 6 et la sortie d de taille 3.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Taille incorrecte : votre matrice est de taille (2 x 2), alors que l'entrée p est de taille 6 et la sortie d de taille 3.
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée p est de taille 6 et la sortie d de taille 3.
+
+===== verify(Matrix.identity(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 3), alors que l'entrée p est de taille 6 et la sortie d de taille 3.
+
+===== verify([1, 2]) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify({'a': 'valide'}) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée p est de taille 6 et la sortie d de taille 3.
+
+===== verify(('0', '0')) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée p est de taille 6 et la sortie d de taille 3.
+
+===== réponse juste =====
+Taille correcte (3 x 6). Toutes les lignes de votre matrice calculent exactement d = A p.
+
+===== bilan =====
+**Bilan — Écart à la moyenne glissante**
+
+- Statut : ✅ validé
+- Tentatives soumises : 12
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Écart à la moyenne glissante
+**Identifiant** : `moyenne-glissante` | **N°** : 16 | **Thème** : Matrices et applications linéaires | **Type** : modelisation | **Niveau** : ★★☆
+
+### Énoncé
+$p \in \mathbb{R}^6$ est une série de prix. $d \in \mathbb{R}^3$ mesure, à partir du 4ᵉ jour, l'écart entre le prix du jour et la moyenne des trois jours précédents. Trouver la matrice $A$ telle que $d = A p$ (donner sa taille et ses coefficients).
+
+### Spécification de vérification
+```yaml
+cible: d[i] = p[i+3] - (p[i] + p[i+1] + p[i+2]) / 3
+inconnue: p
+nom_sortie: d
+taille_entree: 6
+taille_sortie: 3
+type: matrice
+```
+
+### Paliers d'indices
+- **Palier 1** : Quelle est la taille de $d$ ? celle de $p$ ? Qu'en déduisez-vous pour $A$ ?
+- **Palier 2** : La ligne $i$ de $A$ contient les coefficients de $d_i$ exprimé en fonction de $p_1, \dots, p_6$.
+- **Palier 3** : Écrivez $d_1$ en fonction des $p_j$, puis lisez ses coefficients.
+
+### Exercice jumeau
+`generateurs.moyenne_glissante(fenetre=2, n=5)`

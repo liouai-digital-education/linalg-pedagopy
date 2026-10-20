@@ -1,0 +1,554 @@
+===== catalogue (texte) =====
+Vecteurs et produit scalaire
+   1. Sélectionner des composantes par un produit scalaire  [selection-composantes]  (modélisation, ★☆☆)
+   2. Notations vectorielles : valides ou non ?  [validite-notations]  (dimensions, ★☆☆)
+   3. La recette du week-end  [recette-week-end]  (modélisation, ★☆☆)
+   4. Valeurs centrales contre valeurs extrêmes  [centre-moins-extremes]  (modélisation, ★★☆)
+   5. L'étendue n'est pas linéaire  [etendue-non-lineaire]  (contre-exemple, ★★☆)
+
+Normes, distances et angles
+   6. Distance entre deux vecteurs  [distance-deux-vecteurs]  (calcul, ★☆☆)
+   7. Angle et distance  [angle-et-distance]  (calcul, ★☆☆)
+   8. Moyenne, rms et écart type d'un vecteur  [statistiques-vecteur]  (calcul, ★★☆)
+   9. Que signifie x² pour un vecteur ?  [notation-x-carre]  (dimensions, ★☆☆)
+  10. Le théorème de Pythagore  [pythagore]  (justification, ★★☆)
+  11. rms d'une différence de vecteurs orthogonaux  [rms-difference-orthogonale]  (justification, ★★☆)
+  12. Orthogonalité : vrai ou faux ?  [orthogonalite-vrai-faux]  (vrai ou faux, ★★☆)
+  13. Inégalité triangulaire à trois vecteurs  [inegalite-triangulaire-trois]  (vrai ou faux, ★★★)
+
+Orthogonalisation
+  14. Gram-Schmidt dépend-il de l'ordre ?  [ordre-gram-schmidt]  (contre-exemple, ★★☆)
+  15. Tester l'indépendance avec Gram-Schmidt  [independance-gram-schmidt]  (calcul, ★★★)
+
+Matrices et applications linéaires
+  16. Écart à la moyenne glissante  [moyenne-glissante]  (modélisation, ★★☆)
+  17. Répéter un vecteur  [vecteur-repete]  (modélisation, ★☆☆)
+  18. Renverser l'ordre des composantes  [renverser-vecteur]  (modélisation, ★☆☆)
+  19. Matrice d'une application du plan  [matrice-application-plan]  (modélisation, ★☆☆)
+  20. Interpolation d'Hermite  [interpolation-hermite]  (modélisation, ★★★)
+
+Convolution
+  21. Convolution de deux vecteurs  [convolution-vecteurs]  (calcul, ★☆☆)
+  22. Produit de polynômes par convolution  [produit-polynomes]  (calcul, ★★☆)
+
+Produit matriciel
+  23. Tailles des produits matriciels  [dimensions-produits]  (dimensions, ★☆☆)
+  24. Sommer les composantes d'un vecteur  [somme-composantes]  (modélisation, ★☆☆)
+  25. Un réseau d'amitié  [reseau-amitie]  (modélisation, ★★☆)
+  26. Dynamique linéaire : trois pas de temps  [dynamique-trois-pas]  (modélisation, ★★☆)
+  27. Mise à l'échelle par matrices diagonales  [mise-echelle-diagonale]  (modélisation, ★★☆)
+  28. Une identité par blocs  [identite-par-blocs]  (justification, ★★☆)
+
+Inverses et systèmes linéaires
+  29. Inverse à droite d'une matrice ligne  [inverse-droite-ligne]  (calcul, ★☆☆)
+  30. Inverse d'un carré  [inverse-carre]  (justification, ★★☆)
+  31. Retrouver un flux de trésorerie  [flux-tresorerie]  (calcul, ★★☆)
+  32. Deux inverses à droite  [deux-inverses-droite]  (calcul, ★★★)
+  33. Les signes des coefficients d'une inverse  [inverse-signes]  (contre-exemple, ★★☆)
+
+Moindres carrés et optimisation
+  34. Mesures de sommes de paires  [sommes-de-paires]  (modélisation, ★★☆)
+  35. Solution de norme minimale  [norme-minimale]  (calcul, ★★★)
+
+===== catalogue (markdown) =====
+| N° | Exercice | Identifiant | Thème | Type | Niveau |
+|---:|:---|:---|:---|:---|:---|
+| 1 | Sélectionner des composantes par un produit scalaire | `selection-composantes` | Vecteurs et produit scalaire | modélisation | ★☆☆ |
+| 2 | Notations vectorielles : valides ou non ? | `validite-notations` | Vecteurs et produit scalaire | dimensions | ★☆☆ |
+| 3 | La recette du week-end | `recette-week-end` | Vecteurs et produit scalaire | modélisation | ★☆☆ |
+| 4 | Valeurs centrales contre valeurs extrêmes | `centre-moins-extremes` | Vecteurs et produit scalaire | modélisation | ★★☆ |
+| 5 | L'étendue n'est pas linéaire | `etendue-non-lineaire` | Vecteurs et produit scalaire | contre-exemple | ★★☆ |
+| 6 | Distance entre deux vecteurs | `distance-deux-vecteurs` | Normes, distances et angles | calcul | ★☆☆ |
+| 7 | Angle et distance | `angle-et-distance` | Normes, distances et angles | calcul | ★☆☆ |
+| 8 | Moyenne, rms et écart type d'un vecteur | `statistiques-vecteur` | Normes, distances et angles | calcul | ★★☆ |
+| 9 | Que signifie x² pour un vecteur ? | `notation-x-carre` | Normes, distances et angles | dimensions | ★☆☆ |
+| 10 | Le théorème de Pythagore | `pythagore` | Normes, distances et angles | justification | ★★☆ |
+| 11 | rms d'une différence de vecteurs orthogonaux | `rms-difference-orthogonale` | Normes, distances et angles | justification | ★★☆ |
+| 12 | Orthogonalité : vrai ou faux ? | `orthogonalite-vrai-faux` | Normes, distances et angles | vrai ou faux | ★★☆ |
+| 13 | Inégalité triangulaire à trois vecteurs | `inegalite-triangulaire-trois` | Normes, distances et angles | vrai ou faux | ★★★ |
+| 14 | Gram-Schmidt dépend-il de l'ordre ? | `ordre-gram-schmidt` | Orthogonalisation | contre-exemple | ★★☆ |
+| 15 | Tester l'indépendance avec Gram-Schmidt | `independance-gram-schmidt` | Orthogonalisation | calcul | ★★★ |
+| 16 | Écart à la moyenne glissante | `moyenne-glissante` | Matrices et applications linéaires | modélisation | ★★☆ |
+| 17 | Répéter un vecteur | `vecteur-repete` | Matrices et applications linéaires | modélisation | ★☆☆ |
+| 18 | Renverser l'ordre des composantes | `renverser-vecteur` | Matrices et applications linéaires | modélisation | ★☆☆ |
+| 19 | Matrice d'une application du plan | `matrice-application-plan` | Matrices et applications linéaires | modélisation | ★☆☆ |
+| 20 | Interpolation d'Hermite | `interpolation-hermite` | Matrices et applications linéaires | modélisation | ★★★ |
+| 21 | Convolution de deux vecteurs | `convolution-vecteurs` | Convolution | calcul | ★☆☆ |
+| 22 | Produit de polynômes par convolution | `produit-polynomes` | Convolution | calcul | ★★☆ |
+| 23 | Tailles des produits matriciels | `dimensions-produits` | Produit matriciel | dimensions | ★☆☆ |
+| 24 | Sommer les composantes d'un vecteur | `somme-composantes` | Produit matriciel | modélisation | ★☆☆ |
+| 25 | Un réseau d'amitié | `reseau-amitie` | Produit matriciel | modélisation | ★★☆ |
+| 26 | Dynamique linéaire : trois pas de temps | `dynamique-trois-pas` | Produit matriciel | modélisation | ★★☆ |
+| 27 | Mise à l'échelle par matrices diagonales | `mise-echelle-diagonale` | Produit matriciel | modélisation | ★★☆ |
+| 28 | Une identité par blocs | `identite-par-blocs` | Produit matriciel | justification | ★★☆ |
+| 29 | Inverse à droite d'une matrice ligne | `inverse-droite-ligne` | Inverses et systèmes linéaires | calcul | ★☆☆ |
+| 30 | Inverse d'un carré | `inverse-carre` | Inverses et systèmes linéaires | justification | ★★☆ |
+| 31 | Retrouver un flux de trésorerie | `flux-tresorerie` | Inverses et systèmes linéaires | calcul | ★★☆ |
+| 32 | Deux inverses à droite | `deux-inverses-droite` | Inverses et systèmes linéaires | calcul | ★★★ |
+| 33 | Les signes des coefficients d'une inverse | `inverse-signes` | Inverses et systèmes linéaires | contre-exemple | ★★☆ |
+| 34 | Mesures de sommes de paires | `sommes-de-paires` | Moindres carrés et optimisation | modélisation | ★★☆ |
+| 35 | Solution de norme minimale | `norme-minimale` | Moindres carrés et optimisation | calcul | ★★★ |
+
+===== thèmes =====
+['Vecteurs et produit scalaire', 'Normes, distances et angles', 'Orthogonalisation', 'Matrices et applications linéaires', 'Convolution', 'Produit matriciel', 'Inverses et systèmes linéaires', 'Moindres carrés et optimisation']
+
+===== glossaire =====
+**Glossaire anglais → français**
+
+- **adjacency matrix** → Matrice d'adjacence
+- **angle** → Angle entre deux vecteurs
+- **back substitution** → Substitution arrière (remontée)
+- **cash flow** → Flux de trésorerie
+- **chebyshev inequality** → Inégalité de Bienaymé-Tchebychev
+- **convolution** → Produit de convolution
+- **correlation** → Coefficient de corrélation
+- **de-meaned vector** → Vecteur centré
+- **distance** → Distance euclidienne
+- **forward substitution** → Substitution avant (descente)
+- **gram matrix** → Matrice de Gram
+- **gram-schmidt** → Algorithme de Gram-Schmidt
+- **identity matrix** → Matrice identité
+- **inner product** → Produit scalaire
+- **inverse** → Inverse d'une matrice
+- **kkt** → Système et conditions KKT (Karush-Kuhn-Tucker)
+- **least squares** → Moindres carrés
+- **left inverse** → Inverse à gauche
+- **linear combination** → Combinaison linéaire
+- **linear independence** → Indépendance linéaire
+- **net present value** → Valeur actuelle nette (VAN)
+- **norm** → Norme (euclidienne)
+- **npv** → Valeur actuelle nette (VAN)
+- **nullspace** → Noyau
+- **orthogonal** → Orthogonal
+- **pivot** → Pivot
+- **pseudo-inverse** → Pseudo-inverse (de Moore-Penrose)
+- **qr factorization** → Factorisation QR
+- **rank** → Rang
+- **reduced row echelon form** → Forme échelonnée réduite (RREF)
+- **residual** → Résidu
+- **right inverse** → Inverse à droite
+- **rms** → Moyenne quadratique (rms)
+- **root-mean-square** → Moyenne quadratique (rms)
+- **rref** → Forme échelonnée réduite (RREF)
+- **running average** → Moyenne glissante (ou mobile)
+- **standard deviation** → Écart type (std)
+- **toeplitz matrix** → Matrice de Toeplitz
+- **transpose** → Transposée
+- **vandermonde** → Matrice de Vandermonde
+
+===== glossaire noyau =====
+**nullspace** → Noyau : Ensemble des x tels que A x = 0 ; sa dimension vaut n - rang(A) (nombre de variables libres).
+
+===== générateur adjacency_matrix =====
+Matrice d'adjacence d'un petit réseau
+Trois personnes sont liées ainsi : 1 est ami avec 2, et 2 est ami avec 3. Pour $x \in \mathbb{R}^3$, $y_i$ est la somme des $x_j$ sur les amis $j$ de $i$. Trouver $F$ telle que $y = F x$.
+1. $y_1 = x_2$, $y_2 = x_1 + x_3$, $y_3 = x_2$.
+2. La ligne $i$ de $F$ contient un 1 dans chaque colonne $j$ telle que $i$ et $j$ sont amis : c'est la matrice d'adjacence du graphe (symétrique, diagonale nulle).
+
+$$F = \begin{bmatrix} 0 & 1 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 0 \end{bmatrix}$$
+
+===== générateur block_product =====
+Produit par blocs
+Pour des blocs de tailles compatibles, calculer $\begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} I \\ 0 \end{bmatrix}$.
+1. On multiplie comme pour des coefficients, en respectant l'ordre des produits de blocs :
+
+$$\begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} I \\ 0 \end{bmatrix} = \begin{bmatrix} A I + B 0 \\ C I + D 0 \end{bmatrix}$$
+
+2. On simplifie chaque bloc : $A I = A$, $B 0 = 0$, etc.
+
+$$= \begin{bmatrix} A \\ C \end{bmatrix}$$
+
+3. Interprétation : multiplier à droite par $\begin{bmatrix} I \\ 0 \end{bmatrix}$ extrait le premier bloc de colonnes.
+
+===== générateur combinaison_orthogonale =====
+Norme d'une combinaison de vecteurs orthogonaux
+Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp v$). Exprimer $\|2 u + (-3) v\|^2$ en fonction de $\|u\|$ et $\|v\|$.
+1. On développe le produit scalaire :
+
+   $$\|2 u + (-3) v\|^2 = (2 u + (-3) v)^T (2 u + (-3) v)$$
+   $$= 4 \|u\|^2 + 2 \cdot (-6) (u^T v) + 9 \|v\|^2$$
+
+2. Comme $u \perp v$, le produit scalaire est nul : $u^T v = 0$.
+3. Conclusion :
+
+   $$\|2 u + (-3) v\|^2 = 4 \|u\|^2 + 9 \|v\|^2$$
+
+===== générateur contre_exemple_guide =====
+Méthode de construction d'un contre-exemple
+Comment construire méthodiquement un contre-exemple simple en petite dimension ?
+**Indication d'existence** : un contre-exemple existe dans $\mathbb{R}^2, \text{coefficients dans } \{-1, 0, 1\}$.
+
+**Méthode** :
+1. Choisir la plus petite dimension autorisée par l'énoncé (souvent $n = 2$).
+2. Tester des vecteurs de la base canonique $e_1 = (1, 0)$, $e_2 = (0, 1)$ ou $(1, 1)$ qui vérifient les hypothèses.
+3. Calculer les deux membres de l'affirmation et vérifier qu'ils diffèrent.
+
+===== générateur convolution_polynomes =====
+Produit de convolution de deux vecteurs
+Calculer le produit de convolution $c = a * b$ des vecteurs $a = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ et $b = \begin{bmatrix} 3 \\ -1 \\ 1 \end{bmatrix}$.
+1. La dimension de $c = a * b$ est $m + n - 1 = 2 + 3 - 1 = 4$.
+2. Pour chaque $k \in \{1, \dots, 4\}$ : $c_k = \sum_{i+j=k+1} a_i b_j$ :
+
+   $$c = \begin{bmatrix} 3 \\ 5 \\ -1 \\ 2 \end{bmatrix}$$
+
+===== générateur counterexample_guide =====
+Méthode de construction d'un contre-exemple
+Comment construire méthodiquement un contre-exemple simple en petite dimension ?
+**Indication d'existence** : un contre-exemple existe dans $\mathbb{R}^2, \text{coefficients dans } \{-1, 0, 1\}$.
+
+**Méthode** :
+1. Choisir la plus petite dimension autorisée par l'énoncé (souvent $n = 2$).
+2. Tester des vecteurs de la base canonique $e_1 = (1, 0)$, $e_2 = (0, 1)$ ou $(1, 1)$ qui vérifient les hypothèses.
+3. Calculer les deux membres de l'affirmation et vérifier qu'ils diffèrent.
+
+===== générateur diagonal_scaling =====
+Mise à l'échelle des lignes et des colonnes
+Avec $D = \begin{bmatrix} 2 & 0 \\ 0 & -1 \end{bmatrix}$, $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$ et $E = \begin{bmatrix} 1 & 0 \\ 0 & 3 \end{bmatrix}$, calculer $D A E$ et décrire l'effet de $D$ et de $E$.
+1. Multiplier à gauche par $D$ multiplie la ligne 1 de $A$ par 2 et la ligne 2 par $-1$.
+2. Multiplier à droite par $E$ multiplie la colonne 1 par 1 et la colonne 2 par 3.
+3. Chaque coefficient est donc multiplié par le facteur de sa ligne et celui de sa colonne :
+
+$$D A E = \begin{bmatrix} 2 & 12 \\ -3 & -12 \end{bmatrix}$$
+
+Par exemple, le coefficient $(2, 2)$ vaut $(-1) \times 4 \times 3 = -12$.
+
+===== générateur dimensions_expressions =====
+Analyse de compatibilité des dimensions
+Soient $A \in \mathbb{R}^{3 \times 4}$, $B \in \mathbb{R}^{4 \times 2}$ et $x \in \mathbb{R}^4$. Les expressions (a) $A x$, (b) $B^T x$, (c) $A B + B$ sont-elles bien définies ? Si oui, donner leur dimension.
+- **(a)** $A$ ($3 \times 4$) et $x$ ($4 \times 1$) : les dimensions internes ($4 = 4$) coïncident $\implies$ **valide**, dimension $3 \times 1$ (vecteur de $\mathbb{R}^3$).
+- **(b)** $B^T$ est de dimension $2 \times 4$ et $x$ est $4 \times 1$ : ($4 = 4$) $\implies$ **valide**, dimension $2 \times 1$.
+- **(c)** $A B$ est de dimension $3 \times 2$ tandis que $B$ est $4 \times 2$ : addition de dimensions différentes ($3 \times 2 \neq 4 \times 2$) $\implies$ **invalide**.
+
+===== générateur evaluation_polynome =====
+Valeurs et dérivées d'un polynôme
+Soit $p(t) = c_1 + c_2 t + c_3 t^2$, de vecteur de coefficients $c \in \mathbb{R}^3$. Écrire $y = (p(0), p(1), p'(1))$ sous la forme $y = A c$.
+1. $p(0) = c_1$, d'où la ligne $(1, 0, 0)$.
+2. $p(1) = c_1 + c_2 + c_3$, d'où la ligne $(1, 1, 1)$.
+3. $p'(t) = c_2 + 2 c_3 t$, donc $p'(1) = c_2 + 2 c_3$, d'où la ligne $(0, 1, 2)$.
+
+$$A = \begin{bmatrix} 1 & 0 & 0 \\ 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix}$$
+
+===== générateur expression_dimensions =====
+Analyse de compatibilité des dimensions
+Soient $A \in \mathbb{R}^{3 \times 4}$, $B \in \mathbb{R}^{4 \times 2}$ et $x \in \mathbb{R}^4$. Les expressions (a) $A x$, (b) $B^T x$, (c) $A B + B$ sont-elles bien définies ? Si oui, donner leur dimension.
+- **(a)** $A$ ($3 \times 4$) et $x$ ($4 \times 1$) : les dimensions internes ($4 = 4$) coïncident $\implies$ **valide**, dimension $3 \times 1$ (vecteur de $\mathbb{R}^3$).
+- **(b)** $B^T$ est de dimension $2 \times 4$ et $x$ est $4 \times 1$ : ($4 = 4$) $\implies$ **valide**, dimension $2 \times 1$.
+- **(c)** $A B$ est de dimension $3 \times 2$ tandis que $B$ est $4 \times 2$ : addition de dimensions différentes ($3 \times 2 \neq 4 \times 2$) $\implies$ **invalide**.
+
+===== générateur gram_schmidt_example =====
+Test d'indépendance par Gram-Schmidt
+Appliquer Gram-Schmidt à la famille $a_1 = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}$, $a_2 = \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix}$, $a_3 = \begin{bmatrix} 2 \\ 1 \\ 1 \end{bmatrix}$.
+On orthogonalise successivement : $\tilde q_k = a_k - \sum_{j<k} \frac{\tilde q_j^T a_k}{\|\tilde q_j\|^2} \tilde q_j$.
+
+- $\tilde q_1 = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}$
+- $\tilde q_2 = \begin{bmatrix} \frac{1}{2} \\ - \frac{1}{2} \\ 1 \end{bmatrix}$
+
+À l'étape 3, le résidu est nul : la famille est **liée** car a_3 = (3/2)·q̃_1 + q̃_2.
+
+===== générateur gram_schmidt_exemple =====
+Test d'indépendance par Gram-Schmidt
+Appliquer Gram-Schmidt à la famille $a_1 = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}$, $a_2 = \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix}$, $a_3 = \begin{bmatrix} 2 \\ 1 \\ 1 \end{bmatrix}$.
+On orthogonalise successivement : $\tilde q_k = a_k - \sum_{j<k} \frac{\tilde q_j^T a_k}{\|\tilde q_j\|^2} \tilde q_j$.
+
+- $\tilde q_1 = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}$
+- $\tilde q_2 = \begin{bmatrix} \frac{1}{2} \\ - \frac{1}{2} \\ 1 \end{bmatrix}$
+
+À l'étape 3, le résidu est nul : la famille est **liée** car a_3 = (3/2)·q̃_1 + q̃_2.
+
+===== générateur identite_blocs =====
+Produit par blocs
+Pour des blocs de tailles compatibles, calculer $\begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} I \\ 0 \end{bmatrix}$.
+1. On multiplie comme pour des coefficients, en respectant l'ordre des produits de blocs :
+
+$$\begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} I \\ 0 \end{bmatrix} = \begin{bmatrix} A I + B 0 \\ C I + D 0 \end{bmatrix}$$
+
+2. On simplifie chaque bloc : $A I = A$, $B 0 = 0$, etc.
+
+$$= \begin{bmatrix} A \\ C \end{bmatrix}$$
+
+3. Interprétation : multiplier à droite par $\begin{bmatrix} I \\ 0 \end{bmatrix}$ extrait le premier bloc de colonnes.
+
+===== générateur inegalite_triangulaire =====
+Inégalité triangulaire
+Avec $a = \begin{bmatrix} 3 \\ 0 \end{bmatrix}$ et $b = \begin{bmatrix} 0 \\ 4 \end{bmatrix}$, comparer $\|a + b\|$ et $\|a\| + \|b\|$, puis justifier l'inégalité en général.
+1. Sur l'exemple : $\|a + b\| = 5$ et $\|a\| + \|b\| = 3 + 4 = 7$.
+2. En général : $\|a + b\|^2 = \|a\|^2 + 2 a^T b + \|b\|^2 \le \|a\|^2 + 2 \|a\| \|b\| + \|b\|^2 = (\|a\| + \|b\|)^2$, grâce à l'inégalité de Cauchy-Schwarz $a^T b \le \|a\| \|b\|$.
+3. Un essai numérique illustre l'inégalité ; seule la preuve la justifie pour tous les vecteurs.
+
+===== générateur inner_product_selection =====
+Modélisation sous la forme $a^T x$
+Pour $x \in \mathbb{R}^{5}$, écrire la somme $x_1 + x_4$ sous la forme $a^T x$.
+On identifie le coefficient devant chaque composante $x_k$ ($k = 1, \dots, 5$) :
+- Les composantes sélectionnées sont (1, 4) (coefficient 1) et les autres ont un coefficient 0.
+- On obtient le vecteur $a$ :
+
+$$a = \begin{bmatrix} 1 \\ 0 \\ 0 \\ 1 \\ 0 \end{bmatrix}$$
+
+===== générateur inverse_droite_exemple =====
+Construction de plusieurs inverses à droite
+Pour la matrice $A = \begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & -1 \end{bmatrix}$ de taille $2 \times 3$ (lignes indépendantes), trouver deux inverses à droite $B$ distinctes (telles que $A B = I_2$).
+Une matrice $B \in \mathbb{R}^{3 \times 2}$ vérifie $A B = I_2$ si ses deux colonnes $b_1, b_2$ satisfont $A b_1 = e_1$ et $A b_2 = e_2$ :
+
+- En fixant la 3ᵉ composante libre à 0, on obtient :
+
+  $$B_1 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 0 & 0 \end{bmatrix}$$
+
+- En fixant la 3ᵉ composante à $(1, -1)$, on obtient :
+
+  $$B_2 = \begin{bmatrix} -1 & 2 \\ 1 & 0 \\ 1 & -1 \end{bmatrix}$$
+
+Dans les deux cas, on vérifie $A B_1 = I_2$ et $A B_2 = I_2$ avec $B_1 \neq B_2$.
+
+===== générateur inverse_produit =====
+Inverse d'un produit
+Soit $A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$, dont l'inverse est $A^{-1} = \begin{bmatrix} 1 & -1 \\ 0 & 1 \end{bmatrix}$. Calculer l'inverse de $A^2$ sans refaire de pivot de Gauss.
+1. Pour deux matrices inversibles, $(M N)^{-1} = N^{-1} M^{-1}$ (l'ordre s'inverse).
+2. Avec $M = N = A$ : $(A^2)^{-1} = A^{-1} A^{-1} = (A^{-1})^2$.
+3. On calcule donc le carré de l'inverse :
+
+$$(A^2)^{-1} = \begin{bmatrix} 1 & -2 \\ 0 & 1 \end{bmatrix}$$
+
+4. Vérification : $A^2 (A^{-1})^2 = A (A A^{-1}) A^{-1} = A A^{-1} = I$.
+
+===== générateur kkt_minimum_norm =====
+Système KKT et solution de norme minimale
+Exprimer les conditions d'optimalité KKT du problème de norme minimale :
+
+$$\min_x \|x\|^2 \quad \text{sous la contrainte} \quad C x = d$$
+1. C'est un problème de moindres carrés sous contrainte avec $A = I_n$ et $b = 0$.
+2. Le lagrangien est $L(x, z) = \|x\|^2 + z^T (C x - d)$.
+3. En annulant le gradient par rapport à $x$ : $2 x + C^T z = 0$, avec $C x = d$.
+4. Sous forme matricielle par blocs :
+
+   $$\begin{bmatrix} 2 I & C^T \\ C & 0 \end{bmatrix} \begin{bmatrix} x \\ z \end{bmatrix} = \begin{bmatrix} 0 \\ d \end{bmatrix}$$
+
+===== générateur kkt_norme_minimale =====
+Système KKT et solution de norme minimale
+Exprimer les conditions d'optimalité KKT du problème de norme minimale :
+
+$$\min_x \|x\|^2 \quad \text{sous la contrainte} \quad C x = d$$
+1. C'est un problème de moindres carrés sous contrainte avec $A = I_n$ et $b = 0$.
+2. Le lagrangien est $L(x, z) = \|x\|^2 + z^T (C x - d)$.
+3. En annulant le gradient par rapport à $x$ : $2 x + C^T z = 0$, avec $C x = d$.
+4. Sous forme matricielle par blocs :
+
+   $$\begin{bmatrix} 2 I & C^T \\ C & 0 \end{bmatrix} \begin{bmatrix} x \\ z \end{bmatrix} = \begin{bmatrix} 0 \\ d \end{bmatrix}$$
+
+===== générateur least_squares_example =====
+Modélisation par moindres carrés $\min \|A x - b\|^2$
+On dispose de 3 mesures bruitées de $x_1$, de $x_2$ et de $x_1 + x_2$ : $y_1 = 2$, $y_2 = 3$, $y_3 = 6$. Écrire le problème sous la forme $\min_x \|A x - b\|^2$.
+Chaque mesure correspond à une ligne du système $A x \approx b$ :
+
+- Ligne 1 : $1 \cdot x_1 + 0 \cdot x_2 \approx 2$
+- Ligne 2 : $0 \cdot x_1 + 1 \cdot x_2 \approx 3$
+- Ligne 3 : $1 \cdot x_1 + 1 \cdot x_2 \approx 6$
+
+D'où les matrices du problème :
+
+$$A = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{bmatrix}, \quad b = \begin{bmatrix} 2 \\ 3 \\ 6 \end{bmatrix}$$
+
+L'estimateur des moindres carrés est $\hat{x} = \begin{bmatrix} \frac{7}{3} \\ \frac{10}{3} \end{bmatrix}$.
+
+===== générateur matrice_adjacence =====
+Matrice d'adjacence d'un petit réseau
+Trois personnes sont liées ainsi : 1 est ami avec 2, et 2 est ami avec 3. Pour $x \in \mathbb{R}^3$, $y_i$ est la somme des $x_j$ sur les amis $j$ de $i$. Trouver $F$ telle que $y = F x$.
+1. $y_1 = x_2$, $y_2 = x_1 + x_3$, $y_3 = x_2$.
+2. La ligne $i$ de $F$ contient un 1 dans chaque colonne $j$ telle que $i$ et $j$ sont amis : c'est la matrice d'adjacence du graphe (symétrique, diagonale nulle).
+
+$$F = \begin{bmatrix} 0 & 1 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 0 \end{bmatrix}$$
+
+===== générateur matrice_par_effet =====
+Matrice d'une application décrite par son effet
+Pour $x = (x_1, x_2) \in \mathbb{R}^2$, on définit $y \in \mathbb{R}^3$ par $y_1 = x_2$, $y_2 = x_1 + x_2$, $y_3 = 2 x_1$. Trouver la matrice $A$ telle que $y = A x$.
+1. **Taille** : l'entrée est dans $\mathbb{R}^2$ et la sortie dans $\mathbb{R}^3$, donc $A$ est de taille $3 \times 2$.
+2. **Méthode des colonnes** : la colonne $j$ de $A$ est l'image du vecteur de base $e_j$.
+   - $x = e_1 = (1, 0)$ donne $y = (0, 1, 2)$ : c'est la colonne 1.
+   - $x = e_2 = (0, 1)$ donne $y = (1, 1, 0)$ : c'est la colonne 2.
+3. **Méthode des lignes** (équivalente) : la ligne $i$ contient les coefficients de $y_i$ devant $x_1, x_2$.
+
+$$A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 2 & 0 \end{bmatrix}$$
+
+===== générateur matrix_from_action =====
+Matrice d'une application décrite par son effet
+Pour $x = (x_1, x_2) \in \mathbb{R}^2$, on définit $y \in \mathbb{R}^3$ par $y_1 = x_2$, $y_2 = x_1 + x_2$, $y_3 = 2 x_1$. Trouver la matrice $A$ telle que $y = A x$.
+1. **Taille** : l'entrée est dans $\mathbb{R}^2$ et la sortie dans $\mathbb{R}^3$, donc $A$ est de taille $3 \times 2$.
+2. **Méthode des colonnes** : la colonne $j$ de $A$ est l'image du vecteur de base $e_j$.
+   - $x = e_1 = (1, 0)$ donne $y = (0, 1, 2)$ : c'est la colonne 1.
+   - $x = e_2 = (0, 1)$ donne $y = (1, 1, 0)$ : c'est la colonne 2.
+3. **Méthode des lignes** (équivalente) : la ligne $i$ contient les coefficients de $y_i$ devant $x_1, x_2$.
+
+$$A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 2 & 0 \end{bmatrix}$$
+
+===== générateur matrix_power =====
+Deux pas d'un système dynamique
+Un système évolue selon $x_{t+1} = A x_t$ avec $A = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}$. Exprimer $x_{t+2}$ en fonction de $x_t$.
+1. $x_{t+2} = A x_{t+1} = A (A x_t) = A^2 x_t$ : on applique deux fois la matrice.
+2. On calcule le produit $A^2 = A A$ (ligne de gauche · colonne de droite) :
+
+$$A^2 = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 4 & 1 \end{bmatrix}$$
+
+3. Donc $x_{t+2} = A^2 x_t$. Pour trois pas, on calculerait de même $A^3 = A^2 A$.
+
+===== générateur mise_echelle_diagonale =====
+Mise à l'échelle des lignes et des colonnes
+Avec $D = \begin{bmatrix} 2 & 0 \\ 0 & -1 \end{bmatrix}$, $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$ et $E = \begin{bmatrix} 1 & 0 \\ 0 & 3 \end{bmatrix}$, calculer $D A E$ et décrire l'effet de $D$ et de $E$.
+1. Multiplier à gauche par $D$ multiplie la ligne 1 de $A$ par 2 et la ligne 2 par $-1$.
+2. Multiplier à droite par $E$ multiplie la colonne 1 par 1 et la colonne 2 par 3.
+3. Chaque coefficient est donc multiplié par le facteur de sa ligne et celui de sa colonne :
+
+$$D A E = \begin{bmatrix} 2 & 12 \\ -3 & -12 \end{bmatrix}$$
+
+Par exemple, le coefficient $(2, 2)$ vaut $(-1) \times 4 \times 3 = -12$.
+
+===== générateur moindres_carres_exemple =====
+Modélisation par moindres carrés $\min \|A x - b\|^2$
+On dispose de 3 mesures bruitées de $x_1$, de $x_2$ et de $x_1 + x_2$ : $y_1 = 2$, $y_2 = 3$, $y_3 = 6$. Écrire le problème sous la forme $\min_x \|A x - b\|^2$.
+Chaque mesure correspond à une ligne du système $A x \approx b$ :
+
+- Ligne 1 : $1 \cdot x_1 + 0 \cdot x_2 \approx 2$
+- Ligne 2 : $0 \cdot x_1 + 1 \cdot x_2 \approx 3$
+- Ligne 3 : $1 \cdot x_1 + 1 \cdot x_2 \approx 6$
+
+D'où les matrices du problème :
+
+$$A = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{bmatrix}, \quad b = \begin{bmatrix} 2 \\ 3 \\ 6 \end{bmatrix}$$
+
+L'estimateur des moindres carrés est $\hat{x} = \begin{bmatrix} \frac{7}{3} \\ \frac{10}{3} \end{bmatrix}$.
+
+===== générateur moving_average =====
+Écart à la moyenne glissante (fenêtre $k=2$, $n=5$)
+$p \in \mathbb{R}^{5}$ est une série de prix. $d \in \mathbb{R}^{3}$ mesure, à partir du jour 3, l'écart entre le prix du jour et la moyenne des 2 jours précédents :
+
+$$d_i = p_{i+2} - \frac{1}{2} \sum_{k=0}^{1} p_{i+k}$$
+
+Construire la matrice $A$ telle que $d = A p$.
+1. **Taille** : $d$ possède 3 composantes et $p$ en a 5, donc $A$ est de taille $3 \times 5$.
+2. **Ligne 1 ($i=1$)** : $d_1 = p_{3} - \frac{1}{2}(p_1 + \dots + p_{2})$, ce qui donne la ligne 1 : \begin{bmatrix} - \frac{1}{2} \\ - \frac{1}{2} \\ 1 \\ 0 \\ 0 \end{bmatrix}^T.
+3. En décalant d'une colonne à chaque ligne, on obtient la matrice $A$ :
+
+$$A = \begin{bmatrix} - \frac{1}{2} & - \frac{1}{2} & 1 & 0 & 0 \\ 0 & - \frac{1}{2} & - \frac{1}{2} & 1 & 0 \\ 0 & 0 & - \frac{1}{2} & - \frac{1}{2} & 1 \end{bmatrix}$$
+
+===== générateur moyenne_glissante =====
+Écart à la moyenne glissante (fenêtre $k=2$, $n=5$)
+$p \in \mathbb{R}^{5}$ est une série de prix. $d \in \mathbb{R}^{3}$ mesure, à partir du jour 3, l'écart entre le prix du jour et la moyenne des 2 jours précédents :
+
+$$d_i = p_{i+2} - \frac{1}{2} \sum_{k=0}^{1} p_{i+k}$$
+
+Construire la matrice $A$ telle que $d = A p$.
+1. **Taille** : $d$ possède 3 composantes et $p$ en a 5, donc $A$ est de taille $3 \times 5$.
+2. **Ligne 1 ($i=1$)** : $d_1 = p_{3} - \frac{1}{2}(p_1 + \dots + p_{2})$, ce qui donne la ligne 1 : \begin{bmatrix} - \frac{1}{2} \\ - \frac{1}{2} \\ 1 \\ 0 \\ 0 \end{bmatrix}^T.
+3. En décalant d'une colonne à chaque ligne, on obtient la matrice $A$ :
+
+$$A = \begin{bmatrix} - \frac{1}{2} & - \frac{1}{2} & 1 & 0 & 0 \\ 0 & - \frac{1}{2} & - \frac{1}{2} & 1 & 0 \\ 0 & 0 & - \frac{1}{2} & - \frac{1}{2} & 1 \end{bmatrix}$$
+
+===== générateur orthogonal_combination =====
+Norme d'une combinaison de vecteurs orthogonaux
+Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp v$). Exprimer $\|2 u + (-3) v\|^2$ en fonction de $\|u\|$ et $\|v\|$.
+1. On développe le produit scalaire :
+
+   $$\|2 u + (-3) v\|^2 = (2 u + (-3) v)^T (2 u + (-3) v)$$
+   $$= 4 \|u\|^2 + 2 \cdot (-6) (u^T v) + 9 \|v\|^2$$
+
+2. Comme $u \perp v$, le produit scalaire est nul : $u^T v = 0$.
+3. Conclusion :
+
+   $$\|2 u + (-3) v\|^2 = 4 \|u\|^2 + 9 \|v\|^2$$
+
+===== générateur polynomial_convolution =====
+Produit de convolution de deux vecteurs
+Calculer le produit de convolution $c = a * b$ des vecteurs $a = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ et $b = \begin{bmatrix} 3 \\ -1 \\ 1 \end{bmatrix}$.
+1. La dimension de $c = a * b$ est $m + n - 1 = 2 + 3 - 1 = 4$.
+2. Pour chaque $k \in \{1, \dots, 4\}$ : $c_k = \sum_{i+j=k+1} a_i b_j$ :
+
+   $$c = \begin{bmatrix} 3 \\ 5 \\ -1 \\ 2 \end{bmatrix}$$
+
+===== générateur polynomial_evaluation =====
+Valeurs et dérivées d'un polynôme
+Soit $p(t) = c_1 + c_2 t + c_3 t^2$, de vecteur de coefficients $c \in \mathbb{R}^3$. Écrire $y = (p(0), p(1), p'(1))$ sous la forme $y = A c$.
+1. $p(0) = c_1$, d'où la ligne $(1, 0, 0)$.
+2. $p(1) = c_1 + c_2 + c_3$, d'où la ligne $(1, 1, 1)$.
+3. $p'(t) = c_2 + 2 c_3 t$, donc $p'(1) = c_2 + 2 c_3$, d'où la ligne $(0, 1, 2)$.
+
+$$A = \begin{bmatrix} 1 & 0 & 0 \\ 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix}$$
+
+===== générateur product_inverse =====
+Inverse d'un produit
+Soit $A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$, dont l'inverse est $A^{-1} = \begin{bmatrix} 1 & -1 \\ 0 & 1 \end{bmatrix}$. Calculer l'inverse de $A^2$ sans refaire de pivot de Gauss.
+1. Pour deux matrices inversibles, $(M N)^{-1} = N^{-1} M^{-1}$ (l'ordre s'inverse).
+2. Avec $M = N = A$ : $(A^2)^{-1} = A^{-1} A^{-1} = (A^{-1})^2$.
+3. On calcule donc le carré de l'inverse :
+
+$$(A^2)^{-1} = \begin{bmatrix} 1 & -2 \\ 0 & 1 \end{bmatrix}$$
+
+4. Vérification : $A^2 (A^{-1})^2 = A (A A^{-1}) A^{-1} = A A^{-1} = I$.
+
+===== générateur produit_scalaire_selection =====
+Modélisation sous la forme $a^T x$
+Pour $x \in \mathbb{R}^{5}$, écrire la somme $x_1 + x_4$ sous la forme $a^T x$.
+On identifie le coefficient devant chaque composante $x_k$ ($k = 1, \dots, 5$) :
+- Les composantes sélectionnées sont (1, 4) (coefficient 1) et les autres ont un coefficient 0.
+- On obtient le vecteur $a$ :
+
+$$a = \begin{bmatrix} 1 \\ 0 \\ 0 \\ 1 \\ 0 \end{bmatrix}$$
+
+===== générateur puissance_matrice =====
+Deux pas d'un système dynamique
+Un système évolue selon $x_{t+1} = A x_t$ avec $A = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}$. Exprimer $x_{t+2}$ en fonction de $x_t$.
+1. $x_{t+2} = A x_{t+1} = A (A x_t) = A^2 x_t$ : on applique deux fois la matrice.
+2. On calcule le produit $A^2 = A A$ (ligne de gauche · colonne de droite) :
+
+$$A^2 = \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix} \begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 4 & 1 \end{bmatrix}$$
+
+3. Donc $x_{t+2} = A^2 x_t$. Pour trois pas, on calculerait de même $A^3 = A^2 A$.
+
+===== générateur resolution_systeme =====
+Des conditions à un système linéaire
+Deux versements $c_1$ et $c_2$ totalisent 5 et leur différence $c_1 - c_2$ vaut 1. Retrouver $c = (c_1, c_2)$.
+1. Chaque condition donne une équation linéaire : $c_1 + c_2 = 5$ et $c_1 - c_2 = 1$.
+2. Sous forme matricielle : $A c = b$ avec $A = \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$ et $b = \begin{bmatrix} 5 \\ 1 \end{bmatrix}$.
+3. La réduction de Gauss-Jordan de $[A \mid b]$ donne la solution unique $c = \begin{bmatrix} 3 \\ 2 \end{bmatrix}$.
+
+===== générateur right_inverse_example =====
+Construction de plusieurs inverses à droite
+Pour la matrice $A = \begin{bmatrix} 1 & 0 & 2 \\ 0 & 1 & -1 \end{bmatrix}$ de taille $2 \times 3$ (lignes indépendantes), trouver deux inverses à droite $B$ distinctes (telles que $A B = I_2$).
+Une matrice $B \in \mathbb{R}^{3 \times 2}$ vérifie $A B = I_2$ si ses deux colonnes $b_1, b_2$ satisfont $A b_1 = e_1$ et $A b_2 = e_2$ :
+
+- En fixant la 3ᵉ composante libre à 0, on obtient :
+
+  $$B_1 = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 0 & 0 \end{bmatrix}$$
+
+- En fixant la 3ᵉ composante à $(1, -1)$, on obtient :
+
+  $$B_2 = \begin{bmatrix} -1 & 2 \\ 1 & 0 \\ 1 & -1 \end{bmatrix}$$
+
+Dans les deux cas, on vérifie $A B_1 = I_2$ et $A B_2 = I_2$ avec $B_1 \neq B_2$.
+
+===== générateur statistiques_vecteur =====
+Moyenne, moyenne quadratique ($\text{rms}$) et écart type ($\text{std}$)
+Pour le vecteur $x = \begin{bmatrix} 2 \\ -1 \\ 5 \\ 2 \end{bmatrix}$ dans $\mathbb{R}^{4}$, calculer $\text{avg}(x)$, $\text{rms}(x)$ et $\text{std}(x)$.
+- **Moyenne** : $\text{avg}(x) = 2$
+- **Moyenne quadratique** : $\text{rms}(x) = \frac{\|x\|}{\sqrt{4}} = \frac{\sqrt{34}}{2}$
+- **Vecteur centré** : $x - \text{avg}(x) \mathbf{1} = \begin{bmatrix} 0 \\ -3 \\ 3 \\ 0 \end{bmatrix}$
+- **Écart type** : $\text{std}(x) = \text{rms}(x - \text{avg}(x) \mathbf{1}) = \frac{3 \sqrt{2}}{2}$
+
+===== générateur system_solving =====
+Des conditions à un système linéaire
+Deux versements $c_1$ et $c_2$ totalisent 5 et leur différence $c_1 - c_2$ vaut 1. Retrouver $c = (c_1, c_2)$.
+1. Chaque condition donne une équation linéaire : $c_1 + c_2 = 5$ et $c_1 - c_2 = 1$.
+2. Sous forme matricielle : $A c = b$ avec $A = \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$ et $b = \begin{bmatrix} 5 \\ 1 \end{bmatrix}$.
+3. La réduction de Gauss-Jordan de $[A \mid b]$ donne la solution unique $c = \begin{bmatrix} 3 \\ 2 \end{bmatrix}$.
+
+===== générateur triangle_inequality =====
+Inégalité triangulaire
+Avec $a = \begin{bmatrix} 3 \\ 0 \end{bmatrix}$ et $b = \begin{bmatrix} 0 \\ 4 \end{bmatrix}$, comparer $\|a + b\|$ et $\|a\| + \|b\|$, puis justifier l'inégalité en général.
+1. Sur l'exemple : $\|a + b\| = 5$ et $\|a\| + \|b\| = 3 + 4 = 7$.
+2. En général : $\|a + b\|^2 = \|a\|^2 + 2 a^T b + \|b\|^2 \le \|a\|^2 + 2 \|a\| \|b\| + \|b\|^2 = (\|a\| + \|b\|)^2$, grâce à l'inégalité de Cauchy-Schwarz $a^T b \le \|a\| \|b\|$.
+3. Un essai numérique illustre l'inégalité ; seule la preuve la justifie pour tous les vecteurs.
+
+===== générateur vector_statistics =====
+Moyenne, moyenne quadratique ($\text{rms}$) et écart type ($\text{std}$)
+Pour le vecteur $x = \begin{bmatrix} 2 \\ -1 \\ 5 \\ 2 \end{bmatrix}$ dans $\mathbb{R}^{4}$, calculer $\text{avg}(x)$, $\text{rms}(x)$ et $\text{std}(x)$.
+- **Moyenne** : $\text{avg}(x) = 2$
+- **Moyenne quadratique** : $\text{rms}(x) = \frac{\|x\|}{\sqrt{4}} = \frac{\sqrt{34}}{2}$
+- **Vecteur centré** : $x - \text{avg}(x) \mathbf{1} = \begin{bmatrix} 0 \\ -3 \\ 3 \\ 0 \end{bmatrix}$
+- **Écart type** : $\text{std}(x) = \text{rms}(x - \text{avg}(x) \mathbf{1}) = \frac{3 \sqrt{2}}{2}$

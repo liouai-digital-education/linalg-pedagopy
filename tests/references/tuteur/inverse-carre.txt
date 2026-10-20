@@ -1,0 +1,155 @@
+===== énoncé =====
+### Exercice 30 — Inverse d'un carré
+
+*Inverses et systèmes linéaires · justification · niveau ★★☆*
+
+Soit $A = \begin{bmatrix} 1 & 2 \\ 0 & 1 \end{bmatrix}$ une matrice carrée inversible d'inverse $B = A^{-1}$. Donner la matrice inverse de $A^2$ (ou son expression en fonction de $B$).
+
+**Notions** : inverse d'un carré de matrice, inverse d'un produit
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+On cherche une matrice $X$ telle que $A^2 X = I$ et $X A^2 = I$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : si deux matrices $M$ et $N$ sont inversibles, l'inverse du produit $M N$ est $N^{-1} M^{-1}$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Appliquez cette propriété à $M = A$ et $N = A$, ou calculez $(A^{-1})^2$.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Inverse d'un produit
+
+**Énoncé analogue** :
+
+Soit $A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$, dont l'inverse est $A^{-1} = \begin{bmatrix} 1 & -1 \\ 0 & 1 \end{bmatrix}$. Calculer l'inverse de $A^2$ sans refaire de pivot de Gauss.
+
+**Résolution pas à pas** :
+
+1. Pour deux matrices inversibles, $(M N)^{-1} = N^{-1} M^{-1}$ (l'ordre s'inverse).
+2. Avec $M = N = A$ : $(A^2)^{-1} = A^{-1} A^{-1} = (A^{-1})^2$.
+3. On calcule donc le carré de l'inverse :
+
+$$(A^2)^{-1} = \begin{bmatrix} 1 & -2 \\ 0 & 1 \end{bmatrix}$$
+
+4. Vérification : $A^2 (A^{-1})^2 = A (A A^{-1}) A^{-1} = A A^{-1} = I$.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Inverse d'un produit ===
+Énoncé analogue : Soit $A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$, dont l'inverse est $A^{-1} = \begin{bmatrix} 1 & -1 \\ 0 & 1 \end{bmatrix}$. Calculer l'inverse de $A^2$ sans refaire de pivot de Gauss.
+Résolution pas à pas :
+1. Pour deux matrices inversibles, $(M N)^{-1} = N^{-1} M^{-1}$ (l'ordre s'inverse).
+2. Avec $M = N = A$ : $(A^2)^{-1} = A^{-1} A^{-1} = (A^{-1})^2$.
+3. On calcule donc le carré de l'inverse :
+
+$$(A^2)^{-1} = \begin{bmatrix} 1 & -2 \\ 0 & 1 \end{bmatrix}$$
+
+4. Vérification : $A^2 (A^{-1})^2 = A (A A^{-1}) A^{-1} = A A^{-1} = I$.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Inverse d'un produit
+
+**Énoncé analogue** :
+
+Soit $A = \begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}$, dont l'inverse est $A^{-1} = \begin{bmatrix} 1 & -1 \\ 0 & 1 \end{bmatrix}$. Calculer l'inverse de $A^2$ sans refaire de pivot de Gauss.
+
+**Résolution pas à pas** :
+
+1. Pour deux matrices inversibles, $(M N)^{-1} = N^{-1} M^{-1}$ (l'ordre s'inverse).
+2. Avec $M = N = A$ : $(A^2)^{-1} = A^{-1} A^{-1} = (A^{-1})^2$.
+3. On calcule donc le carré de l'inverse :
+
+$$(A^2)^{-1} = \begin{bmatrix} 1 & -2 \\ 0 & 1 \end{bmatrix}$$
+
+4. Vérification : $A^2 (A^{-1})^2 = A (A A^{-1}) A^{-1} = A A^{-1} = I$.
+
+===== verify(0) -> False =====
+Fournissez la formule ('B^2') ou la matrice inverse de A².
+
+===== verify('0') -> False =====
+Dimensions incompatibles pour le produit matriciel : (2, 2) @ (1, 1) (2 != 1).
+
+===== verify(Vector.zeros(2)) -> False =====
+Le produit A² par votre matrice donne ⎡0⎤
+⎢ ⎥
+⎣0⎦ ≠ I.
+
+===== verify(Vector.zeros(3)) -> False =====
+Dimensions incompatibles pour le produit matriciel : (2, 2) @ (3, 1) (2 != 3).
+
+===== verify(Vector.ones(5)) -> False =====
+Dimensions incompatibles pour le produit matriciel : (2, 2) @ (5, 1) (2 != 5).
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Le produit A² par votre matrice donne ⎡0  0⎤
+⎢    ⎥
+⎣0  0⎦ ≠ I.
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Dimensions incompatibles pour le produit matriciel : (2, 2) @ (3, 1) (2 != 3).
+
+===== verify(Matrix.identity(3)) -> False =====
+Dimensions incompatibles pour le produit matriciel : (2, 2) @ (3, 3) (2 != 3).
+
+===== verify([1, 2]) -> False =====
+Fournissez la formule ('B^2') ou la matrice inverse de A².
+
+===== verify({'a': 'valide'}) -> False =====
+Dimensions incompatibles pour le produit matriciel : (2, 2) @ (1, 1) (2 != 1).
+
+===== verify(('0', '0')) -> False =====
+Le produit A² par votre matrice donne ⎡0⎤
+⎢ ⎥
+⎣0⎦ ≠ I.
+
+===== réponse juste =====
+Exact ! Comme A² B² = A (A B) B = A I B = A B = I, l'inverse de A² est B² = (A⁻¹)².
+
+===== bilan =====
+**Bilan — Inverse d'un carré**
+
+- Statut : ✅ validé
+- Tentatives soumises : 12
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Inverse d'un carré
+**Identifiant** : `inverse-carre` | **N°** : 30 | **Thème** : Inverses et systèmes linéaires | **Type** : justification | **Niveau** : ★★☆
+
+### Énoncé
+Soit $A = \begin{bmatrix} 1 & 2 \\ 0 & 1 \end{bmatrix}$ une matrice carrée inversible d'inverse $B = A^{-1}$. Donner la matrice inverse de $A^2$ (ou son expression en fonction de $B$).
+
+### Spécification de vérification
+```yaml
+propriete: square_inverse
+type: propriete
+```
+
+### Paliers d'indices
+- **Palier 1** : On cherche une matrice $X$ telle que $A^2 X = I$ et $X A^2 = I$.
+- **Palier 2** : Rappel : si deux matrices $M$ et $N$ sont inversibles, l'inverse du produit $M N$ est $N^{-1} M^{-1}$.
+- **Palier 3** : Appliquez cette propriété à $M = A$ et $N = A$, ou calculez $(A^{-1})^2$.
+
+### Exercice jumeau
+`generateurs.inverse_produit()`

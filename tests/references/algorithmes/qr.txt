@@ -1,0 +1,145 @@
+===== repr =====
+QRResult(A=Matrix([[1, -1], [1, 0], [1, 1]]), Q=Matrix([[sqrt(3)/3, -sqrt(2)/2], [sqrt(3)/3, 0], [sqrt(3)/3, sqrt(2)/2]]), R=Matrix([[sqrt(3), 0], [0, sqrt(2)]]), Q_tilde=Matrix([[1, -1], [1, 0], [1, 1]]), R_tilde=Matrix([[1, 0], [0, 1]]), D_sq=Matrix([[3, 0], [0, 2]]), d_sq=(3, 2), full_rank=True, witness=None)
+
+===== texte niveau 0 =====
+
+
+===== texte niveau 1 =====
+Factorisation QR de la matrice A de taille 3×2.
+├─ Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^3 (variante normalize='end').
+│  ├─ Étape i = 1 : traitement du vecteur a_1.
+│  ├─ Étape i = 2 : traitement du vecteur a_2.
+│  ├─ Normalisation finale des 2 vecteurs orthogonaux rationnels.
+│  └─ La famille est libre : 2 vecteurs orthonormés obtenus.
+├─ Construction de la factorisation rationnelle A = Q_tilde · R_tilde avec Q_tilde^T Q_tilde = D^2.
+├─ Passage à A = Q · R avec Q = Q_tilde · D^(-1) et R = D · R_tilde (diagonale de R strictement positive).
+└─ Factorisation A = Q R terminée.
+
+===== texte niveau 2 =====
+Factorisation QR de la matrice A de taille 3×2.
+├─ Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^3 (variante normalize='end').
+│  ├─ Étape i = 1 : traitement du vecteur a_1.
+│  │  └─ Soustraction des projections : q_tilde_1 = ( 1, 1, 1 ).
+│  ├─ Étape i = 2 : traitement du vecteur a_2.
+│  │  ├─ Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 0.
+│  │  └─ Soustraction des projections : q_tilde_2 = ( −1, 0, 1 ).
+│  ├─ Normalisation finale des 2 vecteurs orthogonaux rationnels.
+│  │  ├─ Normalisation de q_tilde_1 (norme √(3)) : q_1 = ( √(3)/3, √(3)/3, √(3)/3 ).
+│  │  └─ Normalisation de q_tilde_2 (norme √(2)) : q_2 = ( −√(2)/2, 0, √(2)/2 ).
+│  └─ La famille est libre : 2 vecteurs orthonormés obtenus.
+├─ Construction de la factorisation rationnelle A = Q_tilde · R_tilde avec Q_tilde^T Q_tilde = D^2.
+├─ Passage à A = Q · R avec Q = Q_tilde · D^(-1) et R = D · R_tilde (diagonale de R strictement positive).
+└─ Factorisation A = Q R terminée.
+
+===== texte niveau 3 =====
+Factorisation QR de la matrice A de taille 3×2.
+├─ Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^3 (variante normalize='end').
+│  ├─ Étape i = 1 : traitement du vecteur a_1.
+│  │  └─ Soustraction des projections : q_tilde_1 = ( 1, 1, 1 ).
+│  ├─ Étape i = 2 : traitement du vecteur a_2.
+│  │  ├─ Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 0.
+│  │  ├─ Soustraction des projections : q_tilde_2 = ( −1, 0, 1 ).
+│  │  └─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│  ├─ Normalisation finale des 2 vecteurs orthogonaux rationnels.
+│  │  ├─ Normalisation de q_tilde_1 (norme √(3)) : q_1 = ( √(3)/3, √(3)/3, √(3)/3 ).
+│  │  └─ Normalisation de q_tilde_2 (norme √(2)) : q_2 = ( −√(2)/2, 0, √(2)/2 ).
+│  └─ La famille est libre : 2 vecteurs orthonormés obtenus.
+├─ Construction de la factorisation rationnelle A = Q_tilde · R_tilde avec Q_tilde^T Q_tilde = D^2.
+├─ Passage à A = Q · R avec Q = Q_tilde · D^(-1) et R = D · R_tilde (diagonale de R strictement positive).
+└─ Factorisation A = Q R terminée.
+
+===== markdown niveau 2 =====
+- Factorisation QR de la matrice A de taille 3×2.
+  - Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^3 (variante normalize='end').
+    - Étape i = 1 : traitement du vecteur a_1.
+      - Soustraction des projections : q_tilde_1 = ( 1, 1, 1 ).
+        $$\left[\begin{array}{c} 1 \\ 1 \\ 1 \end{array}\right]$$
+    - Étape i = 2 : traitement du vecteur a_2.
+      - Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 0.
+      - Soustraction des projections : q_tilde_2 = ( −1, 0, 1 ).
+        $$\left[\begin{array}{c} -1 \\ 0 \\ 1 \end{array}\right]$$
+    - Normalisation finale des 2 vecteurs orthogonaux rationnels.
+      - Normalisation de q_tilde_1 (norme √(3)) : q_1 = ( √(3)/3, √(3)/3, √(3)/3 ).
+        $$\left[\begin{array}{c} \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \end{array}\right]$$
+      - Normalisation de q_tilde_2 (norme √(2)) : q_2 = ( −√(2)/2, 0, √(2)/2 ).
+        $$\left[\begin{array}{c} - \frac{\sqrt{2}}{2} \\ 0 \\ \frac{\sqrt{2}}{2} \end{array}\right]$$
+    - La famille est libre : 2 vecteurs orthonormés obtenus.
+  - Construction de la factorisation rationnelle A = Q_tilde · R_tilde avec Q_tilde^T Q_tilde = D^2.
+    $$\left[\begin{array}{cc} 1 & -1 \\ 1 & 0 \\ 1 & 1 \end{array}\right]$$
+  - Passage à A = Q · R avec Q = Q_tilde · D^(-1) et R = D · R_tilde (diagonale de R strictement positive).
+    $$\left[\begin{array}{cc} \sqrt{3} & 0 \\ 0 & \sqrt{2} \end{array}\right]$$
+  - Factorisation A = Q R terminée.
+    $$\left[\begin{array}{cc} \frac{\sqrt{3}}{3} & - \frac{\sqrt{2}}{2} \\ \frac{\sqrt{3}}{3} & 0 \\ \frac{\sqrt{3}}{3} & \frac{\sqrt{2}}{2} \end{array}\right]$$
+
+===== latex niveau 2 =====
+\begin{itemize}
+  \item Factorisation QR de la matrice A de taille 3×2.
+  \begin{itemize}
+    \item Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^3 (variante normalize='end').
+    \begin{itemize}
+      \item Étape i = 1 : traitement du vecteur a_1.
+      \begin{itemize}
+        \item Soustraction des projections : q_tilde_1 = ( 1, 1, 1 ).
+        \[\left[\begin{array}{c} 1 \\ 1 \\ 1 \end{array}\right]\]
+      \end{itemize}
+      \item Étape i = 2 : traitement du vecteur a_2.
+      \begin{itemize}
+        \item Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 0.
+        \item Soustraction des projections : q_tilde_2 = ( −1, 0, 1 ).
+        \[\left[\begin{array}{c} -1 \\ 0 \\ 1 \end{array}\right]\]
+      \end{itemize}
+      \item Normalisation finale des 2 vecteurs orthogonaux rationnels.
+      \begin{itemize}
+        \item Normalisation de q_tilde_1 (norme √(3)) : q_1 = ( √(3)/3, √(3)/3, √(3)/3 ).
+        \[\left[\begin{array}{c} \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \end{array}\right]\]
+        \item Normalisation de q_tilde_2 (norme √(2)) : q_2 = ( −√(2)/2, 0, √(2)/2 ).
+        \[\left[\begin{array}{c} - \frac{\sqrt{2}}{2} \\ 0 \\ \frac{\sqrt{2}}{2} \end{array}\right]\]
+      \end{itemize}
+      \item La famille est libre : 2 vecteurs orthonormés obtenus.
+    \end{itemize}
+    \item Construction de la factorisation rationnelle A = Q_tilde · R_tilde avec Q_tilde^T Q_tilde = D^2.
+    \[\left[\begin{array}{cc} 1 & -1 \\ 1 & 0 \\ 1 & 1 \end{array}\right]\]
+    \item Passage à A = Q · R avec Q = Q_tilde · D^(-1) et R = D · R_tilde (diagonale de R strictement positive).
+    \[\left[\begin{array}{cc} \sqrt{3} & 0 \\ 0 & \sqrt{2} \end{array}\right]\]
+    \item Factorisation A = Q R terminée.
+    \[\left[\begin{array}{cc} \frac{\sqrt{3}}{3} & - \frac{\sqrt{2}}{2} \\ \frac{\sqrt{3}}{3} & 0 \\ \frac{\sqrt{3}}{3} & \frac{\sqrt{2}}{2} \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-explanation'>
+<details open>
+  <summary>Factorisation QR de la matrice A de taille 3×2.</summary>
+  
+  <details open>
+  <summary>Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^3 (variante normalize=&#x27;end&#x27;).</summary>
+  
+  <details open>
+  <summary>Étape i = 1 : traitement du vecteur a_1.</summary>
+  
+  <div class='pedagopy-step'>Soustraction des projections : q_tilde_1 = ( 1, 1, 1 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 1 \\ 1 \\ 1 \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Étape i = 2 : traitement du vecteur a_2.</summary>
+  
+  <div class='pedagopy-step'>Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 0.</div>
+<div class='pedagopy-step'>Soustraction des projections : q_tilde_2 = ( −1, 0, 1 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} -1 \\ 0 \\ 1 \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Normalisation finale des 2 vecteurs orthogonaux rationnels.</summary>
+  
+  <div class='pedagopy-step'>Normalisation de q_tilde_1 (norme √(3)) : q_1 = ( √(3)/3, √(3)/3, √(3)/3 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Normalisation de q_tilde_2 (norme √(2)) : q_2 = ( −√(2)/2, 0, √(2)/2 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} - \frac{\sqrt{2}}{2} \\ 0 \\ \frac{\sqrt{2}}{2} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>La famille est libre : 2 vecteurs orthonormés obtenus.</div>
+</details>
+<div class='pedagopy-step'>Construction de la factorisation rationnelle A = Q_tilde · R_tilde avec Q_tilde^T Q_tilde = D^2.<div class='pedagopy-math'>\[\left[\begin{array}{cc} 1 & -1 \\ 1 & 0 \\ 1 & 1 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Passage à A = Q · R avec Q = Q_tilde · D^(-1) et R = D · R_tilde (diagonale de R strictement positive).<div class='pedagopy-math'>\[\left[\begin{array}{cc} \sqrt{3} & 0 \\ 0 & \sqrt{2} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Factorisation A = Q R terminée.<div class='pedagopy-math'>\[\left[\begin{array}{cc} \frac{\sqrt{3}}{3} & - \frac{\sqrt{2}}{2} \\ \frac{\sqrt{3}}{3} & 0 \\ \frac{\sqrt{3}}{3} & \frac{\sqrt{2}}{2} \end{array}\right]\]</div></div>
+</details>
+</div>
+
+===== verify =====
+Vérification de la factorisation QR : contrôle de Q R = A et Q^T Q = I_2 via l'oracle.
+├─ Contrôle Q R - A = 0 : vérifié coefficient par coefficient.
+└─ Contrôle Q^T Q - I_2 = 0 : vérifié coefficient par coefficient.

@@ -1,0 +1,155 @@
+===== énoncé =====
+### Exercice 19 — Matrice d'une application du plan
+
+*Matrices et applications linéaires · modélisation · niveau ★☆☆*
+
+Soit l'application linéaire $f : \mathbb{R}^2 \to \mathbb{R}^2$ qui à $x = (x_1, x_2)$ associe $y = (y_1, y_2)$ avec $y_1 = 2 x_2 - x_1$ et $y_2 = x_1 + 3 x_2$. Donner la matrice $A$ ($2 \times 2$) telle que $y = A x$.
+
+**Notions** : applications linéaires de R^2 dans R^2, représentation matricielle
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Une application linéaire de $\mathbb{R}^2$ dans $\mathbb{R}^2$ est représentée par une matrice $A$ de taille $2 \times 2$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+La première colonne de $A$ est l'image de $e_1 = (1, 0)$, et la deuxième colonne est l'image de $e_2 = (0, 1)$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Attention à l'ordre des termes dans $y_1 = 2 x_2 - x_1$ : placez d'abord le coefficient de $x_1$, puis celui de $x_2$.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Matrice d'une application décrite par son effet
+
+**Énoncé analogue** :
+
+Pour $x = (x_1, x_2) \in \mathbb{R}^2$, on définit $y \in \mathbb{R}^3$ par $y_1 = x_2$, $y_2 = x_1 + x_2$, $y_3 = 2 x_1$. Trouver la matrice $A$ telle que $y = A x$.
+
+**Résolution pas à pas** :
+
+1. **Taille** : l'entrée est dans $\mathbb{R}^2$ et la sortie dans $\mathbb{R}^3$, donc $A$ est de taille $3 \times 2$.
+2. **Méthode des colonnes** : la colonne $j$ de $A$ est l'image du vecteur de base $e_j$.
+   - $x = e_1 = (1, 0)$ donne $y = (0, 1, 2)$ : c'est la colonne 1.
+   - $x = e_2 = (0, 1)$ donne $y = (1, 1, 0)$ : c'est la colonne 2.
+3. **Méthode des lignes** (équivalente) : la ligne $i$ contient les coefficients de $y_i$ devant $x_1, x_2$.
+
+$$A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 2 & 0 \end{bmatrix}$$
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Matrice d'une application décrite par son effet ===
+Énoncé analogue : Pour $x = (x_1, x_2) \in \mathbb{R}^2$, on définit $y \in \mathbb{R}^3$ par $y_1 = x_2$, $y_2 = x_1 + x_2$, $y_3 = 2 x_1$. Trouver la matrice $A$ telle que $y = A x$.
+Résolution pas à pas :
+1. **Taille** : l'entrée est dans $\mathbb{R}^2$ et la sortie dans $\mathbb{R}^3$, donc $A$ est de taille $3 \times 2$.
+2. **Méthode des colonnes** : la colonne $j$ de $A$ est l'image du vecteur de base $e_j$.
+   - $x = e_1 = (1, 0)$ donne $y = (0, 1, 2)$ : c'est la colonne 1.
+   - $x = e_2 = (0, 1)$ donne $y = (1, 1, 0)$ : c'est la colonne 2.
+3. **Méthode des lignes** (équivalente) : la ligne $i$ contient les coefficients de $y_i$ devant $x_1, x_2$.
+
+$$A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 2 & 0 \end{bmatrix}$$
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Matrice d'une application décrite par son effet
+
+**Énoncé analogue** :
+
+Pour $x = (x_1, x_2) \in \mathbb{R}^2$, on définit $y \in \mathbb{R}^3$ par $y_1 = x_2$, $y_2 = x_1 + x_2$, $y_3 = 2 x_1$. Trouver la matrice $A$ telle que $y = A x$.
+
+**Résolution pas à pas** :
+
+1. **Taille** : l'entrée est dans $\mathbb{R}^2$ et la sortie dans $\mathbb{R}^3$, donc $A$ est de taille $3 \times 2$.
+2. **Méthode des colonnes** : la colonne $j$ de $A$ est l'image du vecteur de base $e_j$.
+   - $x = e_1 = (1, 0)$ donne $y = (0, 1, 2)$ : c'est la colonne 1.
+   - $x = e_2 = (0, 1)$ donne $y = (1, 1, 0)$ : c'est la colonne 2.
+3. **Méthode des lignes** (équivalente) : la ligne $i$ contient les coefficients de $y_i$ devant $x_1, x_2$.
+
+$$A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 2 & 0 \end{bmatrix}$$
+
+===== verify(0) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify('0') -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== verify(Vector.zeros(2)) -> False =====
+Taille incorrecte : votre matrice est de taille (2 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== verify(Vector.zeros(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== verify(Vector.ones(5)) -> False =====
+Taille incorrecte : votre matrice est de taille (5 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Taille correcte (2 x 2).
+Votre ligne 1 calcule y_1 = 0.
+Relisez la définition de la composante y_1 pour i = 1.
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== verify(Matrix.identity(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 3), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== verify([1, 2]) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify({'a': 'valide'}) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== verify(('0', '0')) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== bilan =====
+**Bilan — Matrice d'une application du plan**
+
+- Statut : en cours
+- Tentatives soumises : 11
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+- Dernier diagnostic : Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 2 et la sortie y de taille 2.
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Matrice d'une application du plan
+**Identifiant** : `matrice-application-plan` | **N°** : 19 | **Thème** : Matrices et applications linéaires | **Type** : modelisation | **Niveau** : ★☆☆
+
+### Énoncé
+Soit l'application linéaire $f : \mathbb{R}^2 \to \mathbb{R}^2$ qui à $x = (x_1, x_2)$ associe $y = (y_1, y_2)$ avec $y_1 = 2 x_2 - x_1$ et $y_2 = x_1 + 3 x_2$. Donner la matrice $A$ ($2 \times 2$) telle que $y = A x$.
+
+### Spécification de vérification
+```yaml
+inconnue: x
+lignes_cibles:
+- y[1] = -x[1] + 2*x[2]
+- y[2] = x[1] + 3*x[2]
+nom_sortie: y
+taille_entree: 2
+taille_sortie: 2
+type: matrice
+```
+
+### Paliers d'indices
+- **Palier 1** : Une application linéaire de $\mathbb{R}^2$ dans $\mathbb{R}^2$ est représentée par une matrice $A$ de taille $2 \times 2$.
+- **Palier 2** : La première colonne de $A$ est l'image de $e_1 = (1, 0)$, et la deuxième colonne est l'image de $e_2 = (0, 1)$.
+- **Palier 3** : Attention à l'ordre des termes dans $y_1 = 2 x_2 - x_1$ : placez d'abord le coefficient de $x_1$, puis celui de $x_2$.
+
+### Exercice jumeau
+`generateurs.matrice_par_effet()`

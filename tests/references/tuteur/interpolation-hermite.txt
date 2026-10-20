@@ -1,0 +1,149 @@
+===== énoncé =====
+### Exercice 20 — Interpolation d'Hermite
+
+*Matrices et applications linéaires · modélisation · niveau ★★★*
+
+Soit $p(t) = c_1 + c_2 t + c_3 t^2 + c_4 t^3$ un polynôme de degré 3 de vecteur de coefficients $c \in \mathbb{R}^4$. Écrire sous la forme $y = A c$ le vecteur des 4 quantités : $y_1 = p(0)$, $y_2 = p'(0)$, $y_3 = p(1)$, $y_4 = p'(1)$. Donner la matrice $A$ ($4 \times 4$).
+
+**Notions** : système d'équations linéaires A c = b, interpolation d'Hermite d'un polynôme
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Le vecteur des coefficients $c$ est dans $\mathbb{R}^4$ et il y a 4 conditions : $A$ est de taille $4 \times 4$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : la dérivée de $p(t) = c_1 + c_2 t + c_3 t^2 + c_4 t^3$ est $p'(t) = c_2 + 2 c_3 t + 3 c_4 t^2$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Évaluez $p(0), p'(0), p(1)$ et $p'(1)$ en fonction de $c_1, c_2, c_3, c_4$ pour obtenir les 4 lignes de $A$.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Valeurs et dérivées d'un polynôme
+
+**Énoncé analogue** :
+
+Soit $p(t) = c_1 + c_2 t + c_3 t^2$, de vecteur de coefficients $c \in \mathbb{R}^3$. Écrire $y = (p(0), p(1), p'(1))$ sous la forme $y = A c$.
+
+**Résolution pas à pas** :
+
+1. $p(0) = c_1$, d'où la ligne $(1, 0, 0)$.
+2. $p(1) = c_1 + c_2 + c_3$, d'où la ligne $(1, 1, 1)$.
+3. $p'(t) = c_2 + 2 c_3 t$, donc $p'(1) = c_2 + 2 c_3$, d'où la ligne $(0, 1, 2)$.
+
+$$A = \begin{bmatrix} 1 & 0 & 0 \\ 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix}$$
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Valeurs et dérivées d'un polynôme ===
+Énoncé analogue : Soit $p(t) = c_1 + c_2 t + c_3 t^2$, de vecteur de coefficients $c \in \mathbb{R}^3$. Écrire $y = (p(0), p(1), p'(1))$ sous la forme $y = A c$.
+Résolution pas à pas :
+1. $p(0) = c_1$, d'où la ligne $(1, 0, 0)$.
+2. $p(1) = c_1 + c_2 + c_3$, d'où la ligne $(1, 1, 1)$.
+3. $p'(t) = c_2 + 2 c_3 t$, donc $p'(1) = c_2 + 2 c_3$, d'où la ligne $(0, 1, 2)$.
+
+$$A = \begin{bmatrix} 1 & 0 & 0 \\ 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix}$$
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Valeurs et dérivées d'un polynôme
+
+**Énoncé analogue** :
+
+Soit $p(t) = c_1 + c_2 t + c_3 t^2$, de vecteur de coefficients $c \in \mathbb{R}^3$. Écrire $y = (p(0), p(1), p'(1))$ sous la forme $y = A c$.
+
+**Résolution pas à pas** :
+
+1. $p(0) = c_1$, d'où la ligne $(1, 0, 0)$.
+2. $p(1) = c_1 + c_2 + c_3$, d'où la ligne $(1, 1, 1)$.
+3. $p'(t) = c_2 + 2 c_3 t$, donc $p'(1) = c_2 + 2 c_3$, d'où la ligne $(0, 1, 2)$.
+
+$$A = \begin{bmatrix} 1 & 0 & 0 \\ 1 & 1 & 1 \\ 0 & 1 & 2 \end{bmatrix}$$
+
+===== verify(0) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify('0') -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée c est de taille 4 et la sortie y de taille 4.
+
+===== verify(Vector.zeros(2)) -> False =====
+Taille incorrecte : votre matrice est de taille (2 x 1), alors que l'entrée c est de taille 4 et la sortie y de taille 4.
+
+===== verify(Vector.zeros(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée c est de taille 4 et la sortie y de taille 4.
+
+===== verify(Vector.ones(5)) -> False =====
+Taille incorrecte : votre matrice est de taille (5 x 1), alors que l'entrée c est de taille 4 et la sortie y de taille 4.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Taille incorrecte : votre matrice est de taille (2 x 2), alors que l'entrée c est de taille 4 et la sortie y de taille 4.
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée c est de taille 4 et la sortie y de taille 4.
+
+===== verify(Matrix.identity(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 3), alors que l'entrée c est de taille 4 et la sortie y de taille 4.
+
+===== verify([1, 2]) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify({'a': 'valide'}) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée c est de taille 4 et la sortie y de taille 4.
+
+===== verify(('0', '0')) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée c est de taille 4 et la sortie y de taille 4.
+
+===== bilan =====
+**Bilan — Interpolation d'Hermite**
+
+- Statut : en cours
+- Tentatives soumises : 11
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+- Dernier diagnostic : Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée c est de taille 4 et la sortie y de taille 4.
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Interpolation d'Hermite
+**Identifiant** : `interpolation-hermite` | **N°** : 20 | **Thème** : Matrices et applications linéaires | **Type** : modelisation | **Niveau** : ★★★
+
+### Énoncé
+Soit $p(t) = c_1 + c_2 t + c_3 t^2 + c_4 t^3$ un polynôme de degré 3 de vecteur de coefficients $c \in \mathbb{R}^4$. Écrire sous la forme $y = A c$ le vecteur des 4 quantités : $y_1 = p(0)$, $y_2 = p'(0)$, $y_3 = p(1)$, $y_4 = p'(1)$. Donner la matrice $A$ ($4 \times 4$).
+
+### Spécification de vérification
+```yaml
+inconnue: c
+lignes_cibles:
+- y[1] = c[1]
+- y[2] = c[2]
+- y[3] = c[1] + c[2] + c[3] + c[4]
+- y[4] = c[2] + 2*c[3] + 3*c[4]
+nom_sortie: y
+taille_entree: 4
+taille_sortie: 4
+type: matrice
+```
+
+### Paliers d'indices
+- **Palier 1** : Le vecteur des coefficients $c$ est dans $\mathbb{R}^4$ et il y a 4 conditions : $A$ est de taille $4 \times 4$.
+- **Palier 2** : Rappel : la dérivée de $p(t) = c_1 + c_2 t + c_3 t^2 + c_4 t^3$ est $p'(t) = c_2 + 2 c_3 t + 3 c_4 t^2$.
+- **Palier 3** : Évaluez $p(0), p'(0), p(1)$ et $p'(1)$ en fonction de $c_1, c_2, c_3, c_4$ pour obtenir les 4 lignes de $A$.
+
+### Exercice jumeau
+`generateurs.evaluation_polynome()`

@@ -1,0 +1,347 @@
+===== repr =====
+<CaseSplit selon a : 4 cas — a ≠ 1 et a ≠ 0 et a ≠ −1 | a = 1 | a = 0 | a = −1>
+
+===== str =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 (générique) : famille libre (2 vecteurs orthonormés)
+├─ Cas a = 1 : famille liée (a_2 dépendant, témoin : a_2 = q̃_1)
+├─ Cas a = 0 : famille libre (2 vecteurs orthonormés)
+└─ Cas a = −1 : famille liée (a_2 dépendant, témoin : a_2 = (-1)·q̃_1)
+
+===== texte niveau 0 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 (générique) : famille libre (2 vecteurs orthonormés)
+├─ Cas a = 1 : famille liée (a_2 dépendant, témoin : a_2 = q̃_1)
+├─ Cas a = 0 : famille libre (2 vecteurs orthonormés)
+└─ Cas a = −1 : famille liée (a_2 dépendant, témoin : a_2 = (-1)·q̃_1)
+
+===== texte niveau 1 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 (générique) : famille libre (2 vecteurs orthonormés)
+├─ Cas a = 1 : famille liée (a_2 dépendant, témoin : a_2 = q̃_1)
+├─ Cas a = 0 : famille libre (2 vecteurs orthonormés)
+└─ Cas a = −1 : famille liée (a_2 dépendant, témoin : a_2 = (-1)·q̃_1)
+
+===== texte niveau 2 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 (générique) : famille libre (2 vecteurs orthonormés)
+│    Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+│    ├─ Étape i = 1 : traitement du vecteur a_1.
+│    │  └─ Soustraction des projections : q_tilde_1 = ( 1, a ).
+│    ├─ Étape i = 2 : traitement du vecteur a_2.
+│    │  ├─ Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 2·a/(a² + 1).
+│    │  └─ Soustraction des projections : q_tilde_2 = ( a·(a − 1)·(a + 1)/(a² + 1), −(a − 1)·(a + 1)/(a² + 1) ).
+│    ├─ Normalisation finale des 2 vecteurs orthogonaux rationnels.
+│    │  ├─ Normalisation de q_tilde_1 (norme √(a² + 1)) : q_1 = ( 1/√(a² + 1), a/√(a² + 1) ).
+│    │  └─ Normalisation de q_tilde_2 (norme Abs(a² − 1)/√(a² + 1)) : q_2 = ( (a³ − a)/(√(a² + 1)·Abs(a² − 1)), (1 − a²)/(√(a² + 1)·Abs(a² − 1)) ).
+│    └─ La famille est libre : 2 vecteurs orthonormés obtenus.
+├─ Cas a = 1 : famille liée (a_2 dépendant, témoin : a_2 = q̃_1)
+│    Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+│    ├─ Étape i = 1 : traitement du vecteur a_1.
+│    │  └─ Soustraction des projections : q_tilde_1 = ( 1, 1 ).
+│    └─ Étape i = 2 : traitement du vecteur a_2.
+│       ├─ Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 1.
+│       ├─ Soustraction des projections : q_tilde_2 = ( 0, 0 ).
+│       └─ a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = q̃_1).
+├─ Cas a = 0 : famille libre (2 vecteurs orthonormés)
+│    Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+│    ├─ Étape i = 1 : traitement du vecteur a_1.
+│    │  └─ Soustraction des projections : q_tilde_1 = ( 1, 0 ).
+│    ├─ Étape i = 2 : traitement du vecteur a_2.
+│    │  ├─ Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 0.
+│    │  └─ Soustraction des projections : q_tilde_2 = ( 0, 1 ).
+│    ├─ Normalisation finale des 2 vecteurs orthogonaux rationnels.
+│    │  ├─ Normalisation de q_tilde_1 (norme 1) : q_1 = ( 1, 0 ).
+│    │  └─ Normalisation de q_tilde_2 (norme 1) : q_2 = ( 0, 1 ).
+│    └─ La famille est libre : 2 vecteurs orthonormés obtenus.
+└─ Cas a = −1 : famille liée (a_2 dépendant, témoin : a_2 = (-1)·q̃_1)
+     Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+     ├─ Étape i = 1 : traitement du vecteur a_1.
+     │  └─ Soustraction des projections : q_tilde_1 = ( 1, −1 ).
+     └─ Étape i = 2 : traitement du vecteur a_2.
+        ├─ Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = −1.
+        ├─ Soustraction des projections : q_tilde_2 = ( 0, 0 ).
+        └─ a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = (-1)·q̃_1).
+
+===== texte niveau 3 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 (générique) : famille libre (2 vecteurs orthonormés)
+│    Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+│    ├─ Étape i = 1 : traitement du vecteur a_1.
+│    │  └─ Soustraction des projections : q_tilde_1 = ( 1, a ).
+│    ├─ Étape i = 2 : traitement du vecteur a_2.
+│    │  ├─ Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 2·a/(a² + 1).
+│    │  └─ Soustraction des projections : q_tilde_2 = ( a·(a − 1)·(a + 1)/(a² + 1), −(a − 1)·(a + 1)/(a² + 1) ).
+│    ├─ Normalisation finale des 2 vecteurs orthogonaux rationnels.
+│    │  ├─ Normalisation de q_tilde_1 (norme √(a² + 1)) : q_1 = ( 1/√(a² + 1), a/√(a² + 1) ).
+│    │  └─ Normalisation de q_tilde_2 (norme Abs(a² − 1)/√(a² + 1)) : q_2 = ( (a³ − a)/(√(a² + 1)·Abs(a² − 1)), (1 − a²)/(√(a² + 1)·Abs(a² − 1)) ).
+│    └─ La famille est libre : 2 vecteurs orthonormés obtenus.
+├─ Cas a = 1 : famille liée (a_2 dépendant, témoin : a_2 = q̃_1)
+│    Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+│    ├─ Étape i = 1 : traitement du vecteur a_1.
+│    │  └─ Soustraction des projections : q_tilde_1 = ( 1, 1 ).
+│    └─ Étape i = 2 : traitement du vecteur a_2.
+│       ├─ Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 1.
+│       ├─ Soustraction des projections : q_tilde_2 = ( 0, 0 ).
+│       ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│       ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│       └─ a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = q̃_1).
+├─ Cas a = 0 : famille libre (2 vecteurs orthonormés)
+│    Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+│    ├─ Étape i = 1 : traitement du vecteur a_1.
+│    │  ├─ Soustraction des projections : q_tilde_1 = ( 1, 0 ).
+│    │  └─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Étape i = 2 : traitement du vecteur a_2.
+│    │  ├─ Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 0.
+│    │  ├─ Soustraction des projections : q_tilde_2 = ( 0, 1 ).
+│    │  └─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Normalisation finale des 2 vecteurs orthogonaux rationnels.
+│    │  ├─ Normalisation de q_tilde_1 (norme 1) : q_1 = ( 1, 0 ).
+│    │  └─ Normalisation de q_tilde_2 (norme 1) : q_2 = ( 0, 1 ).
+│    └─ La famille est libre : 2 vecteurs orthonormés obtenus.
+└─ Cas a = −1 : famille liée (a_2 dépendant, témoin : a_2 = (-1)·q̃_1)
+     Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+     ├─ Étape i = 1 : traitement du vecteur a_1.
+     │  └─ Soustraction des projections : q_tilde_1 = ( 1, −1 ).
+     └─ Étape i = 2 : traitement du vecteur a_2.
+        ├─ Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = −1.
+        ├─ Soustraction des projections : q_tilde_2 = ( 0, 0 ).
+        ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+        ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+        └─ a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = (-1)·q̃_1).
+
+===== markdown niveau 2 =====
+### Discussion selon $a$
+
+- **Cas $a \neq 1 \text{ et } a \neq 0 \text{ et } a \neq -1$ (générique)** : famille libre (2 vecteurs orthonormés)
+  - Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+    - Étape i = 1 : traitement du vecteur a_1.
+      - Soustraction des projections : q_tilde_1 = ( 1, a ).
+        $$\left[\begin{array}{c} 1 \\ a \end{array}\right]$$
+    - Étape i = 2 : traitement du vecteur a_2.
+      - Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 2·a/(a² + 1).
+      - Soustraction des projections : q_tilde_2 = ( a·(a − 1)·(a + 1)/(a² + 1), −(a − 1)·(a + 1)/(a² + 1) ).
+        $$\left[\begin{array}{c} \frac{a \left(a - 1\right) \left(a + 1\right)}{a^{2} + 1} \\ - \frac{\left(a - 1\right) \left(a + 1\right)}{a^{2} + 1} \end{array}\right]$$
+    - Normalisation finale des 2 vecteurs orthogonaux rationnels.
+      - Normalisation de q_tilde_1 (norme √(a² + 1)) : q_1 = ( 1/√(a² + 1), a/√(a² + 1) ).
+        $$\left[\begin{array}{c} \frac{1}{\sqrt{a^{2} + 1}} \\ \frac{a}{\sqrt{a^{2} + 1}} \end{array}\right]$$
+      - Normalisation de q_tilde_2 (norme Abs(a² − 1)/√(a² + 1)) : q_2 = ( (a³ − a)/(√(a² + 1)·Abs(a² − 1)), (1 − a²)/(√(a² + 1)·Abs(a² − 1)) ).
+        $$\left[\begin{array}{c} \frac{a^{3} - a}{\sqrt{a^{2} + 1} \left|{a^{2} - 1}\right|} \\ \frac{1 - a^{2}}{\sqrt{a^{2} + 1} \left|{a^{2} - 1}\right|} \end{array}\right]$$
+    - La famille est libre : 2 vecteurs orthonormés obtenus.
+- **Cas $a = 1$** : famille liée (a_2 dépendant, témoin : a_2 = q̃_1)
+  - Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+    - Étape i = 1 : traitement du vecteur a_1.
+      - Soustraction des projections : q_tilde_1 = ( 1, 1 ).
+        $$\left[\begin{array}{c} 1 \\ 1 \end{array}\right]$$
+    - Étape i = 2 : traitement du vecteur a_2.
+      - Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 1.
+      - Soustraction des projections : q_tilde_2 = ( 0, 0 ).
+        $$\left[\begin{array}{c} 0 \\ 0 \end{array}\right]$$
+      - a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = q̃_1).
+- **Cas $a = 0$** : famille libre (2 vecteurs orthonormés)
+  - Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+    - Étape i = 1 : traitement du vecteur a_1.
+      - Soustraction des projections : q_tilde_1 = ( 1, 0 ).
+        $$\left[\begin{array}{c} 1 \\ 0 \end{array}\right]$$
+    - Étape i = 2 : traitement du vecteur a_2.
+      - Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 0.
+      - Soustraction des projections : q_tilde_2 = ( 0, 1 ).
+        $$\left[\begin{array}{c} 0 \\ 1 \end{array}\right]$$
+    - Normalisation finale des 2 vecteurs orthogonaux rationnels.
+      - Normalisation de q_tilde_1 (norme 1) : q_1 = ( 1, 0 ).
+        $$\left[\begin{array}{c} 1 \\ 0 \end{array}\right]$$
+      - Normalisation de q_tilde_2 (norme 1) : q_2 = ( 0, 1 ).
+        $$\left[\begin{array}{c} 0 \\ 1 \end{array}\right]$$
+    - La famille est libre : 2 vecteurs orthonormés obtenus.
+- **Cas $a = -1$** : famille liée (a_2 dépendant, témoin : a_2 = (-1)·q̃_1)
+  - Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+    - Étape i = 1 : traitement du vecteur a_1.
+      - Soustraction des projections : q_tilde_1 = ( 1, −1 ).
+        $$\left[\begin{array}{c} 1 \\ -1 \end{array}\right]$$
+    - Étape i = 2 : traitement du vecteur a_2.
+      - Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = −1.
+      - Soustraction des projections : q_tilde_2 = ( 0, 0 ).
+        $$\left[\begin{array}{c} 0 \\ 0 \end{array}\right]$$
+      - a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = (-1)·q̃_1).
+
+===== latex niveau 2 =====
+\textbf{Discussion selon $a$}
+\begin{itemize}
+  \item \textbf{Cas $a \neq 1 \text{ et } a \neq 0 \text{ et } a \neq -1 \text{ (générique)}$} : famille libre (2 vecteurs orthonormés)
+\begin{itemize}
+  \item Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+  \begin{itemize}
+    \item Étape i = 1 : traitement du vecteur a_1.
+    \begin{itemize}
+      \item Soustraction des projections : q_tilde_1 = ( 1, a ).
+      \[\left[\begin{array}{c} 1 \\ a \end{array}\right]\]
+    \end{itemize}
+    \item Étape i = 2 : traitement du vecteur a_2.
+    \begin{itemize}
+      \item Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 2·a/(a² + 1).
+      \item Soustraction des projections : q_tilde_2 = ( a·(a − 1)·(a + 1)/(a² + 1), −(a − 1)·(a + 1)/(a² + 1) ).
+      \[\left[\begin{array}{c} \frac{a \left(a - 1\right) \left(a + 1\right)}{a^{2} + 1} \\ - \frac{\left(a - 1\right) \left(a + 1\right)}{a^{2} + 1} \end{array}\right]\]
+    \end{itemize}
+    \item Normalisation finale des 2 vecteurs orthogonaux rationnels.
+    \begin{itemize}
+      \item Normalisation de q_tilde_1 (norme √(a² + 1)) : q_1 = ( 1/√(a² + 1), a/√(a² + 1) ).
+      \[\left[\begin{array}{c} \frac{1}{\sqrt{a^{2} + 1}} \\ \frac{a}{\sqrt{a^{2} + 1}} \end{array}\right]\]
+      \item Normalisation de q_tilde_2 (norme Abs(a² − 1)/√(a² + 1)) : q_2 = ( (a³ − a)/(√(a² + 1)·Abs(a² − 1)), (1 − a²)/(√(a² + 1)·Abs(a² − 1)) ).
+      \[\left[\begin{array}{c} \frac{a^{3} - a}{\sqrt{a^{2} + 1} \left|{a^{2} - 1}\right|} \\ \frac{1 - a^{2}}{\sqrt{a^{2} + 1} \left|{a^{2} - 1}\right|} \end{array}\right]\]
+    \end{itemize}
+    \item La famille est libre : 2 vecteurs orthonormés obtenus.
+  \end{itemize}
+\end{itemize}
+  \item \textbf{Cas $a = 1$} : famille liée (a\_2 dépendant, témoin : a\_2 = q̃\_1)
+\begin{itemize}
+  \item Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+  \begin{itemize}
+    \item Étape i = 1 : traitement du vecteur a_1.
+    \begin{itemize}
+      \item Soustraction des projections : q_tilde_1 = ( 1, 1 ).
+      \[\left[\begin{array}{c} 1 \\ 1 \end{array}\right]\]
+    \end{itemize}
+    \item Étape i = 2 : traitement du vecteur a_2.
+    \begin{itemize}
+      \item Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 1.
+      \item Soustraction des projections : q_tilde_2 = ( 0, 0 ).
+      \[\left[\begin{array}{c} 0 \\ 0 \end{array}\right]\]
+      \item a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = q̃_1).
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+  \item \textbf{Cas $a = 0$} : famille libre (2 vecteurs orthonormés)
+\begin{itemize}
+  \item Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+  \begin{itemize}
+    \item Étape i = 1 : traitement du vecteur a_1.
+    \begin{itemize}
+      \item Soustraction des projections : q_tilde_1 = ( 1, 0 ).
+      \[\left[\begin{array}{c} 1 \\ 0 \end{array}\right]\]
+    \end{itemize}
+    \item Étape i = 2 : traitement du vecteur a_2.
+    \begin{itemize}
+      \item Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 0.
+      \item Soustraction des projections : q_tilde_2 = ( 0, 1 ).
+      \[\left[\begin{array}{c} 0 \\ 1 \end{array}\right]\]
+    \end{itemize}
+    \item Normalisation finale des 2 vecteurs orthogonaux rationnels.
+    \begin{itemize}
+      \item Normalisation de q_tilde_1 (norme 1) : q_1 = ( 1, 0 ).
+      \[\left[\begin{array}{c} 1 \\ 0 \end{array}\right]\]
+      \item Normalisation de q_tilde_2 (norme 1) : q_2 = ( 0, 1 ).
+      \[\left[\begin{array}{c} 0 \\ 1 \end{array}\right]\]
+    \end{itemize}
+    \item La famille est libre : 2 vecteurs orthonormés obtenus.
+  \end{itemize}
+\end{itemize}
+  \item \textbf{Cas $a = -1$} : famille liée (a\_2 dépendant, témoin : a\_2 = (-1)·q̃\_1)
+\begin{itemize}
+  \item Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').
+  \begin{itemize}
+    \item Étape i = 1 : traitement du vecteur a_1.
+    \begin{itemize}
+      \item Soustraction des projections : q_tilde_1 = ( 1, −1 ).
+      \[\left[\begin{array}{c} 1 \\ -1 \end{array}\right]\]
+    \end{itemize}
+    \item Étape i = 2 : traitement du vecteur a_2.
+    \begin{itemize}
+      \item Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = −1.
+      \item Soustraction des projections : q_tilde_2 = ( 0, 0 ).
+      \[\left[\begin{array}{c} 0 \\ 0 \end{array}\right]\]
+      \item a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = (-1)·q̃_1).
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-casesplit'>
+<h3>Discussion selon \(a\)</h3>
+<ul>
+<li><strong>Cas \(a \neq 1 \text{ et } a \neq 0 \text{ et } a \neq -1\) (générique)</strong> : famille libre (2 vecteurs orthonormés)<div class='pedagopy-explanation'>
+<details open>
+  <summary>Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize=&#x27;end&#x27;).</summary>
+  
+  <details open>
+  <summary>Étape i = 1 : traitement du vecteur a_1.</summary>
+  
+  <div class='pedagopy-step'>Soustraction des projections : q_tilde_1 = ( 1, a ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 1 \\ a \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Étape i = 2 : traitement du vecteur a_2.</summary>
+  
+  <div class='pedagopy-step'>Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 2·a/(a² + 1).</div>
+<div class='pedagopy-step'>Soustraction des projections : q_tilde_2 = ( a·(a − 1)·(a + 1)/(a² + 1), −(a − 1)·(a + 1)/(a² + 1) ).<div class='pedagopy-math'>\[\left[\begin{array}{c} \frac{a \left(a - 1\right) \left(a + 1\right)}{a^{2} + 1} \\ - \frac{\left(a - 1\right) \left(a + 1\right)}{a^{2} + 1} \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Normalisation finale des 2 vecteurs orthogonaux rationnels.</summary>
+  
+  <div class='pedagopy-step'>Normalisation de q_tilde_1 (norme √(a² + 1)) : q_1 = ( 1/√(a² + 1), a/√(a² + 1) ).<div class='pedagopy-math'>\[\left[\begin{array}{c} \frac{1}{\sqrt{a^{2} + 1}} \\ \frac{a}{\sqrt{a^{2} + 1}} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Normalisation de q_tilde_2 (norme Abs(a² − 1)/√(a² + 1)) : q_2 = ( (a³ − a)/(√(a² + 1)·Abs(a² − 1)), (1 − a²)/(√(a² + 1)·Abs(a² − 1)) ).<div class='pedagopy-math'>\[\left[\begin{array}{c} \frac{a^{3} - a}{\sqrt{a^{2} + 1} \left|{a^{2} - 1}\right|} \\ \frac{1 - a^{2}}{\sqrt{a^{2} + 1} \left|{a^{2} - 1}\right|} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>La famille est libre : 2 vecteurs orthonormés obtenus.</div>
+</details>
+</div></li>
+<li><strong>Cas \(a = 1\)</strong> : famille liée (a_2 dépendant, témoin : a_2 = q̃_1)<div class='pedagopy-explanation'>
+<details open>
+  <summary>Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize=&#x27;end&#x27;).</summary>
+  
+  <details open>
+  <summary>Étape i = 1 : traitement du vecteur a_1.</summary>
+  
+  <div class='pedagopy-step'>Soustraction des projections : q_tilde_1 = ( 1, 1 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 1 \\ 1 \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Étape i = 2 : traitement du vecteur a_2.</summary>
+  
+  <div class='pedagopy-step'>Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 1.</div>
+<div class='pedagopy-step'>Soustraction des projections : q_tilde_2 = ( 0, 0 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 0 \\ 0 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = q̃_1).</div>
+</details>
+</details>
+</div></li>
+<li><strong>Cas \(a = 0\)</strong> : famille libre (2 vecteurs orthonormés)<div class='pedagopy-explanation'>
+<details open>
+  <summary>Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize=&#x27;end&#x27;).</summary>
+  
+  <details open>
+  <summary>Étape i = 1 : traitement du vecteur a_1.</summary>
+  
+  <div class='pedagopy-step'>Soustraction des projections : q_tilde_1 = ( 1, 0 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 1 \\ 0 \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Étape i = 2 : traitement du vecteur a_2.</summary>
+  
+  <div class='pedagopy-step'>Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 0.</div>
+<div class='pedagopy-step'>Soustraction des projections : q_tilde_2 = ( 0, 1 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 0 \\ 1 \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Normalisation finale des 2 vecteurs orthogonaux rationnels.</summary>
+  
+  <div class='pedagopy-step'>Normalisation de q_tilde_1 (norme 1) : q_1 = ( 1, 0 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 1 \\ 0 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Normalisation de q_tilde_2 (norme 1) : q_2 = ( 0, 1 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 0 \\ 1 \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>La famille est libre : 2 vecteurs orthonormés obtenus.</div>
+</details>
+</div></li>
+<li><strong>Cas \(a = -1\)</strong> : famille liée (a_2 dépendant, témoin : a_2 = (-1)·q̃_1)<div class='pedagopy-explanation'>
+<details open>
+  <summary>Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize=&#x27;end&#x27;).</summary>
+  
+  <details open>
+  <summary>Étape i = 1 : traitement du vecteur a_1.</summary>
+  
+  <div class='pedagopy-step'>Soustraction des projections : q_tilde_1 = ( 1, −1 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 1 \\ -1 \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Étape i = 2 : traitement du vecteur a_2.</summary>
+  
+  <div class='pedagopy-step'>Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = −1.</div>
+<div class='pedagopy-step'>Soustraction des projections : q_tilde_2 = ( 0, 0 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 0 \\ 0 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = (-1)·q̃_1).</div>
+</details>
+</details>
+</div></li>
+</ul>
+</div>

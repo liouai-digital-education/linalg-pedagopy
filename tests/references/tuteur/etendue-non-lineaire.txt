@@ -1,0 +1,146 @@
+===== énoncé =====
+### Exercice 5 — L'étendue n'est pas linéaire
+
+*Vecteurs et produit scalaire · contre-exemple · niveau ★★☆*
+
+On considère la fonction $f : \mathbb{R}^n \to \mathbb{R}$ définie par l'étendue (*spread*) $f(x) = \max_k x_k - \min_k x_k$. Montrer que $f$ n'est pas linéaire en fournissant un contre-exemple explicite {'x': Vector(...), 'y': Vector(...), 'alpha': 1, 'beta': 1}.
+
+**Notions** : superposition et linéarité, contre-exemple
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Pour prouver qu'une fonction $f$ n'est pas linéaire, il suffit d'exhiber deux vecteurs $x, y$ et deux scalaires $\alpha, \beta$ tels que $f(\alpha x + \beta y) \neq \alpha f(x) + \beta f(y)$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : vous pouvez choisir $n = 2$ et $\alpha = \beta = 1$, c'est-à-dire chercher $x$ et $y$ dans $\mathbb{R}^2$ tels que $f(x + y) \neq f(x) + f(y)$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Choisissez dans $\mathbb{R}^2$ deux vecteurs dont les composantes maximales n'apparaissent pas au même indice, puis comparez $f(x + y)$ et $f(x) + f(y)$.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Méthode de construction d'un contre-exemple
+
+**Énoncé analogue** :
+
+Comment construire méthodiquement un contre-exemple simple en petite dimension ?
+
+**Résolution pas à pas** :
+
+**Indication d'existence** : un contre-exemple existe dans $R^2, coefficients dans {0, 1}$.
+
+**Méthode** :
+1. Choisir la plus petite dimension autorisée par l'énoncé (souvent $n = 2$).
+2. Tester des vecteurs de la base canonique $e_1 = (1, 0)$, $e_2 = (0, 1)$ ou $(1, 1)$ qui vérifient les hypothèses.
+3. Calculer les deux membres de l'affirmation et vérifier qu'ils diffèrent.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Méthode de construction d'un contre-exemple ===
+Énoncé analogue : Comment construire méthodiquement un contre-exemple simple en petite dimension ?
+Résolution pas à pas :
+**Indication d'existence** : un contre-exemple existe dans $R^2, coefficients dans {0, 1}$.
+
+**Méthode** :
+1. Choisir la plus petite dimension autorisée par l'énoncé (souvent $n = 2$).
+2. Tester des vecteurs de la base canonique $e_1 = (1, 0)$, $e_2 = (0, 1)$ ou $(1, 1)$ qui vérifient les hypothèses.
+3. Calculer les deux membres de l'affirmation et vérifier qu'ils diffèrent.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Méthode de construction d'un contre-exemple
+
+**Énoncé analogue** :
+
+Comment construire méthodiquement un contre-exemple simple en petite dimension ?
+
+**Résolution pas à pas** :
+
+**Indication d'existence** : un contre-exemple existe dans $R^2, coefficients dans {0, 1}$.
+
+**Méthode** :
+1. Choisir la plus petite dimension autorisée par l'énoncé (souvent $n = 2$).
+2. Tester des vecteurs de la base canonique $e_1 = (1, 0)$, $e_2 = (0, 1)$ ou $(1, 1)$ qui vérifient les hypothèses.
+3. Calculer les deux membres de l'affirmation et vérifier qu'ils diffèrent.
+
+===== verify(0) -> False =====
+Fournissez un dictionnaire {'x': Vector([...]), 'y': Vector([...]), 'alpha': ..., 'beta': ...}.
+
+===== verify('0') -> False =====
+Fournissez un dictionnaire {'x': Vector([...]), 'y': Vector([...]), 'alpha': ..., 'beta': ...}.
+
+===== verify(Vector.zeros(2)) -> False =====
+Fournissez un dictionnaire {'x': Vector([...]), 'y': Vector([...]), 'alpha': ..., 'beta': ...}.
+
+===== verify(Vector.zeros(3)) -> False =====
+Fournissez un dictionnaire {'x': Vector([...]), 'y': Vector([...]), 'alpha': ..., 'beta': ...}.
+
+===== verify(Vector.ones(5)) -> False =====
+Fournissez un dictionnaire {'x': Vector([...]), 'y': Vector([...]), 'alpha': ..., 'beta': ...}.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Fournissez un dictionnaire {'x': Vector([...]), 'y': Vector([...]), 'alpha': ..., 'beta': ...}.
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Fournissez un dictionnaire {'x': Vector([...]), 'y': Vector([...]), 'alpha': ..., 'beta': ...}.
+
+===== verify(Matrix.identity(3)) -> False =====
+Fournissez un dictionnaire {'x': Vector([...]), 'y': Vector([...]), 'alpha': ..., 'beta': ...}.
+
+===== verify([1, 2]) -> False =====
+Fournissez un dictionnaire {'x': Vector([...]), 'y': Vector([...]), 'alpha': ..., 'beta': ...}.
+
+===== verify({'a': 'valide'}) -> False =====
+Fournissez un dictionnaire {'x': Vector([...]), 'y': Vector([...]), 'alpha': ..., 'beta': ...}.
+
+===== verify(('0', '0')) -> False =====
+Fournissez un dictionnaire {'x': Vector([...]), 'y': Vector([...]), 'alpha': ..., 'beta': ...}.
+
+===== réponse juste =====
+Contre-exemple valide ! f(αx + βy) ≠ αf(x) + βf(y). Note de simplicité : dimension max = 2, hauteur max des coefficients = 1 (excellente (très simple)).
+
+===== bilan =====
+**Bilan — L'étendue n'est pas linéaire**
+
+- Statut : ✅ validé
+- Tentatives soumises : 12
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — L'étendue n'est pas linéaire
+**Identifiant** : `etendue-non-lineaire` | **N°** : 5 | **Thème** : Vecteurs et produit scalaire | **Type** : contre_exemple | **Niveau** : ★★☆
+
+### Énoncé
+On considère la fonction $f : \mathbb{R}^n \to \mathbb{R}$ définie par l'étendue (*spread*) $f(x) = \max_k x_k - \min_k x_k$. Montrer que $f$ n'est pas linéaire en fournissant un contre-exemple explicite {'x': Vector(...), 'y': Vector(...), 'alpha': 1, 'beta': 1}.
+
+### Spécification de vérification
+```yaml
+cas: non_linearite_etendue
+type: contre_exemple
+```
+
+### Paliers d'indices
+- **Palier 1** : Pour prouver qu'une fonction $f$ n'est pas linéaire, il suffit d'exhiber deux vecteurs $x, y$ et deux scalaires $\alpha, \beta$ tels que $f(\alpha x + \beta y) \neq \alpha f(x) + \beta f(y)$.
+- **Palier 2** : Rappel : vous pouvez choisir $n = 2$ et $\alpha = \beta = 1$, c'est-à-dire chercher $x$ et $y$ dans $\mathbb{R}^2$ tels que $f(x + y) \neq f(x) + f(y)$.
+- **Palier 3** : Choisissez dans $\mathbb{R}^2$ deux vecteurs dont les composantes maximales n'apparaissent pas au même indice, puis comparez $f(x + y)$ et $f(x) + f(y)$.
+
+### Exercice jumeau
+`generateurs.contre_exemple_guide(famille='R^2, coefficients dans {0, 1}')`

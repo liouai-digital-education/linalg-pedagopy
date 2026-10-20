@@ -1,0 +1,101 @@
+===== repr =====
+GJResult(A=Matrix([[1, -1, 2], [0, 1, 1]]), b=Vector([1, 0]), rref=Matrix([[1, 0, 3], [0, 1, 1]]), augmented_rref=Matrix([[1, 0, 3, 1], [0, 1, 1, 0]]), pivots=(0, 1), rank=2, free_vars=(2,), nullspace_basis=(Vector([-3, -1, 1]),), solution=AffineSolution(x0=Vector([1, 0, 0]), basis=(Vector([-3, -1, 1]),), free_vars=(2,)), inverse=None)
+
+===== texte niveau 0 =====
+
+
+===== texte niveau 1 =====
+Réduction de Gauss-Jordan d'une matrice 2×3.
+   [(1 -1 2 | 1); (0 1 1 | 0)]
+├─ Rang 2 < 3 : ensemble affine de solutions avec 1 variable(s) libre(s).
+└─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+   [(1 0 3 | 1); (0 1 1 | 0)]
+
+===== texte niveau 2 =====
+Réduction de Gauss-Jordan d'une matrice 2×3.
+   [(1 -1 2 | 1); (0 1 1 | 0)]
+├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│  └─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│  ├─ Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).
+│  └─ On annule le coefficient (1,2) : L1 ← L1 + 1·L2.
+│     [(1 0 3 | 1); (0 1 1 | 0)]
+├─ Rang 2 < 3 : ensemble affine de solutions avec 1 variable(s) libre(s).
+└─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+   [(1 0 3 | 1); (0 1 1 | 0)]
+
+===== texte niveau 3 =====
+Réduction de Gauss-Jordan d'une matrice 2×3.
+   [(1 -1 2 | 1); (0 1 1 | 0)]
+├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│  └─ Ce coefficient est nul dans le domaine exact (0 = 0).
+├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│  ├─ Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).
+│  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│  └─ On annule le coefficient (1,2) : L1 ← L1 + 1·L2.
+│     [(1 0 3 | 1); (0 1 1 | 0)]
+├─ Rang 2 < 3 : ensemble affine de solutions avec 1 variable(s) libre(s).
+└─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+   [(1 0 3 | 1); (0 1 1 | 0)]
+
+===== markdown niveau 2 =====
+- Réduction de Gauss-Jordan d'une matrice 2×3.
+  $$\left[\begin{array}{ccc|c} 1 & -1 & 2 & 1 \\ 0 & 1 & 1 & 0 \end{array}\right]$$
+  - Traitement de la colonne 1 (ligne pivot courante : 1).
+    - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+  - Traitement de la colonne 2 (ligne pivot courante : 2).
+    - Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).
+    - On annule le coefficient (1,2) : L1 ← L1 + 1·L2.
+      $$\xrightarrow{L_{1} \leftarrow L_{1} + \left(1\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{3} & \color{blue}{1} \\ 0 & \boxed{1} & 1 & 0 \end{array}\right]$$
+  - Rang 2 < 3 : ensemble affine de solutions avec 1 variable(s) libre(s).
+  - Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+    $$\left[\begin{array}{ccc|c} 1 & 0 & 3 & 1 \\ 0 & 1 & 1 & 0 \end{array}\right]$$
+
+===== latex niveau 2 =====
+\begin{itemize}
+  \item Réduction de Gauss-Jordan d'une matrice 2×3.
+  \[\left[\begin{array}{ccc|c} 1 & -1 & 2 & 1 \\ 0 & 1 & 1 & 0 \end{array}\right]\]
+  \begin{itemize}
+    \item Traitement de la colonne 1 (ligne pivot courante : 1).
+    \begin{itemize}
+      \item Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+    \end{itemize}
+    \item Traitement de la colonne 2 (ligne pivot courante : 2).
+    \begin{itemize}
+      \item Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).
+      \item On annule le coefficient (1,2) : L1 ← L1 + 1·L2.
+      \[\xrightarrow{L_{1} \leftarrow L_{1} + \left(1\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{3} & \color{blue}{1} \\ 0 & \boxed{1} & 1 & 0 \end{array}\right]\]
+    \end{itemize}
+    \item Rang 2 < 3 : ensemble affine de solutions avec 1 variable(s) libre(s).
+    \item Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+    \[\left[\begin{array}{ccc|c} 1 & 0 & 3 & 1 \\ 0 & 1 & 1 & 0 \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-explanation'>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 2×3.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{ccc|c} 1 & -1 & 2 & 1 \\ 0 & 1 & 1 & 0 \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).</div>
+</details>
+<details open>
+  <summary>Traitement de la colonne 2 (ligne pivot courante : 2).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On annule le coefficient (1,2) : L1 ← L1 + 1·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow L_{1} + \left(1\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{3} & \color{blue}{1} \\ 0 & \boxed{1} & 1 & 0 \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Rang 2 &lt; 3 : ensemble affine de solutions avec 1 variable(s) libre(s).</div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).<div class='pedagopy-math'>\[\left[\begin{array}{ccc|c} 1 & 0 & 3 & 1 \\ 0 & 1 & 1 & 0 \end{array}\right]\]</div></div>
+</details>
+</div>
+
+===== verify =====
+Vérification a posteriori du résultat de Gauss-Jordan.
+└─ Contrôle vérifié : A x_0 - b = (0, 0).

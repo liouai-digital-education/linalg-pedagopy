@@ -1,0 +1,139 @@
+===== énoncé =====
+### Exercice 13 — Inégalité triangulaire à trois vecteurs
+
+*Normes, distances et angles · vrai ou faux · niveau ★★★*
+
+A-t-on $\|a + b + c\| \le \|a\| + \|b\| + \|c\|$ pour tous vecteurs $a, b, c$ ? Justifier, ou donner un contre-exemple.
+
+**Notions** : inégalité triangulaire, norme euclidienne
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Quel résultat fondamental du cours ressemble à cette inégalité ?
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : inégalité triangulaire $\|u + v\| \le \|u\| + \|v\|$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Pouvez-vous voir $a + b + c$ comme la somme de deux vecteurs $(a + b) + c$ ?
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Inégalité triangulaire
+
+**Énoncé analogue** :
+
+Avec $a = \begin{bmatrix} 3 \\ 0 \end{bmatrix}$ et $b = \begin{bmatrix} 0 \\ 4 \end{bmatrix}$, comparer $\|a + b\|$ et $\|a\| + \|b\|$, puis justifier l'inégalité en général.
+
+**Résolution pas à pas** :
+
+1. Sur l'exemple : $\|a + b\| = 5$ et $\|a\| + \|b\| = 3 + 4 = 7$.
+2. En général : $\|a + b\|^2 = \|a\|^2 + 2 a^T b + \|b\|^2 \le \|a\|^2 + 2 \|a\| \|b\| + \|b\|^2 = (\|a\| + \|b\|)^2$, grâce à l'inégalité de Cauchy-Schwarz $a^T b \le \|a\| \|b\|$.
+3. Un essai numérique illustre l'inégalité ; seule la preuve la justifie pour tous les vecteurs.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Inégalité triangulaire ===
+Énoncé analogue : Avec $a = \begin{bmatrix} 3 \\ 0 \end{bmatrix}$ et $b = \begin{bmatrix} 0 \\ 4 \end{bmatrix}$, comparer $\|a + b\|$ et $\|a\| + \|b\|$, puis justifier l'inégalité en général.
+Résolution pas à pas :
+1. Sur l'exemple : $\|a + b\| = 5$ et $\|a\| + \|b\| = 3 + 4 = 7$.
+2. En général : $\|a + b\|^2 = \|a\|^2 + 2 a^T b + \|b\|^2 \le \|a\|^2 + 2 \|a\| \|b\| + \|b\|^2 = (\|a\| + \|b\|)^2$, grâce à l'inégalité de Cauchy-Schwarz $a^T b \le \|a\| \|b\|$.
+3. Un essai numérique illustre l'inégalité ; seule la preuve la justifie pour tous les vecteurs.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Inégalité triangulaire
+
+**Énoncé analogue** :
+
+Avec $a = \begin{bmatrix} 3 \\ 0 \end{bmatrix}$ et $b = \begin{bmatrix} 0 \\ 4 \end{bmatrix}$, comparer $\|a + b\|$ et $\|a\| + \|b\|$, puis justifier l'inégalité en général.
+
+**Résolution pas à pas** :
+
+1. Sur l'exemple : $\|a + b\| = 5$ et $\|a\| + \|b\| = 3 + 4 = 7$.
+2. En général : $\|a + b\|^2 = \|a\|^2 + 2 a^T b + \|b\|^2 \le \|a\|^2 + 2 \|a\| \|b\| + \|b\|^2 = (\|a\| + \|b\|)^2$, grâce à l'inégalité de Cauchy-Schwarz $a^T b \le \|a\| \|b\|$.
+3. Un essai numérique illustre l'inégalité ; seule la preuve la justifie pour tous les vecteurs.
+
+===== verify(0) -> False =====
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+
+===== verify('0') -> False =====
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+
+===== verify(Vector.zeros(2)) -> False =====
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+
+===== verify(Vector.zeros(3)) -> False =====
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+
+===== verify(Vector.ones(5)) -> False =====
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+
+===== verify(Matrix.identity(3)) -> False =====
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+
+===== verify([1, 2]) -> False =====
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+
+===== verify({'a': 'valide'}) -> False =====
+Engagez-vous avant d'explorer : enregistrez d'abord votre prédiction avec ex.predict(...) / ex.predire(...), puis ouvrez le laboratoire.
+
+===== verify(('0', '0')) -> False =====
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+
+===== bilan =====
+**Bilan — Inégalité triangulaire à trois vecteurs**
+
+- Statut : en cours
+- Tentatives soumises : 11
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+- Dernier diagnostic : Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Inégalité triangulaire à trois vecteurs
+**Identifiant** : `inegalite-triangulaire-trois` | **N°** : 13 | **Thème** : Normes, distances et angles | **Type** : vrai_faux | **Niveau** : ★★★
+
+### Énoncé
+A-t-on $\|a + b + c\| \le \|a\| + \|b\| + \|c\|$ pour tous vecteurs $a, b, c$ ? Justifier, ou donner un contre-exemple.
+
+### Spécification de vérification
+```yaml
+enonce: norm(a + b + c) <= norm(a) + norm(b) + norm(c)
+type: labo
+variables:
+  a: vecteur
+  b: vecteur
+  c: vecteur
+```
+
+### Paliers d'indices
+- **Palier 1** : Quel résultat fondamental du cours ressemble à cette inégalité ?
+- **Palier 2** : Rappel : inégalité triangulaire $\|u + v\| \le \|u\| + \|v\|$.
+- **Palier 3** : Pouvez-vous voir $a + b + c$ comme la somme de deux vecteurs $(a + b) + c$ ?
+
+### Exercice jumeau
+`generateurs.inegalite_triangulaire()`

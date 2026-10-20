@@ -1,0 +1,112 @@
+===== matmul entries =====
+Produit matriciel (2×2) @ (2×2) — vue par coefficients (produits scalaires ligne·colonne).
+├─ Coefficient (1,1) : ligne 1 de A · colonne 1 de B = 2.
+├─ Coefficient (1,2) : ligne 1 de A · colonne 2 de B = 1.
+├─ Coefficient (2,1) : ligne 2 de A · colonne 1 de B = 4.
+├─ Coefficient (2,2) : ligne 2 de A · colonne 2 de B = 3.
+└─ Résultat du produit matriciel : [(2 1); (4 3)].
+
+===== matmul rows =====
+Produit matriciel (2×2) @ (2×2) — vue par lignes (combinaisons linéaires des lignes de B).
+├─ Ligne 1 du produit : combinaison des lignes de B avec les coefficients (1, 2) -> ( 2, 1 ).
+├─ Ligne 2 du produit : combinaison des lignes de B avec les coefficients (3, 4) -> ( 4, 3 ).
+└─ Résultat du produit matriciel : [(2 1); (4 3)].
+
+===== matmul columns =====
+Produit matriciel (2×2) @ (2×2) — vue par colonnes (combinaisons linéaires des colonnes de A).
+├─ Colonne 1 du produit : A · b_1 avec les coefficients (0, 1) -> ( 2, 4 ).
+├─ Colonne 2 du produit : A · b_2 avec les coefficients (1, 0) -> ( 1, 3 ).
+└─ Résultat du produit matriciel : [(2 1); (4 3)].
+
+===== matmul outer =====
+Produit matriciel (2×2) @ (2×2) — vue en somme de produits extérieurs.
+├─ Terme extérieur k = 1 : colonne 1 de A × ligne 1 de B.
+├─ Terme extérieur k = 2 : colonne 2 de A × ligne 2 de B.
+└─ Résultat du produit matriciel : [(2 1); (4 3)].
+
+===== métriques =====
+Calcul du produit scalaire u^T v.
+├─ Terme 1 : (1) · (2) = 2.
+├─ Terme 2 : (−2) · (1) = −2.
+├─ Terme 3 : (3) · (0) = 0.
+├─ Terme 4 : (2) · (1) = 2.
+└─ Somme des produits : u^T v = 2.
+Calcul de la norme euclidienne ||v||.
+├─ Somme des carrés des composantes : 18.
+└─ Norme euclidienne : ||v|| = sqrt(18) = 3·√(2).
+Calcul de la moyenne quadratique rms(v) sur n = 4 composantes.
+├─ Calcul de la norme euclidienne ||v||.
+│  ├─ Somme des carrés des composantes : 18.
+│  └─ Norme euclidienne : ||v|| = sqrt(18) = 3·√(2).
+└─ rms(v) = ||v|| / sqrt(4) = 3·√(2)/2.
+Calcul de l'écart type std(v) = rms(v - avg(v)·1) (division par n).
+├─ Centrage du vecteur : v - avg(v)·1.
+│  ├─ Calcul de la moyenne arithmétique avg(v) sur n = 4 composantes.
+│  │  └─ avg(v) = (4) / 4 = 1.
+│  └─ Moyenne avg(v) = 1 ; vecteur centré = ( 0, −3, 2, 1 ).
+├─ Calcul de la moyenne quadratique rms(v) sur n = 4 composantes.
+│  ├─ Calcul de la norme euclidienne ||v||.
+│  │  ├─ Somme des carrés des composantes : 14.
+│  │  └─ Norme euclidienne : ||v|| = sqrt(14) = √(14).
+│  └─ rms(v) = ||v|| / sqrt(4) = √(14)/2.
+└─ std(v) = √(14)/2.
+Calcul du coefficient de corrélation entre u et v.
+├─ Centrage du vecteur : v - avg(v)·1.
+│  ├─ Calcul de la moyenne arithmétique avg(v) sur n = 4 composantes.
+│  │  └─ avg(v) = (4) / 4 = 1.
+│  └─ Moyenne avg(v) = 1 ; vecteur centré = ( 0, −3, 2, 1 ).
+├─ Centrage du vecteur : v - avg(v)·1.
+│  ├─ Calcul de la moyenne arithmétique avg(v) sur n = 4 composantes.
+│  │  └─ avg(v) = (4) / 4 = 1.
+│  └─ Moyenne avg(v) = 1 ; vecteur centré = ( 1, 0, −1, 0 ).
+├─ Calcul de la norme euclidienne ||v||.
+│  ├─ Somme des carrés des composantes : 14.
+│  └─ Norme euclidienne : ||v|| = sqrt(14) = √(14).
+├─ Calcul de la norme euclidienne ||v||.
+│  ├─ Somme des carrés des composantes : 2.
+│  └─ Norme euclidienne : ||v|| = sqrt(2) = √(2).
+├─ Calcul du produit scalaire u^T v.
+│  ├─ Terme 1 : (0) · (1) = 0.
+│  ├─ Terme 2 : (−3) · (0) = 0.
+│  ├─ Terme 3 : (2) · (−1) = −2.
+│  ├─ Terme 4 : (1) · (0) = 0.
+│  └─ Somme des produits : u^T v = −2.
+└─ Corrélation ρ = −√(7)/7.
+Calcul de l'angle entre u et v.
+├─ Calcul du produit scalaire u^T v.
+│  ├─ Terme 1 : (1) · (2) = 2.
+│  ├─ Terme 2 : (−2) · (1) = −2.
+│  ├─ Terme 3 : (3) · (0) = 0.
+│  ├─ Terme 4 : (2) · (1) = 2.
+│  └─ Somme des produits : u^T v = 2.
+├─ Calcul de la norme euclidienne ||v||.
+│  ├─ Somme des carrés des composantes : 18.
+│  └─ Norme euclidienne : ||v|| = sqrt(18) = 3·√(2).
+├─ Calcul de la norme euclidienne ||v||.
+│  ├─ Somme des carrés des composantes : 6.
+│  └─ Norme euclidienne : ||v|| = sqrt(6) = √(6).
+├─ Vérification de Cauchy-Schwarz : u^T v = 2, ||u||·||v|| = 6·√(3), cos(θ) = √(3)/9.
+└─ Angle θ = arccos(√(3)/9) = acos(√(3)/9) rad.
+Calcul de la distance euclidienne ||u - v||.
+├─ Soustraction de deux vecteurs composante par composante.
+│  ├─ Composante 1 : (1) - (2) = −1.
+│  ├─ Composante 2 : (−2) - (1) = −3.
+│  ├─ Composante 3 : (3) - (0) = 3.
+│  ├─ Composante 4 : (2) - (1) = 1.
+│  └─ Résultat de la soustraction : ( −1, −3, 3, 1 ).
+├─ Calcul de la norme euclidienne ||v||.
+│  ├─ Somme des carrés des composantes : 20.
+│  └─ Norme euclidienne : ||v|| = sqrt(20) = 2·√(5).
+└─ Distance ||u - v|| = 2·√(5).
+
+===== deux calculs regroupés (niveau 1) =====
+Réduction de Gauss-Jordan d'une matrice 2×2.
+   [(2 1 | 5); (4 3 | 11)]
+├─ Pivots non nuls, rang 2, solution unique : x = ( 2, 1 ).
+└─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+   [(1 0 | 2); (0 1 | 1)]
+Réduction de Gauss-Jordan d'une matrice 2×2.
+   [(1 1 | 2); (1 -1 | 0)]
+├─ Pivots non nuls, rang 2, solution unique : x = ( 1, 1 ).
+└─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+   [(1 0 | 1); (0 1 | 1)]

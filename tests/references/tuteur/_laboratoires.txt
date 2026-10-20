@@ -1,0 +1,31 @@
+===== labo sans prédiction =====
+Engagez-vous avant d'explorer : enregistrez d'abord votre prédiction avec ex.predict(...) / ex.predire(...), puis ouvrez le laboratoire.
+
+===== prédiction =====
+**Prédiction enregistrée** : `{'a': 'peut être faux', 'b': 'toujours vrai', 'c': 'peut être faux'}`.
+
+> Le laboratoire de contre-exemples est maintenant ouvert via `ex.lab()` / `ex.labo()`.
+
+===== test ['(1, 0, 0)', '(1, 1, 0)', '(0, 0, 1)'] =====
+True {'a': False, 'b': True, 'c': False} True
+Hypothèses vérifiées : a ⊥ c et b ⊥ c.
+(a) est faux sur votre instance : c'est un contre-exemple valide.
+(b) est vrai sur votre instance.
+(c) est faux sur votre instance : c'est un contre-exemple valide.
+Pour (b), des essais ne suffisent pas : rédigez une justification.
+
+===== test ['(1, 0, 0)', '(0, 1, 0)', '(0, 0, 1)'] =====
+True {'a': True, 'b': True, 'c': True} False
+Hypothèses vérifiées : a ⊥ c et b ⊥ c.
+(a) est vrai sur votre instance.
+(b) est vrai sur votre instance.
+(c) est vrai sur votre instance.
+Pour (a), (b), (c), des essais ne suffisent pas : rédigez une justification.
+
+===== test ['(1, 0, 1)', '(0, 1, 0)', '(0, 0, 1)'] =====
+False {} False
+Hypothèses non satisfaites sur votre instance (condition requise : a ⊥ c et b ⊥ c). Modifiez vos vecteurs pour respecter les hypothèses de l'énoncé.
+
+===== inégalité triangulaire =====
+False
+L'énoncé est vrai sur votre instance. Des essais ne suffisent pas à prouver qu'un énoncé est toujours vrai : rédigez une justification.

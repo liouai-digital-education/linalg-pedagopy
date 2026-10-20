@@ -1,0 +1,144 @@
+===== énoncé =====
+### Exercice 23 — Tailles des produits matriciels
+
+*Produit matriciel · dimensions · niveau ★☆☆*
+
+Soient $A$ de taille $3 \times 4$, $B$ de taille $4 \times 2$ et $C$ de taille $3 \times 2$. Donner pour chacune des expressions (a) $A B + C$, (b) $A^T C$, (c) $B A$ la dimension $(m, n)$ du résultat ou "invalide" si l'opération n'est pas définie.
+
+**Notions** : produit matriciel, compatibilité des dimensions
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Rappel : le produit $X Y$ de $X$ ($m \times k$) par $Y$ ($p \times n$) est défini si et seulement si $k = p$, et sa taille est alors $(m, n)$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+La transposée d'une matrice de taille $m \times n$ est de taille $n \times m$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Pour (a), déterminez d'abord la taille de $A B$ et vérifiez si elle coïncide avec celle de $C$ ($3 \times 2$).
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Analyse de compatibilité des dimensions
+
+**Énoncé analogue** :
+
+Soient $A \in \mathbb{R}^{3 \times 4}$, $B \in \mathbb{R}^{4 \times 2}$ et $x \in \mathbb{R}^4$. Les expressions (a) $A x$, (b) $B^T x$, (c) $A B + B$ sont-elles bien définies ? Si oui, donner leur dimension.
+
+**Résolution pas à pas** :
+
+- **(a)** $A$ ($3 \times 4$) et $x$ ($4 \times 1$) : les dimensions internes ($4 = 4$) coïncident $\implies$ **valide**, dimension $3 \times 1$ (vecteur de $\mathbb{R}^3$).
+- **(b)** $B^T$ est de dimension $2 \times 4$ et $x$ est $4 \times 1$ : ($4 = 4$) $\implies$ **valide**, dimension $2 \times 1$.
+- **(c)** $A B$ est de dimension $3 \times 2$ tandis que $B$ est $4 \times 2$ : addition de dimensions différentes ($3 \times 2 \neq 4 \times 2$) $\implies$ **invalide**.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Analyse de compatibilité des dimensions ===
+Énoncé analogue : Soient $A \in \mathbb{R}^{3 \times 4}$, $B \in \mathbb{R}^{4 \times 2}$ et $x \in \mathbb{R}^4$. Les expressions (a) $A x$, (b) $B^T x$, (c) $A B + B$ sont-elles bien définies ? Si oui, donner leur dimension.
+Résolution pas à pas :
+- **(a)** $A$ ($3 \times 4$) et $x$ ($4 \times 1$) : les dimensions internes ($4 = 4$) coïncident $\implies$ **valide**, dimension $3 \times 1$ (vecteur de $\mathbb{R}^3$).
+- **(b)** $B^T$ est de dimension $2 \times 4$ et $x$ est $4 \times 1$ : ($4 = 4$) $\implies$ **valide**, dimension $2 \times 1$.
+- **(c)** $A B$ est de dimension $3 \times 2$ tandis que $B$ est $4 \times 2$ : addition de dimensions différentes ($3 \times 2 \neq 4 \times 2$) $\implies$ **invalide**.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Analyse de compatibilité des dimensions
+
+**Énoncé analogue** :
+
+Soient $A \in \mathbb{R}^{3 \times 4}$, $B \in \mathbb{R}^{4 \times 2}$ et $x \in \mathbb{R}^4$. Les expressions (a) $A x$, (b) $B^T x$, (c) $A B + B$ sont-elles bien définies ? Si oui, donner leur dimension.
+
+**Résolution pas à pas** :
+
+- **(a)** $A$ ($3 \times 4$) et $x$ ($4 \times 1$) : les dimensions internes ($4 = 4$) coïncident $\implies$ **valide**, dimension $3 \times 1$ (vecteur de $\mathbb{R}^3$).
+- **(b)** $B^T$ est de dimension $2 \times 4$ et $x$ est $4 \times 1$ : ($4 = 4$) $\implies$ **valide**, dimension $2 \times 1$.
+- **(c)** $A B$ est de dimension $3 \times 2$ tandis que $B$ est $4 \times 2$ : addition de dimensions différentes ($3 \times 2 \neq 4 \times 2$) $\implies$ **invalide**.
+
+===== verify(0) -> False =====
+Fournissez un dictionnaire pour les sous-questions ['a', 'b', 'c'] (ex. {'a': 'valide', 'b': 'invalide'} ou {'a': (m, n), 'b': 'invalide'}).
+
+===== verify('0') -> False =====
+Fournissez un dictionnaire pour les sous-questions ['a', 'b', 'c'] (ex. {'a': 'valide', 'b': 'invalide'} ou {'a': (m, n), 'b': 'invalide'}).
+
+===== verify(Vector.zeros(2)) -> False =====
+Fournissez un dictionnaire pour les sous-questions ['a', 'b', 'c'] (ex. {'a': 'valide', 'b': 'invalide'} ou {'a': (m, n), 'b': 'invalide'}).
+
+===== verify(Vector.zeros(3)) -> False =====
+Fournissez un dictionnaire pour les sous-questions ['a', 'b', 'c'] (ex. {'a': 'valide', 'b': 'invalide'} ou {'a': (m, n), 'b': 'invalide'}).
+
+===== verify(Vector.ones(5)) -> False =====
+Fournissez un dictionnaire pour les sous-questions ['a', 'b', 'c'] (ex. {'a': 'valide', 'b': 'invalide'} ou {'a': (m, n), 'b': 'invalide'}).
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Fournissez un dictionnaire pour les sous-questions ['a', 'b', 'c'] (ex. {'a': 'valide', 'b': 'invalide'} ou {'a': (m, n), 'b': 'invalide'}).
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Fournissez un dictionnaire pour les sous-questions ['a', 'b', 'c'] (ex. {'a': 'valide', 'b': 'invalide'} ou {'a': (m, n), 'b': 'invalide'}).
+
+===== verify(Matrix.identity(3)) -> False =====
+Fournissez un dictionnaire pour les sous-questions ['a', 'b', 'c'] (ex. {'a': 'valide', 'b': 'invalide'} ou {'a': (m, n), 'b': 'invalide'}).
+
+===== verify([1, 2]) -> False =====
+Fournissez un dictionnaire pour les sous-questions ['a', 'b', 'c'] (ex. {'a': 'valide', 'b': 'invalide'} ou {'a': (m, n), 'b': 'invalide'}).
+
+===== verify({'a': 'valide'}) -> False =====
+Certaines réponses sont incorrectes : (a) : votre réponse 'valide' est incorrecte (vérifiez la compatibilité des dimensions internes) ; sous-question (b) manquante ; sous-question (c) manquante.
+
+===== verify(('0', '0')) -> False =====
+Fournissez un dictionnaire pour les sous-questions ['a', 'b', 'c'] (ex. {'a': 'valide', 'b': 'invalide'} ou {'a': (m, n), 'b': 'invalide'}).
+
+===== réponse juste =====
+Exact ! Toutes vos analyses de validité et de dimensions sont correctes.
+
+===== bilan =====
+**Bilan — Tailles des produits matriciels**
+
+- Statut : ✅ validé
+- Tentatives soumises : 12
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Tailles des produits matriciels
+**Identifiant** : `dimensions-produits` | **N°** : 23 | **Thème** : Produit matriciel | **Type** : dimensions | **Niveau** : ★☆☆
+
+### Énoncé
+Soient $A$ de taille $3 \times 4$, $B$ de taille $4 \times 2$ et $C$ de taille $3 \times 2$. Donner pour chacune des expressions (a) $A B + C$, (b) $A^T C$, (c) $B A$ la dimension $(m, n)$ du résultat ou "invalide" si l'opération n'est pas définie.
+
+### Spécification de vérification
+```yaml
+attendu:
+  a:
+  - 3
+  - 2
+  b:
+  - 4
+  - 2
+  c: invalide
+type: dimensions
+```
+
+### Paliers d'indices
+- **Palier 1** : Rappel : le produit $X Y$ de $X$ ($m \times k$) par $Y$ ($p \times n$) est défini si et seulement si $k = p$, et sa taille est alors $(m, n)$.
+- **Palier 2** : La transposée d'une matrice de taille $m \times n$ est de taille $n \times m$.
+- **Palier 3** : Pour (a), déterminez d'abord la taille de $A B$ et vérifiez si elle coïncide avec celle de $C$ ($3 \times 2$).
+
+### Exercice jumeau
+`generateurs.dimensions_expressions()`

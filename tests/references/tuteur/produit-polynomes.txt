@@ -1,0 +1,138 @@
+===== énoncé =====
+### Exercice 22 — Produit de polynômes par convolution
+
+*Convolution · calcul · niveau ★★☆*
+
+Soient les deux polynômes $p(t) = 1 - 2t + t^2$ (vecteur de coefficients $a = (1, -2, 1)$) et $q(t) = 2 + t$ (vecteur $b = (2, 1)$). Calculer le vecteur $c \in \mathbb{R}^4$ des coefficients du polynôme produit $r(t) = p(t) q(t)$ par convolution $c = a * b$.
+
+**Notions** : produit de convolution, multiplication de polynômes
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Le produit de deux polynômes de degrés 2 et 1 est un polynôme de degré 3, représenté par un vecteur $c$ de taille $3 + 2 - 1 = 4$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : la convolution $c = a * b$ vérifie $c_k = \sum_{i+j=k+1} a_i b_j$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Développez $(1 - 2t + t^2)(2 + t)$ suivant les puissances croissantes de $t$ ($1, t, t^2, t^3$) et lisez les 4 coefficients.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Produit de convolution de deux vecteurs
+
+**Énoncé analogue** :
+
+Calculer le produit de convolution $c = a * b$ des vecteurs $a = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ et $b = \begin{bmatrix} 3 \\ -1 \\ 1 \end{bmatrix}$.
+
+**Résolution pas à pas** :
+
+1. La dimension de $c = a * b$ est $m + n - 1 = 2 + 3 - 1 = 4$.
+2. Pour chaque $k \in \{1, \dots, 4\}$ : $c_k = \sum_{i+j=k+1} a_i b_j$ :
+
+   $$c = \begin{bmatrix} 3 \\ 5 \\ -1 \\ 2 \end{bmatrix}$$
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Produit de convolution de deux vecteurs ===
+Énoncé analogue : Calculer le produit de convolution $c = a * b$ des vecteurs $a = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ et $b = \begin{bmatrix} 3 \\ -1 \\ 1 \end{bmatrix}$.
+Résolution pas à pas :
+1. La dimension de $c = a * b$ est $m + n - 1 = 2 + 3 - 1 = 4$.
+2. Pour chaque $k \in \{1, \dots, 4\}$ : $c_k = \sum_{i+j=k+1} a_i b_j$ :
+
+   $$c = \begin{bmatrix} 3 \\ 5 \\ -1 \\ 2 \end{bmatrix}$$
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Produit de convolution de deux vecteurs
+
+**Énoncé analogue** :
+
+Calculer le produit de convolution $c = a * b$ des vecteurs $a = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ et $b = \begin{bmatrix} 3 \\ -1 \\ 1 \end{bmatrix}$.
+
+**Résolution pas à pas** :
+
+1. La dimension de $c = a * b$ est $m + n - 1 = 2 + 3 - 1 = 4$.
+2. Pour chaque $k \in \{1, \dots, 4\}$ : $c_k = \sum_{i+j=k+1} a_i b_j$ :
+
+   $$c = \begin{bmatrix} 3 \\ 5 \\ -1 \\ 2 \end{bmatrix}$$
+
+===== verify(0) -> False =====
+Votre réponse doit être un vecteur.
+
+===== verify('0') -> False =====
+Taille de vecteur incorrecte : reçu 1, attendu 4.
+
+===== verify(Vector.zeros(2)) -> False =====
+Taille de vecteur incorrecte : reçu 2, attendu 4.
+
+===== verify(Vector.zeros(3)) -> False =====
+Taille de vecteur incorrecte : reçu 3, attendu 4.
+
+===== verify(Vector.ones(5)) -> False =====
+Taille de vecteur incorrecte : reçu 5, attendu 4.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Votre réponse doit être un vecteur.
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Votre réponse doit être un vecteur.
+
+===== verify(Matrix.identity(3)) -> False =====
+Votre réponse doit être un vecteur.
+
+===== verify([1, 2]) -> False =====
+Taille de vecteur incorrecte : reçu 2, attendu 4.
+
+===== verify({'a': 'valide'}) -> False =====
+Taille de vecteur incorrecte : reçu 1, attendu 4.
+
+===== verify(('0', '0')) -> False =====
+Taille de vecteur incorrecte : reçu 2, attendu 4.
+
+===== bilan =====
+**Bilan — Produit de polynômes par convolution**
+
+- Statut : en cours
+- Tentatives soumises : 11
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+- Dernier diagnostic : Taille de vecteur incorrecte : reçu 2, attendu 4.
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Produit de polynômes par convolution
+**Identifiant** : `produit-polynomes` | **N°** : 22 | **Thème** : Convolution | **Type** : calcul | **Niveau** : ★★☆
+
+### Énoncé
+Soient les deux polynômes $p(t) = 1 - 2t + t^2$ (vecteur de coefficients $a = (1, -2, 1)$) et $q(t) = 2 + t$ (vecteur $b = (2, 1)$). Calculer le vecteur $c \in \mathbb{R}^4$ des coefficients du polynôme produit $r(t) = p(t) q(t)$ par convolution $c = a * b$.
+
+### Spécification de vérification
+```yaml
+calcul: T_b @ a
+type: valeur
+```
+
+### Paliers d'indices
+- **Palier 1** : Le produit de deux polynômes de degrés 2 et 1 est un polynôme de degré 3, représenté par un vecteur $c$ de taille $3 + 2 - 1 = 4$.
+- **Palier 2** : Rappel : la convolution $c = a * b$ vérifie $c_k = \sum_{i+j=k+1} a_i b_j$.
+- **Palier 3** : Développez $(1 - 2t + t^2)(2 + t)$ suivant les puissances croissantes de $t$ ($1, t, t^2, t^3$) et lisez les 4 coefficients.
+
+### Exercice jumeau
+`generateurs.convolution_polynomes(a_vals=(1, 2), b_vals=(3, -1, 1))`

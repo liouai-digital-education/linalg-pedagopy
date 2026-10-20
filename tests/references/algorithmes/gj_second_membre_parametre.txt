@@ -1,0 +1,188 @@
+===== repr =====
+<CaseSplit selon a : 2 cas — a ≠ 1 | a = 1>
+
+===== str =====
+Discussion selon a
+├─ Cas a ≠ 1 (générique) : L2 devient (0 0 | a - 1)
+│    système incompatible (témoin : 0 = a - 1)
+└─ Cas a = 1 : rang 1, infinité de solutions (1 variable(s) libre(s))
+     x = (1, 0) + t_1·(-1, 1)
+
+===== texte niveau 0 =====
+Discussion selon a
+├─ Cas a ≠ 1 (générique) : L2 devient (0 0 | a - 1)
+│    système incompatible (témoin : 0 = a - 1)
+└─ Cas a = 1 : rang 1, infinité de solutions (1 variable(s) libre(s))
+     x = (1, 0) + t_1·(-1, 1)
+
+===== texte niveau 1 =====
+Discussion selon a
+├─ Cas a ≠ 1 (générique) : L2 devient (0 0 | a - 1)
+│    système incompatible (témoin : 0 = a - 1)
+└─ Cas a = 1 : rang 1, infinité de solutions (1 variable(s) libre(s))
+     x = (1, 0) + t_1·(-1, 1)
+
+===== texte niveau 2 =====
+Discussion selon a
+├─ Cas a ≠ 1 (générique) : L2 devient (0 0 | a - 1)
+│    système incompatible (témoin : 0 = a - 1)
+│    Réduction de Gauss-Jordan d'une matrice 2×2.
+│       [(1 1 | 1); (1 1 | a)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│    │  └─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+│    │     [(1 1 | 1); (0 0 | a - 1)]
+│    ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+│    ├─ Système incompatible : la ligne L2 donne 0 = a − 1 (témoin : 0 = 1).
+│    └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+│       [(1 1 | 1); (0 0 | a - 1)]
+└─ Cas a = 1 : rang 1, infinité de solutions (1 variable(s) libre(s))
+     x = (1, 0) + t_1·(-1, 1)
+     Réduction de Gauss-Jordan d'une matrice 2×2.
+        [(1 1 | 1); (1 1 | 1)]
+     ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+     │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+     │  └─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+     │     [(1 1 | 1); (0 0 | 0)]
+     ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+     ├─ Rang 1 < 2 : ensemble affine de solutions avec 1 variable(s) libre(s).
+     └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+        [(1 1 | 1); (0 0 | 0)]
+
+===== texte niveau 3 =====
+Discussion selon a
+├─ Cas a ≠ 1 (générique) : L2 devient (0 0 | a - 1)
+│    système incompatible (témoin : 0 = a - 1)
+│    Réduction de Gauss-Jordan d'une matrice 2×2.
+│       [(1 1 | 1); (1 1 | a)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  └─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+│    │     [(1 1 | 1); (0 0 | a - 1)]
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+│    ├─ Système incompatible : la ligne L2 donne 0 = a − 1 (témoin : 0 = 1).
+│    └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+│       [(1 1 | 1); (0 0 | a - 1)]
+└─ Cas a = 1 : rang 1, infinité de solutions (1 variable(s) libre(s))
+     x = (1, 0) + t_1·(-1, 1)
+     Réduction de Gauss-Jordan d'une matrice 2×2.
+        [(1 1 | 1); (1 1 | 1)]
+     ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+     │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  └─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+     │     [(1 1 | 1); (0 0 | 0)]
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Rang 1 < 2 : ensemble affine de solutions avec 1 variable(s) libre(s).
+     └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+        [(1 1 | 1); (0 0 | 0)]
+
+===== markdown niveau 2 =====
+### Discussion selon $a$
+
+- **Cas $a \neq 1$ (générique)** : L2 devient (0 0 | a - 1)
+  - système incompatible (témoin : 0 = a - 1)
+  - Réduction de Gauss-Jordan d'une matrice 2×2.
+    $$\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 1 & 1 & a \end{array}\right]$$
+    - Traitement de la colonne 1 (ligne pivot courante : 1).
+      - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      - On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+        $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{a - 1} \end{array}\right]$$
+    - Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    - Système incompatible : la ligne L2 donne 0 = a − 1 (témoin : 0 = 1).
+    - Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+      $$\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 0 & 0 & a - 1 \end{array}\right]$$
+- **Cas $a = 1$** : rang 1, infinité de solutions (1 variable(s) libre(s))
+  - $x = \left[\begin{array}{c} 1 \\ 0 \end{array}\right] + t_{1} \left[\begin{array}{c} -1 \\ 1 \end{array}\right]$
+  - Réduction de Gauss-Jordan d'une matrice 2×2.
+    $$\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 1 & 1 & 1 \end{array}\right]$$
+    - Traitement de la colonne 1 (ligne pivot courante : 1).
+      - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      - On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+        $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]$$
+    - Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    - Rang 1 < 2 : ensemble affine de solutions avec 1 variable(s) libre(s).
+    - Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+      $$\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 0 & 0 & 0 \end{array}\right]$$
+
+===== latex niveau 2 =====
+\textbf{Discussion selon $a$}
+\begin{itemize}
+  \item \textbf{Cas $a \neq 1 \text{ (générique)}$} : L2 devient (0 0 \textbar{} a - 1) — système incompatible (témoin : 0 = a - 1)
+\begin{itemize}
+  \item Réduction de Gauss-Jordan d'une matrice 2×2.
+  \[\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 1 & 1 & a \end{array}\right]\]
+  \begin{itemize}
+    \item Traitement de la colonne 1 (ligne pivot courante : 1).
+    \begin{itemize}
+      \item Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      \item On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+      \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{a - 1} \end{array}\right]\]
+    \end{itemize}
+    \item Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    \item Système incompatible : la ligne L2 donne 0 = a − 1 (témoin : 0 = 1).
+    \item Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+    \[\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 0 & 0 & a - 1 \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+  \item \textbf{Cas $a = 1$} : rang 1, infinité de solutions (1 variable(s) libre(s)) — $x = \left[\begin{array}{c} 1 \\ 0 \end{array}\right] + t_{1} \left[\begin{array}{c} -1 \\ 1 \end{array}\right]$
+\begin{itemize}
+  \item Réduction de Gauss-Jordan d'une matrice 2×2.
+  \[\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 1 & 1 & 1 \end{array}\right]\]
+  \begin{itemize}
+    \item Traitement de la colonne 1 (ligne pivot courante : 1).
+    \begin{itemize}
+      \item Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      \item On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+      \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]
+    \end{itemize}
+    \item Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    \item Rang 1 < 2 : ensemble affine de solutions avec 1 variable(s) libre(s).
+    \item Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+    \[\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 0 & 0 & 0 \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-casesplit'>
+<h3>Discussion selon \(a\)</h3>
+<ul>
+<li><strong>Cas \(a \neq 1\) (générique)</strong> : L2 devient (0 0 | a - 1)<br>système incompatible (témoin : 0 = a - 1)<div class='pedagopy-explanation'>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 2×2.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 1 & 1 & a \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{a - 1} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.</div>
+<div class='pedagopy-step'>Système incompatible : la ligne L2 donne 0 = a − 1 (témoin : 0 = 1).</div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).<div class='pedagopy-math'>\[\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 0 & 0 & a - 1 \end{array}\right]\]</div></div>
+</details>
+</div></li>
+<li><strong>Cas \(a = 1\)</strong> : rang 1, infinité de solutions (1 variable(s) libre(s))<br>\(x = \left[\begin{array}{c} 1 \\ 0 \end{array}\right] + t_{1} \left[\begin{array}{c} -1 \\ 1 \end{array}\right]\)<div class='pedagopy-explanation'>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 2×2.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 1 & 1 & 1 \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.</div>
+<div class='pedagopy-step'>Rang 1 &lt; 2 : ensemble affine de solutions avec 1 variable(s) libre(s).</div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).<div class='pedagopy-math'>\[\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 0 & 0 & 0 \end{array}\right]\]</div></div>
+</details>
+</div></li>
+</ul>
+</div>

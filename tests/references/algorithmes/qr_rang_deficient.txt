@@ -1,0 +1,97 @@
+===== repr =====
+QRResult(A=Matrix([[1, 2], [2, 4], [3, 6]]), Q=Matrix([]), R=Matrix([]), Q_tilde=Matrix([[1], [2], [3]]), R_tilde=Matrix([[1]]), D_sq=Matrix([[14]]), d_sq=(14,), full_rank=False, witness=DependenceWitness(index=1, q_tilde_coeffs=(2,), a_coeffs=(2,), expression='a_2 = (2)·q̃_1'))
+
+===== texte niveau 0 =====
+
+
+===== texte niveau 1 =====
+Factorisation QR de la matrice A de taille 3×2.
+└─ Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^3 (variante normalize='end').
+   ├─ Étape i = 1 : traitement du vecteur a_1.
+   └─ Étape i = 2 : traitement du vecteur a_2.
+      └─ a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = (2)·q̃_1).
+
+===== texte niveau 2 =====
+Factorisation QR de la matrice A de taille 3×2.
+└─ Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^3 (variante normalize='end').
+   ├─ Étape i = 1 : traitement du vecteur a_1.
+   │  └─ Soustraction des projections : q_tilde_1 = ( 1, 2, 3 ).
+   └─ Étape i = 2 : traitement du vecteur a_2.
+      ├─ Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 2.
+      ├─ Soustraction des projections : q_tilde_2 = ( 0, 0, 0 ).
+      └─ a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = (2)·q̃_1).
+
+===== texte niveau 3 =====
+Factorisation QR de la matrice A de taille 3×2.
+└─ Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^3 (variante normalize='end').
+   ├─ Étape i = 1 : traitement du vecteur a_1.
+   │  └─ Soustraction des projections : q_tilde_1 = ( 1, 2, 3 ).
+   └─ Étape i = 2 : traitement du vecteur a_2.
+      ├─ Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 2.
+      ├─ Soustraction des projections : q_tilde_2 = ( 0, 0, 0 ).
+      ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+      ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+      ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+      └─ a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = (2)·q̃_1).
+
+===== markdown niveau 2 =====
+- Factorisation QR de la matrice A de taille 3×2.
+  - Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^3 (variante normalize='end').
+    - Étape i = 1 : traitement du vecteur a_1.
+      - Soustraction des projections : q_tilde_1 = ( 1, 2, 3 ).
+        $$\left[\begin{array}{c} 1 \\ 2 \\ 3 \end{array}\right]$$
+    - Étape i = 2 : traitement du vecteur a_2.
+      - Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 2.
+      - Soustraction des projections : q_tilde_2 = ( 0, 0, 0 ).
+        $$\left[\begin{array}{c} 0 \\ 0 \\ 0 \end{array}\right]$$
+      - a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = (2)·q̃_1).
+
+===== latex niveau 2 =====
+\begin{itemize}
+  \item Factorisation QR de la matrice A de taille 3×2.
+  \begin{itemize}
+    \item Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^3 (variante normalize='end').
+    \begin{itemize}
+      \item Étape i = 1 : traitement du vecteur a_1.
+      \begin{itemize}
+        \item Soustraction des projections : q_tilde_1 = ( 1, 2, 3 ).
+        \[\left[\begin{array}{c} 1 \\ 2 \\ 3 \end{array}\right]\]
+      \end{itemize}
+      \item Étape i = 2 : traitement du vecteur a_2.
+      \begin{itemize}
+        \item Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 2.
+        \item Soustraction des projections : q_tilde_2 = ( 0, 0, 0 ).
+        \[\left[\begin{array}{c} 0 \\ 0 \\ 0 \end{array}\right]\]
+        \item a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = (2)·q̃_1).
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-explanation'>
+<details open>
+  <summary>Factorisation QR de la matrice A de taille 3×2.</summary>
+  
+  <details open>
+  <summary>Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^3 (variante normalize=&#x27;end&#x27;).</summary>
+  
+  <details open>
+  <summary>Étape i = 1 : traitement du vecteur a_1.</summary>
+  
+  <div class='pedagopy-step'>Soustraction des projections : q_tilde_1 = ( 1, 2, 3 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 1 \\ 2 \\ 3 \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Étape i = 2 : traitement du vecteur a_2.</summary>
+  
+  <div class='pedagopy-step'>Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 2.</div>
+<div class='pedagopy-step'>Soustraction des projections : q_tilde_2 = ( 0, 0, 0 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 0 \\ 0 \\ 0 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = (2)·q̃_1).</div>
+</details>
+</details>
+</details>
+</div>
+
+===== verify =====
+Vérification de la factorisation QR : contrôle de Q R = A et Q^T Q = I_2 via l'oracle.
+└─ Contrôle vérifié : Colonnes dépendantes : a_2 = (2)·q̃_1.

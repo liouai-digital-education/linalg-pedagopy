@@ -1,0 +1,37 @@
+===== opérations de lignes =====
+L2 <- L2 - 3*L1        | valid_useful      | None | Valide. Le coefficient (2,1) est maintenant nul : progression vers la forme échelonnée.
+L2 <- L2 + 3*L1        | valid_no_progress | sign_error | Erreur de signe dans le coefficient de transvection : le coefficient (2,1) vaut maintenant 6 et n'est pas annulé (coefficient attendu : -3).
+L2 <- 0*L2             | invalid           | zero_scaling | Invalide : une dilatation par 0 n'est pas une opération élémentaire (perte d'information) ; l'opération n'est pas inversible : le système change.
+L2 <- L2**2            | invalid           | nonlinear_row_op | Invalide : l'expression n'est pas une opération linéaire sur les lignes.
+L1 <- L2               | invalid           | row_overwrite | Invalide : L1 est remplacée par une expression qui ne la contient pas (L2). L'ancienne ligne L1 est perdue : l'opération n'est pas inversible et le système change. Pour échanger deux lignes, écrivez 'L1 <-> L2' ; pour une transvection, conservez L1 : 'L1 <- L1 + λ*L2'.
+L1 <- L1 - L1          | invalid           | self_transvection | Invalide : transvection d'une ligne par elle-même (L1 <- L1 + (-1)*L1). C'est une dilatation déguisée, interdite si λ = -1 (annule la ligne).
+L1 <-> L3              | valid_useful      | None | Valide. Les lignes L1 et L3 ont été échangées.
+L1 <-> L1              | valid_no_progress | None | Valide mais sans progrès : échanger L1 avec elle-même ne modifie pas la matrice.
+L9 <- L1               | invalid           | index_out_of_bounds | Invalide : la ligne L9 n'existe pas (1..3).
+only_A: L1 <-> L2      | invalid           | only_lhs | Invalide : opération appliquée à A mais pas au second membre. Le système obtenu n'est plus équivalent.
+L2 <- (1/2)*L2         | valid_no_progress | None | Valide mais sans progrès direct : la ligne L2 a été multipliée par 1/2.
+L3 <- L3 - L1 - L2     | invalid           | multiple_rows | Invalide : une opération élémentaire ne fait intervenir qu'au plus deux lignes à la fois.
+échanger 1 et 2        | invalid           | syntax_error | Syntaxe d'opération non reconnue : 'échanger 1 et 2'. Exemples attendus : 'L2 <- L2 - 3*L1', 'L1 <-> L2', 'L2 <- (1/2)*L2'.
+L3 <- 2*L3 + L1        | valid_no_progress | None | Opération élémentaire valide, mais aucun nouveau zéro utile n'a été créé.
+
+===== étapes de Gram-Schmidt =====
+(1/2, -1/2, 1) (normalisé tôt=False) | valid_useful | None | Valide. Le vecteur obtenu est bien orthogonal aux vecteurs précédents.
+(1, 0, 1) (normalisé tôt=False) | invalid | not_orthogonal | Le vecteur obtenu n'est pas orthogonal à q̃_1 (produit scalaire résiduel : 1 ≠ 0).
+(1, -1, 2) (normalisé tôt=False) | valid_useful | None | Vecteur orthogonal valide.
+(1, -1, 2) (normalisé tôt=True) | invalid | early_normalization | Résultat non orthogonal : vous avez normalisé avant d'avoir soustrait toutes les projections. Rappel de l'ordre des étapes : soustraire toutes les projections sur q̃_1, ..., q̃_{i-1} avant de normaliser.
+
+===== sessions =====
+Suggestion : annulez le coefficient (2,1) = 3 à l'aide de la ligne pivot L1.
+L2 <- L2 - 3*L1 -> Valide. Le coefficient (2,1) est maintenant nul : progression vers la forme échelonnée.
+Suggestion : annulez le coefficient (1,2) = 2 à l'aide de la ligne pivot L2.
+L2 <- (1/2)*L2 -> Valide. Le pivot de la ligne L2 est maintenant normalisé à 1.
+Suggestion : annulez le coefficient (1,2) = 2 à l'aide de la ligne pivot L2.
+L1 <- L1 - 2*L2 -> Valide. Le coefficient (1,2) est maintenant nul : progression vers la forme échelonnée.
+La matrice est déjà sous forme échelonnée réduite !
+complet : True
+Veuillez d'abord enregistrer votre prédiction avec predict(...) avant de révéler l'étape.
+Prédiction enregistrée. Vous pouvez maintenant appeler reveal() pour afficher l'étape.
+On annule le coefficient (2,1) : L2 ← L2 - 3·L1.
+Veuillez d'abord enregistrer votre prédiction avec predict(...) avant de révéler l'étape.
+Veuillez d'abord enregistrer votre prédiction avec predict(...) avant de révéler l'étape.
+[{'step_number': 1, 'masked': False, 'description': 'Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 1/2.'}, {'step_number': 2, 'masked': True, 'description': '??? (étape à compléter)'}, {'step_number': 3, 'masked': True, 'description': '??? (étape à compléter)'}]

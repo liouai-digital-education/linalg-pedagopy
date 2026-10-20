@@ -1,0 +1,153 @@
+===== énoncé =====
+### Exercice 27 — Mise à l'échelle par matrices diagonales
+
+*Produit matriciel · modélisation · niveau ★★☆*
+
+Soit $A$ une matrice $m \times n$, $D = \text{diag}(d_1, \dots, d_m)$ une matrice diagonale $m \times m$ et $E = \text{diag}(e_1, \dots, e_n)$ une matrice diagonale $n \times n$. Exprimer le coefficient $(i, j)$ du produit $D A E$ en fonction de $d_i$, $a_{ij}$ (représentant $A_{i,j}$) et $e_j$.
+
+**Notions** : multiplication par des matrices diagonales D A E, mise à l'échelle des lignes et colonnes
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Analysez l'effet de la multiplication à gauche par une matrice diagonale $D$, puis à droite par une matrice diagonale $E$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : multiplier $A$ à gauche par $D = \text{diag}(d_1, \dots, d_m)$ multiplie la ligne $i$ de $A$ par $d_i$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Multiplier ensuite à droite par $E = \text{diag}(e_1, \dots, e_n)$ multiplie la colonne $j$ par $e_j$. Quel est alors le coefficient $(i, j)$ ?
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Mise à l'échelle des lignes et des colonnes
+
+**Énoncé analogue** :
+
+Avec $D = \begin{bmatrix} 2 & 0 \\ 0 & -1 \end{bmatrix}$, $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$ et $E = \begin{bmatrix} 1 & 0 \\ 0 & 3 \end{bmatrix}$, calculer $D A E$ et décrire l'effet de $D$ et de $E$.
+
+**Résolution pas à pas** :
+
+1. Multiplier à gauche par $D$ multiplie la ligne 1 de $A$ par 2 et la ligne 2 par $-1$.
+2. Multiplier à droite par $E$ multiplie la colonne 1 par 1 et la colonne 2 par 3.
+3. Chaque coefficient est donc multiplié par le facteur de sa ligne et celui de sa colonne :
+
+$$D A E = \begin{bmatrix} 2 & 12 \\ -3 & -12 \end{bmatrix}$$
+
+Par exemple, le coefficient $(2, 2)$ vaut $(-1) \times 4 \times 3 = -12$.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Mise à l'échelle des lignes et des colonnes ===
+Énoncé analogue : Avec $D = \begin{bmatrix} 2 & 0 \\ 0 & -1 \end{bmatrix}$, $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$ et $E = \begin{bmatrix} 1 & 0 \\ 0 & 3 \end{bmatrix}$, calculer $D A E$ et décrire l'effet de $D$ et de $E$.
+Résolution pas à pas :
+1. Multiplier à gauche par $D$ multiplie la ligne 1 de $A$ par 2 et la ligne 2 par $-1$.
+2. Multiplier à droite par $E$ multiplie la colonne 1 par 1 et la colonne 2 par 3.
+3. Chaque coefficient est donc multiplié par le facteur de sa ligne et celui de sa colonne :
+
+$$D A E = \begin{bmatrix} 2 & 12 \\ -3 & -12 \end{bmatrix}$$
+
+Par exemple, le coefficient $(2, 2)$ vaut $(-1) \times 4 \times 3 = -12$.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Mise à l'échelle des lignes et des colonnes
+
+**Énoncé analogue** :
+
+Avec $D = \begin{bmatrix} 2 & 0 \\ 0 & -1 \end{bmatrix}$, $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$ et $E = \begin{bmatrix} 1 & 0 \\ 0 & 3 \end{bmatrix}$, calculer $D A E$ et décrire l'effet de $D$ et de $E$.
+
+**Résolution pas à pas** :
+
+1. Multiplier à gauche par $D$ multiplie la ligne 1 de $A$ par 2 et la ligne 2 par $-1$.
+2. Multiplier à droite par $E$ multiplie la colonne 1 par 1 et la colonne 2 par 3.
+3. Chaque coefficient est donc multiplié par le facteur de sa ligne et celui de sa colonne :
+
+$$D A E = \begin{bmatrix} 2 & 12 \\ -3 & -12 \end{bmatrix}$$
+
+Par exemple, le coefficient $(2, 2)$ vaut $(-1) \times 4 \times 3 = -12$.
+
+===== verify(0) -> False =====
+Votre formule (0) ne coïncide pas avec l'expression attendue (par exemple, lorsque les paramètres valent 1, votre formule donne 0). Avez-vous bien développé le carré de la norme et utilisé l'hypothèse d'orthogonalité ?
+
+===== verify('0') -> False =====
+Votre formule (0) ne coïncide pas avec l'expression attendue (par exemple, lorsque les paramètres valent 1, votre formule donne 0). Avez-vous bien développé le carré de la norme et utilisé l'hypothèse d'orthogonalité ?
+
+===== verify(Vector.zeros(2)) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== verify(Vector.zeros(3)) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== verify(Vector.ones(5)) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Impossible d'interpréter votre formule (<message d'erreur de SymPy>). Utilisez les variables ['d_i', 'a_ij', 'e_j'].
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Impossible d'interpréter votre formule (<message d'erreur de SymPy>). Utilisez les variables ['d_i', 'a_ij', 'e_j'].
+
+===== verify(Matrix.identity(3)) -> False =====
+Impossible d'interpréter votre formule (<message d'erreur de SymPy>). Utilisez les variables ['d_i', 'a_ij', 'e_j'].
+
+===== verify([1, 2]) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== verify({'a': 'valide'}) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== verify(('0', '0')) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== réponse juste =====
+Formule exacte (a_ij*d_i*e_j) !
+
+===== bilan =====
+**Bilan — Mise à l'échelle par matrices diagonales**
+
+- Statut : ✅ validé
+- Tentatives soumises : 12
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Mise à l'échelle par matrices diagonales
+**Identifiant** : `mise-echelle-diagonale` | **N°** : 27 | **Thème** : Produit matriciel | **Type** : modelisation | **Niveau** : ★★☆
+
+### Énoncé
+Soit $A$ une matrice $m \times n$, $D = \text{diag}(d_1, \dots, d_m)$ une matrice diagonale $m \times m$ et $E = \text{diag}(e_1, \dots, e_n)$ une matrice diagonale $n \times n$. Exprimer le coefficient $(i, j)$ du produit $D A E$ en fonction de $d_i$, $a_{ij}$ (représentant $A_{i,j}$) et $e_j$.
+
+### Spécification de vérification
+```yaml
+cible: d_i * a_ij * e_j
+parametres:
+- d_i
+- a_ij
+- e_j
+type: formule
+```
+
+### Paliers d'indices
+- **Palier 1** : Analysez l'effet de la multiplication à gauche par une matrice diagonale $D$, puis à droite par une matrice diagonale $E$.
+- **Palier 2** : Rappel : multiplier $A$ à gauche par $D = \text{diag}(d_1, \dots, d_m)$ multiplie la ligne $i$ de $A$ par $d_i$.
+- **Palier 3** : Multiplier ensuite à droite par $E = \text{diag}(e_1, \dots, e_n)$ multiplie la colonne $j$ par $e_j$. Quel est alors le coefficient $(i, j)$ ?
+
+### Exercice jumeau
+`generateurs.mise_echelle_diagonale()`

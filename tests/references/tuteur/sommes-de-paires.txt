@@ -1,0 +1,213 @@
+===== énoncé =====
+### Exercice 34 — Mesures de sommes de paires
+
+*Moindres carrés et optimisation · modélisation · niveau ★★☆*
+
+On cherche à estimer $x \in \mathbb{R}^3$ à partir des 6 mesures bruitées de toutes les paires : $y_1 \approx x_1 + x_2$, $y_2 \approx x_1 + x_3$, $y_3 \approx x_2 + x_3$, et des 3 mesures individuelles $y_4 \approx x_1$, $y_5 \approx x_2$, $y_6 \approx x_3$. Donner la matrice de conception $A$ de taille $6 \times 3$ telle que le problème s'écrive $\min_x \|A x - y\|^2$.
+
+**Notions** : formulation des moindres carrés ||A x - b||^2, mesures de sommes de paires
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Il y a 6 mesures et 3 inconnues ($x_1, x_2, x_3$) : la matrice $A$ est de taille $6 \times 3$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Chaque ligne $i$ de $A$ contient les coefficients (0 ou 1) qui relient la $i$-ième mesure aux inconnues $x_1, x_2, x_3$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Écrivez les 3 premières lignes pour les sommes de paires, puis les 3 dernières lignes (qui forment la matrice identité $I_3$).
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Modélisation par moindres carrés $\min \|A x - b\|^2$
+
+**Énoncé analogue** :
+
+On dispose de 3 mesures bruitées de $x_1$, de $x_2$ et de $x_1 + x_2$ : $y_1 = 2$, $y_2 = 3$, $y_3 = 6$. Écrire le problème sous la forme $\min_x \|A x - b\|^2$.
+
+**Résolution pas à pas** :
+
+Chaque mesure correspond à une ligne du système $A x \approx b$ :
+
+- Ligne 1 : $1 \cdot x_1 + 0 \cdot x_2 \approx 2$
+- Ligne 2 : $0 \cdot x_1 + 1 \cdot x_2 \approx 3$
+- Ligne 3 : $1 \cdot x_1 + 1 \cdot x_2 \approx 6$
+
+D'où les matrices du problème :
+
+$$A = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{bmatrix}, \quad b = \begin{bmatrix} 2 \\ 3 \\ 6 \end{bmatrix}$$
+
+L'estimateur des moindres carrés est $\hat{x} = \begin{bmatrix} \frac{7}{3} \\ \frac{10}{3} \end{bmatrix}$.
+
+**Détail des étapes formelles** :
+
+- Résolution au sens des moindres carrés min ||A x - b|| (A de taille 3×2, méthode 'rational_qr').
+  - Vérification du rang plein en colonnes : rang(A) = 2 = 2.
+  - Note théorique : la pseudo-inverse est A† = (A^T A)^(-1) A^T, mais on résout par substitution sans inverser.
+  - Équations réduites par QR rationnelle : R_tilde x_hat = D^(-2) Q_tilde^T b = ( 4, 10/3 ).
+    $$\left[\begin{array}{cc} 1 & \frac{1}{2} \\ 0 & 1 \end{array}\right]$$
+  - Résolution par substitution arrière de R x = c (taille 2×2).
+    $$\left[\begin{array}{cc} 1 & \frac{1}{2} \\ 0 & 1 \end{array}\right]$$
+    - Calcul de x_2 : x_2 = (10/3 - (0)) / (1) = 10/3.
+    - Calcul de x_1 : x_1 = (4 - (5/3)) / (1) = 7/3.
+    - Solution du système triangulaire : x = ( 7/3, 10/3 ).
+      $$\left[\begin{array}{c} \frac{7}{3} \\ \frac{10}{3} \end{array}\right]$$
+  - Analyse de la solution : x_hat = ( 7/3, 10/3 ), projection y_hat = A x_hat = ( 7/3, 10/3, 17/3 ), résidu r_hat = A x_hat - b = ( 1/3, 1/3, −1/3 ).
+    $$\left[\begin{array}{c} \frac{7}{3} \\ \frac{10}{3} \end{array}\right]$$
+  - Norme du résidu ||r_hat|| = √(3)/3, moyenne quadratique rms(r_hat) = 1/3.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Modélisation par moindres carrés $\min \|A x - b\|^2$ ===
+Énoncé analogue : On dispose de 3 mesures bruitées de $x_1$, de $x_2$ et de $x_1 + x_2$ : $y_1 = 2$, $y_2 = 3$, $y_3 = 6$. Écrire le problème sous la forme $\min_x \|A x - b\|^2$.
+Résolution pas à pas :
+Chaque mesure correspond à une ligne du système $A x \approx b$ :
+
+- Ligne 1 : $1 \cdot x_1 + 0 \cdot x_2 \approx 2$
+- Ligne 2 : $0 \cdot x_1 + 1 \cdot x_2 \approx 3$
+- Ligne 3 : $1 \cdot x_1 + 1 \cdot x_2 \approx 6$
+
+D'où les matrices du problème :
+
+$$A = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{bmatrix}, \quad b = \begin{bmatrix} 2 \\ 3 \\ 6 \end{bmatrix}$$
+
+L'estimateur des moindres carrés est $\hat{x} = \begin{bmatrix} \frac{7}{3} \\ \frac{10}{3} \end{bmatrix}$.
+Résolution au sens des moindres carrés min ||A x - b|| (A de taille 3×2, méthode 'rational_qr').
+├─ Vérification du rang plein en colonnes : rang(A) = 2 = 2.
+├─ Note théorique : la pseudo-inverse est A† = (A^T A)^(-1) A^T, mais on résout par substitution sans inverser.
+├─ Équations réduites par QR rationnelle : R_tilde x_hat = D^(-2) Q_tilde^T b = ( 4, 10/3 ).
+├─ Résolution par substitution arrière de R x = c (taille 2×2).
+│  ├─ Calcul de x_2 : x_2 = (10/3 - (0)) / (1) = 10/3.
+│  ├─ Calcul de x_1 : x_1 = (4 - (5/3)) / (1) = 7/3.
+│  └─ Solution du système triangulaire : x = ( 7/3, 10/3 ).
+├─ Analyse de la solution : x_hat = ( 7/3, 10/3 ), projection y_hat = A x_hat = ( 7/3, 10/3, 17/3 ), résidu r_hat = A x_hat - b = ( 1/3, 1/3, −1/3 ).
+└─ Norme du résidu ||r_hat|| = √(3)/3, moyenne quadratique rms(r_hat) = 1/3.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Modélisation par moindres carrés $\min \|A x - b\|^2$
+
+**Énoncé analogue** :
+
+On dispose de 3 mesures bruitées de $x_1$, de $x_2$ et de $x_1 + x_2$ : $y_1 = 2$, $y_2 = 3$, $y_3 = 6$. Écrire le problème sous la forme $\min_x \|A x - b\|^2$.
+
+**Résolution pas à pas** :
+
+Chaque mesure correspond à une ligne du système $A x \approx b$ :
+
+- Ligne 1 : $1 \cdot x_1 + 0 \cdot x_2 \approx 2$
+- Ligne 2 : $0 \cdot x_1 + 1 \cdot x_2 \approx 3$
+- Ligne 3 : $1 \cdot x_1 + 1 \cdot x_2 \approx 6$
+
+D'où les matrices du problème :
+
+$$A = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{bmatrix}, \quad b = \begin{bmatrix} 2 \\ 3 \\ 6 \end{bmatrix}$$
+
+L'estimateur des moindres carrés est $\hat{x} = \begin{bmatrix} \frac{7}{3} \\ \frac{10}{3} \end{bmatrix}$.
+
+**Détail des étapes formelles** :
+
+- Résolution au sens des moindres carrés min ||A x - b|| (A de taille 3×2, méthode 'rational_qr').
+  - Vérification du rang plein en colonnes : rang(A) = 2 = 2.
+  - Note théorique : la pseudo-inverse est A† = (A^T A)^(-1) A^T, mais on résout par substitution sans inverser.
+  - Équations réduites par QR rationnelle : R_tilde x_hat = D^(-2) Q_tilde^T b = ( 4, 10/3 ).
+    $$\left[\begin{array}{cc} 1 & \frac{1}{2} \\ 0 & 1 \end{array}\right]$$
+  - Résolution par substitution arrière de R x = c (taille 2×2).
+    $$\left[\begin{array}{cc} 1 & \frac{1}{2} \\ 0 & 1 \end{array}\right]$$
+    - Calcul de x_2 : x_2 = (10/3 - (0)) / (1) = 10/3.
+    - Calcul de x_1 : x_1 = (4 - (5/3)) / (1) = 7/3.
+    - Solution du système triangulaire : x = ( 7/3, 10/3 ).
+      $$\left[\begin{array}{c} \frac{7}{3} \\ \frac{10}{3} \end{array}\right]$$
+  - Analyse de la solution : x_hat = ( 7/3, 10/3 ), projection y_hat = A x_hat = ( 7/3, 10/3, 17/3 ), résidu r_hat = A x_hat - b = ( 1/3, 1/3, −1/3 ).
+    $$\left[\begin{array}{c} \frac{7}{3} \\ \frac{10}{3} \end{array}\right]$$
+  - Norme du résidu ||r_hat|| = √(3)/3, moyenne quadratique rms(r_hat) = 1/3.
+
+===== verify(0) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify('0') -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 3 et la sortie y de taille 6.
+
+===== verify(Vector.zeros(2)) -> False =====
+Taille incorrecte : votre matrice est de taille (2 x 1), alors que l'entrée x est de taille 3 et la sortie y de taille 6.
+
+===== verify(Vector.zeros(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée x est de taille 3 et la sortie y de taille 6.
+
+===== verify(Vector.ones(5)) -> False =====
+Taille incorrecte : votre matrice est de taille (5 x 1), alors que l'entrée x est de taille 3 et la sortie y de taille 6.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Taille incorrecte : votre matrice est de taille (2 x 2), alors que l'entrée x est de taille 3 et la sortie y de taille 6.
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée x est de taille 3 et la sortie y de taille 6.
+
+===== verify(Matrix.identity(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 3), alors que l'entrée x est de taille 3 et la sortie y de taille 6.
+
+===== verify([1, 2]) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify({'a': 'valide'}) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 3 et la sortie y de taille 6.
+
+===== verify(('0', '0')) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 3 et la sortie y de taille 6.
+
+===== bilan =====
+**Bilan — Mesures de sommes de paires**
+
+- Statut : en cours
+- Tentatives soumises : 11
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+- Dernier diagnostic : Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 3 et la sortie y de taille 6.
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Mesures de sommes de paires
+**Identifiant** : `sommes-de-paires` | **N°** : 34 | **Thème** : Moindres carrés et optimisation | **Type** : modelisation | **Niveau** : ★★☆
+
+### Énoncé
+On cherche à estimer $x \in \mathbb{R}^3$ à partir des 6 mesures bruitées de toutes les paires : $y_1 \approx x_1 + x_2$, $y_2 \approx x_1 + x_3$, $y_3 \approx x_2 + x_3$, et des 3 mesures individuelles $y_4 \approx x_1$, $y_5 \approx x_2$, $y_6 \approx x_3$. Donner la matrice de conception $A$ de taille $6 \times 3$ telle que le problème s'écrive $\min_x \|A x - y\|^2$.
+
+### Spécification de vérification
+```yaml
+inconnue: x
+lignes_cibles:
+- y[1] = x[1] + x[2]
+- y[2] = x[1] + x[3]
+- y[3] = x[2] + x[3]
+- y[4] = x[1]
+- y[5] = x[2]
+- y[6] = x[3]
+nom_sortie: y
+taille_entree: 3
+taille_sortie: 6
+type: matrice
+```
+
+### Paliers d'indices
+- **Palier 1** : Il y a 6 mesures et 3 inconnues ($x_1, x_2, x_3$) : la matrice $A$ est de taille $6 \times 3$.
+- **Palier 2** : Chaque ligne $i$ de $A$ contient les coefficients (0 ou 1) qui relient la $i$-ième mesure aux inconnues $x_1, x_2, x_3$.
+- **Palier 3** : Écrivez les 3 premières lignes pour les sommes de paires, puis les 3 dernières lignes (qui forment la matrice identité $I_3$).
+
+### Exercice jumeau
+`generateurs.moindres_carres_exemple()`

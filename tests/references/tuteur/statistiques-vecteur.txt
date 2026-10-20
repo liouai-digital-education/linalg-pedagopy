@@ -1,0 +1,200 @@
+===== énoncé =====
+### Exercice 8 — Moyenne, rms et écart type d'un vecteur
+
+*Normes, distances et angles · calcul · niveau ★★☆*
+
+On considère les vecteurs $x = (1, -2, 3, 2)$ et $y = (2, 1, 0, 1)$ de $\mathbb{R}^4$. Calculer $\text{rms}(x)$ (ou fournir un dictionnaire {'rms': ..., 'avg': ..., 'std': ..., 'corr': ..., 'dist': ...}).
+
+**Notions** : rms, avg, std, corrélation, distance
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Cet exercice porte sur les grandeurs statistiques de : $\text{avg}(x)$, $\text{rms}(x)$, $\text{std}(x)$, corrélation et distance.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : $\text{rms}(x) = \frac{\|x\|}{\sqrt{n}}$, et $\text{std}(x) = \text{rms}(x - \text{avg}(x)\mathbf{1})$ (attention au dénominateur $\sqrt{n}$).
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Pour $x = (1, -2, 3, 2)$ de dimension $n = 4$, calculez d'abord la somme des carrés des composantes, puis divisez par $n$ avant de prendre la racine carrée.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Moyenne, moyenne quadratique ($\text{rms}$) et écart type ($\text{std}$)
+
+**Énoncé analogue** :
+
+Pour le vecteur $x = \begin{bmatrix} 2 \\ -1 \\ 5 \\ 2 \end{bmatrix}$ dans $\mathbb{R}^{4}$, calculer $\text{avg}(x)$, $\text{rms}(x)$ et $\text{std}(x)$.
+
+**Résolution pas à pas** :
+
+- **Moyenne** : $\text{avg}(x) = 2$
+- **Moyenne quadratique** : $\text{rms}(x) = \frac{\|x\|}{\sqrt{4}} = \frac{\sqrt{34}}{2}$
+- **Vecteur centré** : $x - \text{avg}(x) \mathbf{1} = \begin{bmatrix} 0 \\ -3 \\ 3 \\ 0 \end{bmatrix}$
+- **Écart type** : $\text{std}(x) = \text{rms}(x - \text{avg}(x) \mathbf{1}) = \frac{3 \sqrt{2}}{2}$
+
+**Détail des étapes formelles** :
+
+- Calcul de la moyenne arithmétique avg(v) sur n = 4 composantes.
+  - avg(v) = (8) / 4 = 2.
+- Calcul de la moyenne quadratique rms(v) sur n = 4 composantes.
+  - Calcul de la norme euclidienne ||v||.
+    - Norme euclidienne : ||v|| = sqrt(34) = √(34).
+  - rms(v) = ||v|| / sqrt(4) = √(34)/2.
+- Calcul de l'écart type std(v) = rms(v - avg(v)·1) (division par n).
+  - Centrage du vecteur : v - avg(v)·1.
+    - Calcul de la moyenne arithmétique avg(v) sur n = 4 composantes.
+      - avg(v) = (8) / 4 = 2.
+    - Moyenne avg(v) = 2 ; vecteur centré = ( 0, −3, 3, 0 ).
+  - Calcul de la moyenne quadratique rms(v) sur n = 4 composantes.
+    - Calcul de la norme euclidienne ||v||.
+      - Norme euclidienne : ||v|| = sqrt(18) = 3·√(2).
+    - rms(v) = ||v|| / sqrt(4) = 3·√(2)/2.
+  - std(v) = 3·√(2)/2.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Moyenne, moyenne quadratique ($\text{rms}$) et écart type ($\text{std}$) ===
+Énoncé analogue : Pour le vecteur $x = \begin{bmatrix} 2 \\ -1 \\ 5 \\ 2 \end{bmatrix}$ dans $\mathbb{R}^{4}$, calculer $\text{avg}(x)$, $\text{rms}(x)$ et $\text{std}(x)$.
+Résolution pas à pas :
+- **Moyenne** : $\text{avg}(x) = 2$
+- **Moyenne quadratique** : $\text{rms}(x) = \frac{\|x\|}{\sqrt{4}} = \frac{\sqrt{34}}{2}$
+- **Vecteur centré** : $x - \text{avg}(x) \mathbf{1} = \begin{bmatrix} 0 \\ -3 \\ 3 \\ 0 \end{bmatrix}$
+- **Écart type** : $\text{std}(x) = \text{rms}(x - \text{avg}(x) \mathbf{1}) = \frac{3 \sqrt{2}}{2}$
+Calcul de la moyenne arithmétique avg(v) sur n = 4 composantes.
+└─ avg(v) = (8) / 4 = 2.
+Calcul de la moyenne quadratique rms(v) sur n = 4 composantes.
+├─ Calcul de la norme euclidienne ||v||.
+│  └─ Norme euclidienne : ||v|| = sqrt(34) = √(34).
+└─ rms(v) = ||v|| / sqrt(4) = √(34)/2.
+Calcul de l'écart type std(v) = rms(v - avg(v)·1) (division par n).
+├─ Centrage du vecteur : v - avg(v)·1.
+│  ├─ Calcul de la moyenne arithmétique avg(v) sur n = 4 composantes.
+│  │  └─ avg(v) = (8) / 4 = 2.
+│  └─ Moyenne avg(v) = 2 ; vecteur centré = ( 0, −3, 3, 0 ).
+├─ Calcul de la moyenne quadratique rms(v) sur n = 4 composantes.
+│  ├─ Calcul de la norme euclidienne ||v||.
+│  │  └─ Norme euclidienne : ||v|| = sqrt(18) = 3·√(2).
+│  └─ rms(v) = ||v|| / sqrt(4) = 3·√(2)/2.
+└─ std(v) = 3·√(2)/2.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Moyenne, moyenne quadratique ($\text{rms}$) et écart type ($\text{std}$)
+
+**Énoncé analogue** :
+
+Pour le vecteur $x = \begin{bmatrix} 2 \\ -1 \\ 5 \\ 2 \end{bmatrix}$ dans $\mathbb{R}^{4}$, calculer $\text{avg}(x)$, $\text{rms}(x)$ et $\text{std}(x)$.
+
+**Résolution pas à pas** :
+
+- **Moyenne** : $\text{avg}(x) = 2$
+- **Moyenne quadratique** : $\text{rms}(x) = \frac{\|x\|}{\sqrt{4}} = \frac{\sqrt{34}}{2}$
+- **Vecteur centré** : $x - \text{avg}(x) \mathbf{1} = \begin{bmatrix} 0 \\ -3 \\ 3 \\ 0 \end{bmatrix}$
+- **Écart type** : $\text{std}(x) = \text{rms}(x - \text{avg}(x) \mathbf{1}) = \frac{3 \sqrt{2}}{2}$
+
+**Détail des étapes formelles** :
+
+- Calcul de la moyenne arithmétique avg(v) sur n = 4 composantes.
+  - avg(v) = (8) / 4 = 2.
+- Calcul de la moyenne quadratique rms(v) sur n = 4 composantes.
+  - Calcul de la norme euclidienne ||v||.
+    - Norme euclidienne : ||v|| = sqrt(34) = √(34).
+  - rms(v) = ||v|| / sqrt(4) = √(34)/2.
+- Calcul de l'écart type std(v) = rms(v - avg(v)·1) (division par n).
+  - Centrage du vecteur : v - avg(v)·1.
+    - Calcul de la moyenne arithmétique avg(v) sur n = 4 composantes.
+      - avg(v) = (8) / 4 = 2.
+    - Moyenne avg(v) = 2 ; vecteur centré = ( 0, −3, 3, 0 ).
+  - Calcul de la moyenne quadratique rms(v) sur n = 4 composantes.
+    - Calcul de la norme euclidienne ||v||.
+      - Norme euclidienne : ||v|| = sqrt(18) = 3·√(2).
+    - rms(v) = ||v|| / sqrt(4) = 3·√(2)/2.
+  - std(v) = 3·√(2)/2.
+
+===== verify(0) -> False =====
+Votre valeur (0) n'est pas égale à la valeur exacte attendue. Vérifiez chaque étape de votre calcul.
+
+===== verify('0') -> False =====
+Votre valeur (0) n'est pas égale à la valeur exacte attendue. Vérifiez chaque étape de votre calcul.
+
+===== verify(Vector.zeros(2)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([0, 0])).
+
+===== verify(Vector.zeros(3)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([0, 0, 0])).
+
+===== verify(Vector.ones(5)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([1, 1, 1, 1, 1])).
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[0, 0], [0, 0]])).
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[0], [0], [0]])).
+
+===== verify(Matrix.identity(3)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])).
+
+===== verify([1, 2]) -> False =====
+Réponse scalaire exacte attendue (reçu [1, 2]).
+
+===== verify({'a': 'valide'}) -> False =====
+Clé 'rms' manquante dans votre réponse.
+
+===== verify(('0', '0')) -> False =====
+Réponse scalaire exacte attendue (reçu ('0', '0')).
+
+===== réponse juste =====
+Exact ! Votre valeur est correcte.
+
+===== bilan =====
+**Bilan — Moyenne, rms et écart type d'un vecteur**
+
+- Statut : ✅ validé
+- Tentatives soumises : 12
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Moyenne, rms et écart type d'un vecteur
+**Identifiant** : `statistiques-vecteur` | **N°** : 8 | **Thème** : Normes, distances et angles | **Type** : calcul | **Niveau** : ★★☆
+
+### Énoncé
+On considère les vecteurs $x = (1, -2, 3, 2)$ et $y = (2, 1, 0, 1)$ de $\mathbb{R}^4$. Calculer $\text{rms}(x)$ (ou fournir un dictionnaire {'rms': ..., 'avg': ..., 'std': ..., 'corr': ..., 'dist': ...}).
+
+### Spécification de vérification
+```yaml
+calcul:
+  avg: x.avg()
+  corr: x.correlation(y)
+  dist: x.distance(y)
+  rms: x.rms()
+  std: x.std()
+calcul_principal: x.rms()
+type: valeur
+```
+
+### Paliers d'indices
+- **Palier 1** : Cet exercice porte sur les grandeurs statistiques de : $\text{avg}(x)$, $\text{rms}(x)$, $\text{std}(x)$, corrélation et distance.
+- **Palier 2** : Rappel : $\text{rms}(x) = \frac{\|x\|}{\sqrt{n}}$, et $\text{std}(x) = \text{rms}(x - \text{avg}(x)\mathbf{1})$ (attention au dénominateur $\sqrt{n}$).
+- **Palier 3** : Pour $x = (1, -2, 3, 2)$ de dimension $n = 4$, calculez d'abord la somme des carrés des composantes, puis divisez par $n$ avant de prendre la racine carrée.
+
+### Exercice jumeau
+`generateurs.statistiques_vecteur(values=(2, -1, 5, 2))`

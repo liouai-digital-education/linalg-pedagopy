@@ -1,0 +1,138 @@
+===== énoncé =====
+### Exercice 21 — Convolution de deux vecteurs
+
+*Convolution · calcul · niveau ★☆☆*
+
+Calculer le produit de convolution $c = a * b$ des vecteurs $a = (1, 0, -1)$ et $b = (2, 1, -1)$ de $\mathbb{R}^3$.
+
+**Notions** : convolution de deux vecteurs, matrice de Toeplitz
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+La convolution de deux vecteurs de taille 3 est un vecteur $c$ de taille $3 + 3 - 1 = 5$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Vous pouvez écrire $c = T(b) a$ où $T(b)$ est la matrice de Toeplitz $5 \times 3$ associée à $b$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Calculez successivement $c_1 = a_1 b_1, c_2 = a_1 b_2 + a_2 b_1, \dots$, jusqu'à $c_5 = a_3 b_3$.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Produit de convolution de deux vecteurs
+
+**Énoncé analogue** :
+
+Calculer le produit de convolution $c = a * b$ des vecteurs $a = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ et $b = \begin{bmatrix} 3 \\ -1 \\ 1 \end{bmatrix}$.
+
+**Résolution pas à pas** :
+
+1. La dimension de $c = a * b$ est $m + n - 1 = 2 + 3 - 1 = 4$.
+2. Pour chaque $k \in \{1, \dots, 4\}$ : $c_k = \sum_{i+j=k+1} a_i b_j$ :
+
+   $$c = \begin{bmatrix} 3 \\ 5 \\ -1 \\ 2 \end{bmatrix}$$
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Produit de convolution de deux vecteurs ===
+Énoncé analogue : Calculer le produit de convolution $c = a * b$ des vecteurs $a = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ et $b = \begin{bmatrix} 3 \\ -1 \\ 1 \end{bmatrix}$.
+Résolution pas à pas :
+1. La dimension de $c = a * b$ est $m + n - 1 = 2 + 3 - 1 = 4$.
+2. Pour chaque $k \in \{1, \dots, 4\}$ : $c_k = \sum_{i+j=k+1} a_i b_j$ :
+
+   $$c = \begin{bmatrix} 3 \\ 5 \\ -1 \\ 2 \end{bmatrix}$$
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Produit de convolution de deux vecteurs
+
+**Énoncé analogue** :
+
+Calculer le produit de convolution $c = a * b$ des vecteurs $a = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$ et $b = \begin{bmatrix} 3 \\ -1 \\ 1 \end{bmatrix}$.
+
+**Résolution pas à pas** :
+
+1. La dimension de $c = a * b$ est $m + n - 1 = 2 + 3 - 1 = 4$.
+2. Pour chaque $k \in \{1, \dots, 4\}$ : $c_k = \sum_{i+j=k+1} a_i b_j$ :
+
+   $$c = \begin{bmatrix} 3 \\ 5 \\ -1 \\ 2 \end{bmatrix}$$
+
+===== verify(0) -> False =====
+Votre réponse doit être un vecteur.
+
+===== verify('0') -> False =====
+Taille de vecteur incorrecte : reçu 1, attendu 5.
+
+===== verify(Vector.zeros(2)) -> False =====
+Taille de vecteur incorrecte : reçu 2, attendu 5.
+
+===== verify(Vector.zeros(3)) -> False =====
+Taille de vecteur incorrecte : reçu 3, attendu 5.
+
+===== verify(Vector.ones(5)) -> False =====
+La composante 1 de votre vecteur (1) est incorrecte.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Votre réponse doit être un vecteur.
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Votre réponse doit être un vecteur.
+
+===== verify(Matrix.identity(3)) -> False =====
+Votre réponse doit être un vecteur.
+
+===== verify([1, 2]) -> False =====
+Taille de vecteur incorrecte : reçu 2, attendu 5.
+
+===== verify({'a': 'valide'}) -> False =====
+Taille de vecteur incorrecte : reçu 1, attendu 5.
+
+===== verify(('0', '0')) -> False =====
+Taille de vecteur incorrecte : reçu 2, attendu 5.
+
+===== bilan =====
+**Bilan — Convolution de deux vecteurs**
+
+- Statut : en cours
+- Tentatives soumises : 11
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+- Dernier diagnostic : Taille de vecteur incorrecte : reçu 2, attendu 5.
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Convolution de deux vecteurs
+**Identifiant** : `convolution-vecteurs` | **N°** : 21 | **Thème** : Convolution | **Type** : calcul | **Niveau** : ★☆☆
+
+### Énoncé
+Calculer le produit de convolution $c = a * b$ des vecteurs $a = (1, 0, -1)$ et $b = (2, 1, -1)$ de $\mathbb{R}^3$.
+
+### Spécification de vérification
+```yaml
+calcul: T_b @ a
+type: valeur
+```
+
+### Paliers d'indices
+- **Palier 1** : La convolution de deux vecteurs de taille 3 est un vecteur $c$ de taille $3 + 3 - 1 = 5$.
+- **Palier 2** : Vous pouvez écrire $c = T(b) a$ où $T(b)$ est la matrice de Toeplitz $5 \times 3$ associée à $b$.
+- **Palier 3** : Calculez successivement $c_1 = a_1 b_1, c_2 = a_1 b_2 + a_2 b_1, \dots$, jusqu'à $c_5 = a_3 b_3$.
+
+### Exercice jumeau
+`generateurs.convolution_polynomes(a_vals=(1, 2), b_vals=(3, -1, 1))`

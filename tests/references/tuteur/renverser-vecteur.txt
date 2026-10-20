@@ -1,0 +1,155 @@
+===== énoncé =====
+### Exercice 18 — Renverser l'ordre des composantes
+
+*Matrices et applications linéaires · modélisation · niveau ★☆☆*
+
+Pour un vecteur $x \in \mathbb{R}^4$, l'application linéaire renverse l'ordre des composantes : $y = (x_4, x_3, x_2, x_1)$. Donner la matrice $A$ de taille $4 \times 4$ telle que $y = A x$.
+
+**Notions** : matrices décrites par leur effet sur un vecteur, matrice de retournement (reverser)
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+L'entrée $x$ et la sortie $y$ sont toutes deux dans $\mathbb{R}^4$ : la matrice $A$ est de taille $4 \times 4$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Une matrice de permutation ou de retournement contient un seul 1 par ligne et par colonne, et des 0 ailleurs.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Sur quelle colonne de la ligne 1 faut-il placer le 1 pour que la 1ʳᵉ composante de $A x$ soit $x_4$ ?
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Matrice d'une application décrite par son effet
+
+**Énoncé analogue** :
+
+Pour $x = (x_1, x_2) \in \mathbb{R}^2$, on définit $y \in \mathbb{R}^3$ par $y_1 = x_2$, $y_2 = x_1 + x_2$, $y_3 = 2 x_1$. Trouver la matrice $A$ telle que $y = A x$.
+
+**Résolution pas à pas** :
+
+1. **Taille** : l'entrée est dans $\mathbb{R}^2$ et la sortie dans $\mathbb{R}^3$, donc $A$ est de taille $3 \times 2$.
+2. **Méthode des colonnes** : la colonne $j$ de $A$ est l'image du vecteur de base $e_j$.
+   - $x = e_1 = (1, 0)$ donne $y = (0, 1, 2)$ : c'est la colonne 1.
+   - $x = e_2 = (0, 1)$ donne $y = (1, 1, 0)$ : c'est la colonne 2.
+3. **Méthode des lignes** (équivalente) : la ligne $i$ contient les coefficients de $y_i$ devant $x_1, x_2$.
+
+$$A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 2 & 0 \end{bmatrix}$$
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Matrice d'une application décrite par son effet ===
+Énoncé analogue : Pour $x = (x_1, x_2) \in \mathbb{R}^2$, on définit $y \in \mathbb{R}^3$ par $y_1 = x_2$, $y_2 = x_1 + x_2$, $y_3 = 2 x_1$. Trouver la matrice $A$ telle que $y = A x$.
+Résolution pas à pas :
+1. **Taille** : l'entrée est dans $\mathbb{R}^2$ et la sortie dans $\mathbb{R}^3$, donc $A$ est de taille $3 \times 2$.
+2. **Méthode des colonnes** : la colonne $j$ de $A$ est l'image du vecteur de base $e_j$.
+   - $x = e_1 = (1, 0)$ donne $y = (0, 1, 2)$ : c'est la colonne 1.
+   - $x = e_2 = (0, 1)$ donne $y = (1, 1, 0)$ : c'est la colonne 2.
+3. **Méthode des lignes** (équivalente) : la ligne $i$ contient les coefficients de $y_i$ devant $x_1, x_2$.
+
+$$A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 2 & 0 \end{bmatrix}$$
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Matrice d'une application décrite par son effet
+
+**Énoncé analogue** :
+
+Pour $x = (x_1, x_2) \in \mathbb{R}^2$, on définit $y \in \mathbb{R}^3$ par $y_1 = x_2$, $y_2 = x_1 + x_2$, $y_3 = 2 x_1$. Trouver la matrice $A$ telle que $y = A x$.
+
+**Résolution pas à pas** :
+
+1. **Taille** : l'entrée est dans $\mathbb{R}^2$ et la sortie dans $\mathbb{R}^3$, donc $A$ est de taille $3 \times 2$.
+2. **Méthode des colonnes** : la colonne $j$ de $A$ est l'image du vecteur de base $e_j$.
+   - $x = e_1 = (1, 0)$ donne $y = (0, 1, 2)$ : c'est la colonne 1.
+   - $x = e_2 = (0, 1)$ donne $y = (1, 1, 0)$ : c'est la colonne 2.
+3. **Méthode des lignes** (équivalente) : la ligne $i$ contient les coefficients de $y_i$ devant $x_1, x_2$.
+
+$$A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 2 & 0 \end{bmatrix}$$
+
+===== verify(0) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify('0') -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify(Vector.zeros(2)) -> False =====
+Taille incorrecte : votre matrice est de taille (2 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify(Vector.zeros(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify(Vector.ones(5)) -> False =====
+Taille incorrecte : votre matrice est de taille (5 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Taille incorrecte : votre matrice est de taille (2 x 2), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify(Matrix.identity(3)) -> False =====
+Taille incorrecte : votre matrice est de taille (3 x 3), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify([1, 2]) -> False =====
+Votre réponse doit être une Matrix (ou un couple (A, b) si un second membre est demandé).
+
+===== verify({'a': 'valide'}) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== verify(('0', '0')) -> False =====
+Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== bilan =====
+**Bilan — Renverser l'ordre des composantes**
+
+- Statut : en cours
+- Tentatives soumises : 11
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+- Dernier diagnostic : Taille incorrecte : votre matrice est de taille (1 x 1), alors que l'entrée x est de taille 4 et la sortie y de taille 4.
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Renverser l'ordre des composantes
+**Identifiant** : `renverser-vecteur` | **N°** : 18 | **Thème** : Matrices et applications linéaires | **Type** : modelisation | **Niveau** : ★☆☆
+
+### Énoncé
+Pour un vecteur $x \in \mathbb{R}^4$, l'application linéaire renverse l'ordre des composantes : $y = (x_4, x_3, x_2, x_1)$. Donner la matrice $A$ de taille $4 \times 4$ telle que $y = A x$.
+
+### Spécification de vérification
+```yaml
+inconnue: x
+lignes_cibles:
+- y[1] = x[4]
+- y[2] = x[3]
+- y[3] = x[2]
+- y[4] = x[1]
+nom_sortie: y
+taille_entree: 4
+taille_sortie: 4
+type: matrice
+```
+
+### Paliers d'indices
+- **Palier 1** : L'entrée $x$ et la sortie $y$ sont toutes deux dans $\mathbb{R}^4$ : la matrice $A$ est de taille $4 \times 4$.
+- **Palier 2** : Une matrice de permutation ou de retournement contient un seul 1 par ligne et par colonne, et des 0 ailleurs.
+- **Palier 3** : Sur quelle colonne de la ligne 1 faut-il placer le 1 pour que la 1ʳᵉ composante de $A x$ soit $x_4$ ?
+
+### Exercice jumeau
+`generateurs.matrice_par_effet()`

@@ -1,0 +1,625 @@
+===== repr =====
+<CaseSplit selon a, b : 5 cas — a ≠ 1 et a ≠ b² | b ≠ 1 et b ≠ −1 et a = b² | b ≠ 1 et b ≠ −1 et a = 1 | a = 1 et b = 1 | a = 1 et b = −1>
+
+===== str =====
+Discussion selon a, b
+├─ Cas a ≠ 1 et a ≠ b² (générique) : pivots non nuls, rang 3, solution unique
+│    x = ( (a² − 3·a·b² − 2·a + 2·b² + 2)/((a − 1)·(a − b²)), (a + b² − 2)/((a − 1)·(a − b²)), 2/(a − b²) )
+├─ Cas b ≠ 1 et b ≠ −1 et a = b² : L3 devient (0 0 0 | 2)
+│    système incompatible (témoin : 0 = 2)
+├─ Cas b ≠ 1 et b ≠ −1 et a = 1 : L3 devient (0 0 0 | 1)
+│    système incompatible (témoin : 0 = 1)
+├─ Cas a = 1 et b = 1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+│    système incompatible (témoin : 0 = 1)
+└─ Cas a = 1 et b = −1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+     système incompatible (témoin : 0 = 1)
+
+===== texte niveau 0 =====
+Discussion selon a, b
+├─ Cas a ≠ 1 et a ≠ b² (générique) : pivots non nuls, rang 3, solution unique
+│    x = ( (a² − 3·a·b² − 2·a + 2·b² + 2)/((a − 1)·(a − b²)), (a + b² − 2)/((a − 1)·(a − b²)), 2/(a − b²) )
+├─ Cas b ≠ 1 et b ≠ −1 et a = b² : L3 devient (0 0 0 | 2)
+│    système incompatible (témoin : 0 = 2)
+├─ Cas b ≠ 1 et b ≠ −1 et a = 1 : L3 devient (0 0 0 | 1)
+│    système incompatible (témoin : 0 = 1)
+├─ Cas a = 1 et b = 1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+│    système incompatible (témoin : 0 = 1)
+└─ Cas a = 1 et b = −1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+     système incompatible (témoin : 0 = 1)
+
+===== texte niveau 1 =====
+Discussion selon a, b
+├─ Cas a ≠ 1 et a ≠ b² (générique) : pivots non nuls, rang 3, solution unique
+│    x = ( (a² − 3·a·b² − 2·a + 2·b² + 2)/((a − 1)·(a − b²)), (a + b² − 2)/((a − 1)·(a − b²)), 2/(a − b²) )
+├─ Cas b ≠ 1 et b ≠ −1 et a = b² : L3 devient (0 0 0 | 2)
+│    système incompatible (témoin : 0 = 2)
+├─ Cas b ≠ 1 et b ≠ −1 et a = 1 : L3 devient (0 0 0 | 1)
+│    système incompatible (témoin : 0 = 1)
+├─ Cas a = 1 et b = 1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+│    système incompatible (témoin : 0 = 1)
+└─ Cas a = 1 et b = −1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+     système incompatible (témoin : 0 = 1)
+
+===== texte niveau 2 =====
+Discussion selon a, b
+├─ Cas a ≠ 1 et a ≠ b² (générique) : pivots non nuls, rang 3, solution unique
+│    x = ( (a² − 3·a·b² − 2·a + 2·b² + 2)/((a − 1)·(a − b²)), (a + b² − 2)/((a − 1)·(a − b²)), 2/(a − b²) )
+│    Réduction de Gauss-Jordan d'une matrice 3×3.
+│       [(1 1 b**2 | 1); (1 a 1 | 2); (1 1 a | 3)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+│    │  │  [(1 1 b**2 | 1); (0 a - 1 1 - b**2 | 1); (1 1 a | 3)]
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│    │     [(1 1 b**2 | 1); (0 a - 1 1 - b**2 | 1); (0 0 a - b**2 | 2)]
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (2,2) de valeur a − 1 (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/(a − 1))·L2.
+│    │  │  [(1 1 b**2 | 1); (0 1 -(b - 1)*(b + 1)/(a - 1) | 1/(a - 1)); (0 0 a - b**2 | 2)]
+│    │  └─ On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+│    │     [(1 0 (a*b**2 - 1)/(a - 1) | (a - 2)/(a - 1)); (0 1 -(b - 1)*(b + 1)/(a - 1) | 1/(a - 1)); (0 0 a - b**2 | 2)]
+│    ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
+│    │  ├─ Choix du pivot en (3,3) de valeur a − b² (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 3 : L3 ← (1/(a − b²))·L3.
+│    │  │  [(1 0 (a*b**2 - 1)/(a - 1) | (a - 2)/(a - 1)); (0 1 -(b - 1)*(b + 1)/(a - 1) | 1/(a - 1)); (0 0 1 | 2/(a - b**2))]
+│    │  ├─ On annule le coefficient (1,3) : L1 ← L1 - (a·b² − 1)/(a − 1)·L3.
+│    │  │  [(1 0 0 | (a**2 - 3*a*b**2 - 2*a + 2*b**2 + 2)/((a - 1)*(a - b**2))); (0 1 -(b - 1)*(b + 1)/(a - 1) | 1/(a - 1)); (0 0 1 | 2/(a - b**2))]
+│    │  └─ On annule le coefficient (2,3) : L2 ← L2 + (b − 1)·(b + 1)/(a − 1)·L3.
+│    │     [(1 0 0 | (a**2 - 3*a*b**2 - 2*a + 2*b**2 + 2)/((a - 1)*(a - b**2))); (0 1 0 | (a + b**2 - 2)/((a - 1)*(a - b**2))); (0 0 1 | 2/(a - b**2))]
+│    ├─ Pivots non nuls, rang 3, solution unique : x = ( (a² − 3·a·b² − 2·a + 2·b² + 2)/((a − 1)·(a − b²)), (a + b² − 2)/((a − 1)·(a − b²)), 2/(a − b²) ).
+│    └─ Forme échelonnée réduite atteinte : rang = 3, colonnes pivots = (1, 2, 3).
+│       [(1 0 0 | (a**2 - 3*a*b**2 - 2*a + 2*b**2 + 2)/((a - 1)*(a - b**2))); (0 1 0 | (a + b**2 - 2)/((a - 1)*(a - b**2))); (0 0 1 | 2/(a - b**2))]
+├─ Cas b ≠ 1 et b ≠ −1 et a = b² : L3 devient (0 0 0 | 2)
+│    système incompatible (témoin : 0 = 2)
+│    Réduction de Gauss-Jordan d'une matrice 3×3.
+│       [(1 1 b**2 | 1); (1 b**2 1 | 2); (1 1 b**2 | 3)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+│    │  │  [(1 1 b**2 | 1); (0 b**2 - 1 1 - b**2 | 1); (1 1 b**2 | 3)]
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│    │     [(1 1 b**2 | 1); (0 b**2 - 1 1 - b**2 | 1); (0 0 0 | 2)]
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (2,2) de valeur b² − 1 (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/((b − 1)·(b + 1)))·L2.
+│    │  │  [(1 1 b**2 | 1); (0 1 -1 | 1/((b - 1)*(b + 1))); (0 0 0 | 2)]
+│    │  └─ On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+│    │     [(1 0 b**2 + 1 | (b**2 - 2)/((b - 1)*(b + 1))); (0 1 -1 | 1/((b - 1)*(b + 1))); (0 0 0 | 2)]
+│    ├─ Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+│    ├─ Système incompatible : la ligne L3 donne 0 = 2 (témoin : 0 = 1).
+│    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+│       [(1 0 b**2 + 1 | (b**2 - 2)/((b - 1)*(b + 1))); (0 1 -1 | 1/((b - 1)*(b + 1))); (0 0 0 | 2)]
+├─ Cas b ≠ 1 et b ≠ −1 et a = 1 : L3 devient (0 0 0 | 1)
+│    système incompatible (témoin : 0 = 1)
+│    Réduction de Gauss-Jordan d'une matrice 3×3.
+│       [(1 1 b**2 | 1); (1 1 1 | 2); (1 1 1 | 3)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+│    │  │  [(1 1 b**2 | 1); (0 0 1 - b**2 | 1); (1 1 1 | 3)]
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│    │     [(1 1 b**2 | 1); (0 0 1 - b**2 | 1); (0 0 1 - b**2 | 2)]
+│    ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+│    ├─ Traitement de la colonne 3 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (2,3) de valeur 1 − b² (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1/((b − 1)·(b + 1)))·L2.
+│    │  │  [(1 1 b**2 | 1); (0 0 1 | -1/((b - 1)*(b + 1))); (0 0 1 - b**2 | 2)]
+│    │  ├─ On annule le coefficient (1,3) : L1 ← L1 - b²·L2.
+│    │  │  [(1 1 0 | (2*b**2 - 1)/((b - 1)*(b + 1))); (0 0 1 | -1/((b - 1)*(b + 1))); (0 0 1 - b**2 | 2)]
+│    │  └─ On annule le coefficient (3,3) : L3 ← L3 - 1 − b²·L2.
+│    │     [(1 1 0 | (2*b**2 - 1)/((b - 1)*(b + 1))); (0 0 1 | -1/((b - 1)*(b + 1))); (0 0 0 | 1)]
+│    ├─ Système incompatible : la ligne L3 donne 0 = 1 (témoin : 0 = 1).
+│    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 3).
+│       [(1 1 0 | (2*b**2 - 1)/((b - 1)*(b + 1))); (0 0 1 | -1/((b - 1)*(b + 1))); (0 0 0 | 1)]
+├─ Cas a = 1 et b = 1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+│    système incompatible (témoin : 0 = 1)
+│    Réduction de Gauss-Jordan d'une matrice 3×3.
+│       [(1 1 1 | 1); (1 1 1 | 2); (1 1 1 | 3)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+│    │  │  [(1 1 1 | 1); (0 0 0 | 1); (1 1 1 | 3)]
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│    │     [(1 1 1 | 1); (0 0 0 | 1); (0 0 0 | 2)]
+│    ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+│    ├─ Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+│    ├─ Système incompatible : la ligne L2 donne 0 = 1 (témoin : 0 = 1).
+│    └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+│       [(1 1 1 | 1); (0 0 0 | 1); (0 0 0 | 2)]
+└─ Cas a = 1 et b = −1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+     système incompatible (témoin : 0 = 1)
+     Réduction de Gauss-Jordan d'une matrice 3×3.
+        [(1 1 1 | 1); (1 1 1 | 2); (1 1 1 | 3)]
+     ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+     │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+     │  ├─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+     │  │  [(1 1 1 | 1); (0 0 0 | 1); (1 1 1 | 3)]
+     │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+     │     [(1 1 1 | 1); (0 0 0 | 1); (0 0 0 | 2)]
+     ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+     ├─ Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+     ├─ Système incompatible : la ligne L2 donne 0 = 1 (témoin : 0 = 1).
+     └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+        [(1 1 1 | 1); (0 0 0 | 1); (0 0 0 | 2)]
+
+===== texte niveau 3 =====
+Discussion selon a, b
+├─ Cas a ≠ 1 et a ≠ b² (générique) : pivots non nuls, rang 3, solution unique
+│    x = ( (a² − 3·a·b² − 2·a + 2·b² + 2)/((a − 1)·(a − b²)), (a + b² − 2)/((a − 1)·(a − b²)), 2/(a − b²) )
+│    Réduction de Gauss-Jordan d'une matrice 3×3.
+│       [(1 1 b**2 | 1); (1 a 1 | 2); (1 1 a | 3)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+│    │  │  [(1 1 b**2 | 1); (0 a - 1 1 - b**2 | 1); (1 1 a | 3)]
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│    │     [(1 1 b**2 | 1); (0 a - 1 1 - b**2 | 1); (0 0 a - b**2 | 2)]
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (2,2) de valeur a − 1 (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/(a − 1))·L2.
+│    │  │  [(1 1 b**2 | 1); (0 1 -(b - 1)*(b + 1)/(a - 1) | 1/(a - 1)); (0 0 a - b**2 | 2)]
+│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+│    │  │  [(1 0 (a*b**2 - 1)/(a - 1) | (a - 2)/(a - 1)); (0 1 -(b - 1)*(b + 1)/(a - 1) | 1/(a - 1)); (0 0 a - b**2 | 2)]
+│    │  └─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
+│    │  ├─ Choix du pivot en (3,3) de valeur a − b² (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 3 : L3 ← (1/(a − b²))·L3.
+│    │  │  [(1 0 (a*b**2 - 1)/(a - 1) | (a - 2)/(a - 1)); (0 1 -(b - 1)*(b + 1)/(a - 1) | 1/(a - 1)); (0 0 1 | 2/(a - b**2))]
+│    │  ├─ On annule le coefficient (1,3) : L1 ← L1 - (a·b² − 1)/(a − 1)·L3.
+│    │  │  [(1 0 0 | (a**2 - 3*a*b**2 - 2*a + 2*b**2 + 2)/((a - 1)*(a - b**2))); (0 1 -(b - 1)*(b + 1)/(a - 1) | 1/(a - 1)); (0 0 1 | 2/(a - b**2))]
+│    │  └─ On annule le coefficient (2,3) : L2 ← L2 + (b − 1)·(b + 1)/(a − 1)·L3.
+│    │     [(1 0 0 | (a**2 - 3*a*b**2 - 2*a + 2*b**2 + 2)/((a - 1)*(a - b**2))); (0 1 0 | (a + b**2 - 2)/((a - 1)*(a - b**2))); (0 0 1 | 2/(a - b**2))]
+│    ├─ Pivots non nuls, rang 3, solution unique : x = ( (a² − 3·a·b² − 2·a + 2·b² + 2)/((a − 1)·(a − b²)), (a + b² − 2)/((a − 1)·(a − b²)), 2/(a − b²) ).
+│    └─ Forme échelonnée réduite atteinte : rang = 3, colonnes pivots = (1, 2, 3).
+│       [(1 0 0 | (a**2 - 3*a*b**2 - 2*a + 2*b**2 + 2)/((a - 1)*(a - b**2))); (0 1 0 | (a + b**2 - 2)/((a - 1)*(a - b**2))); (0 0 1 | 2/(a - b**2))]
+├─ Cas b ≠ 1 et b ≠ −1 et a = b² : L3 devient (0 0 0 | 2)
+│    système incompatible (témoin : 0 = 2)
+│    Réduction de Gauss-Jordan d'une matrice 3×3.
+│       [(1 1 b**2 | 1); (1 b**2 1 | 2); (1 1 b**2 | 3)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+│    │  │  [(1 1 b**2 | 1); (0 b**2 - 1 1 - b**2 | 1); (1 1 b**2 | 3)]
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│    │     [(1 1 b**2 | 1); (0 b**2 - 1 1 - b**2 | 1); (0 0 0 | 2)]
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (2,2) de valeur b² − 1 (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/((b − 1)·(b + 1)))·L2.
+│    │  │  [(1 1 b**2 | 1); (0 1 -1 | 1/((b - 1)*(b + 1))); (0 0 0 | 2)]
+│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+│    │  │  [(1 0 b**2 + 1 | (b**2 - 2)/((b - 1)*(b + 1))); (0 1 -1 | 1/((b - 1)*(b + 1))); (0 0 0 | 2)]
+│    │  └─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+│    ├─ Système incompatible : la ligne L3 donne 0 = 2 (témoin : 0 = 1).
+│    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+│       [(1 0 b**2 + 1 | (b**2 - 2)/((b - 1)*(b + 1))); (0 1 -1 | 1/((b - 1)*(b + 1))); (0 0 0 | 2)]
+├─ Cas b ≠ 1 et b ≠ −1 et a = 1 : L3 devient (0 0 0 | 1)
+│    système incompatible (témoin : 0 = 1)
+│    Réduction de Gauss-Jordan d'une matrice 3×3.
+│       [(1 1 b**2 | 1); (1 1 1 | 2); (1 1 1 | 3)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+│    │  │  [(1 1 b**2 | 1); (0 0 1 - b**2 | 1); (1 1 1 | 3)]
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│    │     [(1 1 b**2 | 1); (0 0 1 - b**2 | 1); (0 0 1 - b**2 | 2)]
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+│    ├─ Traitement de la colonne 3 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (2,3) de valeur 1 − b² (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1/((b − 1)·(b + 1)))·L2.
+│    │  │  [(1 1 b**2 | 1); (0 0 1 | -1/((b - 1)*(b + 1))); (0 0 1 - b**2 | 2)]
+│    │  ├─ On annule le coefficient (1,3) : L1 ← L1 - b²·L2.
+│    │  │  [(1 1 0 | (2*b**2 - 1)/((b - 1)*(b + 1))); (0 0 1 | -1/((b - 1)*(b + 1))); (0 0 1 - b**2 | 2)]
+│    │  └─ On annule le coefficient (3,3) : L3 ← L3 - 1 − b²·L2.
+│    │     [(1 1 0 | (2*b**2 - 1)/((b - 1)*(b + 1))); (0 0 1 | -1/((b - 1)*(b + 1))); (0 0 0 | 1)]
+│    ├─ Système incompatible : la ligne L3 donne 0 = 1 (témoin : 0 = 1).
+│    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 3).
+│       [(1 1 0 | (2*b**2 - 1)/((b - 1)*(b + 1))); (0 0 1 | -1/((b - 1)*(b + 1))); (0 0 0 | 1)]
+├─ Cas a = 1 et b = 1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+│    système incompatible (témoin : 0 = 1)
+│    Réduction de Gauss-Jordan d'une matrice 3×3.
+│       [(1 1 1 | 1); (1 1 1 | 2); (1 1 1 | 3)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+│    │  │  [(1 1 1 | 1); (0 0 0 | 1); (1 1 1 | 3)]
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│    │     [(1 1 1 | 1); (0 0 0 | 1); (0 0 0 | 2)]
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+│    ├─ Système incompatible : la ligne L2 donne 0 = 1 (témoin : 0 = 1).
+│    └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+│       [(1 1 1 | 1); (0 0 0 | 1); (0 0 0 | 2)]
+└─ Cas a = 1 et b = −1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+     système incompatible (témoin : 0 = 1)
+     Réduction de Gauss-Jordan d'une matrice 3×3.
+        [(1 1 1 | 1); (1 1 1 | 2); (1 1 1 | 3)]
+     ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+     │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  ├─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+     │  │  [(1 1 1 | 1); (0 0 0 | 1); (1 1 1 | 3)]
+     │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+     │     [(1 1 1 | 1); (0 0 0 | 1); (0 0 0 | 2)]
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+     ├─ Système incompatible : la ligne L2 donne 0 = 1 (témoin : 0 = 1).
+     └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+        [(1 1 1 | 1); (0 0 0 | 1); (0 0 0 | 2)]
+
+===== markdown niveau 2 =====
+### Discussion selon $a, b$
+
+- **Cas $a \neq 1 \text{ et } a \neq b^{2}$ (générique)** : pivots non nuls, rang 3, solution unique
+  - $x = \left[\begin{array}{c} \frac{a^{2} - 3 a b^{2} - 2 a + 2 b^{2} + 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ \frac{a + b^{2} - 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ \frac{2}{a - b^{2}} \end{array}\right]$
+  - Réduction de Gauss-Jordan d'une matrice 3×3.
+    $$\left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ 1 & a & 1 & 2 \\ 1 & 1 & a & 3 \end{array}\right]$$
+    - Traitement de la colonne 1 (ligne pivot courante : 1).
+      - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      - On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+        $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ \color{blue}{0} & \color{blue}{a - 1} & \color{blue}{1 - b^{2}} & \color{blue}{1} \\ 1 & 1 & a & 3 \end{array}\right]$$
+      - On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+        $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ 0 & a - 1 & 1 - b^{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{a - b^{2}} & \color{blue}{2} \end{array}\right]$$
+    - Traitement de la colonne 2 (ligne pivot courante : 2).
+      - Choix du pivot en (2,2) de valeur a − 1 (stratégie : simplest).
+      - On normalise le pivot de la ligne 2 : L2 ← (1/(a − 1))·L2.
+        $$\xrightarrow{L_{2} \leftarrow \left(\frac{1}{a - 1}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ \color{blue}{0} & \boxed{1} & \color{blue}{- \frac{\left(b - 1\right) \left(b + 1\right)}{a - 1}} & \color{blue}{\frac{1}{a - 1}} \\ 0 & 0 & a - b^{2} & 2 \end{array}\right]$$
+      - On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+        $$\xrightarrow{L_{1} \leftarrow L_{1} - \left(1\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{\frac{a b^{2} - 1}{a - 1}} & \color{blue}{\frac{a - 2}{a - 1}} \\ 0 & \boxed{1} & - \frac{\left(b - 1\right) \left(b + 1\right)}{a - 1} & \frac{1}{a - 1} \\ 0 & 0 & a - b^{2} & 2 \end{array}\right]$$
+    - Traitement de la colonne 3 (ligne pivot courante : 3).
+      - Choix du pivot en (3,3) de valeur a − b² (stratégie : simplest).
+      - On normalise le pivot de la ligne 3 : L3 ← (1/(a − b²))·L3.
+        $$\xrightarrow{L_{3} \leftarrow \left(\frac{1}{a - b^{2}}\right) L_{3}} \left[\begin{array}{ccc|c} 1 & 0 & \frac{a b^{2} - 1}{a - 1} & \frac{a - 2}{a - 1} \\ 0 & 1 & - \frac{\left(b - 1\right) \left(b + 1\right)}{a - 1} & \frac{1}{a - 1} \\ \color{blue}{0} & \color{blue}{0} & \boxed{1} & \color{blue}{\frac{2}{a - b^{2}}} \end{array}\right]$$
+      - On annule le coefficient (1,3) : L1 ← L1 - (a·b² − 1)/(a − 1)·L3.
+        $$\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{a b^{2} - 1}{a - 1}\right) L_{3}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{0} & \color{blue}{\frac{a^{2} - 3 a b^{2} - 2 a + 2 b^{2} + 2}{\left(a - 1\right) \left(a - b^{2}\right)}} \\ 0 & 1 & - \frac{\left(b - 1\right) \left(b + 1\right)}{a - 1} & \frac{1}{a - 1} \\ 0 & 0 & \boxed{1} & \frac{2}{a - b^{2}} \end{array}\right]$$
+      - On annule le coefficient (2,3) : L2 ← L2 + (b − 1)·(b + 1)/(a − 1)·L3.
+        $$\xrightarrow{L_{2} \leftarrow L_{2} + \left(\frac{\left(b - 1\right) \left(b + 1\right)}{a - 1}\right) L_{3}} \left[\begin{array}{ccc|c} 1 & 0 & 0 & \frac{a^{2} - 3 a b^{2} - 2 a + 2 b^{2} + 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{0} & \color{blue}{\frac{a + b^{2} - 2}{\left(a - 1\right) \left(a - b^{2}\right)}} \\ 0 & 0 & \boxed{1} & \frac{2}{a - b^{2}} \end{array}\right]$$
+    - Pivots non nuls, rang 3, solution unique : x = ( (a² − 3·a·b² − 2·a + 2·b² + 2)/((a − 1)·(a − b²)), (a + b² − 2)/((a − 1)·(a − b²)), 2/(a − b²) ).
+      $$\left[\begin{array}{c} \frac{a^{2} - 3 a b^{2} - 2 a + 2 b^{2} + 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ \frac{a + b^{2} - 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ \frac{2}{a - b^{2}} \end{array}\right]$$
+    - Forme échelonnée réduite atteinte : rang = 3, colonnes pivots = (1, 2, 3).
+      $$\left[\begin{array}{ccc|c} 1 & 0 & 0 & \frac{a^{2} - 3 a b^{2} - 2 a + 2 b^{2} + 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ 0 & 1 & 0 & \frac{a + b^{2} - 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ 0 & 0 & 1 & \frac{2}{a - b^{2}} \end{array}\right]$$
+- **Cas $b \neq 1 \text{ et } b \neq -1 \text{ et } a = b^{2}$** : L3 devient (0 0 0 | 2)
+  - système incompatible (témoin : 0 = 2)
+  - Réduction de Gauss-Jordan d'une matrice 3×3.
+    $$\left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ 1 & b^{2} & 1 & 2 \\ 1 & 1 & b^{2} & 3 \end{array}\right]$$
+    - Traitement de la colonne 1 (ligne pivot courante : 1).
+      - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      - On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+        $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ \color{blue}{0} & \color{blue}{b^{2} - 1} & \color{blue}{1 - b^{2}} & \color{blue}{1} \\ 1 & 1 & b^{2} & 3 \end{array}\right]$$
+      - On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+        $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ 0 & b^{2} - 1 & 1 - b^{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \end{array}\right]$$
+    - Traitement de la colonne 2 (ligne pivot courante : 2).
+      - Choix du pivot en (2,2) de valeur b² − 1 (stratégie : simplest).
+      - On normalise le pivot de la ligne 2 : L2 ← (1/((b − 1)·(b + 1)))·L2.
+        $$\xrightarrow{L_{2} \leftarrow \left(\frac{1}{\left(b - 1\right) \left(b + 1\right)}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ \color{blue}{0} & \boxed{1} & \color{blue}{-1} & \color{blue}{\frac{1}{\left(b - 1\right) \left(b + 1\right)}} \\ 0 & 0 & 0 & 2 \end{array}\right]$$
+      - On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+        $$\xrightarrow{L_{1} \leftarrow L_{1} - \left(1\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{b^{2} + 1} & \color{blue}{\frac{b^{2} - 2}{\left(b - 1\right) \left(b + 1\right)}} \\ 0 & \boxed{1} & -1 & \frac{1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & 0 & 2 \end{array}\right]$$
+    - Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+    - Système incompatible : la ligne L3 donne 0 = 2 (témoin : 0 = 1).
+    - Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+      $$\left[\begin{array}{ccc|c} 1 & 0 & b^{2} + 1 & \frac{b^{2} - 2}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 1 & -1 & \frac{1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & 0 & 2 \end{array}\right]$$
+- **Cas $b \neq 1 \text{ et } b \neq -1 \text{ et } a = 1$** : L3 devient (0 0 0 | 1)
+  - système incompatible (témoin : 0 = 1)
+  - Réduction de Gauss-Jordan d'une matrice 3×3.
+    $$\left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ 1 & 1 & 1 & 2 \\ 1 & 1 & 1 & 3 \end{array}\right]$$
+    - Traitement de la colonne 1 (ligne pivot courante : 1).
+      - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      - On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+        $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{1 - b^{2}} & \color{blue}{1} \\ 1 & 1 & 1 & 3 \end{array}\right]$$
+      - On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+        $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ 0 & 0 & 1 - b^{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{1 - b^{2}} & \color{blue}{2} \end{array}\right]$$
+    - Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    - Traitement de la colonne 3 (ligne pivot courante : 2).
+      - Choix du pivot en (2,3) de valeur 1 − b² (stratégie : simplest).
+      - On normalise le pivot de la ligne 2 : L2 ← (−1/((b − 1)·(b + 1)))·L2.
+        $$\xrightarrow{L_{2} \leftarrow \left(- \frac{1}{\left(b - 1\right) \left(b + 1\right)}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \boxed{1} & \color{blue}{- \frac{1}{\left(b - 1\right) \left(b + 1\right)}} \\ 0 & 0 & 1 - b^{2} & 2 \end{array}\right]$$
+      - On annule le coefficient (1,3) : L1 ← L1 - b²·L2.
+        $$\xrightarrow{L_{1} \leftarrow L_{1} - \left(b^{2}\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{1} & \color{blue}{0} & \color{blue}{\frac{2 b^{2} - 1}{\left(b - 1\right) \left(b + 1\right)}} \\ 0 & 0 & \boxed{1} & - \frac{1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & 1 - b^{2} & 2 \end{array}\right]$$
+      - On annule le coefficient (3,3) : L3 ← L3 - 1 − b²·L2.
+        $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(1 - b^{2}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & 1 & 0 & \frac{2 b^{2} - 1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & \boxed{1} & - \frac{1}{\left(b - 1\right) \left(b + 1\right)} \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{1} \end{array}\right]$$
+    - Système incompatible : la ligne L3 donne 0 = 1 (témoin : 0 = 1).
+    - Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 3).
+      $$\left[\begin{array}{ccc|c} 1 & 1 & 0 & \frac{2 b^{2} - 1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & 1 & - \frac{1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & 0 & 1 \end{array}\right]$$
+- **Cas $a = 1 \text{ et } b = 1$** : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+  - système incompatible (témoin : 0 = 1)
+  - Réduction de Gauss-Jordan d'une matrice 3×3.
+    $$\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 1 & 1 & 1 & 2 \\ 1 & 1 & 1 & 3 \end{array}\right]$$
+    - Traitement de la colonne 1 (ligne pivot courante : 1).
+      - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      - On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+        $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{1} \\ 1 & 1 & 1 & 3 \end{array}\right]$$
+      - On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+        $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \end{array}\right]$$
+    - Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    - Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+    - Système incompatible : la ligne L2 donne 0 = 1 (témoin : 0 = 1).
+    - Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+      $$\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 2 \end{array}\right]$$
+- **Cas $a = 1 \text{ et } b = -1$** : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+  - système incompatible (témoin : 0 = 1)
+  - Réduction de Gauss-Jordan d'une matrice 3×3.
+    $$\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 1 & 1 & 1 & 2 \\ 1 & 1 & 1 & 3 \end{array}\right]$$
+    - Traitement de la colonne 1 (ligne pivot courante : 1).
+      - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      - On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+        $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{1} \\ 1 & 1 & 1 & 3 \end{array}\right]$$
+      - On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+        $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \end{array}\right]$$
+    - Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    - Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+    - Système incompatible : la ligne L2 donne 0 = 1 (témoin : 0 = 1).
+    - Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+      $$\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 2 \end{array}\right]$$
+
+===== latex niveau 2 =====
+\textbf{Discussion selon $a, b$}
+\begin{itemize}
+  \item \textbf{Cas $a \neq 1 \text{ et } a \neq b^{2} \text{ (générique)}$} : pivots non nuls, rang 3, solution unique — $x = \left[\begin{array}{c} \frac{a^{2} - 3 a b^{2} - 2 a + 2 b^{2} + 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ \frac{a + b^{2} - 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ \frac{2}{a - b^{2}} \end{array}\right]$
+\begin{itemize}
+  \item Réduction de Gauss-Jordan d'une matrice 3×3.
+  \[\left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ 1 & a & 1 & 2 \\ 1 & 1 & a & 3 \end{array}\right]\]
+  \begin{itemize}
+    \item Traitement de la colonne 1 (ligne pivot courante : 1).
+    \begin{itemize}
+      \item Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      \item On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+      \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ \color{blue}{0} & \color{blue}{a - 1} & \color{blue}{1 - b^{2}} & \color{blue}{1} \\ 1 & 1 & a & 3 \end{array}\right]\]
+      \item On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+      \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ 0 & a - 1 & 1 - b^{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{a - b^{2}} & \color{blue}{2} \end{array}\right]\]
+    \end{itemize}
+    \item Traitement de la colonne 2 (ligne pivot courante : 2).
+    \begin{itemize}
+      \item Choix du pivot en (2,2) de valeur a − 1 (stratégie : simplest).
+      \item On normalise le pivot de la ligne 2 : L2 ← (1/(a − 1))·L2.
+      \[\xrightarrow{L_{2} \leftarrow \left(\frac{1}{a - 1}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ \color{blue}{0} & \boxed{1} & \color{blue}{- \frac{\left(b - 1\right) \left(b + 1\right)}{a - 1}} & \color{blue}{\frac{1}{a - 1}} \\ 0 & 0 & a - b^{2} & 2 \end{array}\right]\]
+      \item On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+      \[\xrightarrow{L_{1} \leftarrow L_{1} - \left(1\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{\frac{a b^{2} - 1}{a - 1}} & \color{blue}{\frac{a - 2}{a - 1}} \\ 0 & \boxed{1} & - \frac{\left(b - 1\right) \left(b + 1\right)}{a - 1} & \frac{1}{a - 1} \\ 0 & 0 & a - b^{2} & 2 \end{array}\right]\]
+    \end{itemize}
+    \item Traitement de la colonne 3 (ligne pivot courante : 3).
+    \begin{itemize}
+      \item Choix du pivot en (3,3) de valeur a − b² (stratégie : simplest).
+      \item On normalise le pivot de la ligne 3 : L3 ← (1/(a − b²))·L3.
+      \[\xrightarrow{L_{3} \leftarrow \left(\frac{1}{a - b^{2}}\right) L_{3}} \left[\begin{array}{ccc|c} 1 & 0 & \frac{a b^{2} - 1}{a - 1} & \frac{a - 2}{a - 1} \\ 0 & 1 & - \frac{\left(b - 1\right) \left(b + 1\right)}{a - 1} & \frac{1}{a - 1} \\ \color{blue}{0} & \color{blue}{0} & \boxed{1} & \color{blue}{\frac{2}{a - b^{2}}} \end{array}\right]\]
+      \item On annule le coefficient (1,3) : L1 ← L1 - (a·b² − 1)/(a − 1)·L3.
+      \[\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{a b^{2} - 1}{a - 1}\right) L_{3}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{0} & \color{blue}{\frac{a^{2} - 3 a b^{2} - 2 a + 2 b^{2} + 2}{\left(a - 1\right) \left(a - b^{2}\right)}} \\ 0 & 1 & - \frac{\left(b - 1\right) \left(b + 1\right)}{a - 1} & \frac{1}{a - 1} \\ 0 & 0 & \boxed{1} & \frac{2}{a - b^{2}} \end{array}\right]\]
+      \item On annule le coefficient (2,3) : L2 ← L2 + (b − 1)·(b + 1)/(a − 1)·L3.
+      \[\xrightarrow{L_{2} \leftarrow L_{2} + \left(\frac{\left(b - 1\right) \left(b + 1\right)}{a - 1}\right) L_{3}} \left[\begin{array}{ccc|c} 1 & 0 & 0 & \frac{a^{2} - 3 a b^{2} - 2 a + 2 b^{2} + 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{0} & \color{blue}{\frac{a + b^{2} - 2}{\left(a - 1\right) \left(a - b^{2}\right)}} \\ 0 & 0 & \boxed{1} & \frac{2}{a - b^{2}} \end{array}\right]\]
+    \end{itemize}
+    \item Pivots non nuls, rang 3, solution unique : x = ( (a² − 3·a·b² − 2·a + 2·b² + 2)/((a − 1)·(a − b²)), (a + b² − 2)/((a − 1)·(a − b²)), 2/(a − b²) ).
+    \[\left[\begin{array}{c} \frac{a^{2} - 3 a b^{2} - 2 a + 2 b^{2} + 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ \frac{a + b^{2} - 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ \frac{2}{a - b^{2}} \end{array}\right]\]
+    \item Forme échelonnée réduite atteinte : rang = 3, colonnes pivots = (1, 2, 3).
+    \[\left[\begin{array}{ccc|c} 1 & 0 & 0 & \frac{a^{2} - 3 a b^{2} - 2 a + 2 b^{2} + 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ 0 & 1 & 0 & \frac{a + b^{2} - 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ 0 & 0 & 1 & \frac{2}{a - b^{2}} \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+  \item \textbf{Cas $b \neq 1 \text{ et } b \neq -1 \text{ et } a = b^{2}$} : L3 devient (0 0 0 \textbar{} 2) — système incompatible (témoin : 0 = 2)
+\begin{itemize}
+  \item Réduction de Gauss-Jordan d'une matrice 3×3.
+  \[\left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ 1 & b^{2} & 1 & 2 \\ 1 & 1 & b^{2} & 3 \end{array}\right]\]
+  \begin{itemize}
+    \item Traitement de la colonne 1 (ligne pivot courante : 1).
+    \begin{itemize}
+      \item Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      \item On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+      \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ \color{blue}{0} & \color{blue}{b^{2} - 1} & \color{blue}{1 - b^{2}} & \color{blue}{1} \\ 1 & 1 & b^{2} & 3 \end{array}\right]\]
+      \item On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+      \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ 0 & b^{2} - 1 & 1 - b^{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \end{array}\right]\]
+    \end{itemize}
+    \item Traitement de la colonne 2 (ligne pivot courante : 2).
+    \begin{itemize}
+      \item Choix du pivot en (2,2) de valeur b² − 1 (stratégie : simplest).
+      \item On normalise le pivot de la ligne 2 : L2 ← (1/((b − 1)·(b + 1)))·L2.
+      \[\xrightarrow{L_{2} \leftarrow \left(\frac{1}{\left(b - 1\right) \left(b + 1\right)}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ \color{blue}{0} & \boxed{1} & \color{blue}{-1} & \color{blue}{\frac{1}{\left(b - 1\right) \left(b + 1\right)}} \\ 0 & 0 & 0 & 2 \end{array}\right]\]
+      \item On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+      \[\xrightarrow{L_{1} \leftarrow L_{1} - \left(1\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{b^{2} + 1} & \color{blue}{\frac{b^{2} - 2}{\left(b - 1\right) \left(b + 1\right)}} \\ 0 & \boxed{1} & -1 & \frac{1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & 0 & 2 \end{array}\right]\]
+    \end{itemize}
+    \item Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+    \item Système incompatible : la ligne L3 donne 0 = 2 (témoin : 0 = 1).
+    \item Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+    \[\left[\begin{array}{ccc|c} 1 & 0 & b^{2} + 1 & \frac{b^{2} - 2}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 1 & -1 & \frac{1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & 0 & 2 \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+  \item \textbf{Cas $b \neq 1 \text{ et } b \neq -1 \text{ et } a = 1$} : L3 devient (0 0 0 \textbar{} 1) — système incompatible (témoin : 0 = 1)
+\begin{itemize}
+  \item Réduction de Gauss-Jordan d'une matrice 3×3.
+  \[\left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ 1 & 1 & 1 & 2 \\ 1 & 1 & 1 & 3 \end{array}\right]\]
+  \begin{itemize}
+    \item Traitement de la colonne 1 (ligne pivot courante : 1).
+    \begin{itemize}
+      \item Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      \item On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+      \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{1 - b^{2}} & \color{blue}{1} \\ 1 & 1 & 1 & 3 \end{array}\right]\]
+      \item On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+      \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ 0 & 0 & 1 - b^{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{1 - b^{2}} & \color{blue}{2} \end{array}\right]\]
+    \end{itemize}
+    \item Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    \item Traitement de la colonne 3 (ligne pivot courante : 2).
+    \begin{itemize}
+      \item Choix du pivot en (2,3) de valeur 1 − b² (stratégie : simplest).
+      \item On normalise le pivot de la ligne 2 : L2 ← (−1/((b − 1)·(b + 1)))·L2.
+      \[\xrightarrow{L_{2} \leftarrow \left(- \frac{1}{\left(b - 1\right) \left(b + 1\right)}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \boxed{1} & \color{blue}{- \frac{1}{\left(b - 1\right) \left(b + 1\right)}} \\ 0 & 0 & 1 - b^{2} & 2 \end{array}\right]\]
+      \item On annule le coefficient (1,3) : L1 ← L1 - b²·L2.
+      \[\xrightarrow{L_{1} \leftarrow L_{1} - \left(b^{2}\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{1} & \color{blue}{0} & \color{blue}{\frac{2 b^{2} - 1}{\left(b - 1\right) \left(b + 1\right)}} \\ 0 & 0 & \boxed{1} & - \frac{1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & 1 - b^{2} & 2 \end{array}\right]\]
+      \item On annule le coefficient (3,3) : L3 ← L3 - 1 − b²·L2.
+      \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1 - b^{2}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & 1 & 0 & \frac{2 b^{2} - 1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & \boxed{1} & - \frac{1}{\left(b - 1\right) \left(b + 1\right)} \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{1} \end{array}\right]\]
+    \end{itemize}
+    \item Système incompatible : la ligne L3 donne 0 = 1 (témoin : 0 = 1).
+    \item Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 3).
+    \[\left[\begin{array}{ccc|c} 1 & 1 & 0 & \frac{2 b^{2} - 1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & 1 & - \frac{1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & 0 & 1 \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+  \item \textbf{Cas $a = 1 \text{ et } b = 1$} : L2 et L3 deviennent (0 0 0 \textbar{} 1) et (0 0 0 \textbar{} 2) — système incompatible (témoin : 0 = 1)
+\begin{itemize}
+  \item Réduction de Gauss-Jordan d'une matrice 3×3.
+  \[\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 1 & 1 & 1 & 2 \\ 1 & 1 & 1 & 3 \end{array}\right]\]
+  \begin{itemize}
+    \item Traitement de la colonne 1 (ligne pivot courante : 1).
+    \begin{itemize}
+      \item Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      \item On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+      \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{1} \\ 1 & 1 & 1 & 3 \end{array}\right]\]
+      \item On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+      \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \end{array}\right]\]
+    \end{itemize}
+    \item Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    \item Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+    \item Système incompatible : la ligne L2 donne 0 = 1 (témoin : 0 = 1).
+    \item Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+    \[\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 2 \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+  \item \textbf{Cas $a = 1 \text{ et } b = -1$} : L2 et L3 deviennent (0 0 0 \textbar{} 1) et (0 0 0 \textbar{} 2) — système incompatible (témoin : 0 = 1)
+\begin{itemize}
+  \item Réduction de Gauss-Jordan d'une matrice 3×3.
+  \[\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 1 & 1 & 1 & 2 \\ 1 & 1 & 1 & 3 \end{array}\right]\]
+  \begin{itemize}
+    \item Traitement de la colonne 1 (ligne pivot courante : 1).
+    \begin{itemize}
+      \item Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+      \item On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+      \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{1} \\ 1 & 1 & 1 & 3 \end{array}\right]\]
+      \item On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+      \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \end{array}\right]\]
+    \end{itemize}
+    \item Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    \item Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+    \item Système incompatible : la ligne L2 donne 0 = 1 (témoin : 0 = 1).
+    \item Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
+    \[\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 2 \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-casesplit'>
+<h3>Discussion selon \(a, b\)</h3>
+<ul>
+<li><strong>Cas \(a \neq 1 \text{ et } a \neq b^{2}\) (générique)</strong> : pivots non nuls, rang 3, solution unique<br>\(x = \left[\begin{array}{c} \frac{a^{2} - 3 a b^{2} - 2 a + 2 b^{2} + 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ \frac{a + b^{2} - 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ \frac{2}{a - b^{2}} \end{array}\right]\)<div class='pedagopy-explanation'>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 3×3.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ 1 & a & 1 & 2 \\ 1 & 1 & a & 3 \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ \color{blue}{0} & \color{blue}{a - 1} & \color{blue}{1 - b^{2}} & \color{blue}{1} \\ 1 & 1 & a & 3 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (3,1) : L3 ← L3 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ 0 & a - 1 & 1 - b^{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{a - b^{2}} & \color{blue}{2} \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Traitement de la colonne 2 (ligne pivot courante : 2).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (2,2) de valeur a − 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On normalise le pivot de la ligne 2 : L2 ← (1/(a − 1))·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow \left(\frac{1}{a - 1}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ \color{blue}{0} & \boxed{1} & \color{blue}{- \frac{\left(b - 1\right) \left(b + 1\right)}{a - 1}} & \color{blue}{\frac{1}{a - 1}} \\ 0 & 0 & a - b^{2} & 2 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (1,2) : L1 ← L1 - 1·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow L_{1} - \left(1\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{\frac{a b^{2} - 1}{a - 1}} & \color{blue}{\frac{a - 2}{a - 1}} \\ 0 & \boxed{1} & - \frac{\left(b - 1\right) \left(b + 1\right)}{a - 1} & \frac{1}{a - 1} \\ 0 & 0 & a - b^{2} & 2 \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Traitement de la colonne 3 (ligne pivot courante : 3).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (3,3) de valeur a − b² (stratégie : simplest).</div>
+<div class='pedagopy-step'>On normalise le pivot de la ligne 3 : L3 ← (1/(a − b²))·L3.<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow \left(\frac{1}{a - b^{2}}\right) L_{3}} \left[\begin{array}{ccc|c} 1 & 0 & \frac{a b^{2} - 1}{a - 1} & \frac{a - 2}{a - 1} \\ 0 & 1 & - \frac{\left(b - 1\right) \left(b + 1\right)}{a - 1} & \frac{1}{a - 1} \\ \color{blue}{0} & \color{blue}{0} & \boxed{1} & \color{blue}{\frac{2}{a - b^{2}}} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (1,3) : L1 ← L1 - (a·b² − 1)/(a − 1)·L3.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{a b^{2} - 1}{a - 1}\right) L_{3}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{0} & \color{blue}{\frac{a^{2} - 3 a b^{2} - 2 a + 2 b^{2} + 2}{\left(a - 1\right) \left(a - b^{2}\right)}} \\ 0 & 1 & - \frac{\left(b - 1\right) \left(b + 1\right)}{a - 1} & \frac{1}{a - 1} \\ 0 & 0 & \boxed{1} & \frac{2}{a - b^{2}} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (2,3) : L2 ← L2 + (b − 1)·(b + 1)/(a − 1)·L3.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} + \left(\frac{\left(b - 1\right) \left(b + 1\right)}{a - 1}\right) L_{3}} \left[\begin{array}{ccc|c} 1 & 0 & 0 & \frac{a^{2} - 3 a b^{2} - 2 a + 2 b^{2} + 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{0} & \color{blue}{\frac{a + b^{2} - 2}{\left(a - 1\right) \left(a - b^{2}\right)}} \\ 0 & 0 & \boxed{1} & \frac{2}{a - b^{2}} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Pivots non nuls, rang 3, solution unique : x = ( (a² − 3·a·b² − 2·a + 2·b² + 2)/((a − 1)·(a − b²)), (a + b² − 2)/((a − 1)·(a − b²)), 2/(a − b²) ).<div class='pedagopy-math'>\[\left[\begin{array}{c} \frac{a^{2} - 3 a b^{2} - 2 a + 2 b^{2} + 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ \frac{a + b^{2} - 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ \frac{2}{a - b^{2}} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 3, colonnes pivots = (1, 2, 3).<div class='pedagopy-math'>\[\left[\begin{array}{ccc|c} 1 & 0 & 0 & \frac{a^{2} - 3 a b^{2} - 2 a + 2 b^{2} + 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ 0 & 1 & 0 & \frac{a + b^{2} - 2}{\left(a - 1\right) \left(a - b^{2}\right)} \\ 0 & 0 & 1 & \frac{2}{a - b^{2}} \end{array}\right]\]</div></div>
+</details>
+</div></li>
+<li><strong>Cas \(b \neq 1 \text{ et } b \neq -1 \text{ et } a = b^{2}\)</strong> : L3 devient (0 0 0 | 2)<br>système incompatible (témoin : 0 = 2)<div class='pedagopy-explanation'>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 3×3.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ 1 & b^{2} & 1 & 2 \\ 1 & 1 & b^{2} & 3 \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ \color{blue}{0} & \color{blue}{b^{2} - 1} & \color{blue}{1 - b^{2}} & \color{blue}{1} \\ 1 & 1 & b^{2} & 3 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (3,1) : L3 ← L3 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ 0 & b^{2} - 1 & 1 - b^{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \end{array}\right]\]</div></div>
+</details>
+<details open>
+  <summary>Traitement de la colonne 2 (ligne pivot courante : 2).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (2,2) de valeur b² − 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On normalise le pivot de la ligne 2 : L2 ← (1/((b − 1)·(b + 1)))·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow \left(\frac{1}{\left(b - 1\right) \left(b + 1\right)}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ \color{blue}{0} & \boxed{1} & \color{blue}{-1} & \color{blue}{\frac{1}{\left(b - 1\right) \left(b + 1\right)}} \\ 0 & 0 & 0 & 2 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (1,2) : L1 ← L1 - 1·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow L_{1} - \left(1\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{b^{2} + 1} & \color{blue}{\frac{b^{2} - 2}{\left(b - 1\right) \left(b + 1\right)}} \\ 0 & \boxed{1} & -1 & \frac{1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & 0 & 2 \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.</div>
+<div class='pedagopy-step'>Système incompatible : la ligne L3 donne 0 = 2 (témoin : 0 = 1).</div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).<div class='pedagopy-math'>\[\left[\begin{array}{ccc|c} 1 & 0 & b^{2} + 1 & \frac{b^{2} - 2}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 1 & -1 & \frac{1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & 0 & 2 \end{array}\right]\]</div></div>
+</details>
+</div></li>
+<li><strong>Cas \(b \neq 1 \text{ et } b \neq -1 \text{ et } a = 1\)</strong> : L3 devient (0 0 0 | 1)<br>système incompatible (témoin : 0 = 1)<div class='pedagopy-explanation'>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 3×3.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ 1 & 1 & 1 & 2 \\ 1 & 1 & 1 & 3 \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{1 - b^{2}} & \color{blue}{1} \\ 1 & 1 & 1 & 3 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (3,1) : L3 ← L3 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & b^{2} & 1 \\ 0 & 0 & 1 - b^{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{1 - b^{2}} & \color{blue}{2} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.</div>
+<details open>
+  <summary>Traitement de la colonne 3 (ligne pivot courante : 2).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (2,3) de valeur 1 − b² (stratégie : simplest).</div>
+<div class='pedagopy-step'>On normalise le pivot de la ligne 2 : L2 ← (−1/((b − 1)·(b + 1)))·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow \left(- \frac{1}{\left(b - 1\right) \left(b + 1\right)}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & 1 & b^{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \boxed{1} & \color{blue}{- \frac{1}{\left(b - 1\right) \left(b + 1\right)}} \\ 0 & 0 & 1 - b^{2} & 2 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (1,3) : L1 ← L1 - b²·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow L_{1} - \left(b^{2}\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{1} & \color{blue}{0} & \color{blue}{\frac{2 b^{2} - 1}{\left(b - 1\right) \left(b + 1\right)}} \\ 0 & 0 & \boxed{1} & - \frac{1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & 1 - b^{2} & 2 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (3,3) : L3 ← L3 - 1 − b²·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1 - b^{2}\right) L_{2}} \left[\begin{array}{ccc|c} 1 & 1 & 0 & \frac{2 b^{2} - 1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & \boxed{1} & - \frac{1}{\left(b - 1\right) \left(b + 1\right)} \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{1} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Système incompatible : la ligne L3 donne 0 = 1 (témoin : 0 = 1).</div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 3).<div class='pedagopy-math'>\[\left[\begin{array}{ccc|c} 1 & 1 & 0 & \frac{2 b^{2} - 1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & 1 & - \frac{1}{\left(b - 1\right) \left(b + 1\right)} \\ 0 & 0 & 0 & 1 \end{array}\right]\]</div></div>
+</details>
+</div></li>
+<li><strong>Cas \(a = 1 \text{ et } b = 1\)</strong> : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)<br>système incompatible (témoin : 0 = 1)<div class='pedagopy-explanation'>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 3×3.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 1 & 1 & 1 & 2 \\ 1 & 1 & 1 & 3 \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{1} \\ 1 & 1 & 1 & 3 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (3,1) : L3 ← L3 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.</div>
+<div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.</div>
+<div class='pedagopy-step'>Système incompatible : la ligne L2 donne 0 = 1 (témoin : 0 = 1).</div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).<div class='pedagopy-math'>\[\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 2 \end{array}\right]\]</div></div>
+</details>
+</div></li>
+<li><strong>Cas \(a = 1 \text{ et } b = -1\)</strong> : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)<br>système incompatible (témoin : 0 = 1)<div class='pedagopy-explanation'>
+<details open>
+  <summary>Réduction de Gauss-Jordan d&#x27;une matrice 3×3.</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 1 & 1 & 1 & 2 \\ 1 & 1 & 1 & 3 \end{array}\right]\]</div>
+  <details open>
+  <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
+  
+  <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).</div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{1} \\ 1 & 1 & 1 & 3 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (3,1) : L3 ← L3 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \end{array}\right]\]</div></div>
+</details>
+<div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.</div>
+<div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.</div>
+<div class='pedagopy-step'>Système incompatible : la ligne L2 donne 0 = 1 (témoin : 0 = 1).</div>
+<div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).<div class='pedagopy-math'>\[\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 2 \end{array}\right]\]</div></div>
+</details>
+</div></li>
+</ul>
+</div>

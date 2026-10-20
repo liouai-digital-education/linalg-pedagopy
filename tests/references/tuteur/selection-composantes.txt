@@ -1,0 +1,145 @@
+===== énoncé =====
+### Exercice 1 — Sélectionner des composantes par un produit scalaire
+
+*Vecteurs et produit scalaire · modélisation · niveau ★☆☆*
+
+Pour un vecteur $x \in \mathbb{R}^5$, déterminer le vecteur $a \in \mathbb{R}^5$ tel que le produit scalaire $a^T x$ soit égal à $x_2 - x_4$.
+
+**Notions** : produit scalaire
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Identifiez la dimension de $x$ (ici $\mathbb{R}^5$) : le vecteur $a$ doit avoir la même dimension.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : $a^T x = a_1 x_1 + a_2 x_2 + a_3 x_3 + a_4 x_4 + a_5 x_5$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Quel coefficient $a_i$ faut-il placer devant $x_2$, devant $x_4$ et devant les autres composantes ?
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Modélisation sous la forme $a^T x$
+
+**Énoncé analogue** :
+
+Pour $x \in \mathbb{R}^{5}$, écrire la somme $x_1 + x_4$ sous la forme $a^T x$.
+
+**Résolution pas à pas** :
+
+On identifie le coefficient devant chaque composante $x_k$ ($k = 1, \dots, 5$) :
+- Les composantes sélectionnées sont (1, 4) (coefficient 1) et les autres ont un coefficient 0.
+- On obtient le vecteur $a$ :
+
+$$a = \begin{bmatrix} 1 \\ 0 \\ 0 \\ 1 \\ 0 \end{bmatrix}$$
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Modélisation sous la forme $a^T x$ ===
+Énoncé analogue : Pour $x \in \mathbb{R}^{5}$, écrire la somme $x_1 + x_4$ sous la forme $a^T x$.
+Résolution pas à pas :
+On identifie le coefficient devant chaque composante $x_k$ ($k = 1, \dots, 5$) :
+- Les composantes sélectionnées sont (1, 4) (coefficient 1) et les autres ont un coefficient 0.
+- On obtient le vecteur $a$ :
+
+$$a = \begin{bmatrix} 1 \\ 0 \\ 0 \\ 1 \\ 0 \end{bmatrix}$$
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Modélisation sous la forme $a^T x$
+
+**Énoncé analogue** :
+
+Pour $x \in \mathbb{R}^{5}$, écrire la somme $x_1 + x_4$ sous la forme $a^T x$.
+
+**Résolution pas à pas** :
+
+On identifie le coefficient devant chaque composante $x_k$ ($k = 1, \dots, 5$) :
+- Les composantes sélectionnées sont (1, 4) (coefficient 1) et les autres ont un coefficient 0.
+- On obtient le vecteur $a$ :
+
+$$a = \begin{bmatrix} 1 \\ 0 \\ 0 \\ 1 \\ 0 \end{bmatrix}$$
+
+===== verify(0) -> False =====
+Votre réponse doit être un vecteur (ex. Vector([...])).
+
+===== verify('0') -> False =====
+Taille incorrecte : votre vecteur est de taille 1, alors que x est dans R^5.
+
+===== verify(Vector.zeros(2)) -> False =====
+Taille incorrecte : votre vecteur est de taille 2, alors que x est dans R^5.
+
+===== verify(Vector.zeros(3)) -> False =====
+Taille incorrecte : votre vecteur est de taille 3, alors que x est dans R^5.
+
+===== verify(Vector.ones(5)) -> False =====
+Avec votre vecteur, a^T x = x_1 + x_2 + x_3 + x_4 + x_5 : la composante x_1 intervient alors qu'elle ne figure pas dans la quantité à modéliser.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Votre réponse doit être un vecteur (ex. Vector([...])).
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Votre réponse doit être un vecteur (ex. Vector([...])).
+
+===== verify(Matrix.identity(3)) -> False =====
+Votre réponse doit être un vecteur (ex. Vector([...])).
+
+===== verify([1, 2]) -> False =====
+Taille incorrecte : votre vecteur est de taille 2, alors que x est dans R^5.
+
+===== verify({'a': 'valide'}) -> False =====
+Taille incorrecte : votre vecteur est de taille 1, alors que x est dans R^5.
+
+===== verify(('0', '0')) -> False =====
+Taille incorrecte : votre vecteur est de taille 2, alors que x est dans R^5.
+
+===== réponse juste =====
+Exact ! Avec votre vecteur, a^T x = x_2 - x_4.
+
+===== bilan =====
+**Bilan — Sélectionner des composantes par un produit scalaire**
+
+- Statut : ✅ validé
+- Tentatives soumises : 12
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Sélectionner des composantes par un produit scalaire
+**Identifiant** : `selection-composantes` | **N°** : 1 | **Thème** : Vecteurs et produit scalaire | **Type** : modelisation | **Niveau** : ★☆☆
+
+### Énoncé
+Pour un vecteur $x \in \mathbb{R}^5$, déterminer le vecteur $a \in \mathbb{R}^5$ tel que le produit scalaire $a^T x$ soit égal à $x_2 - x_4$.
+
+### Spécification de vérification
+```yaml
+cible: x[2] - x[4]
+inconnue: x
+taille: 5
+type: produit_scalaire
+```
+
+### Paliers d'indices
+- **Palier 1** : Identifiez la dimension de $x$ (ici $\mathbb{R}^5$) : le vecteur $a$ doit avoir la même dimension.
+- **Palier 2** : Rappel : $a^T x = a_1 x_1 + a_2 x_2 + a_3 x_3 + a_4 x_4 + a_5 x_5$.
+- **Palier 3** : Quel coefficient $a_i$ faut-il placer devant $x_2$, devant $x_4$ et devant les autres composantes ?
+
+### Exercice jumeau
+`generateurs.produit_scalaire_selection(n=5, indices=(1, 4))`

@@ -1,0 +1,63 @@
+===== repr =====
+TriangularResult(x=Vector([1, 2, 1]), A=Matrix([[2, 1, -1], [0, 3, 2], [0, 0, 4]]), c=Vector([3, 8, 4]))
+
+===== texte niveau 0 =====
+
+
+===== texte niveau 1 =====
+Résolution par substitution arrière de R x = c (taille 3×3).
+├─ Calcul de x_3 : x_3 = (4 - (0)) / (4) = 1.
+├─ Calcul de x_2 : x_2 = (8 - (2)) / (3) = 2.
+├─ Calcul de x_1 : x_1 = (3 - (1)) / (2) = 1.
+└─ Solution du système triangulaire : x = ( 1, 2, 1 ).
+
+===== texte niveau 2 =====
+Résolution par substitution arrière de R x = c (taille 3×3).
+├─ Calcul de x_3 : x_3 = (4 - (0)) / (4) = 1.
+├─ Calcul de x_2 : x_2 = (8 - (2)) / (3) = 2.
+├─ Calcul de x_1 : x_1 = (3 - (1)) / (2) = 1.
+└─ Solution du système triangulaire : x = ( 1, 2, 1 ).
+
+===== texte niveau 3 =====
+Résolution par substitution arrière de R x = c (taille 3×3).
+├─ Calcul de x_3 : x_3 = (4 - (0)) / (4) = 1.
+├─ Calcul de x_2 : x_2 = (8 - (2)) / (3) = 2.
+├─ Calcul de x_1 : x_1 = (3 - (1)) / (2) = 1.
+└─ Solution du système triangulaire : x = ( 1, 2, 1 ).
+
+===== markdown niveau 2 =====
+- Résolution par substitution arrière de R x = c (taille 3×3).
+  $$\left[\begin{array}{ccc} 2 & 1 & -1 \\ 0 & 3 & 2 \\ 0 & 0 & 4 \end{array}\right]$$
+  - Calcul de x_3 : x_3 = (4 - (0)) / (4) = 1.
+  - Calcul de x_2 : x_2 = (8 - (2)) / (3) = 2.
+  - Calcul de x_1 : x_1 = (3 - (1)) / (2) = 1.
+  - Solution du système triangulaire : x = ( 1, 2, 1 ).
+    $$\left[\begin{array}{c} 1 \\ 2 \\ 1 \end{array}\right]$$
+
+===== latex niveau 2 =====
+\begin{itemize}
+  \item Résolution par substitution arrière de R x = c (taille 3×3).
+  \[\left[\begin{array}{ccc} 2 & 1 & -1 \\ 0 & 3 & 2 \\ 0 & 0 & 4 \end{array}\right]\]
+  \begin{itemize}
+    \item Calcul de x_3 : x_3 = (4 - (0)) / (4) = 1.
+    \item Calcul de x_2 : x_2 = (8 - (2)) / (3) = 2.
+    \item Calcul de x_1 : x_1 = (3 - (1)) / (2) = 1.
+    \item Solution du système triangulaire : x = ( 1, 2, 1 ).
+    \[\left[\begin{array}{c} 1 \\ 2 \\ 1 \end{array}\right]\]
+  \end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-explanation'>
+<details open>
+  <summary>Résolution par substitution arrière de R x = c (taille 3×3).</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{ccc} 2 & 1 & -1 \\ 0 & 3 & 2 \\ 0 & 0 & 4 \end{array}\right]\]</div>
+  <div class='pedagopy-step'>Calcul de x_3 : x_3 = (4 - (0)) / (4) = 1.</div>
+<div class='pedagopy-step'>Calcul de x_2 : x_2 = (8 - (2)) / (3) = 2.</div>
+<div class='pedagopy-step'>Calcul de x_1 : x_1 = (3 - (1)) / (2) = 1.</div>
+<div class='pedagopy-step'>Solution du système triangulaire : x = ( 1, 2, 1 ).<div class='pedagopy-math'>\[\left[\begin{array}{c} 1 \\ 2 \\ 1 \end{array}\right]\]</div></div>
+</details>
+</div>
+
+===== verify =====
+Vérification du système triangulaire : résidu nul confirmé par l'oracle.

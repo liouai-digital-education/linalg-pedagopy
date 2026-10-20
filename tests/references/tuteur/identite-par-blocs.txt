@@ -1,0 +1,155 @@
+===== énoncé =====
+### Exercice 28 — Une identité par blocs
+
+*Produit matriciel · justification · niveau ★★☆*
+
+Vérifier par une chaîne d'égalités matricielles par blocs l'identité : $\begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} I & 0 \\ 0 & I \end{bmatrix} = \begin{bmatrix} A & B \\ C & D \end{bmatrix}$ (soumettre la liste des maillons simplifiés).
+
+**Notions** : identités sur les matrices par blocs, produit matriciel par blocs
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Le produit de deux matrices par blocs compatibles se calcule comme un produit matriciel usuel en remplaçant les produits scalaires par des produits de blocs.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : la matrice par blocs $\begin{bmatrix} I & 0 \\ 0 & I \end{bmatrix}$ est la matrice identité de la dimension totale.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Écrivez le premier maillon avec l'opérateur @ entre les deux matrices par blocs, puis le bloc résultant simplifié.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Produit par blocs
+
+**Énoncé analogue** :
+
+Pour des blocs de tailles compatibles, calculer $\begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} I \\ 0 \end{bmatrix}$.
+
+**Résolution pas à pas** :
+
+1. On multiplie comme pour des coefficients, en respectant l'ordre des produits de blocs :
+
+$$\begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} I \\ 0 \end{bmatrix} = \begin{bmatrix} A I + B 0 \\ C I + D 0 \end{bmatrix}$$
+
+2. On simplifie chaque bloc : $A I = A$, $B 0 = 0$, etc.
+
+$$= \begin{bmatrix} A \\ C \end{bmatrix}$$
+
+3. Interprétation : multiplier à droite par $\begin{bmatrix} I \\ 0 \end{bmatrix}$ extrait le premier bloc de colonnes.
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Produit par blocs ===
+Énoncé analogue : Pour des blocs de tailles compatibles, calculer $\begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} I \\ 0 \end{bmatrix}$.
+Résolution pas à pas :
+1. On multiplie comme pour des coefficients, en respectant l'ordre des produits de blocs :
+
+$$\begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} I \\ 0 \end{bmatrix} = \begin{bmatrix} A I + B 0 \\ C I + D 0 \end{bmatrix}$$
+
+2. On simplifie chaque bloc : $A I = A$, $B 0 = 0$, etc.
+
+$$= \begin{bmatrix} A \\ C \end{bmatrix}$$
+
+3. Interprétation : multiplier à droite par $\begin{bmatrix} I \\ 0 \end{bmatrix}$ extrait le premier bloc de colonnes.
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Produit par blocs
+
+**Énoncé analogue** :
+
+Pour des blocs de tailles compatibles, calculer $\begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} I \\ 0 \end{bmatrix}$.
+
+**Résolution pas à pas** :
+
+1. On multiplie comme pour des coefficients, en respectant l'ordre des produits de blocs :
+
+$$\begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} I \\ 0 \end{bmatrix} = \begin{bmatrix} A I + B 0 \\ C I + D 0 \end{bmatrix}$$
+
+2. On simplifie chaque bloc : $A I = A$, $B 0 = 0$, etc.
+
+$$= \begin{bmatrix} A \\ C \end{bmatrix}$$
+
+3. Interprétation : multiplier à droite par $\begin{bmatrix} I \\ 0 \end{bmatrix}$ extrait le premier bloc de colonnes.
+
+===== verify(0) -> False =====
+Fournissez une liste d'au moins deux expressions représentant les maillons successifs de votre chaîne d'égalités.
+
+===== verify('0') -> False =====
+Fournissez une liste d'au moins deux expressions représentant les maillons successifs de votre chaîne d'égalités.
+
+===== verify(Vector.zeros(2)) -> False =====
+Fournissez une liste d'au moins deux expressions représentant les maillons successifs de votre chaîne d'égalités.
+
+===== verify(Vector.zeros(3)) -> False =====
+Fournissez une liste d'au moins deux expressions représentant les maillons successifs de votre chaîne d'égalités.
+
+===== verify(Vector.ones(5)) -> False =====
+Fournissez une liste d'au moins deux expressions représentant les maillons successifs de votre chaîne d'égalités.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Fournissez une liste d'au moins deux expressions représentant les maillons successifs de votre chaîne d'égalités.
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Fournissez une liste d'au moins deux expressions représentant les maillons successifs de votre chaîne d'égalités.
+
+===== verify(Matrix.identity(3)) -> False =====
+Fournissez une liste d'au moins deux expressions représentant les maillons successifs de votre chaîne d'égalités.
+
+===== verify([1, 2]) -> False =====
+Le maillon 1 ne produit pas une matrice par blocs valide.
+
+===== verify({'a': 'valide'}) -> False =====
+Fournissez une liste d'au moins deux expressions représentant les maillons successifs de votre chaîne d'égalités.
+
+===== verify(('0', '0')) -> False =====
+Maillon trivial refusé : les maillons 1 et 2 sont identiques ('0').
+
+===== réponse juste =====
+Les 1 égalités de votre chaîne sont vérifiées maillon par maillon !
+
+===== bilan =====
+**Bilan — Une identité par blocs**
+
+- Statut : ✅ validé
+- Tentatives soumises : 12
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Une identité par blocs
+**Identifiant** : `identite-par-blocs` | **N°** : 28 | **Thème** : Produit matriciel | **Type** : justification | **Niveau** : ★★☆
+
+### Énoncé
+Vérifier par une chaîne d'égalités matricielles par blocs l'identité : $\begin{bmatrix} A & B \\ C & D \end{bmatrix} \begin{bmatrix} I & 0 \\ 0 & I \end{bmatrix} = \begin{bmatrix} A & B \\ C & D \end{bmatrix}$ (soumettre la liste des maillons simplifiés).
+
+### Spécification de vérification
+```yaml
+mode: blocs
+type: egalites
+```
+
+### Paliers d'indices
+- **Palier 1** : Le produit de deux matrices par blocs compatibles se calcule comme un produit matriciel usuel en remplaçant les produits scalaires par des produits de blocs.
+- **Palier 2** : Rappel : la matrice par blocs $\begin{bmatrix} I & 0 \\ 0 & I \end{bmatrix}$ est la matrice identité de la dimension totale.
+- **Palier 3** : Écrivez le premier maillon avec l'opérateur @ entre les deux matrices par blocs, puis le bloc résultant simplifié.
+
+### Exercice jumeau
+`generateurs.identite_blocs()`

@@ -1,0 +1,189 @@
+===== énoncé =====
+### Exercice 15 — Tester l'indépendance avec Gram-Schmidt
+
+*Orthogonalisation · calcul · niveau ★★★*
+
+On donne les vecteurs $a_1 = (1, 2, -1)$, $a_2 = (2, 0, 1)$ et $a_3 = (0, 4, -3)$ de $\mathbb{R}^3$. En appliquant Gram-Schmidt, déterminer le résidu orthogonal $\tilde{q}_3$ obtenu à la 3ᵉ étape (ou indiquer son carré de norme \|\tilde{q}_3\|^2 pour tester l'indépendance).
+
+**Notions** : test d'indépendance linéaire par Gram-Schmidt
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+L'algorithme de Gram-Schmidt permet de tester si une famille $(a_1, a_2, a_3)$ est libre ou liée : elle est liée si l'un des $\tilde{q}_i$ est nul.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Vérifiez d'abord si $a_1$ et $a_2$ sont orthogonaux en calculant $a_1^T a_2$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Projetez $a_3$ sur $a_1$ et sur $a_2$, puis retranchez ces projections à $a_3$ : que vaut $\|\tilde{q}_3\|^2$ ?
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Test d'indépendance par Gram-Schmidt
+
+**Énoncé analogue** :
+
+Appliquer Gram-Schmidt à la famille $a_1 = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}$, $a_2 = \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix}$, $a_3 = \begin{bmatrix} 2 \\ 1 \\ 1 \end{bmatrix}$.
+
+**Résolution pas à pas** :
+
+On orthogonalise successivement : $\tilde q_k = a_k - \sum_{j<k} \frac{\tilde q_j^T a_k}{\|\tilde q_j\|^2} \tilde q_j$.
+
+- $\tilde q_1 = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}$
+- $\tilde q_2 = \begin{bmatrix} \frac{1}{2} \\ - \frac{1}{2} \\ 1 \end{bmatrix}$
+
+À l'étape 3, le résidu est nul : la famille est **liée** car a_3 = (3/2)·q̃_1 + q̃_2.
+
+**Détail des étapes formelles** :
+
+- Orthogonalisation de Gram-Schmidt de 3 vecteurs dans R^3 (variante normalize='end').
+  - Étape i = 1 : traitement du vecteur a_1.
+    - Soustraction des projections : q_tilde_1 = ( 1, 1, 0 ).
+      $$\left[\begin{array}{c} 1 \\ 1 \\ 0 \end{array}\right]$$
+  - Étape i = 2 : traitement du vecteur a_2.
+    - Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 1/2.
+    - Soustraction des projections : q_tilde_2 = ( 1/2, −1/2, 1 ).
+      $$\left[\begin{array}{c} \frac{1}{2} \\ - \frac{1}{2} \\ 1 \end{array}\right]$$
+  - Étape i = 3 : traitement du vecteur a_3.
+    - Coefficient de projection sur q_1 : r_(1,3) = (q_1^T a_3) / (q_1^T q_1) = 3/2.
+    - Coefficient de projection sur q_2 : r_(2,3) = (q_2^T a_3) / (q_2^T q_2) = 1.
+    - Soustraction des projections : q_tilde_3 = ( 0, 0, 0 ).
+      $$\left[\begin{array}{c} 0 \\ 0 \\ 0 \end{array}\right]$$
+    - a_3 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_3 = (3/2)·q̃_1 + q̃_2).
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Test d'indépendance par Gram-Schmidt ===
+Énoncé analogue : Appliquer Gram-Schmidt à la famille $a_1 = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}$, $a_2 = \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix}$, $a_3 = \begin{bmatrix} 2 \\ 1 \\ 1 \end{bmatrix}$.
+Résolution pas à pas :
+On orthogonalise successivement : $\tilde q_k = a_k - \sum_{j<k} \frac{\tilde q_j^T a_k}{\|\tilde q_j\|^2} \tilde q_j$.
+
+- $\tilde q_1 = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}$
+- $\tilde q_2 = \begin{bmatrix} \frac{1}{2} \\ - \frac{1}{2} \\ 1 \end{bmatrix}$
+
+À l'étape 3, le résidu est nul : la famille est **liée** car a_3 = (3/2)·q̃_1 + q̃_2.
+Orthogonalisation de Gram-Schmidt de 3 vecteurs dans R^3 (variante normalize='end').
+├─ Étape i = 1 : traitement du vecteur a_1.
+│  └─ Soustraction des projections : q_tilde_1 = ( 1, 1, 0 ).
+├─ Étape i = 2 : traitement du vecteur a_2.
+│  ├─ Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 1/2.
+│  └─ Soustraction des projections : q_tilde_2 = ( 1/2, −1/2, 1 ).
+└─ Étape i = 3 : traitement du vecteur a_3.
+   ├─ Coefficient de projection sur q_1 : r_(1,3) = (q_1^T a_3) / (q_1^T q_1) = 3/2.
+   ├─ Coefficient de projection sur q_2 : r_(2,3) = (q_2^T a_3) / (q_2^T q_2) = 1.
+   ├─ Soustraction des projections : q_tilde_3 = ( 0, 0, 0 ).
+   └─ a_3 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_3 = (3/2)·q̃_1 + q̃_2).
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Test d'indépendance par Gram-Schmidt
+
+**Énoncé analogue** :
+
+Appliquer Gram-Schmidt à la famille $a_1 = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}$, $a_2 = \begin{bmatrix} 1 \\ 0 \\ 1 \end{bmatrix}$, $a_3 = \begin{bmatrix} 2 \\ 1 \\ 1 \end{bmatrix}$.
+
+**Résolution pas à pas** :
+
+On orthogonalise successivement : $\tilde q_k = a_k - \sum_{j<k} \frac{\tilde q_j^T a_k}{\|\tilde q_j\|^2} \tilde q_j$.
+
+- $\tilde q_1 = \begin{bmatrix} 1 \\ 1 \\ 0 \end{bmatrix}$
+- $\tilde q_2 = \begin{bmatrix} \frac{1}{2} \\ - \frac{1}{2} \\ 1 \end{bmatrix}$
+
+À l'étape 3, le résidu est nul : la famille est **liée** car a_3 = (3/2)·q̃_1 + q̃_2.
+
+**Détail des étapes formelles** :
+
+- Orthogonalisation de Gram-Schmidt de 3 vecteurs dans R^3 (variante normalize='end').
+  - Étape i = 1 : traitement du vecteur a_1.
+    - Soustraction des projections : q_tilde_1 = ( 1, 1, 0 ).
+      $$\left[\begin{array}{c} 1 \\ 1 \\ 0 \end{array}\right]$$
+  - Étape i = 2 : traitement du vecteur a_2.
+    - Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 1/2.
+    - Soustraction des projections : q_tilde_2 = ( 1/2, −1/2, 1 ).
+      $$\left[\begin{array}{c} \frac{1}{2} \\ - \frac{1}{2} \\ 1 \end{array}\right]$$
+  - Étape i = 3 : traitement du vecteur a_3.
+    - Coefficient de projection sur q_1 : r_(1,3) = (q_1^T a_3) / (q_1^T q_1) = 3/2.
+    - Coefficient de projection sur q_2 : r_(2,3) = (q_2^T a_3) / (q_2^T q_2) = 1.
+    - Soustraction des projections : q_tilde_3 = ( 0, 0, 0 ).
+      $$\left[\begin{array}{c} 0 \\ 0 \\ 0 \end{array}\right]$$
+    - a_3 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_3 = (3/2)·q̃_1 + q̃_2).
+
+===== verify(0) -> False =====
+Votre valeur (0) n'est pas égale à la valeur exacte attendue. Vérifiez chaque étape de votre calcul.
+
+===== verify('0') -> False =====
+Votre valeur (0) n'est pas égale à la valeur exacte attendue. Vérifiez chaque étape de votre calcul.
+
+===== verify(Vector.zeros(2)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([0, 0])).
+
+===== verify(Vector.zeros(3)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([0, 0, 0])).
+
+===== verify(Vector.ones(5)) -> False =====
+Réponse scalaire exacte attendue (reçu Vector([1, 1, 1, 1, 1])).
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[0, 0], [0, 0]])).
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[0], [0], [0]])).
+
+===== verify(Matrix.identity(3)) -> False =====
+Réponse scalaire exacte attendue (reçu Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])).
+
+===== verify([1, 2]) -> False =====
+Réponse scalaire exacte attendue (reçu [1, 2]).
+
+===== verify({'a': 'valide'}) -> False =====
+Réponse scalaire exacte attendue (reçu {'a': 'valide'}).
+
+===== verify(('0', '0')) -> False =====
+Réponse scalaire exacte attendue (reçu ('0', '0')).
+
+===== bilan =====
+**Bilan — Tester l'indépendance avec Gram-Schmidt**
+
+- Statut : en cours
+- Tentatives soumises : 11
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+- Dernier diagnostic : Réponse scalaire exacte attendue (reçu ('0', '0')).
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — Tester l'indépendance avec Gram-Schmidt
+**Identifiant** : `independance-gram-schmidt` | **N°** : 15 | **Thème** : Orthogonalisation | **Type** : calcul | **Niveau** : ★★★
+
+### Énoncé
+On donne les vecteurs $a_1 = (1, 2, -1)$, $a_2 = (2, 0, 1)$ et $a_3 = (0, 4, -3)$ de $\mathbb{R}^3$. En appliquant Gram-Schmidt, déterminer le résidu orthogonal $\tilde{q}_3$ obtenu à la 3ᵉ étape (ou indiquer son carré de norme \|\tilde{q}_3\|^2 pour tester l'indépendance).
+
+### Spécification de vérification
+```yaml
+calcul: (a3 - (a1.dot(a3)/a1.norm_sq())*a1 - (a2.dot(a3)/a2.norm_sq())*a2).norm_sq()
+type: valeur
+```
+
+### Paliers d'indices
+- **Palier 1** : L'algorithme de Gram-Schmidt permet de tester si une famille $(a_1, a_2, a_3)$ est libre ou liée : elle est liée si l'un des $\tilde{q}_i$ est nul.
+- **Palier 2** : Vérifiez d'abord si $a_1$ et $a_2$ sont orthogonaux en calculant $a_1^T a_2$.
+- **Palier 3** : Projetez $a_3$ sur $a_1$ et sur $a_2$, puis retranchez ces projections à $a_3$ : que vaut $\|\tilde{q}_3\|^2$ ?
+
+### Exercice jumeau
+`generateurs.gram_schmidt_exemple()`

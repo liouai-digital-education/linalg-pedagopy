@@ -1,0 +1,156 @@
+===== énoncé =====
+### Exercice 11 — rms d'une différence de vecteurs orthogonaux
+
+*Normes, distances et angles · justification · niveau ★★☆*
+
+Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp v$). Exprimer $\text{rms}(u - v)^2$ en fonction de rms_u (représentant $\text{rms}(u)$) et rms_v (représentant $\text{rms}(v)$).
+
+**Notions** : rms d'une différence orthogonale, orthogonalité
+
+===== indice 1 =====
+**[Niveau 1 — Orientation]**
+
+Reliez la moyenne quadratique $\text{rms}(w)$ à la norme euclidienne $\|w\|$ : $\text{rms}(w)^2 = \frac{\|w\|^2}{n}$.
+
+===== indice 2 =====
+**[Niveau 2 — Outil]**
+
+Rappel : si $u \perp v$, alors $\|u - v\|^2 = \|u\|^2 + \|v\|^2$.
+
+===== indice 3 =====
+**[Niveau 3 — Démarrage]**
+
+Divisez les deux membres de $\|u - v\|^2 = \|u\|^2 + \|v\|^2$ par $n$ pour faire apparaître $\text{rms}(u)^2$ et $\text{rms}(v)^2$.
+
+===== indice 4 =====
+**[Niveau 4 — Exercice jumeau résolu]**
+
+### Exercice jumeau résolu : Norme d'une combinaison de vecteurs orthogonaux
+
+**Énoncé analogue** :
+
+Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp v$). Exprimer $\|1 u + (-1) v\|^2$ en fonction de $\|u\|$ et $\|v\|$.
+
+**Résolution pas à pas** :
+
+1. On développe le produit scalaire :
+
+   $$\|1 u + (-1) v\|^2 = (1 u + (-1) v)^T (1 u + (-1) v)$$
+   $$= 1 \|u\|^2 + 2 \cdot (-1) (u^T v) + 1 \|v\|^2$$
+
+2. Comme $u \perp v$, le produit scalaire est nul : $u^T v = 0$.
+3. Conclusion :
+
+   $$\|1 u + (-1) v\|^2 = 1 \|u\|^2 + 1 \|v\|^2$$
+
+===== indice après déblocage complet =====
+**Tous les paliers d'aide sont déjà débloqués** (1 à 4).
+
+- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.twin()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+
+Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
+
+===== jumeau (texte) =====
+=== Exercice jumeau résolu : Norme d'une combinaison de vecteurs orthogonaux ===
+Énoncé analogue : Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp v$). Exprimer $\|1 u + (-1) v\|^2$ en fonction de $\|u\|$ et $\|v\|$.
+Résolution pas à pas :
+1. On développe le produit scalaire :
+
+   $$\|1 u + (-1) v\|^2 = (1 u + (-1) v)^T (1 u + (-1) v)$$
+   $$= 1 \|u\|^2 + 2 \cdot (-1) (u^T v) + 1 \|v\|^2$$
+
+2. Comme $u \perp v$, le produit scalaire est nul : $u^T v = 0$.
+3. Conclusion :
+
+   $$\|1 u + (-1) v\|^2 = 1 \|u\|^2 + 1 \|v\|^2$$
+
+===== jumeau (markdown) =====
+### Exercice jumeau résolu : Norme d'une combinaison de vecteurs orthogonaux
+
+**Énoncé analogue** :
+
+Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp v$). Exprimer $\|1 u + (-1) v\|^2$ en fonction de $\|u\|$ et $\|v\|$.
+
+**Résolution pas à pas** :
+
+1. On développe le produit scalaire :
+
+   $$\|1 u + (-1) v\|^2 = (1 u + (-1) v)^T (1 u + (-1) v)$$
+   $$= 1 \|u\|^2 + 2 \cdot (-1) (u^T v) + 1 \|v\|^2$$
+
+2. Comme $u \perp v$, le produit scalaire est nul : $u^T v = 0$.
+3. Conclusion :
+
+   $$\|1 u + (-1) v\|^2 = 1 \|u\|^2 + 1 \|v\|^2$$
+
+===== verify(0) -> False =====
+Votre formule (0) ne coïncide pas avec l'expression attendue (par exemple, lorsque les paramètres valent 1, votre formule donne 0). Avez-vous bien développé le carré de la norme et utilisé l'hypothèse d'orthogonalité ?
+
+===== verify('0') -> False =====
+Votre formule (0) ne coïncide pas avec l'expression attendue (par exemple, lorsque les paramètres valent 1, votre formule donne 0). Avez-vous bien développé le carré de la norme et utilisé l'hypothèse d'orthogonalité ?
+
+===== verify(Vector.zeros(2)) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== verify(Vector.zeros(3)) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== verify(Vector.ones(5)) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== verify(Matrix.zeros(2, 2)) -> False =====
+Impossible d'interpréter votre formule (<message d'erreur de SymPy>). Utilisez les variables ['rms_u', 'rms_v'].
+
+===== verify(Matrix.zeros(3, 1)) -> False =====
+Impossible d'interpréter votre formule (<message d'erreur de SymPy>). Utilisez les variables ['rms_u', 'rms_v'].
+
+===== verify(Matrix.identity(3)) -> False =====
+Impossible d'interpréter votre formule (<message d'erreur de SymPy>). Utilisez les variables ['rms_u', 'rms_v'].
+
+===== verify([1, 2]) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== verify({'a': 'valide'}) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== verify(('0', '0')) -> False =====
+Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== bilan =====
+**Bilan — rms d'une différence de vecteurs orthogonaux**
+
+- Statut : en cours
+- Tentatives soumises : 11
+- Paliers d'indices consultés : 1, 2, 3, 4
+- Exercice jumeau consulté : oui
+- Essais au laboratoire : 0
+- Dernier diagnostic : Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.
+
+===== validation =====
+True True True True True True ()
+
+===== fiche enseignant =====
+## Fiche enseignant — rms d'une différence de vecteurs orthogonaux
+**Identifiant** : `rms-difference-orthogonale` | **N°** : 11 | **Thème** : Normes, distances et angles | **Type** : justification | **Niveau** : ★★☆
+
+### Énoncé
+Soient $u$ et $v$ deux vecteurs orthogonaux de $\mathbb{R}^n$ ($u \perp v$). Exprimer $\text{rms}(u - v)^2$ en fonction de rms_u (représentant $\text{rms}(u)$) et rms_v (représentant $\text{rms}(v)$).
+
+### Spécification de vérification
+```yaml
+cible: rms_u**2 + rms_v**2
+parametres:
+- rms_u
+- rms_v
+type: formule
+```
+
+### Paliers d'indices
+- **Palier 1** : Reliez la moyenne quadratique $\text{rms}(w)$ à la norme euclidienne $\|w\|$ : $\text{rms}(w)^2 = \frac{\|w\|^2}{n}$.
+- **Palier 2** : Rappel : si $u \perp v$, alors $\|u - v\|^2 = \|u\|^2 + \|v\|^2$.
+- **Palier 3** : Divisez les deux membres de $\|u - v\|^2 = \|u\|^2 + \|v\|^2$ par $n$ pour faire apparaître $\text{rms}(u)^2$ et $\text{rms}(v)^2$.
+
+### Exercice jumeau
+`generateurs.combinaison_orthogonale(c1=1, c2=-1)`
