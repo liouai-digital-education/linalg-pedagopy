@@ -618,12 +618,20 @@ def _c15(r: Any) -> Retour:
     indices=[
         "Essayez $a = 1$ : que remarquez-vous sur les lignes ?",
         "La somme des colonnes vaut $(a + 2)(1, 1, 1)$. Que se passe-t-il pour $a = -2$ ?",
-        "Le déterminant vaut $(a - 1)^2 (a + 2)$.",
+        r"Calculez $\det A(a)$ (développement suivant une ligne ou règle de Sarrus), puis factorisez : "
+        r"$A(a)$ est inversible si et seulement si $\det A(a) \neq 0$.",
     ],
     reference=[1, -2],
     erreurs_types=[[1], [-2, 1, 2]],
     solution=r"$\det A(a) = (a - 1)^2(a + 2)$ : $A(a)$ n'est pas inversible pour $a = 1$ (trois lignes égales) et $a = -2$ (la somme des colonnes est nulle).",
-    solution_code="from linalg_pedagopy import symbols, GaussJordan\na, = symbols('a')\nA = Matrix([[a, 1, 1], [1, a, 1], [1, 1, a]])\nA.rank()   # discussion de cas automatique",
+    solution_code=(
+        "from linalg_pedagopy import symbols, Determinant\n"
+        "a, = symbols('a')\n"
+        "A = Matrix([[a, 1, 1], [1, a, 1], [1, 1, a]])\n"
+        "print(A.det())                                        # (a - 1)**2*(a + 2)\n"
+        "print([str(c) for c in Determinant(A).run().zeros()])  # valeurs singulières : a = −2, a = 1\n"
+        "A.rank()   # discussion de cas automatique du rang"
+    ),
 )
 def _c16(r: Any) -> Retour:
     if not isinstance(r, (list, tuple, set)):

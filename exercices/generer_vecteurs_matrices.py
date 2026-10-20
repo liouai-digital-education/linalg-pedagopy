@@ -8,6 +8,7 @@ Produit :
 
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -54,6 +55,12 @@ def code(text: str) -> dict:
 
 
 def notebook(cells: list[dict]) -> dict:
+    # Identifiants de cellule (nbformat 4.5) calculés à partir du contenu : régénération reproductible
+    vus: dict[str, int] = {}
+    for cell in cells:
+        base = hashlib.sha1("".join(cell["source"]).encode("utf-8")).hexdigest()[:8]
+        vus[base] = vus.get(base, 0) + 1
+        cell["id"] = base if vus[base] == 1 else f"{base}-{vus[base]}"
     return {
         "cells": cells,
         "metadata": {

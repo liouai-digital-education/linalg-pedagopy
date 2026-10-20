@@ -444,7 +444,7 @@
 <li><code>rref(*, assumptions=None) -&gt; Matrix | CaseSplit[Matrix]</code>.</li>
 <li><code>rank(*, assumptions=None) -&gt; int | CaseSplit[int]</code>.</li>
 <li><code>nullspace(*, assumptions=None) -&gt; tuple[Vector, ...] | CaseSplit[...]</code>.</li>
-<li><code>inv(*, assumptions=None, strict=True) -&gt; Matrix | None | CaseSplit[Matrix | None]</code> : lève <code>SingularMatrixError</code> si <code>strict=True</code> et la matrice peut être singulière.</li>
+<li><code>inv(*, assumptions=None, strict=True) -&gt; Matrix | None | CaseSplit[Matrix | None]</code> : lève <code>SingularMatrixError</code> si <code>strict=True</code> et la matrice peut être singulière ; avec des paramètres, le message donne le déterminant et les valeurs singulières.</li>
 <li><code>solve(b, *, assumptions=None, strict=False)</code> : résolution de $A x = b$ par Gauss-Jordan.</li>
 <li><code>det(*, method="auto", assumptions=None) -&gt; Expr</code> : déterminant exact factorisé, via <code>Determinant</code> (voir § 4.6).</li>
 </ul>

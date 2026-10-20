@@ -10,6 +10,7 @@ from sympy.polys.matrices import DomainMatrix
 from linalg_pedagopy.core.cases import Branch, CaseSplit
 from linalg_pedagopy.core.exceptions import (
     DimensionMismatchError,
+    SingularMatrixError,
     UndefinedOperationError,
 )
 from linalg_pedagopy.core.field import choose_domain, match_symbol_substitutions, to_exact
@@ -706,11 +707,17 @@ class Matrix:
         assumptions: Any = None,
         strict: bool = True,
     ) -> Matrix | None | CaseSplit[Matrix | None]:
-        """Calcule l'inverse A^{-1} via GaussJordan sur [A | I_n]."""
+        """Calcule l'inverse A^{-1} via GaussJordan sur [A | I_n].
+
+        Avec des paramètres et ``strict=True``, les valeurs qui rendent la matrice singulière
+        sont annoncées d'emblée, à partir du déterminant (méthode de Bareiss).
+        """
         if self._nrows != self._ncols:
             raise DimensionMismatchError(
                 f"Seules les matrices carrées sont inversibles (reçu {self.shape})."
             )
+        if strict and _determinant_factory is not None and any(e.free_symbols for e in self.flat_entries):
+            self._annoncer_cas_singuliers(assumptions)
         gj_cls = self._require_gj()
         res = gj_cls(
             self,
@@ -727,6 +734,26 @@ class Matrix:
                 parameters=res.parameters,
             )
         return res.inverse  # type: ignore[no-any-return]
+
+    def _annoncer_cas_singuliers(self, assumptions: Any) -> None:
+        """Lève SingularMatrixError, avec les valeurs singulières, si des paramètres peuvent annuler det A."""
+        assert _determinant_factory is not None
+        with suspend_tracing():
+            res = _determinant_factory(self, method="bareiss", assumptions=assumptions).run()
+            cas = res.zeros()
+        if not cas:
+            return
+        if len(cas) == 1 and cas[0].is_trivial:
+            raise SingularMatrixError(
+                f"La matrice {self._nrows}x{self._ncols} n'est inversible pour aucune valeur des paramètres : "
+                "son déterminant est identiquement nul."
+            )
+        valeurs = " ou ".join(c.format_text() for c in cas)
+        raise SingularMatrixError(
+            f"La matrice {self._nrows}x{self._ncols} n'est pas inversible pour toutes les valeurs des "
+            f"paramètres : det A = {sp.sstr(res.value)} s'annule pour {valeurs}. Utilisez strict=False "
+            "pour obtenir l'inverse avec la discussion de cas, ou précisez des hypothèses (assumptions=...)."
+        )
 
     def det(self, *, method: str = "auto", assumptions: Any = None) -> sp.Expr:
         """Déterminant exact, factorisé (méthodes : auto, bareiss, elimination, cofactors, sarrus)."""

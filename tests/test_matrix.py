@@ -75,3 +75,29 @@ def test_matrix_delegations_to_gauss_jordan() -> None:
     sol = A.solve(Vector([5, 13]))
     assert isinstance(sol, UniqueSolution)
     assert sol.x == Vector([1, 2])
+
+
+def test_inv_annonce_les_valeurs_singulieres_du_parametre() -> None:
+    import pytest
+
+    from linalg_pedagopy import CaseSplit, SingularMatrixError, symbols
+
+    a, b = symbols("a b")
+    # Inversible sauf pour a = ±1 : le message donne le déterminant et les valeurs singulières
+    with pytest.raises(SingularMatrixError, match="s'annule pour a = 1 ou a = −1") as info:
+        Matrix([[1, a], [a, 1]]).inv()
+    assert "strict=False" in str(info.value)
+    with pytest.raises(SingularMatrixError, match="a = b"):
+        Matrix([[a, b], [1, 1]]).inv()
+    with pytest.raises(SingularMatrixError, match="identiquement nul"):
+        Matrix([[a, 2 * a], [1, 2]]).inv()
+    # Une hypothèse qui exclut une valeur singulière la retire du message
+    with pytest.raises(SingularMatrixError) as info2:
+        Matrix([[1, a], [a, 1]]).inv(assumptions="a != 1")
+    assert "a = −1" in str(info2.value) and "a = 1 " not in str(info2.value)
+    # Comportements inchangés : toujours inversible, hypothèse qui fixe a, mode non strict
+    assert Matrix([[1, a], [0, 1]]).inv() == Matrix([[1, -a], [0, 1]])
+    assert Matrix([[1, a], [a, 1]]).inv(assumptions={"a": 2}) @ Matrix([[1, 2], [2, 1]]) == Matrix.identity(2)
+    assert isinstance(Matrix([[1, a], [a, 1]]).inv(strict=False), CaseSplit)
+    with pytest.raises(SingularMatrixError, match="rang 1 < 2"):
+        Matrix([[1, 2], [2, 4]]).inv()

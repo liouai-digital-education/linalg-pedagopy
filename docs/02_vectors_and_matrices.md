@@ -246,7 +246,7 @@ print(M.rank() == M.rows)                # True  (inversible)
 La méthode [`inv(*, assumptions=None, strict=True)`](../src/linalg_pedagopy/objects/matrix.py) calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :
 - Si la matrice est numérique et singulière, elle lève (avec `strict=True`, par défaut) une [`SingularMatrixError`](../src/linalg_pedagopy/core/exceptions.py).
 - Si la matrice contient des paramètres et reste inversible pour toute valeur, l'inverse est renvoyée directement.
-- Si certaines valeurs des paramètres la rendent singulière, `strict=True` lève aussi `SingularMatrixError` ; avec `strict=False`, on obtient un [`CaseSplit`](../src/linalg_pedagopy/core/cases.py) dont les branches singulières ont pour résultat `None`.
+- Si certaines valeurs des paramètres la rendent singulière, `strict=True` lève aussi `SingularMatrixError`, dont le message donne le déterminant et ces valeurs (calculés par la méthode de Bareiss, voir § 4.4) : « det A = -(a - 1)*(a + 1) s'annule pour a = 1 ou a = −1 ». Avec `strict=False`, on obtient un [`CaseSplit`](../src/linalg_pedagopy/core/cases.py) dont les branches singulières ont pour résultat `None`.
 
 ```python
 from linalg_pedagopy import Matrix, symbols

@@ -178,7 +178,7 @@ Matrice immuable $m \times n$ à coefficients exacts. Constructeur : `Matrix(row
 - `rref(*, assumptions=None) -> Matrix | CaseSplit[Matrix]`.
 - `rank(*, assumptions=None) -> int | CaseSplit[int]`.
 - `nullspace(*, assumptions=None) -> tuple[Vector, ...] | CaseSplit[...]`.
-- `inv(*, assumptions=None, strict=True) -> Matrix | None | CaseSplit[Matrix | None]` : lève `SingularMatrixError` si `strict=True` et la matrice peut être singulière.
+- `inv(*, assumptions=None, strict=True) -> Matrix | None | CaseSplit[Matrix | None]` : lève `SingularMatrixError` si `strict=True` et la matrice peut être singulière ; avec des paramètres, le message donne le déterminant et les valeurs singulières.
 - `solve(b, *, assumptions=None, strict=False)` : résolution de $A x = b$ par Gauss-Jordan.
 - `det(*, method="auto", assumptions=None) -> Expr` : déterminant exact factorisé, via `Determinant` (voir § 4.6).
 
