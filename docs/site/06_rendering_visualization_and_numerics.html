@@ -165,7 +165,7 @@
 <p>Le package <code>linalg_pedagopy</code> offre des moteurs d'affichage polyvalents, un module graphique géométrique basé sur Matplotlib, ainsi qu'un banc de comparaison formel/numérique pour illustrer les limites du calcul flottant.</p>
 <hr/>
 <h2 id="1-moteurs-de-rendu-multi-formats-explanation">1. Moteurs de rendu multi-formats (<code>Explanation</code>)</h2>
-<p>Toutes les procédures algorithmiques renvoient un résultat muni d'une méthode <a href="../../src/linalg_pedagopy/algorithms/base.py"><code>explain(level=...)</code></a> produisant une instance immuable d'<a href="../../src/linalg_pedagopy/render/explanation.py"><code>Explanation</code></a>.</p>
+<p>Toutes les procédures algorithmiques renvoient un résultat muni d'une méthode <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/base.py"><code>explain(level=...)</code></a> produisant une instance immuable d'<a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/render/explanation.py"><code>Explanation</code></a>.</p>
 <p><strong>ACADEMIC_TOKEN_0</strong></p>
 <h3 id="11-formats-de-sortie-disponibles">1.1 Formats de sortie disponibles</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, GaussJordan
@@ -193,7 +193,7 @@ html_code = exp.to_html()
 <p>Le paramètre <code>fmt</code> de <code>explain(level=..., fmt="auto")</code> fixe le format utilisé pour l'affichage automatique ; les méthodes <code>to_text()</code>, <code>to_latex()</code>, <code>to_markdown()</code> et <code>to_html()</code> acceptent aussi un argument <code>level</code> pour filtrer à nouveau la trace.</p>
 <p>Dans un environnement JupyterLab ou Jupyter Notebook, l'objet <code>Explanation</code> implémente <code>_repr_markdown_()</code> : il s'affiche automatiquement avec un rendu typographique soigné grâce au moteur KaTeX/MathJax sans qu'aucun appel à <code>print()</code> ne soit nécessaire.</p>
 <h3 id="12-localisation-et-multilinguisme-locales">1.2 Localisation et multilinguisme (<code>locales</code>)</h3>
-<p>Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans <a href="../../src/linalg_pedagopy/render/locales/"><code>src/linalg_pedagopy/render/locales/</code></a>. <strong>Seule la locale française (<code>fr.yaml</code>) est fournie actuellement.</strong></p>
+<p>Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/render/locales/"><code>src/linalg_pedagopy/render/locales/</code></a>. <strong>Seule la locale française (<code>fr.yaml</code>) est fournie actuellement.</strong></p>
 <p>La locale active est lue dans <code>config.locale</code> (par défaut <code>"fr"</code>) et peut être changée globalement ou localement ; une locale sans fichier YAML (par exemple <code>"en"</code>) retombe sur les messages français :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.config import config, using_config
 
@@ -206,7 +206,7 @@ with using_config(locale="en"):
 <p>Pour ajouter une langue, il suffit de créer <code>locales/&lt;code&gt;.yaml</code> avec les mêmes clés que <code>fr.yaml</code>.</p>
 <hr/>
 <h2 id="2-visualisation-geometrique-2d-et-3d-linalg_pedagopyplot">2. Visualisation géométrique 2D et 3D (<code>linalg_pedagopy.plot</code>)</h2>
-<p>Le sous-module <a href="../../src/linalg_pedagopy/plot/geometry.py"><code>linalg_pedagopy.plot</code></a> fournit des représentations géométriques directes des concepts vectoriels via Matplotlib.</p>
+<p>Le sous-module <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/plot/geometry.py"><code>linalg_pedagopy.plot</code></a> fournit des représentations géométriques directes des concepts vectoriels via Matplotlib.</p>
 <p><strong>ACADEMIC_TOKEN_23</strong></p>
 <h3 id="21-fonctions-graphiques-disponibles">2.1 Fonctions graphiques disponibles</h3>
 <table>
@@ -266,7 +266,7 @@ plt.show()
 </code></pre></div>
 <hr/>
 <h2 id="3-comparaison-exact-vs-virgule-flottante-linalg_pedagopycompare">3. Comparaison Exact vs Virgule Flottante (<code>linalg_pedagopy.compare</code>)</h2>
-<p>Le module <a href="../../src/linalg_pedagopy/compare/numeric.py"><code>linalg_pedagopy.compare</code></a> permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 <code>float64</code> sous NumPy).</p>
+<p>Le module <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/compare/numeric.py"><code>linalg_pedagopy.compare</code></a> permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 <code>float64</code> sous NumPy).</p>
 <h3 id="31-la-fonction-universelle-compare">3.1 La fonction universelle <code>compare</code></h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, GaussJordan, compare
 
@@ -278,7 +278,7 @@ rapport = compare(proc)        # ou compare(GaussJordan, (A, b))
 print("Écart absolu maximal :", rapport.max_abs_error)   # 0.0
 print("Résumé :", rapport.summary)
 </code></pre></div>
-<p>Le rapport <a href="../../src/linalg_pedagopy/compare/numeric.py"><code>ComparisonReport</code></a> contient <code>procedure_name</code>, <code>exact_result</code>, <code>float_result</code>, <code>max_abs_error</code>, <code>orthogonality_defect_float</code> (pour <code>GramSchmidt</code> et <code>QR</code>) et <code>summary</code>.</p>
+<p>Le rapport <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/compare/numeric.py"><code>ComparisonReport</code></a> contient <code>procedure_name</code>, <code>exact_result</code>, <code>float_result</code>, <code>max_abs_error</code>, <code>orthogonality_defect_float</code> (pour <code>GramSchmidt</code> et <code>QR</code>) et <code>summary</code>.</p>
 <h3 id="32-cas-decole-1-la-matrice-de-lauchli-et-la-perte-dorthogonalite">3.2 Cas d'école 1 : La matrice de Läuchli et la perte d'orthogonalité</h3>
 <p>La matrice de Läuchli <strong>ACADEMIC_TOKEN_16</strong> est définie par :
 <strong>ACADEMIC_TOKEN_1</strong></p>

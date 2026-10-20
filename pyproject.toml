@@ -26,12 +26,17 @@ classifiers = [
     "Topic :: Education",
     "Topic :: Scientific/Engineering :: Mathematics",
 ]
-# [project.urls] (dépôt, documentation sur GitHub Pages, suivi des problèmes) : ajoutées à la
-# création du dépôt public linalg-pedagopy (tâche 1.9 du plan v5).
 dependencies = [
     "sympy>=1.12",
     "pyyaml>=6.0",
 ]
+
+[project.urls]
+Homepage = "https://liouai-digital-education.github.io/linalg-pedagopy/"
+Documentation = "https://liouai-digital-education.github.io/linalg-pedagopy/"
+Source = "https://github.com/liouai-digital-education/linalg-pedagopy"
+Issues = "https://github.com/liouai-digital-education/linalg-pedagopy/issues"
+Changelog = "https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 tuteur = [

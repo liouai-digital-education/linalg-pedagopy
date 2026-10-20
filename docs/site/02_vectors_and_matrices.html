@@ -162,7 +162,7 @@
 
       <article class="markdown-body">
         <h1 id="02-vecteurs-matrices-et-metriques">02. Vecteurs, matrices et métriques</h1>
-<p>Les classes <a href="../../src/linalg_pedagopy/objects/vector.py"><code>Vector</code></a> et <a href="../../src/linalg_pedagopy/objects/matrix.py"><code>Matrix</code></a> incarnent les structures de données fondamentales de <code>linalg_pedagopy</code>.</p>
+<p>Les classes <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/vector.py"><code>Vector</code></a> et <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>Matrix</code></a> incarnent les structures de données fondamentales de <code>linalg_pedagopy</code>.</p>
 <p>Conformément à la philosophie du package :
 - <strong>Immutabilité absolue</strong> : Toute opération renvoie une nouvelle instance. Aucune modification en place n'est autorisée.
 - <strong>Exactitude symbolique</strong> : Les coefficients sont convertis en expressions SymPy exactes (<code>sp.Expr</code>).
@@ -309,7 +309,7 @@ print(a.entries)               # (1, 2, 2)
 </code></pre></div>
 <hr/>
 <h2 id="2-la-classe-matrix">2. La classe <code>Matrix</code></h2>
-<p>Une <a href="../../src/linalg_pedagopy/objects/matrix.py"><code>Matrix</code></a> représente une matrice <strong>ACADEMIC_TOKEN_21</strong> sur <strong>ACADEMIC_TOKEN_22</strong>.</p>
+<p>Une <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>Matrix</code></a> représente une matrice <strong>ACADEMIC_TOKEN_21</strong> sur <strong>ACADEMIC_TOKEN_22</strong>.</p>
 <h3 id="21-initialisation-et-constructeurs-dusine">2.1 Initialisation et constructeurs d'usine</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix
 
@@ -374,7 +374,7 @@ with tracing(level=2):
 print(C == A @ B)   # True
 </code></pre></div>
 <h3 id="34-matrices-par-blocs">3.4 Matrices par blocs</h3>
-<p>La méthode de classe <a href="../../src/linalg_pedagopy/objects/matrix.py"><code>Matrix.block</code></a> assemble une matrice à partir d'une grille de blocs sous-matriciels :</p>
+<p>La méthode de classe <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>Matrix.block</code></a> assemble une matrice à partir d'une grille de blocs sous-matriciels :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">A11 = Matrix([[1, 2], [3, 4]])
 A12 = Matrix([[0], [0]])
 A21 = Matrix([[5, 6]])
@@ -400,10 +400,10 @@ print(M.has_orthonormal_columns())       # True  (MᵀM = I)
 print(M.rank() == M.rows)                # True  (inversible)
 </code></pre></div>
 <h3 id="42-inversion-formelle-inv">4.2 Inversion formelle (<code>inv</code>)</h3>
-<p>La méthode <a href="../../src/linalg_pedagopy/objects/matrix.py"><code>inv(*, assumptions=None, strict=True)</code></a> calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :
-- Si la matrice est numérique et singulière, elle lève (avec <code>strict=True</code>, par défaut) une <a href="../../src/linalg_pedagopy/core/exceptions.py"><code>SingularMatrixError</code></a>.
+<p>La méthode <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>inv(*, assumptions=None, strict=True)</code></a> calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :
+- Si la matrice est numérique et singulière, elle lève (avec <code>strict=True</code>, par défaut) une <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/exceptions.py"><code>SingularMatrixError</code></a>.
 - Si la matrice contient des paramètres et reste inversible pour toute valeur, l'inverse est renvoyée directement.
-- Si certaines valeurs des paramètres la rendent singulière, <code>strict=True</code> lève aussi <code>SingularMatrixError</code> ; avec <code>strict=False</code>, on obtient un <a href="../../src/linalg_pedagopy/core/cases.py"><code>CaseSplit</code></a> dont les branches singulières ont pour résultat <code>None</code>.</p>
+- Si certaines valeurs des paramètres la rendent singulière, <code>strict=True</code> lève aussi <code>SingularMatrixError</code> ; avec <code>strict=False</code>, on obtient un <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/cases.py"><code>CaseSplit</code></a> dont les branches singulières ont pour résultat <code>None</code>.</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, symbols
 
 a, = symbols("a")
@@ -420,7 +420,7 @@ for br in inv_B.branches:
 # a = -1 -&gt; singulière
 </code></pre></div>
 <h3 id="43-reduction-echelonnee-rang-et-sous-espaces-fondamentaux">4.3 Réduction échelonnée, rang et sous-espaces fondamentaux</h3>
-<p>Les méthodes <a href="../../src/linalg_pedagopy/objects/matrix.py"><code>rref</code></a>, <a href="../../src/linalg_pedagopy/objects/matrix.py"><code>rank</code></a> et <a href="../../src/linalg_pedagopy/objects/matrix.py"><code>nullspace</code></a> acceptent un paramètre <code>assumptions</code> pour spécifier des contraintes de branche :</p>
+<p>Les méthodes <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>rref</code></a>, <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>rank</code></a> et <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>nullspace</code></a> acceptent un paramètre <code>assumptions</code> pour spécifier des contraintes de branche :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">A = Matrix([
     [1, 2, 0, 1],
     [0, 1, 1, 0],

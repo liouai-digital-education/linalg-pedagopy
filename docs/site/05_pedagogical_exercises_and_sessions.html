@@ -172,7 +172,7 @@
 <p>Dans un cours d'algèbre linéaire, générer des matrices avec des entiers aléatoires produit presque systématiquement, dès la 3e étape du pivot de Gauss ou de Gram-Schmidt, des fractions avec des numérateurs et dénominateurs à 6 ou 10 chiffres (par exemple <strong>ACADEMIC_TOKEN_1</strong>).</p>
 <p>Cette complexité arithmétique parasite masque la compréhension des concepts géométriques fondamentaux. <code>linalg_pedagopy</code> résout ce problème grâce à des générateurs à <strong>résultats propres garantis</strong>.</p>
 <h3 id="12-generateurs-a-resultats-propres">1.2 Générateurs à résultats propres</h3>
-<p>Le module <a href="../../src/linalg_pedagopy/exercises/generators.py"><code>generators.py</code></a> fournit des fonctions de génération reproductibles (paramètre <code>seed</code>) dont les résultats sont garantis « propres » :</p>
+<p>Le module <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/exercises/generators.py"><code>generators.py</code></a> fournit des fonctions de génération reproductibles (paramètre <code>seed</code>) dont les résultats sont garantis « propres » :</p>
 <table>
 <thead>
 <tr>
@@ -347,7 +347,7 @@ print(tw.statement)
 </code></pre></div>
 <hr/>
 <h2 id="2-sessions-interactives-pas-a-pas-interactivesession">2. Sessions interactives pas-à-pas (<code>InteractiveSession</code>)</h2>
-<p>La classe <a href="../../src/linalg_pedagopy/exercises/interactive.py"><code>InteractiveSession</code></a> (<code>InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)</code>, ou <code>procedure.interactive(mode=...)</code>) transforme une procédure en exercice d'apprentissage actif.</p>
+<p>La classe <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/exercises/interactive.py"><code>InteractiveSession</code></a> (<code>InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)</code>, ou <code>procedure.interactive(mode=...)</code>) transforme une procédure en exercice d'apprentissage actif.</p>
 <h3 id="21-les-4-modes-interactifs">2.1 Les 4 modes interactifs</h3>
 <p><strong>ACADEMIC_TOKEN_0</strong></p>
 <ol>
@@ -386,7 +386,7 @@ print(s.reveal())   # On annule le coefficient (2,1) : L2 ← L2 - 3·L1.
 </code></pre></div>
 <hr/>
 <h2 id="3-analyseur-derreurs-et-retroactions-pedagogiques">3. Analyseur d'erreurs et rétroactions pédagogiques</h2>
-<p>Le vérificateur <a href="../../src/linalg_pedagopy/exercises/checkers.py"><code>check_row_operation</code></a> (<code>check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)</code>), utilisé par <code>propose</code>, ne se contente pas d'un refus brut : il identifie la cause de l'erreur (champ <code>error_code</code>). Exemples sur la matrice augmentée <strong>ACADEMIC_TOKEN_12</strong> ci-dessus :</p>
+<p>Le vérificateur <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/exercises/checkers.py"><code>check_row_operation</code></a> (<code>check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)</code>), utilisé par <code>propose</code>, ne se contente pas d'un refus brut : il identifie la cause de l'erreur (champ <code>error_code</code>). Exemples sur la matrice augmentée <strong>ACADEMIC_TOKEN_12</strong> ci-dessus :</p>
 <table>
 <thead>
 <tr>
@@ -435,7 +435,7 @@ print(s.reveal())   # On annule le coefficient (2,1) : L2 ← L2 - 3·L1.
 </tr>
 </tbody>
 </table>
-<p>Le vérificateur analogue <a href="../../src/linalg_pedagopy/exercises/checkers.py"><code>check_gram_schmidt_step</code></a> contrôle une étape d'orthogonalisation de Gram-Schmidt proposée par l'étudiant.</p>
+<p>Le vérificateur analogue <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/exercises/checkers.py"><code>check_gram_schmidt_step</code></a> contrôle une étape d'orthogonalisation de Gram-Schmidt proposée par l'étudiant.</p>
       </article>
 
       <!-- Navigation entre chapitres -->

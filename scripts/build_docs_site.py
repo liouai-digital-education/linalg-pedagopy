@@ -21,6 +21,17 @@ ASSETS_DIR = OUTPUT_DIR / "assets"
 CSS_DIR = ASSETS_DIR / "css"
 JS_DIR = ASSETS_DIR / "js"
 
+
+def _url_source_depot() -> str | None:
+    """URL « Source » de [project.urls] dans pyproject.toml, sans « / » final, ou None."""
+    try:
+        import tomllib
+    except ImportError:  # Python 3.10 : liens relatifs
+        return None
+    urls = tomllib.loads((RACINE / "pyproject.toml").read_text(encoding="utf-8"))
+    url = urls.get("project", {}).get("urls", {}).get("Source")
+    return url.rstrip("/") if url else None
+
 PAGES = [
     {"id": "index", "src": "index.md", "dst": "index.html", "title": "Accueil & démarrage",
      "subtitle": "Présentation, installation, démarrage rapide et principes", "badge": "Portail", "number": "00"},
@@ -1145,9 +1156,12 @@ def preprocess_markdown(text: str) -> tuple[str, list[str]]:
     # 5. Réajuster les liens .md en .html
     text = re.sub(r"\(([\w_-]+)\.md\)", r"(\1.html)", text)
 
-    # 6. Les liens relatifs vers le code source (../src/...) sont écrits depuis docs/ ;
-    #    les pages HTML vivent dans docs/site/, d'où un niveau supplémentaire.
-    text = re.sub(r"\(\.\./((?:src|tests)/[^)\s]*)\)", r"(../../\1)", text)
+    # 6. Les liens relatifs vers le code source (../src/...) sont écrits depuis docs/.
+    #    Site publié (URL « Source » dans pyproject.toml) : lien vers le fichier sur GitHub ;
+    #    sinon, lien relatif depuis docs/site/, d'où un niveau supplémentaire.
+    base_source = _url_source_depot()
+    cible = rf"({base_source}/blob/main/\1)" if base_source else r"(../../\1)"
+    text = re.sub(r"\(\.\./((?:src|tests)/[^)\s]*)\)", cible, text)
 
     return text, tokens
 

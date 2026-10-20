@@ -2,7 +2,8 @@
 
 [![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://www.python.org/)
 [![Licence : MIT](https://img.shields.io/badge/licence-MIT-green.svg)](LICENSE)
-[![Documentation](https://img.shields.io/badge/docs-docs%2Findex.md-orange.svg)](docs/index.md)
+[![Tests](https://github.com/liouai-digital-education/linalg-pedagopy/actions/workflows/tests.yml/badge.svg)](https://github.com/liouai-digital-education/linalg-pedagopy/actions/workflows/tests.yml)
+[![Documentation](https://img.shields.io/badge/docs-en%20ligne-orange.svg)](https://liouai-digital-education.github.io/linalg-pedagopy/)
 
 `linalg_pedagopy` est un package Python orienté objet pour **enseigner et apprendre l'algèbre linéaire par le calcul formel exact**, en L1–L2, classes préparatoires et écoles d'ingénieurs.
 

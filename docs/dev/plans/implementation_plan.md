@@ -2,7 +2,7 @@
 
 ## Objectif et contexte
 
-Ce plan décrit la refonte complète du package [linalg_pedagopy](linalg_pedagopy/__init__.py) directement vers la **version 3.0 (`3.0.0`)**, conformément aux spécifications de [linalg_pedagopy_plan_v3.pdf](linalg_pedagopy_plan_v3.pdf).
+Ce plan décrit la refonte complète du package `linalg_pedagopy` directement vers la **version 3.0 (`3.0.0`)**, conformément aux spécifications de `linalg_pedagopy_plan_v3.pdf` (document de travail non publié).
 
 La version 3 réunit :
 1. **Toutes les avancées architecturales de la v2 (Décisions D1 à D11)** :
@@ -93,7 +93,7 @@ flowchart TD
 
 ### Phase 0 — Squelette du projet, configuration et outillage
 
-#### [MODIFY] [pyproject.toml](pyproject.toml)
+#### [MODIFY] `pyproject.toml`
 - Passage en version `3.0.0`, `requires-python = ">=3.11"`, licence `MIT`.
 - Layout `src/linalg_pedagopy` avec package-data incluant `render/locales/*.yaml`, `tuteur/glossaire.yaml` et `tuteur/fiches/*.yaml`.
 - Dépendances obligatoires : `sympy>=1.12`, `pyyaml>=6.0`.

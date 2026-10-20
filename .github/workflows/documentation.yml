@@ -1,0 +1,35 @@
+# Publication du site de documentation (docs/site/, déjà généré et versionné) sur GitHub Pages.
+# Prérequis, une fois : Settings → Pages → Source : « GitHub Actions ».
+# Le site se régénère en local avec « python scripts/build_docs_site.py » avant le commit.
+name: Documentation
+
+on:
+  push:
+    branches: [main]
+    paths: ["docs/site/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publier:
+    name: Publier sur GitHub Pages
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploiement.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/site
+      - id: deploiement
+        uses: actions/deploy-pages@v4
