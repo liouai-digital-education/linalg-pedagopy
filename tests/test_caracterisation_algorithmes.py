@@ -164,7 +164,8 @@ def test_caracterisation_oracle_de_nullite() -> None:
     for e in expressions:
         d = oracle.decide(e)
         cond = d.condition.format_text() if d.condition is not None else "—"
-        lignes.append(f"{sp.sstr(e)!s:28s} | {d.verdict.name:11s} | facteurs {tuple(sp.sstr(f) for f in d.factors)} | condition {cond} | méthode {d.method}")
+        dom = d.domain.format_text() if d.domain is not None else "—"
+        lignes.append(f"{sp.sstr(e)!s:28s} | {d.verdict.name:11s} | facteurs {tuple(sp.sstr(f) for f in d.factors)} | condition {cond} | domaine {dom} | méthode {d.method}")
     hyp = []
     for e, c in [(a - 2, Condition.neq(a - 2)), (a - 2, Condition.eq(a, 2)), (a**2 - 4, Condition.eq(a, -2)), (a * b, Condition.neq(a))]:
         d = oracle.decide(e, assumptions=c)

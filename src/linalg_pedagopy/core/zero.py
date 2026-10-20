@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import Enum, auto
 from typing import Any, Mapping
 
@@ -27,12 +27,17 @@ AssumptionsType = Condition | Mapping[str | sp.Symbol, Any] | None
 
 @dataclass(frozen=True)
 class ZeroDecision:
-    """Résultat détaillé d'une décision de l'oracle de nullité."""
+    """Résultat détaillé d'une décision de l'oracle de nullité.
+
+    ``domain`` réunit les valeurs interdites par les dénominateurs (par exemple
+    ``a ≠ 1`` pour ``(a**2 - 1)/(a - 1)``) : le verdict ne vaut que sur ce domaine.
+    """
 
     verdict: Verdict
     condition: Condition | None = None
     method: str = ""
     factors: tuple[sp.Expr, ...] = ()
+    domain: Condition | None = None
 
 
 def _normalize_assumptions(assumptions: Any) -> Condition:
@@ -109,6 +114,29 @@ def _extract_polynomial_factors(num: sp.Expr) -> list[sp.Expr]:
         return [num]
 
 
+def _denominator_factors(expr: sp.Expr) -> list[sp.Expr]:
+    """Facteurs non constants du dénominateur, relevés avant toute simplification.
+
+    Seuls les dénominateurs polynomiaux sont analysés ; un radical au dénominateur
+    imposerait une inégalité, que ``Condition`` ne représente pas.
+    """
+    free = expr.free_symbols
+    if not free:
+        return []
+    try:
+        _num, den = sp.fraction(sp.together(expr))
+        if not den.free_symbols or not den.is_polynomial(*free):
+            return []
+        _, factors_list = sp.factor_list(sp.expand(den))
+    except Exception:
+        return []
+    return [
+        f
+        for f, _exp in factors_list
+        if f.free_symbols and not (f.is_positive is True or f.is_negative is True)
+    ]
+
+
 def _extract_factors(expr: sp.Expr) -> list[sp.Expr]:
     """Extrait les facteurs polynomiaux ou issus de puissances/radicaux (y compris via unrad)."""
     free = expr.free_symbols
@@ -166,6 +194,20 @@ class ZeroOracle:
         expr = to_exact(e) if not isinstance(e, sp.Expr) else e
         cond = _normalize_assumptions(assumptions)
 
+        # Valeurs interdites par les dénominateurs, avant que la simplification ne les efface
+        domain = Condition.true()
+        for fac in _denominator_factors(expr):
+            status = cond.implies_zero(fac)
+            if status is True:
+                return ZeroDecision(verdict=Verdict.UNKNOWN, condition=None, method="undefined")
+            if status is None:
+                domain = domain & Condition.from_zero_expr(fac, is_zero=False)
+        if domain.is_trivial:
+            return self._decide(expr, cond, trace_level3=trace_level3)
+        dec = self._decide(expr, cond & domain, trace_level3=trace_level3)
+        return replace(dec, domain=domain)
+
+    def _decide(self, expr: sp.Expr, cond: Condition, *, trace_level3: bool) -> ZeroDecision:
         # Application des substitutions d'égalités connues dans le contexte (ex. a = 1)
         subs_map = cond.substitutions()
         if subs_map:

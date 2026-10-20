@@ -2,6 +2,9 @@
 
 ## [Non publié] — branche `development`
 
+### Phase 1 du plan v5 — corrections
+- Oracle de nullité : les valeurs interdites par les dénominateurs sont relevées **avant** toute simplification et rendues dans le nouveau champ `ZeroDecision.domain` (pour `(a**2 - 1)/(a - 1)` : domaine `a ≠ 1`, au lieu de perdre la valeur interdite). Le verdict est décidé sur ce domaine ; sous une hypothèse qui annule un dénominateur, l'oracle répond `UNKNOWN` avec la méthode `undefined`.
+
 ### Phase 0 du plan v5 — filet de sécurité
 - Python **3.10** minimum (`requires-python`, ruff, mypy, classificateurs).
 - Tests de caractérisation : traces, discussions de cas et oracle (`tests/test_caracterisation_algorithmes.py`), énoncés, indices, jumeaux et diagnostics des 35 fiches (`tests/test_caracterisation_tuteur.py`), références dans `tests/references/` (régénération : `LP_MAJ_REFERENCES=1`).

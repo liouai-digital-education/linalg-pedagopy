@@ -101,3 +101,44 @@ def test_zero_oracle_parametric_radicals_and_assumptions() -> None:
     # Symbole portant l'hypothèse SymPy nonzero=True
     (nz,) = symbols("nz", nonzero=True)
     assert oracle.decide(nz).verdict == Verdict.NONZERO
+
+
+def test_zero_oracle_domain_keeps_forbidden_values() -> None:
+    a, b = symbols("a b")
+    # La simplification par a - 1 ne doit pas effacer la valeur interdite a = 1
+    d = oracle.decide((a**2 - 1) / (a - 1))
+    assert d.verdict == Verdict.CONDITIONAL
+    assert d.factors == (a + 1,)
+    assert str(d.condition) == "a = −1"
+    assert d.domain is not None and str(d.domain) == "a ≠ 1"
+
+    d_inv = oracle.decide(1 / (a - 1))
+    assert d_inv.verdict == Verdict.NONZERO
+    assert d_inv.domain is not None and str(d_inv.domain) == "a ≠ 1"
+
+    # Deux paramètres : chaque facteur du dénominateur est une valeur interdite
+    d2 = oracle.decide(a / (b * (a + 1)))
+    assert d2.verdict == Verdict.CONDITIONAL
+    assert d2.factors == (a,)
+    assert d2.domain is not None
+    assert d2.domain.implies_zero(b) is False and d2.domain.implies_zero(a + 1) is False
+
+    # Un dénominateur qui ne s'annule pas sur R n'impose rien ; un polynôme non plus
+    assert oracle.decide(1 / (a**2 + 1)).domain is None
+    assert oracle.decide(a - 2).domain is None
+
+
+def test_zero_oracle_domain_and_assumptions() -> None:
+    (a,) = symbols("a")
+    expr = (a**2 - 1) / (a - 1)
+    # Une hypothèse qui exclut déjà la valeur interdite rend le domaine superflu
+    d_neq = oracle.decide(expr, assumptions="a != 1")
+    assert d_neq.verdict == Verdict.CONDITIONAL
+    assert d_neq.domain is None
+    # Hors du domaine, l'expression n'est pas définie : l'oracle ne conclut pas
+    d_out = oracle.decide(expr, assumptions={"a": 1})
+    assert d_out.verdict == Verdict.UNKNOWN
+    assert d_out.method == "undefined"
+    # Dans le domaine, les verdicts restent exacts
+    assert oracle.decide(expr, assumptions={"a": -1}).verdict == Verdict.ZERO
+    assert oracle.decide(expr, assumptions={"a": 2}).verdict == Verdict.NONZERO

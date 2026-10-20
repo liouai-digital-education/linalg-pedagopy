@@ -1,26 +1,26 @@
 ===== décisions =====
-0                            | ZERO        | facteurs () | condition — | méthode domain
-3                            | NONZERO     | facteurs () | condition — | méthode domain
--2/7                         | NONZERO     | facteurs () | condition — | méthode domain
-a - 2                        | CONDITIONAL | facteurs ('a - 2',) | condition a = 2 | méthode domain
-a**2 + 1                     | NONZERO     | facteurs () | condition — | méthode domain
-(a - 1)**2                   | CONDITIONAL | facteurs ('a - 1',) | condition a = 1 | méthode domain
-a*b                          | CONDITIONAL | facteurs ('a', 'b') | condition a = 0 | méthode domain
-a**2 - b**2                  | CONDITIONAL | facteurs ('a - b', 'a + b') | condition a = b | méthode domain
-0                            | ZERO        | facteurs () | condition — | méthode domain
-sqrt(2) + sqrt(3)            | NONZERO     | facteurs () | condition — | méthode minpoly
-sqrt(1 - m**2)               | CONDITIONAL | facteurs ('m - 1', 'm + 1') | condition m = 1 | méthode domain
-sqrt(a**2 + 1) - 1           | CONDITIONAL | facteurs ('a',) | condition a = 0 | méthode domain
-sqrt(a) - 2                  | CONDITIONAL | facteurs ('a - 4',) | condition a = 4 | méthode domain
-p                            | NONZERO     | facteurs () | condition — | méthode domain
-p - 1                        | CONDITIONAL | facteurs ('p - 1',) | condition p = 1 | méthode domain
-exp(x)                       | NONZERO     | facteurs () | condition — | méthode domain
-sin(x)                       | UNKNOWN     | facteurs () | condition — | méthode unknown
-x*exp(x)                     | CONDITIONAL | facteurs ('x',) | condition x = 0 | méthode domain
-Abs(a) + 1                   | NONZERO     | facteurs () | condition — | méthode domain
--1 + 1/(a - 1)               | CONDITIONAL | facteurs ('a - 2',) | condition a = 2 | méthode domain
-(a**2 - 1)/(a - 1)           | CONDITIONAL | facteurs ('a + 1',) | condition a = −1 | méthode domain
--3 + pi                      | NONZERO     | facteurs () | condition — | méthode simplify
+0                            | ZERO        | facteurs () | condition — | domaine — | méthode domain
+3                            | NONZERO     | facteurs () | condition — | domaine — | méthode domain
+-2/7                         | NONZERO     | facteurs () | condition — | domaine — | méthode domain
+a - 2                        | CONDITIONAL | facteurs ('a - 2',) | condition a = 2 | domaine — | méthode domain
+a**2 + 1                     | NONZERO     | facteurs () | condition — | domaine — | méthode domain
+(a - 1)**2                   | CONDITIONAL | facteurs ('a - 1',) | condition a = 1 | domaine — | méthode domain
+a*b                          | CONDITIONAL | facteurs ('a', 'b') | condition a = 0 | domaine — | méthode domain
+a**2 - b**2                  | CONDITIONAL | facteurs ('a - b', 'a + b') | condition a = b | domaine — | méthode domain
+0                            | ZERO        | facteurs () | condition — | domaine — | méthode domain
+sqrt(2) + sqrt(3)            | NONZERO     | facteurs () | condition — | domaine — | méthode minpoly
+sqrt(1 - m**2)               | CONDITIONAL | facteurs ('m - 1', 'm + 1') | condition m = 1 | domaine — | méthode domain
+sqrt(a**2 + 1) - 1           | CONDITIONAL | facteurs ('a',) | condition a = 0 | domaine — | méthode domain
+sqrt(a) - 2                  | CONDITIONAL | facteurs ('a - 4',) | condition a = 4 | domaine — | méthode domain
+p                            | NONZERO     | facteurs () | condition — | domaine — | méthode domain
+p - 1                        | CONDITIONAL | facteurs ('p - 1',) | condition p = 1 | domaine — | méthode domain
+exp(x)                       | NONZERO     | facteurs () | condition — | domaine — | méthode domain
+sin(x)                       | UNKNOWN     | facteurs () | condition — | domaine — | méthode unknown
+x*exp(x)                     | CONDITIONAL | facteurs ('x',) | condition x = 0 | domaine — | méthode domain
+Abs(a) + 1                   | NONZERO     | facteurs () | condition — | domaine — | méthode domain
+-1 + 1/(a - 1)               | CONDITIONAL | facteurs ('a - 2',) | condition a = 2 | domaine a ≠ 1 | méthode domain
+(a**2 - 1)/(a - 1)           | CONDITIONAL | facteurs ('a + 1',) | condition a = −1 | domaine a ≠ 1 | méthode domain
+-3 + pi                      | NONZERO     | facteurs () | condition — | domaine — | méthode simplify
 
 ===== avec hypothèses et cas particuliers =====
 a - 2 sous a ≠ 2 : NONZERO (facteurs ())
