@@ -9,6 +9,7 @@
 
 - **Calcul exact** : fractions et radicaux exacts, symboles réels, aucun flottant caché.
 - **Discussion de cas automatique** : quand un pivot dépend d'un paramètre, le calcul se sépare en cas disjoints (`CaseSplit`), affichés en clair (`a ≠ 1 et a ≠ −1`, `b²`…).
+- **Déterminant exact** : `A.det()`, avec la trace de la méthode de Bareiss (sans discussion de cas même avec paramètres), de l'élimination, du développement par cofacteurs ou de la règle de Sarrus, et les valeurs du paramètre qui rendent la matrice singulière.
 - **Explications pas à pas** : chaque résultat garde la trace de ses opérations ; `explain(level=0..3)` choisit le niveau de détail, en texte, LaTeX, Markdown ou HTML.
 - **Tuteur interactif** : 35 exercices nommés, classés en 8 thèmes et 3 niveaux, avec indices gradués, exercice jumeau résolu, diagnostic des erreurs et laboratoire de contre-exemples — sans jamais donner la solution.
 

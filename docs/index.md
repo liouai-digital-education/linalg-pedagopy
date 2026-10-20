@@ -13,7 +13,7 @@
    Objets immuables `Vector` et `Matrix`, métriques (norme, rms, moyenne, écart type, distance, angle, corrélation), les 4 vues du produit matriciel, matrices par blocs, `rref`, `rank`, `nullspace`, `inv`, `solve`, et matrices structurées (différences, sommes cumulées, moyenne glissante, Vandermonde, convolution).
 
 3. [**03. Algorithmes et traçabilité**](03_algorithms_and_step_tracing.md)  
-   Trace hiérarchique (`explain(level=0..3)`, `tracing`), `GaussJordan`, substitutions triangulaires, `GramSchmidt`, `QR` exacte et rationnelle, `LeastSquares`.
+   Trace hiérarchique (`explain(level=0..3)`, `tracing`), `GaussJordan`, substitutions triangulaires, `GramSchmidt`, `QR` exacte et rationnelle, `LeastSquares`, déterminant (`Determinant` : Bareiss, élimination, cofacteurs, Sarrus).
 
 4. [**04. Le tuteur interactif**](04_tuteur.md)  
    Catalogue nommé, séance pas à pas (énoncé, indices, exercice jumeau, vérification, laboratoire, bilan), panneau JupyterLab, mode enseignant, format des fiches et validation.

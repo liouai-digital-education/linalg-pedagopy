@@ -286,6 +286,25 @@ print("A^(-1) =\n", inv_A)
 print("Vérification A @ A^(-1) == I :", A @ inv_A == Matrix.identity(2))
 ```
 
+### 5.5 Déterminant
+
+`A.det()` renvoie le déterminant exact. La procédure `Determinant` en donne la trace, avec la méthode de Bareiss (défaut en présence de paramètres : aucune division risquée), l'élimination, le développement par cofacteurs ou la règle de Sarrus, et `zeros()` les valeurs du paramètre qui rendent la matrice singulière.
+
+```python
+from linalg_pedagopy import Determinant
+
+a, = symbols("a")
+A = Matrix([[a, 1, 1], [1, a, 1], [1, 1, a]])
+print("det A =", A.det())
+
+res = Determinant(A).run()
+print(res.explain(level=1))
+print("Singulière pour :", [str(c) for c in res.zeros()])
+
+# Développement par cofacteurs suivant la ligne ou la colonne la plus creuse
+print(Determinant(Matrix([[1, 0, 2], [3, 0, 4], [5, 6, 7]]), method="cofactors").run().explain(level=2))
+```
+
 ---
 
 ## 6. Discussion automatique selon des paramètres (`CaseSplit`)
@@ -812,6 +831,7 @@ print(ex.verifier(x_opt))
 | Créer des symboles réels | `a, b = symbols("a b")` |
 | Coercition exacte d'une valeur | `val = to_exact("1/3")` |
 | Réduction de Gauss-Jordan | `res = GaussJordan(A, b).run()` |
+| Déterminant (et valeurs singulières) | `A.det()` ; `res = Determinant(A).run() ; res.zeros()` |
 | Discussion selon un paramètre | `res.explain(level=1)` ou `res.at(a=2)` |
 | Gram-Schmidt rationnel | `res = GramSchmidt(vectors, normalize="end").run()` |
 | Factorisation QR | `res = QR(A).run()` |

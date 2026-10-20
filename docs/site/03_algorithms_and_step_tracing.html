@@ -407,6 +407,107 @@ print("RMS du résidu :", ls.residual_rms)         # sqrt(70)/20
 # verify() renvoie une Explanation qui détaille le contrôle colonne par colonne
 print(ls.verify())
 </code></pre></div>
+<hr/>
+<h2 id="7-determinant-determinant">7. Déterminant (<code>Determinant</code>)</h2>
+<p>La procédure <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/determinant.py"><code>Determinant</code></a> (<code>Determinant(A, *, method="auto", assumptions=None)</code>) calcule le déterminant exact d'une matrice carrée, avec paramètres éventuels, et trace le calcul. Quatre méthodes sont disponibles :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><code>method</code></th>
+<th style="text-align: left;">Principe</th>
+<th style="text-align: left;">Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>"bareiss"</code></td>
+<td style="text-align: left;">Élimination <strong>sans fractions</strong> : $m_{ij} \leftarrow \dfrac{m_{kk}\, m_{ij} - m_{ik}\, m_{kj}}{\text{pivot précédent}}$, division exacte</td>
+<td style="text-align: left;">Défaut dès que la matrice contient des paramètres : aucune discussion de cas</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"elimination"</code></td>
+<td style="text-align: left;">Triangulation <strong>sans dilatation</strong> : $\det A = (-1)^{\text{échanges}} \prod \text{pivots}$</td>
+<td style="text-align: left;">Défaut pour une matrice numérique</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"cofactors"</code></td>
+<td style="text-align: left;">Développement $\det A = \sum_j (-1)^{i+j} a_{ij} M_{ij}$ suivant la ligne ou la colonne la plus creuse</td>
+<td style="text-align: left;">Pédagogique, $n \le 4$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"sarrus"</code></td>
+<td style="text-align: left;">Trois diagonales descendantes moins trois diagonales montantes</td>
+<td style="text-align: left;">$n = 3$ uniquement</td>
+</tr>
+</tbody>
+</table>
+<p><code>method="auto"</code> (défaut) choisit Bareiss si la matrice contient des paramètres, l'élimination sinon. La méthode de commodité <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>Matrix.det()</code></a> renvoie directement la valeur.</p>
+<h3 id="71-matrice-parametree-bareiss">7.1 Matrice paramétrée : Bareiss</h3>
+<p>Avec des paramètres, l'élimination classique divise par des pivots comme $a - 1$, qui peuvent s'annuler : chaque étape ne vaudrait que sous une condition. L'algorithme de Bareiss divise par le pivot précédent, et cette division est <strong>exacte</strong> : les coefficients restent polynomiaux et la trace est valable pour toutes les valeurs du paramètre.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, symbols, Determinant
+
+a, = symbols("a")
+A = Matrix([[a, 1, 1], [1, a, 1], [1, 1, a]])
+
+A.det()                      # (a - 1)**2*(a + 2)
+
+res = Determinant(A).run()   # DetResult
+res.method                   # 'bareiss'
+res.factors                  # ((a + 2, 1), (a - 1, 2)) : facteurs et multiplicités
+print(res.explain(level=1))
+# Calcul du déterminant d'une matrice 3×3 (méthode : Bareiss).
+# ├─ Algorithme de Bareiss (élimination sans fractions) : ...
+# ├─ Étape 1 : pivot a, division exacte par le pivot précédent 1.
+# ├─ Étape 2 : pivot a² − 1, division exacte par le pivot précédent a.
+# ├─ Le dernier coefficient diagonal a³ − 3·a + 2 est le déterminant, au signe des échanges près (0 échange(s)).
+# └─ det A = (a − 1)²·(a + 2).
+</code></pre></div>
+<p>Au niveau 3, la trace donne chaque coefficient intermédiaire, mineur $2 \times 2$ divisé par le pivot précédent.</p>
+<h3 id="72-valeurs-singulieres-du-parametre">7.2 Valeurs singulières du paramètre</h3>
+<p><code>zeros()</code> renvoie les conditions d'annulation (une disjonction : le déterminant est nul si <strong>l'une</strong> d'elles est vérifiée) ; <code>zeros(split=True)</code> renvoie la discussion « inversible / non inversible » :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">[str(c) for c in res.zeros()]    # ['a = −2', 'a = 1']
+print(res.zeros(split=True))
+# Discussion selon a
+# ├─ Cas a ≠ −2 et a ≠ 1 (générique) : True
+# ├─ Cas a = −2 : False
+# └─ Cas a = 1 : False
+</code></pre></div>
+<p>Un déterminant qui ne s'annule jamais donne <code>()</code> ; un déterminant identiquement nul donne une seule condition, toujours vraie.</p>
+<h3 id="73-elimination-cofacteurs-et-sarrus">7.3 Élimination, cofacteurs et Sarrus</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">B = Matrix([[2, 4, 1], [1, 3, 2], [0, 1, 5]])
+print(Determinant(B, method="elimination").run().explain(level=1))
+# ├─ On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+# ├─ On annule le coefficient (2,1) : L2 ← L2 − (2)·L1 (une transvection ne change pas le déterminant).
+# ├─ ...
+# ├─ Matrice triangulaire : det A = (+1) × produit des pivots (1, 1, 7) (2 échange(s) de lignes).
+# └─ det A = 7.
+
+C = Matrix([[1, 0, 2], [3, 0, 4], [5, 6, 7]])
+print(Determinant(C, method="cofactors").run().explain(level=2))
+# ├─ Développement suivant la colonne 2 (la plus creuse) : det A = Σ (−1)^(i+j) a_ij M_ij.
+# │  ├─ Coefficient a_(1,2) nul : son terme est nul, le mineur n'est pas calculé.
+# │  ├─ ...
+# │  └─ Terme (3,2) : − a_(3,2)·M_(3,2) = − (6)·(−2).
+# └─ det A = 12.
+
+D = Matrix([[2, 1, 3], [0, 4, 5], [1, 0, 6]])
+print(Determinant(D, method="sarrus").run().explain(level=1))
+# ├─ Règle de Sarrus, diagonales descendantes (signe +) : (48, 5, 0).
+# ├─ Règle de Sarrus, diagonales montantes (signe −) : (12, 0, 0).
+# └─ det A = 41.
+</code></pre></div>
+<p>L'élimination refuse de diviser par un pivot qui dépend d'un paramètre et peut s'annuler : elle s'arrête avec une explication (<code>PedagopyError</code>) qui renvoie vers Bareiss, ou vers des hypothèses explicites.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">Determinant(A, method="elimination").run()
+# PedagopyError : Élimination interrompue en colonne 2 : le pivot 1 - a peut s'annuler selon
+# les paramètres [...] Utilisez method='bareiss' [...] ou précisez des hypothèses (assumptions=...).
+Determinant(A, method="elimination", assumptions={"a": 3}).run().value   # 20
+</code></pre></div>
+<h3 id="74-verification-et-cas-particuliers">7.4 Vérification et cas particuliers</h3>
+<ul>
+<li><code>verify()</code> recalcule le déterminant par un algorithme indépendant (Berkowitz, sans division) et confirme le résultat.</li>
+<li>Une matrice non carrée lève <code>DimensionMismatchError</code> ; Sarrus sur une matrice qui n'est pas $3 \times 3$ aussi ; les cofacteurs au-delà de $4 \times 4$ lèvent <code>PedagopyError</code>.</li>
+<li>Comme pour Gauss-Jordan, les valeurs interdites par les dénominateurs des coefficients (domaine de définition) sont annoncées dans la trace et restreignent toutes les conditions.</li>
+</ul>
       </article>
 
       <!-- Navigation entre chapitres -->
@@ -482,6 +583,26 @@ print(ls.verify())
         
         <li class="toc-item ">
           <a href="#6-moindres-carres-lineaires-leastsquares">6. Moindres Carrés Linéaires (LeastSquares)</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#7-determinant-determinant">7. Déterminant (Determinant)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#71-matrice-parametree-bareiss">7.1 Matrice paramétrée : Bareiss</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#72-valeurs-singulieres-du-parametre">7.2 Valeurs singulières du paramètre</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#73-elimination-cofacteurs-et-sarrus">7.3 Élimination, cofacteurs et Sarrus</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#74-verification-et-cas-particuliers">7.4 Vérification et cas particuliers</a>
         </li>
         
       </ul>

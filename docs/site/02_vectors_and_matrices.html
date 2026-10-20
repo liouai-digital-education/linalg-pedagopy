@@ -447,6 +447,15 @@ print(gj.pivots)                          # (0, 1)
 im = [A.col(j) for j in gj.pivots]
 print(im)                                 # colonnes pivots de A
 </code></pre></div>
+<h3 id="44-determinant-det">4.4 Déterminant (<code>det</code>)</h3>
+<p>La méthode <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>det(*, method="auto", assumptions=None)</code></a> renvoie le déterminant exact, factorisé. Elle délègue à la procédure <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/determinant.py"><code>Determinant</code></a>, décrite dans le <a href="03_algorithms_and_step_tracing.html">guide 03</a> (méthodes de Bareiss, élimination, cofacteurs, Sarrus ; trace pas à pas ; valeurs singulières du paramètre).</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, symbols
+
+a, = symbols("a")
+print(Matrix([[a, 1, 1], [1, a, 1], [1, 1, a]]).det())   # (a - 1)**2*(a + 2)
+print(Matrix([[2, 1, 3], [0, 4, 5], [1, 0, 6]]).det())   # 41
+print(Matrix([[1, a], [a, 1]]).det())                    # -(a - 1)*(a + 1) : singulière si a = ±1
+</code></pre></div>
 <hr/>
 <h2 id="5-matrices-structurees-classiques-linalg_pedagopyspecial">5. Matrices structurées classiques (<code>linalg_pedagopy.special</code>)</h2>
 <p>Les matrices que l'on rencontre dans tout cours d'algèbre linéaire appliquée se construisent directement, en arithmétique exacte. Les indices de composantes sont comptés <strong>à partir de 0</strong>, comme pour <code>Vector.unit</code>. Chaque fonction est importable depuis <code>linalg_pedagopy</code> et possède un alias français.</p>
@@ -615,6 +624,10 @@ print(reversal_matrix(3) @ Vector([1, 2, 3]))                       # (3, 2, 1)
         
         <li class="toc-item toc-h3">
           <a href="#43-reduction-echelonnee-rang-et-sous-espaces-fondamentaux">4.3 Réduction échelonnée, rang et sous-espaces fondamentaux</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#44-determinant-det">4.4 Déterminant (det)</a>
         </li>
         
         <li class="toc-item ">

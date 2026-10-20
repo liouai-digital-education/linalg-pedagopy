@@ -2,6 +2,10 @@
 
 ## [Non publié] — branche `development`
 
+### Nouveautés — phase 2 du plan v5 (déterminant)
+- **Déterminant exact tracé** : `Determinant(A, method=...)` et `Matrix.det()`. Méthodes `bareiss` (défaut avec paramètres : divisions exactes, aucune discussion de cas), `elimination` (sans dilatation ; arrêt expliqué sur un pivot conditionnel), `cofactors` (n ≤ 4, ligne ou colonne la plus creuse) et `sarrus` (n = 3). `DetResult` : valeur factorisée, facteurs, `zeros()` (valeurs singulières du paramètre), `zeros(split=True)` (inversible / non inversible), `verify()` (contrôle par l'algorithme de Berkowitz). Messages de trace en français.
+- Documentation : section 7 du guide 03, § 4.4 du guide 02, référence de l'API (§ 4.6), tutoriel (§ 5.5), README.
+
 ### Corrections
 - Site de documentation : 54 formules s'affichaient comme `ACADEMIC_TOKEN_n` (pages, sommaires « Sur cette page », index de recherche). Les jetons de protection `__…__` étaient mis en gras par Markdown et n'étaient plus restitués ; ils sont remplacés par des jetons alphanumériques (`AcadTok6Z`), retirés des ancres de titres, et la génération échoue s'il en reste. Nouveau test `tests/test_site_documentation.py`.
 

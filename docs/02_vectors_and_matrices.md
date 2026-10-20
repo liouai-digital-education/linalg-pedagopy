@@ -292,6 +292,19 @@ im = [A.col(j) for j in gj.pivots]
 print(im)                                 # colonnes pivots de A
 ```
 
+### 4.4 Déterminant (`det`)
+
+La méthode [`det(*, method="auto", assumptions=None)`](../src/linalg_pedagopy/objects/matrix.py) renvoie le déterminant exact, factorisé. Elle délègue à la procédure [`Determinant`](../src/linalg_pedagopy/algorithms/determinant.py), décrite dans le [guide 03](03_algorithms_and_step_tracing.md) (méthodes de Bareiss, élimination, cofacteurs, Sarrus ; trace pas à pas ; valeurs singulières du paramètre).
+
+```python
+from linalg_pedagopy import Matrix, symbols
+
+a, = symbols("a")
+print(Matrix([[a, 1, 1], [1, a, 1], [1, 1, a]]).det())   # (a - 1)**2*(a + 2)
+print(Matrix([[2, 1, 3], [0, 4, 5], [1, 0, 6]]).det())   # 41
+print(Matrix([[1, a], [a, 1]]).det())                    # -(a - 1)*(a + 1) : singulière si a = ±1
+```
+
 ---
 
 ## 5. Matrices structurées classiques (`linalg_pedagopy.special`)

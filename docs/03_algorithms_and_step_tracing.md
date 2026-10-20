@@ -277,3 +277,100 @@ print("RMS du résidu :", ls.residual_rms)         # sqrt(70)/20
 # verify() renvoie une Explanation qui détaille le contrôle colonne par colonne
 print(ls.verify())
 ```
+
+---
+
+## 7. Déterminant (`Determinant`)
+
+La procédure [`Determinant`](../src/linalg_pedagopy/algorithms/determinant.py) (`Determinant(A, *, method="auto", assumptions=None)`) calcule le déterminant exact d'une matrice carrée, avec paramètres éventuels, et trace le calcul. Quatre méthodes sont disponibles :
+
+| `method` | Principe | Usage |
+| :--- | :--- | :--- |
+| `"bareiss"` | Élimination **sans fractions** : $m_{ij} \leftarrow \dfrac{m_{kk}\, m_{ij} - m_{ik}\, m_{kj}}{\text{pivot précédent}}$, division exacte | Défaut dès que la matrice contient des paramètres : aucune discussion de cas |
+| `"elimination"` | Triangulation **sans dilatation** : $\det A = (-1)^{\text{échanges}} \prod \text{pivots}$ | Défaut pour une matrice numérique |
+| `"cofactors"` | Développement $\det A = \sum_j (-1)^{i+j} a_{ij} M_{ij}$ suivant la ligne ou la colonne la plus creuse | Pédagogique, $n \le 4$ |
+| `"sarrus"` | Trois diagonales descendantes moins trois diagonales montantes | $n = 3$ uniquement |
+
+`method="auto"` (défaut) choisit Bareiss si la matrice contient des paramètres, l'élimination sinon. La méthode de commodité [`Matrix.det()`](../src/linalg_pedagopy/objects/matrix.py) renvoie directement la valeur.
+
+### 7.1 Matrice paramétrée : Bareiss
+
+Avec des paramètres, l'élimination classique divise par des pivots comme $a - 1$, qui peuvent s'annuler : chaque étape ne vaudrait que sous une condition. L'algorithme de Bareiss divise par le pivot précédent, et cette division est **exacte** : les coefficients restent polynomiaux et la trace est valable pour toutes les valeurs du paramètre.
+
+```python
+from linalg_pedagopy import Matrix, symbols, Determinant
+
+a, = symbols("a")
+A = Matrix([[a, 1, 1], [1, a, 1], [1, 1, a]])
+
+A.det()                      # (a - 1)**2*(a + 2)
+
+res = Determinant(A).run()   # DetResult
+res.method                   # 'bareiss'
+res.factors                  # ((a + 2, 1), (a - 1, 2)) : facteurs et multiplicités
+print(res.explain(level=1))
+# Calcul du déterminant d'une matrice 3×3 (méthode : Bareiss).
+# ├─ Algorithme de Bareiss (élimination sans fractions) : ...
+# ├─ Étape 1 : pivot a, division exacte par le pivot précédent 1.
+# ├─ Étape 2 : pivot a² − 1, division exacte par le pivot précédent a.
+# ├─ Le dernier coefficient diagonal a³ − 3·a + 2 est le déterminant, au signe des échanges près (0 échange(s)).
+# └─ det A = (a − 1)²·(a + 2).
+```
+
+Au niveau 3, la trace donne chaque coefficient intermédiaire, mineur $2 \times 2$ divisé par le pivot précédent.
+
+### 7.2 Valeurs singulières du paramètre
+
+`zeros()` renvoie les conditions d'annulation (une disjonction : le déterminant est nul si **l'une** d'elles est vérifiée) ; `zeros(split=True)` renvoie la discussion « inversible / non inversible » :
+
+```python
+[str(c) for c in res.zeros()]    # ['a = −2', 'a = 1']
+print(res.zeros(split=True))
+# Discussion selon a
+# ├─ Cas a ≠ −2 et a ≠ 1 (générique) : True
+# ├─ Cas a = −2 : False
+# └─ Cas a = 1 : False
+```
+
+Un déterminant qui ne s'annule jamais donne `()` ; un déterminant identiquement nul donne une seule condition, toujours vraie.
+
+### 7.3 Élimination, cofacteurs et Sarrus
+
+```python
+B = Matrix([[2, 4, 1], [1, 3, 2], [0, 1, 5]])
+print(Determinant(B, method="elimination").run().explain(level=1))
+# ├─ On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+# ├─ On annule le coefficient (2,1) : L2 ← L2 − (2)·L1 (une transvection ne change pas le déterminant).
+# ├─ ...
+# ├─ Matrice triangulaire : det A = (+1) × produit des pivots (1, 1, 7) (2 échange(s) de lignes).
+# └─ det A = 7.
+
+C = Matrix([[1, 0, 2], [3, 0, 4], [5, 6, 7]])
+print(Determinant(C, method="cofactors").run().explain(level=2))
+# ├─ Développement suivant la colonne 2 (la plus creuse) : det A = Σ (−1)^(i+j) a_ij M_ij.
+# │  ├─ Coefficient a_(1,2) nul : son terme est nul, le mineur n'est pas calculé.
+# │  ├─ ...
+# │  └─ Terme (3,2) : − a_(3,2)·M_(3,2) = − (6)·(−2).
+# └─ det A = 12.
+
+D = Matrix([[2, 1, 3], [0, 4, 5], [1, 0, 6]])
+print(Determinant(D, method="sarrus").run().explain(level=1))
+# ├─ Règle de Sarrus, diagonales descendantes (signe +) : (48, 5, 0).
+# ├─ Règle de Sarrus, diagonales montantes (signe −) : (12, 0, 0).
+# └─ det A = 41.
+```
+
+L'élimination refuse de diviser par un pivot qui dépend d'un paramètre et peut s'annuler : elle s'arrête avec une explication (`PedagopyError`) qui renvoie vers Bareiss, ou vers des hypothèses explicites.
+
+```python
+Determinant(A, method="elimination").run()
+# PedagopyError : Élimination interrompue en colonne 2 : le pivot 1 - a peut s'annuler selon
+# les paramètres [...] Utilisez method='bareiss' [...] ou précisez des hypothèses (assumptions=...).
+Determinant(A, method="elimination", assumptions={"a": 3}).run().value   # 20
+```
+
+### 7.4 Vérification et cas particuliers
+
+- `verify()` recalcule le déterminant par un algorithme indépendant (Berkowitz, sans division) et confirme le résultat.
+- Une matrice non carrée lève `DimensionMismatchError` ; Sarrus sur une matrice qui n'est pas $3 \times 3$ aussi ; les cofacteurs au-delà de $4 \times 4$ lèvent `PedagopyError`.
+- Comme pour Gauss-Jordan, les valeurs interdites par les dénominateurs des coefficients (domaine de définition) sont annoncées dans la trace et restreignent toutes les conditions.

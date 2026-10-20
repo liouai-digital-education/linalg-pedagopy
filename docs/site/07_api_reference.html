@@ -446,6 +446,7 @@
 <li><code>nullspace(*, assumptions=None) -&gt; tuple[Vector, ...] | CaseSplit[...]</code>.</li>
 <li><code>inv(*, assumptions=None, strict=True) -&gt; Matrix | None | CaseSplit[Matrix | None]</code> : lève <code>SingularMatrixError</code> si <code>strict=True</code> et la matrice peut être singulière.</li>
 <li><code>solve(b, *, assumptions=None, strict=False)</code> : résolution de $A x = b$ par Gauss-Jordan.</li>
+<li><code>det(*, method="auto", assumptions=None) -&gt; Expr</code> : déterminant exact factorisé, via <code>Determinant</code> (voir § 4.6).</li>
 </ul>
 <h4 id="constructeurs">Constructeurs</h4>
 <ul>
@@ -513,6 +514,17 @@ BackSubstitution(R, c, *, assumptions=None)
 <ul>
 <li><code>method</code> : <code>"rational_qr"</code> (défaut), <code>"qr"</code> ou <code>"normal"</code>.</li>
 <li><code>.run()</code> → <code>LSResult | CaseSplit[LSResult]</code> : <code>A</code>, <code>b</code>, <code>x_hat</code>, <code>y_hat</code>, <code>r_hat</code> ($A\hat x - b$), <code>residual_norm</code>, <code>residual_rms</code>, <code>method</code>, <code>full_rank</code>, <code>witness</code> ; propriétés <code>residual</code>, <code>pseudoinverse</code>.</li>
+</ul>
+<h3 id="46-determinant">4.6 <code>Determinant</code></h3>
+<div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">Determinant(A, *, method="auto", assumptions=None)
+</code></pre></div>
+<ul>
+<li><code>A</code> : matrice carrée (sinon <code>DimensionMismatchError</code>).</li>
+<li><code>method</code> : <code>"auto"</code> (Bareiss si la matrice contient des paramètres, élimination sinon), <code>"bareiss"</code>, <code>"elimination"</code> (sans dilatation ; <code>PedagopyError</code> sur un pivot conditionnel), <code>"cofactors"</code> ($n \le 4$, sinon <code>PedagopyError</code>) ou <code>"sarrus"</code> ($n = 3$, sinon <code>DimensionMismatchError</code>).</li>
+<li><code>.run()</code> → <code>DetResult</code> (jamais de <code>CaseSplit</code> : le déterminant d'une matrice paramétrée est un polynôme en les paramètres).</li>
+<li>Champs de <code>DetResult</code> : <code>A</code>, <code>value</code> (forme factorisée), <code>method</code>, <code>factors</code> (couples <code>(facteur, multiplicité)</code>), <code>condition</code> (hypothèses et domaine de définition).</li>
+<li><code>zeros(*, split=False)</code> : conditions d'annulation (<code>tuple[Condition, ...]</code>, disjonction) ; avec <code>split=True</code>, « inversible ? » sous forme de <code>bool</code> ou de <code>CaseSplit[bool]</code>.</li>
+<li><code>verify()</code> : contrôle par un calcul indépendant (algorithme de Berkowitz).</li>
 </ul>
 <hr/>
 <h2 id="5-tracabilite-et-rendu">5. Traçabilité et rendu</h2>
@@ -713,6 +725,10 @@ BackSubstitution(R, c, *, assumptions=None)
         
         <li class="toc-item toc-h3">
           <a href="#45-leastsquares">4.5 LeastSquares</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#46-determinant">4.6 Determinant</a>
         </li>
         
         <li class="toc-item ">

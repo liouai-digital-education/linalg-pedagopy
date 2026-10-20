@@ -180,6 +180,7 @@ Matrice immuable $m \times n$ à coefficients exacts. Constructeur : `Matrix(row
 - `nullspace(*, assumptions=None) -> tuple[Vector, ...] | CaseSplit[...]`.
 - `inv(*, assumptions=None, strict=True) -> Matrix | None | CaseSplit[Matrix | None]` : lève `SingularMatrixError` si `strict=True` et la matrice peut être singulière.
 - `solve(b, *, assumptions=None, strict=False)` : résolution de $A x = b$ par Gauss-Jordan.
+- `det(*, method="auto", assumptions=None) -> Expr` : déterminant exact factorisé, via `Determinant` (voir § 4.6).
 
 #### Constructeurs
 - `Matrix.identity(n)`, `Matrix.zeros(m, n=None)`, `Matrix.ones(m, n=None)`, `Matrix.diag(diagonal)`.
@@ -257,6 +258,18 @@ LeastSquares(A, b, *, method="rational_qr", assumptions=None)
 ```
 - `method` : `"rational_qr"` (défaut), `"qr"` ou `"normal"`.
 - `.run()` → `LSResult | CaseSplit[LSResult]` : `A`, `b`, `x_hat`, `y_hat`, `r_hat` ($A\hat x - b$), `residual_norm`, `residual_rms`, `method`, `full_rank`, `witness` ; propriétés `residual`, `pseudoinverse`.
+
+### 4.6 `Determinant`
+
+```text
+Determinant(A, *, method="auto", assumptions=None)
+```
+- `A` : matrice carrée (sinon `DimensionMismatchError`).
+- `method` : `"auto"` (Bareiss si la matrice contient des paramètres, élimination sinon), `"bareiss"`, `"elimination"` (sans dilatation ; `PedagopyError` sur un pivot conditionnel), `"cofactors"` ($n \le 4$, sinon `PedagopyError`) ou `"sarrus"` ($n = 3$, sinon `DimensionMismatchError`).
+- `.run()` → `DetResult` (jamais de `CaseSplit` : le déterminant d'une matrice paramétrée est un polynôme en les paramètres).
+- Champs de `DetResult` : `A`, `value` (forme factorisée), `method`, `factors` (couples `(facteur, multiplicité)`), `condition` (hypothèses et domaine de définition).
+- `zeros(*, split=False)` : conditions d'annulation (`tuple[Condition, ...]`, disjonction) ; avec `split=True`, « inversible ? » sous forme de `bool` ou de `CaseSplit[bool]`.
+- `verify()` : contrôle par un calcul indépendant (algorithme de Berkowitz).
 
 ---
 

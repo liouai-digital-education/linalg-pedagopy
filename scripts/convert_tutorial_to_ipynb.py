@@ -9,6 +9,7 @@ Usage : python scripts/convert_tutorial_to_ipynb.py
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -73,10 +74,21 @@ def build_cells(markdown: str) -> list[dict]:
     return cells
 
 
+def _attribuer_identifiants(cells: list[dict]) -> None:
+    """Identifiants de cellule (nbformat 4.5) calculés à partir du contenu : une cellule
+    inchangée garde le même identifiant d'une régénération à l'autre, d'où des diffs minimaux."""
+    vus: dict[str, int] = {}
+    for cell in cells:
+        base = hashlib.sha1("".join(cell["source"]).encode("utf-8")).hexdigest()[:8]
+        vus[base] = vus.get(base, 0) + 1
+        cell["id"] = base if vus[base] == 1 else f"{base}-{vus[base]}"
+
+
 def create_notebook() -> None:
     text = SOURCE.read_text(encoding="utf-8")
     cells = build_cells(text)
     cells.insert(1, _code(INIT_CELL))
+    _attribuer_identifiants(cells)
     nb = {
         "cells": cells,
         "metadata": {

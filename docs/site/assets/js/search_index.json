@@ -295,6 +295,13 @@
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
+    "title": "4.4 Déterminant (det)",
+    "url": "02_vectors_and_matrices.html#44-determinant-det",
+    "snippet": "La méthode det(*, method=\"auto\", assumptions=None) renvoie le déterminant exact, factorisé. Elle délègue à la procédure Determinant, décrite dans le guide 03 (m...",
+    "content": "4.4 Déterminant (det) La méthode det(*, method=\"auto\", assumptions=None) renvoie le déterminant exact, factorisé. Elle délègue à la procédure Determinant, décrite dans le guide 03 (m..."
+  },
+  {
+    "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "5. Matrices structurées classiques (linalg_pedagopy.special)",
     "url": "02_vectors_and_matrices.html#5-matrices-structurees-classiques-linalg_pedagopyspecial",
     "snippet": "Les matrices que l'on rencontre dans tout cours d'algèbre linéaire appliquée se construisent directement, en arithmétique exacte. Les indices de composantes son...",
@@ -390,6 +397,41 @@
     "url": "03_algorithms_and_step_tracing.html#6-moindres-carres-lineaires-leastsquares",
     "snippet": "La régression au sens des moindres carrés résout le problème d'optimisation :\n$$\\min_{x} \\|A x - b\\|^2$$...",
     "content": "6. Moindres Carrés Linéaires (LeastSquares) La régression au sens des moindres carrés résout le problème d'optimisation :\n$$\\min_{x} \\|A x - b\\|^2$$..."
+  },
+  {
+    "pageTitle": "03. Algorithmes & traçabilité",
+    "title": "7. Déterminant (Determinant)",
+    "url": "03_algorithms_and_step_tracing.html#7-determinant-determinant",
+    "snippet": "La procédure Determinant (Determinant(A, *, method=\"auto\", assumptions=None)) calcule le déterminant exact d'une matrice carrée, avec paramètres éventuels, et t...",
+    "content": "7. Déterminant (Determinant) La procédure Determinant (Determinant(A, *, method=\"auto\", assumptions=None)) calcule le déterminant exact d'une matrice carrée, avec paramètres éventuels, et t..."
+  },
+  {
+    "pageTitle": "03. Algorithmes & traçabilité",
+    "title": "7.1 Matrice paramétrée : Bareiss",
+    "url": "03_algorithms_and_step_tracing.html#71-matrice-parametree-bareiss",
+    "snippet": "Avec des paramètres, l'élimination classique divise par des pivots comme $a - 1$, qui peuvent s'annuler : chaque étape ne vaudrait que sous une condition. L'alg...",
+    "content": "7.1 Matrice paramétrée : Bareiss Avec des paramètres, l'élimination classique divise par des pivots comme $a - 1$, qui peuvent s'annuler : chaque étape ne vaudrait que sous une condition. L'alg..."
+  },
+  {
+    "pageTitle": "03. Algorithmes & traçabilité",
+    "title": "7.2 Valeurs singulières du paramètre",
+    "url": "03_algorithms_and_step_tracing.html#72-valeurs-singulieres-du-parametre",
+    "snippet": "zeros() renvoie les conditions d'annulation (une disjonction : le déterminant est nul si l'une d'elles est vérifiée) ; zeros(split=True) renvoie la discussion «...",
+    "content": "7.2 Valeurs singulières du paramètre zeros() renvoie les conditions d'annulation (une disjonction : le déterminant est nul si l'une d'elles est vérifiée) ; zeros(split=True) renvoie la discussion «..."
+  },
+  {
+    "pageTitle": "03. Algorithmes & traçabilité",
+    "title": "7.3 Élimination, cofacteurs et Sarrus",
+    "url": "03_algorithms_and_step_tracing.html#73-elimination-cofacteurs-et-sarrus",
+    "snippet": "L'élimination refuse de diviser par un pivot qui dépend d'un paramètre et peut s'annuler : elle s'arrête avec une explication (PedagopyError) qui renvoie vers B...",
+    "content": "7.3 Élimination, cofacteurs et Sarrus L'élimination refuse de diviser par un pivot qui dépend d'un paramètre et peut s'annuler : elle s'arrête avec une explication (PedagopyError) qui renvoie vers B..."
+  },
+  {
+    "pageTitle": "03. Algorithmes & traçabilité",
+    "title": "7.4 Vérification et cas particuliers",
+    "url": "03_algorithms_and_step_tracing.html#74-verification-et-cas-particuliers",
+    "snippet": "",
+    "content": "7.4 Vérification et cas particuliers "
   },
   {
     "pageTitle": "04. Le tuteur interactif",
@@ -740,6 +782,13 @@
     "url": "07_api_reference.html#45-leastsquares",
     "snippet": "Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av...",
     "content": "4.5 LeastSquares Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av..."
+  },
+  {
+    "pageTitle": "07. Référence de l'API",
+    "title": "4.6 Determinant",
+    "url": "07_api_reference.html#46-determinant",
+    "snippet": "Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av...",
+    "content": "4.6 Determinant Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av..."
   },
   {
     "pageTitle": "07. Référence de l'API",
