@@ -2,6 +2,10 @@
 
 ## [Non publié] — branche `development`
 
+## [3.0.1] — 2026-10-21
+
+Première version publique : fin de la phase 1 du plan v5 (corrections relevées par les tests de caractérisation, préparation et publication du dépôt). Dépôt : https://github.com/liouai-digital-education/linalg-pedagopy ; documentation : https://liouai-digital-education.github.io/linalg-pedagopy/.
+
 ### Phase 1 du plan v5 — corrections
 - Oracle de nullité : les valeurs interdites par les dénominateurs sont relevées **avant** toute simplification et rendues dans le nouveau champ `ZeroDecision.domain` (pour `(a**2 - 1)/(a - 1)` : domaine `a ≠ 1`, au lieu de perdre la valeur interdite). Le verdict est décidé sur ce domaine ; sous une hypothèse qui annule un dénominateur, l'oracle répond `UNKNOWN` avec la méthode `undefined`.
 - Gauss-Jordan (et donc `rref`, `rank`, `nullspace`, `inv`, `solve`) tient compte du domaine de définition des coefficients : les valeurs interdites par leurs dénominateurs restreignent toutes les branches (pour `[[(a²−1)/(a−1), 1], [1, 1]]`, la branche générique devient « a ≠ 1 et a ≠ 0 »), la trace l'annonce (`gj.domain`), et des hypothèses incompatibles lèvent une `PedagopyError` explicite. Nouvelle fonction `domain_of` dans `core.zero`.
@@ -20,6 +24,7 @@
 - Carnets versionnés **sans sorties** : `scripts/nettoyer_carnets.py` (sans dépendance ; modes `--verifier` et `--filtre`), filtre git facultatif `carnets` déclaré dans `.gitattributes`, test `tests/test_carnets_propres.py`. Les 6 carnets suivis sont nettoyés : seules leurs sorties, souvent issues d'exécutions partielles, sont retirées.
 - Métadonnées du paquet : statut **Beta** (au lieu de « Production/Stable ») tant que l'API du tuteur évolue, classificateurs « Natural Language :: French » et « Topic :: Education ». Les URL du dépôt et de la documentation viendront avec la publication.
 - Publication préparée : URL du dépôt `liouai-digital-education/linalg-pedagopy` et de la documentation (GitHub Pages) dans `[project.urls]`, badges du README ; workflow `documentation.yml` qui publie `docs/site/` ; les liens du site vers le code source visent GitHub quand l'URL « Source » est connue ; chemins locaux retirés de l'ancien plan d'implémentation ; branche `master` renommée `main`.
+- Dépôt public `liouai-digital-education/linalg-pedagopy` : historique publié avec l'adresse e-mail du projet, CI verte sur `main` et `development` (Python 3.10 à 3.13), documentation en ligne ; relance manuelle possible du workflow Tests. Version lue dans `pyproject.toml` par le site ; test de cohérence avec `__version__`.
 
 ### Phase 0 du plan v5 — filet de sécurité
 - Python **3.10** minimum (`requires-python`, ruff, mypy, classificateurs).

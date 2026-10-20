@@ -99,7 +99,7 @@ from linalg_pedagopy.trace import (
 )
 from linalg_pedagopy import tuteur, tutor
 
-__version__ = "3.0.0"
+__version__ = "3.0.1"
 
 __all__ = [
     "__version__",

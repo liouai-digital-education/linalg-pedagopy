@@ -32,6 +32,13 @@ def _url_source_depot() -> str | None:
     url = urls.get("project", {}).get("urls", {}).get("Source")
     return url.rstrip("/") if url else None
 
+
+def _version_paquet() -> str:
+    """Version du paquet lue dans pyproject.toml (source unique), affichée dans la barre latérale."""
+    texte = (RACINE / "pyproject.toml").read_text(encoding="utf-8")
+    trouve = re.search(r'^version\s*=\s*"([^"]+)"', texte, re.MULTILINE)
+    return trouve.group(1) if trouve else "?"
+
 PAGES = [
     {"id": "index", "src": "index.md", "dst": "index.html", "title": "Accueil & démarrage",
      "subtitle": "Présentation, installation, démarrage rapide et principes", "badge": "Portail", "number": "00"},
@@ -1032,7 +1039,7 @@ PAGE_TEMPLATE = jinja2.Template("""<!DOCTYPE html>
       </ul>
 
       <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
-        <strong>Version 3.0.0</strong><br>
+        <strong>Version {{ version }}</strong><br>
         Calcul exact · tuteur interactif
       </div>
     </aside>
@@ -1280,6 +1287,7 @@ def build_site() -> None:
             next_page=next_page,
             content_html=content_html,
             toc_items=toc_items,
+            version=_version_paquet(),
         )
 
         dst_path = OUTPUT_DIR / page["dst"]
