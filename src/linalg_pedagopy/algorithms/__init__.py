@@ -10,6 +10,7 @@ from linalg_pedagopy.algorithms.base import (
     SolutionSet,
     UniqueSolution,
 )
+from linalg_pedagopy.algorithms.determinant import Determinant, DetResult
 from linalg_pedagopy.algorithms.gauss_jordan import GaussJordan, GJResult
 from linalg_pedagopy.algorithms.gram_schmidt import (
     DependenceWitness,
@@ -28,6 +29,8 @@ __all__ = [
     "AffineSolution",
     "BackSubstitution",
     "DependenceWitness",
+    "DetResult",
+    "Determinant",
     "EmptySolution",
     "ForwardSubstitution",
     "GJResult",

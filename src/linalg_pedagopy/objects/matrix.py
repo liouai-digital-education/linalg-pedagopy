@@ -30,6 +30,16 @@ def register_gauss_jordan_hook(factory: Callable[..., Any]) -> None:
     _gauss_jordan_factory = factory
 
 
+# Hook de la procédure Determinant (même principe que GaussJordan)
+_determinant_factory: Callable[..., Any] | None = None
+
+
+def register_determinant_hook(factory: Callable[..., Any]) -> None:
+    """Enregistre la fabrique Determinant pour Matrix.det()."""
+    global _determinant_factory
+    _determinant_factory = factory
+
+
 class Matrix:
     """Matrice immuable m x n à coefficients exacts sur R."""
 
@@ -717,6 +727,13 @@ class Matrix:
                 parameters=res.parameters,
             )
         return res.inverse  # type: ignore[no-any-return]
+
+    def det(self, *, method: str = "auto", assumptions: Any = None) -> sp.Expr:
+        """Déterminant exact, factorisé (méthodes : auto, bareiss, elimination, cofactors, sarrus)."""
+        if _determinant_factory is None:
+            raise RuntimeError("Le module algorithms.determinant n'est pas initialisé.")
+        valeur: sp.Expr = _determinant_factory(self, method=method, assumptions=assumptions).run().value
+        return valeur
 
     def solve(
         self,
