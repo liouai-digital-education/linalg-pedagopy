@@ -1,0 +1,56 @@
+# Tests et vérifications
+
+Guide pour les contributeurs : comment vérifier qu'une modification ne casse rien.
+
+## En une commande
+
+```bash
+pip install -e ".[dev,plot,compare]"
+python verifier_tout.py              # tests (+ couverture), fiches, ruff, mypy (informatif), carnets
+python verifier_tout.py --rapide     # tests et fiches seulement
+```
+
+L'intégration continue (`.github/workflows/tests.yml`) exécute les mêmes étapes sur Python 3.10 à 3.13 à chaque envoi sur `main` ou `development`, une fois le dépôt publié sur GitHub.
+
+## Les familles de tests
+
+| Fichiers | Rôle |
+|:---|:---|
+| `tests/test_*.py` (hors caractérisation) | Tests unitaires : propriétés mathématiques, API, cas limites. |
+| `tests/test_caracterisation_algorithmes.py` | Fige les traces (`explain` niveaux 0 à 3, Markdown, LaTeX, HTML), les discussions de cas et les décisions de l'oracle pour une trentaine de calculs représentatifs. |
+| `tests/test_caracterisation_tuteur.py` | Fige, pour chacune des 35 fiches, l'énoncé, les paliers d'indices, le jumeau, les diagnostics de réponses fausses génériques et la fiche enseignant ; ainsi que le laboratoire, le catalogue, le glossaire et les 40 générateurs de jumeaux. |
+| `tests/run_notebooks.py` | Exécute les carnets maintenus (tutoriel, problèmes, projet, cahier d'exercices et corrigé). |
+
+## Tests de caractérisation : mode d'emploi
+
+Un test de caractérisation compare une sortie complète au fichier `tests/references/<nom>.txt`, au caractère près. Il ne dit pas ce qui est juste : il signale **tout changement**.
+
+- **Refactorisation** (phases 1 à 3) : les références ne doivent pas bouger. Un échec affiche le diff entre la référence et la sortie obtenue.
+- **Changement voulu** (nouveau message, correction de trace) : régénérez puis relisez le diff git avant de commiter.
+
+```bash
+LP_MAJ_REFERENCES=1 pytest tests/test_caracterisation_algorithmes.py   # macOS / Linux
+set LP_MAJ_REFERENCES=1 && pytest tests\test_caracterisation_tuteur.py   # Windows (cmd)
+git diff tests/references                                               # relire chaque changement
+```
+
+Les références sont stables d'une exécution à l'autre (vérifié avec plusieurs valeurs de `PYTHONHASHSEED`). Elles dépendent de la version de SymPy, qui peut changer l'écriture de certaines expressions : après une mise à jour de SymPy, régénérez-les et vérifiez que seules des écritures ont changé.
+
+Le fichier `.gitattributes` impose des fins de ligne LF pour `tests/references/`, afin que les comparaisons fonctionnent aussi sous Windows.
+
+## Carnets
+
+```bash
+python tests/run_notebooks.py                       # moteur Jupyter si nbclient et ipykernel sont installés
+python tests/run_notebooks.py --moteur simple       # sans Jupyter
+python tests/run_notebooks.py exercices/vecteurs_matrices.ipynb
+```
+
+Chaque carnet est exécuté dans un dossier de travail temporaire, avec un journal du tuteur temporaire : les fichiers qu'il exporte n'atterrissent pas dans le dépôt, votre journal personnel n'est pas modifié, et les carnets eux-mêmes ne sont pas réécrits.
+
+Les carnets sont versionnés **sans leurs sorties**. Si vous exécutez un carnet dans JupyterLab, effacez les sorties (*Edit → Clear Outputs of All Cells*) avant de le commiter.
+
+## Qualité du code
+
+- `ruff check src tests` : règles `E4`, `E7`, `E9`, `F` (bloquant).
+- `mypy src/linalg_pedagopy` : mode strict, informatif pour l'instant (voir `docs/dev/couverture.md`).

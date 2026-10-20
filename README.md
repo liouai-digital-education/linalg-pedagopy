@@ -1,6 +1,6 @@
 # `linalg_pedagopy` — algèbre linéaire formelle et pédagogique
 
-[![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://www.python.org/)
 [![Licence : MIT](https://img.shields.io/badge/licence-MIT-green.svg)](LICENSE)
 [![Documentation](https://img.shields.io/badge/docs-docs%2Findex.md-orange.svg)](docs/index.md)
 
@@ -102,10 +102,13 @@ Le dossier [`exercices/`](exercices/) contient un cahier de **20 exercices de ca
 ## Tests
 
 ```bash
-pytest tests/ -v
+pytest tests/ -v                 # tests unitaires et de caractérisation
+python verifier_tout.py          # tout : tests + couverture, fiches, ruff, mypy, carnets
 ```
 
 Les tests couvrent notamment la partition disjointe des cas et la commutation `CaseSplit.at(**p)` = calcul direct en `p`, les radicaux paramétriques, la validation des 35 fiches (absence de fuite dans les indices, contrôle croisé avec le solveur), la robustesse du tuteur face aux réponses mal formées et l'impossibilité d'extraire les données verrouillées par introspection.
+
+Les tests de caractérisation figent les traces et les diagnostics du tuteur dans `tests/references/` pour sécuriser les refactorisations ; voir [docs/dev/tests_et_verifications.md](docs/dev/tests_et_verifications.md).
 
 ---
 

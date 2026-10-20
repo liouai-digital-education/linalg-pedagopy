@@ -2,6 +2,15 @@
 
 ## [Non publié] — branche `development`
 
+### Phase 0 du plan v5 — filet de sécurité
+- Python **3.10** minimum (`requires-python`, ruff, mypy, classificateurs).
+- Tests de caractérisation : traces, discussions de cas et oracle (`tests/test_caracterisation_algorithmes.py`), énoncés, indices, jumeaux et diagnostics des 35 fiches (`tests/test_caracterisation_tuteur.py`), références dans `tests/references/` (régénération : `LP_MAJ_REFERENCES=1`).
+- `tests/run_notebooks.py` : exécution des carnets maintenus (moteur Jupyter ou simple), journal du tuteur temporaire.
+- `verifier_tout.py` et intégration continue GitHub Actions (`.github/workflows/tests.yml`) : tests et couverture sur Python 3.10 à 3.13, fiches, ruff, mypy (informatif), carnets.
+- Configuration ruff (`E4`, `E7`, `E9`, `F`) et mypy (bibliothèques sans types ignorées) ; dépendances de développement : `nbformat`, `nbclient`, `ipykernel` (`syrupy`, inutilisé, retiré).
+- Corrections de lint sans effet sur le comportement (imports inutilisés, annotation `Mapping` manquante, variable inutilisée).
+- Documentation développeur : `docs/dev/tests_et_verifications.md`, `docs/dev/couverture.md`.
+
 ### Tuteur et exercices
 - Les 35 exercices ont désormais un **identifiant lisible**, un **titre**, un **thème** (8 thèmes), un **niveau** (★ à ★★★) et un **numéro** ; plus aucune référence à un ouvrage ou recueil externe (fiches renommées `<identifiant>.yaml`, champs `page`, `source`, `ecart` supprimés).
 - `tutor.catalog()` / `catalogue()` (tableau Markdown dans JupyterLab), `tutor.themes()`, `tutor.list_exercises(theme)`, `tutor.reload_catalog()`.
