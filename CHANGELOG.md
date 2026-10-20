@@ -5,6 +5,8 @@
 ### Phase 1 du plan v5 — corrections
 - Oracle de nullité : les valeurs interdites par les dénominateurs sont relevées **avant** toute simplification et rendues dans le nouveau champ `ZeroDecision.domain` (pour `(a**2 - 1)/(a - 1)` : domaine `a ≠ 1`, au lieu de perdre la valeur interdite). Le verdict est décidé sur ce domaine ; sous une hypothèse qui annule un dénominateur, l'oracle répond `UNKNOWN` avec la méthode `undefined`.
 - Gauss-Jordan (et donc `rref`, `rank`, `nullspace`, `inv`, `solve`) tient compte du domaine de définition des coefficients : les valeurs interdites par leurs dénominateurs restreignent toutes les branches (pour `[[(a²−1)/(a−1), 1], [1, 1]]`, la branche générique devient « a ≠ 1 et a ≠ 0 »), la trace l'annonce (`gj.domain`), et des hypothèses incompatibles lèvent une `PedagopyError` explicite. Nouvelle fonction `domain_of` dans `core.zero`.
+- Oracle : la condition d'annulation d'un verdict conditionnel est complète. Le nouveau champ `ZeroDecision.cases` donne une alternative par facteur, et `format_cases()` l'affiche (`a*b` : « a = 0 ou b = 0 ») ; `condition` reste la première alternative. Le vérificateur d'opérations élémentaires affiche la condition complète.
+- `Vector.is_zero()` et `Matrix.has_orthonormal_columns()` discutent désormais des cas disjoints et exhaustifs (nouvelle fonction `decide_all_zero`). Auparavant, `Vector([a*b, 0]).is_zero()` répondait faux en a = 1, b = 0, et `Vector([a, b - 1]).is_zero()` ne couvrait pas a = 0, b = 2.
 
 ### Phase 0 du plan v5 — filet de sécurité
 - Python **3.10** minimum (`requires-python`, ruff, mypy, classificateurs).

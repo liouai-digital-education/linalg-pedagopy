@@ -5,11 +5,11 @@
 a - 2                        | CONDITIONAL | facteurs ('a - 2',) | condition a = 2 | domaine — | méthode domain
 a**2 + 1                     | NONZERO     | facteurs () | condition — | domaine — | méthode domain
 (a - 1)**2                   | CONDITIONAL | facteurs ('a - 1',) | condition a = 1 | domaine — | méthode domain
-a*b                          | CONDITIONAL | facteurs ('a', 'b') | condition a = 0 | domaine — | méthode domain
-a**2 - b**2                  | CONDITIONAL | facteurs ('a - b', 'a + b') | condition a = b | domaine — | méthode domain
+a*b                          | CONDITIONAL | facteurs ('a', 'b') | condition a = 0 ou b = 0 | domaine — | méthode domain
+a**2 - b**2                  | CONDITIONAL | facteurs ('a - b', 'a + b') | condition a = b ou a = −b | domaine — | méthode domain
 0                            | ZERO        | facteurs () | condition — | domaine — | méthode domain
 sqrt(2) + sqrt(3)            | NONZERO     | facteurs () | condition — | domaine — | méthode minpoly
-sqrt(1 - m**2)               | CONDITIONAL | facteurs ('m - 1', 'm + 1') | condition m = 1 | domaine — | méthode domain
+sqrt(1 - m**2)               | CONDITIONAL | facteurs ('m - 1', 'm + 1') | condition m = 1 ou m = −1 | domaine — | méthode domain
 sqrt(a**2 + 1) - 1           | CONDITIONAL | facteurs ('a',) | condition a = 0 | domaine — | méthode domain
 sqrt(a) - 2                  | CONDITIONAL | facteurs ('a - 4',) | condition a = 4 | domaine — | méthode domain
 p                            | NONZERO     | facteurs () | condition — | domaine — | méthode domain

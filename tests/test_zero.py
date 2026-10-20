@@ -6,6 +6,7 @@ import pytest
 import sympy as sp
 
 from linalg_pedagopy import (
+    CaseSplit,
     Condition,
     UndecidableZeroError,
     Verdict,
@@ -142,3 +143,31 @@ def test_zero_oracle_domain_and_assumptions() -> None:
     # Dans le domaine, les verdicts restent exacts
     assert oracle.decide(expr, assumptions={"a": -1}).verdict == Verdict.ZERO
     assert oracle.decide(expr, assumptions={"a": 2}).verdict == Verdict.NONZERO
+
+
+def test_zero_oracle_product_condition_is_a_disjunction() -> None:
+    a, b = symbols("a b")
+    d = oracle.decide(a * b)
+    assert d.verdict == Verdict.CONDITIONAL
+    assert [str(c) for c in d.cases] == ["a = 0", "b = 0"]
+    assert d.format_cases() == "a = 0 ou b = 0"
+    assert d.condition == d.cases[0]
+    # Un seul facteur : une seule alternative ; verdict tranché : aucune
+    assert oracle.decide(a - 2).format_cases() == "a = 2"
+    assert oracle.decide(a**2 + 1).cases == ()
+
+
+def test_decide_all_zero_branches_are_disjoint_and_exhaustive() -> None:
+    from linalg_pedagopy.core.zero import decide_all_zero
+
+    a, b = symbols("a b")
+    res = decide_all_zero([a * b, 0])
+    assert isinstance(res, CaseSplit)
+    for va in (-1, 0, 2):
+        for vb in (0, 3):
+            matching = [br for br in res.branches if br.condition.is_satisfied({a: va, b: vb})]
+            assert len(matching) == 1
+            assert matching[0].result is (va * vb == 0)
+    assert decide_all_zero([0, sp.Rational(0)]) is True
+    assert decide_all_zero([a, 1]) is False
+    assert decide_all_zero([a * b], assumptions="a != 0").at(a=1, b=0) is True

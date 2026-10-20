@@ -74,6 +74,22 @@ def test_vector_is_zero_with_parameter() -> None:
     assert res.at(a=1) is True
 
 
+def test_vector_is_zero_with_product_and_several_parameters() -> None:
+    a, b = symbols("a b")
+    # a·b s'annule si a = 0 OU b = 0 : les deux cas doivent être couverts
+    res = Vector([a * b, 0]).is_zero()
+    assert isinstance(res, CaseSplit)
+    assert res.at(a=0, b=5) is True
+    assert res.at(a=1, b=0) is True
+    assert res.at(a=1, b=2) is False
+    # Deux composantes : toute valeur des paramètres tombe dans une branche
+    res2 = Vector([a, b - 1]).is_zero()
+    assert isinstance(res2, CaseSplit)
+    assert res2.at(a=0, b=1) is True
+    assert res2.at(a=0, b=2) is False
+    assert res2.at(a=3, b=1) is False
+
+
 def test_vector_traces_at_level_2_and_3() -> None:
     u = Vector([1, 2])
     v = Vector([3, 4])

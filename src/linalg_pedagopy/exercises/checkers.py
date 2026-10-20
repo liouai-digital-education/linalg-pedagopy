@@ -233,12 +233,12 @@ def check_row_operation(
         if num_c.free_symbols or den_c.free_symbols:
             cond_expr = den_c if den_c.free_symbols else num_c
             dec_param = oracle.decide(cond_expr)
-            if dec_param.verdict == Verdict.CONDITIONAL and dec_param.condition is not None:
+            if dec_param.verdict == Verdict.CONDITIONAL and dec_param.cases:
                 return OperationFeedback(
                     status="invalid",
                     message=(
                         f"Attention : division ou dilatation par un pivot dépendant d'un paramètre "
-                        f"sans discussion (condition d'annulation : {dec_param.condition}). "
+                        f"sans discussion (condition d'annulation : {dec_param.format_cases()}). "
                         "Séparez les cas avant de diviser."
                     ),
                     error_code="parameter_division_without_discussion",

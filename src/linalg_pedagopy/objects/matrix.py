@@ -7,13 +7,13 @@ from typing import Any, Callable, Iterable, Iterator, Literal, Mapping, Sequence
 import sympy as sp
 from sympy.polys.matrices import DomainMatrix
 
-from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
+from linalg_pedagopy.core.cases import Branch, CaseSplit
 from linalg_pedagopy.core.exceptions import (
     DimensionMismatchError,
     UndefinedOperationError,
 )
 from linalg_pedagopy.core.field import choose_domain, match_symbol_substitutions, to_exact
-from linalg_pedagopy.core.zero import AssumptionsType, Verdict, oracle
+from linalg_pedagopy.core.zero import AssumptionsType, Verdict, decide_all_zero, oracle
 from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.trace.step import StepKind
 from linalg_pedagopy.trace.tracer import record, section, suspend_tracing
@@ -611,7 +611,6 @@ class Matrix:
                 g = self.gram()
                 ident = Matrix.identity(self._ncols)
                 diff = g - ident
-            cond_all = Condition.true()
             has_cond = False
             for i in range(self._ncols):
                 for j in range(self._ncols):
@@ -628,21 +627,14 @@ class Matrix:
                     )
                     if dec.verdict == Verdict.NONZERO:
                         return False
-                    if dec.verdict == Verdict.CONDITIONAL and dec.condition is not None:
+                    if dec.verdict == Verdict.CONDITIONAL:
                         has_cond = True
-                        cond_all = cond_all & dec.condition
                     elif dec.verdict == Verdict.UNKNOWN:
                         oracle.is_zero(diff[i, j], assumptions=assumptions)
 
             if not has_cond:
                 return True
-            neg_cond = Condition(eqs=(), neqs=cond_all.eqs)
-            return CaseSplit(
-                branches=(
-                    Branch(condition=neg_cond, result=False, trace=None),
-                    Branch(condition=cond_all, result=True, trace=None),
-                )
-            )
+            return decide_all_zero(diff.flat_entries, assumptions)
 
     def _require_gj(self) -> Callable[..., Any]:
         if _gauss_jordan_factory is None:

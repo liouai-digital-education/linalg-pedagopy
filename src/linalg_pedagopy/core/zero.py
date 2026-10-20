@@ -8,8 +8,9 @@ from typing import Any, Iterable, Mapping
 
 import sympy as sp
 
-from linalg_pedagopy.core.cases import Condition
-from linalg_pedagopy.core.exceptions import UndecidableZeroError
+from linalg_pedagopy.config import config
+from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
+from linalg_pedagopy.core.exceptions import PedagopyError, UndecidableZeroError
 from linalg_pedagopy.core.field import emit_core_event, symbols, to_exact
 
 
@@ -29,6 +30,10 @@ AssumptionsType = Condition | Mapping[str | sp.Symbol, Any] | None
 class ZeroDecision:
     """Résultat détaillé d'une décision de l'oracle de nullité.
 
+    Pour un verdict conditionnel, ``cases`` est la condition d'annulation complète :
+    l'expression est nulle si et seulement si l'une de ces conditions est vérifiée
+    (``a*b`` : ``a = 0`` ou ``b = 0``). ``condition`` n'en est que la première.
+
     ``domain`` réunit les valeurs interdites par les dénominateurs (par exemple
     ``a ≠ 1`` pour ``(a**2 - 1)/(a - 1)``) : le verdict ne vaut que sur ce domaine.
     """
@@ -38,6 +43,11 @@ class ZeroDecision:
     method: str = ""
     factors: tuple[sp.Expr, ...] = ()
     domain: Condition | None = None
+    cases: tuple[Condition, ...] = ()
+
+    def format_cases(self) -> str:
+        """Condition d'annulation complète en texte, ex. « a = 0 ou b = 0 »."""
+        return " ou ".join(c.format_text() for c in self.cases)
 
 
 def _normalize_assumptions(assumptions: Any) -> Condition:
@@ -333,12 +343,15 @@ class ZeroOracle:
                 if not real_factors:
                     return ZeroDecision(verdict=Verdict.NONZERO, condition=None, method="domain")
 
-                first_cond = Condition.from_zero_expr(real_factors[0], is_zero=True)
+                zero_cases = tuple(
+                    Condition.from_zero_expr(fac, is_zero=True) for fac in real_factors
+                )
                 return ZeroDecision(
                     verdict=Verdict.CONDITIONAL,
-                    condition=first_cond,
+                    condition=zero_cases[0],
                     method="domain",
                     factors=tuple(real_factors),
+                    cases=zero_cases,
                 )
 
         # Étape 2 : Nombres algébriques (radicaux sans paramètres)
@@ -408,3 +421,51 @@ class ZeroOracle:
 
 
 oracle = ZeroOracle()
+
+
+def decide_all_zero(exprs: Iterable[Any], assumptions: AssumptionsType = None) -> bool | CaseSplit[bool]:
+    """Décide si toutes les expressions sont nulles, avec une discussion de cas disjoints et exhaustifs.
+
+    Sur un verdict conditionnel, on sépare comme Gauss-Jordan : tous les facteurs
+    non nuls (branche générique), puis le facteur i nul et les précédents non nuls.
+    """
+    items = [to_exact(e) if not isinstance(e, sp.Expr) else e for e in exprs]
+    return _all_zero(items, _normalize_assumptions(assumptions), depth=0)
+
+
+def _all_zero(exprs: list[sp.Expr], cond: Condition, *, depth: int) -> bool | CaseSplit[bool]:
+    # Une composante non nulle tranche tout de suite, sans discussion inutile
+    decisions: list[ZeroDecision] = []
+    for e in exprs:
+        dec = oracle.decide(e, assumptions=cond)
+        if dec.verdict == Verdict.NONZERO:
+            return False
+        decisions.append(dec)
+    for e, dec in zip(exprs, decisions):
+        if dec.verdict == Verdict.UNKNOWN:
+            oracle.is_zero(e, assumptions=cond)  # lève UndecidableZeroError
+        if dec.verdict != Verdict.CONDITIONAL:
+            continue
+        if depth >= config.max_case_depth:
+            raise PedagopyError(
+                f"Profondeur maximale de discussion par cas atteinte (max_depth={config.max_case_depth}). "
+                "Fournissez des hypothèses sur les paramètres (assumptions=...)."
+            )
+        sub_conds = [cond]
+        for fac in dec.factors:
+            sub_conds[0] = sub_conds[0] & Condition.from_zero_expr(fac, is_zero=False)
+        prefix = cond
+        for fac in dec.factors:
+            sub_conds.append(prefix & Condition.from_zero_expr(fac, is_zero=True))
+            prefix = prefix & Condition.from_zero_expr(fac, is_zero=False)
+        branches: list[Branch[bool]] = []
+        for sub in sub_conds:
+            if sub.is_contradictory:
+                continue
+            res = _all_zero(exprs, sub, depth=depth + 1)
+            if isinstance(res, CaseSplit):
+                branches.extend(res.branches)
+            else:
+                branches.append(Branch(condition=sub, result=res))
+        return CaseSplit(branches=tuple(branches))
+    return True

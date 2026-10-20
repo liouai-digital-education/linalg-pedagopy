@@ -60,7 +60,7 @@ La suite compte désormais **145 tests** (71 tests unitaires + 74 tests de carac
 Les tests de caractérisation figent le comportement **actuel**, y compris ces particularités, qui ne sont pas corrigées pendant la phase 0 :
 
 1. `explain(level=0)` renvoie un texte vide, alors que la documentation présente le niveau 0 comme « résultat seul ». À trancher : afficher le résultat, ou documenter le niveau 0 comme « aucune trace ».
-2. Pour `a*b`, l'oracle renvoie bien les deux facteurs (`a`, `b`), mais sa `condition` ne mentionne que `a = 0`.
+2. ~~Pour `a*b`, l'oracle renvoie bien les deux facteurs (`a`, `b`), mais sa `condition` ne mentionne que `a = 0`.~~ Corrigé (tâche 1.2 du plan v5) : `ZeroDecision.cases` donne la disjonction complète ; `Vector.is_zero` et `has_orthonormal_columns`, qui en dépendaient, discutent maintenant des cas disjoints et exhaustifs.
 3. ~~Pour `(a**2 - 1)/(a - 1)`, l'oracle simplifie d'abord et ne retient que le facteur `a + 1` (la valeur interdite `a = 1` n'apparaît pas).~~ Corrigé (tâche 1.1 du plan v5) : la valeur interdite figure dans `ZeroDecision.domain`.
 4. Quand une réponse de formule ne peut pas être lue (par exemple une matrice affichée en caractères graphiques), le diagnostic du tuteur recopie le message brut de SymPy et de Python (« Sympify of expression … SyntaxError: … »). Ce texte, en anglais, change d'une version de Python à l'autre (3.10 et 3.13 diffèrent) : le test de caractérisation le remplace par `<message d'erreur de SymPy>` et ne fige que la phrase d'aide. À remplacer par un message en français propre au tuteur.
 5. `mypy --strict` signale environ 215 erreurs, dont 161 `attr-defined` dues aux classes immuables à `__slots__` (attributs posés par `object.__setattr__`). L'étape mypy reste donc informative.

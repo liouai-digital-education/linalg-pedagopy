@@ -7,13 +7,13 @@ from typing import Any, Iterable, Iterator, Mapping, Sequence, overload
 import sympy as sp
 from sympy.polys.matrices import DomainMatrix
 
-from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
+from linalg_pedagopy.core.cases import CaseSplit
 from linalg_pedagopy.core.exceptions import (
     DimensionMismatchError,
     UndefinedOperationError,
 )
 from linalg_pedagopy.core.field import choose_domain, match_symbol_substitutions, to_exact
-from linalg_pedagopy.core.zero import AssumptionsType, Verdict, oracle
+from linalg_pedagopy.core.zero import AssumptionsType, Verdict, decide_all_zero, oracle
 from linalg_pedagopy.trace.step import StepKind
 from linalg_pedagopy.trace.tracer import record, section, suspend_tracing
 
@@ -458,39 +458,7 @@ class Vector:
 
     def is_zero(self, assumptions: AssumptionsType = None) -> bool | CaseSplit[bool]:
         """Teste si le vecteur est nul via ZeroOracle ; peut renvoyer un CaseSplit[bool]."""
-        cond_zero = Condition.true()
-        has_conditional = False
-        for e in self._entries:
-            dec = oracle.decide(e, assumptions=assumptions)
-            if dec.verdict == Verdict.NONZERO:
-                return False
-            if dec.verdict == Verdict.CONDITIONAL and dec.condition is not None:
-                has_conditional = True
-                cond_zero = cond_zero & dec.condition
-            elif dec.verdict == Verdict.UNKNOWN:
-                # Re-lève UndecidableZeroError via oracle.is_zero
-                oracle.is_zero(e, assumptions=assumptions)
-
-        if not has_conditional:
-            return True
-
-        # Si certaines composantes dépendent d'un paramètre :
-        # Si cond_zero a des égalités contradictoires (ex. a = 1 et a = 2), le vecteur n'est jamais nul
-        subs_map = cond_zero.substitutions()
-        for e in self._entries:
-            if oracle.decide(e.xreplace(subs_map)).verdict == Verdict.NONZERO:
-                return False
-
-        # Sinon on construit un CaseSplit[bool] : générique False, particulier True
-        neg_cond = Condition(
-            eqs=(),
-            neqs=cond_zero.eqs,
-        )
-        branches = (
-            Branch(condition=neg_cond, result=False, trace=None),
-            Branch(condition=cond_zero, result=True, trace=None),
-        )
-        return CaseSplit(branches=branches)
+        return decide_all_zero(self._entries, assumptions)
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Vector):
