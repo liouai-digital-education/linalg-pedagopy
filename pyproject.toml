@@ -7,7 +7,7 @@ name = "linalg_pedagopy"
 version = "3.0.0"
 description = "Package pédagogique d'algèbre linéaire formelle : calcul exact, discussion de cas, explications pas à pas et tuteur interactif"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [
     {name = "Cédric Bohnert"}
@@ -18,6 +18,7 @@ classifiers = [
     "Intended Audience :: Education",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -42,10 +43,12 @@ compare = [
 dev = [
     "pytest>=7.0",
     "hypothesis>=6.80",
-    "syrupy>=4.0",
     "mypy>=1.5",
     "ruff>=0.1",
     "coverage>=7.0",
+    "nbformat>=5.9",
+    "nbclient>=0.9",
+    "ipykernel>=6.0",
 ]
 
 [tool.setuptools.packages.find]
@@ -64,10 +67,31 @@ pythonpath = ["src"]
 addopts = "-q"
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.10"
 strict = true
 mypy_path = "src"
 
+[[tool.mypy.overrides]]
+module = ["sympy.*", "yaml.*", "numpy.*", "matplotlib.*", "mpl_toolkits.*", "ipywidgets.*", "IPython.*", "nbclient.*", "nbformat.*"]
+ignore_missing_imports = true
+follow_imports = "skip"
+
 [tool.ruff]
 line-length = 100
-target-version = "py311"
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+ignore = ["E741"]  # noms mathématiques courts (I, l) assumés
+
+[tool.ruff.lint.per-file-ignores]
+"src/linalg_pedagopy/__init__.py" = ["E402"]  # imports après les crochets d'initialisation
+
+[tool.coverage.run]
+source = ["linalg_pedagopy"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+precision = 1

@@ -2,7 +2,7 @@
 
 Ce guide pas à pas installe `linalg_pedagopy` dans un environnement dédié et l'utilise dans JupyterLab. Les commandes sont données pour **Windows avec Anaconda** ; sous macOS ou Linux, remplacez *Anaconda Prompt* par un terminal et adaptez le chemin du dossier.
 
-Le package demande **Python 3.11 ou plus récent**.
+Le package demande **Python 3.10 ou plus récent**.
 
 ---
 
