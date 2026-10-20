@@ -211,6 +211,9 @@ class GaussJordan(Procedure[GJResult]):
         self.compute_inverse = compute_inverse or (
             isinstance(b, Matrix) and A.rows == A.cols and b == Matrix.identity(A.rows)
         )
+        if compute_inverse and b is None and A.rows == A.cols:
+            # Sans second membre, l'inverse se calcule en réduisant [A | I_n].
+            self.b = Matrix.identity(A.rows)
 
     def _execute(self) -> GJResult | CaseSplit[GJResult]:
         state = {"cases_count": 1}

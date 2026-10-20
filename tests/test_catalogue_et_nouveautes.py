@@ -118,3 +118,10 @@ def test_affichage_des_conditions_et_du_casesplit() -> None:
     assert repr(res).startswith("<CaseSplit selon a, b : 5 cas")
     md = res.explain().to_markdown()
     assert "\\frac" in md  # solution générique rendue en LaTeX
+
+
+def test_compute_inverse_sans_second_membre() -> None:
+    A = Matrix([[1, 2, 3], [0, 1, 4], [5, 6, 0]])
+    res = GaussJordan(A, compute_inverse=True).run()
+    assert res.inverse == Matrix([[-24, 18, 5], [20, -15, -4], [-5, 4, 1]])
+    assert res.inverse == A.inv()
