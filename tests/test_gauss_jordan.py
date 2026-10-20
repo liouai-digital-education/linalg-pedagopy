@@ -124,3 +124,32 @@ def test_gauss_jordan_radical_matrix_inversion() -> None:
     assert isinstance(inv_direct, Matrix)
     assert inv_direct == Matrix([[m, sp.sqrt(1 - m**2)], [-sp.sqrt(1 - m**2), m]])
     assert M @ inv_direct == Matrix.identity(2)
+
+
+def test_gauss_jordan_domain_of_coefficients() -> None:
+    a, b = symbols("a b")
+    # (a² − 1)/(a − 1) n'est pas défini en a = 1 : aucune branche ne doit couvrir cette valeur
+    M = Matrix([[(a**2 - 1) / (a - 1), 1], [1, 1]])
+    res = GaussJordan(M).run()
+    assert isinstance(res, CaseSplit)
+    for branch in res.branches:
+        assert branch.condition.implies_zero(a - 1) is False
+    assert res.at(a=2).rank == 2
+    assert res.at(a=0).rank == 1
+    with pytest.raises(ValueError):
+        res.at(a=1)
+
+    # Sans discussion de cas, la trace annonce le domaine
+    with tracing(level=1) as t:
+        res_u = GaussJordan(Matrix([[1 / (a - 1), 1], [0, 2]]), Vector([1, b])).run()
+    assert isinstance(res_u, GJResult)
+    assert any(c.message_key == "gj.domain" for c in t.tree.children)
+
+    # Hypothèses incompatibles avec le domaine : erreur explicite ; compatibles : pas de message
+    from linalg_pedagopy import PedagopyError
+
+    with pytest.raises(PedagopyError, match="a ≠ 1"):
+        GaussJordan(M, assumptions={"a": 1}).run()
+    with tracing(level=1) as t_ok:
+        GaussJordan(M, assumptions="a != 1").run()
+    assert not any(c.message_key == "gj.domain" for c in t_ok.tree.children)

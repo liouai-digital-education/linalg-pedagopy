@@ -22,7 +22,13 @@ from linalg_pedagopy.core.exceptions import (
     PedagopyError,
     SingularMatrixError,
 )
-from linalg_pedagopy.core.zero import AssumptionsType, Verdict, oracle, _normalize_assumptions
+from linalg_pedagopy.core.zero import (
+    AssumptionsType,
+    Verdict,
+    _normalize_assumptions,
+    domain_of,
+    oracle,
+)
 from linalg_pedagopy.objects.matrix import Matrix, register_gauss_jordan_hook
 from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.render.text import format_value_text
@@ -217,7 +223,23 @@ class GaussJordan(Procedure[GJResult]):
 
     def _execute(self) -> GJResult | CaseSplit[GJResult]:
         state = {"cases_count": 1}
-        return self._solve_under_condition(self.A, self.b, self.assumptions, depth=0, state=state)
+        # Valeurs interdites par les dénominateurs des coefficients : elles restreignent toutes les branches
+        entries = list(self.A.flat_entries)
+        if isinstance(self.b, Matrix):
+            entries += self.b.flat_entries
+        elif self.b is not None:
+            entries += self.b.entries
+        domain = domain_of(entries, self.assumptions)
+        cond = self.assumptions
+        if not domain.is_trivial:
+            cond = cond & domain
+            if cond.is_contradictory:
+                raise PedagopyError(
+                    f"Les coefficients ne sont pas définis sous les hypothèses données : "
+                    f"ils exigent {domain}."
+                )
+            record(StepKind.INFO, "gj.domain", level=1, domain=domain)
+        return self._solve_under_condition(self.A, self.b, cond, depth=0, state=state)
 
     def _solve_under_condition(
         self,

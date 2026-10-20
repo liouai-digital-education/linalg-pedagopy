@@ -70,6 +70,7 @@ matrix:
   orthonormal_entry: "Contrôle de (A^T A)_({i},{j}) = {value} (attendu : {target}) -> {verdict}."
 
 gj:
+  domain: "Domaine de définition : les dénominateurs des coefficients imposent {domain} ; toute la suite se place sous cette condition."
   start: "Réduction de Gauss-Jordan d'une matrice {m}×{n}."
   column_step: "Traitement de la colonne {col} (ligne pivot courante : {row})."
   pivot_chosen: "Choix du pivot en ({row},{col}) de valeur {pivot} (stratégie : {strategy})."

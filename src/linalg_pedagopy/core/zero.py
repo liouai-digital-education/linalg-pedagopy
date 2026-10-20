@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, replace
 from enum import Enum, auto
-from typing import Any, Mapping
+from typing import Any, Iterable, Mapping
 
 import sympy as sp
 
@@ -135,6 +135,22 @@ def _denominator_factors(expr: sp.Expr) -> list[sp.Expr]:
         for f, _exp in factors_list
         if f.free_symbols and not (f.is_positive is True or f.is_negative is True)
     ]
+
+
+def domain_of(exprs: Iterable[Any], assumptions: AssumptionsType = None) -> Condition:
+    """Domaine de définition commun d'expressions : conjonction des ``facteur ≠ 0`` de leurs dénominateurs.
+
+    Les facteurs déjà non nuls sous les hypothèses sont omis ; un facteur que les
+    hypothèses annulent donne une condition contradictoire avec elles.
+    """
+    cond = _normalize_assumptions(assumptions)
+    domain = Condition.true()
+    for e in exprs:
+        expr = to_exact(e) if not isinstance(e, sp.Expr) else e
+        for fac in _denominator_factors(expr):
+            if (cond & domain).implies_zero(fac) is not False:
+                domain = domain & Condition.from_zero_expr(fac, is_zero=False)
+    return domain
 
 
 def _extract_factors(expr: sp.Expr) -> list[sp.Expr]:
