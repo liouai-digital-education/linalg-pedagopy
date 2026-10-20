@@ -15,7 +15,7 @@ from linalg_pedagopy.core.exceptions import (
 from linalg_pedagopy.core.field import choose_domain, match_symbol_substitutions, to_exact
 from linalg_pedagopy.core.zero import AssumptionsType, Verdict, oracle
 from linalg_pedagopy.trace.step import StepKind
-from linalg_pedagopy.trace.tracer import current_tracer, record, section, suspend_tracing
+from linalg_pedagopy.trace.tracer import record, section, suspend_tracing
 
 
 class Vector:

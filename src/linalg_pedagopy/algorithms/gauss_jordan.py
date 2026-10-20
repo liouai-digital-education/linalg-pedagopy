@@ -26,7 +26,7 @@ from linalg_pedagopy.core.zero import AssumptionsType, Verdict, oracle, _normali
 from linalg_pedagopy.objects.matrix import Matrix, register_gauss_jordan_hook
 from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.render.text import format_value_text
-from linalg_pedagopy.trace.step import Highlight, Step, StepKind
+from linalg_pedagopy.trace.step import Highlight, StepKind
 from linalg_pedagopy.trace.tracer import record, section, suspend_tracing, tracing
 
 PivotStrategy = Literal["simplest", "first", "partial"]

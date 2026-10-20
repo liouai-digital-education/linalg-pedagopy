@@ -7,7 +7,6 @@ import pytest
 import sympy as sp
 
 from linalg_pedagopy import (
-    Branch,
     CaseSplit,
     Condition,
     GJResult,

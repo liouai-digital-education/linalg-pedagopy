@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from fractions import Fraction
-from typing import Any, Callable, Iterable
+from typing import Any, Callable, Iterable, Mapping
 
 import sympy as sp
 from sympy.polys.domains import EX, QQ, Domain

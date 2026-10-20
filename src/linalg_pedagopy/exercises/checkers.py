@@ -8,7 +8,6 @@ from typing import Any, Literal
 
 import sympy as sp
 
-from linalg_pedagopy.core.field import to_exact
 from linalg_pedagopy.core.zero import Verdict, oracle
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector

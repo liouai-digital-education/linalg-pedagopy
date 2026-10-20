@@ -7,7 +7,7 @@ from typing import Any, Callable, Generic, Iterator, Mapping, Sequence, TypeVar
 
 import sympy as sp
 
-from linalg_pedagopy.core.field import match_symbol_substitutions, pretty_expr, symbols, to_exact
+from linalg_pedagopy.core.field import match_symbol_substitutions, pretty_expr, to_exact
 
 R = TypeVar("R")
 

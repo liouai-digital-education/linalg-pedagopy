@@ -339,7 +339,6 @@ def explicit_inverse_vs_solve_experiment(n: int = 6) -> InverseVsSolveReport:
 
     H_np = _to_numpy_float(H)
     b_np = _to_numpy_float(b)
-    x_true_np = _to_numpy_float(x_true)
 
     x_solve = np.linalg.solve(H_np, b_np)
     x_inv = np.linalg.inv(H_np) @ b_np

@@ -12,7 +12,6 @@ import sympy as sp
 from linalg_pedagopy.algorithms.gauss_jordan import GaussJordan
 from linalg_pedagopy.algorithms.gram_schmidt import GramSchmidt
 from linalg_pedagopy.algorithms.least_squares import LeastSquares
-from linalg_pedagopy.algorithms.qr import QR
 from linalg_pedagopy.core.field import symbols, to_exact
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
