@@ -280,7 +280,8 @@ Determinant(A, *, method="auto", assumptions=None)
 - `suspend_tracing()` : suspend l'enregistrement.
 - `section(message_key, *, level=1, ...)`, `record(kind, message_key, *, level=1, ...)` : primitives d'enregistrement pour écrire de nouvelles procédures.
 - `Step`, `StepKind`, `Highlight` : nœuds de l'arbre de trace.
-- `Explanation` : `to_text(level=None)`, `to_latex(level=None)`, `to_markdown(level=None)`, `to_html(level=None)`, `save(path, *, fmt=None)` ; rendu automatique dans Jupyter.
+- `Explanation` : `to_text(level=None)`, `to_latex(level=None)`, `to_markdown(level=None)`, `to_html(level=None)`, `to_table(level=None)`, `save(path, *, fmt=None)` ; rendu automatique dans Jupyter.
+- `TraceTable` (`render.table`), renvoyé par `to_table()` : `to_html(standalone=False)`, `to_markdown()`, `to_latex(standalone=False)`, `sections` (une par branche d'une discussion et par algorithme), `layout` de chaque section (`"elimination"`, `"gram_schmidt"`, `"substitution"`), `rows` de chaque section (`kind`, `number`, `column`, `pivot`, `subject`, `detail`, `operation_latex`, `text`, `matrix`) ; affichage HTML automatique dans Jupyter.
 
 ---
 

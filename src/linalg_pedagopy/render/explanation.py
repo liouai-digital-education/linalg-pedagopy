@@ -14,6 +14,7 @@ from linalg_pedagopy.render.markdown import (
     render_result_markdown,
     render_step_markdown,
 )
+from linalg_pedagopy.render.table import TraceTable, build_table
 from linalg_pedagopy.render.text import render_casesplit_text, render_result_text, render_step_text
 from linalg_pedagopy.trace.step import Step
 
@@ -70,6 +71,16 @@ class Explanation:
         return render_step_html(
             self.source, max_level=lvl, locale=self.locale, standalone=standalone
         )
+
+    def to_table(self, level: int | None = None) -> TraceTable:
+        """Trace en tableau : une ligne par opération élémentaire (N°, Colonne, Pivot, Opération, But,
+        Matrice obtenue), un tableau par branche d'une discussion par cas.
+
+        Rendus ``to_html()``, ``to_markdown()``, ``to_latex()`` ; affiché en HTML dans JupyterLab.
+        Le niveau ajoute des lignes de commentaire (colonne sans pivot, noyau, contrôles…).
+        """
+        lvl = self.level if level is None else level
+        return build_table(self.source, level=lvl, locale=self.locale)
 
     def save(self, path: str | Path, *, fmt: str | None = None) -> Path:
         """Sauvegarde l'explication dans un fichier (.txt, .tex, .md, .html)."""

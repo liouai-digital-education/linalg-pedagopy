@@ -47,7 +47,41 @@ Le paramètre `fmt` de `explain(level=..., fmt="auto")` fixe le format utilisé 
 
 Dans un environnement JupyterLab ou Jupyter Notebook, l'objet `Explanation` implémente `_repr_markdown_()` : il s'affiche automatiquement avec un rendu typographique soigné grâce au moteur KaTeX/MathJax sans qu'aucun appel à `print()` ne soit nécessaire.
 
-### 1.2 Localisation et multilinguisme (`locales`)
+### 1.2 Trace en tableau (`to_table()`)
+
+`explain().to_table()` présente la trace en tableau : une ligne par opération, dont les colonnes dépendent de l'algorithme. Pour l'élimination (Gauss-Jordan, inverse, déterminant), une ligne par opération élémentaire, avec les colonnes **N°**, **Colonne**, **Pivot**, **Opération**, **But** et **Matrice obtenue** (pivot encadré, lignes modifiées en couleur, barre de la matrice augmentée).
+
+```python
+res = GaussJordan(Matrix([[2, 1, -1], [-3, -1, 2], [-2, 1, 2]]), Vector([8, -11, -3])).run()
+table = res.explain().to_table()
+table                      # affichage HTML automatique dans JupyterLab
+print(table.to_markdown())
+# | N° | Colonne | Pivot | Opération | But | Matrice obtenue |
+# |---:|:---:|:---:|:---|:---|:---:|
+# |  |  |  | *Matrice de départ* |  | $\left[ … \right]$ |
+# | 1 | 1 | $2$ en (1,1) | $L_{1} \leftarrow \left(\frac{1}{2}\right) L_{1}$ | ramener le pivot à 1 | $\left[ … \right]$ |
+# | 2 | 1 | $2$ en (1,1) | $L_{2} \leftarrow L_{2} + \left(3\right) L_{1}$ | annuler le coefficient (2,1) | $\left[ … \right]$ |
+# …
+```
+
+- **Rendus** : `to_html(standalone=False)` (JupyterLab, MathJax), `to_markdown()` (carnets et documentation ; formules entre `$…$`, sans le caractère « | », réservé aux séparateurs de cellules), `to_latex(standalone=False)` (`longtable`, paquets `longtable`, `array`, `amsmath`, `xcolor` ; compiler avec LuaLaTeX ou XeLaTeX pour les caractères Unicode des commentaires).
+- **Niveau** : le niveau de l'explication ajoute des lignes de commentaire (niveau 2 : colonnes sans pivot, construction du noyau ; niveau 3 : contrôles de l'oracle) ; les lignes d'opérations sont les mêmes à tous les niveaux.
+- **Discussion par cas** : un tableau par branche, sous l'intitulé de son cas.
+- **Déterminant** : les buts rappellent l'effet de chaque opération sur le déterminant (un échange change son signe, une transvection ne le change pas) ; une étape de Bareiss s'écrit $L_i \leftarrow \frac{p\,L_i - m_{ik}\,L_k}{q}$ pour les lignes sous le pivot.
+- **Gram-Schmidt et QR** : colonnes **N°**, **Vecteur traité**, **Coefficients**, **Opération**, **But**, **Vecteur obtenu** ; une ligne par orthogonalisation ($\tilde q_i = a_i - \sum_j r_{j,i}\,\tilde q_j$, avec les coefficients $r_{j,i}$) et une par normalisation ($q_i = \tilde q_i / \lVert \tilde q_i \rVert$, avec la norme), dans l'ordre de la variante choisie (`normalize="end"` ou `"each"`). Une famille liée se termine par le vecteur nul et le témoin de dépendance.
+- **Systèmes triangulaires** (`BackSubstitution`, `ForwardSubstitution`) : colonnes **N°**, **Inconnue**, **Calcul**, **But**, **Valeur** ; le calcul écrit la formule avec les coefficients de la ligne puis les valeurs déjà connues, par exemple $x_2 = \frac{2 - (-1)\,x_3}{3} = \frac{2 - (-2)}{3}$.
+- **Plusieurs algorithmes** : une trace qui en enchaîne plusieurs donne un tableau par algorithme (moindres carrés : substitution pour `method="qr"`, élimination pour `method="normal"`).
+
+```python
+from linalg_pedagopy.algorithms.gram_schmidt import GramSchmidt
+print(GramSchmidt([Vector([1, 1, 0]), Vector([1, 0, 1]), Vector([0, 1, 1])]).run().explain().to_table())
+# | N° | Vecteur traité | Coefficients | Opération | But | Vecteur obtenu |
+# …
+# | 3 | $a_{3} = …$ | $r_{1,3} = \frac{1}{2}, r_{2,3} = \frac{1}{3}$ | $\tilde q_{3} = a_{3} - r_{1,3}\,\tilde q_{1} - r_{2,3}\,\tilde q_{2}$ | retirer de a3 ses composantes selon les vecteurs déjà obtenus | $…$ |
+# | 4 | $\tilde q_{1}$ | $\lVert \tilde q_{1} \rVert = \sqrt{2}$ | $q_{1} = \frac{\tilde q_{1}}{\lVert \tilde q_{1} \rVert}$ | rendre le vecteur unitaire | $…$ |
+```
+
+### 1.3 Localisation et multilinguisme (`locales`)
 
 Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans [`src/linalg_pedagopy/render/locales/`](../src/linalg_pedagopy/render/locales/). **Seule la locale française (`fr.yaml`) est fournie actuellement.**
 

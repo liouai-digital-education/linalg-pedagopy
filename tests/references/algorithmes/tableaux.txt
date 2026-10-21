@@ -1,0 +1,159 @@
+===== gj_unique — markdown =====
+| N° | Colonne | Pivot | Opération | But | Matrice obtenue |
+|---:|:---:|:---:|:---|:---|:---:|
+|  |  |  | *Matrice de départ* |  | $\left[\begin{array}{ccc} 2 & 1 & -1 \\ -3 & -1 & 2 \\ -2 & 1 & 2 \end{array}\,\middle\vert\,\begin{array}{c} 8 \\ -11 \\ -3 \end{array}\right]$ |
+| 1 | 1 | $2$ en (1,1) | $L_{1} \leftarrow \left(\frac{1}{2}\right) L_{1}$ | ramener le pivot à 1 | $\left[\begin{array}{ccc} \boxed{1} & \color{blue}{\frac{1}{2}} & \color{blue}{- \frac{1}{2}} \\ -3 & -1 & 2 \\ -2 & 1 & 2 \end{array}\,\middle\vert\,\begin{array}{c} \color{blue}{4} \\ -11 \\ -3 \end{array}\right]$ |
+| 2 | 1 | $2$ en (1,1) | $L_{2} \leftarrow L_{2} + \left(3\right) L_{1}$ | annuler le coefficient (2,1) | $\left[\begin{array}{ccc} \boxed{1} & \frac{1}{2} & - \frac{1}{2} \\ \color{blue}{0} & \color{blue}{\frac{1}{2}} & \color{blue}{\frac{1}{2}} \\ -2 & 1 & 2 \end{array}\,\middle\vert\,\begin{array}{c} 4 \\ \color{blue}{1} \\ -3 \end{array}\right]$ |
+| 3 | 1 | $2$ en (1,1) | $L_{3} \leftarrow L_{3} + \left(2\right) L_{1}$ | annuler le coefficient (3,1) | $\left[\begin{array}{ccc} \boxed{1} & \frac{1}{2} & - \frac{1}{2} \\ 0 & \frac{1}{2} & \frac{1}{2} \\ \color{blue}{0} & \color{blue}{2} & \color{blue}{1} \end{array}\,\middle\vert\,\begin{array}{c} 4 \\ 1 \\ \color{blue}{5} \end{array}\right]$ |
+| 4 | 2 | $2$ en (3,2) | $L_{2} \leftrightarrow L_{3}$ | amener le pivot en place | $\left[\begin{array}{ccc} 1 & \frac{1}{2} & - \frac{1}{2} \\ \color{blue}{0} & \boxed{2} & \color{blue}{1} \\ \color{blue}{0} & \color{blue}{\frac{1}{2}} & \color{blue}{\frac{1}{2}} \end{array}\,\middle\vert\,\begin{array}{c} 4 \\ \color{blue}{5} \\ \color{blue}{1} \end{array}\right]$ |
+| 5 | 2 | $2$ en (3,2) | $L_{2} \leftarrow \left(\frac{1}{2}\right) L_{2}$ | ramener le pivot à 1 | $\left[\begin{array}{ccc} 1 & \frac{1}{2} & - \frac{1}{2} \\ \color{blue}{0} & \boxed{1} & \color{blue}{\frac{1}{2}} \\ 0 & \frac{1}{2} & \frac{1}{2} \end{array}\,\middle\vert\,\begin{array}{c} 4 \\ \color{blue}{\frac{5}{2}} \\ 1 \end{array}\right]$ |
+| 6 | 2 | $2$ en (3,2) | $L_{1} \leftarrow L_{1} - \left(\frac{1}{2}\right) L_{2}$ | annuler le coefficient (1,2) | $\left[\begin{array}{ccc} \color{blue}{1} & \color{blue}{0} & \color{blue}{- \frac{3}{4}} \\ 0 & \boxed{1} & \frac{1}{2} \\ 0 & \frac{1}{2} & \frac{1}{2} \end{array}\,\middle\vert\,\begin{array}{c} \color{blue}{\frac{11}{4}} \\ \frac{5}{2} \\ 1 \end{array}\right]$ |
+| 7 | 2 | $2$ en (3,2) | $L_{3} \leftarrow L_{3} - \left(\frac{1}{2}\right) L_{2}$ | annuler le coefficient (3,2) | $\left[\begin{array}{ccc} 1 & 0 & - \frac{3}{4} \\ 0 & \boxed{1} & \frac{1}{2} \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{\frac{1}{4}} \end{array}\,\middle\vert\,\begin{array}{c} \frac{11}{4} \\ \frac{5}{2} \\ \color{blue}{- \frac{1}{4}} \end{array}\right]$ |
+| 8 | 3 | $\frac{1}{4}$ en (3,3) | $L_{3} \leftarrow \left(4\right) L_{3}$ | ramener le pivot à 1 | $\left[\begin{array}{ccc} 1 & 0 & - \frac{3}{4} \\ 0 & 1 & \frac{1}{2} \\ \color{blue}{0} & \color{blue}{0} & \boxed{1} \end{array}\,\middle\vert\,\begin{array}{c} \frac{11}{4} \\ \frac{5}{2} \\ \color{blue}{-1} \end{array}\right]$ |
+| 9 | 3 | $\frac{1}{4}$ en (3,3) | $L_{1} \leftarrow L_{1} + \left(\frac{3}{4}\right) L_{3}$ | annuler le coefficient (1,3) | $\left[\begin{array}{ccc} \color{blue}{1} & \color{blue}{0} & \color{blue}{0} \\ 0 & 1 & \frac{1}{2} \\ 0 & 0 & \boxed{1} \end{array}\,\middle\vert\,\begin{array}{c} \color{blue}{2} \\ \frac{5}{2} \\ -1 \end{array}\right]$ |
+| 10 | 3 | $\frac{1}{4}$ en (3,3) | $L_{2} \leftarrow L_{2} - \left(\frac{1}{2}\right) L_{3}$ | annuler le coefficient (2,3) | $\left[\begin{array}{ccc} 1 & 0 & 0 \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{0} \\ 0 & 0 & \boxed{1} \end{array}\,\middle\vert\,\begin{array}{c} 2 \\ \color{blue}{3} \\ -1 \end{array}\right]$ |
+|  |  |  | *Pivots non nuls, rang 3, solution unique : x = ( 2, 3, −1 ).* |  |  |
+|  |  |  | *Forme échelonnée réduite atteinte : rang = 3, colonnes pivots = (1, 2, 3).* |  | $\left[\begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{array}\,\middle\vert\,\begin{array}{c} 2 \\ 3 \\ -1 \end{array}\right]$ |
+
+
+===== gj_unique — latex =====
+\begin{longtable}{r c c l p{4.2cm} c}
+\hline
+\textbf{N°} & \textbf{Colonne} & \textbf{Pivot} & \textbf{Opération} & \textbf{But} & \textbf{Matrice obtenue} \\ \hline
+\endhead
+\multicolumn{5}{p{11cm}}{\emph{Matrice de départ}} & $\left[\begin{array}{ccc|c} 2 & 1 & -1 & 8 \\ -3 & -1 & 2 & -11 \\ -2 & 1 & 2 & -3 \end{array}\right]$ \\
+1 & 1 & $2$ en (1,1) & $L_{1} \leftarrow \left(\frac{1}{2}\right) L_{1}$ & ramener le pivot à 1 & $\left[\begin{array}{ccc|c} \boxed{1} & \color{blue}{\frac{1}{2}} & \color{blue}{- \frac{1}{2}} & \color{blue}{4} \\ -3 & -1 & 2 & -11 \\ -2 & 1 & 2 & -3 \end{array}\right]$ \\
+2 & 1 & $2$ en (1,1) & $L_{2} \leftarrow L_{2} + \left(3\right) L_{1}$ & annuler le coefficient (2,1) & $\left[\begin{array}{ccc|c} \boxed{1} & \frac{1}{2} & - \frac{1}{2} & 4 \\ \color{blue}{0} & \color{blue}{\frac{1}{2}} & \color{blue}{\frac{1}{2}} & \color{blue}{1} \\ -2 & 1 & 2 & -3 \end{array}\right]$ \\
+3 & 1 & $2$ en (1,1) & $L_{3} \leftarrow L_{3} + \left(2\right) L_{1}$ & annuler le coefficient (3,1) & $\left[\begin{array}{ccc|c} \boxed{1} & \frac{1}{2} & - \frac{1}{2} & 4 \\ 0 & \frac{1}{2} & \frac{1}{2} & 1 \\ \color{blue}{0} & \color{blue}{2} & \color{blue}{1} & \color{blue}{5} \end{array}\right]$ \\
+4 & 2 & $2$ en (3,2) & $L_{2} \leftrightarrow L_{3}$ & amener le pivot en place & $\left[\begin{array}{ccc|c} 1 & \frac{1}{2} & - \frac{1}{2} & 4 \\ \color{blue}{0} & \boxed{2} & \color{blue}{1} & \color{blue}{5} \\ \color{blue}{0} & \color{blue}{\frac{1}{2}} & \color{blue}{\frac{1}{2}} & \color{blue}{1} \end{array}\right]$ \\
+5 & 2 & $2$ en (3,2) & $L_{2} \leftarrow \left(\frac{1}{2}\right) L_{2}$ & ramener le pivot à 1 & $\left[\begin{array}{ccc|c} 1 & \frac{1}{2} & - \frac{1}{2} & 4 \\ \color{blue}{0} & \boxed{1} & \color{blue}{\frac{1}{2}} & \color{blue}{\frac{5}{2}} \\ 0 & \frac{1}{2} & \frac{1}{2} & 1 \end{array}\right]$ \\
+6 & 2 & $2$ en (3,2) & $L_{1} \leftarrow L_{1} - \left(\frac{1}{2}\right) L_{2}$ & annuler le coefficient (1,2) & $\left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{- \frac{3}{4}} & \color{blue}{\frac{11}{4}} \\ 0 & \boxed{1} & \frac{1}{2} & \frac{5}{2} \\ 0 & \frac{1}{2} & \frac{1}{2} & 1 \end{array}\right]$ \\
+7 & 2 & $2$ en (3,2) & $L_{3} \leftarrow L_{3} - \left(\frac{1}{2}\right) L_{2}$ & annuler le coefficient (3,2) & $\left[\begin{array}{ccc|c} 1 & 0 & - \frac{3}{4} & \frac{11}{4} \\ 0 & \boxed{1} & \frac{1}{2} & \frac{5}{2} \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{\frac{1}{4}} & \color{blue}{- \frac{1}{4}} \end{array}\right]$ \\
+8 & 3 & $\frac{1}{4}$ en (3,3) & $L_{3} \leftarrow \left(4\right) L_{3}$ & ramener le pivot à 1 & $\left[\begin{array}{ccc|c} 1 & 0 & - \frac{3}{4} & \frac{11}{4} \\ 0 & 1 & \frac{1}{2} & \frac{5}{2} \\ \color{blue}{0} & \color{blue}{0} & \boxed{1} & \color{blue}{-1} \end{array}\right]$ \\
+9 & 3 & $\frac{1}{4}$ en (3,3) & $L_{1} \leftarrow L_{1} + \left(\frac{3}{4}\right) L_{3}$ & annuler le coefficient (1,3) & $\left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \\ 0 & 1 & \frac{1}{2} & \frac{5}{2} \\ 0 & 0 & \boxed{1} & -1 \end{array}\right]$ \\
+10 & 3 & $\frac{1}{4}$ en (3,3) & $L_{2} \leftarrow L_{2} - \left(\frac{1}{2}\right) L_{3}$ & annuler le coefficient (2,3) & $\left[\begin{array}{ccc|c} 1 & 0 & 0 & 2 \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{0} & \color{blue}{3} \\ 0 & 0 & \boxed{1} & -1 \end{array}\right]$ \\
+\multicolumn{5}{p{11cm}}{\emph{Pivots non nuls, rang 3, solution unique : x = ( 2, 3, -1 ).}} &  \\
+\multicolumn{5}{p{11cm}}{\emph{Forme échelonnée réduite atteinte : rang = 3, colonnes pivots = (1, 2, 3).}} & $\left[\begin{array}{ccc|c} 1 & 0 & 0 & 2 \\ 0 & 1 & 0 & 3 \\ 0 & 0 & 1 & -1 \end{array}\right]$ \\
+\hline
+\end{longtable}
+
+
+===== gj_parametre_a — markdown =====
+#### Cas $a \neq 1 \text{ (générique)}$
+
+| N° | Colonne | Pivot | Opération | But | Matrice obtenue |
+|---:|:---:|:---:|:---|:---|:---:|
+|  |  |  | *Matrice de départ* |  | $\left[\begin{array}{ccc} 1 & 1 & 1 \\ 1 & a & 1 \\ 1 & 1 & a \end{array}\,\middle\vert\,\begin{array}{c} 1 \\ 2 \\ 3 \end{array}\right]$ |
+| 1 | 1 | $1$ en (1,1) | $L_{2} \leftarrow L_{2} - \left(1\right) L_{1}$ | annuler le coefficient (2,1) | $\left[\begin{array}{ccc} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{a - 1} & \color{blue}{0} \\ 1 & 1 & a \end{array}\,\middle\vert\,\begin{array}{c} 1 \\ \color{blue}{1} \\ 3 \end{array}\right]$ |
+| 2 | 1 | $1$ en (1,1) | $L_{3} \leftarrow L_{3} - \left(1\right) L_{1}$ | annuler le coefficient (3,1) | $\left[\begin{array}{ccc} \boxed{1} & 1 & 1 \\ 0 & a - 1 & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{a - 1} \end{array}\,\middle\vert\,\begin{array}{c} 1 \\ 1 \\ \color{blue}{2} \end{array}\right]$ |
+| 3 | 2 | $a - 1$ en (2,2) | $L_{2} \leftarrow \left(\frac{1}{a - 1}\right) L_{2}$ | ramener le pivot à 1 | $\left[\begin{array}{ccc} 1 & 1 & 1 \\ \color{blue}{0} & \boxed{1} & \color{blue}{0} \\ 0 & 0 & a - 1 \end{array}\,\middle\vert\,\begin{array}{c} 1 \\ \color{blue}{\frac{1}{a - 1}} \\ 2 \end{array}\right]$ |
+| 4 | 2 | $a - 1$ en (2,2) | $L_{1} \leftarrow L_{1} - \left(1\right) L_{2}$ | annuler le coefficient (1,2) | $\left[\begin{array}{ccc} \color{blue}{1} & \color{blue}{0} & \color{blue}{1} \\ 0 & \boxed{1} & 0 \\ 0 & 0 & a - 1 \end{array}\,\middle\vert\,\begin{array}{c} \color{blue}{\frac{a - 2}{a - 1}} \\ \frac{1}{a - 1} \\ 2 \end{array}\right]$ |
+| 5 | 3 | $a - 1$ en (3,3) | $L_{3} \leftarrow \left(\frac{1}{a - 1}\right) L_{3}$ | ramener le pivot à 1 | $\left[\begin{array}{ccc} 1 & 0 & 1 \\ 0 & 1 & 0 \\ \color{blue}{0} & \color{blue}{0} & \boxed{1} \end{array}\,\middle\vert\,\begin{array}{c} \frac{a - 2}{a - 1} \\ \frac{1}{a - 1} \\ \color{blue}{\frac{2}{a - 1}} \end{array}\right]$ |
+| 6 | 3 | $a - 1$ en (3,3) | $L_{1} \leftarrow L_{1} - \left(1\right) L_{3}$ | annuler le coefficient (1,3) | $\left[\begin{array}{ccc} \color{blue}{1} & \color{blue}{0} & \color{blue}{0} \\ 0 & 1 & 0 \\ 0 & 0 & \boxed{1} \end{array}\,\middle\vert\,\begin{array}{c} \color{blue}{\frac{a - 4}{a - 1}} \\ \frac{1}{a - 1} \\ \frac{2}{a - 1} \end{array}\right]$ |
+|  |  |  | *Pivots non nuls, rang 3, solution unique : x = ( (a − 4)/(a − 1), 1/(a − 1), 2/(a − 1) ).* |  |  |
+|  |  |  | *Forme échelonnée réduite atteinte : rang = 3, colonnes pivots = (1, 2, 3).* |  | $\left[\begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{array}\,\middle\vert\,\begin{array}{c} \frac{a - 4}{a - 1} \\ \frac{1}{a - 1} \\ \frac{2}{a - 1} \end{array}\right]$ |
+
+#### Cas $a = 1$
+
+| N° | Colonne | Pivot | Opération | But | Matrice obtenue |
+|---:|:---:|:---:|:---|:---|:---:|
+|  |  |  | *Matrice de départ* |  | $\left[\begin{array}{ccc} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{array}\,\middle\vert\,\begin{array}{c} 1 \\ 2 \\ 3 \end{array}\right]$ |
+| 1 | 1 | $1$ en (1,1) | $L_{2} \leftarrow L_{2} - \left(1\right) L_{1}$ | annuler le coefficient (2,1) | $\left[\begin{array}{ccc} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \\ 1 & 1 & 1 \end{array}\,\middle\vert\,\begin{array}{c} 1 \\ \color{blue}{1} \\ 3 \end{array}\right]$ |
+| 2 | 1 | $1$ en (1,1) | $L_{3} \leftarrow L_{3} - \left(1\right) L_{1}$ | annuler le coefficient (3,1) | $\left[\begin{array}{ccc} \boxed{1} & 1 & 1 \\ 0 & 0 & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\,\middle\vert\,\begin{array}{c} 1 \\ 1 \\ \color{blue}{2} \end{array}\right]$ |
+|  |  |  | *Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.* |  |  |
+|  |  |  | *Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.* |  |  |
+|  |  |  | *Système incompatible : la ligne L2 donne 0 = 1.* |  |  |
+|  |  |  | *Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).* |  | $\left[\begin{array}{ccc} 1 & 1 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{array}\,\middle\vert\,\begin{array}{c} 1 \\ 1 \\ 2 \end{array}\right]$ |
+
+
+===== gj_parametre_a — latex =====
+\paragraph{Cas $a \neq 1 \text{ (générique)}$}
+\begin{longtable}{r c c l p{4.2cm} c}
+\hline
+\textbf{N°} & \textbf{Colonne} & \textbf{Pivot} & \textbf{Opération} & \textbf{But} & \textbf{Matrice obtenue} \\ \hline
+\endhead
+\multicolumn{5}{p{11cm}}{\emph{Matrice de départ}} & $\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 1 & a & 1 & 2 \\ 1 & 1 & a & 3 \end{array}\right]$ \\
+1 & 1 & $1$ en (1,1) & $L_{2} \leftarrow L_{2} - \left(1\right) L_{1}$ & annuler le coefficient (2,1) & $\left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ \color{blue}{0} & \color{blue}{a - 1} & \color{blue}{0} & \color{blue}{1} \\ 1 & 1 & a & 3 \end{array}\right]$ \\
+2 & 1 & $1$ en (1,1) & $L_{3} \leftarrow L_{3} - \left(1\right) L_{1}$ & annuler le coefficient (3,1) & $\left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ 0 & a - 1 & 0 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{a - 1} & \color{blue}{2} \end{array}\right]$ \\
+3 & 2 & $a - 1$ en (2,2) & $L_{2} \leftarrow \left(\frac{1}{a - 1}\right) L_{2}$ & ramener le pivot à 1 & $\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ \color{blue}{0} & \boxed{1} & \color{blue}{0} & \color{blue}{\frac{1}{a - 1}} \\ 0 & 0 & a - 1 & 2 \end{array}\right]$ \\
+4 & 2 & $a - 1$ en (2,2) & $L_{1} \leftarrow L_{1} - \left(1\right) L_{2}$ & annuler le coefficient (1,2) & $\left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{1} & \color{blue}{\frac{a - 2}{a - 1}} \\ 0 & \boxed{1} & 0 & \frac{1}{a - 1} \\ 0 & 0 & a - 1 & 2 \end{array}\right]$ \\
+5 & 3 & $a - 1$ en (3,3) & $L_{3} \leftarrow \left(\frac{1}{a - 1}\right) L_{3}$ & ramener le pivot à 1 & $\left[\begin{array}{ccc|c} 1 & 0 & 1 & \frac{a - 2}{a - 1} \\ 0 & 1 & 0 & \frac{1}{a - 1} \\ \color{blue}{0} & \color{blue}{0} & \boxed{1} & \color{blue}{\frac{2}{a - 1}} \end{array}\right]$ \\
+6 & 3 & $a - 1$ en (3,3) & $L_{1} \leftarrow L_{1} - \left(1\right) L_{3}$ & annuler le coefficient (1,3) & $\left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{0} & \color{blue}{\frac{a - 4}{a - 1}} \\ 0 & 1 & 0 & \frac{1}{a - 1} \\ 0 & 0 & \boxed{1} & \frac{2}{a - 1} \end{array}\right]$ \\
+\multicolumn{5}{p{11cm}}{\emph{Pivots non nuls, rang 3, solution unique : x = ( (a - 4)/(a - 1), 1/(a - 1), 2/(a - 1) ).}} &  \\
+\multicolumn{5}{p{11cm}}{\emph{Forme échelonnée réduite atteinte : rang = 3, colonnes pivots = (1, 2, 3).}} & $\left[\begin{array}{ccc|c} 1 & 0 & 0 & \frac{a - 4}{a - 1} \\ 0 & 1 & 0 & \frac{1}{a - 1} \\ 0 & 0 & 1 & \frac{2}{a - 1} \end{array}\right]$ \\
+\hline
+\end{longtable}
+
+\paragraph{Cas $a = 1$}
+\begin{longtable}{r c c l p{4.2cm} c}
+\hline
+\textbf{N°} & \textbf{Colonne} & \textbf{Pivot} & \textbf{Opération} & \textbf{But} & \textbf{Matrice obtenue} \\ \hline
+\endhead
+\multicolumn{5}{p{11cm}}{\emph{Matrice de départ}} & $\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 1 & 1 & 1 & 2 \\ 1 & 1 & 1 & 3 \end{array}\right]$ \\
+1 & 1 & $1$ en (1,1) & $L_{2} \leftarrow L_{2} - \left(1\right) L_{1}$ & annuler le coefficient (2,1) & $\left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{1} \\ 1 & 1 & 1 & 3 \end{array}\right]$ \\
+2 & 1 & $1$ en (1,1) & $L_{3} \leftarrow L_{3} - \left(1\right) L_{1}$ & annuler le coefficient (3,1) & $\left[\begin{array}{ccc|c} \boxed{1} & 1 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{2} \end{array}\right]$ \\
+\multicolumn{5}{p{11cm}}{\emph{Aucun pivot non nul disponible dans la colonne 2 : variable x\_2 libre.}} &  \\
+\multicolumn{5}{p{11cm}}{\emph{Aucun pivot non nul disponible dans la colonne 3 : variable x\_3 libre.}} &  \\
+\multicolumn{5}{p{11cm}}{\emph{Système incompatible : la ligne L2 donne 0 = 1.}} &  \\
+\multicolumn{5}{p{11cm}}{\emph{Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).}} & $\left[\begin{array}{ccc|c} 1 & 1 & 1 & 1 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 2 \end{array}\right]$ \\
+\hline
+\end{longtable}
+
+
+===== det_bareiss_echange — markdown =====
+| N° | Colonne | Pivot | Opération | But | Matrice obtenue |
+|---:|:---:|:---:|:---|:---|:---:|
+|  |  |  | *Matrice de départ* |  | $\left[\begin{array}{ccc} 0 & a & 1 \\ 1 & 0 & b \\ a & 1 & 0 \end{array}\right]$ |
+|  |  |  | *Méthode choisie automatiquement : Bareiss (Bareiss dès que la matrice contient des paramètres, élimination sinon).* |  |  |
+|  |  |  | *Algorithme de Bareiss (élimination sans fractions) : à l'étape k, m_ij ← (m_kk·m_ij − m_ik·m_kj) / (pivot précédent). La division est exacte : les coefficients restent polynomiaux, sans discussion de cas.* |  |  |
+| 1 | 1 | $1$ en (1,1) | $L_{1} \leftrightarrow L_{2}$ | amener le pivot en place ; le déterminant change de signe | $\left[\begin{array}{ccc} \boxed{1} & \color{blue}{0} & \color{blue}{b} \\ \color{blue}{0} & \color{blue}{a} & \color{blue}{1} \\ a & 1 & 0 \end{array}\right]$ |
+| 2 | 1 | $1$ en (1,1) | $L_i \leftarrow \frac{1\,L_i - m_{i1}\,L_{1}}{1},\ i > 1$ | annuler la colonne 1 sous le pivot 1 ; division exacte par le pivot précédent 1 | $\left[\begin{array}{ccc} \boxed{1} & 0 & b \\ \color{blue}{0} & \color{blue}{a} & \color{blue}{1} \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{- a b} \end{array}\right]$ |
+| 3 | 2 | $a$ en (2,2) | $L_i \leftarrow \frac{a\,L_i - m_{i2}\,L_{2}}{1},\ i > 2$ | annuler la colonne 2 sous le pivot a ; division exacte par le pivot précédent 1 | $\left[\begin{array}{ccc} 1 & 0 & b \\ 0 & \boxed{a} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{- a^{2} b - 1} \end{array}\right]$ |
+|  |  |  | *Le dernier coefficient diagonal −a²·b − 1 est le déterminant, au signe des échanges près (1 échange(s)).* |  |  |
+|  |  |  | *det A = a²·b + 1.* |  |  |
+
+
+===== det_bareiss_echange — latex =====
+\begin{longtable}{r c c l p{4.2cm} c}
+\hline
+\textbf{N°} & \textbf{Colonne} & \textbf{Pivot} & \textbf{Opération} & \textbf{But} & \textbf{Matrice obtenue} \\ \hline
+\endhead
+\multicolumn{5}{p{11cm}}{\emph{Matrice de départ}} & $\left[\begin{array}{ccc} 0 & a & 1 \\ 1 & 0 & b \\ a & 1 & 0 \end{array}\right]$ \\
+\multicolumn{5}{p{11cm}}{\emph{Méthode choisie automatiquement : Bareiss (Bareiss dès que la matrice contient des paramètres, élimination sinon).}} &  \\
+\multicolumn{5}{p{11cm}}{\emph{Algorithme de Bareiss (élimination sans fractions) : à l'étape k, m\_ij ← (m\_kk·m\_ij - m\_ik·m\_kj) / (pivot précédent). La division est exacte : les coefficients restent polynomiaux, sans discussion de cas.}} &  \\
+1 & 1 & $1$ en (1,1) & $L_{1} \leftrightarrow L_{2}$ & amener le pivot en place ; le déterminant change de signe & $\left[\begin{array}{ccc} \boxed{1} & \color{blue}{0} & \color{blue}{b} \\ \color{blue}{0} & \color{blue}{a} & \color{blue}{1} \\ a & 1 & 0 \end{array}\right]$ \\
+2 & 1 & $1$ en (1,1) & $L_i \leftarrow \frac{1\,L_i - m_{i1}\,L_{1}}{1},\ i > 1$ & annuler la colonne 1 sous le pivot 1 ; division exacte par le pivot précédent 1 & $\left[\begin{array}{ccc} \boxed{1} & 0 & b \\ \color{blue}{0} & \color{blue}{a} & \color{blue}{1} \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{- a b} \end{array}\right]$ \\
+3 & 2 & $a$ en (2,2) & $L_i \leftarrow \frac{a\,L_i - m_{i2}\,L_{2}}{1},\ i > 2$ & annuler la colonne 2 sous le pivot a ; division exacte par le pivot précédent 1 & $\left[\begin{array}{ccc} 1 & 0 & b \\ 0 & \boxed{a} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{- a^{2} b - 1} \end{array}\right]$ \\
+\multicolumn{5}{p{11cm}}{\emph{Le dernier coefficient diagonal -a²·b - 1 est le déterminant, au signe des échanges près (1 échange(s)).}} &  \\
+\multicolumn{5}{p{11cm}}{\emph{det A = a²·b + 1.}} &  \\
+\hline
+\end{longtable}
+
+
+===== det_elimination_echange — markdown =====
+| N° | Colonne | Pivot | Opération | But | Matrice obtenue |
+|---:|:---:|:---:|:---|:---|:---:|
+|  |  |  | *Matrice de départ* |  | $\left[\begin{array}{ccc} 0 & 2 & 1 \\ 3 & 1 & 2 \\ 1 & 1 & 1 \end{array}\right]$ |
+| 1 | 1 | $1$ en (1,1) | $L_{1} \leftrightarrow L_{3}$ | amener le pivot en place ; le déterminant change de signe | $\left[\begin{array}{ccc} \boxed{1} & \color{blue}{1} & \color{blue}{1} \\ 3 & 1 & 2 \\ \color{blue}{0} & \color{blue}{2} & \color{blue}{1} \end{array}\right]$ |
+| 2 | 1 | $1$ en (1,1) | $L_{2} \leftarrow L_{2} - \left(3\right) L_{1}$ | annuler le coefficient (2,1) ; le déterminant ne change pas | $\left[\begin{array}{ccc} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{-2} & \color{blue}{-1} \\ 0 & 2 & 1 \end{array}\right]$ |
+| 3 | 2 | $2$ en (2,2) | $L_{2} \leftrightarrow L_{3}$ | amener le pivot en place ; le déterminant change de signe | $\left[\begin{array}{ccc} 1 & 1 & 1 \\ \color{blue}{0} & \boxed{2} & \color{blue}{1} \\ \color{blue}{0} & \color{blue}{-2} & \color{blue}{-1} \end{array}\right]$ |
+| 4 | 2 | $2$ en (2,2) | $L_{3} \leftarrow L_{3} - \left(-1\right) L_{2}$ | annuler le coefficient (3,2) ; le déterminant ne change pas | $\left[\begin{array}{ccc} 1 & 1 & 1 \\ 0 & \boxed{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]$ |
+|  |  |  | *Colonne 3 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.* |  |  |
+|  |  |  | *det A = 0.* |  |  |
+
+
+===== det_elimination_echange — latex =====
+\begin{longtable}{r c c l p{4.2cm} c}
+\hline
+\textbf{N°} & \textbf{Colonne} & \textbf{Pivot} & \textbf{Opération} & \textbf{But} & \textbf{Matrice obtenue} \\ \hline
+\endhead
+\multicolumn{5}{p{11cm}}{\emph{Matrice de départ}} & $\left[\begin{array}{ccc} 0 & 2 & 1 \\ 3 & 1 & 2 \\ 1 & 1 & 1 \end{array}\right]$ \\
+1 & 1 & $1$ en (1,1) & $L_{1} \leftrightarrow L_{3}$ & amener le pivot en place ; le déterminant change de signe & $\left[\begin{array}{ccc} \boxed{1} & \color{blue}{1} & \color{blue}{1} \\ 3 & 1 & 2 \\ \color{blue}{0} & \color{blue}{2} & \color{blue}{1} \end{array}\right]$ \\
+2 & 1 & $1$ en (1,1) & $L_{2} \leftarrow L_{2} - \left(3\right) L_{1}$ & annuler le coefficient (2,1) ; le déterminant ne change pas & $\left[\begin{array}{ccc} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{-2} & \color{blue}{-1} \\ 0 & 2 & 1 \end{array}\right]$ \\
+3 & 2 & $2$ en (2,2) & $L_{2} \leftrightarrow L_{3}$ & amener le pivot en place ; le déterminant change de signe & $\left[\begin{array}{ccc} 1 & 1 & 1 \\ \color{blue}{0} & \boxed{2} & \color{blue}{1} \\ \color{blue}{0} & \color{blue}{-2} & \color{blue}{-1} \end{array}\right]$ \\
+4 & 2 & $2$ en (2,2) & $L_{3} \leftarrow L_{3} - \left(-1\right) L_{2}$ & annuler le coefficient (3,2) ; le déterminant ne change pas & $\left[\begin{array}{ccc} 1 & 1 & 1 \\ 0 & \boxed{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]$ \\
+\multicolumn{5}{p{11cm}}{\emph{Colonne 3 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.}} &  \\
+\multicolumn{5}{p{11cm}}{\emph{det A = 0.}} &  \\
+\hline
+\end{longtable}
+

@@ -638,10 +638,17 @@
   },
   {
     "pageTitle": "06. Rendu, géométrie & numérique",
-    "title": "1.2 Localisation et multilinguisme (locales)",
-    "url": "06_rendering_visualization_and_numerics.html#12-localisation-et-multilinguisme-locales",
+    "title": "1.2 Trace en tableau (to_table())",
+    "url": "06_rendering_visualization_and_numerics.html#12-trace-en-tableau-to_table",
+    "snippet": "explain().to_table() présente la trace en tableau : une ligne par opération, dont les colonnes dépendent de l'algorithme. Pour l'élimination (Gauss-Jordan, inve...",
+    "content": "1.2 Trace en tableau (to_table()) explain().to_table() présente la trace en tableau : une ligne par opération, dont les colonnes dépendent de l'algorithme. Pour l'élimination (Gauss-Jordan, inve..."
+  },
+  {
+    "pageTitle": "06. Rendu, géométrie & numérique",
+    "title": "1.3 Localisation et multilinguisme (locales)",
+    "url": "06_rendering_visualization_and_numerics.html#13-localisation-et-multilinguisme-locales",
     "snippet": "Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans src/linalg_pedagopy/render/locales/. Seule la locale française ...",
-    "content": "1.2 Localisation et multilinguisme (locales) Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans src/linalg_pedagopy/render/locales/. Seule la locale française ..."
+    "content": "1.3 Localisation et multilinguisme (locales) Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans src/linalg_pedagopy/render/locales/. Seule la locale française ..."
   },
   {
     "pageTitle": "06. Rendu, géométrie & numérique",

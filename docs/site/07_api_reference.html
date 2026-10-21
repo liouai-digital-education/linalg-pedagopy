@@ -534,7 +534,8 @@ BackSubstitution(R, c, *, assumptions=None)
 <li><code>suspend_tracing()</code> : suspend l'enregistrement.</li>
 <li><code>section(message_key, *, level=1, ...)</code>, <code>record(kind, message_key, *, level=1, ...)</code> : primitives d'enregistrement pour écrire de nouvelles procédures.</li>
 <li><code>Step</code>, <code>StepKind</code>, <code>Highlight</code> : nœuds de l'arbre de trace.</li>
-<li><code>Explanation</code> : <code>to_text(level=None)</code>, <code>to_latex(level=None)</code>, <code>to_markdown(level=None)</code>, <code>to_html(level=None)</code>, <code>save(path, *, fmt=None)</code> ; rendu automatique dans Jupyter.</li>
+<li><code>Explanation</code> : <code>to_text(level=None)</code>, <code>to_latex(level=None)</code>, <code>to_markdown(level=None)</code>, <code>to_html(level=None)</code>, <code>to_table(level=None)</code>, <code>save(path, *, fmt=None)</code> ; rendu automatique dans Jupyter.</li>
+<li><code>TraceTable</code> (<code>render.table</code>), renvoyé par <code>to_table()</code> : <code>to_html(standalone=False)</code>, <code>to_markdown()</code>, <code>to_latex(standalone=False)</code>, <code>sections</code> (une par branche d'une discussion et par algorithme), <code>layout</code> de chaque section (<code>"elimination"</code>, <code>"gram_schmidt"</code>, <code>"substitution"</code>), <code>rows</code> de chaque section (<code>kind</code>, <code>number</code>, <code>column</code>, <code>pivot</code>, <code>subject</code>, <code>detail</code>, <code>operation_latex</code>, <code>text</code>, <code>matrix</code>) ; affichage HTML automatique dans Jupyter.</li>
 </ul>
 <hr/>
 <h2 id="6-module-linalg_pedagopytutor-tuteur">6. Module <code>linalg_pedagopy.tutor</code> / <code>tuteur</code></h2>

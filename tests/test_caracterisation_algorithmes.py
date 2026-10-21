@@ -227,3 +227,36 @@ def test_caracterisation_sessions_et_verificateur_d_operations() -> None:
         bloc("opérations de lignes", "\n".join(lignes)) + "\n" + bloc("étapes de Gram-Schmidt", "\n".join(gs))
         + "\n" + bloc("sessions", "\n".join(str(x) for x in sess)),
     )
+
+
+def test_caracterisation_tableaux() -> None:
+    """Traces en tableau (explain().to_table()) : Markdown et LaTeX de quatre cas représentatifs."""
+    parts = []
+    for nom in ("gj_unique", "gj_parametre_a", "det_bareiss_echange", "det_elimination_echange"):
+        table = CAS_ALGORITHMES[nom]().explain(level=2).to_table()
+        parts.append(bloc(f"{nom} — markdown", table.to_markdown()))
+        parts.append(bloc(f"{nom} — latex", table.to_latex()))
+    verifier_reference("algorithmes/tableaux", "\n".join(parts))
+
+
+def test_caracterisation_tableaux_autres_algorithmes() -> None:
+    """Tableaux de Gram-Schmidt, QR, substitution, moindres carrés et inverse (Markdown et LaTeX)."""
+    from linalg_pedagopy.algorithms.gauss_jordan import GaussJordan as GJ
+    from linalg_pedagopy.algorithms.triangular import BackSubstitution, ForwardSubstitution
+
+    cas: dict[str, Callable[[], Any]] = {
+        nom: CAS_ALGORITHMES[nom] for nom in ("gs_fin", "gs_chaque", "gs_famille_liee", "gs_parametre", "qr", "mc_qr")
+    }
+    cas["substitution_arriere"] = lambda: BackSubstitution(
+        Matrix([[2, 1, 1], [0, 3, -1], [0, 0, 4]]), Vector([5, 2, 8])
+    ).run()
+    cas["substitution_avant"] = lambda: ForwardSubstitution(
+        Matrix([[1, 0, 0], [2, 1, 0], [-1, 3, 2]]), Vector([1, 4, 6])
+    ).run()
+    cas["inverse"] = lambda: GJ(Matrix([[2, 1], [1, 1]]), Matrix.identity(2), compute_inverse=True).run()
+    parts = []
+    for nom, calcul in cas.items():
+        table = calcul().explain(level=2).to_table()
+        parts.append(bloc(f"{nom} — markdown", table.to_markdown()))
+        parts.append(bloc(f"{nom} — latex", table.to_latex()))
+    verifier_reference("algorithmes/tableaux_autres", "\n".join(parts))
