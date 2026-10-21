@@ -59,7 +59,9 @@ docs = [
 dev = [
     "pytest>=7.0",
     "hypothesis>=6.80",
-    "mypy>=1.5",
+    # Version figée : le nombre d'erreurs hors du périmètre strict change d'une version à l'autre
+    # (58 avec 2.3, 63 avec 2.4.0) ; la CI et verifier_tout.py doivent voir les mêmes.
+    "mypy==2.4.0",
     "ruff>=0.1",
     "coverage>=7.0",
     "nbformat>=5.9",
@@ -90,8 +92,9 @@ python_version = "3.10"
 strict = true
 mypy_path = "src"
 # Périmètre bloquant de « mypy » sans argument (CI, verifier_tout.py) : sans erreur en mode strict.
-# Le tuteur, les exercices et les comparaisons numériques restent à typer (phase 5 du plan v5) ;
-# « mypy src/linalg_pedagopy » les vérifie à titre informatif.
+# Hors de ce périmètre, tuteur/, exercises/generators.py et compare/numeric.py ne sont pas encore
+# entièrement typés : « mypy src/linalg_pedagopy » y trouve 63 erreurs (mypy 2.4.0), affichées à titre
+# informatif sans faire échouer la CI ni verifier_tout.py.
 files = [
     "src/linalg_pedagopy/core",
     "src/linalg_pedagopy/algorithms",

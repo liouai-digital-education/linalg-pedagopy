@@ -23,6 +23,7 @@
 - **Sorties vérifiées** : convention `#>` pour une ligne de sortie exacte après un `print(...)` (`#> …` pour une sortie tronquée, `<!-- exemple: non exécuté -->` pour écarter un bloc), documentée dans `docs/dev/tests_et_verifications.md`. 23 sorties passent en `#>` ; les 11 qui omettaient la première ligne de trace, citaient le message entre guillemets ou l'abrégeaient sont complétées d'après la sortie réelle.
 - **Fichiers générés** : nouveau job d'intégration continue « Documentation à jour », qui régénère le catalogue des exercices et le site (`docs/site/`) et échoue si le résultat diffère des fichiers versionnés.
 - **Option `docs`** (`pip install -e ".[docs]"`) : `markdown`, `jinja2` et `beautifulsoup4`, nécessaires pour régénérer le site ; citée dans le README et dans `docs/dev/tests_et_verifications.md`.
+- **mypy figé** à la version 2.4.0 dans l'option `dev`. Le périmètre strict reste sans erreur ; le paquet complet compte 63 erreurs (informatif, en CI comme en local, et non zéro comme on le pensait : l'étape échoue sans faire échouer le job). `pyproject.toml` et `docs/dev/tests_et_verifications.md` le disent désormais.
 
 ## [0.3.1.2] — 2026-10-21
 

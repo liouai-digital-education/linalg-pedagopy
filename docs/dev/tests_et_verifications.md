@@ -104,4 +104,5 @@ git config filter.carnets.smudge cat
 
 - `ruff check src tests scripts` : règles `E4`, `E7`, `E9`, `F` (bloquant).
 - `mypy` (sans argument) : mode strict, **bloquant**, sur le périmètre `files` de `[tool.mypy]` dans `pyproject.toml` : `core`, `algorithms`, `objects`, `render`, `trace`, `plot`, `config.py`, `special.py`.
-- `mypy src/linalg_pedagopy` : tout le paquet, informatif ; les erreurs restantes sont dans le tuteur, les exercices et `compare` (à typer en phase 5).
+- `mypy src/linalg_pedagopy` : tout le paquet, **informatif**. Il reste 63 erreurs (mypy 2.4.0), toutes hors du périmètre strict : `tuteur/`, `exercises/generators.py` et `compare/numeric.py`, surtout des attributs déclarés par `__slots__` sans annotation et des retours `Any`. En CI, cette étape échoue sans faire échouer le job (`continue-on-error`) : son résultat se lit dans le journal du job.
+- La version de mypy est figée dans l'option `dev` (`mypy==2.4.0`) : d'une version à l'autre, le nombre d'erreurs hors périmètre change (58 avec 2.3, 63 avec 2.4.0). Pour monter de version, modifiez `pyproject.toml`, relancez les deux commandes ci-dessus et mettez à jour ce décompte.
