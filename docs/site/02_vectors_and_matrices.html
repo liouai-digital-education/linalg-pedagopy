@@ -382,10 +382,10 @@ B = Matrix([[2, 0], [1, 2]])
 with tracing(level=2) as tr:
     C = A.matmul(B, view="rows")
 print(Explanation(tr.tree).to_text(level=2))
-# Produit matriciel (2×2) @ (2×2) — vue par lignes (combinaisons linéaires des lignes de B).
-# ├─ Ligne 1 du produit : combinaison des lignes de B avec les coefficients (1, 2) -&gt; ( 4, 4 ).
-# ├─ Ligne 2 du produit : combinaison des lignes de B avec les coefficients (3, 4) -&gt; ( 10, 8 ).
-# └─ Résultat du produit matriciel : [(4 4); (10 8)].
+#&gt; Produit matriciel (2×2) @ (2×2) — vue par lignes (combinaisons linéaires des lignes de B).
+#&gt; ├─ Ligne 1 du produit : combinaison des lignes de B avec les coefficients (1, 2) -&gt; ( 4, 4 ).
+#&gt; ├─ Ligne 2 du produit : combinaison des lignes de B avec les coefficients (3, 4) -&gt; ( 10, 8 ).
+#&gt; └─ Résultat du produit matriciel : [(4 4); (10 8)].
 print(C == A @ B)   # True
 </code></pre></div>
 <h3 id="35-matrices-par-blocs">3.5 Matrices par blocs</h3>
@@ -436,13 +436,13 @@ for br in inv_B.branches:
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">a, = symbols("a")
 P = Matrix([[1, a], [a, 1]])
 print(P.rank())
-# Discussion selon a
-# ├─ Cas a ≠ 1 et a ≠ −1 (générique) : 2
-# └─ Cas a = 1 ou a = −1 : 1
+#&gt; Discussion selon a
+#&gt; ├─ Cas a ≠ 1 et a ≠ −1 (générique) : 2
+#&gt; └─ Cas a = 1 ou a = −1 : 1
 print(P.rank(assumptions="a != 1"))
-# Discussion selon a
-# ├─ Cas a ≠ 1 et a ≠ −1 (générique) : 2
-# └─ Cas a = −1 : 1
+#&gt; Discussion selon a
+#&gt; ├─ Cas a ≠ 1 et a ≠ −1 (générique) : 2
+#&gt; └─ Cas a = −1 : 1
 </code></pre></div>
 <p>Sans paramètre, le résultat est direct :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">A = Matrix([

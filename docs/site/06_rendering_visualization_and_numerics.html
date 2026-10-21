@@ -339,20 +339,20 @@ print("Défaut d'orthogonalité en float64 :", rapport.orthogonality_defect_floa
 )
 
 print(lauchli_gram_schmidt_experiment())
-# Matrice de Läuchli (4x3, ε = 1.0e-08) :
-# - Exact (SymPy)              : max |q_i^T q_j - δ_ij| = 0
-# - Gram-Schmidt classique     : max |q_i^T q_j - δ_ij| = 0.5000 (perte totale d'orthogonalité)
-# - Gram-Schmidt modifié (MGS) : max |q_i^T q_j - δ_ij| = 7.07e-09
+#&gt; Matrice de Läuchli (4x3, ε = 1.0e-08) :
+#&gt; - Exact (SymPy)              : max |q_i^T q_j - δ_ij| = 0
+#&gt; - Gram-Schmidt classique     : max |q_i^T q_j - δ_ij| = 0.5000 (perte totale d'orthogonalité)
+#&gt; - Gram-Schmidt modifié (MGS) : max |q_i^T q_j - δ_ij| = 7.07e-09
 </code></pre></div>
 <h3 id="33-cas-decole-2-la-matrice-de-hilbert-et-le-mauvais-conditionnement">3.3 Cas d'école 2 : La matrice de Hilbert et le mauvais conditionnement</h3>
 <p>La matrice de Hilbert d'ordre $n$, $H_{ij} = \frac{1}{i + j + 1}$ (indices à partir de 0), est célèbre pour son conditionnement qui croît exponentiellement ($\text{cond}(H_n) \approx e^{3.5 n}$).</p>
 <p>L'erreur relative d'un solveur flottant croît avec ce conditionnement, alors qu'avec <code>linalg_pedagopy</code> les coefficients restent des fractions exactes, quelle que soit la dimension :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(hilbert_conditioning_experiment())
-# Matrices de Hilbert H_n :
-# - n =  3 : cond(H_n) ≈ 5.24e+02, erreur relative flottante ≈ 8.36e-15 (exact : 0)
-# - n =  5 : cond(H_n) ≈ 4.77e+05, erreur relative flottante ≈ 1.68e-12 (exact : 0)
-# - n =  7 : cond(H_n) ≈ 4.75e+08, erreur relative flottante ≈ 1.01e-09 (exact : 0)
-# - n =  9 : cond(H_n) ≈ 4.93e+11, erreur relative flottante ≈ 1.18e-06 (exact : 0)
+#&gt; Matrices de Hilbert H_n :
+#&gt; - n =  3 : cond(H_n) ≈ 5.24e+02, erreur relative flottante ≈ 8.36e-15 (exact : 0)
+#&gt; - n =  5 : cond(H_n) ≈ 4.77e+05, erreur relative flottante ≈ 1.68e-12 (exact : 0)
+#&gt; - n =  7 : cond(H_n) ≈ 4.75e+08, erreur relative flottante ≈ 1.01e-09 (exact : 0)
+#&gt; - n =  9 : cond(H_n) ≈ 4.93e+11, erreur relative flottante ≈ 1.18e-06 (exact : 0)
 </code></pre></div>
 <p>(les erreurs flottantes exactes peuvent varier légèrement selon la plateforme).</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.compare import build_hilbert_matrix

@@ -191,8 +191,13 @@ Une condition comme $a^2 - 2 \neq 0$ s'affiche avec ses racines : « $a \neq \sq
 a, = symbols("a")
 res = GaussJordan(Matrix([[a**2 - 2, 1], [0, a - 1]]), Vector([1, 1])).run()
 print(res)
-# ├─ Cas a ≠ √(2) et a ≠ −√(2) et a ≠ 1 (générique) : pivots non nuls, rang 2, solution unique
-# │    x = ( (a − 2)/((a − 1)·(a − √(2))·(a + √(2))), 1/(a − 1) )
+#> Discussion selon a
+#> ├─ Cas a ≠ √(2) et a ≠ −√(2) et a ≠ 1 (générique) : pivots non nuls, rang 2, solution unique
+#> │    x = ( (a − 2)/((a − 1)·(a − √(2))·(a + √(2))), 1/(a − 1) )
+#> ├─ Cas a = 1 : L2 devient (0 0 | 1)
+#> │    système incompatible (témoin : 0 = 1)
+#> └─ Cas a² − 2 = 0 : L2 devient (0 0 | 2 - a)
+#>      système incompatible (témoin : 0 = 2 - a)
 ```
 
 Seuls les facteurs irréductibles sur $\mathbb{Q}$ sont décomposés, et seulement avec les radicaux qui figurent dans la condition de la branche : $1 - 2a$ garde son écriture. L'option `config.factor_policy = "rational"` (ou `using_config(factor_policy="rational")`) rétablit la factorisation sur $\mathbb{Q}$ seul.
@@ -229,9 +234,9 @@ from linalg_pedagopy import symbols
 
 a, = symbols("a")
 print(BackSubstitution(Matrix([[1, 2], [0, a]]), Vector([1, 1])).run())
-# Discussion selon a
-# ├─ Cas a ≠ 0 (générique) : x = ((a - 2)/a, 1/a)
-# └─ Cas a = 0 : coefficient diagonal (2,2) nul : système singulier, substitution impossible
+#> Discussion selon a
+#> ├─ Cas a ≠ 0 (générique) : x = ((a - 2)/a, 1/a)
+#> └─ Cas a = 0 : coefficient diagonal (2,2) nul : système singulier, substitution impossible
 ```
 
 ---
@@ -383,9 +388,9 @@ Au niveau 3, la trace donne chaque coefficient intermédiaire, mineur $2 \times 
 ```python
 [str(c) for c in res.zeros()]    # ['a = −2', 'a = 1']
 print(res.zeros(split=True))
-# Discussion selon a
-# ├─ Cas a ≠ −2 et a ≠ 1 (générique) : True
-# └─ Cas a = −2 ou a = 1 : False
+#> Discussion selon a
+#> ├─ Cas a ≠ −2 et a ≠ 1 (générique) : True
+#> └─ Cas a = −2 ou a = 1 : False
 ```
 
 Les branches qui ont le même résultat sont regroupées à l'affichage (voir le guide 01, § 4.2) ; `res.zeros(split=True).branches` les garde séparées.
@@ -397,38 +402,43 @@ Un déterminant qui ne s'annule jamais donne `()` ; un déterminant identiquemen
 ```python
 B = Matrix([[2, 4, 1], [1, 3, 2], [0, 1, 5]])
 print(Determinant(B, method="elimination").run().explain(level=1))
-# ├─ On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
-# ├─ On annule le coefficient (2,1) : L2 ← L2 − (2)·L1 (une transvection ne change pas le déterminant).
-# ├─ On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
-# ├─ On annule le coefficient (3,2) : L3 ← L3 − (−2)·L2 (une transvection ne change pas le déterminant).
-# ├─ Matrice triangulaire : det A = (+1) × produit des pivots (1, 1, 7) (2 échange(s) de lignes).
-# └─ det A = 7.
+#> Calcul du déterminant d'une matrice 3×3 (méthode : élimination).
+#> ├─ On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+#> ├─ On annule le coefficient (2,1) : L2 ← L2 − (2)·L1 (une transvection ne change pas le déterminant).
+#> ├─ On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+#> ├─ On annule le coefficient (3,2) : L3 ← L3 − (−2)·L2 (une transvection ne change pas le déterminant).
+#> ├─ Matrice triangulaire : det A = (+1) × produit des pivots (1, 1, 7) (2 échange(s) de lignes).
+#> └─ det A = 7.
 
 # Le premier échange vient de la stratégie de pivot « simplest » : le pivot 1 (ligne 2) est
 # préféré au pivot 2 (ligne 1), bien que celui-ci soit non nul.
 
 C = Matrix([[1, 0, 2], [3, 0, 4], [5, 6, 7]])
 print(Determinant(C, method="cofactors").run().explain(level=2))
-# ├─ Développement suivant la colonne 2 (la plus creuse) : det A = Σ (−1)^(i+j) a_ij M_ij.
-# │  ├─ Coefficient a_(1,2) nul : son terme est nul, le mineur n'est pas calculé.
-# │  ├─ ...
-# │  └─ Terme (3,2) : − a_(3,2)·M_(3,2) = − (6)·(−2).
-# └─ det A = 12.
+#> Calcul du déterminant d'une matrice 3×3 (méthode : cofacteurs).
+#> ├─ Développement suivant la colonne 2 (la plus creuse) : det A = Σ (−1)^(i+j) a_ij M_ij.
+#> │  ├─ Coefficient a_(1,2) nul : son terme est nul, le mineur n'est pas calculé.
+#> │  ├─ Coefficient a_(2,2) nul : son terme est nul, le mineur n'est pas calculé.
+#> │  ├─ Mineur M_(3,2) : déterminant de la matrice obtenue en supprimant la ligne 3 et la colonne 2.
+#> │  │  └─ Déterminant 2×2 : (1)·(4) − (2)·(3) = −2.
+#> │  └─ Terme (3,2) : − a_(3,2)·M_(3,2) = − (6)·(−2).
+#> └─ det A = 12.
 
 D = Matrix([[2, 1, 3], [0, 4, 5], [1, 0, 6]])
 print(Determinant(D, method="sarrus").run().explain(level=1))
-# ├─ Règle de Sarrus, diagonales descendantes (signe +) : (48, 5, 0).
-# ├─ Règle de Sarrus, diagonales montantes (signe −) : (12, 0, 0).
-# └─ det A = 41.
+#> Calcul du déterminant d'une matrice 3×3 (méthode : Sarrus).
+#> ├─ Règle de Sarrus, diagonales descendantes (signe +) : (48, 5, 0).
+#> ├─ Règle de Sarrus, diagonales montantes (signe −) : (12, 0, 0).
+#> └─ det A = 41.
 ```
 
 L'élimination ne divise jamais par un pivot qui dépend d'un paramètre et peut s'annuler : comme Gauss-Jordan, elle ouvre alors une discussion par cas (`CaseSplit`), avec dans chaque branche le produit des pivots ou l'arrêt sur une colonne sans pivot. Bareiss, lui, n'a jamais besoin de discussion.
 
 ```python
 print(Determinant(A, method="elimination").run())
-# Discussion selon a
-# ├─ Cas a ≠ 1 et a ≠ −2 (générique) : det A = (a - 1)**2*(a + 2) (méthode : élimination)
-# └─ Cas a = −2 ou a = 1 : det A = 0 (méthode : élimination)
+#> Discussion selon a
+#> ├─ Cas a ≠ 1 et a ≠ −2 (générique) : det A = (a - 1)**2*(a + 2) (méthode : élimination)
+#> └─ Cas a = −2 ou a = 1 : det A = 0 (méthode : élimination)
 Determinant(A, method="elimination", assumptions={"a": 3}).run().value   # 20
 A.det(method="elimination")                                              # CaseSplit des valeurs
 ```

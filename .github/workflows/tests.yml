@@ -1,4 +1,5 @@
-# Intégration continue de linalg_pedagopy : tests, fiches du tuteur, ruff, mypy et carnets.
+# Intégration continue de linalg_pedagopy : tests, fiches du tuteur, ruff, mypy, carnets
+# et fichiers générés de la documentation (site, catalogue des exercices).
 name: Tests
 
 on:
@@ -70,3 +71,34 @@ jobs:
         run: mypy --python-version 3.12 src/linalg_pedagopy
       - name: Carnets
         run: python tests/run_notebooks.py --moteur jupyter
+
+  documentation:
+    name: Documentation à jour
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Installation
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[docs]"
+      # Le catalogue d'abord : le site reprend docs/08_catalogue_exercices.md.
+      - name: Régénération du catalogue des exercices
+        run: python docs/generer_catalogue.py
+      - name: Régénération du site
+        run: python scripts/build_docs_site.py
+      - name: Fichiers générés identiques aux fichiers versionnés
+        run: |
+          git diff --exit-code --stat -- docs/site docs/08_catalogue_exercices.md || {
+            echo "::error::Fichiers générés périmés : lancez python docs/generer_catalogue.py puis python scripts/build_docs_site.py, et commitez le résultat."
+            git diff -- docs/site docs/08_catalogue_exercices.md | head -100
+            exit 1
+          }
+          test -z "$(git status --porcelain --untracked-files=all -- docs/site)" || {
+            echo "::error::Fichiers du site générés mais non versionnés :"
+            git status --porcelain --untracked-files=all -- docs/site
+            exit 1
+          }

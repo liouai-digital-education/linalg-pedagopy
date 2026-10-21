@@ -540,12 +540,12 @@ session = GaussJordan(A, b).interactive(mode="autonomous")
 # L'élève propose une opération élémentaire
 fb = session.propose("L2 <- L2 - 3*L1")
 print(fb.message)
-# "Valide. Le coefficient (2,1) est maintenant nul : progression vers la forme échelonnée."
+#> Valide. Le coefficient (2,1) est maintenant nul : progression vers la forme échelonnée.
 
 # Détection automatique d'erreur (ex. dilatation par 0)
 fb_err = session.propose("L2 <- 0*L2")
 print(fb_err.message)
-# "Invalide : une dilatation par 0 n'est pas une opération élémentaire..."
+#> Invalide : une dilatation par 0 n'est pas une opération élémentaire (perte d'information) ; l'opération n'est pas inversible : le système change.
 
 # Demander une suggestion sans dévoiler la réponse
 print(session.hint())
@@ -641,10 +641,9 @@ A_fausse = Matrix([
 ])
 retour = ex.verifier(A_fausse)
 print(retour.diagnostic)
-# Retour du tuteur :
-# "Taille correcte (3 x 6). Lignes 1 et 3 correctes.
-#  Votre ligne 2 calcule d_2 = p_4 - (p_1 + p_2 + p_3)/3.
-#  Relisez la définition de d_2 : quel est le prix « du jour » pour i = 2 ?"
+#> Taille correcte (3 x 6). Lignes 1 et 3 correctes.
+#> Votre ligne 2 calcule d_2 = p_4 - (p_1 + p_2 + p_3)/3.
+#> Relisez la définition de d_2 : quel est le prix « du jour » pour i = 2 ?
 
 # Soumission de la matrice exacte :
 A_juste = Matrix([
@@ -653,7 +652,7 @@ A_juste = Matrix([
     [0, 0, -t, -t, -t, 1]
 ])
 print(ex.verifier(A_juste))
-# "Taille correcte (3 x 6). Toutes les lignes de votre matrice calculent exactement d = A p."
+#> Taille correcte (3 x 6). Toutes les lignes de votre matrice calculent exactement d = A p.
 ```
 
 ---
@@ -693,11 +692,11 @@ rep = lab.tester(
     c=Vector([0, 0, 1])
 )
 print(rep.message)
-# "Hypothèses vérifiées : a ⊥ c et b ⊥ c.
-#  (a) est faux sur votre instance : c'est un contre-exemple valide.
-#  (b) est vrai sur votre instance.
-#  (c) est faux sur votre instance : c'est un contre-exemple valide.
-#  Pour (b), des essais ne suffisent pas : rédigez une justification."
+#> Hypothèses vérifiées : a ⊥ c et b ⊥ c.
+#> (a) est faux sur votre instance : c'est un contre-exemple valide.
+#> (b) est vrai sur votre instance.
+#> (c) est faux sur votre instance : c'est un contre-exemple valide.
+#> Pour (b), des essais ne suffisent pas : rédigez une justification.
 ```
 
 ---
@@ -736,7 +735,7 @@ B2 = Matrix([[-2, 1], [-1, 1], [1, 0]])
 # Soumission du couple (B1, B2)
 resultat = ex.verifier((B1, B2))
 print(resultat.diagnostic)
-# "Bravo ! A B1 = I_2, A B2 = I_2 et B1 ≠ B2 : vos deux inverses à droite sont valides."
+#> Bravo ! A B1 = I_2, A B2 = I_2 et B1 ≠ B2 : vos deux inverses à droite sont valides.
 ```
 
 ---
@@ -820,7 +819,7 @@ from linalg_pedagopy.tuteur import exercice
 ex = exercice("norme-minimale")
 x_opt = Vector([Fraction(1, 3), Fraction(2, 3), Fraction(1, 3)])
 print(ex.verifier(x_opt))
-# "Exact ! Votre vecteur x vérifie C x = d et les conditions KKT de norme minimale."
+#> Exact ! Votre vecteur x vérifie C x = d et les conditions KKT de norme minimale.
 ```
 
 ---
