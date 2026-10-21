@@ -6,6 +6,8 @@
   transvection, étape de Bareiss).
 - Étape 4.3 : moteur d'élimination (``EliminationEngine``) : parcours des colonnes, choix
   du pivot, discussion par cas quand aucun pivot n'est inconditionnellement non nul.
+- Étape 4.7 : base du noyau lue sur la forme réduite (``kernel_basis``) et sa trace
+  (``trace_kernel``).
 """
 
 from __future__ import annotations
@@ -19,7 +21,9 @@ import sympy as sp
 from linalg_pedagopy.config import config
 from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
 from linalg_pedagopy.core.zero import Verdict, case_limit_error, oracle
+from linalg_pedagopy.core.field import pretty_expr
 from linalg_pedagopy.objects.matrix import Matrix
+from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.render.text import format_value_text
 from linalg_pedagopy.trace.step import Highlight, StepKind
 from linalg_pedagopy.trace.tracer import record, section, tracing
@@ -543,3 +547,88 @@ class EliminationEngine(Generic[R]):
             expr=request.expr,
         )
         return CaseSplit(branches=tuple(branches))
+
+
+def _variables(cols: list[int] | tuple[int, ...]) -> str:
+    return ", ".join(f"x{c + 1}" for c in cols)
+
+
+def kernel_basis(
+    rref: Matrix,
+    pivots: list[int] | tuple[int, ...],
+    *,
+    finish: Callable[[sp.Expr], sp.Expr] = _simplify_entry,
+) -> tuple[Vector, ...]:
+    """Base du noyau lue sur une forme échelonnée réduite (colonnes de A seulement).
+
+    Pour chaque variable libre x_f, on pose x_f = 1 et les autres variables libres nulles ;
+    les variables principales se lisent sur la forme réduite : x_p = −Σ r_(p, f)·x_f.
+    """
+    n = rref.cols
+    free_vars = [j for j in range(n) if j not in pivots]
+    basis: list[Vector] = []
+    for f_col in free_vars:
+        vec = [sp.Integer(0)] * n
+        vec[f_col] = sp.Integer(1)
+        for row_idx, p_col in enumerate(pivots):
+            vec[p_col] = finish(-rref[row_idx, f_col])
+        basis.append(Vector._from_exact(vec))
+    return tuple(basis)
+
+
+def trace_kernel(
+    rref: Matrix,
+    pivots: list[int] | tuple[int, ...],
+    basis: tuple[Vector, ...],
+    *,
+    announce_trivial: bool = False,
+) -> None:
+    """Étapes ``ker.*`` (niveau 2) qui expliquent la base du noyau construite par ``kernel_basis``.
+
+    Variables libres et théorème du rang, système homogène équivalent, chaque vecteur de
+    base, puis la sous-matrice identité des composantes libres, qui prouve que la famille
+    est libre. ``announce_trivial`` : sans variable libre, annoncer ker A = {0} et sa base vide.
+    """
+    n = rref.cols
+    pivots = list(pivots)
+    free_vars = [j for j in range(n) if j not in pivots]
+    rank, k = len(pivots), len(free_vars)
+    if not free_vars:
+        if announce_trivial:
+            record(StepKind.INFO, "ker.trivial", level=2, rank=rank, n=n)
+        return
+
+    record(
+        StepKind.INFO,
+        "ker.free_vars",
+        level=2,
+        free=_variables(free_vars),
+        pivots=_variables(pivots) or "aucune",
+        n=n,
+        rank=rank,
+        k=k,
+    )
+    if pivots:
+        xs = [sp.Symbol(f"x{j + 1}") for j in range(n)]
+        equations = " ; ".join(
+            f"x{p + 1} = {pretty_expr(sp.Add(*(-rref[row, f] * xs[f] for f in free_vars)))}"
+            for row, p in enumerate(pivots)
+        )
+        record(StepKind.INFO, "ker.param_system", level=2, equations=equations)
+    for idx, (f_col, v) in enumerate(zip(free_vars, basis), start=1):
+        record(
+            StepKind.INFO,
+            "ker.vector" if k > 1 else "ker.vector_single",
+            level=2,
+            index=idx,
+            var=f"x{f_col + 1}",
+            vector=v,
+        )
+    record(
+        StepKind.INFO,
+        "ker.identity_block" if k > 1 else "ker.identity_single",
+        level=2,
+        vars=_variables(free_vars),
+        vectors=", ".join(f"v{i}" for i in range(1, k + 1)),
+        k=k,
+    )

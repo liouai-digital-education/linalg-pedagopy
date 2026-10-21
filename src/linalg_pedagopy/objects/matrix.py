@@ -687,10 +687,9 @@ class Matrix:
     def nullspace(
         self, *, assumptions: Any = None
     ) -> tuple[Vector, ...] | CaseSplit[tuple[Vector, ...]]:
-        """Calcule une base du noyau ker(A) via GaussJordan."""
+        """Calcule une base du noyau ker(A) via GaussJordan (réduction de A seule, sans colonne de zéros)."""
         gj_cls = self._require_gj()
-        b_zero = Vector.zeros(self._nrows)
-        res = gj_cls(self, b_zero, assumptions=assumptions).run()
+        res = gj_cls(self, assumptions=assumptions).run()
         if isinstance(res, CaseSplit):
             return CaseSplit(
                 branches=tuple(

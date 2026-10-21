@@ -134,6 +134,10 @@ Discussion selon a
 │    │  └─ On annule le coefficient (5,4) : L5 ← L5 − 1·L4.
 │    │     [(1 0 0 0 1 | 1); (0 1 0 0 -1 | 0); (0 0 1 0 0 | -1); (0 0 0 1 1 | 1); (0 0 0 0 0 | 0)]
 │    ├─ Aucun pivot non nul disponible dans la colonne 5 : variable x_5 libre.
+│    ├─ Noyau : variables libres x5 (colonnes sans pivot), variables principales x1, x2, x3, x4 ; dim ker A = n − rg A = 5 − 4 = 1.
+│    ├─ Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −x5 ; x2 = x5 ; x3 = 0 ; x4 = −x5.
+│    ├─ En posant x5 = 1 : v1 = ( −1, 1, 0, −1, 1 ).
+│    ├─ La composante x5 de v1 vaut 1 : v1 n'est pas nul, donc (v1) est libre ; elle engendre ker A : c'est une base.
 │    ├─ Rang 4 < 5 : ensemble affine de solutions avec 1 variable(s) libre(s).
 │    └─ Forme échelonnée réduite atteinte : rang = 4, colonnes pivots = (1, 2, 3, 4).
 │       [(1 0 0 0 1 | 1); (0 1 0 0 -1 | 0); (0 0 1 0 0 | -1); (0 0 0 1 1 | 1); (0 0 0 0 0 | 0)]
@@ -196,6 +200,10 @@ Discussion selon a
 │    │  └─ On annule le coefficient (5,4) : L5 ← L5 + 1·L4.
 │    │     [(1 0 0 0 1 | -1); (0 1 0 0 1 | 0); (0 0 1 0 0 | 1); (0 0 0 1 -1 | 1); (0 0 0 0 0 | 0)]
 │    ├─ Aucun pivot non nul disponible dans la colonne 5 : variable x_5 libre.
+│    ├─ Noyau : variables libres x5 (colonnes sans pivot), variables principales x1, x2, x3, x4 ; dim ker A = n − rg A = 5 − 4 = 1.
+│    ├─ Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −x5 ; x2 = −x5 ; x3 = 0 ; x4 = x5.
+│    ├─ En posant x5 = 1 : v1 = ( −1, −1, 0, 1, 1 ).
+│    ├─ La composante x5 de v1 vaut 1 : v1 n'est pas nul, donc (v1) est libre ; elle engendre ker A : c'est une base.
 │    ├─ Rang 4 < 5 : ensemble affine de solutions avec 1 variable(s) libre(s).
 │    └─ Forme échelonnée réduite atteinte : rang = 4, colonnes pivots = (1, 2, 3, 4).
 │       [(1 0 0 0 1 | -1); (0 1 0 0 1 | 0); (0 0 1 0 0 | 1); (0 0 0 1 -1 | 1); (0 0 0 0 0 | 0)]
@@ -373,6 +381,10 @@ Discussion selon a
 │    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
 │    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
 │    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Noyau : variables libres x5 (colonnes sans pivot), variables principales x1, x2, x3, x4 ; dim ker A = n − rg A = 5 − 4 = 1.
+│    ├─ Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −x5 ; x2 = x5 ; x3 = 0 ; x4 = −x5.
+│    ├─ En posant x5 = 1 : v1 = ( −1, 1, 0, −1, 1 ).
+│    ├─ La composante x5 de v1 vaut 1 : v1 n'est pas nul, donc (v1) est libre ; elle engendre ker A : c'est une base.
 │    ├─ Rang 4 < 5 : ensemble affine de solutions avec 1 variable(s) libre(s).
 │    └─ Forme échelonnée réduite atteinte : rang = 4, colonnes pivots = (1, 2, 3, 4).
 │       [(1 0 0 0 1 | 1); (0 1 0 0 -1 | 0); (0 0 1 0 0 | -1); (0 0 0 1 1 | 1); (0 0 0 0 0 | 0)]
@@ -485,6 +497,10 @@ Discussion selon a
 │    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
 │    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
 │    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Noyau : variables libres x5 (colonnes sans pivot), variables principales x1, x2, x3, x4 ; dim ker A = n − rg A = 5 − 4 = 1.
+│    ├─ Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −x5 ; x2 = −x5 ; x3 = 0 ; x4 = x5.
+│    ├─ En posant x5 = 1 : v1 = ( −1, −1, 0, 1, 1 ).
+│    ├─ La composante x5 de v1 vaut 1 : v1 n'est pas nul, donc (v1) est libre ; elle engendre ker A : c'est une base.
 │    ├─ Rang 4 < 5 : ensemble affine de solutions avec 1 variable(s) libre(s).
 │    └─ Forme échelonnée réduite atteinte : rang = 4, colonnes pivots = (1, 2, 3, 4).
 │       [(1 0 0 0 1 | -1); (0 1 0 0 1 | 0); (0 0 1 0 0 | 1); (0 0 0 1 -1 | 1); (0 0 0 0 0 | 0)]

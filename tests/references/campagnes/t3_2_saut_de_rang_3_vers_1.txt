@@ -104,6 +104,11 @@ Discussion selon a
      │     [(1 1 1 | 1); (0 0 0 | 0); (0 0 0 | 0)]
      ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
      ├─ Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+     ├─ Noyau : variables libres x2, x3 (colonnes sans pivot), variables principales x1 ; dim ker A = n − rg A = 3 − 1 = 2.
+     ├─ Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −x2 − x3.
+     ├─ En posant x2 = 1 et les autres variables libres nulles : v1 = ( −1, 1, 0 ).
+     ├─ En posant x3 = 1 et les autres variables libres nulles : v2 = ( −1, 0, 1 ).
+     ├─ Les composantes x2, x3 de v1, v2 forment la matrice identité I_2 : une combinaison nulle de ces vecteurs a tous ses coefficients nuls. La famille est libre et engendre ker A : c'est une base.
      ├─ Rang 1 < 3 : ensemble affine de solutions avec 2 variable(s) libre(s).
      └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
         [(1 1 1 | 1); (0 0 0 | 0); (0 0 0 | 0)]
@@ -195,6 +200,11 @@ Discussion selon a
      ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
      ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
      ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Noyau : variables libres x2, x3 (colonnes sans pivot), variables principales x1 ; dim ker A = n − rg A = 3 − 1 = 2.
+     ├─ Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −x2 − x3.
+     ├─ En posant x2 = 1 et les autres variables libres nulles : v1 = ( −1, 1, 0 ).
+     ├─ En posant x3 = 1 et les autres variables libres nulles : v2 = ( −1, 0, 1 ).
+     ├─ Les composantes x2, x3 de v1, v2 forment la matrice identité I_2 : une combinaison nulle de ces vecteurs a tous ses coefficients nuls. La famille est libre et engendre ker A : c'est une base.
      ├─ Rang 1 < 3 : ensemble affine de solutions avec 2 variable(s) libre(s).
      └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
         [(1 1 1 | 1); (0 0 0 | 0); (0 0 0 | 0)]

@@ -48,6 +48,10 @@ Discussion selon m
         [(0 0 | 0); (0 0 | 0)]
      ├─ Aucun pivot non nul disponible dans la colonne 1 : variable x_1 libre.
      ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+     ├─ Noyau : variables libres x1, x2 (colonnes sans pivot), variables principales aucune ; dim ker A = n − rg A = 2 − 0 = 2.
+     ├─ En posant x1 = 1 et les autres variables libres nulles : v1 = ( 1, 0 ).
+     ├─ En posant x2 = 1 et les autres variables libres nulles : v2 = ( 0, 1 ).
+     ├─ Les composantes x1, x2 de v1, v2 forment la matrice identité I_2 : une combinaison nulle de ces vecteurs a tous ses coefficients nuls. La famille est libre et engendre ker A : c'est une base.
      ├─ Rang 0 < 2 : ensemble affine de solutions avec 2 variable(s) libre(s).
      └─ Forme échelonnée réduite atteinte : rang = 0, colonnes pivots = ().
         [(0 0 | 0); (0 0 | 0)]
@@ -88,6 +92,10 @@ Discussion selon m
      ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
      ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
      ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Noyau : variables libres x1, x2 (colonnes sans pivot), variables principales aucune ; dim ker A = n − rg A = 2 − 0 = 2.
+     ├─ En posant x1 = 1 et les autres variables libres nulles : v1 = ( 1, 0 ).
+     ├─ En posant x2 = 1 et les autres variables libres nulles : v2 = ( 0, 1 ).
+     ├─ Les composantes x1, x2 de v1, v2 forment la matrice identité I_2 : une combinaison nulle de ces vecteurs a tous ses coefficients nuls. La famille est libre et engendre ker A : c'est une base.
      ├─ Rang 0 < 2 : ensemble affine de solutions avec 2 variable(s) libre(s).
      └─ Forme échelonnée réduite atteinte : rang = 0, colonnes pivots = ().
         [(0 0 | 0); (0 0 | 0)]
