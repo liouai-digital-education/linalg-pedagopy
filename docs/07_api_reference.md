@@ -210,10 +210,11 @@ Chaque procédure s'exécute par `.run()`, qui renvoie un résultat (ou un `Case
 ### 4.1 `GaussJordan`
 
 ```text
-GaussJordan(A, b=None, *, pivot_strategy="simplest", strict=False, max_depth=None,
-            max_cases=None, assumptions=None, compute_inverse=False)
+GaussJordan(A, b=None, *, pivot_strategy="simplest", reduction="simultaneous", strict=False,
+            max_depth=None, max_cases=None, assumptions=None, compute_inverse=False)
 ```
-- `pivot_strategy` : `"simplest"`, `"first"` ou `"partial"`.
+- `pivot_strategy` : `"simplest"`, `"first"`, `"partial"` ou `"sparse"` (ligne la plus creuse).
+- `reduction` : `"simultaneous"` (Gauss-Jordan) ou `"back_substitution"` (échelonnement puis remontée).
 - `strict=True` : `SingularMatrixError` pour un système incompatible ou une matrice non inversible (`compute_inverse=True`).
 - `.run()` → `GJResult | CaseSplit[GJResult]`.
 - Champs de `GJResult` : `A`, `b`, `rref`, `augmented_rref`, `pivots`, `rank`, `free_vars`, `nullspace_basis`, `solution`, `inverse`.

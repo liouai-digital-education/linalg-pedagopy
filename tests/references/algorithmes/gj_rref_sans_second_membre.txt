@@ -25,6 +25,11 @@ Réduction de Gauss-Jordan d'une matrice 3×4.
 │  └─ On annule le coefficient (3,3) : L3 ← L3 − 1·L2.
 │     [(1 2 0 1); (0 0 1 1); (0 0 0 0)]
 ├─ Aucun pivot non nul disponible dans la colonne 4 : variable x_4 libre.
+├─ Noyau : variables libres x2, x4 (colonnes sans pivot), variables principales x1, x3 ; dim ker A = n − rg A = 4 − 2 = 2.
+├─ Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −2·x2 − x4 ; x3 = −x4.
+├─ En posant x2 = 1 et les autres variables libres nulles : v1 = ( −2, 1, 0, 0 ).
+├─ En posant x4 = 1 et les autres variables libres nulles : v2 = ( −1, 0, −1, 1 ).
+├─ Les composantes x2, x4 de v1, v2 forment la matrice identité I_2 : une combinaison nulle de ces vecteurs a tous ses coefficients nuls. La famille est libre et engendre ker A : c'est une base.
 └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 3).
    [(1 2 0 1); (0 0 1 1); (0 0 0 0)]
 
@@ -49,6 +54,11 @@ Réduction de Gauss-Jordan d'une matrice 3×4.
 │     [(1 2 0 1); (0 0 1 1); (0 0 0 0)]
 ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
 ├─ Aucun pivot non nul disponible dans la colonne 4 : variable x_4 libre.
+├─ Noyau : variables libres x2, x4 (colonnes sans pivot), variables principales x1, x3 ; dim ker A = n − rg A = 4 − 2 = 2.
+├─ Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −2·x2 − x4 ; x3 = −x4.
+├─ En posant x2 = 1 et les autres variables libres nulles : v1 = ( −2, 1, 0, 0 ).
+├─ En posant x4 = 1 et les autres variables libres nulles : v2 = ( −1, 0, −1, 1 ).
+├─ Les composantes x2, x4 de v1, v2 forment la matrice identité I_2 : une combinaison nulle de ces vecteurs a tous ses coefficients nuls. La famille est libre et engendre ker A : c'est une base.
 └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 3).
    [(1 2 0 1); (0 0 1 1); (0 0 0 0)]
 
@@ -67,6 +77,11 @@ Réduction de Gauss-Jordan d'une matrice 3×4.
     - On annule le coefficient (3,3) : L3 ← L3 − 1·L2.
       $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{2}} \left[\begin{array}{cccc} 1 & 2 & 0 & 1 \\ 0 & 0 & \boxed{1} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]$$
   - Aucun pivot non nul disponible dans la colonne 4 : variable x_4 libre.
+  - Noyau : variables libres x2, x4 (colonnes sans pivot), variables principales x1, x3 ; dim ker A = n − rg A = 4 − 2 = 2.
+  - Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −2·x2 − x4 ; x3 = −x4.
+  - En posant x2 = 1 et les autres variables libres nulles : v1 = ( −2, 1, 0, 0 ).
+  - En posant x4 = 1 et les autres variables libres nulles : v2 = ( −1, 0, −1, 1 ).
+  - Les composantes x2, x4 de v1, v2 forment la matrice identité I_2 : une combinaison nulle de ces vecteurs a tous ses coefficients nuls. La famille est libre et engendre ker A : c'est une base.
   - Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 3).
     $$\left[\begin{array}{cccc} 1 & 2 & 0 & 1 \\ 0 & 0 & 1 & 1 \\ 0 & 0 & 0 & 0 \end{array}\right]$$
 
@@ -91,6 +106,11 @@ Réduction de Gauss-Jordan d'une matrice 3×4.
       \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{2}} \left[\begin{array}{cccc} 1 & 2 & 0 & 1 \\ 0 & 0 & \boxed{1} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]
     \end{itemize}
     \item Aucun pivot non nul disponible dans la colonne 4 : variable x_4 libre.
+    \item Noyau : variables libres x2, x4 (colonnes sans pivot), variables principales x1, x3 ; dim ker A = n − rg A = 4 − 2 = 2.
+    \item Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −2·x2 − x4 ; x3 = −x4.
+    \item En posant x2 = 1 et les autres variables libres nulles : v1 = ( −2, 1, 0, 0 ).
+    \item En posant x4 = 1 et les autres variables libres nulles : v2 = ( −1, 0, −1, 1 ).
+    \item Les composantes x2, x4 de v1, v2 forment la matrice identité I_2 : une combinaison nulle de ces vecteurs a tous ses coefficients nuls. La famille est libre et engendre ker A : c'est une base.
     \item Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 3).
     \[\left[\begin{array}{cccc} 1 & 2 & 0 & 1 \\ 0 & 0 & 1 & 1 \\ 0 & 0 & 0 & 0 \end{array}\right]\]
   \end{itemize}
@@ -116,6 +136,11 @@ Réduction de Gauss-Jordan d'une matrice 3×4.
 <div class='pedagopy-step'>On annule le coefficient (3,3) : L3 ← L3 − 1·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{2}} \left[\begin{array}{cccc} 1 & 2 & 0 & 1 \\ 0 & 0 & \boxed{1} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]</div></div>
 </details>
 <div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 4 : variable x_4 libre.</div>
+<div class='pedagopy-step'>Noyau : variables libres x2, x4 (colonnes sans pivot), variables principales x1, x3 ; dim ker A = n − rg A = 4 − 2 = 2.</div>
+<div class='pedagopy-step'>Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −2·x2 − x4 ; x3 = −x4.</div>
+<div class='pedagopy-step'>En posant x2 = 1 et les autres variables libres nulles : v1 = ( −2, 1, 0, 0 ).</div>
+<div class='pedagopy-step'>En posant x4 = 1 et les autres variables libres nulles : v2 = ( −1, 0, −1, 1 ).</div>
+<div class='pedagopy-step'>Les composantes x2, x4 de v1, v2 forment la matrice identité I_2 : une combinaison nulle de ces vecteurs a tous ses coefficients nuls. La famille est libre et engendre ker A : c&#x27;est une base.</div>
 <div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 3).<div class='pedagopy-math'>\[\left[\begin{array}{cccc} 1 & 2 & 0 & 1 \\ 0 & 0 & 1 & 1 \\ 0 & 0 & 0 & 0 \end{array}\right]\]</div></div>
 </details>
 </div>

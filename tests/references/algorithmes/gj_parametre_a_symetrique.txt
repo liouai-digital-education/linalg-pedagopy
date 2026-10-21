@@ -56,6 +56,10 @@ Discussion selon a
 │    │  └─ On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
 │    │     [(1 1 | 1); (0 0 | 0)]
 │    ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+│    ├─ Noyau : variables libres x2 (colonnes sans pivot), variables principales x1 ; dim ker A = n − rg A = 2 − 1 = 1.
+│    ├─ Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −x2.
+│    ├─ En posant x2 = 1 : v1 = ( −1, 1 ).
+│    ├─ La composante x2 de v1 vaut 1 : v1 n'est pas nul, donc (v1) est libre ; elle engendre ker A : c'est une base.
 │    ├─ Rang 1 < 2 : ensemble affine de solutions avec 1 variable(s) libre(s).
 │    └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
 │       [(1 1 | 1); (0 0 | 0)]
@@ -106,6 +110,10 @@ Discussion selon a
 │    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
 │    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
 │    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Noyau : variables libres x2 (colonnes sans pivot), variables principales x1 ; dim ker A = n − rg A = 2 − 1 = 1.
+│    ├─ Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −x2.
+│    ├─ En posant x2 = 1 : v1 = ( −1, 1 ).
+│    ├─ La composante x2 de v1 vaut 1 : v1 n'est pas nul, donc (v1) est libre ; elle engendre ker A : c'est une base.
 │    ├─ Rang 1 < 2 : ensemble affine de solutions avec 1 variable(s) libre(s).
 │    └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
 │       [(1 1 | 1); (0 0 | 0)]
@@ -154,6 +162,10 @@ Discussion selon a
       - On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
         $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]$$
     - Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    - Noyau : variables libres x2 (colonnes sans pivot), variables principales x1 ; dim ker A = n − rg A = 2 − 1 = 1.
+    - Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −x2.
+    - En posant x2 = 1 : v1 = ( −1, 1 ).
+    - La composante x2 de v1 vaut 1 : v1 n'est pas nul, donc (v1) est libre ; elle engendre ker A : c'est une base.
     - Rang 1 < 2 : ensemble affine de solutions avec 1 variable(s) libre(s).
     - Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
       $$\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 0 & 0 & 0 \end{array}\right]$$
@@ -210,6 +222,10 @@ Discussion selon a
       \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]
     \end{itemize}
     \item Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+    \item Noyau : variables libres x2 (colonnes sans pivot), variables principales x1 ; dim ker A = n − rg A = 2 − 1 = 1.
+    \item Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −x2.
+    \item En posant x2 = 1 : v1 = ( −1, 1 ).
+    \item La composante x2 de v1 vaut 1 : v1 n'est pas nul, donc (v1) est libre ; elle engendre ker A : c'est une base.
     \item Rang 1 < 2 : ensemble affine de solutions avec 1 variable(s) libre(s).
     \item Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
     \[\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 0 & 0 & 0 \end{array}\right]\]
@@ -270,6 +286,10 @@ Discussion selon a
 <div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 − 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]</div></div>
 </details>
 <div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.</div>
+<div class='pedagopy-step'>Noyau : variables libres x2 (colonnes sans pivot), variables principales x1 ; dim ker A = n − rg A = 2 − 1 = 1.</div>
+<div class='pedagopy-step'>Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −x2.</div>
+<div class='pedagopy-step'>En posant x2 = 1 : v1 = ( −1, 1 ).</div>
+<div class='pedagopy-step'>La composante x2 de v1 vaut 1 : v1 n&#x27;est pas nul, donc (v1) est libre ; elle engendre ker A : c&#x27;est une base.</div>
 <div class='pedagopy-step'>Rang 1 &lt; 2 : ensemble affine de solutions avec 1 variable(s) libre(s).</div>
 <div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).<div class='pedagopy-math'>\[\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 0 & 0 & 0 \end{array}\right]\]</div></div>
 </details>

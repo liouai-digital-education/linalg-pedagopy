@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import warnings
 from dataclasses import dataclass
-from typing import Any, Callable, Mapping
+from typing import Any, Mapping
 
 import sympy as sp
 
@@ -21,8 +21,11 @@ from linalg_pedagopy.algorithms.elimination import (
     EliminationSetup,
     EliminationState,
     PivotStrategy,
+    Reduction,
     SplitRequest,
     _result_entry,
+    kernel_basis,
+    trace_kernel,
     _simplify_entry,
 )
 from linalg_pedagopy.config import config
@@ -171,6 +174,7 @@ class GaussJordan(Procedure[GJResult]):
         b: Vector | Matrix | None = None,
         *,
         pivot_strategy: PivotStrategy = "simplest",
+        reduction: Reduction = "simultaneous",
         strict: bool = False,
         max_depth: int | None = None,
         max_cases: int | None = None,
@@ -185,12 +189,15 @@ class GaussJordan(Procedure[GJResult]):
             raise DimensionMismatchError(
                 f"Le nombre de lignes de A ({A.rows}) diffère de celui du second membre ({b.rows})."
             )
-        if pivot_strategy not in ("simplest", "first", "partial"):
+        if pivot_strategy not in ("simplest", "first", "partial", "sparse"):
             raise ValueError(f"Stratégie de pivot inconnue : {pivot_strategy!r}")
+        if reduction not in ("simultaneous", "back_substitution"):
+            raise ValueError(f"Mode de réduction inconnu : {reduction!r}")
 
         self.A = A
         self.b = b
         self.pivot_strategy: PivotStrategy = pivot_strategy
+        self.reduction: Reduction = reduction
         self.strict = strict
         self.max_depth = max_depth if max_depth is not None else config.max_case_depth
         self.max_cases = max_cases if max_cases is not None else config.max_cases
@@ -244,6 +251,7 @@ class GaussJordan(Procedure[GJResult]):
             setup=self._setup,
             on_complete=self._complete,
             pivot_strategy=self.pivot_strategy,
+            reduction=self.reduction,
             max_depth=self.max_depth,
             max_cases=self.max_cases,
         )
@@ -312,7 +320,10 @@ class GaussJordan(Procedure[GJResult]):
         aug_rref = Matrix._from_exact_rows(grid)
         rref_a = aug_rref[:, :n] if n > 0 else Matrix.zeros(m, 0)
         free_vars = tuple(j for j in range(n) if j not in pivots)
-        null_basis = self._extract_nullspace(rref_a, pivots, free_vars, finish=finish)
+        null_basis = kernel_basis(rref_a, pivots, finish=finish)
+        if b_cur is None:
+            # Réduction de A seule (rref, rang, noyau) : le noyau est l'objet étudié
+            trace_kernel(rref_a, pivots, null_basis, announce_trivial=True)
 
         solution: SolutionSet | None = None
         inverse_mat: Matrix | None = None
@@ -380,24 +391,6 @@ class GaussJordan(Procedure[GJResult]):
             inverse=inverse_mat,
         )
 
-
-    @staticmethod
-    def _extract_nullspace(
-        rref_a: Matrix,
-        pivots: list[int],
-        free_vars: tuple[int, ...],
-        *,
-        finish: Callable[[sp.Expr], sp.Expr] = _simplify_entry,
-    ) -> tuple[Vector, ...]:
-        n = rref_a.cols
-        basis: list[Vector] = []
-        for f_col in free_vars:
-            vec = [sp.Integer(0)] * n
-            vec[f_col] = sp.Integer(1)
-            for row_idx, p_col in enumerate(pivots):
-                vec[p_col] = finish(-rref_a[row_idx, f_col])
-            basis.append(Vector._from_exact(vec))
-        return tuple(basis)
 
     def _build_solution_set(
         self,
@@ -482,6 +475,8 @@ class GaussJordan(Procedure[GJResult]):
         for row_idx, p_col in enumerate(pivots):
             x0_entries[p_col] = finish(aug_rref[row_idx, n])
         x0_vec = Vector._from_exact(x0_entries)
+        # Les directions de l'ensemble affine sont les vecteurs de base du noyau
+        trace_kernel(aug_rref[:, :n], pivots, null_basis)
         record(
             StepKind.RESULT,
             "gj.affine_solution",

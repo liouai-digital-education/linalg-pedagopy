@@ -240,7 +240,8 @@ print(len(arbre.children))
     A: Matrix,
     b: Vector | None = None,
     *,
-    pivot_strategy: "simplest" | "first" | "partial" = "simplest",
+    pivot_strategy: "simplest" | "first" | "partial" | "sparse" = "simplest",
+    reduction: "simultaneous" | "back_substitution" = "simultaneous",
     strict: bool = False,
     max_depth: int | None = None,
     max_cases: int | None = None,
@@ -251,7 +252,8 @@ print(len(arbre.children))
 <ul>
 <li><code>A</code> : Matrice des coefficients $m \times n$.</li>
 <li><code>b</code> : Vecteur second membre (optionnel ; sans lui, seule la RREF de $A$ est calculée).</li>
-<li><code>pivot_strategy</code> : choix du pivot — le plus simple (<code>"simplest"</code>), le premier non nul (<code>"first"</code>) ou le plus grand en valeur absolue (<code>"partial"</code>).</li>
+<li><code>pivot_strategy</code> : choix du pivot — le plus simple (<code>"simplest"</code>), le premier non nul (<code>"first"</code>), le plus grand en valeur absolue (<code>"partial"</code>) ou celui de la ligne la plus creuse (<code>"sparse"</code>, critère de Markowitz : moins de coefficients non nuls à remplir, puis le plus simple).</li>
+<li><code>reduction</code> : <code>"simultaneous"</code> annule au-dessus et au-dessous de chaque pivot en une seule passe (Gauss-Jordan) ; <code>"back_substitution"</code> échelonne d'abord vers le bas, puis remonte de la dernière colonne pivot à la première (méthode du pivot de Gauss suivie de la remontée), ce qui limite la croissance des expressions intermédiaires sur les matrices bande. La forme réduite obtenue est la même.</li>
 <li><code>strict</code> : si <code>True</code>, lève <code>SingularMatrixError</code> pour un système incompatible (ou une matrice non inversible avec <code>compute_inverse=True</code>) au lieu de renvoyer <code>EmptySolution</code> / <code>inverse=None</code>.</li>
 <li><code>max_depth</code>, <code>max_cases</code> : limites de la discussion paramétrique (par défaut <code>config.max_case_depth</code> et <code>config.max_cases</code>). Quand une limite est atteinte, <code>CaseLimitError</code> (sous-classe de <code>PedagopyError</code>) arrête le calcul avec un message qui nomme les facteurs qui ouvrent des cas, la branche en cours, une hypothèse à fournir et un plafond plus élevé :</li>
 </ul>
@@ -318,7 +320,19 @@ for br in res.branches:
 - Le cas $m = 1$ : infinité de solutions (plan affine de dimension 2).
 - Le cas $m = -2$ : système incompatible ($\emptyset$).
 - Le cas $m \notin \{1, -2\}$ : solution unique $x = \left(\frac{1}{m+2}, \frac{1}{m+2}, \frac{1}{m+2}\right)$.</p>
-<h3 id="24-ecriture-des-resultats-selon-la-condition-de-la-branche">2.4 Écriture des résultats selon la condition de la branche</h3>
+<h3 id="24-base-du-noyau-expliquee">2.4 Base du noyau expliquée</h3>
+<p>Quand la réduction laisse des variables libres, la trace de niveau 2 explique la base du noyau lue sur la forme réduite. Elle apparaît pour une réduction sans second membre (<code>rref()</code>, <code>rank()</code>, <code>nullspace()</code>), où le noyau est l'objet étudié, et pour une solution affine, dont il donne les directions. Elle n'apparaît pas pour un système incompatible ni pour un calcul d'inverse.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">A = Matrix([[1, 2, -1, 3, -1], [2, 4, -1, 7, 1], [-1, -2, 3, -1, 7]])
+print(GaussJordan(A).run().explain(level=2))
+# ├─ Noyau : variables libres x2, x4, x5 (colonnes sans pivot), variables principales x1, x3 ; dim ker A = n − rg A = 5 − 2 = 3.
+# ├─ Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −2·x2 − 4·x4 − 2·x5 ; x3 = −x4 − 3·x5.
+# ├─ En posant x2 = 1 et les autres variables libres nulles : v1 = ( −2, 1, 0, 0, 0 ).
+# ├─ En posant x4 = 1 et les autres variables libres nulles : v2 = ( −4, 0, −1, 1, 0 ).
+# ├─ En posant x5 = 1 et les autres variables libres nulles : v3 = ( −2, 0, −3, 0, 1 ).
+# ├─ Les composantes x2, x4, x5 de v1, v2, v3 forment la matrice identité I_3 : [...] c'est une base.
+</code></pre></div>
+<p>La dernière étape répond à une question fréquente : la famille obtenue est libre <em>par construction</em>, car ses composantes sur les variables libres forment la matrice identité. Sans variable libre, une réduction sans second membre annonce $\ker A = \{0\}$, de dimension 0, et sa base vide. <code>Matrix.nullspace()</code> réduit $A$ seule, sans ajouter de colonne de zéros.</p>
+<h3 id="25-ecriture-des-resultats-selon-la-condition-de-la-branche">2.5 Écriture des résultats selon la condition de la branche</h3>
 <p>Une condition comme $a^2 - 2 \neq 0$ s'affiche avec ses racines : « $a \neq \sqrt 2$ et $a \neq -\sqrt 2$ ». Pour que la solution se lise avec les <strong>mêmes facteurs</strong>, ses coefficients sont factorisés avec les radicaux de la condition :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">a, = symbols("a")
 res = GaussJordan(Matrix([[a**2 - 2, 1], [0, a - 1]]), Vector([1, 1])).run()
@@ -586,7 +600,11 @@ A.det(method="elimination")                                              # CaseS
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#24-ecriture-des-resultats-selon-la-condition-de-la-branche">2.4 Écriture des résultats selon la condition de la branche</a>
+          <a href="#24-base-du-noyau-expliquee">2.4 Base du noyau expliquée</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#25-ecriture-des-resultats-selon-la-condition-de-la-branche">2.5 Écriture des résultats selon la condition de la branche</a>
         </li>
         
         <li class="toc-item ">

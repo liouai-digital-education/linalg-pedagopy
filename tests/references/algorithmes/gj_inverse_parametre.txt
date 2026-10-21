@@ -4,20 +4,17 @@
 ===== str =====
 Discussion selon a
 ├─ Cas a ≠ 1 et a ≠ −1 (générique) : matrice inversible de rang 2
-├─ Cas a = 1 : rang 1, colonnes pivots [1]
-└─ Cas a = −1 : rang 1, colonnes pivots [1]
+└─ Cas a = 1 ou a = −1 : rang 1, colonnes pivots [1]
 
 ===== texte niveau 0 =====
 Discussion selon a
 ├─ Cas a ≠ 1 et a ≠ −1 (générique) : matrice inversible de rang 2
-├─ Cas a = 1 : rang 1, colonnes pivots [1]
-└─ Cas a = −1 : rang 1, colonnes pivots [1]
+└─ Cas a = 1 ou a = −1 : rang 1, colonnes pivots [1]
 
 ===== texte niveau 1 =====
 Discussion selon a
 ├─ Cas a ≠ 1 et a ≠ −1 (générique) : matrice inversible de rang 2
-├─ Cas a = 1 : rang 1, colonnes pivots [1]
-└─ Cas a = −1 : rang 1, colonnes pivots [1]
+└─ Cas a = 1 ou a = −1 : rang 1, colonnes pivots [1]
 
 ===== texte niveau 2 =====
 Discussion selon a

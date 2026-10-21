@@ -7,20 +7,17 @@ tests2 — det (a − 1)(a² + a − 3) : condition en radicaux, inverse avec a�
 ===== str =====
 Discussion selon a
 ├─ Cas a ≠ 1 et a ≠ −1/2 + √(13)/2 et a ≠ −√(13)/2 − 1/2 (générique) : matrice inversible de rang 3
-├─ Cas a ≠ 1 et a² + a − 3 = 0 : rang 2, colonnes pivots [1, 2]
-└─ Cas a = 1 : rang 2, colonnes pivots [1, 2]
+└─ Cas (a ≠ 1 et a² + a − 3 = 0) ou a = 1 : rang 2, colonnes pivots [1, 2]
 
 ===== texte niveau 0 =====
 Discussion selon a
 ├─ Cas a ≠ 1 et a ≠ −1/2 + √(13)/2 et a ≠ −√(13)/2 − 1/2 (générique) : matrice inversible de rang 3
-├─ Cas a ≠ 1 et a² + a − 3 = 0 : rang 2, colonnes pivots [1, 2]
-└─ Cas a = 1 : rang 2, colonnes pivots [1, 2]
+└─ Cas (a ≠ 1 et a² + a − 3 = 0) ou a = 1 : rang 2, colonnes pivots [1, 2]
 
 ===== texte niveau 1 =====
 Discussion selon a
 ├─ Cas a ≠ 1 et a ≠ −1/2 + √(13)/2 et a ≠ −√(13)/2 − 1/2 (générique) : matrice inversible de rang 3
-├─ Cas a ≠ 1 et a² + a − 3 = 0 : rang 2, colonnes pivots [1, 2]
-└─ Cas a = 1 : rang 2, colonnes pivots [1, 2]
+└─ Cas (a ≠ 1 et a² + a − 3 = 0) ou a = 1 : rang 2, colonnes pivots [1, 2]
 
 ===== texte niveau 2 =====
 Discussion selon a

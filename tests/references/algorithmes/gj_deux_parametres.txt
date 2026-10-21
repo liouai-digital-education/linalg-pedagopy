@@ -9,9 +9,7 @@ Discussion selon a, b
 │    système incompatible (témoin : 0 = 2)
 ├─ Cas b ≠ 1 et b ≠ −1 et a = 1 : L3 devient (0 0 0 | 1)
 │    système incompatible (témoin : 0 = 1)
-├─ Cas a = 1 et b = 1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
-│    système incompatible (témoin : 0 = 1)
-└─ Cas a = 1 et b = −1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+└─ Cas (a = 1 et b = 1) ou (a = 1 et b = −1) : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
      système incompatible (témoin : 0 = 1)
 
 ===== texte niveau 0 =====
@@ -22,9 +20,7 @@ Discussion selon a, b
 │    système incompatible (témoin : 0 = 2)
 ├─ Cas b ≠ 1 et b ≠ −1 et a = 1 : L3 devient (0 0 0 | 1)
 │    système incompatible (témoin : 0 = 1)
-├─ Cas a = 1 et b = 1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
-│    système incompatible (témoin : 0 = 1)
-└─ Cas a = 1 et b = −1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+└─ Cas (a = 1 et b = 1) ou (a = 1 et b = −1) : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
      système incompatible (témoin : 0 = 1)
 
 ===== texte niveau 1 =====
@@ -35,9 +31,7 @@ Discussion selon a, b
 │    système incompatible (témoin : 0 = 2)
 ├─ Cas b ≠ 1 et b ≠ −1 et a = 1 : L3 devient (0 0 0 | 1)
 │    système incompatible (témoin : 0 = 1)
-├─ Cas a = 1 et b = 1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
-│    système incompatible (témoin : 0 = 1)
-└─ Cas a = 1 et b = −1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+└─ Cas (a = 1 et b = 1) ou (a = 1 et b = −1) : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
      système incompatible (témoin : 0 = 1)
 
 ===== texte niveau 2 =====

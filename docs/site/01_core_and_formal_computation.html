@@ -320,6 +320,7 @@ print(Condition.neq(b**2 - 1))          # b ≠ 1 et b ≠ −1
 print(Condition.neq(a - b**2))          # a ≠ b²
 print(Condition.eq(a, b**2).format_latex())   # a = b^{2}
 </code></pre></div>
+<p>Dans l'affichage d'une discussion (niveaux 0 et 1), les branches particulières dont le résumé est identique sont regroupées : « Cas a = 3, a = 2 ou a = 1 : système incompatible », avec des parenthèses autour des conditions composées (« (a = 1 et b = 1) ou (a = 1 et b = −1) »). Le <code>CaseSplit</code> garde ses branches distinctes (<code>at()</code>, <code>branches</code>), et à partir du niveau 2 chacune est affichée avec sa propre trace.</p>
 <h3 id="43-cloture-transitive-et-detection-de-contradictions">4.3 Clôture transitive et détection de contradictions</h3>
 <p>La classe <code>Condition</code> implémente deux propriétés critiques :
 1. <strong>Clôture transitive des substitutions</strong> (<a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/cases.py"><code>_compute_transitive_substitutions</code></a>) :<br/>

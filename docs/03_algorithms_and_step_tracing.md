@@ -74,7 +74,8 @@ GaussJordan(
     A: Matrix,
     b: Vector | None = None,
     *,
-    pivot_strategy: "simplest" | "first" | "partial" = "simplest",
+    pivot_strategy: "simplest" | "first" | "partial" | "sparse" = "simplest",
+    reduction: "simultaneous" | "back_substitution" = "simultaneous",
     strict: bool = False,
     max_depth: int | None = None,
     max_cases: int | None = None,
@@ -85,7 +86,8 @@ GaussJordan(
 
 - `A` : Matrice des coefficients $m \times n$.
 - `b` : Vecteur second membre (optionnel ; sans lui, seule la RREF de $A$ est calculée).
-- `pivot_strategy` : choix du pivot — le plus simple (`"simplest"`), le premier non nul (`"first"`) ou le plus grand en valeur absolue (`"partial"`).
+- `pivot_strategy` : choix du pivot — le plus simple (`"simplest"`), le premier non nul (`"first"`), le plus grand en valeur absolue (`"partial"`) ou celui de la ligne la plus creuse (`"sparse"`, critère de Markowitz : moins de coefficients non nuls à remplir, puis le plus simple).
+- `reduction` : `"simultaneous"` annule au-dessus et au-dessous de chaque pivot en une seule passe (Gauss-Jordan) ; `"back_substitution"` échelonne d'abord vers le bas, puis remonte de la dernière colonne pivot à la première (méthode du pivot de Gauss suivie de la remontée), ce qui limite la croissance des expressions intermédiaires sur les matrices bande. La forme réduite obtenue est la même.
 - `strict` : si `True`, lève `SingularMatrixError` pour un système incompatible (ou une matrice non inversible avec `compute_inverse=True`) au lieu de renvoyer `EmptySolution` / `inverse=None`.
 - `max_depth`, `max_cases` : limites de la discussion paramétrique (par défaut `config.max_case_depth` et `config.max_cases`). Quand une limite est atteinte, `CaseLimitError` (sous-classe de `PedagopyError`) arrête le calcul avec un message qui nomme les facteurs qui ouvrent des cas, la branche en cours, une hypothèse à fournir et un plafond plus élevé :
 
@@ -164,7 +166,24 @@ Ce code produit automatiquement un `CaseSplit` distinguant :
 - Le cas $m = -2$ : système incompatible ($\emptyset$).
 - Le cas $m \notin \{1, -2\}$ : solution unique $x = \left(\frac{1}{m+2}, \frac{1}{m+2}, \frac{1}{m+2}\right)$.
 
-### 2.4 Écriture des résultats selon la condition de la branche
+### 2.4 Base du noyau expliquée
+
+Quand la réduction laisse des variables libres, la trace de niveau 2 explique la base du noyau lue sur la forme réduite. Elle apparaît pour une réduction sans second membre (`rref()`, `rank()`, `nullspace()`), où le noyau est l'objet étudié, et pour une solution affine, dont il donne les directions. Elle n'apparaît pas pour un système incompatible ni pour un calcul d'inverse.
+
+```python
+A = Matrix([[1, 2, -1, 3, -1], [2, 4, -1, 7, 1], [-1, -2, 3, -1, 7]])
+print(GaussJordan(A).run().explain(level=2))
+# ├─ Noyau : variables libres x2, x4, x5 (colonnes sans pivot), variables principales x1, x3 ; dim ker A = n − rg A = 5 − 2 = 3.
+# ├─ Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −2·x2 − 4·x4 − 2·x5 ; x3 = −x4 − 3·x5.
+# ├─ En posant x2 = 1 et les autres variables libres nulles : v1 = ( −2, 1, 0, 0, 0 ).
+# ├─ En posant x4 = 1 et les autres variables libres nulles : v2 = ( −4, 0, −1, 1, 0 ).
+# ├─ En posant x5 = 1 et les autres variables libres nulles : v3 = ( −2, 0, −3, 0, 1 ).
+# ├─ Les composantes x2, x4, x5 de v1, v2, v3 forment la matrice identité I_3 : [...] c'est une base.
+```
+
+La dernière étape répond à une question fréquente : la famille obtenue est libre *par construction*, car ses composantes sur les variables libres forment la matrice identité. Sans variable libre, une réduction sans second membre annonce $\ker A = \{0\}$, de dimension 0, et sa base vide. `Matrix.nullspace()` réduit $A$ seule, sans ajouter de colonne de zéros.
+
+### 2.5 Écriture des résultats selon la condition de la branche
 
 Une condition comme $a^2 - 2 \neq 0$ s'affiche avec ses racines : « $a \neq \sqrt 2$ et $a \neq -\sqrt 2$ ». Pour que la solution se lise avec les **mêmes facteurs**, ses coefficients sont factorisés avec les radicaux de la condition :
 

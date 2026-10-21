@@ -75,6 +75,7 @@ gj:
   start: "Réduction de Gauss-Jordan d'une matrice {m}×{n}."
   reduce_by_condition: "Dans cette branche, {equations} : chaque coefficient est remplacé par son reste dans la division par ce polynôme, ce qui fait disparaître les puissances de degré trop élevé."
   column_step: "Traitement de la colonne {col} (ligne pivot courante : {row})."
+  back_substitution: "Remontée : on annule les coefficients au-dessus des {k} pivot(s), de la dernière colonne pivot à la première."
   pivot_chosen: "Choix du pivot en ({row},{col}) de valeur {pivot} (stratégie : {strategy})."
   col_zero: "Aucun pivot non nul disponible dans la colonne {col} : variable x_{col} libre."
   row_swap: "On échange les lignes L{i} et L{j} : L{i} ↔ L{j}."
@@ -89,6 +90,15 @@ gj:
   summary: "Forme échelonnée réduite atteinte : rang = {rank}, colonnes pivots = {pivots}."
   verify: "Vérification a posteriori du résultat de Gauss-Jordan."
   verify_ok: "Contrôle vérifié : {detail}."
+
+ker:
+  free_vars: "Noyau : variables libres {free} (colonnes sans pivot), variables principales {pivots} ; dim ker A = n − rg A = {n} − {rank} = {k}."
+  param_system: "Système homogène équivalent (variables principales en fonction des variables libres) : {equations}."
+  vector: "En posant {var} = 1 et les autres variables libres nulles : v{index} = {vector}."
+  vector_single: "En posant {var} = 1 : v{index} = {vector}."
+  identity_block: "Les composantes {vars} de {vectors} forment la matrice identité I_{k} : une combinaison nulle de ces vecteurs a tous ses coefficients nuls. La famille est libre et engendre ker A : c'est une base."
+  identity_single: "La composante {vars} de v1 vaut 1 : v1 n'est pas nul, donc (v1) est libre ; elle engendre ker A : c'est une base."
+  trivial: "Rang {rank} = {n} : aucune variable libre. ker A = {{0}}, de dimension 0 ; sa base est la famille vide (le vecteur nul n'appartient à aucune famille libre)."
 
 det:
   start: "Calcul du déterminant d'une matrice {n}×{n} (méthode : {method})."

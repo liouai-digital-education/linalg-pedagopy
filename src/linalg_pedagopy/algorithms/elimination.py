@@ -6,6 +6,8 @@
   transvection, étape de Bareiss).
 - Étape 4.3 : moteur d'élimination (``EliminationEngine``) : parcours des colonnes, choix
   du pivot, discussion par cas quand aucun pivot n'est inconditionnellement non nul.
+- Étape 4.7 : base du noyau lue sur la forme réduite (``kernel_basis``) et sa trace
+  (``trace_kernel``).
 """
 
 from __future__ import annotations
@@ -19,12 +21,15 @@ import sympy as sp
 from linalg_pedagopy.config import config
 from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
 from linalg_pedagopy.core.zero import Verdict, case_limit_error, oracle
+from linalg_pedagopy.core.field import pretty_expr
 from linalg_pedagopy.objects.matrix import Matrix
+from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.render.text import format_value_text
 from linalg_pedagopy.trace.step import Highlight, StepKind
 from linalg_pedagopy.trace.tracer import record, section, tracing
 
-PivotStrategy = Literal["simplest", "first", "partial"]
+PivotStrategy = Literal["simplest", "first", "partial", "sparse"]
+Reduction = Literal["simultaneous", "back_substitution"]
 R = TypeVar("R")
 
 
@@ -98,14 +103,24 @@ def _pivot_complexity_key(val: sp.Expr) -> tuple[int, int | float, int]:
 
 
 def _choose_pivot(
-    candidates: list[tuple[int, sp.Expr]], strategy: PivotStrategy
+    candidates: list[tuple[int, sp.Expr]],
+    strategy: PivotStrategy,
+    grid: list[list[sp.Expr]] | None = None,
+    col: int = 0,
 ) -> tuple[int, sp.Expr]:
     """Pivot retenu parmi des candidats (ligne, valeur) inconditionnellement non nuls.
 
     ``simplest`` : le plus simple au sens de ``_pivot_complexity_key`` ; ``partial`` : la plus
-    grande valeur absolue numérique ; ``first`` : le premier candidat.
+    grande valeur absolue numérique ; ``first`` : le premier candidat ; ``sparse`` (critère
+    de Markowitz, la colonne étant fixée) : la ligne qui a le moins de coefficients non nuls
+    à partir de la colonne du pivot, ce qui limite le remplissage, puis le plus simple.
     """
-    if strategy == "simplest":
+    if strategy == "sparse" and grid is not None:
+        def _markowitz(item: tuple[int, sp.Expr]) -> tuple[int, tuple[int, int | float, int]]:
+            nonzeros = sum(1 for x in grid[item[0]][col:] if x != 0)
+            return (nonzeros, _pivot_complexity_key(item[1]))
+        return min(candidates, key=_markowitz)
+    if strategy in ("simplest", "sparse"):
         return min(candidates, key=lambda item: _pivot_complexity_key(item[1]))
     if strategy == "partial":
         def _abs_eval(item: tuple[int, sp.Expr]) -> float:
@@ -303,6 +318,9 @@ class EliminationEngine(Generic[R]):
     résultat d'une branche, ou renvoie un ``SplitRequest`` pour une discussion supplémentaire.
 
     ``reduce_above`` : annuler aussi les coefficients au-dessus du pivot (forme réduite) ;
+    ``reduction`` : avec ``reduce_above``, ``simultaneous`` annule au-dessus et au-dessous de
+    chaque pivot en une passe (Gauss-Jordan) ; ``back_substitution`` échelonne d'abord vers le
+    bas, puis remonte de la dernière colonne pivot à la première (``{prefix}.back_substitution``) ;
     ``normalize_pivots`` : ramener chaque pivot à 1 (sinon, le multiplicateur d'une
     transvection est le coefficient divisé par le pivot).
 
@@ -325,6 +343,7 @@ class EliminationEngine(Generic[R]):
         max_cases: int,
         pivot_strategy: PivotStrategy = "simplest",
         reduce_above: bool = True,
+        reduction: Reduction = "simultaneous",
         normalize_pivots: bool = True,
         snapshot_key: str = "augmented_matrix",
         signed_add: bool = True,
@@ -340,6 +359,7 @@ class EliminationEngine(Generic[R]):
         self.max_cases = max_cases
         self.pivot_strategy: PivotStrategy = pivot_strategy
         self.reduce_above = reduce_above
+        self.reduction: Reduction = reduction
         self.normalize_pivots = normalize_pivots
         self.snapshot_key = snapshot_key
         self.signed_add = signed_add
@@ -419,7 +439,7 @@ class EliminationEngine(Generic[R]):
                     )
                     continue
 
-                chosen_r, chosen_val = _choose_pivot(nonzero_cands, self.pivot_strategy)
+                chosen_r, chosen_val = _choose_pivot(nonzero_cands, self.pivot_strategy, grid, col)
 
                 column = (
                     section(
@@ -459,7 +479,8 @@ class EliminationEngine(Generic[R]):
 
                     # Élimination dans les autres lignes (toutes, ou seulement sous le pivot)
                     pivot_val = grid[pivot_row][col]
-                    for r in range(m) if self.reduce_above else range(pivot_row + 1, m):
+                    simultaneous = self.reduce_above and self.reduction == "simultaneous"
+                    for r in range(m) if simultaneous else range(pivot_row + 1, m):
                         if r == pivot_row:
                             continue
                         factor = _simplify_entry(grid[r][col])
@@ -475,10 +496,30 @@ class EliminationEngine(Generic[R]):
                 pivots.append(col)
                 pivot_row += 1
 
+            if self.reduce_above and self.reduction == "back_substitution" and pivots:
+                self._back_substitution(grid, pivots, cond, ops)
+
             outcome = self.on_complete(EliminationState(grid, cond, pivots, setup, ops, swaps))
             if isinstance(outcome, SplitRequest):
                 return self._split(cond, outcome, depth=depth, state=state)
             return outcome
+
+    def _back_substitution(
+        self, grid: list[list[sp.Expr]], pivots: list[int], cond: Condition, ops: RowOps
+    ) -> None:
+        """Remontée : annule les coefficients au-dessus des pivots, de la dernière colonne pivot à la première."""
+        with section(f"{self.prefix}.back_substitution", level=2, k=len(pivots)):
+            for p_row in range(len(pivots) - 1, -1, -1):
+                col = pivots[p_row]
+                pivot_val = grid[p_row][col]
+                for r in range(p_row):
+                    factor = _simplify_entry(grid[r][col])
+                    if oracle.decide(factor, assumptions=cond).verdict == Verdict.ZERO:
+                        grid[r][col] = sp.Integer(0)
+                        continue
+                    if not self.normalize_pivots:
+                        factor = _simplify_entry(factor / pivot_val)
+                    ops.add_multiple(grid, r, p_row, factor, col=col)
 
     def _split(
         self, cond: Condition, request: SplitRequest, *, depth: int, state: dict[str, Any]
@@ -543,3 +584,88 @@ class EliminationEngine(Generic[R]):
             expr=request.expr,
         )
         return CaseSplit(branches=tuple(branches))
+
+
+def _variables(cols: list[int] | tuple[int, ...]) -> str:
+    return ", ".join(f"x{c + 1}" for c in cols)
+
+
+def kernel_basis(
+    rref: Matrix,
+    pivots: list[int] | tuple[int, ...],
+    *,
+    finish: Callable[[sp.Expr], sp.Expr] = _simplify_entry,
+) -> tuple[Vector, ...]:
+    """Base du noyau lue sur une forme échelonnée réduite (colonnes de A seulement).
+
+    Pour chaque variable libre x_f, on pose x_f = 1 et les autres variables libres nulles ;
+    les variables principales se lisent sur la forme réduite : x_p = −Σ r_(p, f)·x_f.
+    """
+    n = rref.cols
+    free_vars = [j for j in range(n) if j not in pivots]
+    basis: list[Vector] = []
+    for f_col in free_vars:
+        vec = [sp.Integer(0)] * n
+        vec[f_col] = sp.Integer(1)
+        for row_idx, p_col in enumerate(pivots):
+            vec[p_col] = finish(-rref[row_idx, f_col])
+        basis.append(Vector._from_exact(vec))
+    return tuple(basis)
+
+
+def trace_kernel(
+    rref: Matrix,
+    pivots: list[int] | tuple[int, ...],
+    basis: tuple[Vector, ...],
+    *,
+    announce_trivial: bool = False,
+) -> None:
+    """Étapes ``ker.*`` (niveau 2) qui expliquent la base du noyau construite par ``kernel_basis``.
+
+    Variables libres et théorème du rang, système homogène équivalent, chaque vecteur de
+    base, puis la sous-matrice identité des composantes libres, qui prouve que la famille
+    est libre. ``announce_trivial`` : sans variable libre, annoncer ker A = {0} et sa base vide.
+    """
+    n = rref.cols
+    pivots = list(pivots)
+    free_vars = [j for j in range(n) if j not in pivots]
+    rank, k = len(pivots), len(free_vars)
+    if not free_vars:
+        if announce_trivial:
+            record(StepKind.INFO, "ker.trivial", level=2, rank=rank, n=n)
+        return
+
+    record(
+        StepKind.INFO,
+        "ker.free_vars",
+        level=2,
+        free=_variables(free_vars),
+        pivots=_variables(pivots) or "aucune",
+        n=n,
+        rank=rank,
+        k=k,
+    )
+    if pivots:
+        xs = [sp.Symbol(f"x{j + 1}") for j in range(n)]
+        equations = " ; ".join(
+            f"x{p + 1} = {pretty_expr(sp.Add(*(-rref[row, f] * xs[f] for f in free_vars)))}"
+            for row, p in enumerate(pivots)
+        )
+        record(StepKind.INFO, "ker.param_system", level=2, equations=equations)
+    for idx, (f_col, v) in enumerate(zip(free_vars, basis), start=1):
+        record(
+            StepKind.INFO,
+            "ker.vector" if k > 1 else "ker.vector_single",
+            level=2,
+            index=idx,
+            var=f"x{f_col + 1}",
+            vector=v,
+        )
+    record(
+        StepKind.INFO,
+        "ker.identity_block" if k > 1 else "ker.identity_single",
+        level=2,
+        vars=_variables(free_vars),
+        vectors=", ".join(f"v{i}" for i in range(1, k + 1)),
+        k=k,
+    )

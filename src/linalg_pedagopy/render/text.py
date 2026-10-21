@@ -10,7 +10,7 @@ import sympy as sp
 import yaml
 
 from linalg_pedagopy.config import config
-from linalg_pedagopy.core.cases import CaseSplit
+from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
 from linalg_pedagopy.core.field import pretty_expr
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
@@ -151,6 +151,50 @@ def _render_node_lines(
     return lines
 
 
+def group_branches(cs: CaseSplit[Any], *, max_level: int) -> list[list[Branch[Any]]]:
+    """Branches à afficher, regroupées quand leurs résultats sont identiques (niveaux 0 et 1).
+
+    Seules les branches particulières (avec une égalité dans leur condition) sont
+    regroupées, au rang de la première ; la branche générique reste seule. À partir du
+    niveau 2, chaque branche garde sa propre trace : pas de regroupement. Le ``CaseSplit``
+    lui-même n'est pas modifié (``at()``, conditions et résultats des branches).
+    """
+    if max_level >= 2:
+        return [[b] for b in cs.branches]
+    groups: list[list[Branch[Any]]] = []
+    index: dict[str, list[Branch[Any]]] = {}
+    for branch in cs.branches:
+        if branch.condition.is_generic:
+            groups.append([branch])
+            continue
+        key = "\n".join(_summarize_branch_result_text(branch.result))
+        if key in index:
+            index[key].append(branch)
+        else:
+            index[key] = [branch]
+            groups.append(index[key])
+    return groups
+
+
+def _join_alternatives(parts: list[str], *, sep_and: str, word_or: str) -> str:
+    if len(parts) == 1:
+        return parts[0]
+    wrapped = [f"({p})" if sep_and in p else p for p in parts]
+    return ", ".join(wrapped[:-1]) + f"{word_or}{wrapped[-1]}"
+
+
+def format_conditions_text(conds: list[Condition]) -> str:
+    """« a = 3, a = 2 ou a = 1 » ; parenthèses autour des conditions composées."""
+    return _join_alternatives([c.format_text() for c in conds], sep_and=" et ", word_or=" ou ")
+
+
+def format_conditions_latex(conds: list[Condition]) -> str:
+    """Version LaTeX de ``format_conditions_text``."""
+    return _join_alternatives(
+        [c.format_latex() for c in conds], sep_and="\\text{ et }", word_or=" \\text{ ou } "
+    )
+
+
 def render_casesplit_text(
     cs: CaseSplit[Any],
     *,
@@ -160,12 +204,13 @@ def render_casesplit_text(
     """Rend un CaseSplit en texte."""
     params_str = ", ".join(pretty_expr(s) for s in cs.parameters) if cs.parameters else "les paramètres"
     lines = [f"Discussion selon {params_str}"]
-    n_branches = len(cs.branches)
-    for idx, branch in enumerate(cs.branches):
-        is_last = idx == n_branches - 1
+    groups = group_branches(cs, max_level=max_level)
+    for idx, group in enumerate(groups):
+        branch = group[0]
+        is_last = idx == len(groups) - 1
         connector = "└─ " if is_last else "├─ "
         cont_prefix = "   " if is_last else "│  "
-        cond_txt = branch.condition.format_text()
+        cond_txt = format_conditions_text([b.condition for b in group])
         gen_tag = " (générique)" if branch.condition.is_generic else ""
         summary_lines = _summarize_branch_result_text(branch.result)
         if summary_lines:

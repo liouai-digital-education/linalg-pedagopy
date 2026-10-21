@@ -10,6 +10,7 @@ from __future__ import annotations
 
 from typing import Any, Iterator
 
+from hypothesis import given, settings, strategies as st
 import pytest
 import sympy as sp
 
@@ -221,3 +222,56 @@ def test_plafonds_avec_et_sans_arguments() -> None:
     with pytest.raises(CaseLimitError) as info:
         engine.run(Condition.true())
     assert info.value.limit == "max_depth" and info.value.factors == (a, b)
+
+
+# --- Étape 4.9 : pivot creux et remontée
+
+
+def test_pivot_creux_markowitz() -> None:
+    g = _grille([[1, 1, 1, 1], [1, 0, 0, 0], [-1, 1, 1, 0]])
+    cands = [(0, sp.Integer(1)), (1, sp.Integer(1)), (2, sp.Integer(-1))]
+    assert _choose_pivot(cands, "sparse", g, 0) == (1, 1)  # ligne la plus creuse
+    assert _choose_pivot(cands, "simplest", g, 0) == (0, 1)
+
+
+def test_remontee_trace_et_resultat() -> None:
+    from linalg_pedagopy import GaussJordan, Matrix, Vector
+
+    A = Matrix([[2, 1, -1], [-3, -1, 2], [-2, 1, 2]])
+    rhs = Vector([8, -11, -3])
+    res = GaussJordan(A, rhs, reduction="back_substitution").run()
+    assert res.solution == GaussJordan(A, rhs).run().solution
+    (remontee,) = [s for s in _etapes(res.trace) if s.message_key == "gj.back_substitution"]
+    montantes = [s for s in _etapes(remontee) if s.message_key == "gj.row_add"]
+    toutes = [s for s in _etapes(res.trace) if s.message_key == "gj.row_add"]
+    descendantes = [s for s in toutes if s not in montantes]
+    # Descente : transvections sous le pivot ; remontée : au-dessus
+    assert descendantes and all(s.params["i"] > s.params["j"] for s in descendantes)
+    assert montantes and all(s.params["i"] < s.params["j"] for s in montantes)
+
+
+@pytest.mark.parametrize("option", [{"pivot_strategy": "rarest"}, {"reduction": "upward"}])
+def test_options_invalides(option: dict[str, str]) -> None:
+    from linalg_pedagopy import GaussJordan, Matrix
+
+    with pytest.raises(ValueError):
+        GaussJordan(Matrix([[1, 2], [3, 4]]), **option)  # type: ignore[arg-type]
+
+
+@settings(max_examples=40, deadline=None)
+@given(
+    st.integers(1, 4).flatmap(
+        lambda m: st.integers(1, 4).flatmap(
+            lambda n: st.lists(st.lists(st.integers(-3, 3), min_size=n, max_size=n), min_size=m, max_size=m)
+        )
+    ),
+    st.sampled_from(["simplest", "sparse"]),
+)
+def test_meme_forme_reduite_quelle_que_soit_la_methode(lignes: list[list[int]], strategie: str) -> None:
+    from linalg_pedagopy import GaussJordan, Matrix
+
+    M = Matrix(lignes)
+    attendue = sp.Matrix(lignes).rref()[0]
+    for reduction in ("simultaneous", "back_substitution"):
+        res = GaussJordan(M, pivot_strategy=strategie, reduction=reduction).run()  # type: ignore[arg-type]
+        assert sp.Matrix(res.rref.entries_grid) == attendue

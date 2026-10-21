@@ -189,6 +189,8 @@ print(Condition.neq(a - b**2))          # a ≠ b²
 print(Condition.eq(a, b**2).format_latex())   # a = b^{2}
 ```
 
+Dans l'affichage d'une discussion (niveaux 0 et 1), les branches particulières dont le résumé est identique sont regroupées : « Cas a = 3, a = 2 ou a = 1 : système incompatible », avec des parenthèses autour des conditions composées (« (a = 1 et b = 1) ou (a = 1 et b = −1) »). Le `CaseSplit` garde ses branches distinctes (`at()`, `branches`), et à partir du niveau 2 chacune est affichée avec sa propre trace.
+
 ### 4.3 Clôture transitive et détection de contradictions
 
 La classe `Condition` implémente deux propriétés critiques :

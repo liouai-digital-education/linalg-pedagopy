@@ -21,6 +21,10 @@ Réduction de Gauss-Jordan d'une matrice 2×3.
 │  ├─ Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).
 │  └─ On annule le coefficient (1,2) : L1 ← L1 + 1·L2.
 │     [(1 0 3 | 1); (0 1 1 | 0)]
+├─ Noyau : variables libres x3 (colonnes sans pivot), variables principales x1, x2 ; dim ker A = n − rg A = 3 − 2 = 1.
+├─ Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −3·x3 ; x2 = −x3.
+├─ En posant x3 = 1 : v1 = ( −3, −1, 1 ).
+├─ La composante x3 de v1 vaut 1 : v1 n'est pas nul, donc (v1) est libre ; elle engendre ker A : c'est une base.
 ├─ Rang 2 < 3 : ensemble affine de solutions avec 1 variable(s) libre(s).
 └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
    [(1 0 3 | 1); (0 1 1 | 0)]
@@ -38,6 +42,10 @@ Réduction de Gauss-Jordan d'une matrice 2×3.
 │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
 │  └─ On annule le coefficient (1,2) : L1 ← L1 + 1·L2.
 │     [(1 0 3 | 1); (0 1 1 | 0)]
+├─ Noyau : variables libres x3 (colonnes sans pivot), variables principales x1, x2 ; dim ker A = n − rg A = 3 − 2 = 1.
+├─ Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −3·x3 ; x2 = −x3.
+├─ En posant x3 = 1 : v1 = ( −3, −1, 1 ).
+├─ La composante x3 de v1 vaut 1 : v1 n'est pas nul, donc (v1) est libre ; elle engendre ker A : c'est une base.
 ├─ Rang 2 < 3 : ensemble affine de solutions avec 1 variable(s) libre(s).
 └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
    [(1 0 3 | 1); (0 1 1 | 0)]
@@ -51,6 +59,10 @@ Réduction de Gauss-Jordan d'une matrice 2×3.
     - Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).
     - On annule le coefficient (1,2) : L1 ← L1 + 1·L2.
       $$\xrightarrow{L_{1} \leftarrow L_{1} + \left(1\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{3} & \color{blue}{1} \\ 0 & \boxed{1} & 1 & 0 \end{array}\right]$$
+  - Noyau : variables libres x3 (colonnes sans pivot), variables principales x1, x2 ; dim ker A = n − rg A = 3 − 2 = 1.
+  - Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −3·x3 ; x2 = −x3.
+  - En posant x3 = 1 : v1 = ( −3, −1, 1 ).
+  - La composante x3 de v1 vaut 1 : v1 n'est pas nul, donc (v1) est libre ; elle engendre ker A : c'est une base.
   - Rang 2 < 3 : ensemble affine de solutions avec 1 variable(s) libre(s).
   - Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
     $$\left[\begin{array}{ccc|c} 1 & 0 & 3 & 1 \\ 0 & 1 & 1 & 0 \end{array}\right]$$
@@ -70,6 +82,10 @@ Réduction de Gauss-Jordan d'une matrice 2×3.
       \item On annule le coefficient (1,2) : L1 ← L1 + 1·L2.
       \[\xrightarrow{L_{1} \leftarrow L_{1} + \left(1\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{3} & \color{blue}{1} \\ 0 & \boxed{1} & 1 & 0 \end{array}\right]\]
     \end{itemize}
+    \item Noyau : variables libres x3 (colonnes sans pivot), variables principales x1, x2 ; dim ker A = n − rg A = 3 − 2 = 1.
+    \item Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −3·x3 ; x2 = −x3.
+    \item En posant x3 = 1 : v1 = ( −3, −1, 1 ).
+    \item La composante x3 de v1 vaut 1 : v1 n'est pas nul, donc (v1) est libre ; elle engendre ker A : c'est une base.
     \item Rang 2 < 3 : ensemble affine de solutions avec 1 variable(s) libre(s).
     \item Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
     \[\left[\begin{array}{ccc|c} 1 & 0 & 3 & 1 \\ 0 & 1 & 1 & 0 \end{array}\right]\]
@@ -92,6 +108,10 @@ Réduction de Gauss-Jordan d'une matrice 2×3.
   <div class='pedagopy-step'>Choix du pivot en (2,2) de valeur 1 (stratégie : simplest).</div>
 <div class='pedagopy-step'>On annule le coefficient (1,2) : L1 ← L1 + 1·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow L_{1} + \left(1\right) L_{2}} \left[\begin{array}{ccc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{3} & \color{blue}{1} \\ 0 & \boxed{1} & 1 & 0 \end{array}\right]\]</div></div>
 </details>
+<div class='pedagopy-step'>Noyau : variables libres x3 (colonnes sans pivot), variables principales x1, x2 ; dim ker A = n − rg A = 3 − 2 = 1.</div>
+<div class='pedagopy-step'>Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −3·x3 ; x2 = −x3.</div>
+<div class='pedagopy-step'>En posant x3 = 1 : v1 = ( −3, −1, 1 ).</div>
+<div class='pedagopy-step'>La composante x3 de v1 vaut 1 : v1 n&#x27;est pas nul, donc (v1) est libre ; elle engendre ker A : c&#x27;est une base.</div>
 <div class='pedagopy-step'>Rang 2 &lt; 3 : ensemble affine de solutions avec 1 variable(s) libre(s).</div>
 <div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).<div class='pedagopy-math'>\[\left[\begin{array}{ccc|c} 1 & 0 & 3 & 1 \\ 0 & 1 & 1 & 0 \end{array}\right]\]</div></div>
 </details>

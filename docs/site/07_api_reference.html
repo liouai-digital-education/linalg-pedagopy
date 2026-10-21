@@ -470,11 +470,12 @@
 <h2 id="4-module-linalg_pedagopyalgorithms">4. Module <code>linalg_pedagopy.algorithms</code></h2>
 <p>Chaque procédure s'exécute par <code>.run()</code>, qui renvoie un résultat (ou un <code>CaseSplit</code> de résultats en présence de paramètres). Tout résultat possède <code>trace: Step</code>, <code>explain(level=None, fmt="auto") -&gt; Explanation</code> et <code>verify() -&gt; Explanation</code>. <code>procedure.interactive(mode=...)</code> ouvre une <code>InteractiveSession</code>.</p>
 <h3 id="41-gaussjordan">4.1 <code>GaussJordan</code></h3>
-<div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">GaussJordan(A, b=None, *, pivot_strategy="simplest", strict=False, max_depth=None,
-            max_cases=None, assumptions=None, compute_inverse=False)
+<div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">GaussJordan(A, b=None, *, pivot_strategy="simplest", reduction="simultaneous", strict=False,
+            max_depth=None, max_cases=None, assumptions=None, compute_inverse=False)
 </code></pre></div>
 <ul>
-<li><code>pivot_strategy</code> : <code>"simplest"</code>, <code>"first"</code> ou <code>"partial"</code>.</li>
+<li><code>pivot_strategy</code> : <code>"simplest"</code>, <code>"first"</code>, <code>"partial"</code> ou <code>"sparse"</code> (ligne la plus creuse).</li>
+<li><code>reduction</code> : <code>"simultaneous"</code> (Gauss-Jordan) ou <code>"back_substitution"</code> (échelonnement puis remontée).</li>
 <li><code>strict=True</code> : <code>SingularMatrixError</code> pour un système incompatible ou une matrice non inversible (<code>compute_inverse=True</code>).</li>
 <li><code>.run()</code> → <code>GJResult | CaseSplit[GJResult]</code>.</li>
 <li>Champs de <code>GJResult</code> : <code>A</code>, <code>b</code>, <code>rref</code>, <code>augmented_rref</code>, <code>pivots</code>, <code>rank</code>, <code>free_vars</code>, <code>nullspace_basis</code>, <code>solution</code>, <code>inverse</code>.</li>
