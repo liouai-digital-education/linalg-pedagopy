@@ -138,11 +138,11 @@ b = Vector([5, 17])
 
 session = InteractiveSession(GaussJordan(A, b), mode="autonomous")
 print(session.hint())
-# Suggestion : annulez le coefficient (2,1) = 3 à l'aide de la ligne pivot L1.
+#> Suggestion : annulez le coefficient (2,1) = 3 à l'aide de la ligne pivot L1.
 
 feedback = session.propose("L2 <- L2 - 3*L1")
 print(feedback.status, "|", feedback.message)
-# valid_useful | Valide. Le coefficient (2,1) est maintenant nul : progression vers la forme échelonnée.
+#> valid_useful | Valide. Le coefficient (2,1) est maintenant nul : progression vers la forme échelonnée.
 
 session.propose("L2 <- (1/2)*L2")
 session.propose("L1 <- L1 - 2*L2")

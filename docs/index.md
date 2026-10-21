@@ -62,11 +62,11 @@ y = Vector([1, 2, 3])
 
 result = GaussJordan(A, y).run()
 print(result)
-# Discussion selon a
-# ├─ Cas a ≠ 1 (générique) : pivots non nuls, rang 3, solution unique
-# │    x = ( (a − 4)/(a − 1), 1/(a − 1), 2/(a − 1) )
-# └─ Cas a = 1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
-#      système incompatible (témoin : 0 = 1)
+#> Discussion selon a
+#> ├─ Cas a ≠ 1 (générique) : pivots non nuls, rang 3, solution unique
+#> │    x = ( (a − 4)/(a − 1), 1/(a − 1), 2/(a − 1) )
+#> └─ Cas a = 1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+#>      système incompatible (témoin : 0 = 1)
 
 print(result.at(a=0).solution)   # UniqueSolution(x=(4, -1, -2))
 ```

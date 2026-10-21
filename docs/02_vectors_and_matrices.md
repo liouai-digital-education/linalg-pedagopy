@@ -211,10 +211,10 @@ B = Matrix([[2, 0], [1, 2]])
 with tracing(level=2) as tr:
     C = A.matmul(B, view="rows")
 print(Explanation(tr.tree).to_text(level=2))
-# Produit matriciel (2×2) @ (2×2) — vue par lignes (combinaisons linéaires des lignes de B).
-# ├─ Ligne 1 du produit : combinaison des lignes de B avec les coefficients (1, 2) -> ( 4, 4 ).
-# ├─ Ligne 2 du produit : combinaison des lignes de B avec les coefficients (3, 4) -> ( 10, 8 ).
-# └─ Résultat du produit matriciel : [(4 4); (10 8)].
+#> Produit matriciel (2×2) @ (2×2) — vue par lignes (combinaisons linéaires des lignes de B).
+#> ├─ Ligne 1 du produit : combinaison des lignes de B avec les coefficients (1, 2) -> ( 4, 4 ).
+#> ├─ Ligne 2 du produit : combinaison des lignes de B avec les coefficients (3, 4) -> ( 10, 8 ).
+#> └─ Résultat du produit matriciel : [(4 4); (10 8)].
 print(C == A @ B)   # True
 ```
 
@@ -283,13 +283,13 @@ Les méthodes [`rref`](../src/linalg_pedagopy/objects/matrix.py), [`rank`](../sr
 a, = symbols("a")
 P = Matrix([[1, a], [a, 1]])
 print(P.rank())
-# Discussion selon a
-# ├─ Cas a ≠ 1 et a ≠ −1 (générique) : 2
-# └─ Cas a = 1 ou a = −1 : 1
+#> Discussion selon a
+#> ├─ Cas a ≠ 1 et a ≠ −1 (générique) : 2
+#> └─ Cas a = 1 ou a = −1 : 1
 print(P.rank(assumptions="a != 1"))
-# Discussion selon a
-# ├─ Cas a ≠ 1 et a ≠ −1 (générique) : 2
-# └─ Cas a = −1 : 1
+#> Discussion selon a
+#> ├─ Cas a ≠ 1 et a ≠ −1 (générique) : 2
+#> └─ Cas a = −1 : 1
 ```
 
 Sans paramètre, le résultat est direct :

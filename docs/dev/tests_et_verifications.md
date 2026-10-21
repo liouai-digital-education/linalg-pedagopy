@@ -20,6 +20,7 @@ L'intégration continue (`.github/workflows/tests.yml`) exécute les mêmes éta
 | `tests/test_caracterisation_algorithmes.py` | Fige les traces (`explain` niveaux 0 à 3, Markdown, LaTeX, HTML), les discussions de cas et les décisions de l'oracle pour une trentaine de calculs représentatifs. |
 | `tests/test_caracterisation_tuteur.py` | Fige, pour chacune des 39 fiches, l'énoncé, les paliers d'indices, le jumeau, les diagnostics de réponses fausses génériques et la fiche enseignant ; ainsi que le laboratoire, le catalogue, le glossaire et les 24 générateurs de jumeaux. |
 | `tests/test_caracterisation_campagnes.py` | Fige les 21 cas des campagnes du bac à sable (`tests/campagnes.py`) : tests limites, grosses matrices pleines et creuses, plafonds de branches ; voir [campagnes.md](campagnes.md). Les 5 cas de plus de 5 s portent la marque `lent`. |
+| `tests/test_exemples_documentation.py` | Exécute les blocs ```` ```python ```` du README, de l'accueil, des guides `docs/0*.md` (hors 07 et 08) et du tutoriel, et compare les sorties marquées `#>` (voir [Exemples de la documentation](#exemples-de-la-documentation)). |
 | `tests/run_notebooks.py` | Exécute les carnets maintenus (tutoriel, problèmes, projet, cahier d'exercices et corrigé). |
 
 ## Tests de caractérisation : mode d'emploi
@@ -40,6 +41,28 @@ Les références sont stables d'une exécution à l'autre (vérifié avec plusie
 Les cas longs portent la marque `lent` : `pytest -m "not lent"` (ou `python verifier_tout.py --rapide`) les écarte ; l'intégration continue les exécute tous.
 
 Le fichier `.gitattributes` impose des fins de ligne LF pour `tests/references/`, afin que les comparaisons fonctionnent aussi sous Windows.
+
+## Exemples de la documentation
+
+`tests/test_exemples_documentation.py` exécute, page par page, tous les blocs ```` ```python ```` de `README.md`, `docs/index.md`, `docs/0*.md` (sauf 07 et 08) et `TUTORIAL.md`. Les blocs d'une même page partagent leurs variables, comme les cellules d'un carnet ; ils tournent dans un répertoire temporaire (le journal du tuteur y est écrit) avec `MPLBACKEND=Agg`. Une exception dans un bloc fait échouer le test de la page.
+
+Les commentaires qui suivent un `print(...)` obéissent à une convention simple :
+
+| Écriture | Sens |
+|:---|:---|
+| `# texte` | Commentaire libre (paraphrase, extrait, explication) : jamais comparé. |
+| `#> texte` | Ligne de sortie **exacte**. Les lignes `#>` qui suivent immédiatement un `print(...)` sont comparées, ligne à ligne, à ce qu'il affiche ; les espaces de fin sont ignorés et `#>` seul désigne une ligne vide. |
+| `#> …` (dernière ligne) | La sortie doit seulement **commencer** par les lignes `#>` qui précèdent. |
+| `<!-- exemple: non exécuté -->` | Placé sur la ligne non vide qui précède un bloc : le bloc n'est pas exécuté (pseudo-code, affichage interactif). |
+
+```python
+print(P.rank())
+#> Discussion selon a
+#> ├─ Cas a ≠ 1 et a ≠ −1 (générique) : 2
+#> └─ Cas a = 1 ou a = −1 : 1
+```
+
+N'écrivez `#>` que si la ligne est la sortie au caractère près ; un extrait, une sortie abrégée par « ... » ou une paraphrase restent en `#`. Les commentaires en fin de ligne (`print(x)  # True`) ne sont pas comparés. Une page dont l'exécution dépasse 5 s s'ajoute à `LENTES` dans le fichier de test, ce qui lui donne la marque `lent`.
 
 ## Carnets
 

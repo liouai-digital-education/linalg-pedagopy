@@ -197,10 +197,10 @@ from linalg_pedagopy.compare import (
 )
 
 print(lauchli_gram_schmidt_experiment())
-# Matrice de Läuchli (4x3, ε = 1.0e-08) :
-# - Exact (SymPy)              : max |q_i^T q_j - δ_ij| = 0
-# - Gram-Schmidt classique     : max |q_i^T q_j - δ_ij| = 0.5000 (perte totale d'orthogonalité)
-# - Gram-Schmidt modifié (MGS) : max |q_i^T q_j - δ_ij| = 7.07e-09
+#> Matrice de Läuchli (4x3, ε = 1.0e-08) :
+#> - Exact (SymPy)              : max |q_i^T q_j - δ_ij| = 0
+#> - Gram-Schmidt classique     : max |q_i^T q_j - δ_ij| = 0.5000 (perte totale d'orthogonalité)
+#> - Gram-Schmidt modifié (MGS) : max |q_i^T q_j - δ_ij| = 7.07e-09
 ```
 
 ### 3.3 Cas d'école 2 : La matrice de Hilbert et le mauvais conditionnement
@@ -211,11 +211,11 @@ L'erreur relative d'un solveur flottant croît avec ce conditionnement, alors qu
 
 ```python
 print(hilbert_conditioning_experiment())
-# Matrices de Hilbert H_n :
-# - n =  3 : cond(H_n) ≈ 5.24e+02, erreur relative flottante ≈ 8.36e-15 (exact : 0)
-# - n =  5 : cond(H_n) ≈ 4.77e+05, erreur relative flottante ≈ 1.68e-12 (exact : 0)
-# - n =  7 : cond(H_n) ≈ 4.75e+08, erreur relative flottante ≈ 1.01e-09 (exact : 0)
-# - n =  9 : cond(H_n) ≈ 4.93e+11, erreur relative flottante ≈ 1.18e-06 (exact : 0)
+#> Matrices de Hilbert H_n :
+#> - n =  3 : cond(H_n) ≈ 5.24e+02, erreur relative flottante ≈ 8.36e-15 (exact : 0)
+#> - n =  5 : cond(H_n) ≈ 4.77e+05, erreur relative flottante ≈ 1.68e-12 (exact : 0)
+#> - n =  7 : cond(H_n) ≈ 4.75e+08, erreur relative flottante ≈ 1.01e-09 (exact : 0)
+#> - n =  9 : cond(H_n) ≈ 4.93e+11, erreur relative flottante ≈ 1.18e-06 (exact : 0)
 ```
 
 (les erreurs flottantes exactes peuvent varier légèrement selon la plateforme).

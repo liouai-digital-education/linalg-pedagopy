@@ -337,8 +337,13 @@ print(GaussJordan(A).run().explain(level=2))
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">a, = symbols("a")
 res = GaussJordan(Matrix([[a**2 - 2, 1], [0, a - 1]]), Vector([1, 1])).run()
 print(res)
-# ├─ Cas a ≠ √(2) et a ≠ −√(2) et a ≠ 1 (générique) : pivots non nuls, rang 2, solution unique
-# │    x = ( (a − 2)/((a − 1)·(a − √(2))·(a + √(2))), 1/(a − 1) )
+#&gt; Discussion selon a
+#&gt; ├─ Cas a ≠ √(2) et a ≠ −√(2) et a ≠ 1 (générique) : pivots non nuls, rang 2, solution unique
+#&gt; │    x = ( (a − 2)/((a − 1)·(a − √(2))·(a + √(2))), 1/(a − 1) )
+#&gt; ├─ Cas a = 1 : L2 devient (0 0 | 1)
+#&gt; │    système incompatible (témoin : 0 = 1)
+#&gt; └─ Cas a² − 2 = 0 : L2 devient (0 0 | 2 - a)
+#&gt;      système incompatible (témoin : 0 = 2 - a)
 </code></pre></div>
 <p>Seuls les facteurs irréductibles sur $\mathbb{Q}$ sont décomposés, et seulement avec les radicaux qui figurent dans la condition de la branche : $1 - 2a$ garde son écriture. L'option <code>config.factor_policy = "rational"</code> (ou <code>using_config(factor_policy="rational")</code>) rétablit la factorisation sur $\mathbb{Q}$ seul.</p>
 <p>Dans une branche définie par une égalité non linéaire, par exemple $a^2 - 3 = 0$, les coefficients de la forme réduite sont remplacés par leur reste dans la division par $a^2 - 3$ ; une étape de niveau 2 l'annonce. Un témoin d'incompatibilité s'écrit alors $0 = 2$ plutôt que $0 = a^4 - 3a^2 + 2$.</p>
@@ -366,9 +371,9 @@ print(res.x)  # (1, 2, 1)
 
 a, = symbols("a")
 print(BackSubstitution(Matrix([[1, 2], [0, a]]), Vector([1, 1])).run())
-# Discussion selon a
-# ├─ Cas a ≠ 0 (générique) : x = ((a - 2)/a, 1/a)
-# └─ Cas a = 0 : coefficient diagonal (2,2) nul : système singulier, substitution impossible
+#&gt; Discussion selon a
+#&gt; ├─ Cas a ≠ 0 (générique) : x = ((a - 2)/a, 1/a)
+#&gt; └─ Cas a = 0 : coefficient diagonal (2,2) nul : système singulier, substitution impossible
 </code></pre></div>
 <hr/>
 <h2 id="4-orthogonalisation-de-gram-schmidt-gramschmidt">4. Orthogonalisation de Gram-Schmidt (<code>GramSchmidt</code>)</h2>
@@ -507,44 +512,49 @@ print(res.explain(level=1))
 <p><code>zeros()</code> renvoie les conditions d'annulation (une disjonction : le déterminant est nul si <strong>l'une</strong> d'elles est vérifiée) ; <code>zeros(split=True)</code> renvoie la discussion « inversible / non inversible » :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">[str(c) for c in res.zeros()]    # ['a = −2', 'a = 1']
 print(res.zeros(split=True))
-# Discussion selon a
-# ├─ Cas a ≠ −2 et a ≠ 1 (générique) : True
-# └─ Cas a = −2 ou a = 1 : False
+#&gt; Discussion selon a
+#&gt; ├─ Cas a ≠ −2 et a ≠ 1 (générique) : True
+#&gt; └─ Cas a = −2 ou a = 1 : False
 </code></pre></div>
 <p>Les branches qui ont le même résultat sont regroupées à l'affichage (voir le guide 01, § 4.2) ; <code>res.zeros(split=True).branches</code> les garde séparées.</p>
 <p>Un déterminant qui ne s'annule jamais donne <code>()</code> ; un déterminant identiquement nul donne une seule condition, toujours vraie.</p>
 <h3 id="73-elimination-cofacteurs-et-sarrus">7.3 Élimination, cofacteurs et Sarrus</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">B = Matrix([[2, 4, 1], [1, 3, 2], [0, 1, 5]])
 print(Determinant(B, method="elimination").run().explain(level=1))
-# ├─ On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
-# ├─ On annule le coefficient (2,1) : L2 ← L2 − (2)·L1 (une transvection ne change pas le déterminant).
-# ├─ On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
-# ├─ On annule le coefficient (3,2) : L3 ← L3 − (−2)·L2 (une transvection ne change pas le déterminant).
-# ├─ Matrice triangulaire : det A = (+1) × produit des pivots (1, 1, 7) (2 échange(s) de lignes).
-# └─ det A = 7.
+#&gt; Calcul du déterminant d'une matrice 3×3 (méthode : élimination).
+#&gt; ├─ On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+#&gt; ├─ On annule le coefficient (2,1) : L2 ← L2 − (2)·L1 (une transvection ne change pas le déterminant).
+#&gt; ├─ On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+#&gt; ├─ On annule le coefficient (3,2) : L3 ← L3 − (−2)·L2 (une transvection ne change pas le déterminant).
+#&gt; ├─ Matrice triangulaire : det A = (+1) × produit des pivots (1, 1, 7) (2 échange(s) de lignes).
+#&gt; └─ det A = 7.
 
 # Le premier échange vient de la stratégie de pivot « simplest » : le pivot 1 (ligne 2) est
 # préféré au pivot 2 (ligne 1), bien que celui-ci soit non nul.
 
 C = Matrix([[1, 0, 2], [3, 0, 4], [5, 6, 7]])
 print(Determinant(C, method="cofactors").run().explain(level=2))
-# ├─ Développement suivant la colonne 2 (la plus creuse) : det A = Σ (−1)^(i+j) a_ij M_ij.
-# │  ├─ Coefficient a_(1,2) nul : son terme est nul, le mineur n'est pas calculé.
-# │  ├─ ...
-# │  └─ Terme (3,2) : − a_(3,2)·M_(3,2) = − (6)·(−2).
-# └─ det A = 12.
+#&gt; Calcul du déterminant d'une matrice 3×3 (méthode : cofacteurs).
+#&gt; ├─ Développement suivant la colonne 2 (la plus creuse) : det A = Σ (−1)^(i+j) a_ij M_ij.
+#&gt; │  ├─ Coefficient a_(1,2) nul : son terme est nul, le mineur n'est pas calculé.
+#&gt; │  ├─ Coefficient a_(2,2) nul : son terme est nul, le mineur n'est pas calculé.
+#&gt; │  ├─ Mineur M_(3,2) : déterminant de la matrice obtenue en supprimant la ligne 3 et la colonne 2.
+#&gt; │  │  └─ Déterminant 2×2 : (1)·(4) − (2)·(3) = −2.
+#&gt; │  └─ Terme (3,2) : − a_(3,2)·M_(3,2) = − (6)·(−2).
+#&gt; └─ det A = 12.
 
 D = Matrix([[2, 1, 3], [0, 4, 5], [1, 0, 6]])
 print(Determinant(D, method="sarrus").run().explain(level=1))
-# ├─ Règle de Sarrus, diagonales descendantes (signe +) : (48, 5, 0).
-# ├─ Règle de Sarrus, diagonales montantes (signe −) : (12, 0, 0).
-# └─ det A = 41.
+#&gt; Calcul du déterminant d'une matrice 3×3 (méthode : Sarrus).
+#&gt; ├─ Règle de Sarrus, diagonales descendantes (signe +) : (48, 5, 0).
+#&gt; ├─ Règle de Sarrus, diagonales montantes (signe −) : (12, 0, 0).
+#&gt; └─ det A = 41.
 </code></pre></div>
 <p>L'élimination ne divise jamais par un pivot qui dépend d'un paramètre et peut s'annuler : comme Gauss-Jordan, elle ouvre alors une discussion par cas (<code>CaseSplit</code>), avec dans chaque branche le produit des pivots ou l'arrêt sur une colonne sans pivot. Bareiss, lui, n'a jamais besoin de discussion.</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(Determinant(A, method="elimination").run())
-# Discussion selon a
-# ├─ Cas a ≠ 1 et a ≠ −2 (générique) : det A = (a - 1)**2*(a + 2) (méthode : élimination)
-# └─ Cas a = −2 ou a = 1 : det A = 0 (méthode : élimination)
+#&gt; Discussion selon a
+#&gt; ├─ Cas a ≠ 1 et a ≠ −2 (générique) : det A = (a - 1)**2*(a + 2) (méthode : élimination)
+#&gt; └─ Cas a = −2 ou a = 1 : det A = 0 (méthode : élimination)
 Determinant(A, method="elimination", assumptions={"a": 3}).run().value   # 20
 A.det(method="elimination")                                              # CaseSplit des valeurs
 </code></pre></div>

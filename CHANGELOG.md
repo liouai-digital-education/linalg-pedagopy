@@ -18,6 +18,10 @@
 - Guides 04 et 05 : noms français dans le texte, bilan cohérent avec l'exemple, journal du tuteur ; table des 24 générateurs de jumeaux (nom français d'abord, thème Déterminants compris).
 - Tutoriel : témoin de dépendance de Gram-Schmidt (`witness.a_coeffs`). README et accueil : journal du tuteur créé dans le répertoire courant. Site : « 39 exercices ».
 
+### Tests — lot 2 de la revue (documentation testée)
+- **Exemples exécutés** : `tests/test_exemples_documentation.py` exécute les 158 blocs Python du README, de l'accueil, des guides 01 à 06 et 09 et du tutoriel (état partagé par page, répertoire temporaire, `MPLBACKEND=Agg`) ; une exception fait échouer le test.
+- **Sorties vérifiées** : convention `#>` pour une ligne de sortie exacte après un `print(...)` (`#> …` pour une sortie tronquée, `<!-- exemple: non exécuté -->` pour écarter un bloc), documentée dans `docs/dev/tests_et_verifications.md`. 23 sorties passent en `#>` ; les 11 qui omettaient la première ligne de trace, citaient le message entre guillemets ou l'abrégeaient sont complétées d'après la sortie réelle.
+
 ## [0.3.1.2] — 2026-10-21
 
 Phases 4, 5 et 6 du plan v6, et traces en tableau. Pas de publication sur PyPI pour cette version (reportée à une version ultérieure).

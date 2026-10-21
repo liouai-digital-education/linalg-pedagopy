@@ -119,9 +119,9 @@ fausse = Matrix([[-t, -t, -t, 1, 0, 0],
 r = ex.verifier(fausse)
 print(r.valide)        # False
 print(r.diagnostic)
-# Taille correcte (3 x 6). Lignes 1 et 3 correctes.
-# Votre ligne 2 calcule d_2 = p_4 - (p_1 + p_2 + p_3)/3.
-# Relisez la définition de d_2 : quel est le prix « du jour » pour i = 2 ?
+#> Taille correcte (3 x 6). Lignes 1 et 3 correctes.
+#> Votre ligne 2 calcule d_2 = p_4 - (p_1 + p_2 + p_3)/3.
+#> Relisez la définition de d_2 : quel est le prix « du jour » pour i = 2 ?
 ```
 
 Une réponse de forme inattendue (une liste à la place d'une matrice, par exemple) ne provoque pas d'erreur Python : le diagnostic indique la forme attendue. Une réponse correcte affiche « ✓ Réponse validée » et **déverrouille les données** de l'exercice.
