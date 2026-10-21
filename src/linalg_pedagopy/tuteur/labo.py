@@ -135,6 +135,7 @@ class CounterexampleLab:
 
     @property
     def predictions(self) -> dict[str, str]:
+        """Prédictions enregistrées (affirmation → réponse annoncée), en copie."""
         return dict(_LAB_VAULT[self]["predictions"])
 
     def _has_internal_counterexample(self, pred_expr: str, hypotheses: list[str]) -> bool:

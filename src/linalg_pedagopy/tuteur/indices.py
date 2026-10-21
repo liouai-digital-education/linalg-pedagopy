@@ -50,6 +50,7 @@ class HintLadder:
 
     @property
     def jumeau_spec(self) -> str | None:
+        """Spécification de l'exercice jumeau (alias français de ``twin_spec``), ou None."""
         return self.twin_spec
 
     def request_hint(

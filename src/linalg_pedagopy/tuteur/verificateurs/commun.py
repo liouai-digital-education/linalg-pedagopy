@@ -65,10 +65,12 @@ class VerificationResult:
 
     @property
     def valide(self) -> bool:
+        """Alias français de ``valid`` : la réponse est acceptée."""
         return self.valid
 
     @property
     def note_simplicite(self) -> str | None:
+        """Alias français de ``simplicity_note`` : remarque sur la forme de la réponse, ou None."""
         return self.simplicity_note
 
     def __bool__(self) -> bool:

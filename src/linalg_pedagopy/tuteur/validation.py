@@ -58,22 +58,27 @@ class ValidationReport:
 
     @property
     def valide(self) -> bool:
+        """Alias français de ``valid`` : la fiche passe tous les contrôles."""
         return self.valid
 
     @property
     def cible_ok(self) -> bool:
+        """Alias français de ``target_ok`` : la cible contient les champs qu'exige son vérificateur."""
         return self.target_ok
 
     @property
     def jumeau_ok(self) -> bool:
+        """Alias français de ``twin_ok`` : le générateur du jumeau existe (si exigé) et s'exécute."""
         return self.twin_ok
 
     @property
     def indices_sans_fuite(self) -> bool:
+        """Alias français de ``hints_leak_free`` : aucun indice ne divulgue la réponse."""
         return self.hints_leak_free
 
     @property
     def erreurs(self) -> tuple[str, ...]:
+        """Alias français de ``errors`` : messages des contrôles qui ont échoué."""
         return self.errors
 
     def __bool__(self) -> bool:

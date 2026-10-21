@@ -61,14 +61,17 @@ class LockedVector:
 
     @property
     def entries(self) -> tuple[Any, ...]:
+        """Coefficients du vecteur ; refusé tant que l'exercice est verrouillé."""
         return self._require_unlocked("entries").entries
 
     @property
     def size(self) -> int:
+        """Taille du vecteur, accessible même verrouillé."""
         return self._state()["vec"].size  # type: ignore[no-any-return]
 
     @property
     def shape(self) -> tuple[int, int]:
+        """Forme ``(n, 1)`` du vecteur, accessible même verrouillé."""
         return self._state()["vec"].shape  # type: ignore[no-any-return]
 
     def __len__(self) -> int:
@@ -81,39 +84,49 @@ class LockedVector:
         return iter(self._require_unlocked("__iter__"))
 
     def rms(self) -> Any:
+        """Moyenne quadratique (``Vector.rms``) ; refusée tant que l'exercice est verrouillé."""
         return self._require_unlocked("rms()").rms()
 
     def norm(self) -> Any:
+        """Norme euclidienne (``Vector.norm``) ; refusée tant que l'exercice est verrouillé."""
         return self._require_unlocked("norm()").norm()
 
     def norm_sq(self) -> Any:
+        """Carré de la norme (``Vector.norm_sq``) ; refusé tant que l'exercice est verrouillé."""
         return self._require_unlocked("norm_sq()").norm_sq()
 
     def avg(self) -> Any:
+        """Moyenne des coefficients (``Vector.avg``) ; refusée tant que l'exercice est verrouillé."""
         return self._require_unlocked("avg()").avg()
 
     def std(self) -> Any:
+        """Écart type (``Vector.std``) ; refusé tant que l'exercice est verrouillé."""
         return self._require_unlocked("std()").std()
 
     def demean(self) -> Vector:
+        """Vecteur centré (``Vector.demean``) ; refusé tant que l'exercice est verrouillé."""
         return self._require_unlocked("demean()").demean()
 
     def dot(self, other: Any) -> Any:
+        """Produit scalaire avec ``other`` (``Vector.dot``) ; refusé tant que l'exercice est verrouillé."""
         u = self._require_unlocked("dot()")
         v = _unwrap_locked_arg(other)
         return u.dot(v)
 
     def distance(self, other: Any) -> Any:
+        """Distance à ``other`` (``Vector.distance``) ; refusée tant que l'exercice est verrouillé."""
         u = self._require_unlocked("distance()")
         v = _unwrap_locked_arg(other)
         return u.distance(v)
 
     def angle(self, other: Any) -> Any:
+        """Angle avec ``other`` (``Vector.angle``) ; refusé tant que l'exercice est verrouillé."""
         u = self._require_unlocked("angle()")
         v = _unwrap_locked_arg(other)
         return u.angle(v)
 
     def correlation(self, other: Any) -> Any:
+        """Coefficient de corrélation avec ``other`` (``Vector.correlation``) ; refusé tant que l'exercice est verrouillé."""
         u = self._require_unlocked("correlation()")
         v = _unwrap_locked_arg(other)
         return u.correlation(v)
@@ -175,14 +188,17 @@ class LockedMatrix:
 
     @property
     def rows(self) -> int:
+        """Nombre de lignes, accessible même verrouillé."""
         return self._state()["mat"].rows  # type: ignore[no-any-return]
 
     @property
     def cols(self) -> int:
+        """Nombre de colonnes, accessible même verrouillé."""
         return self._state()["mat"].cols  # type: ignore[no-any-return]
 
     @property
     def shape(self) -> tuple[int, int]:
+        """Forme ``(lignes, colonnes)``, accessible même verrouillée."""
         return self._state()["mat"].shape  # type: ignore[no-any-return]
 
     def __getitem__(self, key: Any) -> Any:
@@ -193,24 +209,31 @@ class LockedMatrix:
 
     @property
     def T(self) -> Matrix:
+        """Transposée ; refusée tant que l'exercice est verrouillé."""
         return self._require_unlocked("T").T
 
     def gram(self) -> Matrix:
+        """Matrice de Gram ``AᵀA`` (``Matrix.gram``) ; refusée tant que l'exercice est verrouillé."""
         return self._require_unlocked("gram()").gram()
 
     def rref(self, *, assumptions: Any = None) -> Any:
+        """Forme échelonnée réduite (``Matrix.rref``) ; refusée tant que l'exercice est verrouillé."""
         return self._require_unlocked("rref()").rref(assumptions=assumptions)
 
     def rank(self, *, assumptions: Any = None) -> Any:
+        """Rang (``Matrix.rank``) ; refusé tant que l'exercice est verrouillé."""
         return self._require_unlocked("rank()").rank(assumptions=assumptions)
 
     def nullspace(self, *, assumptions: Any = None) -> Any:
+        """Base du noyau (``Matrix.nullspace``) ; refusée tant que l'exercice est verrouillé."""
         return self._require_unlocked("nullspace()").nullspace(assumptions=assumptions)
 
     def inv(self, *, assumptions: Any = None, strict: bool = True) -> Any:
+        """Inverse (``Matrix.inv``) ; refusée tant que l'exercice est verrouillé."""
         return self._require_unlocked("inv()").inv(assumptions=assumptions, strict=strict)
 
     def solve(self, b: Any, *, assumptions: Any = None, strict: bool = False) -> Any:
+        """Ensemble des solutions de ``A x = b`` (``Matrix.solve``) ; refusé tant que l'exercice est verrouillé."""
         m = self._require_unlocked("solve()")
         rhs = _unwrap_locked_arg(b)
         return m.solve(rhs, assumptions=assumptions, strict=strict)
@@ -276,6 +299,7 @@ class LockedNamespace:
         return _LOCK_VAULT[self]["wrapped"][name]
 
     def keys(self) -> list[str]:
+        """Noms des données de l'exercice, accessibles même verrouillées."""
         return list(_LOCK_VAULT[self]["wrapped"].keys())
 
     def raw_dict(self) -> dict[str, Any]:
