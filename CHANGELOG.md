@@ -3,7 +3,7 @@
 ## [Non publié] — branche `development`
 
 ### Phase 6 du plan v6 — tuteur
-- 6.0 : tests du tuteur valables avec et sans ipywidgets :
+- 6.0 : état des lieux du tuteur (`docs/dev/tuteur_etat_des_lieux.md` : modules, couverture, origine des douze `eval`) ; tests de caractérisation de `verrou`, `indices` et `panneau` (`tests/test_tuteur_verrou_indices_panneau.py`, couverture de 55–70 % à 99–100 %) ; deux tests `xfail(strict=True)` documentent que `{"__builtins__": {}}` ne protège pas `eval` (accès par `__globals__`), à corriger à l'étape 6.4. Tests du tuteur valables avec et sans ipywidgets :
   - Tests du tuteur : `test_seance_type_6_4_from_section_7_8` et `test_phase0_english_nomenclature_api` échouaient quand l'option `tuteur` (ipywidgets) était installée, car `str()` d'un vrai `VBox` ne contient pas l'énoncé. Ces deux tests vérifient désormais le panneau de repli en simulant l'absence d'ipywidgets ; le nouveau test `test_panneau_ipywidgets_affiche_enonce` (ignoré sans ipywidgets) vérifie que le panneau graphique affiche l'énoncé et ses boutons.
   - CI : nouveau job « Tuteur avec ipywidgets », qui exécute `pytest tests/test_tuteur.py` avec l'option `tuteur` installée.
 
