@@ -42,21 +42,21 @@ def _version_paquet() -> str:
 PAGES = [
     {"id": "index", "src": "index.md", "dst": "index.html", "title": "Accueil & démarrage",
      "subtitle": "Présentation, installation, démarrage rapide et principes", "badge": "Portail", "number": "00"},
-    {"id": "01_core", "src": "01_core_and_formal_computation.md", "dst": "01_core_and_formal_computation.html",
+    {"id": "01_core", "src": "01_noyau_calcul_formel.md", "dst": "01_noyau_calcul_formel.html",
      "title": "01. Noyau formel & calcul exact",
      "subtitle": "Scalaires exacts, ZeroOracle, conditions et discussion de cas", "badge": "Fondement", "number": "01"},
-    {"id": "02_objects", "src": "02_vectors_and_matrices.md", "dst": "02_vectors_and_matrices.html",
+    {"id": "02_objects", "src": "02_vecteurs_matrices.md", "dst": "02_vecteurs_matrices.html",
      "title": "02. Vecteurs, matrices & métriques",
      "subtitle": "Métriques, 4 vues du produit matriciel, sous-espaces et matrices structurées", "badge": "Objets", "number": "02"},
-    {"id": "03_algorithms", "src": "03_algorithms_and_step_tracing.md", "dst": "03_algorithms_and_step_tracing.html",
+    {"id": "03_algorithms", "src": "03_algorithmes_traces.md", "dst": "03_algorithmes_traces.html",
      "title": "03. Algorithmes & traçabilité",
      "subtitle": "Trace à 4 niveaux, Gauss-Jordan, Gram-Schmidt, QR et moindres carrés", "badge": "Algèbre", "number": "03"},
     {"id": "04_tutor", "src": "04_tuteur.md", "dst": "04_tuteur.html", "title": "04. Le tuteur interactif",
      "subtitle": "Catalogue nommé, indices gradués, jumeau, laboratoire et panneau", "badge": "Pédagogie", "number": "04"},
-    {"id": "05_exercises", "src": "05_pedagogical_exercises_and_sessions.md", "dst": "05_pedagogical_exercises_and_sessions.html",
+    {"id": "05_exercises", "src": "05_exercices_sessions.md", "dst": "05_exercices_sessions.html",
      "title": "05. Exercices & sessions guidées",
      "subtitle": "Générateurs propres, exercices jumeaux, sessions et diagnostic d'erreurs", "badge": "Didactique", "number": "05"},
-    {"id": "06_rendering", "src": "06_rendering_visualization_and_numerics.md", "dst": "06_rendering_visualization_and_numerics.html",
+    {"id": "06_rendering", "src": "06_rendu_visualisation_numerique.md", "dst": "06_rendu_visualisation_numerique.html",
      "title": "06. Rendu, géométrie & numérique",
      "subtitle": "Formats d'explication, figures 2D/3D, Läuchli et Hilbert", "badge": "Visuel", "number": "06"},
     {"id": "07_api", "src": "07_api_reference.md", "dst": "07_api_reference.html", "title": "07. Référence de l'API",
@@ -68,6 +68,31 @@ PAGES = [
      "title": "09. Guide JupyterLab",
      "subtitle": "Installation pas à pas, premières cellules et dépannage", "badge": "Pratique", "number": "09"},
 ]
+
+# Anciennes adresses des pages renommées (noms anglais jusqu'à la v0.3.1.2) : une page de
+# redirection garde valides les liens déjà partagés vers le site publié.
+REDIRECTIONS = {
+    "01_core_and_formal_computation.html": "01_noyau_calcul_formel.html",
+    "02_vectors_and_matrices.html": "02_vecteurs_matrices.html",
+    "03_algorithms_and_step_tracing.html": "03_algorithmes_traces.html",
+    "05_pedagogical_exercises_and_sessions.html": "05_exercices_sessions.html",
+    "06_rendering_visualization_and_numerics.html": "06_rendu_visualisation_numerique.html",
+}
+
+REDIRECTION_HTML = """<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Page déplacée</title>
+<link rel="canonical" href="{cible}">
+<meta http-equiv="refresh" content="0; url={cible}">
+<script>location.replace("{cible}" + location.hash);</script>
+</head>
+<body>
+<p>Cette page a été renommée : <a href="{cible}">{cible}</a>.</p>
+</body>
+</html>
+"""
 
 ACADEMIC_CSS = """/* ==========================================================================
    Feuille de style universitaire et sobre — linalg_pedagopy
@@ -1313,6 +1338,9 @@ def build_site() -> None:
         dst_path = OUTPUT_DIR / page["dst"]
         dst_path.write_text(rendered_html, encoding="utf-8")
         print(f"Page générée : {dst_path}")
+
+    for ancienne, cible in REDIRECTIONS.items():
+        (OUTPUT_DIR / ancienne).write_text(REDIRECTION_HTML.format(cible=cible), encoding="utf-8")
 
     # Écriture de l'index de recherche JSON
     (JS_DIR / "search_index.json").write_text(

@@ -318,12 +318,12 @@ L'objet [`config`](../src/linalg_pedagopy/config.py) réunit les réglages globa
 | Réglage | Défaut | Valeurs | Rôle |
 | :--- | :--- | :--- | :--- |
 | `float_policy` | `"rationalize"` | `"rationalize"`, `"reject"`, `"keep"` | traitement des flottants (§ 1.2) |
-| `factor_policy` | `"real_radicals"` | `"real_radicals"`, `"rational"` | factorisation des conditions affichées ([guide 03](03_algorithms_and_step_tracing.md)) |
+| `factor_policy` | `"real_radicals"` | `"real_radicals"`, `"rational"` | factorisation des conditions affichées ([guide 03](03_algorithmes_traces.md)) |
 | `default_trace_level` | `1` | `0`, `1`, `2`, `3` | niveau de `explain()` sans argument |
 | `max_cases` | `8` | entier ≥ 1 | nombre maximal de branches d'une discussion |
 | `max_case_depth` | `3` | entier ≥ 1 | profondeur maximale des discussions imbriquées |
 | `max_generic_dim` | `4` | entier ≥ 1 ou `None` | taille au-delà de laquelle Gauss-Jordan à paramètres avertit |
-| `locale` | `"fr"` | chaîne non vide | langue des messages ([guide 06](06_rendering_visualization_and_numerics.md)) |
+| `locale` | `"fr"` | chaîne non vide | langue des messages ([guide 06](06_rendu_visualisation_numerique.md)) |
 | `tutor_mode` | `"student"` | `"etudiant"`, `"enseignant"` (ou `"student"`, `"teacher"`) | mode du tuteur ([guide 04](04_tuteur.md)) |
 | `hint_min_attempts` | `0` | entier ≥ 0 | tentatives exigées avant un nouvel indice |
 | `hint_min_delay_seconds` | `0` | entier ≥ 0 | délai exigé avant un nouvel indice |

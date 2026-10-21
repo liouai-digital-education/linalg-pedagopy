@@ -88,12 +88,12 @@ La documentation complète est dans [`docs/`](docs/index.md) (version HTML : `do
 
 | Guide | Contenu |
 | :--- | :--- |
-| [01. Noyau formel](docs/01_core_and_formal_computation.md) | `to_exact`, `float_policy`, `symbols`, `ZeroOracle`, `Condition`, `CaseSplit` |
-| [02. Vecteurs et matrices](docs/02_vectors_and_matrices.md) | `Vector`, `Matrix`, métriques, 4 vues du produit, matrices structurées |
-| [03. Algorithmes](docs/03_algorithms_and_step_tracing.md) | trace à 4 niveaux, `GaussJordan`, `GramSchmidt`, `QR`, `LeastSquares` |
+| [01. Noyau formel](docs/01_noyau_calcul_formel.md) | `to_exact`, `float_policy`, `symbols`, `ZeroOracle`, `Condition`, `CaseSplit` |
+| [02. Vecteurs et matrices](docs/02_vecteurs_matrices.md) | `Vector`, `Matrix`, métriques, 4 vues du produit, matrices structurées |
+| [03. Algorithmes](docs/03_algorithmes_traces.md) | trace à 4 niveaux, `GaussJordan`, `GramSchmidt`, `QR`, `LeastSquares` |
 | [04. Tuteur](docs/04_tuteur.md) | catalogue, séance, panneau, mode enseignant, format des fiches |
-| [05. Exercices et sessions](docs/05_pedagogical_exercises_and_sessions.md) | générateurs, exercices jumeaux, sessions interactives, diagnostic d'erreurs |
-| [06. Rendu et numérique](docs/06_rendering_visualization_and_numerics.md) | `Explanation`, figures, comparaison exact / flottant |
+| [05. Exercices et sessions](docs/05_exercices_sessions.md) | générateurs, exercices jumeaux, sessions interactives, diagnostic d'erreurs |
+| [06. Rendu et numérique](docs/06_rendu_visualisation_numerique.md) | `Explanation`, figures, comparaison exact / flottant |
 | [07. Référence de l'API](docs/07_api_reference.md) | signatures, exceptions, alias français |
 | [08. Catalogue des exercices](docs/08_catalogue_exercices.md) | les 39 exercices et leurs énoncés |
 | [09. Guide JupyterLab](docs/09_guide_jupyterlab.md) | installation pas à pas et dépannage |

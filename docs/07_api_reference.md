@@ -49,7 +49,7 @@ Le paquet emploie des noms anglais avec des alias français, sauf le **tuteur** 
 | `generators.least_squares_example()` | `generateurs.moindres_carres_exemple()` | `linalg_pedagopy.exercises.generators` |
 | `difference_matrix(n)`, `running_sum_matrix(n)`… | `matrice_differences(n)`, `matrice_somme_cumulee(n)`… | `linalg_pedagopy.special` |
 
-La liste complète des générateurs d'exercices jumeaux figure dans le [guide 05](05_pedagogical_exercises_and_sessions.md).
+La liste complète des générateurs d'exercices jumeaux figure dans le [guide 05](05_exercices_sessions.md).
 
 ---
 
@@ -350,8 +350,8 @@ Lit ou fixe `config.tutor_mode` (`"etudiant"` ou `"enseignant"` ; `"student"` et
 
 ## 7. Modules `exercises`, `compare` et `plot`
 
-- `linalg_pedagopy.exercises` : `generate_unimodular_matrix`, `generate_integer_rref_matrix`, `generate_rational_qr_matrix`, `generate_clean_least_squares`, `generate_parametric_system`, `cayley_orthogonal`, `generators` / `generateurs`, `TwinExercise` (24 générateurs, voir le guide 05), `InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)`, `check_row_operation`, `check_gram_schmidt_step`, `OperationFeedback` (voir [guide 05](05_pedagogical_exercises_and_sessions.md)).
-- `linalg_pedagopy.compare` (extra `compare`, NumPy ; importer avec `from linalg_pedagopy.compare import …`, car `linalg_pedagopy.compare` désigne aussi la fonction `compare`) : `compare(procedure, inputs=None) -> ComparisonReport`, `build_lauchli_matrix(n=3, epsilon=1/10**8)`, `build_hilbert_matrix(n)`, `lauchli_gram_schmidt_experiment`, `lauchli_least_squares_experiment`, `hilbert_conditioning_experiment`, `explicit_inverse_vs_solve_experiment` (voir [guide 06](06_rendering_visualization_and_numerics.md)).
+- `linalg_pedagopy.exercises` : `generate_unimodular_matrix`, `generate_integer_rref_matrix`, `generate_rational_qr_matrix`, `generate_clean_least_squares`, `generate_parametric_system`, `cayley_orthogonal`, `generators` / `generateurs`, `TwinExercise` (24 générateurs, voir le guide 05), `InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)`, `check_row_operation`, `check_gram_schmidt_step`, `OperationFeedback` (voir [guide 05](05_exercices_sessions.md)).
+- `linalg_pedagopy.compare` (extra `compare`, NumPy ; importer avec `from linalg_pedagopy.compare import …`, car `linalg_pedagopy.compare` désigne aussi la fonction `compare`) : `compare(procedure, inputs=None) -> ComparisonReport`, `build_lauchli_matrix(n=3, epsilon=1/10**8)`, `build_hilbert_matrix(n)`, `lauchli_gram_schmidt_experiment`, `lauchli_least_squares_experiment`, `hilbert_conditioning_experiment`, `explicit_inverse_vs_solve_experiment` (voir [guide 06](06_rendu_visualisation_numerique.md)).
 - `linalg_pedagopy.plot` (extra `plot`, Matplotlib) : `plot_linear_combination_2d`, `plot_orthogonal_projection_2d`, `plot_gram_schmidt_2d`, `plot_least_squares_fit`, `plot_least_squares_geometry_3d`.
 
 ---

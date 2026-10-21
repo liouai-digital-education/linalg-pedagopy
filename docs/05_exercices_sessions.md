@@ -6,7 +6,7 @@ Le module `linalg_pedagopy.exercises` propose des outils de génération procéd
 
 ## 1. Générateurs de matrices et problèmes « propres » (`generators`)
 
-> Pour les matrices structurées classiques (différences, sommes cumulées, moyenne glissante, Vandermonde, convolution, sélection, renversement), voir la [section 5 du guide 02](02_vectors_and_matrices.md).
+> Pour les matrices structurées classiques (différences, sommes cumulées, moyenne glissante, Vandermonde, convolution, sélection, renversement), voir la [section 5 du guide 02](02_vecteurs_matrices.md).
 
 ### 1.1 Le problème des fractions géantes
 

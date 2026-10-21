@@ -38,6 +38,10 @@
 - **Guide 06, matrices de Hilbert** : seul l'en-tête de la sortie est comparé (`#> …`). Les erreurs relatives flottantes changent selon la version de NumPy et faisaient échouer les tests sous Python 3.11 et 3.13 après la fusion du lot 2.
 - **Site** : les liens entre pages avec une ancre (`page.md#section`) sont convertis en `page.html#section` ; ils restaient en `.md`, donc cassés.
 
+### Documentation — lot 3b de la revue (structure et cohérence)
+- **Guides renommés en français** : `01_noyau_calcul_formel.md`, `02_vecteurs_matrices.md`, `03_algorithmes_traces.md`, `05_exercices_sessions.md`, `06_rendu_visualisation_numerique.md` (`git mv`, liens mis à jour). Sur le site, les anciennes adresses (`01_core_and_formal_computation.html`…) deviennent des pages de redirection, ancre comprise.
+- **Liens vérifiés** : `tests/test_liens_documentation.py` échoue si un lien relatif d'une page Markdown versionnée vise un fichier absent, ou si le site garde un lien `.md` vers un guide.
+
 ## [0.3.1.2] — 2026-10-21
 
 Phases 4, 5 et 6 du plan v6, et traces en tableau. Pas de publication sur PyPI pour cette version (reportée à une version ultérieure).

@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03. Algorithmes & traçabilité — linalg_pedagopy</title>
+  <meta name="description" content="Trace à 4 niveaux, Gauss-Jordan, Gram-Schmidt, QR et moindres carrés">
+
+  <!-- Typographie Web Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="assets/css/academic.css">
+
+  <!-- MathJax pour les formules mathématiques exactes -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Moteur de diagrammes Mermaid.js -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+  </script>
+</head>
+<body>
+
+  <!-- En-tête institutionnel -->
+  <header class="site-header">
+    <a href="index.html" class="header-brand">
+      <div class="brand-crest">LP</div>
+      <div>
+        <div class="brand-title">linalg_pedagopy</div>
+        <div class="brand-subtitle">Algèbre linéaire formelle et pédagogique</div>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher... (Ctrl+K)" readonly>
+      </div>
+      <button id="themeToggle" class="theme-toggle-btn" title="Changer de thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- Modal de recherche plein texte -->
+  <div id="searchModal" class="search-results-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="Rechercher une fonction, un théorème, un symbole...">
+      </div>
+      <div id="modalSearchResults" class="search-modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;">Saisissez un mot-clé...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-container">
+    <!-- Barre latérale gauche de navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Sommaire de l'ouvrage</div>
+      <ul class="nav-list">
+        
+        <li class="nav-item ">
+          <a href="index.html">
+            <span>Accueil & démarrage</span>
+            <span class="nav-badge">Portail</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="01_noyau_calcul_formel.html">
+            <span>01. Noyau formel & calcul exact</span>
+            <span class="nav-badge">Fondement</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="02_vecteurs_matrices.html">
+            <span>02. Vecteurs, matrices & métriques</span>
+            <span class="nav-badge">Objets</span>
+          </a>
+        </li>
+        
+        <li class="nav-item active">
+          <a href="03_algorithmes_traces.html">
+            <span>03. Algorithmes & traçabilité</span>
+            <span class="nav-badge">Algèbre</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="04_tuteur.html">
+            <span>04. Le tuteur interactif</span>
+            <span class="nav-badge">Pédagogie</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="05_exercices_sessions.html">
+            <span>05. Exercices & sessions guidées</span>
+            <span class="nav-badge">Didactique</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="06_rendu_visualisation_numerique.html">
+            <span>06. Rendu, géométrie & numérique</span>
+            <span class="nav-badge">Visuel</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="07_api_reference.html">
+            <span>07. Référence de l'API</span>
+            <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="08_catalogue_exercices.html">
+            <span>08. Catalogue des exercices</span>
+            <span class="nav-badge">Exercices</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="09_guide_jupyterlab.html">
+            <span>09. Guide JupyterLab</span>
+            <span class="nav-badge">Pratique</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
+        <strong>Version 0.3.1.2</strong><br>
+        Calcul exact · tuteur interactif
+      </div>
+    </aside>
+
+    <!-- Corps de texte de l'article -->
+    <main class="main-content">
+      <header class="article-header">
+        <span class="article-badge">Chapitre 03 • Algèbre</span>
+        <h1 class="article-title">03. Algorithmes & traçabilité</h1>
+        <p class="article-subtitle">Trace à 4 niveaux, Gauss-Jordan, Gram-Schmidt, QR et moindres carrés</p>
+      </header>
+
+      <article class="markdown-body">
+        <h1 id="03-algorithmes-fondamentaux-et-tracabilite-hierarchique">03. Algorithmes fondamentaux et Traçabilité hiérarchique</h1>
+<p>Le module <code>linalg_pedagopy.algorithms</code> regroupe les procédures fondamentales de l'algèbre linéaire telles qu'on les enseigne en L1–L2, avec une trace pas à pas de chaque calcul.</p>
+<p>Chaque procédure hérite de la classe de base <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/base.py"><code>Procedure</code></a> et s'exécute dans un contexte de traçabilité pédagogique.</p>
+<hr/>
+<h2 id="1-moteur-de-tracabilite-contextuelle-tracer">1. Moteur de traçabilité contextuelle (<code>Tracer</code>)</h2>
+<h3 id="11-pourquoi-une-tracabilite-hierarchique">1.1 Pourquoi une traçabilité hiérarchique ?</h3>
+<p>L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une réponse numérique brute, mais à comprendre la succession d'étapes de calcul. Cependant, un niveau d'explication unique ne convient pas à tous les publics :
+- Un enseignant qui projette au tableau veut les opérations de lignes et les matrices obtenues.
+- Un étudiant en TD a besoin, en plus, du découpage colonne par colonne et du choix de chaque pivot.
+- Pour comprendre une discussion par cas, il faut voir les tests de nullité qui l'ont déclenchée.</p>
+<p><code>linalg_pedagopy</code> résout ce dilemme par un <strong>traceur arborescent</strong> : chaque appel à <code>run()</code> enregistre la trace <strong>complète</strong> (jusqu'au niveau 3) dans <code>result.trace</code>, et c'est au moment de l'affichage que l'on choisit le niveau de détail avec <code>result.explain(level=...)</code> (par défaut <code>config.default_trace_level</code>, qui vaut 1) :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, GaussJordan, tracing
+
+A = Matrix([[2, 1], [4, 3]])
+b = Vector([5, 11])
+
+res = GaussJordan(A, b).run()
+
+# Niveau 1 : macro-étapes (opérations de lignes et résultat)
+print(res.explain(level=1))
+
+# Niveau 2 : ajoute le choix des pivots et le découpage par colonne
+print(res.explain(level=2))
+
+# Niveau 3 : ajoute les contrôles de nullité de l'oracle
+print(res.explain(level=3))
+</code></pre></div>
+<p>Le context manager <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/trace/tracer.py"><code>tracing</code></a> sert, lui, à <strong>regrouper</strong> dans un même arbre les étapes de plusieurs calculs successifs, filtrées au niveau indiqué :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">with tracing(level=1) as tr:
+    GaussJordan(A, b).run()
+    GaussJordan(A.T, b).run()
+arbre = tr.tree          # Step racine contenant les deux réductions
+print(len(arbre.children))
+</code></pre></div>
+<h3 id="12-les-4-niveaux-de-zoom-didactiques">1.2 Les 4 niveaux de zoom didactiques</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Niveau</th>
+<th style="text-align: left;">Nom</th>
+<th style="text-align: left;">Description du contenu de la trace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>0</strong></td>
+<td style="text-align: left;"><strong>Résultat seul</strong></td>
+<td style="text-align: left;">Aucune étape du calcul : seulement le résumé du résultat (rang, solution, inverse…), comme pour une branche de discussion par cas.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: left;"><strong>Macro-étapes</strong> <em>(défaut)</em></td>
+<td style="text-align: left;">Opérations élémentaires sur les lignes ($L_2 \leftarrow L_2 - 2 L_1$) avec la matrice après chaque opération, résultat final.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: left;"><strong>Micro-étapes</strong> <em>(recommandé en TD)</em></td>
+<td style="text-align: left;">Ajoute le traitement colonne par colonne, le choix et la stratégie de pivot, la base du noyau, les projections et normalisations.</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: left;"><strong>Contrôles élémentaires</strong></td>
+<td style="text-align: left;">Ajoute les tests de nullité de l'oracle (« Ce coefficient est nul dans le domaine exact »), qui expliquent pourquoi une case est sautée ou une discussion ouverte.</td>
+</tr>
+</tbody>
+</table>
+<p>La même trace s'affiche aussi <strong>en tableau</strong>, avec une ligne par opération : <code>res.explain().to_table()</code> renvoie un <code>TraceTable</code> qui s'affiche en HTML dans JupyterLab et s'exporte en Markdown (<code>to_markdown()</code>), en LaTeX (<code>to_latex()</code>) ou en HTML (<code>to_html()</code>). Pour l'élimination, les colonnes sont <strong>N°</strong>, <strong>Colonne</strong>, <strong>Pivot</strong>, <strong>Opération</strong>, <strong>But</strong> et <strong>Matrice obtenue</strong> ; une discussion par cas donne une section par branche. Le détail des colonnes et l'exemple de Gram-Schmidt sont dans le <a href="06_rendu_visualisation_numerique.html">guide 06, § 1.2</a>.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">table = res.explain().to_table()
+print([ligne.text for ligne in table.sections[0].rows if ligne.kind == "op"])
+#&gt; ['ramener le pivot à 1', 'annuler le coefficient (2,1)', 'annuler le coefficient (1,2)']
+</code></pre></div>
+<h3 id="13-nuds-de-larbre-step-stepkind-et-highlight">1.3 Nœuds de l'arbre : <code>Step</code>, <code>StepKind</code> et <code>Highlight</code></h3>
+<p>L'arbre de trace est composé de nœuds immuables <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/trace/step.py"><code>Step</code></a>. Chaque étape possède :
+- Un type d'action <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/trace/step.py"><code>StepKind</code></a> (<code>SECTION</code>, <code>INFO</code>, <code>WARNING</code>, <code>ROW_SWAP</code>, <code>ROW_SCALE</code>, <code>ROW_ADD</code>, <code>DOT</code>, <code>NORM</code>, <code>PROJECTION</code>, <code>SUBTRACT</code>, <code>NORMALIZE</code>, <code>BACK_SUBSTITUTION</code>, <code>CASE_SPLIT</code>, <code>CHECK</code>, <code>RESULT</code>).
+- Des instantanés matriciels (<code>snapshot</code>).
+- Une mise en valeur graphique <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/trace/step.py"><code>Highlight</code></a> spécifiant les coordonnées du pivot $(i, j)$, les lignes modifiées et la barre de séparation augmentée.</p>
+<h3 id="14-ce-que-renvoie-run-le-contrat-commun-des-resultats">1.4 Ce que renvoie <code>run()</code> : le contrat commun des résultats</h3>
+<p>Chaque procédure s'utilise de la même façon : on la construit avec ses données et ses options, puis <code>run()</code> renvoie un <strong>résultat typé</strong> (<code>GJResult</code>, <code>TriangularResult</code>, <code>GSResult</code>, <code>QRResult</code>, <code>LSResult</code>, <code>DetResult</code>), ou un <code>CaseSplit</code> de ces résultats quand une discussion selon les paramètres est nécessaire (voir le <a href="01_noyau_calcul_formel.html">guide 01, § 4</a>). Tous les résultats partagent :</p>
+<ul>
+<li><code>trace</code> : l'arbre complet des étapes (niveau 3) ;</li>
+<li><code>explain(level=None)</code> : une <code>Explanation</code> filtrée au niveau demandé, à afficher (<code>print</code>) ou à exporter (<code>to_text</code>, <code>to_markdown</code>, <code>to_latex</code>, <code>to_html</code>, <code>to_table</code>, <code>save</code>) ; voir le <a href="06_rendu_visualisation_numerique.html">guide 06</a> ;</li>
+<li><code>verify()</code> : un <strong>contrôle a posteriori</strong>, refait indépendamment du calcul et renvoyé lui aussi sous forme d'<code>Explanation</code> ;</li>
+<li>l'affichage automatique dans JupyterLab (Markdown et LaTeX, au niveau 2 au moins).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Résultat</th>
+<th style="text-align: left;">Ce que vérifie <code>verify()</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>GJResult</code></td>
+<td style="text-align: left;">$A x - b = 0$ pour la solution, et $A v = 0$ pour chaque vecteur de la base du noyau</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>TriangularResult</code></td>
+<td style="text-align: left;">résidu $A x - c$ nul (rien à vérifier dans une branche singulière)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>GSResult</code></td>
+<td style="text-align: left;">famille orthonormée, ou témoin de dépendance $a_k - \sum_i \lambda_i \tilde q_i = 0$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>QRResult</code></td>
+<td style="text-align: left;">$Q R = A$ et $Q^T Q = I_n$, coefficient par coefficient</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>LSResult</code></td>
+<td style="text-align: left;">$A^T \hat r = 0$, colonne par colonne</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>DetResult</code></td>
+<td style="text-align: left;">même déterminant par un algorithme indépendant (Berkowitz, sans division)</td>
+</tr>
+</tbody>
+</table>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(res.verify())
+#&gt; Vérification a posteriori du résultat de Gauss-Jordan.
+#&gt; └─ Contrôle vérifié : A x - b = (0, 0).
+</code></pre></div>
+<p>Les attributs propres à chaque résultat sont décrits avec sa procédure, ci-dessous.</p>
+<hr/>
+<h2 id="2-elimination-de-gauss-jordan-gaussjordan">2. Élimination de Gauss-Jordan (<code>GaussJordan</code>)</h2>
+<p>La procédure <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/gauss_jordan.py"><code>GaussJordan</code></a> résout les systèmes linéaires formels $A x = b$ et calcule l'inverse de matrices carrées.</p>
+<h3 id="21-signature-et-options">2.1 Signature et options</h3>
+<div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">GaussJordan(
+    A: Matrix,
+    b: Vector | None = None,
+    *,
+    pivot_strategy: "simplest" | "first" | "partial" | "sparse" = "simplest",
+    reduction: "simultaneous" | "back_substitution" = "simultaneous",
+    strict: bool = False,
+    max_depth: int | None = None,
+    max_cases: int | None = None,
+    assumptions: Condition | dict | str | list | None = None,
+    compute_inverse: bool = False,
+)
+</code></pre></div>
+<ul>
+<li><code>A</code> : Matrice des coefficients $m \times n$.</li>
+<li><code>b</code> : Vecteur second membre (optionnel ; sans lui, seule la RREF de $A$ est calculée).</li>
+<li><code>pivot_strategy</code> : choix du pivot — le plus simple (<code>"simplest"</code>), le premier non nul (<code>"first"</code>), le plus grand en valeur absolue (<code>"partial"</code>) ou celui de la ligne la plus creuse (<code>"sparse"</code>, critère de Markowitz : moins de coefficients non nuls à remplir, puis le plus simple).</li>
+<li><code>reduction</code> : <code>"simultaneous"</code> annule au-dessus et au-dessous de chaque pivot en une seule passe (Gauss-Jordan) ; <code>"back_substitution"</code> échelonne d'abord vers le bas, puis remonte de la dernière colonne pivot à la première (méthode du pivot de Gauss suivie de la remontée), ce qui limite la croissance des expressions intermédiaires sur les matrices bande. La forme réduite obtenue est la même.</li>
+<li><code>strict</code> : si <code>True</code>, lève <code>SingularMatrixError</code> pour un système incompatible (ou une matrice non inversible avec <code>compute_inverse=True</code>) au lieu de renvoyer <code>EmptySolution</code> / <code>inverse=None</code>.</li>
+<li><code>max_depth</code>, <code>max_cases</code> : limites de la discussion paramétrique (par défaut <code>config.max_case_depth</code> et <code>config.max_cases</code>). Quand une limite est atteinte, <code>CaseLimitError</code> (sous-classe de <code>PedagopyError</code>) arrête le calcul avec un message qui nomme les facteurs qui ouvrent des cas, la branche en cours, une hypothèse à fournir et un plafond plus élevé :</li>
+</ul>
+<p><code>text
+  Discussion par cas arrêtée : elle demande au moins 9 branches, au-delà du plafond max_cases=8.
+  Facteurs qui ouvrent des cas : a − 1, a + 1, b − 1, b + 1.
+  Branche en cours : a = −1.
+  Pour poursuivre : précisez des hypothèses sur les paramètres, par exemple assumptions="a != 1", ou relevez le plafond (max_cases=16, ou config.max_cases = 16).</code></p>
+<p>Les mêmes informations sont des attributs de l'exception : <code>limit</code>, <code>value</code>, <code>reached</code>, <code>factors</code>, <code>condition</code>, <code>suggested_assumption</code>.
+- <strong>Grandes matrices à paramètres</strong> : au-delà de <code>config.max_generic_dim</code> (4 par défaut), Gauss-Jordan sur une matrice qui contient des paramètres émet un <code>PedagogicalWarning</code>. Le calcul est mené à terme, mais l'avertissement rappelle qu'une discussion par cas sur une matrice symbolique 5 × 5 est rarement lisible et qu'il vaut mieux chercher d'abord une structure remarquable (triangulaire par blocs, tridiagonale, $aI + bJ$, Vandermonde…). <code>config.max_generic_dim = None</code> le supprime ; <code>warnings.simplefilter("error", PedagogicalWarning)</code> le transforme en erreur.
+- <code>assumptions</code> : hypothèses sur les paramètres, sous forme de <code>Condition</code>, de chaîne (<code>"a != 1"</code>, <code>"a = 2"</code>), de liste de chaînes ou de dictionnaire (<code>{"a": 2}</code>, <code>{"a": "!= 1"}</code>). Seules les égalités et les différences sont prises en compte : une inégalité d'ordre (<code>"a &gt; 0"</code>) ou une forme inconnue lève <code>InvalidAssumptionError</code>.
+- <code>compute_inverse</code> : si <code>True</code>, calcule l'inverse via l'échelonnement simultané de $[A \mid I_n]$ (champ <code>inverse</code> du résultat).</p>
+<p>Le résultat <code>GJResult</code> expose <code>A</code>, <code>b</code>, <code>rref</code>, <code>augmented_rref</code>, <code>pivots</code>, <code>rank</code>, <code>free_vars</code>, <code>nullspace_basis</code>, <code>solution</code> et <code>inverse</code>. <code>pivots</code> et <code>free_vars</code> sont des indices à partir de 0, alors que la trace numérote colonnes et variables à partir de 1 (« colonnes pivots = (1, 2) », « x2 libre »).</p>
+<h3 id="22-typologie-des-ensembles-de-solutions">2.2 Typologie des ensembles de solutions</h3>
+<p>Le résultat renvoyé par <code>GaussJordan.run()</code> est un <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/gauss_jordan.py"><code>GJResult</code></a>, ou, si la matrice contient des paramètres, une discussion par cas (<code>CaseSplit</code>) dont chaque branche porte un <code>GJResult</code>. La propriété <code>solution</code> d'un <code>GJResult</code> la propriété <code>solution</code> appartient à l'une des 3 catégories de <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/base.py"><code>SolutionSet</code></a> :</p>
+<p><div class="mermaid-wrapper"><pre class="mermaid">classDiagram
+    class SolutionSet
+    class UniqueSolution {
+        +Vector x
+    }
+    class AffineSolution {
+        +Vector x0
+        +tuple[Vector] basis
+        +tuple[int] free_vars
+        +at_params(*t)
+    }
+    class EmptySolution {
+        +int row
+        +Expr witness
+        +tuple inconsistent_rows
+    }
+    SolutionSet &lt;|-- UniqueSolution
+    SolutionSet &lt;|-- AffineSolution
+    SolutionSet &lt;|-- EmptySolution</pre></div></p>
+<ol>
+<li><strong><code>UniqueSolution</code></strong> : Système de Cramer ou système rectangulaire compatible de rang plein colonne.<br/>
+   $\mathcal{S} = \{ x_0 \}$.</li>
+<li><strong><code>AffineSolution</code></strong> : Sous-déterminé ou système compatible de rang déficient.<br/>
+   $\mathcal{S} = x_p + \text{Vect}(v_1, \dots, v_k)$. L'objet fournit la solution particulière <code>x0</code> ($x_p$), une base du noyau <code>basis</code> ($\{v_1, \dots, v_k\}$) et les indices des variables libres <code>free_vars</code> ; <code>at_params(t1, ..., tk)</code> renvoie la solution pour des valeurs données des paramètres.</li>
+<li><strong><code>EmptySolution</code></strong> : Système incompatible (présence d'une ligne d'incompatibilité $[0 \dots 0 \mid \beta]$ avec $\beta \neq 0$).<br/>
+   $\mathcal{S} = \emptyset$. L'objet indique la ligne témoin <code>row</code> (indice 0-based), la valeur non nulle <code>witness</code> du second membre et la liste <code>inconsistent_rows</code>.</li>
+</ol>
+<h3 id="23-exemple-avec-parametre-et-discussion-automatique">2.3 Exemple avec paramètre et discussion automatique</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, symbols, GaussJordan
+
+m, = symbols("m")
+A = Matrix([
+    [1, 1, m],
+    [1, m, 1],
+    [m, 1, 1]
+])
+b = Vector([1, 1, 1])
+
+res = GaussJordan(A, b).run()
+print(res.explain())
+
+for br in res.branches:
+    print(br.condition, "-&gt;", br.result.solution)
+# m ≠ 1 et m ≠ −2 -&gt; UniqueSolution(x=(1/(m + 2), 1/(m + 2), 1/(m + 2)))
+# m = −2 -&gt; EmptySolution(ligne L3 : 0 = 3)
+# m = 1 -&gt; (1, 0, 0) + t_1·(-1, 1, 0) + t_2·(-1, 0, 1)
+</code></pre></div>
+<p>Ce code produit automatiquement un <code>CaseSplit</code> distinguant :
+- Le cas $m = 1$ : infinité de solutions (plan affine de dimension 2).
+- Le cas $m = -2$ : système incompatible ($\emptyset$).
+- Le cas $m \notin \{1, -2\}$ : solution unique $x = \left(\frac{1}{m+2}, \frac{1}{m+2}, \frac{1}{m+2}\right)$.</p>
+<h3 id="24-base-du-noyau-expliquee">2.4 Base du noyau expliquée</h3>
+<p>Quand la réduction laisse des variables libres, la trace de niveau 2 explique la base du noyau lue sur la forme réduite. Elle apparaît pour une réduction sans second membre (<code>rref()</code>, <code>rank()</code>, <code>nullspace()</code>), où le noyau est l'objet étudié, et pour une solution affine, dont il donne les directions. Elle n'apparaît pas pour un système incompatible ni pour un calcul d'inverse.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">A = Matrix([[1, 2, -1, 3, -1], [2, 4, -1, 7, 1], [-1, -2, 3, -1, 7]])
+print(GaussJordan(A).run().explain(level=2))
+# ├─ Noyau : variables libres x2, x4, x5 (colonnes sans pivot), variables principales x1, x3 ; dim ker A = n − rg A = 5 − 2 = 3.
+# ├─ Système homogène équivalent (variables principales en fonction des variables libres) : x1 = −2·x2 − 4·x4 − 2·x5 ; x3 = −x4 − 3·x5.
+# ├─ En posant x2 = 1 et les autres variables libres nulles : v1 = ( −2, 1, 0, 0, 0 ).
+# ├─ En posant x4 = 1 et les autres variables libres nulles : v2 = ( −4, 0, −1, 1, 0 ).
+# ├─ En posant x5 = 1 et les autres variables libres nulles : v3 = ( −2, 0, −3, 0, 1 ).
+# ├─ Les composantes x2, x4, x5 de v1, v2, v3 forment la matrice identité I_3 : [...] c'est une base.
+</code></pre></div>
+<p>La dernière étape répond à une question fréquente : la famille obtenue est libre <em>par construction</em>, car ses composantes sur les variables libres forment la matrice identité. Sans variable libre, une réduction sans second membre annonce $\ker A = \{0\}$, de dimension 0, et sa base vide. <code>Matrix.nullspace()</code> réduit $A$ seule, sans ajouter de colonne de zéros.</p>
+<h3 id="25-ecriture-des-resultats-selon-la-condition-de-la-branche">2.5 Écriture des résultats selon la condition de la branche</h3>
+<p>Une condition comme $a^2 - 2 \neq 0$ s'affiche avec ses racines : « $a \neq \sqrt 2$ et $a \neq -\sqrt 2$ ». Pour que la solution se lise avec les <strong>mêmes facteurs</strong>, ses coefficients sont factorisés avec les radicaux de la condition :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">a, = symbols("a")
+res = GaussJordan(Matrix([[a**2 - 2, 1], [0, a - 1]]), Vector([1, 1])).run()
+print(res)
+#&gt; Discussion selon a
+#&gt; ├─ Cas a ≠ √(2) et a ≠ −√(2) et a ≠ 1 (générique) : pivots non nuls, rang 2, solution unique
+#&gt; │    x = ( (a − 2)/((a − 1)·(a − √(2))·(a + √(2))), 1/(a − 1) )
+#&gt; ├─ Cas a = 1 : L2 devient (0 0 | 1)
+#&gt; │    système incompatible (témoin : 0 = 1)
+#&gt; └─ Cas a² − 2 = 0 : L2 devient (0 0 | 2 - a)
+#&gt;      système incompatible (témoin : 0 = 2 - a)
+</code></pre></div>
+<p>Seuls les facteurs irréductibles sur $\mathbb{Q}$ sont décomposés, et seulement avec les radicaux qui figurent dans la condition de la branche : $1 - 2a$ garde son écriture. L'option <code>config.factor_policy = "rational"</code> (ou <code>using_config(factor_policy="rational")</code>) rétablit la factorisation sur $\mathbb{Q}$ seul.</p>
+<p>Dans une branche définie par une égalité non linéaire, par exemple $a^2 - 3 = 0$, les coefficients de la forme réduite sont remplacés par leur reste dans la division par $a^2 - 3$ ; une étape de niveau 2 l'annonce. Un témoin d'incompatibilité s'écrit alors $0 = 2$ plutôt que $0 = a^4 - 3a^2 + 2$.</p>
+<hr/>
+<h2 id="3-substitutions-triangulaires">3. Substitutions triangulaires</h2>
+<p>Pour un système dont la matrice est <strong>triangulaire et carrée</strong>, les algorithmes de substitution évitent le coût complet d'un pivot de Gauss. Une matrice non carrée lève <code>DimensionMismatchError</code>, un coefficient diagonal nul <code>SingularMatrixError</code>.</p>
+<ul>
+<li><a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/triangular.py"><code>ForwardSubstitution</code></a> : Résout $L y = b$ pour une matrice triangulaire inférieure $L$ (descente).</li>
+<li><a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/triangular.py"><code>BackSubstitution</code></a> : Résout $U x = y$ pour une matrice triangulaire supérieure $U$ (remontée).</li>
+</ul>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, BackSubstitution
+
+U = Matrix([
+    [2, 1, -1],
+    [0, 3,  2],
+    [0, 0,  4]
+])
+y = Vector([3, 8, 4])
+
+res = BackSubstitution(U, y).run()   # TriangularResult(x, A, c)
+print(res.x)  # (1, 2, 1)
+</code></pre></div>
+<p>Si un coefficient diagonal dépend d'un paramètre, la discussion couvre tous les cas : la branche générique donne la solution, et chaque branche où un coefficient diagonal s'annule le signale (<code>singular</code>, <code>singular_index</code>) au lieu de la solution, car la substitution ne s'y applique pas ; <code>GaussJordan</code> discute alors les solutions.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import symbols
+
+a, = symbols("a")
+print(BackSubstitution(Matrix([[1, 2], [0, a]]), Vector([1, 1])).run())
+#&gt; Discussion selon a
+#&gt; ├─ Cas a ≠ 0 (générique) : x = ((a - 2)/a, 1/a)
+#&gt; └─ Cas a = 0 : coefficient diagonal (2,2) nul : système singulier, substitution impossible
+</code></pre></div>
+<hr/>
+<h2 id="4-orthogonalisation-de-gram-schmidt-gramschmidt">4. Orthogonalisation de Gram-Schmidt (<code>GramSchmidt</code>)</h2>
+<p>La procédure <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/gram_schmidt.py"><code>GramSchmidt</code></a> (<code>GramSchmidt(vectors, *, normalize="end", strict=False, assumptions=None)</code>) transforme une famille libre de vecteurs $(a_1, \dots, a_k)$ en une famille orthogonale $(u_1, \dots, u_k)$ puis orthonormée $(q_1, \dots, q_k)$ :</p>
+<p><div class="math-display">$$u_k = a_k - \sum_{i=1}^{k-1} \frac{\langle a_k, u_i \rangle}{\|u_i\|^2} u_i, \quad q_k = \frac{u_k}{\|u_k\|}$$</div></p>
+<p>Avec <code>normalize="end"</code> (défaut), les calculs restent rationnels jusqu'à la normalisation finale ; <code>normalize="each"</code> normalise à chaque étape, comme dans la présentation classique de l'algorithme.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Vector, GramSchmidt
+
+a1 = Vector([1, 1, 0])
+a2 = Vector([1, 0, 1])
+a3 = Vector([0, 1, 1])
+
+res = GramSchmidt([a1, a2, a3]).run()
+
+# Vecteurs orthogonaux (rationnels)
+for u in res.orthogonal:
+    print(u)          # (1, 1, 0) / (1/2, -1/2, 1) / (-2/3, 2/3, 2/3)
+
+# Vecteurs orthonormés (avec radicaux exacts)
+for q in res.orthonormal:
+    print(q)          # (sqrt(2)/2, sqrt(2)/2, 0) / ...
+</code></pre></div>
+<h3 id="detection-de-dependance-lineaire">Détection de dépendance linéaire</h3>
+<p>Si la famille est liée, <code>GramSchmidt</code> s'arrête au premier vecteur dépendant : le résultat a <code>independent=False</code>, <code>dependent_index</code> (indice 0-based) et un témoin <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/gram_schmidt.py"><code>DependenceWitness</code></a> (<code>witness</code>) qui exprime ce vecteur en fonction des précédents. Avec <code>strict=True</code>, une <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/exceptions.py"><code>LinearDependenceError</code></a> est levée à la place.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">dep = GramSchmidt([Vector([1, 2]), Vector([2, 4])]).run()
+print(dep.independent, dep.dependent_index)  # False 1
+print(dep.witness)                           # a_2 = (2)·q̃_1
+</code></pre></div>
+<hr/>
+<h2 id="5-factorisation-qr-qr">5. Factorisation QR (<code>QR</code>)</h2>
+<p>La classe <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/qr.py"><code>QR</code></a> factorise une matrice $A$ de rang plein colonne sous la forme $A = Q R$, où $Q$ a des colonnes orthonormales ($Q^T Q = I$) et $R$ est triangulaire supérieure inversible.</p>
+<p>La factorisation est calculée par Gram-Schmidt (<code>QR(A, *, strict=False, assumptions=None)</code> ; il n'y a pas de paramètre <code>method</code>, ni Householder ni Givens). Le résultat <code>QRResult</code> fournit deux formes :
+- la forme orthonormée <code>Q</code>, <code>R</code> (avec radicaux) ;
+- la forme rationnelle sans radicaux <code>Q_tilde</code>, <code>R_tilde</code>, <code>D_sq</code> (colonnes orthogonales non normalisées, avec $D^2 = \tilde Q^T \tilde Q$), adaptée au calcul à la main.</p>
+<p>Si les colonnes sont liées, <code>full_rank</code> vaut <code>False</code> et <code>witness</code> décrit la dépendance (ou <code>LinearDependenceError</code> avec <code>strict=True</code>).</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, QR
+
+A = Matrix([
+    [1, -1],
+    [1,  0],
+    [1,  1]
+])
+
+qr_res = QR(A).run()
+print("Q =", qr_res.Q)                 # colonnes (√3/3, √3/3, √3/3) et (-√2/2, 0, √2/2)
+print("R =", qr_res.R)                 # [[√3, 0], [0, √2]]
+print("Vérification Q @ R == A :", qr_res.Q @ qr_res.R == A)   # True
+print("Q̃ =", qr_res.Q_tilde, " D² =", qr_res.D_sq)            # forme rationnelle
+</code></pre></div>
+<hr/>
+<h2 id="6-moindres-carres-lineaires-leastsquares">6. Moindres Carrés Linéaires (<code>LeastSquares</code>)</h2>
+<p>La régression au sens des moindres carrés résout le problème d'optimisation :
+<div class="math-display">$$\min_{x} \|A x - b\|^2$$</div></p>
+<p>La classe <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/least_squares.py"><code>LeastSquares</code></a> calcule la solution exacte $\hat{x}$ via :
+- <code>method="rational_qr"</code> <em>(défaut)</em> : QR rationnelle sans radicaux, $\tilde R \hat{x} = D^{-2} \tilde Q^T b$ ;
+- <code>method="qr"</code> : QR orthonormée, $R \hat{x} = Q^T b$ ;
+- <code>method="normal"</code> : équations normales $(A^T A) \hat{x} = A^T b$.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, LeastSquares
+
+A = Matrix([
+    [1, 0],
+    [1, 1],
+    [1, 2],
+    [1, 3]
+])
+b = Vector([1, 2, 2, 4])
+
+ls = LeastSquares(A, b).run()
+print("x_hat =", ls.x_hat)  # Estimateur des paramètres
+print("y_hat =", ls.y_hat)  # Projection y_hat = A x_hat
+print("r_hat =", ls.r_hat)  # Résidu r_hat = A x_hat - b
+print("Norme du résidu :", ls.residual_norm)      # sqrt(70)/10
+print("RMS du résidu :", ls.residual_rms)         # sqrt(70)/20
+
+# Vérification pédagogique fondamentale : A^T r_hat == 0
+# verify() renvoie une Explanation qui détaille le contrôle colonne par colonne
+print(ls.verify())
+#&gt; Vérification de la condition d'orthogonalité du résidu : A^T r_hat = 0 colonne par colonne.
+#&gt; ├─ Colonne a_1 : a_1^T r_hat = 0 (verdict : ZERO).
+#&gt; └─ Colonne a_2 : a_2^T r_hat = 0 (verdict : ZERO).
+</code></pre></div>
+<p>Le résultat <code>LSResult</code> expose aussi :</p>
+<ul>
+<li><code>residual</code> : synonyme de <code>r_hat</code> ($A \hat x - b$) ;</li>
+<li><code>pseudoinverse</code> : la pseudo-inverse $A^\dagger = (A^T A)^{-1} A^T$, calculée à la demande (et non par le calcul de <code>run()</code>) ; $\hat x = A^\dagger b$ ;</li>
+<li><code>method</code> (méthode employée), <code>A</code>, <code>b</code>, et <code>subs(...)</code> pour spécialiser les paramètres.</li>
+</ul>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(ls.residual)
+#&gt; (-1/10, -1/5, 7/10, -2/5)
+print(repr(ls.pseudoinverse))
+#&gt; Matrix([[7/10, 2/5, 1/10, -1/5], [-3/10, -1/10, 1/10, 3/10]])
+print(ls.pseudoinverse @ b == ls.x_hat)
+#&gt; True
+</code></pre></div>
+<p><code>LeastSquares</code> exige une matrice <strong>de rang plein en colonnes</strong>, sans quoi $\hat x$ n'est pas unique. Sinon, <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/exceptions.py"><code>RankDeficientError</code></a> (sous-classe de <code>PedagopyError</code> et d'<code>ArithmeticError</code>) est levée, avec le rang (<code>rank</code>) et le nombre de colonnes (<code>ncols</code>) ; c'est aussi le cas si $A$ a moins de lignes que de colonnes. <code>QR(A, strict=True)</code> lève la même exception sur une matrice de rang déficient, alors que <code>QR(A)</code> renvoie un résultat avec <code>full_rank=False</code> et le témoin de dépendance.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import RankDeficientError
+
+try:
+    LeastSquares(Matrix([[1, 2], [2, 4], [3, 6]]), Vector([1, 2, 3])).run()
+except RankDeficientError as err:
+    print(err, "| rang :", err.rank, "| colonnes :", err.ncols)
+#&gt; La matrice A (3x2) n'est pas de rang plein en colonnes. | rang : 1 | colonnes : 2
+</code></pre></div>
+<hr/>
+<h2 id="7-determinant-determinant">7. Déterminant (<code>Determinant</code>)</h2>
+<p>La procédure <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/determinant.py"><code>Determinant</code></a> (<code>Determinant(A, *, method="auto", assumptions=None)</code>) calcule le déterminant exact d'une matrice carrée, avec paramètres éventuels, et trace le calcul. Quatre méthodes sont disponibles :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><code>method</code></th>
+<th style="text-align: left;">Principe</th>
+<th style="text-align: left;">Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>"bareiss"</code></td>
+<td style="text-align: left;">Élimination <strong>sans fractions</strong> : $m_{ij} \leftarrow \dfrac{m_{kk}\, m_{ij} - m_{ik}\, m_{kj}}{\text{pivot précédent}}$, division exacte</td>
+<td style="text-align: left;">Défaut dès que la matrice contient des paramètres : aucune discussion de cas</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"elimination"</code></td>
+<td style="text-align: left;">Triangulation <strong>sans dilatation</strong> : $\det A = (-1)^{\text{échanges}} \prod \text{pivots}$</td>
+<td style="text-align: left;">Défaut pour une matrice numérique</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"cofactors"</code></td>
+<td style="text-align: left;">Développement $\det A = \sum_j (-1)^{i+j} a_{ij} M_{ij}$ suivant la ligne ou la colonne la plus creuse</td>
+<td style="text-align: left;">Pédagogique, $n \le 4$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"sarrus"</code></td>
+<td style="text-align: left;">Trois diagonales descendantes moins trois diagonales montantes</td>
+<td style="text-align: left;">$n = 3$ uniquement</td>
+</tr>
+</tbody>
+</table>
+<p><code>method="auto"</code> (défaut) choisit Bareiss si la matrice contient des paramètres, l'élimination sinon. La méthode de commodité <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>Matrix.det()</code></a> renvoie directement la valeur.</p>
+<h3 id="71-matrice-parametree-bareiss">7.1 Matrice paramétrée : Bareiss</h3>
+<p>Avec des paramètres, l'élimination classique divise par des pivots comme $a - 1$, qui peuvent s'annuler : chaque étape ne vaudrait que sous une condition. L'algorithme de Bareiss divise par le pivot précédent, et cette division est <strong>exacte</strong> : les coefficients restent polynomiaux et la trace est valable pour toutes les valeurs du paramètre.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, symbols, Determinant
+
+a, = symbols("a")
+A = Matrix([[a, 1, 1], [1, a, 1], [1, 1, a]])
+
+A.det()                      # (a - 1)**2*(a + 2)
+
+res = Determinant(A).run()   # DetResult
+res.method                   # 'bareiss'
+res.factors                  # ((a + 2, 1), (a - 1, 2)) : facteurs et multiplicités
+print(res.explain(level=1))
+# Calcul du déterminant d'une matrice 3×3 (méthode : Bareiss).
+# ├─ Algorithme de Bareiss (élimination sans fractions) : ...
+# ├─ Étape 1 : pivot a, division exacte par le pivot précédent 1.
+# ├─ Étape 2 : pivot a² − 1, division exacte par le pivot précédent a.
+# ├─ Le dernier coefficient diagonal a³ − 3·a + 2 est le déterminant, au signe des échanges près (0 échange(s)).
+# └─ det A = (a − 1)²·(a + 2).
+</code></pre></div>
+<p>Au niveau 3, la trace donne chaque coefficient intermédiaire, mineur $2 \times 2$ divisé par le pivot précédent.</p>
+<h3 id="72-valeurs-singulieres-du-parametre">7.2 Valeurs singulières du paramètre</h3>
+<p><code>zeros()</code> renvoie les conditions d'annulation (une disjonction : le déterminant est nul si <strong>l'une</strong> d'elles est vérifiée) ; <code>zeros(split=True)</code> renvoie la discussion « inversible / non inversible » :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">[str(c) for c in res.zeros()]    # ['a = −2', 'a = 1']
+print(res.zeros(split=True))
+#&gt; Discussion selon a
+#&gt; ├─ Cas a ≠ −2 et a ≠ 1 (générique) : True
+#&gt; └─ Cas a = −2 ou a = 1 : False
+</code></pre></div>
+<p>Les branches qui ont le même résultat sont regroupées à l'affichage (voir le guide 01, § 4.2) ; <code>res.zeros(split=True).branches</code> les garde séparées.</p>
+<p>Un déterminant qui ne s'annule jamais donne <code>()</code> ; un déterminant identiquement nul donne une seule condition, toujours vraie.</p>
+<h3 id="73-elimination-cofacteurs-et-sarrus">7.3 Élimination, cofacteurs et Sarrus</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">B = Matrix([[2, 4, 1], [1, 3, 2], [0, 1, 5]])
+print(Determinant(B, method="elimination").run().explain(level=1))
+#&gt; Calcul du déterminant d'une matrice 3×3 (méthode : élimination).
+#&gt; ├─ On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+#&gt; ├─ On annule le coefficient (2,1) : L2 ← L2 − (2)·L1 (une transvection ne change pas le déterminant).
+#&gt; ├─ On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+#&gt; ├─ On annule le coefficient (3,2) : L3 ← L3 − (−2)·L2 (une transvection ne change pas le déterminant).
+#&gt; ├─ Matrice triangulaire : det A = (+1) × produit des pivots (1, 1, 7) (2 échange(s) de lignes).
+#&gt; └─ det A = 7.
+
+# Le premier échange vient de la stratégie de pivot « simplest » : le pivot 1 (ligne 2) est
+# préféré au pivot 2 (ligne 1), bien que celui-ci soit non nul.
+
+C = Matrix([[1, 0, 2], [3, 0, 4], [5, 6, 7]])
+print(Determinant(C, method="cofactors").run().explain(level=2))
+#&gt; Calcul du déterminant d'une matrice 3×3 (méthode : cofacteurs).
+#&gt; ├─ Développement suivant la colonne 2 (la plus creuse) : det A = Σ (−1)^(i+j) a_ij M_ij.
+#&gt; │  ├─ Coefficient a_(1,2) nul : son terme est nul, le mineur n'est pas calculé.
+#&gt; │  ├─ Coefficient a_(2,2) nul : son terme est nul, le mineur n'est pas calculé.
+#&gt; │  ├─ Mineur M_(3,2) : déterminant de la matrice obtenue en supprimant la ligne 3 et la colonne 2.
+#&gt; │  │  └─ Déterminant 2×2 : (1)·(4) − (2)·(3) = −2.
+#&gt; │  └─ Terme (3,2) : − a_(3,2)·M_(3,2) = − (6)·(−2).
+#&gt; └─ det A = 12.
+
+D = Matrix([[2, 1, 3], [0, 4, 5], [1, 0, 6]])
+print(Determinant(D, method="sarrus").run().explain(level=1))
+#&gt; Calcul du déterminant d'une matrice 3×3 (méthode : Sarrus).
+#&gt; ├─ Règle de Sarrus, diagonales descendantes (signe +) : (48, 5, 0).
+#&gt; ├─ Règle de Sarrus, diagonales montantes (signe −) : (12, 0, 0).
+#&gt; └─ det A = 41.
+</code></pre></div>
+<p>L'élimination ne divise jamais par un pivot qui dépend d'un paramètre et peut s'annuler : comme Gauss-Jordan, elle ouvre alors une discussion par cas (<code>CaseSplit</code>), avec dans chaque branche le produit des pivots ou l'arrêt sur une colonne sans pivot. Bareiss, lui, n'a jamais besoin de discussion.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(Determinant(A, method="elimination").run())
+#&gt; Discussion selon a
+#&gt; ├─ Cas a ≠ 1 et a ≠ −2 (générique) : det A = (a - 1)**2*(a + 2) (méthode : élimination)
+#&gt; └─ Cas a = −2 ou a = 1 : det A = 0 (méthode : élimination)
+Determinant(A, method="elimination", assumptions={"a": 3}).run().value   # 20
+A.det(method="elimination")                                              # CaseSplit des valeurs
+</code></pre></div>
+<h3 id="74-verification-et-cas-particuliers">7.4 Vérification et cas particuliers</h3>
+<ul>
+<li><code>verify()</code> recalcule le déterminant par un algorithme indépendant (Berkowitz, sans division) et confirme le résultat.</li>
+<li>Une matrice non carrée lève <code>DimensionMismatchError</code> ; Sarrus sur une matrice qui n'est pas $3 \times 3$ aussi ; les cofacteurs au-delà de $4 \times 4$ lèvent <code>PedagopyError</code>.</li>
+<li>Comme pour Gauss-Jordan, les valeurs interdites par les dénominateurs des coefficients (domaine de définition) sont annoncées dans la trace et restreignent toutes les conditions.</li>
+</ul>
+      </article>
+
+      <!-- Navigation entre chapitres -->
+      <nav class="chapter-nav">
+        
+        <a href="02_vecteurs_matrices.html" class="chapter-nav-btn">
+          <span class="nav-direction">&larr; Chapitre précédent</span>
+          <span class="nav-target">02. Vecteurs, matrices & métriques</span>
+        </a>
+        
+
+        
+        <a href="04_tuteur.html" class="chapter-nav-btn" style="text-align:right;">
+          <span class="nav-direction">Chapitre suivant &rarr;</span>
+          <span class="nav-target">04. Le tuteur interactif</span>
+        </a>
+        
+      </nav>
+    </main>
+
+    <!-- Barre latérale droite : Sommaire de la page (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-heading">Sur cette page</div>
+      <ul class="toc-list">
+        
+        <li class="toc-item ">
+          <a href="#1-moteur-de-tracabilite-contextuelle-tracer">1. Moteur de traçabilité contextuelle (Tracer)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#11-pourquoi-une-tracabilite-hierarchique">1.1 Pourquoi une traçabilité hiérarchique ?</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#12-les-4-niveaux-de-zoom-didactiques">1.2 Les 4 niveaux de zoom didactiques</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#13-nuds-de-larbre-step-stepkind-et-highlight">1.3 Nœuds de l'arbre : Step, StepKind et Highlight</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#14-ce-que-renvoie-run-le-contrat-commun-des-resultats">1.4 Ce que renvoie run() : le contrat commun des résultats</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#2-elimination-de-gauss-jordan-gaussjordan">2. Élimination de Gauss-Jordan (GaussJordan)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#21-signature-et-options">2.1 Signature et options</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#22-typologie-des-ensembles-de-solutions">2.2 Typologie des ensembles de solutions</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#23-exemple-avec-parametre-et-discussion-automatique">2.3 Exemple avec paramètre et discussion automatique</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#24-base-du-noyau-expliquee">2.4 Base du noyau expliquée</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#25-ecriture-des-resultats-selon-la-condition-de-la-branche">2.5 Écriture des résultats selon la condition de la branche</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#3-substitutions-triangulaires">3. Substitutions triangulaires</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#4-orthogonalisation-de-gram-schmidt-gramschmidt">4. Orthogonalisation de Gram-Schmidt (GramSchmidt)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#detection-de-dependance-lineaire">Détection de dépendance linéaire</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#5-factorisation-qr-qr">5. Factorisation QR (QR)</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#6-moindres-carres-lineaires-leastsquares">6. Moindres Carrés Linéaires (LeastSquares)</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#7-determinant-determinant">7. Déterminant (Determinant)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#71-matrice-parametree-bareiss">7.1 Matrice paramétrée : Bareiss</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#72-valeurs-singulieres-du-parametre">7.2 Valeurs singulières du paramètre</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#73-elimination-cofacteurs-et-sarrus">7.3 Élimination, cofacteurs et Sarrus</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#74-verification-et-cas-particuliers">7.4 Vérification et cas particuliers</a>
+        </li>
+        
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <p>
+      <strong>linalg_pedagopy</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement de l'algèbre linéaire en L1–L2.<br>
+      Documentation sous licence MIT. Code source ouvert.
+    </p>
+  </footer>
+
+  <script src="assets/js/academic.js"></script>
+</body>
+</html>

@@ -259,7 +259,7 @@ jumeau: generateurs.moyenne_glissante(fenetre=2, n=5)
 | `donnees` | Données verrouillées de l'exercice. |
 | `verification` | Vérificateur : `type` parmi `produit_scalaire`, `matrice`, `formule`, `valeur`, `ensemble_valeurs`, `propriete`, `contre_exemple`, `labo`, `egalites`, `dimensions`, plus ses paramètres (`cible`, `lignes_cibles`…). `valeur` accepte une liste `erreurs` d'erreurs typiques (`valeur` : expression sur les données, `diagnostic` : message) ; `ensemble_valeurs` attend `calcul` (par exemple `A.det()`) et `inconnue` (par exemple `a`), et compare la liste de l'étudiant aux racines réelles. |
 | `indices` | Au moins 3 indices textuels (paliers 1 à 3). |
-| `jumeau` | Appel d'un générateur d'exercice jumeau (voir le [guide 05](05_pedagogical_exercises_and_sessions.md)). |
+| `jumeau` | Appel d'un générateur d'exercice jumeau (voir le [guide 05](05_exercices_sessions.md)). |
 
 ### Valider une fiche
 

@@ -83,7 +83,7 @@ L'interpréteur n'accepte qu'une liste blanche de constructions, refuse les noms
 
 ## Noyau formel : décisions et fonctions internes
 
-Le [guide 01](../01_core_and_formal_computation.md) décrit le comportement du noyau pour l'utilisateur. Les choix de conception et les fonctions privées qui le réalisent sont ici. Les décisions numérotées (D1 à D11) viennent de la v2 et sont listées dans [plans/implementation_plan.md](plans/implementation_plan.md).
+Le [guide 01](../01_noyau_calcul_formel.md) décrit le comportement du noyau pour l'utilisateur. Les choix de conception et les fonctions privées qui le réalisent sont ici. Les décisions numérotées (D1 à D11) viennent de la v2 et sont listées dans [plans/implementation_plan.md](plans/implementation_plan.md).
 
 - **D1, symboles réels** : `core.field.symbols` ajoute `real=True` à tout symbole, pour que SymPy simplifie sur $\mathbb{R}$ ($\sqrt{a^2} = |a|$, factorisation des carrés) et que l'oracle raisonne sur des valeurs réelles.
 - **D3, oracle de nullité à quatre verdicts** : `core.zero.ZeroOracle.decide` ne lève jamais et renvoie `ZERO`, `NONZERO`, `CONDITIONAL` (avec les facteurs d'annulation) ou `UNKNOWN` ; `is_zero` lève `UndecidableZeroError` pour les deux derniers. Une réponse booléenne forcée diviserait par un pivot qui peut s'annuler, ou oublierait le cas générique.
@@ -93,7 +93,7 @@ Le [guide 01](../01_core_and_formal_computation.md) décrit le comportement du n
 
 ## Traces et locales
 
-La trace est enregistrée complète (niveau 3) puis filtrée à l'affichage : c'est la décision D6 de la v2 ([plans/implementation_plan.md](plans/implementation_plan.md)), présentée aux utilisateurs dans le [guide 03, § 1.1](../03_algorithms_and_step_tracing.md).
+La trace est enregistrée complète (niveau 3) puis filtrée à l'affichage : c'est la décision D6 de la v2 ([plans/implementation_plan.md](plans/implementation_plan.md)), présentée aux utilisateurs dans le [guide 03, § 1.1](../03_algorithmes_traces.md).
 
 Chaque étape de trace a une clé (`gj.row_add`, `det.bareiss_step`, `ker.vector`…) et des paramètres. Le texte de chaque clé est dans `render/locales/fr.yaml`, et `str.format` y insère les paramètres (accolades littérales doublées : `{{0}}`). Une nouvelle clé s'ajoute dans la section de son préfixe. Les messages d'exception restent écrits dans le code, `core` ne pouvant pas lire les locales de `render`.
 

@@ -54,7 +54,7 @@ print(len(arbre.children))
 | **2** | **Micro-étapes** *(recommandé en TD)* | Ajoute le traitement colonne par colonne, le choix et la stratégie de pivot, la base du noyau, les projections et normalisations. |
 | **3** | **Contrôles élémentaires** | Ajoute les tests de nullité de l'oracle (« Ce coefficient est nul dans le domaine exact »), qui expliquent pourquoi une case est sautée ou une discussion ouverte. |
 
-La même trace s'affiche aussi **en tableau**, avec une ligne par opération : `res.explain().to_table()` renvoie un `TraceTable` qui s'affiche en HTML dans JupyterLab et s'exporte en Markdown (`to_markdown()`), en LaTeX (`to_latex()`) ou en HTML (`to_html()`). Pour l'élimination, les colonnes sont **N°**, **Colonne**, **Pivot**, **Opération**, **But** et **Matrice obtenue** ; une discussion par cas donne une section par branche. Le détail des colonnes et l'exemple de Gram-Schmidt sont dans le [guide 06, § 1.2](06_rendering_visualization_and_numerics.md).
+La même trace s'affiche aussi **en tableau**, avec une ligne par opération : `res.explain().to_table()` renvoie un `TraceTable` qui s'affiche en HTML dans JupyterLab et s'exporte en Markdown (`to_markdown()`), en LaTeX (`to_latex()`) ou en HTML (`to_html()`). Pour l'élimination, les colonnes sont **N°**, **Colonne**, **Pivot**, **Opération**, **But** et **Matrice obtenue** ; une discussion par cas donne une section par branche. Le détail des colonnes et l'exemple de Gram-Schmidt sont dans le [guide 06, § 1.2](06_rendu_visualisation_numerique.md).
 
 ```python
 table = res.explain().to_table()
@@ -71,10 +71,10 @@ L'arbre de trace est composé de nœuds immuables [`Step`](../src/linalg_pedagop
 
 ### 1.4 Ce que renvoie `run()` : le contrat commun des résultats
 
-Chaque procédure s'utilise de la même façon : on la construit avec ses données et ses options, puis `run()` renvoie un **résultat typé** (`GJResult`, `TriangularResult`, `GSResult`, `QRResult`, `LSResult`, `DetResult`), ou un `CaseSplit` de ces résultats quand une discussion selon les paramètres est nécessaire (voir le [guide 01, § 4](01_core_and_formal_computation.md)). Tous les résultats partagent :
+Chaque procédure s'utilise de la même façon : on la construit avec ses données et ses options, puis `run()` renvoie un **résultat typé** (`GJResult`, `TriangularResult`, `GSResult`, `QRResult`, `LSResult`, `DetResult`), ou un `CaseSplit` de ces résultats quand une discussion selon les paramètres est nécessaire (voir le [guide 01, § 4](01_noyau_calcul_formel.md)). Tous les résultats partagent :
 
 - `trace` : l'arbre complet des étapes (niveau 3) ;
-- `explain(level=None)` : une `Explanation` filtrée au niveau demandé, à afficher (`print`) ou à exporter (`to_text`, `to_markdown`, `to_latex`, `to_html`, `to_table`, `save`) ; voir le [guide 06](06_rendering_visualization_and_numerics.md) ;
+- `explain(level=None)` : une `Explanation` filtrée au niveau demandé, à afficher (`print`) ou à exporter (`to_text`, `to_markdown`, `to_latex`, `to_html`, `to_table`, `save`) ; voir le [guide 06](06_rendu_visualisation_numerique.md) ;
 - `verify()` : un **contrôle a posteriori**, refait indépendamment du calcul et renvoyé lui aussi sous forme d'`Explanation` ;
 - l'affichage automatique dans JupyterLab (Markdown et LaTeX, au niveau 2 au moins).
 

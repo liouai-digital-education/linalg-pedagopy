@@ -6,22 +6,22 @@
 
 ## Plan de la documentation
 
-1. [**01. Noyau formel et calcul exact**](01_core_and_formal_computation.md)  
+1. [**01. Noyau formel et calcul exact**](01_noyau_calcul_formel.md)  
    Conversion exacte des scalaires (`to_exact`, `float_policy`), symboles réels (`symbols`), oracle de nullité à 4 verdicts (`ZeroOracle`), conditions et discussion de cas (`Condition`, `CaseSplit`, `Branch`).
 
-2. [**02. Vecteurs, matrices et métriques**](02_vectors_and_matrices.md)  
+2. [**02. Vecteurs, matrices et métriques**](02_vecteurs_matrices.md)  
    Objets immuables `Vector` et `Matrix`, métriques (norme, rms, moyenne, écart type, distance, angle, corrélation), les 4 vues du produit matriciel, matrices par blocs, `rref`, `rank`, `nullspace`, `inv`, `solve`, et matrices structurées (différences, sommes cumulées, moyenne glissante, Vandermonde, convolution).
 
-3. [**03. Algorithmes et traçabilité**](03_algorithms_and_step_tracing.md)  
+3. [**03. Algorithmes et traçabilité**](03_algorithmes_traces.md)  
    Trace hiérarchique (`explain(level=0..3)`, `tracing`), `GaussJordan`, substitutions triangulaires, `GramSchmidt`, `QR` exacte et rationnelle, `LeastSquares`, déterminant (`Determinant` : Bareiss, élimination, cofacteurs, Sarrus).
 
 4. [**04. Le tuteur interactif**](04_tuteur.md)  
    Catalogue nommé, séance pas à pas (énoncé, indices, exercice jumeau, vérification, laboratoire, bilan), panneau JupyterLab, mode enseignant, format des fiches et validation.
 
-5. [**05. Exercices et sessions guidées**](05_pedagogical_exercises_and_sessions.md)  
+5. [**05. Exercices et sessions guidées**](05_exercices_sessions.md)  
    Générateurs à résultats propres, générateurs d'exercices jumeaux, sessions interactives (`InteractiveSession`) et diagnostic des erreurs d'opérations de lignes.
 
-6. [**06. Rendu, visualisation et comparaison numérique**](06_rendering_visualization_and_numerics.md)  
+6. [**06. Rendu, visualisation et comparaison numérique**](06_rendu_visualisation_numerique.md)  
    Formats texte, LaTeX, Markdown et HTML (`Explanation`), figures 2D/3D, comparaison exact / flottant (Läuchli, Hilbert).
 
 7. [**07. Référence de l'API**](07_api_reference.md)  
