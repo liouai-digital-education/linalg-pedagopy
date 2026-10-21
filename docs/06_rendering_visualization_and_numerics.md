@@ -47,7 +47,30 @@ Le paramètre `fmt` de `explain(level=..., fmt="auto")` fixe le format utilisé 
 
 Dans un environnement JupyterLab ou Jupyter Notebook, l'objet `Explanation` implémente `_repr_markdown_()` : il s'affiche automatiquement avec un rendu typographique soigné grâce au moteur KaTeX/MathJax sans qu'aucun appel à `print()` ne soit nécessaire.
 
-### 1.2 Localisation et multilinguisme (`locales`)
+### 1.2 Trace en tableau (`to_table()`)
+
+Pour Gauss-Jordan et le déterminant, `explain().to_table()` présente la trace en tableau : une ligne par opération élémentaire, avec les colonnes **N°**, **Colonne**, **Pivot**, **Opération**, **But** et **Matrice obtenue** (pivot encadré, lignes modifiées en couleur, barre de la matrice augmentée).
+
+```python
+res = GaussJordan(Matrix([[2, 1, -1], [-3, -1, 2], [-2, 1, 2]]), Vector([8, -11, -3])).run()
+table = res.explain().to_table()
+table                      # affichage HTML automatique dans JupyterLab
+print(table.to_markdown())
+# | N° | Colonne | Pivot | Opération | But | Matrice obtenue |
+# |---:|:---:|:---:|:---|:---|:---:|
+# |  |  |  | *Matrice de départ* |  | $\left[ … \right]$ |
+# | 1 | 1 | $2$ en (1,1) | $L_{1} \leftarrow \left(\frac{1}{2}\right) L_{1}$ | ramener le pivot à 1 | $\left[ … \right]$ |
+# | 2 | 1 | $2$ en (1,1) | $L_{2} \leftarrow L_{2} + \left(3\right) L_{1}$ | annuler le coefficient (2,1) | $\left[ … \right]$ |
+# …
+```
+
+- **Rendus** : `to_html(standalone=False)` (JupyterLab, MathJax), `to_markdown()` (carnets et documentation ; formules entre `$…$`, sans le caractère « | », réservé aux séparateurs de cellules), `to_latex(standalone=False)` (`longtable`, paquets `longtable`, `array`, `amsmath`, `xcolor` ; compiler avec LuaLaTeX ou XeLaTeX pour les caractères Unicode des commentaires).
+- **Niveau** : le niveau de l'explication ajoute des lignes de commentaire (niveau 2 : colonnes sans pivot, construction du noyau ; niveau 3 : contrôles de l'oracle) ; les lignes d'opérations sont les mêmes à tous les niveaux.
+- **Discussion par cas** : un tableau par branche, sous l'intitulé de son cas.
+- **Déterminant** : les buts rappellent l'effet de chaque opération sur le déterminant (un échange change son signe, une transvection ne le change pas) ; une étape de Bareiss s'écrit $L_i \leftarrow \frac{p\,L_i - m_{ik}\,L_k}{q}$ pour les lignes sous le pivot.
+- Les autres procédures (Gram-Schmidt, QR…) donnent pour l'instant un tableau de commentaires seulement.
+
+### 1.3 Localisation et multilinguisme (`locales`)
 
 Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans [`src/linalg_pedagopy/render/locales/`](../src/linalg_pedagopy/render/locales/). **Seule la locale française (`fr.yaml`) est fournie actuellement.**
 

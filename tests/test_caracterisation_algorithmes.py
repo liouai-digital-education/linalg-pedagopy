@@ -227,3 +227,13 @@ def test_caracterisation_sessions_et_verificateur_d_operations() -> None:
         bloc("opérations de lignes", "\n".join(lignes)) + "\n" + bloc("étapes de Gram-Schmidt", "\n".join(gs))
         + "\n" + bloc("sessions", "\n".join(str(x) for x in sess)),
     )
+
+
+def test_caracterisation_tableaux() -> None:
+    """Traces en tableau (explain().to_table()) : Markdown et LaTeX de quatre cas représentatifs."""
+    parts = []
+    for nom in ("gj_unique", "gj_parametre_a", "det_bareiss_echange", "det_elimination_echange"):
+        table = CAS_ALGORITHMES[nom]().explain(level=2).to_table()
+        parts.append(bloc(f"{nom} — markdown", table.to_markdown()))
+        parts.append(bloc(f"{nom} — latex", table.to_latex()))
+    verifier_reference("algorithmes/tableaux", "\n".join(parts))
