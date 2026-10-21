@@ -82,7 +82,21 @@
     modalResults.replaceChildren(p);
   }
 
-  function resultat(res) {
+  // Comparaison sans casse ni accents (« determinant » trouve « déterminant ») ; la longueur du texte
+  // est conservée pour un texte en NFC, si bien que les positions trouvées valent dans l'original.
+  function sansAccents(texte) {
+    return texte.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function extraitAutour(res, q) {
+    const i = sansAccents(res.content).indexOf(q);
+    if (i < 0) return res.snippet;
+    const debut = Math.max(0, i - 60);
+    const fin = Math.min(res.content.length, i + q.length + 100);
+    return (debut > 0 ? "…" : "") + res.content.slice(debut, fin) + (fin < res.content.length ? "…" : "");
+  }
+
+  function resultat(res, q) {
     const lien = document.createElement("a");
     lien.href = res.url;
     lien.className = "search-result-item";
@@ -92,29 +106,31 @@
     titre.textContent = res.pageTitle + " → " + res.title;
     const extrait = document.createElement("div");
     extrait.className = "search-result-snippet";
-    extrait.textContent = res.snippet;
+    extrait.textContent = extraitAutour(res, q);
     lien.append(titre, extrait);
     return lien;
   }
 
   if (modalInput) {
     modalInput.addEventListener("input", (e) => {
-      const q = e.target.value.toLowerCase().trim();
+      const q = sansAccents(e.target.value.trim());
       if (!q || !searchData.length) {
         message("Saisissez un terme à rechercher...");
         return;
       }
 
-      const results = searchData
-        .filter((item) => item.title.toLowerCase().includes(q) || item.content.toLowerCase().includes(q))
-        .slice(0, 10);
+      const dansTitre = searchData.filter((item) => sansAccents(item.title).includes(q));
+      const dansTexte = searchData.filter(
+        (item) => !sansAccents(item.title).includes(q) && sansAccents(item.content).includes(q)
+      );
+      const results = dansTitre.concat(dansTexte).slice(0, 10);
 
       if (!results.length) {
-        message("Aucun résultat trouvé pour « " + q + " ».");
+        message("Aucun résultat trouvé pour « " + e.target.value.trim() + " ».");
         return;
       }
 
-      modalResults.replaceChildren(...results.map(resultat));
+      modalResults.replaceChildren(...results.map((res) => resultat(res, q)));
     });
   }
 

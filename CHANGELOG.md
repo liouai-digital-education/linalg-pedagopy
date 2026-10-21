@@ -130,6 +130,11 @@
   texte indexé ne sont plus interprétés comme du HTML (un extrait « a < b » cassait l'affichage ; une
   saisie `<img onerror=…>` était injectée dans la page). Le bouton « Copier » n'utilise plus
   `innerHTML` non plus.
+- **Recherche en texte intégral** : l'index contient tout le texte de chaque section (h2 ou h3),
+  code compris, et l'introduction de chaque page, au lieu du titre et des 160 premiers caractères du
+  paragraphe suivant (200 Ko au lieu de 80). Les titres qui correspondent passent en premier ;
+  l'extrait affiché entoure le terme trouvé ; la comparaison ignore casse et accents (« determinant »
+  trouve « déterminant »).
 
 ## [0.3.1.2] — 2026-10-21
 

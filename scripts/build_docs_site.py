@@ -924,7 +924,21 @@ ACADEMIC_JS = """// Gestion du thème sombre / clair, recherche instantanée et 
     modalResults.replaceChildren(p);
   }
 
-  function resultat(res) {
+  // Comparaison sans casse ni accents (« determinant » trouve « déterminant ») ; la longueur du texte
+  // est conservée pour un texte en NFC, si bien que les positions trouvées valent dans l'original.
+  function sansAccents(texte) {
+    return texte.toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "");
+  }
+
+  function extraitAutour(res, q) {
+    const i = sansAccents(res.content).indexOf(q);
+    if (i < 0) return res.snippet;
+    const debut = Math.max(0, i - 60);
+    const fin = Math.min(res.content.length, i + q.length + 100);
+    return (debut > 0 ? "…" : "") + res.content.slice(debut, fin) + (fin < res.content.length ? "…" : "");
+  }
+
+  function resultat(res, q) {
     const lien = document.createElement("a");
     lien.href = res.url;
     lien.className = "search-result-item";
@@ -934,29 +948,31 @@ ACADEMIC_JS = """// Gestion du thème sombre / clair, recherche instantanée et 
     titre.textContent = res.pageTitle + " → " + res.title;
     const extrait = document.createElement("div");
     extrait.className = "search-result-snippet";
-    extrait.textContent = res.snippet;
+    extrait.textContent = extraitAutour(res, q);
     lien.append(titre, extrait);
     return lien;
   }
 
   if (modalInput) {
     modalInput.addEventListener("input", (e) => {
-      const q = e.target.value.toLowerCase().trim();
+      const q = sansAccents(e.target.value.trim());
       if (!q || !searchData.length) {
         message("Saisissez un terme à rechercher...");
         return;
       }
 
-      const results = searchData
-        .filter((item) => item.title.toLowerCase().includes(q) || item.content.toLowerCase().includes(q))
-        .slice(0, 10);
+      const dansTitre = searchData.filter((item) => sansAccents(item.title).includes(q));
+      const dansTexte = searchData.filter(
+        (item) => !sansAccents(item.title).includes(q) && sansAccents(item.content).includes(q)
+      );
+      const results = dansTitre.concat(dansTexte).slice(0, 10);
 
       if (!results.length) {
-        message("Aucun résultat trouvé pour « " + q + " ».");
+        message("Aucun résultat trouvé pour « " + e.target.value.trim() + " ».");
         return;
       }
 
-      modalResults.replaceChildren(...results.map(resultat));
+      modalResults.replaceChildren(...results.map((res) => resultat(res, q)));
     });
   }
 
@@ -1294,6 +1310,41 @@ def _sans_h1(markdown_brut: str) -> str:
     return re.sub(r"\A(\s*)# [^\n]*\n", r"\1", markdown_brut, count=1)
 
 
+def _index_de_la_page(content_html: str, page: dict[str, Any]) -> list[dict[str, str]]:
+    """Entrées de l'index de recherche d'une page : introduction, puis une par section h2 ou h3."""
+    soup = BeautifulSoup(content_html, "html.parser")
+    entrees: list[dict[str, str]] = []
+    titre, ancre, morceaux = page["title"], "", []
+
+    def ajouter() -> None:
+        texte = re.sub(r"\s+", " ", " ".join(morceaux)).strip()
+        if texte or ancre:
+            entrees.append(
+                {
+                    "pageTitle": page["title"],
+                    "title": titre,
+                    "url": f"{page['dst']}#{ancre}" if ancre else page["dst"],
+                    "snippet": texte[:160] + ("…" if len(texte) > 160 else ""),
+                    "content": texte,
+                }
+            )
+
+    for noeud in soup.children:
+        nom = getattr(noeud, "name", None)
+        if nom in ("h2", "h3"):
+            ajouter()
+            titre, ancre, morceaux = noeud.get_text().strip(), str(noeud.get("id", "")), []
+        elif nom is not None:
+            # Le bouton « Copier » des blocs de code n'a rien à faire dans l'index
+            for bouton in noeud.select(".code-header"):
+                bouton.decompose()
+            morceaux.append(noeud.get_text(" "))
+        elif str(noeud).strip():
+            morceaux.append(str(noeud))
+    ajouter()
+    return entrees
+
+
 def build_site() -> None:
     """Génère le site web complet dans docs/site/."""
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -1331,23 +1382,9 @@ def build_site() -> None:
         # Extraction de la TOC
         toc_items = extract_toc(content_html)
 
-        # Indexation pour la recherche plein texte
-        soup = BeautifulSoup(content_html, "html.parser")
-        for section in soup.find_all(["h2", "h3"]):
-            title = section.get_text()
-            s_id = section.get("id", "")
-            # Prendre le texte suivant
-            next_p = section.find_next("p")
-            snippet = next_p.get_text()[:160] + "..." if next_p else ""
-            search_index.append(
-                {
-                    "pageTitle": page["title"],
-                    "title": title,
-                    "url": f"{page['dst']}#{s_id}",
-                    "snippet": snippet,
-                    "content": title + " " + snippet,
-                }
-            )
+        # Indexation pour la recherche plein texte : une entrée par section (h2 ou h3) avec tout son
+        # texte jusqu'au titre suivant, code compris, plus l'introduction qui précède le premier h2.
+        search_index.extend(_index_de_la_page(content_html, page))
 
         prev_page = pages[idx - 1] if idx > 0 else None
         next_page = pages[idx + 1] if idx < len(pages) - 1 else None
