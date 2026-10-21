@@ -59,7 +59,7 @@ with using_config(float_policy="reject"):
 
 ## 2. Déclaration et gestion des symboles réels (`symbols`)
 
-### 2.1 Hypothèse `real=True` par défaut (Décision D1)
+### 2.1 Hypothèse `real=True` par défaut
 
 Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \in \mathbb{C}$), ce qui empêche de nombreuses simplifications élémentaires (par exemple $\sqrt{a^2} = |a|$ ou la factorisation de carrés).
 
@@ -77,15 +77,15 @@ x, y = symbols("x y", positive=True)
 print(x.is_positive, x.is_real)  # True True
 ```
 
-### 2.2 Préservation et correspondance des symboles
+### 2.2 Paramètres désignés par leur nom
 
-Lors des substitutions partielles ou complètes, la fonction [`match_symbol_substitutions`](../src/linalg_pedagopy/core/field.py) fait correspondre les variables par leur nom textuel si nécessaire, évitant ainsi les incompatibilités entre symboles SymPy de mêmes noms mais créés dans des contextes distincts.
+Pour SymPy, deux symboles de même nom mais d'hypothèses différentes (`sympy.Symbol("a")` et le `a` réel de `symbols("a")`) sont deux objets distincts. `CaseSplit.at(a=1)` et `Condition.is_satisfied({"a": 1})` désignent donc les paramètres **par leur nom** : une clé `"a"`, ou un symbole `a` créé ailleurs, s'applique au paramètre `a` du calcul.
 
 ---
 
 ## 3. L'Oracle de nullité (`ZeroOracle`)
 
-### 3.1 Pourquoi un oracle dédié ? (Décision D3)
+### 3.1 Pourquoi un oracle dédié ?
 
 En présence de paramètres symboliques, tester si un scalaire $v$ est nul (`v == 0`) ne peut pas être une simple opération booléenne :
 - Si $v = a - 1$, la réponse dépend de la valeur de $a$.
@@ -134,7 +134,7 @@ stateDiagram-v2
 
 ### 3.3 Traitement des radicaux paramétriques (`unrad`)
 
-Les expressions contenant des racines carrées paramétriques (comme $\sqrt{1 - m^2}$ ou $\sqrt{a^2 + b^2}$) sont traitées via [`_extract_factors`](../src/linalg_pedagopy/core/zero.py) :
+Les expressions contenant des racines carrées paramétriques (comme $\sqrt{1 - m^2}$ ou $\sqrt{a^2 + b^2}$) sont traitées en trois temps :
 1. L'oracle fait appel à `sympy.solvers.solvers.unrad` pour éliminer les radicaux de l'équation $f(m) = 0$.
 2. Il résout la partie polynomiale sur $\mathbb{R}$.
 3. **Filtrage des racines parasites** : Chaque racine candidate $r$ est réinjectée dans l'expression radicale initiale pour vérifier que $f(r) = 0$. Cela élimine les racines parasites introduites par l'élévation au carré de `unrad`.
@@ -198,7 +198,7 @@ Dans l'affichage d'une discussion (niveaux 0 et 1), les branches particulières 
 ### 4.3 Clôture transitive et détection de contradictions
 
 La classe `Condition` implémente deux propriétés critiques :
-1. **Clôture transitive des substitutions** ([`_compute_transitive_substitutions`](../src/linalg_pedagopy/core/cases.py)) :  
+1. **Clôture transitive des substitutions** :  
    Si la condition contient $a = b$ et $b = 3$, la substitution résout automatiquement $a \mapsto 3$ :
    `(Condition.eq(a, b) & Condition.eq(b, 3)).substitutions()` renvoie `{a: 3, b: 3}`.
 2. **Détection de contradictions et élagage des tautologies** ([`is_contradictory`](../src/linalg_pedagopy/core/cases.py)) :  

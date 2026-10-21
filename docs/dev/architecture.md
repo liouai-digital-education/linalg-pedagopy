@@ -81,6 +81,16 @@ Le tuteur et les exercices ne lisent jamais un texte avec `eval`, `exec` ou `sym
 
 L'interpréteur n'accepte qu'une liste blanche de constructions, refuse les noms et attributs en `_`, les modules, et toute chaîne contenant « ( » ou « __ » transmise à un appel ou à une opération. Un test interdit le retour d'`eval` ou de `sympify` dans `tutor/`, `tuteur/` et `exercises/`.
 
+## Noyau formel : décisions et fonctions internes
+
+Le [guide 01](../01_core_and_formal_computation.md) décrit le comportement du noyau pour l'utilisateur. Les choix de conception et les fonctions privées qui le réalisent sont ici. Les décisions numérotées (D1 à D11) viennent de la v2 et sont listées dans [plans/implementation_plan.md](plans/implementation_plan.md).
+
+- **D1, symboles réels** : `core.field.symbols` ajoute `real=True` à tout symbole, pour que SymPy simplifie sur $\mathbb{R}$ ($\sqrt{a^2} = |a|$, factorisation des carrés) et que l'oracle raisonne sur des valeurs réelles.
+- **D3, oracle de nullité à quatre verdicts** : `core.zero.ZeroOracle.decide` ne lève jamais et renvoie `ZERO`, `NONZERO`, `CONDITIONAL` (avec les facteurs d'annulation) ou `UNKNOWN` ; `is_zero` lève `UndecidableZeroError` pour les deux derniers. Une réponse booléenne forcée diviserait par un pivot qui peut s'annuler, ou oublierait le cas générique.
+- **Appariement par nom** : `core.field.match_symbol_substitutions(free_syms, mapping)` construit le dictionnaire de substitution de `CaseSplit.at` et de `Condition.is_satisfied` en associant chaque clé (chaîne ou symbole) à tous les symboles libres qui portent son nom, ainsi qu'au symbole réel de ce nom.
+- **Radicaux paramétriques** : `core.zero._extract_factors` élimine les radicaux avec `sympy.solvers.solvers.unrad`, résout la partie polynomiale sur $\mathbb{R}$, puis réinjecte chaque racine candidate dans l'expression de départ pour écarter les racines parasites introduites par l'élévation au carré.
+- **Clôture transitive** : `core.cases._compute_transitive_substitutions` transforme les égalités d'une `Condition` en substitutions ($a = b$ et $b = 3$ donnent $a \mapsto 3$, $b \mapsto 3$), recalculées jusqu'à un point fixe. `Condition.substitutions()`, `is_contradictory` et `implies_zero` s'appuient dessus.
+
 ## Traces et locales
 
 Chaque étape de trace a une clé (`gj.row_add`, `det.bareiss_step`, `ker.vector`…) et des paramètres. Le texte de chaque clé est dans `render/locales/fr.yaml`, et `str.format` y insère les paramètres (accolades littérales doublées : `{{0}}`). Une nouvelle clé s'ajoute dans la section de son préfixe. Les messages d'exception restent écrits dans le code, `core` ne pouvant pas lire les locales de `render`.

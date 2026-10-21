@@ -225,7 +225,7 @@ with using_config(float_policy="reject"):
 </code></pre></div>
 <hr/>
 <h2 id="2-declaration-et-gestion-des-symboles-reels-symbols">2. Déclaration et gestion des symboles réels (<code>symbols</code>)</h2>
-<h3 id="21-hypothese-realtrue-par-defaut-decision-d1">2.1 Hypothèse <code>real=True</code> par défaut (Décision D1)</h3>
+<h3 id="21-hypothese-realtrue-par-defaut">2.1 Hypothèse <code>real=True</code> par défaut</h3>
 <p>Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \in \mathbb{C}$), ce qui empêche de nombreuses simplifications élémentaires (par exemple $\sqrt{a^2} = |a|$ ou la factorisation de carrés).</p>
 <p>Dans <code>linalg_pedagopy</code>, la fonction <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/field.py"><code>symbols</code></a> munit systématiquement les symboles de l'hypothèse <code>real=True</code> :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import symbols
@@ -238,11 +238,11 @@ print(a.is_real)  # True
 x, y = symbols("x y", positive=True)
 print(x.is_positive, x.is_real)  # True True
 </code></pre></div>
-<h3 id="22-preservation-et-correspondance-des-symboles">2.2 Préservation et correspondance des symboles</h3>
-<p>Lors des substitutions partielles ou complètes, la fonction <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/field.py"><code>match_symbol_substitutions</code></a> fait correspondre les variables par leur nom textuel si nécessaire, évitant ainsi les incompatibilités entre symboles SymPy de mêmes noms mais créés dans des contextes distincts.</p>
+<h3 id="22-parametres-designes-par-leur-nom">2.2 Paramètres désignés par leur nom</h3>
+<p>Pour SymPy, deux symboles de même nom mais d'hypothèses différentes (<code>sympy.Symbol("a")</code> et le <code>a</code> réel de <code>symbols("a")</code>) sont deux objets distincts. <code>CaseSplit.at(a=1)</code> et <code>Condition.is_satisfied({"a": 1})</code> désignent donc les paramètres <strong>par leur nom</strong> : une clé <code>"a"</code>, ou un symbole <code>a</code> créé ailleurs, s'applique au paramètre <code>a</code> du calcul.</p>
 <hr/>
 <h2 id="3-loracle-de-nullite-zerooracle">3. L'Oracle de nullité (<code>ZeroOracle</code>)</h2>
-<h3 id="31-pourquoi-un-oracle-dedie-decision-d3">3.1 Pourquoi un oracle dédié ? (Décision D3)</h3>
+<h3 id="31-pourquoi-un-oracle-dedie">3.1 Pourquoi un oracle dédié ?</h3>
 <p>En présence de paramètres symboliques, tester si un scalaire $v$ est nul (<code>v == 0</code>) ne peut pas être une simple opération booléenne :
 - Si $v = a - 1$, la réponse dépend de la valeur de $a$.
 - Si l'on répond aveuglément <code>False</code>, on risque de diviser par $a - 1$, rendant le pivotage invalide pour $a = 1$.
@@ -281,7 +281,7 @@ print(oracle.decide(a**2 + 1).verdict)  # Verdict.NONZERO
 </ol>
 <p><code>oracle.is_zero(expr)</code> renvoie <code>True</code> ou <code>False</code> quand la réponse est inconditionnelle (verdict <code>ZERO</code> ou <code>NONZERO</code>) ; pour les verdicts <code>CONDITIONAL</code> et <code>UNKNOWN</code>, il lève une <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/exceptions.py"><code>UndecidableZeroError</code></a>. <code>oracle.decide(expr)</code> ne lève jamais : il renvoie le verdict et, s'il y a lieu, les facteurs d'annulation.</p>
 <h3 id="33-traitement-des-radicaux-parametriques-unrad">3.3 Traitement des radicaux paramétriques (<code>unrad</code>)</h3>
-<p>Les expressions contenant des racines carrées paramétriques (comme $\sqrt{1 - m^2}$ ou $\sqrt{a^2 + b^2}$) sont traitées via <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/zero.py"><code>_extract_factors</code></a> :
+<p>Les expressions contenant des racines carrées paramétriques (comme $\sqrt{1 - m^2}$ ou $\sqrt{a^2 + b^2}$) sont traitées en trois temps :
 1. L'oracle fait appel à <code>sympy.solvers.solvers.unrad</code> pour éliminer les radicaux de l'équation $f(m) = 0$.
 2. Il résout la partie polynomiale sur $\mathbb{R}$.
 3. <strong>Filtrage des racines parasites</strong> : Chaque racine candidate $r$ est réinjectée dans l'expression radicale initiale pour vérifier que $f(r) = 0$. Cela élimine les racines parasites introduites par l'élévation au carré de <code>unrad</code>.</p>
@@ -325,7 +325,7 @@ print(Condition.eq(a, b**2).format_latex())   # a = b^{2}
 <p>Dans l'affichage d'une discussion (niveaux 0 et 1), les branches particulières dont le résumé est identique sont regroupées : « Cas a = 3, a = 2 ou a = 1 : système incompatible », avec des parenthèses autour des conditions composées (« (a = 1 et b = 1) ou (a = 1 et b = −1) »). Le <code>CaseSplit</code> garde ses branches distinctes (<code>at()</code>, <code>branches</code>), et à partir du niveau 2 chacune est affichée avec sa propre trace.</p>
 <h3 id="43-cloture-transitive-et-detection-de-contradictions">4.3 Clôture transitive et détection de contradictions</h3>
 <p>La classe <code>Condition</code> implémente deux propriétés critiques :
-1. <strong>Clôture transitive des substitutions</strong> (<a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/cases.py"><code>_compute_transitive_substitutions</code></a>) :<br/>
+1. <strong>Clôture transitive des substitutions</strong> :<br/>
    Si la condition contient $a = b$ et $b = 3$, la substitution résout automatiquement $a \mapsto 3$ :
    <code>(Condition.eq(a, b) &amp; Condition.eq(b, 3)).substitutions()</code> renvoie <code>{a: 3, b: 3}</code>.
 2. <strong>Détection de contradictions et élagage des tautologies</strong> (<a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/cases.py"><code>is_contradictory</code></a>) :<br/>
@@ -591,11 +591,11 @@ print(gj.explain(level=1))
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#21-hypothese-realtrue-par-defaut-decision-d1">2.1 Hypothèse real=True par défaut (Décision D1)</a>
+          <a href="#21-hypothese-realtrue-par-defaut">2.1 Hypothèse real=True par défaut</a>
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#22-preservation-et-correspondance-des-symboles">2.2 Préservation et correspondance des symboles</a>
+          <a href="#22-parametres-designes-par-leur-nom">2.2 Paramètres désignés par leur nom</a>
         </li>
         
         <li class="toc-item ">
@@ -603,7 +603,7 @@ print(gj.explain(level=1))
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#31-pourquoi-un-oracle-dedie-decision-d3">3.1 Pourquoi un oracle dédié ? (Décision D3)</a>
+          <a href="#31-pourquoi-un-oracle-dedie">3.1 Pourquoi un oracle dédié ?</a>
         </li>
         
         <li class="toc-item toc-h3">

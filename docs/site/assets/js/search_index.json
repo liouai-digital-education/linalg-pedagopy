@@ -85,17 +85,17 @@
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
-    "title": "2.1 Hypothèse real=True par défaut (Décision D1)",
-    "url": "01_core_and_formal_computation.html#21-hypothese-realtrue-par-defaut-decision-d1",
+    "title": "2.1 Hypothèse real=True par défaut",
+    "url": "01_core_and_formal_computation.html#21-hypothese-realtrue-par-defaut",
     "snippet": "Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \\in \\mathbb{C}$), ce qui empêche de nombreuses simplificat...",
-    "content": "2.1 Hypothèse real=True par défaut (Décision D1) Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \\in \\mathbb{C}$), ce qui empêche de nombreuses simplificat..."
+    "content": "2.1 Hypothèse real=True par défaut Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \\in \\mathbb{C}$), ce qui empêche de nombreuses simplificat..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
-    "title": "2.2 Préservation et correspondance des symboles",
-    "url": "01_core_and_formal_computation.html#22-preservation-et-correspondance-des-symboles",
-    "snippet": "Lors des substitutions partielles ou complètes, la fonction match_symbol_substitutions fait correspondre les variables par leur nom textuel si nécessaire, évita...",
-    "content": "2.2 Préservation et correspondance des symboles Lors des substitutions partielles ou complètes, la fonction match_symbol_substitutions fait correspondre les variables par leur nom textuel si nécessaire, évita..."
+    "title": "2.2 Paramètres désignés par leur nom",
+    "url": "01_core_and_formal_computation.html#22-parametres-designes-par-leur-nom",
+    "snippet": "Pour SymPy, deux symboles de même nom mais d'hypothèses différentes (sympy.Symbol(\"a\") et le a réel de symbols(\"a\")) sont deux objets distincts. CaseSplit.at(a=...",
+    "content": "2.2 Paramètres désignés par leur nom Pour SymPy, deux symboles de même nom mais d'hypothèses différentes (sympy.Symbol(\"a\") et le a réel de symbols(\"a\")) sont deux objets distincts. CaseSplit.at(a=..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
@@ -106,10 +106,10 @@
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
-    "title": "3.1 Pourquoi un oracle dédié ? (Décision D3)",
-    "url": "01_core_and_formal_computation.html#31-pourquoi-un-oracle-dedie-decision-d3",
+    "title": "3.1 Pourquoi un oracle dédié ?",
+    "url": "01_core_and_formal_computation.html#31-pourquoi-un-oracle-dedie",
     "snippet": "En présence de paramètres symboliques, tester si un scalaire $v$ est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si $v = a - 1$, la réponse...",
-    "content": "3.1 Pourquoi un oracle dédié ? (Décision D3) En présence de paramètres symboliques, tester si un scalaire $v$ est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si $v = a - 1$, la réponse..."
+    "content": "3.1 Pourquoi un oracle dédié ? En présence de paramètres symboliques, tester si un scalaire $v$ est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si $v = a - 1$, la réponse..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
@@ -122,8 +122,8 @@
     "pageTitle": "01. Noyau formel & calcul exact",
     "title": "3.3 Traitement des radicaux paramétriques (unrad)",
     "url": "01_core_and_formal_computation.html#33-traitement-des-radicaux-parametriques-unrad",
-    "snippet": "Les expressions contenant des racines carrées paramétriques (comme $\\sqrt{1 - m^2}$ ou $\\sqrt{a^2 + b^2}$) sont traitées via _extract_factors :\n1. L'oracle fait...",
-    "content": "3.3 Traitement des radicaux paramétriques (unrad) Les expressions contenant des racines carrées paramétriques (comme $\\sqrt{1 - m^2}$ ou $\\sqrt{a^2 + b^2}$) sont traitées via _extract_factors :\n1. L'oracle fait..."
+    "snippet": "Les expressions contenant des racines carrées paramétriques (comme $\\sqrt{1 - m^2}$ ou $\\sqrt{a^2 + b^2}$) sont traitées en trois temps :\n1. L'oracle fait appel...",
+    "content": "3.3 Traitement des radicaux paramétriques (unrad) Les expressions contenant des racines carrées paramétriques (comme $\\sqrt{1 - m^2}$ ou $\\sqrt{a^2 + b^2}$) sont traitées en trois temps :\n1. L'oracle fait appel..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
@@ -157,8 +157,8 @@
     "pageTitle": "01. Noyau formel & calcul exact",
     "title": "4.3 Clôture transitive et détection de contradictions",
     "url": "01_core_and_formal_computation.html#43-cloture-transitive-et-detection-de-contradictions",
-    "snippet": "La classe Condition implémente deux propriétés critiques :\n1. Clôture transitive des substitutions (_compute_transitive_substitutions) :\n   Si la condition cont...",
-    "content": "4.3 Clôture transitive et détection de contradictions La classe Condition implémente deux propriétés critiques :\n1. Clôture transitive des substitutions (_compute_transitive_substitutions) :\n   Si la condition cont..."
+    "snippet": "La classe Condition implémente deux propriétés critiques :\n1. Clôture transitive des substitutions :\n   Si la condition contient $a = b$ et $b = 3$, la substitu...",
+    "content": "4.3 Clôture transitive et détection de contradictions La classe Condition implémente deux propriétés critiques :\n1. Clôture transitive des substitutions :\n   Si la condition contient $a = b$ et $b = 3$, la substitu..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",

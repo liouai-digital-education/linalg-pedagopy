@@ -27,6 +27,7 @@
 
 ### Documentation — lot 3a de la revue (contenu des guides)
 - **Guide 01, § 5 « Concepts transversaux »** : les quatre formes d'hypothèses (`Condition`, chaîne, liste, dictionnaire) et le refus des inégalités d'ordre (`InvalidAssumptionError`) ; le tableau des réglages de `config` (défauts, valeurs admises, validation, portée de `using_config`) ; les indices à partir de 0 dans l'API et à partir de 1 dans les traces. Exemples vérifiés par `#>`.
+- **Guide 01 allégé** : les mentions « Décision D1/D3 » et les fonctions privées (`_extract_factors`, `_compute_transitive_substitutions`, `match_symbol_substitutions`) passent dans `docs/dev/architecture.md` (§ « Noyau formel : décisions et fonctions internes ») ; le guide décrit le comportement (paramètres désignés par leur nom, radicaux, clôture transitive).
 
 ## [0.3.1.2] — 2026-10-21
 
