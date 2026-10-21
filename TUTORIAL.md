@@ -18,7 +18,7 @@ Ce tutoriel fait le tour de **`linalg_pedagopy`**, un package Python d'algèbre 
 10. [Moteurs de rendu et traçabilité (`Explanation`)](#10-moteurs-de-rendu-et-traçabilité-explanation)
 11. [Générateurs à résultats propres et mode interactif](#11-générateurs-à-résultats-propres-et-mode-interactif)
 12. [Comparaison Exact vs Flottant (`compare`)](#12-comparaison-exact-vs-flottant-compare)
-13. [Le tuteur interactif (`tutor` / `tuteur`)](#13-le-tuteur-interactif-tutor--tuteur)
+13. [Le tuteur interactif (`tuteur`)](#13-le-tuteur-interactif-tuteur)
 14. [Exercices pratiques guidés pas à pas](#14-exercices-pratiques-guidés-pas-à-pas)
 
 ---
@@ -575,7 +575,7 @@ print(hilbert_conditioning_experiment(sizes=[3, 5, 7]))
 
 ---
 
-## 13. Le tuteur interactif (`tutor` / `tuteur`)
+## 13. Le tuteur interactif (`tuteur`)
 
 Le tuteur accompagne l'étudiant sur **39 exercices nommés**, classés en 9 thèmes et 3 niveaux, sans jamais donner la solution.
 
@@ -592,12 +592,12 @@ Le tuteur accompagne l'étudiant sur **39 exercices nommés**, classés en 9 th�
 ### Le catalogue
 
 ```python
-from linalg_pedagopy import tutor
+from linalg_pedagopy import tuteur
 
-tutor.catalog()                      # tableau : n°, titre, identifiant, thème, type, niveau
-print(tutor.themes())
-ex = tutor.exercise("moyenne-glissante")   # ou tutor.exercise(16), ou par son titre
-ex.statement()
+tuteur.catalogue()                      # tableau : n°, titre, identifiant, thème, type, niveau
+print(tuteur.themes())
+ex = tuteur.exercice("moyenne-glissante")   # ou tuteur.exercice(16), ou par son titre
+ex.enonce()
 ```
 
 ---
@@ -838,7 +838,7 @@ print(ex.verifier(x_opt))
 | Moindres carrés rationnels | `res = LeastSquares(A, b).run()` |
 | Trace et explication multi-format | `exp = res.explain() ; exp.save("trace.html")` |
 | Expérience numérique de Läuchli | `lauchli_least_squares_experiment()` (module `linalg_pedagopy.compare`) |
-| Catalogue des exercices | `tutor.catalog()` |
+| Catalogue des exercices | `tuteur.catalogue()` |
 | Séance de tuteur | `ex = exercice("moyenne-glissante") ; ex.enonce() ; ex.indice() ; ex.verifier(...)` |
 | Repartir de zéro sur un exercice | `ex.recommencer()` |
 | Glossaire anglais $\to$ français | `glossaire("least squares")` |

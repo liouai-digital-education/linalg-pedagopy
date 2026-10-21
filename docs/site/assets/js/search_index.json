@@ -24,29 +24,29 @@
     "pageTitle": "Accueil & démarrage",
     "title": "Premier calcul : un système avec paramètre",
     "url": "index.html#premier-calcul-un-systeme-avec-parametre",
-    "snippet": "L'API principale est en anglais ; chaque élément du tuteur a un alias français :...",
-    "content": "Premier calcul : un système avec paramètre L'API principale est en anglais ; chaque élément du tuteur a un alias français :..."
+    "snippet": "Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :...",
+    "content": "Premier calcul : un système avec paramètre Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :..."
   },
   {
     "pageTitle": "Accueil & démarrage",
     "title": "Première séance avec le tuteur",
     "url": "index.html#premiere-seance-avec-le-tuteur",
-    "snippet": "L'API principale est en anglais ; chaque élément du tuteur a un alias français :...",
-    "content": "Première séance avec le tuteur L'API principale est en anglais ; chaque élément du tuteur a un alias français :..."
+    "snippet": "Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :...",
+    "content": "Première séance avec le tuteur Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :..."
   },
   {
     "pageTitle": "Accueil & démarrage",
     "title": "Principes de conception",
     "url": "index.html#principes-de-conception",
-    "snippet": "L'API principale est en anglais ; chaque élément du tuteur a un alias français :...",
-    "content": "Principes de conception L'API principale est en anglais ; chaque élément du tuteur a un alias français :..."
+    "snippet": "Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :...",
+    "content": "Principes de conception Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :..."
   },
   {
     "pageTitle": "Accueil & démarrage",
-    "title": "Noms anglais et alias français",
-    "url": "index.html#noms-anglais-et-alias-francais",
-    "snippet": "L'API principale est en anglais ; chaque élément du tuteur a un alias français :...",
-    "content": "Noms anglais et alias français L'API principale est en anglais ; chaque élément du tuteur a un alias français :..."
+    "title": "Noms du tuteur : français et anglais",
+    "url": "index.html#noms-du-tuteur-francais-et-anglais",
+    "snippet": "Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :...",
+    "content": "Noms du tuteur : français et anglais Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :..."
   },
   {
     "pageTitle": "Accueil & démarrage",
@@ -472,22 +472,22 @@
     "pageTitle": "04. Le tuteur interactif",
     "title": "3. Une séance pas à pas",
     "url": "04_tuteur.html#3-une-seance-pas-a-pas",
-    "snippet": "Chaque appel à ex.hint() (alias ex.indice()) débloque le palier suivant :...",
-    "content": "3. Une séance pas à pas Chaque appel à ex.hint() (alias ex.indice()) débloque le palier suivant :..."
+    "snippet": "Chaque appel à ex.indice() débloque le palier suivant :...",
+    "content": "3. Une séance pas à pas Chaque appel à ex.indice() débloque le palier suivant :..."
   },
   {
     "pageTitle": "04. Le tuteur interactif",
     "title": "3.1 Lire l'énoncé",
     "url": "04_tuteur.html#31-lire-lenonce",
-    "snippet": "Chaque appel à ex.hint() (alias ex.indice()) débloque le palier suivant :...",
-    "content": "3.1 Lire l'énoncé Chaque appel à ex.hint() (alias ex.indice()) débloque le palier suivant :..."
+    "snippet": "Chaque appel à ex.indice() débloque le palier suivant :...",
+    "content": "3.1 Lire l'énoncé Chaque appel à ex.indice() débloque le palier suivant :..."
   },
   {
     "pageTitle": "04. Le tuteur interactif",
     "title": "3.2 Demander de l'aide : les 4 paliers",
     "url": "04_tuteur.html#32-demander-de-laide-les-4-paliers",
-    "snippet": "Chaque appel à ex.hint() (alias ex.indice()) débloque le palier suivant :...",
-    "content": "3.2 Demander de l'aide : les 4 paliers Chaque appel à ex.hint() (alias ex.indice()) débloque le palier suivant :..."
+    "snippet": "Chaque appel à ex.indice() débloque le palier suivant :...",
+    "content": "3.2 Demander de l'aide : les 4 paliers Chaque appel à ex.indice() débloque le palier suivant :..."
   },
   {
     "pageTitle": "04. Le tuteur interactif",
@@ -500,8 +500,8 @@
     "pageTitle": "04. Le tuteur interactif",
     "title": "3.4 Soumettre une réponse",
     "url": "04_tuteur.html#34-soumettre-une-reponse",
-    "snippet": "ex.verify(reponse) (alias ex.verifier) renvoie un VerificationResult immuable : valid, diagnostic et, pour certains contre-exemples, simplicity_note....",
-    "content": "3.4 Soumettre une réponse ex.verify(reponse) (alias ex.verifier) renvoie un VerificationResult immuable : valid, diagnostic et, pour certains contre-exemples, simplicity_note...."
+    "snippet": "ex.verifier(reponse) renvoie un VerificationResult immuable : valide, diagnostic et, pour certains contre-exemples, note_simplicite....",
+    "content": "3.4 Soumettre une réponse ex.verifier(reponse) renvoie un VerificationResult immuable : valide, diagnostic et, pour certains contre-exemples, note_simplicite...."
   },
   {
     "pageTitle": "04. Le tuteur interactif",
@@ -703,8 +703,8 @@
     "pageTitle": "07. Référence de l'API",
     "title": "1. Table de correspondance bilingue (Anglais / Français)",
     "url": "07_api_reference.html#1-table-de-correspondance-bilingue-anglais-francais",
-    "snippet": "Le package privilégie une nomenclature primaire anglaise tout en garantissant des alias français :...",
-    "content": "1. Table de correspondance bilingue (Anglais / Français) Le package privilégie une nomenclature primaire anglaise tout en garantissant des alias français :..."
+    "snippet": "Le package privilégie une nomenclature primaire anglaise tout en garantissant des alias français. Exception : le tuteur s'utilise en français (linalg_pedagopy.t...",
+    "content": "1. Table de correspondance bilingue (Anglais / Français) Le package privilégie une nomenclature primaire anglaise tout en garantissant des alias français. Exception : le tuteur s'utilise en français (linalg_pedagopy.t..."
   },
   {
     "pageTitle": "07. Référence de l'API",
@@ -787,50 +787,50 @@
     "pageTitle": "07. Référence de l'API",
     "title": "4.2 ForwardSubstitution & BackSubstitution",
     "url": "07_api_reference.html#42-forwardsubstitution-backsubstitution",
-    "snippet": "Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av...",
-    "content": "4.2 ForwardSubstitution & BackSubstitution Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av..."
+    "snippet": "Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific...",
+    "content": "4.2 ForwardSubstitution & BackSubstitution Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific..."
   },
   {
     "pageTitle": "07. Référence de l'API",
     "title": "4.3 GramSchmidt",
     "url": "07_api_reference.html#43-gramschmidt",
-    "snippet": "Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av...",
-    "content": "4.3 GramSchmidt Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av..."
+    "snippet": "Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific...",
+    "content": "4.3 GramSchmidt Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific..."
   },
   {
     "pageTitle": "07. Référence de l'API",
     "title": "4.4 QR",
     "url": "07_api_reference.html#44-qr",
-    "snippet": "Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av...",
-    "content": "4.4 QR Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av..."
+    "snippet": "Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific...",
+    "content": "4.4 QR Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific..."
   },
   {
     "pageTitle": "07. Référence de l'API",
     "title": "4.5 LeastSquares",
     "url": "07_api_reference.html#45-leastsquares",
-    "snippet": "Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av...",
-    "content": "4.5 LeastSquares Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av..."
+    "snippet": "Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific...",
+    "content": "4.5 LeastSquares Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific..."
   },
   {
     "pageTitle": "07. Référence de l'API",
     "title": "4.6 Determinant",
     "url": "07_api_reference.html#46-determinant",
-    "snippet": "Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av...",
-    "content": "4.6 Determinant Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av..."
+    "snippet": "Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific...",
+    "content": "4.6 Determinant Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific..."
   },
   {
     "pageTitle": "07. Référence de l'API",
     "title": "5. Traçabilité et rendu",
     "url": "07_api_reference.html#5-tracabilite-et-rendu",
-    "snippet": "Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av...",
-    "content": "5. Traçabilité et rendu Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av..."
+    "snippet": "Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific...",
+    "content": "5. Traçabilité et rendu Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific..."
   },
   {
     "pageTitle": "07. Référence de l'API",
-    "title": "6. Module linalg_pedagopy.tutor / tuteur",
-    "url": "07_api_reference.html#6-module-linalg_pedagopytutor-tuteur",
-    "snippet": "Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av...",
-    "content": "6. Module linalg_pedagopy.tutor / tuteur Table des exercices (tuple de dictionnaires numero, id, titre, theme, type, niveau, notions), rendue en tableau Markdown dans JupyterLab et groupée par thème av..."
+    "title": "6. Module linalg_pedagopy.tuteur (noms anglais : tutor)",
+    "url": "07_api_reference.html#6-module-linalg_pedagopytuteur-noms-anglais-tutor",
+    "snippet": "Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific...",
+    "content": "6. Module linalg_pedagopy.tuteur (noms anglais : tutor) Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific..."
   },
   {
     "pageTitle": "07. Référence de l'API",

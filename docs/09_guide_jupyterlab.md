@@ -86,25 +86,25 @@ res.explain(level=2)        # avec le détail des opérations de lignes
 **Le tuteur**
 
 ```python
-from linalg_pedagopy import tutor
-tutor.catalog()             # les 39 exercices
+from linalg_pedagopy import tuteur
+tuteur.catalogue()             # les 39 exercices
 ```
 
 ```python
-ex = tutor.exercise("moyenne-glissante")
-ex.statement()
+ex = tuteur.exercice("moyenne-glissante")
+ex.enonce()
 ```
 
 ```python
-ex.hint()                   # à répéter : paliers 1 à 4
+ex.indice()                   # à répéter : paliers 1 à 4
 ```
 
 ```python
-ex.verify(Matrix.zeros(3, 6))   # diagnostic d'une réponse fausse
+ex.verifier(Matrix.zeros(3, 6))   # diagnostic d'une réponse fausse
 ```
 
 ```python
-ex.panel()                  # panneau : indices, jumeau, réponse, bilan
+ex.panneau()                  # panneau : indices, jumeau, réponse, bilan
 ```
 
 **Une figure**
@@ -130,10 +130,10 @@ jupyter lab
 | Symptôme | Cause probable | Solution |
 | :--- | :--- | :--- |
 | `ModuleNotFoundError: linalg_pedagopy` | le noyau n'est pas celui de l'environnement | relancez `jupyter lab` après `conda activate pedagopy`, ou ajoutez `src/` à `sys.path` |
-| `ex.panel()` affiche du texte au lieu de boutons | `ipywidgets` absent du noyau | `pip install -e ".[tuteur]"` puis redémarrez le noyau |
+| `ex.panneau()` affiche du texte au lieu de boutons | `ipywidgets` absent du noyau | `pip install -e ".[tuteur]"` puis redémarrez le noyau |
 | Une modification du code n'est pas prise en compte | module déjà importé | **Kernel → Restart Kernel** |
-| `ex.hint()` dit que tous les paliers sont débloqués | progression reprise depuis le journal | relisez avec `ex.hint(2)`, ou repartez de zéro avec `ex.reset()` |
-| `UnknownExerciseError` | identifiant mal orthographié | le message propose l'identifiant le plus proche ; `tutor.catalog()` donne la liste |
-| Une fiche modifiée n'est pas relue | catalogue mis en cache | `tutor.reload_catalog()` |
+| `ex.indice()` dit que tous les paliers sont débloqués | progression reprise depuis le journal | relisez avec `ex.indice(2)`, ou repartez de zéro avec `ex.recommencer()` |
+| `UnknownExerciseError` | identifiant mal orthographié | le message propose l'identifiant le plus proche ; `tuteur.catalogue()` donne la liste |
+| Une fiche modifiée n'est pas relue | catalogue mis en cache | `tuteur.recharger_catalogue()` |
 
 Le journal du tuteur est le fichier `.linalg_pedagopy_journal.json` du dossier du carnet (réglable par `config.journal_path`). Le supprimer remet à zéro la progression sur tous les exercices.

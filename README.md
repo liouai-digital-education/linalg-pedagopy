@@ -62,20 +62,20 @@ print(ls.verify())       # contrôle de A^T r_hat = 0, colonne par colonne
 ### Séance avec le tuteur
 
 ```python
-from linalg_pedagopy import tutor, Matrix
+from linalg_pedagopy import tuteur, Matrix
 
-print(tutor.catalog())                       # les 39 exercices, par thème
+print(tuteur.catalogue())                       # les 39 exercices, par thème
 
-ex = tutor.exercise("moyenne-glissante")     # ou tutor.exercise(16)
-print(ex.statement())
-print(ex.hint())                             # palier 1 : orientation
+ex = tuteur.exercice("moyenne-glissante")     # ou tuteur.exercice(16)
+print(ex.enonce())
+print(ex.indice())                             # palier 1 : orientation
 
-rapport = ex.verify(Matrix.zeros(3, 6))      # une réponse fausse
-print(rapport.valid)                         # False
+rapport = ex.verifier(Matrix.zeros(3, 6))      # une réponse fausse
+print(rapport.valide)                         # False
 print(rapport.diagnostic)                    # ce que calcule la réponse, et une question
 ```
 
-Dans JupyterLab, `ex.panel()` ouvre un panneau avec les indices, l'exercice jumeau, une zone de réponse et le bilan.
+Dans JupyterLab, `ex.panneau()` ouvre un panneau avec les indices, l'exercice jumeau, une zone de réponse et le bilan.
 
 ---
 

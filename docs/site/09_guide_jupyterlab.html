@@ -237,17 +237,17 @@ res                         # discussion selon a, solutions en LaTeX
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">res.explain(level=2)        # avec le détail des opérations de lignes
 </code></pre></div>
 <p><strong>Le tuteur</strong></p>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tutor
-tutor.catalog()             # les 39 exercices
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tuteur
+tuteur.catalogue()             # les 39 exercices
 </code></pre></div>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex = tutor.exercise("moyenne-glissante")
-ex.statement()
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex = tuteur.exercice("moyenne-glissante")
+ex.enonce()
 </code></pre></div>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.hint()                   # à répéter : paliers 1 à 4
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.indice()                   # à répéter : paliers 1 à 4
 </code></pre></div>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.verify(Matrix.zeros(3, 6))   # diagnostic d'une réponse fausse
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.verifier(Matrix.zeros(3, 6))   # diagnostic d'une réponse fausse
 </code></pre></div>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.panel()                  # panneau : indices, jumeau, réponse, bilan
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.panneau()                  # panneau : indices, jumeau, réponse, bilan
 </code></pre></div>
 <p><strong>Une figure</strong></p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import LeastSquares
@@ -277,7 +277,7 @@ jupyter lab
 <td style="text-align: left;">relancez <code>jupyter lab</code> après <code>conda activate pedagopy</code>, ou ajoutez <code>src/</code> à <code>sys.path</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ex.panel()</code> affiche du texte au lieu de boutons</td>
+<td style="text-align: left;"><code>ex.panneau()</code> affiche du texte au lieu de boutons</td>
 <td style="text-align: left;"><code>ipywidgets</code> absent du noyau</td>
 <td style="text-align: left;"><code>pip install -e ".[tuteur]"</code> puis redémarrez le noyau</td>
 </tr>
@@ -287,19 +287,19 @@ jupyter lab
 <td style="text-align: left;"><strong>Kernel → Restart Kernel</strong></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ex.hint()</code> dit que tous les paliers sont débloqués</td>
+<td style="text-align: left;"><code>ex.indice()</code> dit que tous les paliers sont débloqués</td>
 <td style="text-align: left;">progression reprise depuis le journal</td>
-<td style="text-align: left;">relisez avec <code>ex.hint(2)</code>, ou repartez de zéro avec <code>ex.reset()</code></td>
+<td style="text-align: left;">relisez avec <code>ex.indice(2)</code>, ou repartez de zéro avec <code>ex.recommencer()</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>UnknownExerciseError</code></td>
 <td style="text-align: left;">identifiant mal orthographié</td>
-<td style="text-align: left;">le message propose l'identifiant le plus proche ; <code>tutor.catalog()</code> donne la liste</td>
+<td style="text-align: left;">le message propose l'identifiant le plus proche ; <code>tuteur.catalogue()</code> donne la liste</td>
 </tr>
 <tr>
 <td style="text-align: left;">Une fiche modifiée n'est pas relue</td>
 <td style="text-align: left;">catalogue mis en cache</td>
-<td style="text-align: left;"><code>tutor.reload_catalog()</code></td>
+<td style="text-align: left;"><code>tuteur.recharger_catalogue()</code></td>
 </tr>
 </tbody>
 </table>
