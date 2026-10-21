@@ -33,6 +33,10 @@ class UndecidableZeroError(PedagopyError, ArithmeticError):
         super().__init__(msg)
 
 
+class InvalidAssumptionError(PedagopyError, ValueError):
+    """Hypothèse sur les paramètres non reconnue (inégalité d'ordre, syntaxe inconnue)."""
+
+
 class CaseLimitError(PedagopyError):
     """Discussion par cas arrêtée par un plafond (``max_cases`` ou ``max_depth``).
 

@@ -1,4 +1,4 @@
-"""Configuration centralisée et contextuelle pour linalg_pedagopy v3.0."""
+"""Configuration centralisée et contextuelle de linalg_pedagopy."""
 
 from __future__ import annotations
 
@@ -30,6 +30,33 @@ class ConfigState:
     journal_path: Path = Path(".linalg_pedagopy_journal.json")
 
 
+def _entier(nom: str, valeur: Any, minimum: int) -> None:
+    if isinstance(valeur, bool) or not isinstance(valeur, int) or valeur < minimum:
+        raise ValueError(f"{nom} invalide : {valeur!r} (entier ≥ {minimum} attendu).")
+
+
+def _valider(etat: ConfigState) -> None:
+    """Refuse une configuration incohérente, qu'elle vienne d'une affectation ou de using_config."""
+    if etat.float_policy not in ("rationalize", "reject", "keep"):
+        raise ValueError(f"float_policy invalide : {etat.float_policy!r} (rationalize, reject ou keep).")
+    if etat.factor_policy not in ("rational", "real_radicals"):
+        raise ValueError(f"factor_policy invalide : {etat.factor_policy!r} (rational ou real_radicals).")
+    if etat.tutor_mode not in ("student", "teacher", "etudiant", "enseignant"):
+        raise ValueError(f"tutor_mode invalide : {etat.tutor_mode!r} (etudiant ou enseignant).")
+    if isinstance(etat.default_trace_level, bool) or etat.default_trace_level not in (0, 1, 2, 3):
+        raise ValueError(
+            f"default_trace_level invalide : {etat.default_trace_level!r} (0, 1, 2 ou 3)."
+        )
+    _entier("max_case_depth", etat.max_case_depth, 1)
+    _entier("max_cases", etat.max_cases, 1)
+    _entier("hint_min_attempts", etat.hint_min_attempts, 0)
+    _entier("hint_min_delay_seconds", etat.hint_min_delay_seconds, 0)
+    if etat.max_generic_dim is not None:
+        _entier("max_generic_dim", etat.max_generic_dim, 1)
+    if not isinstance(etat.locale, str) or not etat.locale:
+        raise ValueError(f"locale invalide : {etat.locale!r}.")
+
+
 _config_var: ContextVar[ConfigState] = ContextVar(
     "linalg_pedagopy_config", default=ConfigState()
 )
@@ -48,9 +75,7 @@ class ConfigProxy:
 
     @float_policy.setter
     def float_policy(self, value: FloatPolicy) -> None:
-        if value not in ("rationalize", "reject", "keep"):
-            raise ValueError(f"float_policy invalide : {value!r}")
-        _config_var.set(replace(_config_var.get(), float_policy=value))
+        self._set(float_policy=value)
 
     @property
     def locale(self) -> str:
@@ -58,7 +83,7 @@ class ConfigProxy:
 
     @locale.setter
     def locale(self, value: str) -> None:
-        _config_var.set(replace(_config_var.get(), locale=value))
+        self._set(locale=value)
 
     @property
     def default_trace_level(self) -> int:
@@ -66,9 +91,7 @@ class ConfigProxy:
 
     @default_trace_level.setter
     def default_trace_level(self, value: int) -> None:
-        if not (0 <= value <= 3):
-            raise ValueError("default_trace_level doit être compris entre 0 et 3.")
-        _config_var.set(replace(_config_var.get(), default_trace_level=value))
+        self._set(default_trace_level=value)
 
     @property
     def max_case_depth(self) -> int:
@@ -76,7 +99,7 @@ class ConfigProxy:
 
     @max_case_depth.setter
     def max_case_depth(self, value: int) -> None:
-        _config_var.set(replace(_config_var.get(), max_case_depth=value))
+        self._set(max_case_depth=value)
 
     @property
     def max_cases(self) -> int:
@@ -84,7 +107,7 @@ class ConfigProxy:
 
     @max_cases.setter
     def max_cases(self, value: int) -> None:
-        _config_var.set(replace(_config_var.get(), max_cases=value))
+        self._set(max_cases=value)
 
     @property
     def max_generic_dim(self) -> int | None:
@@ -93,9 +116,7 @@ class ConfigProxy:
 
     @max_generic_dim.setter
     def max_generic_dim(self, value: int | None) -> None:
-        if value is not None and (not isinstance(value, int) or value < 1):
-            raise ValueError(f"max_generic_dim invalide : {value!r} (entier ≥ 1 ou None)")
-        _config_var.set(replace(_config_var.get(), max_generic_dim=value))
+        self._set(max_generic_dim=value)
 
     @property
     def factor_policy(self) -> FactorPolicy:
@@ -104,9 +125,7 @@ class ConfigProxy:
 
     @factor_policy.setter
     def factor_policy(self, value: FactorPolicy) -> None:
-        if value not in ("rational", "real_radicals"):
-            raise ValueError(f"factor_policy invalide : {value!r}")
-        _config_var.set(replace(_config_var.get(), factor_policy=value))
+        self._set(factor_policy=value)
 
     @property
     def tutor_mode(self) -> TutorMode:
@@ -114,9 +133,7 @@ class ConfigProxy:
 
     @tutor_mode.setter
     def tutor_mode(self, value: TutorMode) -> None:
-        if value not in ("student", "teacher", "etudiant", "enseignant"):
-            raise ValueError(f"tutor_mode invalide : {value!r}")
-        _config_var.set(replace(_config_var.get(), tutor_mode=value))
+        self._set(tutor_mode=value)
 
     @property
     def hint_min_attempts(self) -> int:
@@ -124,7 +141,7 @@ class ConfigProxy:
 
     @hint_min_attempts.setter
     def hint_min_attempts(self, value: int) -> None:
-        _config_var.set(replace(_config_var.get(), hint_min_attempts=max(0, int(value))))
+        self._set(hint_min_attempts=max(0, int(value)))
 
     @property
     def hint_min_delay_seconds(self) -> int:
@@ -132,9 +149,7 @@ class ConfigProxy:
 
     @hint_min_delay_seconds.setter
     def hint_min_delay_seconds(self, value: int) -> None:
-        _config_var.set(
-            replace(_config_var.get(), hint_min_delay_seconds=max(0, int(value)))
-        )
+        self._set(hint_min_delay_seconds=max(0, int(value)))
 
     @property
     def journal_path(self) -> Path:
@@ -142,7 +157,12 @@ class ConfigProxy:
 
     @journal_path.setter
     def journal_path(self, value: Path | str) -> None:
-        _config_var.set(replace(_config_var.get(), journal_path=Path(value)))
+        self._set(journal_path=Path(value))
+
+    def _set(self, **kwargs: Any) -> None:
+        etat = replace(_config_var.get(), **kwargs)
+        _valider(etat)
+        _config_var.set(etat)
 
     def reset(self) -> None:
         """Réinitialise la configuration aux valeurs par défaut."""
@@ -155,6 +175,7 @@ class ConfigProxy:
         if "journal_path" in kwargs and isinstance(kwargs["journal_path"], str):
             kwargs["journal_path"] = Path(kwargs["journal_path"])
         new_state = replace(current, **kwargs)
+        _valider(new_state)
         token = _config_var.set(new_state)
         try:
             yield new_state
