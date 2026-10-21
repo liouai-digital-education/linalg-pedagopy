@@ -370,6 +370,14 @@
   « un seul H1 » couvre toutes les pages publiées. Ces fichiers sources demandent désormais de
   régénérer le site.</li>
 </ul>
+<h3 id="documentation-lot-3d-de-la-revue-docstrings">Documentation — lot 3d de la revue (docstrings)</h3>
+<ul>
+<li><strong>Docstrings complètes</strong> : 94 éléments publics sur 480 n'en avaient pas (19,6 % ; 35 % dans
+  <code>tuteur/</code>, surtout des propriétés, des alias français et les méthodes verrouillées de <code>LockedVector</code>
+  et <code>LockedMatrix</code>). Tous en ont désormais une, en français.</li>
+<li><strong>Garde-fou</strong> : <code>scripts/mesurer_docstrings.py</code> mesure la couverture par sous-paquet (<code>--liste</code> pour
+  les manques) ; <code>tests/test_docstrings.py</code> échoue si un élément public n'a pas de docstring.</li>
+</ul>
 <h2 id="0312-2026-10-21">[0.3.1.2] — 2026-10-21</h2>
 <p>Phases 4, 5 et 6 du plan v6, et traces en tableau. Pas de publication sur PyPI pour cette version
 (reportée à une version ultérieure).</p>
@@ -949,6 +957,10 @@ https://liouai-digital-education.github.io/linalg-pedagopy/.</p>
         
         <li class="toc-item toc-h3">
           <a href="#site-lot-3c-de-la-revue">Site — lot 3c de la revue</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#documentation-lot-3d-de-la-revue-docstrings">Documentation — lot 3d de la revue (docstrings)</a>
         </li>
         
         <li class="toc-item ">
