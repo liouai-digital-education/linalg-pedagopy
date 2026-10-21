@@ -26,13 +26,15 @@ Quatre décisions structurent la révision :
 |:----:|:---------------------------|:---------------------------|:--------:|:------:|
 | 0–2 | Filet de sécurité, corrections et publication, déterminant (plan v5) | — | **fait** | 3.1.0 |
 | 3 | Correctifs issus des campagnes de tests | correctifs | 1 à 2 séances | 0.3.1.1 |
-| 4 | **Moteur d'élimination** réutilisable, noyau tracé, fusion des branches | refactorisation + fonctionnalité | 3 à 4 séances | 3.1.2 |
-| 5 | Allègement de `Matrix` (règle de délégation, registre de procédures) | refactorisation | 1 séance | 3.1.2 |
-| 6 | Tuteur : registre des vérificateurs, suppression des `eval`, API française | refactorisation + sécurité | 2 séances | 3.1.2 + PyPI |
-| 7 | **Bases et sous-espaces** (`Basis`, `Subspace`, Zassenhaus, thème 10) | fonctionnalité | 4 à 5 séances | 3.2.0 |
-| 8 | **Valeurs propres, espaces propres, diagonalisation** | fonctionnalité | 3 à 4 séances | 3.3.0 |
-| 9 | **Familles structurées** (« régime 2 ») | fonctionnalité | 3 à 4 séances | 3.4.0 |
+| 4 | **Moteur d'élimination** réutilisable, noyau tracé, fusion des branches | refactorisation + fonctionnalité | 3 à 4 séances | 0.3.1.2 |
+| 5 | Allègement de `Matrix` (règle de délégation, registre de procédures) | refactorisation | 1 séance | 0.3.1.2 |
+| 6 | Tuteur : registre des vérificateurs, suppression des `eval`, API française | refactorisation + sécurité | 2 séances | 0.3.1.2 + PyPI |
+| 7 | **Bases et sous-espaces** (`Basis`, `Subspace`, Zassenhaus, thème 10) | fonctionnalité | 4 à 5 séances | 0.3.2.0 |
+| 8 | **Valeurs propres, espaces propres, diagonalisation** | fonctionnalité | 3 à 4 séances | 0.3.3.0 |
+| 9 | **Familles structurées** (« régime 2 ») | fonctionnalité | 3 à 4 séances | 0.3.4.0 |
 | 10 | Extensions ultérieures ($\mathbb{C}$, circulantes, LU, géométrie…) | feuille de route | — | — |
+
+Les versions suivent la numérotation `0.3.x.y` adoptée avec 0.3.1.1 (étiquettes `v0.3.x.y`) : le plan prévoyait d'abord 3.1.1, 3.1.2, 3.2.0… ; 3.0.1 et 3.1.0 restent les numéros des versions déjà publiées.
 
 Une *séance* désigne une demi-journée à une journée de travail. Les phases 4.1 à 4.6, 5 et 6 ne changent **aucun comportement visible** ; les étapes qui changent des sorties (phase 3, étapes 4.7 à 4.9) ont chacune leur commit, avec régénération et relecture des références.
 
@@ -136,7 +138,7 @@ Ceux du plan v5 restent en vigueur, avec deux ajouts :
 | N° | Tâche | Détail |
 |:-----:|:---------------------------|:-----------------------------------|
 | 3.1 | Caractérisation des campagnes | Les 9 tests limites de `tests3` et les 6 familles de `test4` (tridiagonale 5 × 5, flèche 6 × 6, bloc-triangulaire 6 × 6, permutée cyclique 5 × 5, équicorrélation 4 × 4 et 5 × 5, Vandermonde 4 × 4) entrent dans `tests/test_caracterisation_algorithmes.py`, avec leurs références. Les cas lents (> 5 s) sont marqués `lent` et exclus de la CI rapide. Un script `scripts/mesurer_performances.py` enregistre leurs temps actuels : c'est la base de comparaison des phases 4 et 9. |
-| 3.2 | Factorisation cohérente | Option `ConfigState.factor_policy` : `"rational"` (comportement actuel) ou `"real_radicals"` (**défaut dès 3.1.1**, décision 15.1.10). Avec `"real_radicals"`, les entrées d'une branche sont factorisées sur $\mathbb{Q}(\sqrt{d})$ dès que la condition de la branche fait apparaître $\sqrt{d}$ (`sp.factor(..., extension=...)`), de sorte que la solution du test 5 s'écrive avec $(a - \sqrt 2)(a + \sqrt 2)$ comme sa condition. Commit dédié, références relues. |
+| 3.2 | Factorisation cohérente | Option `ConfigState.factor_policy` : `"rational"` (comportement actuel) ou `"real_radicals"` (**défaut dès 0.3.1.1**, décision 15.1.10). Avec `"real_radicals"`, les entrées d'une branche sont factorisées sur $\mathbb{Q}(\sqrt{d})$ dès que la condition de la branche fait apparaître $\sqrt{d}$ (`sp.factor(..., extension=...)`), de sorte que la solution du test 5 s'écrive avec $(a - \sqrt 2)(a + \sqrt 2)$ comme sa condition. Commit dédié, références relues. |
 | 3.3 | Signe constant à plusieurs paramètres | L'oracle reconnaît les facteurs strictement positifs sur $\mathbb{R}^k$ : sommes de carrés plus une constante positive, formes quadratiques définies (critère des mineurs). Tests : $a^2 + b^2 + 1$, $a^2 + ab + b^2 + 1$ ; $P_5$ reste en non-régression. |
 | 3.4 | Messages de plafond didactiques | Quand `max_cases` ou `max_depth` est atteint, le message nomme les facteurs responsables, le nombre de branches qu'il aurait fallu, et propose `assumptions="..."` ou un plafond plus élevé. Message en français dans `fr.yaml`. |
 | 3.5 | Avertissement de taille | `ConfigState.max_generic_dim = 4` : au-delà, Gauss-Jordan sur une matrice contenant des paramètres émet un `PedagogicalWarning` (« l'élimination sur une matrice symbolique n × n produit une discussion peu lisible ; cherchez une structure remarquable »). Le calcul continue ; `max_generic_dim=None` désactive l'avertissement. |
@@ -190,7 +192,7 @@ Les `indeterminates` (symboles jamais discutés par l'oracle) servent à deux cl
 - **Fusion abusive** : deux résultats égaux pour des raisons différentes peuvent mériter des explications distinctes. La fusion garde les deux traces sous la branche fusionnée (`explain()` les présente l'une après l'autre).
 - **Performance** : mesurée sur les cas de l'étape 3.1 avant et après.
 
-**Critère de fin** : Gauss-Jordan et déterminant sur le moteur, noyau tracé, version **3.1.2** (avec les phases 5 et 6).
+**Critère de fin** : Gauss-Jordan et déterminant sur le moteur, noyau tracé, version **0.3.1.2** (avec les phases 5 et 6).
 
 # 7. Phase 5 — Alléger `Matrix`
 
@@ -217,10 +219,10 @@ Contenu du plan v5 (§ 9), inchangé sur le fond ; menée en parallèle des phas
 | 6.3 | Découper `catalog.py` en `catalogue.py`, `seance.py`, `validation.py` ; contrôle croisé par vérificateur. |
 | 6.4 | `evaluation_sure.py` : interpréteur fondé sur `ast` (liste blanche), qui remplace les **douze** `eval`. |
 | 6.5 | Champ `jumeau` des fiches analysé par l'interpréteur, avec le seul espace de noms des générateurs. |
-| 6.6 | Code déplacé de `tutor/` vers `tuteur/` ; `tutor/` réexporte les noms anglais (silencieux en 3.1.2, `DeprecationWarning` dès 3.2.0, suppression en 4.0 : décision 15.1.13) ; documentation et carnets en noms français. |
+| 6.6 | Code déplacé de `tutor/` vers `tuteur/` ; `tutor/` réexporte les noms anglais (silencieux en 0.3.1.2, `DeprecationWarning` dès 0.3.2.0, suppression en 0.4.0.0 : décision 15.1.13) ; documentation et carnets en noms français. |
 | 6.7 | Tests de l'interpréteur (attributs privés, `__import__`, lambda, compréhensions, appels hors liste blanche refusés). |
 
-Critère de fin : aucun fichier du tuteur au-delà d'environ 350 lignes, plus aucun `eval`, diagnostics identiques. Avec les phases 4 et 5 : version **3.1.2**, **première publication sur PyPI**.
+Critère de fin : aucun fichier du tuteur au-delà d'environ 350 lignes, plus aucun `eval`, diagnostics identiques. Avec les phases 4 et 5 : version **0.3.1.2**, **première publication sur PyPI**.
 
 # 9. Phase 7 — Bases et sous-espaces
 
@@ -256,7 +258,7 @@ Critère de fin : aucun fichier du tuteur au-delà d'environ 350 lignes, plus au
 
 ## 9.3 Critères de fin
 
-`Subspace`, `Basis`, Zassenhaus et changement de base disponibles et valables sous paramètres ; 8 fiches validées ; documentation à jour ; version **3.2.0**.
+`Subspace`, `Basis`, Zassenhaus et changement de base disponibles et valables sous paramètres ; 8 fiches validées ; documentation à jour ; version **0.3.2.0**.
 
 # 10. Phase 8 — Valeurs propres, espaces propres, diagonalisation
 
@@ -276,7 +278,7 @@ Contenu du plan v5 (§ 10), avec trois ajustements :
 | 8.6 | Tuteur : thème « Valeurs propres et diagonalisation », 5 fiches ; vérificateurs `couple_propre` et `diagonalisation`. |
 | 8.7 | Tests (comparaison avec `eigenvects()`, Jordan, symétriques, rotations, $\begin{bmatrix} 1&a \\ 0&1 \end{bmatrix}$, $A^n$ pour $n = 0, \dots, 8$) et documentation. |
 
-Critère de fin : version **3.3.0**.
+Critère de fin : version **0.3.3.0**.
 
 # 11. Phase 9 — Familles structurées (« régime 2 »)
 
@@ -307,7 +309,7 @@ Critère de fin : version **3.3.0**.
 | 8 | Centro-symétrique | découplage en deux blocs de taille $\lfloor n/2 \rfloor$ | changement de base (phase 7) |
 | 9 | Stochastique | $\mathbf 1$ vecteur propre pour 1 ; chaîne de Markov à long terme | s'appuie sur les valeurs propres (phase 8) |
 
-Critère de fin : familles 1 à 5 au moins livrées avec fiches et documentation ; version **3.4.0**.
+Critère de fin : familles 1 à 5 au moins livrées avec fiches et documentation ; version **0.3.4.0**.
 
 # 12. Phase 10 — Extensions ultérieures
 
@@ -336,12 +338,12 @@ Phase 3 ──► Phase 4 ──► Phase 5 ──► Phase 7 ──► Phase 8 
 | 1 | Phase 3 | 1–2 | campagnes figées, factorisation cohérente, messages de plafond | 0.3.1.1 |
 | 2 | Phase 4 | 3–4 | moteur commun, noyau tracé, fusion des branches | — |
 | 3 | Phase 5 | 1 | `Matrix` < 600 lignes, registre de procédures | — |
-| 4 | Phase 6 | 2 | tuteur découpé, plus d'`eval`, API française | 3.1.2 + PyPI |
-| 5 | Phase 7 | 4–5 | `Subspace`, Zassenhaus, changement de base, thème 10 | 3.2.0 |
-| 6 | Phase 8 | 3–4 | `Eigen`, `diagonalize()`, 5 fiches | 3.3.0 |
-| 7 | Phase 9 | 3–4 | détecteurs, méthodes dédiées 1 à 5, thème « structures » | 3.4.0 |
+| 4 | Phase 6 | 2 | tuteur découpé, plus d'`eval`, API française | 0.3.1.2 + PyPI |
+| 5 | Phase 7 | 4–5 | `Subspace`, Zassenhaus, changement de base, thème 10 | 0.3.2.0 |
+| 6 | Phase 8 | 3–4 | `Eigen`, `diagonalize()`, 5 fiches | 0.3.3.0 |
+| 7 | Phase 9 | 3–4 | détecteurs, méthodes dédiées 1 à 5, thème « structures » | 0.3.4.0 |
 
-Total indicatif : **17 à 22 séances** jusqu'à la version 3.4.0.
+Total indicatif : **17 à 22 séances** jusqu'à la version 0.3.4.0.
 
 # 14. Risques et parades
 
@@ -364,7 +366,7 @@ Total indicatif : **17 à 22 séances** jusqu'à la version 3.4.0.
 
 1. Le plan v6 remplace le plan v5 à partir de la version 3.1.0.
 2. Corrections issues des campagnes de tests **avant** l'extraction du moteur.
-3. Sous-espaces (3.2.0) **avant** valeurs propres (3.3.0) ; familles structurées ensuite (3.4.0).
+3. Sous-espaces (0.3.2.0) **avant** valeurs propres (0.3.3.0) ; familles structurées ensuite (0.3.4.0).
 4. Règle des deux régimes : **avertissement réglable** au-delà de `max_generic_dim = 4`, jamais de refus de calcul.
 5. Priorité des familles structurées selon leur fréquence dans les cours (§ 11.2) ; circulantes reportées avec $\mathbb{C}$.
 6. `nullspace()` garde son type de retour ; les `Subspace` arrivent par de nouvelles méthodes (`kernel()`, `image()`, `rowspace()`).
@@ -377,7 +379,7 @@ Réponses aux questions laissées ouvertes par la première rédaction du plan v
 10. **`factor_policy`** : `"real_radicals"` par défaut **dès 0.3.1.1** ; la factorisation sur $\mathbb{Q}(\sqrt d)$ ne s'applique que lorsque la condition de la branche contient $\sqrt d$. `"rational"` reste disponible.
 11. **Fusion des branches** : `merge_branches=True` par défaut, désactivable ; les traces des branches fusionnées restent consultables.
 12. **Format des bases** : `basis_format="canonical"` par défaut (fidèle à la méthode enseignée et à la trace) ; `"integer"` et `"orthonormal"` sur demande ; le tuteur accepte toute base correcte.
-13. **Alias anglais du tuteur** (`tutor`, `verify_*`…) : silencieux en 3.1.2 (première publication sur PyPI), `DeprecationWarning` à partir de 3.2.0, suppression en 4.0.
+13. **Alias anglais du tuteur** (`tutor`, `verify_*`…) : silencieux en 0.3.1.2 (première publication sur PyPI), `DeprecationWarning` à partir de 0.3.2.0, suppression en 0.4.0.0.
 
 ## 15.2 Questions encore ouvertes
 
@@ -403,7 +405,7 @@ Aucune à ce jour.
 5. Tâche 3.5 **faite** : `PedagogicalWarning` et `config.max_generic_dim` ; tests dans `tests/test_avertissement_taille.py`. **Phase 3 terminée : version 0.3.1.1** (étiquette `v0.3.1.1`).
 6. Phase 4, tâche 4.1 : extraire les fonctions pures de `gauss_jordan.py` (`_simplify_entry`, `_pivot_complexity_key`, `_factor_with_radicals`, `_result_entry`, choix du pivot) dans `algorithms/elimination.py`, sans changement de sortie.
 
-# Annexe B — Esquisse de l'API cible (version 3.4)
+# Annexe B — Esquisse de l'API cible (version 0.3.4)
 
 ```python
 from linalg_pedagopy import Matrix, Vector, Subspace, symbols
