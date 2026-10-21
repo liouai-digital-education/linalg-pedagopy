@@ -1,4 +1,4 @@
-# Changelog — `linalg_pedagopy`
+# Journal des modifications — `linalg_pedagopy`
 
 ## [Non publié] — branche `development`
 
@@ -139,6 +139,12 @@
   suivaient chaque nouvelle version), avec empreinte SRI ; Mermaid est chargé en script classique
   (le module ESM ne se prête pas au SRI) et passe en `securityLevel: 'strict'`. Rendu vérifié dans le
   navigateur (formules, diagrammes, sauts de ligne des libellés).
+- **Section « Développement »** : le site publie `CONTRIBUTING.md`, l'architecture, les tests et
+  vérifications, les campagnes de tests et ce journal (titre désormais en français), avec un renvoi
+  depuis l'accueil. Les liens relatifs sont résolus depuis le dossier de chaque page : une page publiée
+  devient son `.html`, tout autre fichier du dépôt un lien GitHub (`tree` pour un dossier). Le test
+  « un seul H1 » couvre toutes les pages publiées. Ces fichiers sources demandent désormais de
+  régénérer le site.
 
 ## [0.3.1.2] — 2026-10-21
 
@@ -469,11 +475,11 @@ singuliers dans `Matrix.inv()`.
   contenu : régénération reproductible.
 
 ### Corrections
-- Site de documentation : 54 formules s'affichaient comme `ACADEMIC_TOKEN_n` (pages, sommaires « Sur
-  cette page », index de recherche). Les jetons de protection `__…__` étaient mis en gras par
-  Markdown et n'étaient plus restitués ; ils sont remplacés par des jetons alphanumériques
-  (`AcadTok6Z`), retirés des ancres de titres, et la génération échoue s'il en reste. Nouveau test
-  `tests/test_site_documentation.py`.
+- Site de documentation : 54 formules s'affichaient sous la forme de leur jeton de protection brut
+  (pages, sommaires « Sur cette page », index de recherche). Les jetons de protection `__…__` étaient
+  mis en gras par Markdown et n'étaient plus restitués ; ils sont remplacés par des jetons faits
+  seulement de lettres et de chiffres, retirés des ancres de titres, et la génération échoue s'il en
+  reste. Nouveau test `tests/test_site_documentation.py`.
 
 ## [3.0.1] — 2026-10-21
 

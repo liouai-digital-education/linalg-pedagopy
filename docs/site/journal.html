@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journal des modifications — linalg_pedagopy</title>
+  <meta name="description" content="Les changements de chaque version">
+
+  <!-- Typographie Web Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="assets/css/academic.css">
+
+  <!-- MathJax pour les formules mathématiques exactes -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <!-- Versions figées et empreintes SRI (sha256 publié par jsDelivr) : une mise à jour du CDN ne
+       change ni le rendu ni le code exécuté. Pour monter de version, mettez à jour l'URL et l'empreinte. -->
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"
+          integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
+
+  <!-- Moteur de diagrammes Mermaid.js ; « strict » : le HTML des libellés est encodé, pas exécuté -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.8/dist/mermaid.min.js"
+          integrity="sha256-jWB9fvHQd6iqIC4Y5iISv6mSxov+q8XPRdUaEo/mZ10=" crossorigin="anonymous"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'strict' });
+  </script>
+</head>
+<body>
+
+  <!-- En-tête institutionnel -->
+  <header class="site-header">
+    <a href="index.html" class="header-brand">
+      <div class="brand-crest">LP</div>
+      <div>
+        <div class="brand-title">linalg_pedagopy</div>
+        <div class="brand-subtitle">Algèbre linéaire formelle et pédagogique</div>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher... (Ctrl+K)" readonly>
+      </div>
+      <button id="themeToggle" class="theme-toggle-btn" title="Changer de thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- Modal de recherche plein texte -->
+  <div id="searchModal" class="search-results-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="Rechercher une fonction, un théorème, un symbole...">
+      </div>
+      <div id="modalSearchResults" class="search-modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;">Saisissez un mot-clé...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-container">
+    <!-- Barre latérale gauche de navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Sommaire de l'ouvrage</div>
+      <ul class="nav-list">
+        
+        
+        <li class="nav-item ">
+          <a href="index.html">
+            <span>Accueil</span>
+            <span class="nav-badge">Portail</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="01_noyau_calcul_formel.html">
+            <span>01. Noyau formel et calcul exact</span>
+            <span class="nav-badge">Fondement</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="02_vecteurs_matrices.html">
+            <span>02. Vecteurs, matrices et métriques</span>
+            <span class="nav-badge">Objets</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="03_algorithmes_traces.html">
+            <span>03. Algorithmes et traçabilité</span>
+            <span class="nav-badge">Algèbre</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="04_tuteur.html">
+            <span>04. Le tuteur interactif</span>
+            <span class="nav-badge">Pédagogie</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="05_exercices_sessions.html">
+            <span>05. Exercices et sessions guidées</span>
+            <span class="nav-badge">Didactique</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="06_rendu_visualisation_numerique.html">
+            <span>06. Rendu, visualisation et comparaison numérique</span>
+            <span class="nav-badge">Visuel</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="07_api_reference.html">
+            <span>07. Référence de l'API</span>
+            <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="08_catalogue_exercices.html">
+            <span>08. Catalogue des exercices</span>
+            <span class="nav-badge">Exercices</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="09_guide_jupyterlab.html">
+            <span>09. Utiliser le package dans JupyterLab</span>
+            <span class="nav-badge">Pratique</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-section">Développement</li>
+        
+        <li class="nav-item ">
+          <a href="contribuer.html">
+            <span>Contribuer</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="dev_architecture.html">
+            <span>Architecture du paquet</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="dev_tests.html">
+            <span>Tests et vérifications</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="dev_campagnes.html">
+            <span>Campagnes de tests</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item active">
+          <a href="journal.html">
+            <span>Journal des modifications</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
+        <strong>Version 0.3.1.2</strong><br>
+        Calcul exact · tuteur interactif
+      </div>
+    </aside>
+
+    <!-- Corps de texte de l'article -->
+    <main class="main-content">
+      <header class="article-header">
+        <span class="article-badge">Chapitre D5 • Dév.</span>
+        <h1 class="article-title">Journal des modifications — linalg_pedagopy</h1>
+        <p class="article-subtitle">Les changements de chaque version</p>
+      </header>
+
+      <article class="markdown-body">
+        <h2 id="non-publie-branche-development">[Non publié] — branche <code>development</code></h2>
+<h3 id="corrections">Corrections</h3>
+<ul>
+<li><strong><code>Matrix.solve(Matrix.identity(n))</code></strong> renvoyait <code>None</code> : avec un second membre égal à $I_n$,
+  <code>GaussJordan</code> passait en mode « inverse » et ne calculait pas la solution. Un second membre fourni
+  sans <code>compute_inverse</code> donne désormais la solution (ici $X = A^{-1}$), et l'inverse en plus ;
+  <code>compute_inverse=True</code> (chemin de <code>Matrix.inv</code>) est inchangé.</li>
+</ul>
+<h3 id="corrections-lot-1-de-la-revue-de-la-documentation">Corrections — lot 1 de la revue de la documentation</h3>
+<ul>
+<li><strong>Niveaux de trace</strong> : <code>explain(level=1)</code> de Gauss-Jordan n'affichait aucune opération de lignes,
+  rangées dans les sections de colonne de niveau 2 et retirées avec elles. Une section plus
+  détaillée que le niveau demandé disparaît désormais, mais ses étapes visibles remontent
+  (<code>Step.filter_level</code>). Le niveau 1 montre les opérations et les matrices, comme l'annoncent le
+  guide 03, le README et l'accueil. 16 références enrichies (lignes ajoutées seulement).</li>
+<li><strong>Substitutions triangulaires</strong> : avec un coefficient diagonal qui peut s'annuler,
+  <code>BackSubstitution</code> et <code>ForwardSubstitution</code> ne renvoyaient que la branche générique (<code>at(a=0)</code>
+  échouait). La discussion ajoute les branches singulières, où le résultat le signale (<code>singular</code>,
+  <code>singular_index</code>) au lieu de la solution.</li>
+<li><strong>Hypothèses</strong> : une hypothèse non reconnue (« a &gt; 0 », « a », type inconnu) était ignorée sans
+  prévenir. Nouvelle exception <code>InvalidAssumptionError</code> (<code>PedagopyError</code>, <code>ValueError</code>), avec un
+  message propre aux inégalités d'ordre, non prises en compte.</li>
+<li><strong>Configuration</strong> : <code>using_config</code> acceptait des valeurs invalides (<code>factor_policy="x"</code>,
+  <code>default_trace_level=4</code>), et <code>max_cases</code>, <code>max_case_depth</code> n'étaient jamais validés. Validation
+  commune aux affectations et à <code>using_config</code>.</li>
+<li><strong>Tuteur</strong> : les messages vus par l'étudiant ne citent plus que les noms français
+  (<code>tuteur.catalogue()</code>, <code>ex.predire</code>, <code>ex.indice</code>, <code>lab.tester</code>…) ; les 37 docstrings encore en
+  anglais sont traduites. Fiches : énoncé de « sommes de paires » corrigé (3 sommes de paires et 3
+  mesures individuelles, « matrice du modèle ») ; formule de « indépendance par Gram-Schmidt »
+  rendue en LaTeX.</li>
+</ul>
+<h3 id="documentation-lot-1-de-la-revue">Documentation — lot 1 de la revue</h3>
+<ul>
+<li>Guide 02 : les quatre vues du produit matriciel (<code>entries</code>, <code>rows</code>, <code>columns</code>, <code>outer</code>) corrigées,
+  avec un exemple de trace ; sorties de <code>print(Matrix)</code> remplacées par <code>repr</code> ; discussion par cas
+  de <code>rank()</code> ; indices des pivots à partir de 0.</li>
+<li>Guide 03 : tableau des niveaux de trace d'après les sorties réelles ; formes acceptées pour
+  <code>assumptions</code> ; <code>GJResult</code> ou <code>CaseSplit</code> ; conditions des substitutions et branches singulières ;
+  sorties regroupées du § 7.</li>
+<li>Guide 01 : <code>is_zero</code> lève <code>UndecidableZeroError</code> pour les verdicts <code>CONDITIONAL</code> et <code>UNKNOWN</code>.</li>
+<li>Guide 06 : écart à l'orthonormalité de Gram-Schmidt classique ≈ 1/2 (et non 1) ; installation des
+  options <code>plot</code> et <code>compare</code> depuis le dépôt.</li>
+<li>Référence de l'API (07) : noms du tuteur en français d'abord ; <code>Determinant(method="elimination")</code>
+  peut renvoyer un <code>CaseSplit</code> ; hiérarchie des exceptions complétée (<code>InvalidAssumptionError</code>,
+  <code>CaseLimitError</code>, <code>PedagogicalWarning</code>) ; 24 générateurs ; import de <code>compare</code>.</li>
+<li>Guides 04 et 05 : noms français dans le texte, bilan cohérent avec l'exemple, journal du tuteur ;
+  table des 24 générateurs de jumeaux (nom français d'abord, thème Déterminants compris).</li>
+<li>Tutoriel : témoin de dépendance de Gram-Schmidt (<code>witness.a_coeffs</code>). README et accueil : journal
+  du tuteur créé dans le répertoire courant. Site : « 39 exercices ».</li>
+</ul>
+<h3 id="tests-lot-2-de-la-revue-documentation-testee">Tests — lot 2 de la revue (documentation testée)</h3>
+<ul>
+<li><strong>Exemples exécutés</strong> : <code>tests/test_exemples_documentation.py</code> exécute les 158 blocs Python du
+  README, de l'accueil, des guides 01 à 06 et 09 et du tutoriel (état partagé par page, répertoire
+  temporaire, <code>MPLBACKEND=Agg</code>) ; une exception fait échouer le test.</li>
+<li><strong>Sorties vérifiées</strong> : convention <code>#&gt;</code> pour une ligne de sortie exacte après un <code>print(...)</code> (<code>#&gt;
+  …</code> pour une sortie tronquée, <code>&lt;!-- exemple: non exécuté --&gt;</code> pour écarter un bloc), documentée
+  dans <code>docs/dev/tests_et_verifications.md</code>. 23 sorties passent en <code>#&gt;</code> ; les 11 qui omettaient la
+  première ligne de trace, citaient le message entre guillemets ou l'abrégeaient sont complétées
+  d'après la sortie réelle.</li>
+<li><strong>Fichiers générés</strong> : nouveau job d'intégration continue « Documentation à jour », qui régénère
+  le catalogue des exercices et le site (<code>docs/site/</code>) et échoue si le résultat diffère des fichiers
+  versionnés.</li>
+<li><strong>Option <code>docs</code></strong> (<code>pip install -e ".[docs]"</code>) : <code>markdown</code>, <code>jinja2</code> et <code>beautifulsoup4</code>,
+  nécessaires pour régénérer le site ; citée dans le README et dans
+  <code>docs/dev/tests_et_verifications.md</code>.</li>
+<li><strong>mypy figé</strong> à la version 2.4.0 dans l'option <code>dev</code>. Le périmètre strict reste sans erreur ; le
+  paquet complet compte 63 erreurs (informatif, en CI comme en local, et non zéro comme on le
+  pensait : l'étape échoue sans faire échouer le job). <code>pyproject.toml</code> et
+  <code>docs/dev/tests_et_verifications.md</code> le disent désormais.</li>
+</ul>
+<h3 id="documentation-lot-3a-de-la-revue-contenu-des-guides">Documentation — lot 3a de la revue (contenu des guides)</h3>
+<ul>
+<li><strong>Guide 01, § 5 « Concepts transversaux »</strong> : les quatre formes d'hypothèses (<code>Condition</code>, chaîne,
+  liste, dictionnaire) et le refus des inégalités d'ordre (<code>InvalidAssumptionError</code>) ; le tableau
+  des réglages de <code>config</code> (défauts, valeurs admises, validation, portée de <code>using_config</code>) ; les
+  indices à partir de 0 dans l'API et à partir de 1 dans les traces. Exemples vérifiés par <code>#&gt;</code>.</li>
+<li><strong>Guide 01 allégé</strong> : les mentions « Décision D1/D3 » et les fonctions privées
+  (<code>_extract_factors</code>, <code>_compute_transitive_substitutions</code>, <code>match_symbol_substitutions</code>) passent
+  dans <code>docs/dev/architecture.md</code> (§ « Noyau formel : décisions et fonctions internes ») ; le guide
+  décrit le comportement (paramètres désignés par leur nom, radicaux, clôture transitive).</li>
+<li><strong>Trace en tableau</strong> : <code>explain().to_table()</code> est présenté dans le guide 03 (§ 1.2, exemple
+  vérifié), le guide 09 (cellule JupyterLab) et le tutoriel (§ 5.1 et synthèse des commandes), avec
+  renvoi au guide 06 pour le détail des colonnes.</li>
+<li><strong>Carnet du tutoriel</strong> régénéré depuis <code>TUTORIAL.md</code> : il n'avait pas reçu les sorties <code>#&gt;</code> du
+  lot 2. Le job « Documentation à jour » le régénère désormais lui aussi et échoue sur tout écart.
+  <code>scripts/convert_tutorial_to_ipynb.py</code> termine le fichier par un saut de ligne, comme
+  <code>scripts/nettoyer_carnets.py</code> : sa sortie ne dépend plus du filtre git <code>carnets</code>, absent en CI.</li>
+<li><strong>Guide 02</strong> : <code>Matrix.from_rows</code> et <code>Matrix.ones</code> ; nouveau § 2.3 sur l'accès aux coefficients
+  (indexation et tranches, <code>row</code>, <code>col</code>, <code>columns</code>, <code>rows_as_vectors</code>, <code>augment</code>, <code>entries_grid</code>,
+  <code>flat_entries</code>, <code>subs</code>, <code>to_sympy</code>, <code>to_domain_matrix</code>) ; nouveau § 4.4 sur <code>Matrix.solve</code>
+  (ensemble des solutions, discussion par cas, <code>assumptions</code>, second membre matriciel). Le
+  déterminant passe au § 4.5.</li>
+<li><strong>Guide 03</strong> : nouveau § 1.4 sur le contrat commun des résultats (<code>trace</code>, <code>explain</code>, <code>verify()</code>
+  et ce que vérifie chaque résultat) ; au § 6, <code>LSResult.residual</code>, <code>pseudoinverse</code> et
+  <code>RankDeficientError</code> (cas levés, attributs <code>rank</code> et <code>ncols</code>, <code>QR(strict=True)</code>) ; « (Décision D6)
+  » retiré du titre du § 1.1, la décision est citée dans <code>docs/dev/architecture.md</code>.</li>
+<li><strong>Guide 06, matrices de Hilbert</strong> : seul l'en-tête de la sortie est comparé (<code>#&gt; …</code>). Les erreurs
+  relatives flottantes changent selon la version de NumPy et faisaient échouer les tests sous Python
+  3.11 et 3.13 après la fusion du lot 2.</li>
+<li><strong>Site</strong> : les liens entre pages avec une ancre (<code>page.md#section</code>) sont convertis en
+  <code>page.html#section</code> ; ils restaient en <code>.md</code>, donc cassés.</li>
+</ul>
+<h3 id="documentation-lot-3b-de-la-revue-structure-et-coherence">Documentation — lot 3b de la revue (structure et cohérence)</h3>
+<ul>
+<li><strong>Guides renommés en français</strong> : <code>01_noyau_calcul_formel.md</code>, <code>02_vecteurs_matrices.md</code>,
+  <code>03_algorithmes_traces.md</code>, <code>05_exercices_sessions.md</code>, <code>06_rendu_visualisation_numerique.md</code>
+  (<code>git mv</code>, liens mis à jour). Sur le site, les anciennes adresses
+  (<code>01_core_and_formal_computation.html</code>…) deviennent des pages de redirection, ancre comprise.</li>
+<li><strong>Titres alignés, un seul H1 par page</strong> : le H1 de chaque guide est la seule source de son titre ;
+  le générateur du site le reprend (onglet, navigation, recherche) et le retire du corps, qui
+  n'affiche plus deux titres de niveau 1. H1, README, accueil et site emploient les mêmes titres
+  (« 01. Noyau formel et calcul exact »…) ; <code>tests/test_titres_documentation.py</code> le vérifie.</li>
+<li><strong>README et accueil dédoublonnés</strong> : le README devient une vitrine courte (présentation,
+  installation, un exemple vérifié par <code>#&gt;</code>, liens) ; les exemples du tuteur et des moindres carrés,
+  le journal et le détail des tests sont dans l'accueil, les guides et <code>docs/dev/</code>. L'installation
+  (option <code>docs</code> comprise) et les remerciements, présents dans les deux, sont identiques ;
+  <code>tests/test_readme_accueil.py</code> le vérifie. L'accueil s'intitule « Accueil de la documentation ».</li>
+<li><strong><code>CONTRIBUTING.md</code></strong> : langue, branches et PR, format des commits, vérifications avant commit,
+  références de caractérisation, convention <code>#&gt;</code> et fichiers générés de la documentation, règles du
+  tuteur (API française, lecture de texte sans <code>eval</code>), où placer un nouveau code. Cité par le
+  README et par <code>docs/dev/tests_et_verifications.md</code>.</li>
+<li><strong>Documents historiques</strong> : un bandeau signale que <code>docs/dev/couverture.md</code>,
+  <code>docs/dev/tuteur_etat_des_lieux.md</code>, le plan d'implémentation v3.0 et le plan v5 ne sont plus tenus à
+  jour, et renvoie au document actuel.</li>
+<li><strong>CHANGELOG</strong> : sections « Corrections » et « Documentation » en double fusionnées dans la 3.0.1 ;
+  la 3.0.0 signale qu'elle n'a pas d'étiquette git ; lignes repliées à 100 caractères (rendu inchangé).</li>
+<li><strong>Liens vérifiés</strong> : <code>tests/test_liens_documentation.py</code> échoue si un lien relatif d'une page
+  Markdown versionnée vise un fichier absent, ou si le site garde un lien <code>.md</code> vers un guide.</li>
+</ul>
+<h3 id="site-lot-3c-de-la-revue">Site — lot 3c de la revue</h3>
+<ul>
+<li><strong>Recherche sans <code>innerHTML</code></strong> : les résultats sont construits avec <code>textContent</code>. La saisie et le
+  texte indexé ne sont plus interprétés comme du HTML (un extrait « a &lt; b » cassait l'affichage ; une
+  saisie <code>&lt;img onerror=…&gt;</code> était injectée dans la page). Le bouton « Copier » n'utilise plus
+  <code>innerHTML</code> non plus.</li>
+<li><strong>Recherche en texte intégral</strong> : l'index contient tout le texte de chaque section (h2 ou h3),
+  code compris, et l'introduction de chaque page, au lieu du titre et des 160 premiers caractères du
+  paragraphe suivant (200 Ko au lieu de 80). Les titres qui correspondent passent en premier ;
+  l'extrait affiché entoure le terme trouvé ; la comparaison ignore casse et accents (« determinant »
+  trouve « déterminant »).</li>
+<li><strong>MathJax et Mermaid figés</strong> : <code>mathjax@3.2.2</code> et <code>mermaid@10.9.8</code> (au lieu de <code>@3</code> et <code>@10</code>, qui
+  suivaient chaque nouvelle version), avec empreinte SRI ; Mermaid est chargé en script classique
+  (le module ESM ne se prête pas au SRI) et passe en <code>securityLevel: 'strict'</code>. Rendu vérifié dans le
+  navigateur (formules, diagrammes, sauts de ligne des libellés).</li>
+<li><strong>Section « Développement »</strong> : le site publie <code>CONTRIBUTING.md</code>, l'architecture, les tests et
+  vérifications, les campagnes de tests et ce journal (titre désormais en français), avec un renvoi
+  depuis l'accueil. Les liens relatifs sont résolus depuis le dossier de chaque page : une page publiée
+  devient son <code>.html</code>, tout autre fichier du dépôt un lien GitHub (<code>tree</code> pour un dossier). Le test
+  « un seul H1 » couvre toutes les pages publiées. Ces fichiers sources demandent désormais de
+  régénérer le site.</li>
+</ul>
+<h2 id="0312-2026-10-21">[0.3.1.2] — 2026-10-21</h2>
+<p>Phases 4, 5 et 6 du plan v6, et traces en tableau. Pas de publication sur PyPI pour cette version
+(reportée à une version ultérieure).</p>
+<ul>
+<li><strong>Moteur d'élimination commun</strong> (phase 4) : Gauss-Jordan et le déterminant partagent
+  <code>EliminationEngine</code> et <code>RowOps</code> ; déterminant par élimination avec paramètres ; base du noyau
+  expliquée dans la trace ; branches identiques regroupées à l'affichage ; stratégie de pivot
+  <code>"sparse"</code> et remontée <code>back_substitution</code>.</li>
+<li><strong><code>Matrix</code> allégée</strong> (phase 5) : registre de procédures, logique tracée déplacée dans
+  <code>algorithms/products.py</code>.</li>
+<li><strong>Traces en tableau</strong> : <code>explain().to_table()</code> pour Gauss-Jordan, l'inverse, le déterminant,
+  Gram-Schmidt, QR et les systèmes triangulaires, en HTML, Markdown et LaTeX.</li>
+<li><strong>Tuteur</strong> (phase 6) : registre des vérificateurs, un module par vérificateur, code dans <code>tuteur/</code>
+  avec des noms français.</li>
+<li><strong>Sécurité</strong> : les <code>eval</code> et les <code>sympify</code> de chaînes du tuteur, contournables (une fiche YAML
+  pouvait exécuter du code), sont remplacés par un interpréteur sûr fondé sur <code>ast</code>.</li>
+</ul>
+<p><strong>Mise à jour</strong> : le tuteur s'importe désormais sous <code>linalg_pedagopy.tuteur</code> (sous-modules
+<code>catalogue</code>, <code>seance</code>, <code>verificateurs</code>…). <code>linalg_pedagopy.tutor</code> et ses anciens sous-modules
+restent disponibles sans avertissement dans cette version ; <code>DeprecationWarning</code> en 0.3.2.0,
+suppression en 0.4.0.0. Comme pour 0.3.1.1, <code>0.3.1.2</code> est inférieur, pour pip, aux versions
+étiquetées <code>3.0.1</code> et <code>3.1.0</code>.</p>
+<h3 id="corrections-installation-de-base">Corrections — installation de base</h3>
+<ul>
+<li><code>import linalg_pedagopy</code> échouait sans numpy, pourtant déclaré optionnel (option <code>compare</code>) :
+  <code>compare/numeric.py</code> l'importait au chargement du paquet. numpy n'est plus importé qu'à l'usage ;
+  sans lui, les comparaisons numériques (<code>compare</code>, expériences de Läuchli et de Hilbert, inverse
+  contre résolution) lèvent une <code>ImportError</code> qui indique <code>pip install "linalg_pedagopy[compare]"</code>.
+  Vérifié sur la roue 0.3.1.2 installée dans un environnement vierge (SymPy et PyYAML seuls) ; test
+  <code>test_import_sans_numpy</code>.</li>
+</ul>
+<h3 id="phase-6-du-plan-v6-tuteur">Phase 6 du plan v6 — tuteur</h3>
+<ul>
+<li>6.0 : état des lieux du tuteur (<code>docs/dev/tuteur_etat_des_lieux.md</code> : modules, couverture, origine
+  des douze <code>eval</code>) ; tests de caractérisation de <code>verrou</code>, <code>indices</code> et <code>panneau</code>
+  (<code>tests/test_tuteur_verrou_indices_panneau.py</code>, couverture de 55–70 % à 99–100 %) ; deux tests
+  <code>xfail(strict=True)</code> documentent que <code>{"__builtins__": {}}</code> ne protège pas <code>eval</code> (accès par
+  <code>__globals__</code>), à corriger à l'étape 6.4. Tests du tuteur valables avec et sans ipywidgets :</li>
+<li>Tests du tuteur : <code>test_seance_type_6_4_from_section_7_8</code> et
+    <code>test_phase0_english_nomenclature_api</code> échouaient quand l'option <code>tuteur</code> (ipywidgets) était
+    installée, car <code>str()</code> d'un vrai <code>VBox</code> ne contient pas l'énoncé. Ces deux tests vérifient
+    désormais le panneau de repli en simulant l'absence d'ipywidgets ; le nouveau test
+    <code>test_panneau_ipywidgets_affiche_enonce</code> (ignoré sans ipywidgets) vérifie que le panneau
+    graphique affiche l'énoncé et ses boutons.</li>
+<li>CI : nouveau job « Tuteur avec ipywidgets », qui exécute <code>pytest tests/test_tuteur.py</code> avec
+    l'option <code>tuteur</code> installée.</li>
+<li>6.1 : registre des types de vérificateurs (<code>tutor/registry.py</code> : <code>VerifierType</code>,
+  <code>register_verifier</code>, <code>verifier_type</code>) à la place des trois cascades <code>if v_type in (...)</code> de
+  <code>catalog.py</code> (séance, champs obligatoires, contrôle croisé) et des tables <code>_EXPECTED_FORMS</code> et
+  <code>_VALID_VERIFIER_TYPES</code>. Les contrôles croisés quittent <code>catalog.py</code>, qui passe de 951 à 716
+  lignes. Diagnostics et références de caractérisation inchangés. Tests dans
+  <code>tests/test_tuteur_registre.py</code> ; <code>docs/dev/architecture.md</code> explique comment ajouter un type.</li>
+<li>6.2 : <code>tutor/verifiers.py</code> (1 193 lignes) devient le paquet <code>tutor/verifiers/</code> : un module par
+  type de vérificateur (<code>valeur</code>, <code>matrice</code>, <code>labo</code>…, 43 à 212 lignes), qui réunit la vérification,
+  son contrôle croisé et l'enregistrement du type avec sa forme attendue, plus <code>commun.py</code>
+  (<code>VerificationResult</code>, lecture des expressions indexées). Les noms importés de <code>tutor.verifiers</code>
+  sont inchangés. Le paquet rejoindra <code>tuteur/verificateurs/</code> à l'étape 6.6.</li>
+<li>6.3 : <code>tutor/catalog.py</code> découpé en <code>catalog.py</code> (fiches, thèmes, glossaire, mode ; 223 lignes),
+  <code>session.py</code> (<code>ExerciseSession</code>, <code>TeacherSheet</code>, <code>exercise</code> ; 320 lignes) et <code>validation.py</code>
+  (<code>ValidationReport</code>, <code>validate_sheet</code>, contrôle croisé ; 211 lignes). L'API publique (<code>tutor</code>,
+  <code>tuteur</code>) est inchangée ; le contrôle croisé par vérificateur est fait depuis 6.1–6.2.</li>
+<li><strong>6.4, 6.5, 6.7 (sécurité)</strong> : interpréteur sûr <code>tutor/evaluation_sure.py</code>, fondé sur <code>ast</code> et une
+  liste blanche de constructions, à la place des douze <code>eval</code> du tuteur et des <code>sympify</code> de chaînes.
+  <code>{"__builtins__": {}}</code> ne protégeait pas : <code>__globals__</code> rendait toutes les fonctions intégrées,
+  et une chaîne passée à <code>Vector</code>, <code>Matrix</code> ou <code>sympify</code> était exécutée ; une fiche YAML venue d'un
+  tiers pouvait donc exécuter du code. Sont refusés : noms et attributs en <code>_</code>, attributs des cadres
+  d'exécution et <code>format</code>, modules, fonctions anonymes, compréhensions, <code>:=</code>, f-chaînes,
+  dépaquetage, chaînes contenant « ( » ou « __ » transmises à un calcul, puissances démesurées. Le
+  champ <code>jumeau</code> ne voit que les générateurs (6.5) ; les données des fiches (<code>[1, a]</code>) passent par
+  <code>lire_donnee</code> ; <code>exercises/checkers.py</code> lit les opérations sur les lignes avec l'interpréteur.
+  Diagnostics et références inchangés. Tests d'évasion dans <code>tests/test_evaluation_sure.py</code> (6.7),
+  qui interdit aussi le retour d'<code>eval</code> ou de <code>sympify</code> ; les deux tests en échec attendu de 6.0
+  passent.</li>
+<li>6.6 : le code du tuteur passe de <code>tutor/</code> à <code>tuteur/</code>, sous des noms de modules français :
+  <code>catalogue.py</code>, <code>seance.py</code>, <code>validation.py</code>, <code>indices.py</code>, <code>journal.py</code>, <code>labo.py</code>, <code>verrou.py</code>,
+  <code>panneau.py</code>, <code>registre.py</code>, <code>evaluation_sure.py</code>, <code>verificateurs/</code>. <code>linalg_pedagopy.tutor</code> et
+  ses anciens sous-modules (<code>tutor.catalog</code>, <code>tutor.verifiers</code>…) réexportent les mêmes noms, sans
+  avertissement en 0.3.1.2 ; <code>DeprecationWarning</code> en 0.3.2.0, suppression en 0.4.0.0 (décision
+  15.1.13). Les sous-modules de compatibilité sont chargés avant les noms, pour qu'un import tardif
+  de <code>tutor.catalog</code> ne masque pas la fonction <code>tutor.catalog()</code>. La CI et <code>verifier_tout.py</code>
+  valident les fiches avec <code>tuteur.valider_fiche</code>.</li>
+<li>6.6 (documentation) : exemples du README, du tutoriel (et du carnet généré), des guides 04, 08, 09
+  et de l'accueil en noms français (<code>tuteur.exercice</code>, <code>ex.indice</code>, <code>ex.verifier</code>,
+  <code>rapport.valide</code>…) ; la table des noms du tuteur de l'accueil place le nom français en premier ;
+  la référence de l'API décrit les sous-modules de <code>tuteur</code> et le calendrier de retrait des noms
+  anglais.</li>
+</ul>
+<h3 id="nouveautes-traces-en-tableau">Nouveautés — traces en tableau</h3>
+<ul>
+<li><strong><code>explain().to_table()</code></strong> pour Gauss-Jordan et le déterminant : une ligne par opération
+  élémentaire (échange, dilatation, transvection, étape de Bareiss) avec les colonnes N°, Colonne,
+  Pivot, Opération, But et Matrice obtenue (pivot encadré, lignes modifiées en couleur, barre de la
+  matrice augmentée) ; lignes de commentaire pour les autres étapes visibles au niveau demandé ; un
+  tableau par branche d'une discussion par cas. Rendus <code>to_html()</code> (affichage automatique dans
+  JupyterLab), <code>to_markdown()</code> (sans « | » dans les cellules) et <code>to_latex()</code> (<code>longtable</code>) ; option
+  <code>standalone</code> pour une page HTML ou un document LaTeX complets. Nouveau module <code>render/table.py</code>
+  (<code>TraceTable</code>, <code>build_table</code>) ; clés de locale <code>table.*</code>. Les algorithmes ne changent pas : le
+  tableau est tiré de la trace existante.</li>
+<li>Extension aux autres algorithmes, avec des colonnes propres à chacun (dispositions) : inverse
+  (comme Gauss-Jordan) ; <strong>Gram-Schmidt et QR</strong> (N°, Vecteur traité, Coefficients, Opération, But,
+  Vecteur obtenu : une ligne par orthogonalisation, une par normalisation, variantes <code>end</code> et
+  <code>each</code>, famille liée) ; <strong>systèmes triangulaires</strong> (N°, Inconnue, Calcul, But, Valeur : formule
+  avec les coefficients de la ligne, puis valeurs connues). Une trace qui enchaîne plusieurs
+  algorithmes donne un tableau par algorithme (moindres carrés).</li>
+<li>Tests dans <code>tests/test_tableau.py</code> ; références de caractérisation <code>tableaux</code> et <code>tableaux_autres</code>
+  ; guide 06 (§ 1.2), référence de l'API.</li>
+</ul>
+<h3 id="refactorisation-phase-5-du-plan-v6-alleger-matrix">Refactorisation — phase 5 du plan v6 (alléger <code>Matrix</code>)</h3>
+<ul>
+<li>5.1 : registre unique <code>_procedures</code> (<code>register_procedure</code>, <code>objects/matrix.py</code>) à la place des
+  crochets <code>register_gauss_jordan_hook</code> et <code>register_determinant_hook</code> ; procédures enregistrées :
+  <code>gauss_jordan</code>, <code>determinant</code>, <code>matmul</code>, <code>gram</code>, <code>orthonormal_check</code>, <code>singular_check</code>.</li>
+<li>5.2 et 5.3 : la logique tracée sort de <code>Matrix</code> vers le nouveau module <code>algorithms/products.py</code> :
+  produit matriciel selon une vue (<code>matmul(view=…)</code>), matrice de Gram, contrôle d'orthonormalité des
+  colonnes, annonce des valeurs singulières avant <code>inv()</code>. Les méthodes de commodité (<code>rref</code>,
+  <code>rank</code>, <code>nullspace</code>, <code>inv</code>, <code>det</code>, <code>solve</code>, <code>gram</code>, <code>has_orthonormal_columns</code>) sont regroupées
+  dans une section délimitée et ne font plus que quelques lignes (projection d'un <code>CaseSplit</code>
+  factorisée dans <code>_champ</code>). <code>matrix.py</code> passe de 836 à 599 lignes. API et traces inchangées (clés
+  <code>matrix.*</code> conservées).</li>
+<li>5.4 : <code>docs/dev/architecture.md</code> : couches du paquet et dépendances permises, crochets, règle de
+  délégation de <code>Matrix</code> et registre des procédures, moteur d'élimination, traces et locales.</li>
+</ul>
+<h3 id="nouveautes-etape-49-du-plan-v6">Nouveautés — étape 4.9 du plan v6</h3>
+<ul>
+<li><strong>Stratégie de pivot <code>"sparse"</code></strong> (critère de Markowitz, la colonne étant fixée) : le pivot de la
+  ligne qui a le moins de coefficients non nuls, puis le plus simple.</li>
+<li><strong><code>reduction="back_substitution"</code></strong> pour <code>GaussJordan</code> : échelonnement vers le bas, puis remontée
+  de la dernière colonne pivot à la première (section de trace <code>gj.back_substitution</code>), au lieu de
+  l'élimination simultanée au-dessus et au-dessous de chaque pivot. Même forme réduite.</li>
+<li>Mesures sur six cas des campagnes (<code>docs/dev/campagnes.md</code>) : de 10 à 25 % de temps en moins avec
+  la remontée sur la tridiagonale et la bloc-triangulaire, expressions intermédiaires plus petites
+  avec <code>sparse</code> sur l'équicorrélation ; mêmes branches et mêmes résultats. Gains modestes : les
+  réglages par défaut (<code>simplest</code>, <code>simultaneous</code>) sont conservés, aucune sortie existante ne
+  change. Tests dans <code>tests/test_elimination.py</code> (dont une propriété : même forme réduite que SymPy
+  pour les quatre combinaisons) ; guide 03 (§ 2.1), référence de l'API.</li>
+</ul>
+<h3 id="nouveautes-etape-48-du-plan-v6-revisee">Nouveautés — étape 4.8 du plan v6 (révisée)</h3>
+<ul>
+<li><strong>Branches identiques regroupées à l'affichage</strong> : aux niveaux 0 et 1, les branches particulières
+  d'une discussion dont le résumé est identique s'affichent ensemble (« Cas a = 3, a = 2 ou a = 1 :
+  système incompatible » ; « Cas a = −2 ou a = 1 : det A = 0 »), en texte, LaTeX, Markdown et HTML.
+  Le <code>CaseSplit</code> n'est pas modifié (<code>at()</code>, <code>branches</code>) ; à partir du niveau 2, chaque branche garde
+  sa trace. Fonctions <code>group_branches</code>, <code>format_conditions_text</code> et <code>format_conditions_latex</code>
+  (<code>render/text.py</code>).</li>
+<li>Révision du plan : la fusion véritable des branches (conditions disjonctives) est abandonnée après
+  mesure : 4 branches sur 73 dans les cas de référence, et aucune sur la bloc-triangulaire 6 × 6,
+  dont les 10 résultats sont distincts. Ce plafond relève de la méthode par blocs (étape 9.3).</li>
+<li>7 références régénérées et relues (regroupements seuls). Tests dans <code>tests/test_regroupement.py</code> ;
+  guide 01 (§ 4.2).</li>
+</ul>
+<h3 id="nouveautes-etape-47-du-plan-v6-noyau-trace">Nouveautés — étape 4.7 du plan v6 (noyau tracé)</h3>
+<ul>
+<li><strong>Base du noyau expliquée</strong> dans la trace de niveau 2 : variables libres et principales, théorème
+  du rang (<code>dim ker A = n − rg A</code>), système homogène équivalent, chaque vecteur de base (« en posant
+  x2 = 1 et les autres variables libres nulles »), puis la sous-matrice identité des composantes
+  libres, qui prouve que la famille est libre. Sans variable libre, une réduction sans second membre
+  annonce <code>ker A = {0}</code>, de dimension 0, et sa base vide. Affichée pour une réduction sans second
+  membre (<code>rref()</code>, <code>rank()</code>, <code>nullspace()</code>) et pour une solution affine ; pas pour un système
+  incompatible ni pour un calcul d'inverse.</li>
+<li><code>kernel_basis</code> et <code>trace_kernel</code> dans <code>algorithms/elimination.py</code> remplacent
+  <code>GaussJordan._extract_nullspace</code> ; <code>Matrix.nullspace()</code> réduit <code>A</code> seule, sans colonne de zéros.
+  Clés de locale <code>ker.*</code>.</li>
+<li>14 références régénérées et relues : uniquement des lignes ajoutées (étapes du noyau), aucune
+  ligne modifiée ou retirée. Tests dans <code>tests/test_noyau.py</code> (dont une propriété : <code>A·v = 0</code>, <code>n −
+  rg A</code> vecteurs, bloc identité) ; guide 03 (§ 2.4).</li>
+</ul>
+<h3 id="nouveautes-etape-45-du-plan-v6">Nouveautés — étape 4.5 du plan v6</h3>
+<ul>
+<li><strong>Déterminant par élimination avec paramètres</strong> : <code>Determinant(A, method="elimination")</code> ne
+  s'arrête plus sur un pivot qui peut s'annuler (« Élimination interrompue… ») ; comme Gauss-Jordan,
+  il ouvre une discussion par cas, avec dans chaque branche le produit des pivots ou l'arrêt sur une
+  colonne sans pivot (déterminant nul). <code>Matrix.det(method="elimination")</code> renvoie alors un
+  <code>CaseSplit</code> des valeurs (surcharges de type : les autres méthodes renvoient toujours une
+  expression). La méthode <code>auto</code> est inchangée (Bareiss dès qu'il y a des paramètres).</li>
+<li>La triangulation sans dilatation du déterminant est construite sur <code>EliminationEngine</code>
+  (<code>reduce_above=False</code>, <code>normalize_pivots=False</code>), avec de nouvelles options de présentation de la
+  trace (<code>start_section</code>, <code>column_sections</code>, <code>stop_on_zero_column</code>, <code>signed_add</code>, <code>limit_arguments</code>)
+  et le comptage des échanges. Bareiss, qui n'ouvre jamais de discussion, garde sa boucle et partage
+  <code>RowOps</code>. Les traces des déterminants sont identiques, hormis les cas qui s'arrêtaient en erreur.
+  Clé de trace <code>det.elimination_conditional</code> remplacée par <code>det.case_split</code>. Nouveau cas de
+  caractérisation <code>det_elimination_parametre</code> ; guide 03 (§ 7.3).</li>
+</ul>
+<h3 id="refactorisation-phase-4-du-plan-v6-moteur-delimination">Refactorisation — phase 4 du plan v6 (moteur d'élimination)</h3>
+<ul>
+<li>4.1 : nouveau module <code>algorithms/elimination.py</code> qui regroupe les fonctions pures communes à
+  Gauss-Jordan et au déterminant : simplification des coefficients (<code>_simplify_entry</code>), critère et
+  choix du pivot (<code>_pivot_complexity_key</code>, nouvelle fonction <code>_choose_pivot</code>), mise en forme des
+  résultats d'une branche (<code>_result_entry</code>, <code>_factor_with_radicals</code>). <code>gauss_jordan.py</code>,
+  <code>determinant.py</code>, <code>gram_schmidt.py</code>, <code>qr.py</code>, <code>triangular.py</code> et <code>least_squares.py</code> les importent
+  de là. Aucune sortie modifiée.</li>
+<li>4.2 : opérations élémentaires tracées regroupées dans <code>RowOps</code> (<code>algorithms/elimination.py</code>) :
+  échange, dilatation, transvection et étape de Bareiss, avec le préfixe des clés de trace (<code>gj</code>,
+  <code>det</code>), le nom de l'instantané et l'écriture des transvections propres à chaque procédure.
+  Gauss-Jordan et le déterminant n'enregistrent plus eux-mêmes ces opérations. Traces identiques ;
+  six cas de déterminant ajoutés aux tests de caractérisation.</li>
+<li>4.3 : <code>EliminationEngine</code> (<code>algorithms/elimination.py</code>) porte la boucle d'élimination (analyse des
+  candidats par l'oracle, choix du pivot, opérations de lignes) et la discussion par cas (branche
+  générique puis branches particulières, plafonds <code>max_cases</code> et <code>max_depth</code>). La procédure lui
+  fournit <code>setup</code> (grille de travail sous une condition) et <code>on_complete</code> (résultat d'une branche,
+  ou <code>SplitRequest</code> pour une discussion supplémentaire). Options <code>reduce_above</code> et
+  <code>normalize_pivots</code> pour la triangulation sans dilatation. <code>GaussJordan</code> est réécrit dessus :
+  <code>gauss_jordan.py</code> passe de 683 à 496 lignes. Traces et discussions de cas identiques ; temps des
+  campagnes inchangés.</li>
+<li>4.6 : tests propres au moteur (<code>tests/test_elimination.py</code>) : choix du pivot, opérations de lignes
+  tracées (transvections signées et parenthésées, variante du déterminant, étape de Bareiss), forme
+  réduite, triangulation sans dilatation et comptage des échanges, arrêt sur une colonne nulle,
+  options de présentation, discussion par cas, <code>SplitRequest</code>, plafonds avec et sans arguments de
+  procédure.</li>
+</ul>
+<h3 id="corrections-traces-de-gauss-jordan">Corrections — traces de Gauss-Jordan</h3>
+<ul>
+<li>Transvections (<code>gj.row_add</code>) : un multiplicateur somme est parenthésé et le signe est le « − »
+  typographique, en texte, LaTeX, Markdown et HTML. La trace affichait « L2 ← L2 - a − 1·L1 », qui
+  change le sens de l'opération, au lieu de « L2 ← L2 − (a − 1)·L1 ».</li>
+<li>Système incompatible (<code>gj.inconsistent</code>, <code>EmptySolution._repr_markdown_</code>) : la parenthèse «
+  (témoin : 0 = 1) », ajoutée même quand la ligne donne 0 = 2 ou 0 = 2 − a, est retirée ; le message
+  annonce seulement « la ligne L3 donne 0 = 2 ».</li>
+<li>Références de caractérisation régénérées ; exemple du guide 05 mis à jour.</li>
+</ul>
+<h2 id="0311-2026-10-21">[0.3.1.1] — 2026-10-21</h2>
+<p>Numéro de version : <code>0.3.1.1</code> (étiquette <code>v0.3.1.1</code>), au lieu de <code>3.1.1</code> prévu par le plan v6. Le
+préfixe « v » est réservé à l'étiquette git : la norme PEP 440 le retire de la version du paquet.
+Attention, <code>0.3.1.1</code> est inférieur, pour pip, aux versions déjà étiquetées <code>3.0.1</code> et <code>3.1.0</code>.</p>
+<p>Phase 3 du plan v6 : correctifs issus des campagnes de tests du bac à sable (factorisation cohérente
+avec la condition, réduction par la condition de la branche, facteurs de signe constant à plusieurs
+paramètres, messages de plafond, avertissement de taille).</p>
+<h3 id="nouveautes-etape-35-du-plan-v6">Nouveautés — étape 3.5 du plan v6</h3>
+<ul>
+<li><strong>Avertissement didactique de taille</strong> : Gauss-Jordan sur une matrice à paramètres de taille
+  supérieure à <code>config.max_generic_dim</code> (4 par défaut) émet un <code>PedagogicalWarning</code> (nouvelle
+  classe, sous-classe de <code>UserWarning</code>), une fois par calcul, qui invite à chercher une structure
+  remarquable. Le calcul est toujours mené à terme ; <code>config.max_generic_dim = None</code> supprime
+  l'avertissement. Concerne aussi <code>Matrix.rref()</code>, <code>rank()</code>, <code>nullspace()</code>, <code>inv()</code> et <code>solve()</code>,
+  qui s'appuient sur Gauss-Jordan.</li>
+<li>Les références des campagnes enregistrent les avertissements émis : 7 cas de taille 5 ou 6 en
+  portent un (<code>t4_*</code>), sans autre changement. Tests dans <code>tests/test_avertissement_taille.py</code> ;
+  guide 03 (§ 2.1), référence de l'API.</li>
+</ul>
+<h3 id="corrections-etape-34-du-plan-v6">Corrections — étape 3.4 du plan v6</h3>
+<ul>
+<li><strong>Messages de plafond didactiques</strong> : nouvelle exception <code>CaseLimitError</code> (sous-classe de
+  <code>PedagopyError</code>, donc compatible avec le code qui attrapait cette dernière) levée quand
+  <code>max_cases</code> ou <code>max_depth</code> arrête une discussion par cas, dans Gauss-Jordan comme dans
+  <code>decide_all_zero</code>. Le message nomme les facteurs qui ouvrent des cas, la branche en cours, propose
+  une hypothèse prête à l'emploi (<code>assumptions="a != 1"</code>) et un plafond plus élevé (<code>max_cases=16,
+  ou config.max_cases = 16</code>) ; mêmes informations en attributs (<code>limit</code>, <code>value</code>, <code>reached</code>,
+  <code>factors</code>, <code>condition</code>, <code>suggested_assumption</code>). Remplace « Nombre maximal de branches dépassé
+  (max_cases=8). Fournissez des hypothèses… ».</li>
+<li>Références régénérées et relues : <code>t2_blocs_4x4_inverse</code>, <code>t2_circulante_3_parametres_inverse</code>,
+  <code>t4_bloc_triangulaire_6x6</code> (message d'erreur seul). Tests dans <code>tests/test_plafonds.py</code> ; guide 03
+  (§ 2.1).</li>
+</ul>
+<h3 id="corrections-etape-33-du-plan-v6">Corrections — étape 3.3 du plan v6</h3>
+<ul>
+<li><strong>Oracle : facteurs de signe constant à plusieurs paramètres.</strong> Un polynôme de degré 2 en
+  plusieurs paramètres réels est écrit, en complétant les carrés, comme une somme de carrés et d'une
+  constante ; si la constante est strictement positive, il ne s'annule jamais sur ℝ et n'ouvre plus
+  de branche impossible (<code>a² + a·b + b² + 1 = (a + b/2)² + 3/4·b² + 1 &gt; 0</code>). Il est aussi écarté des
+  valeurs interdites des dénominateurs. Étape de trace de niveau 3 (<code>zero.sign_definite</code>) avec la
+  décomposition. Nouvelles fonctions <code>sum_of_squares</code> et <code>strict_sign</code> dans <code>core.zero</code>. Auparavant,
+  seules les sommes de carrés déjà explicites (<code>a² + b² + 1</code>) étaient reconnues.</li>
+<li>Aucune référence modifiée ; la permutée cyclique 5 × 5 (<code>t4_permutee_cyclique_5x5</code>) reste sans
+  branche parasite. Tests dans <code>tests/test_signe_constant.py</code> ; guide 01 (§ 3.4).</li>
+</ul>
+<h3 id="corrections-etape-32-du-plan-v6">Corrections — étape 3.2 du plan v6</h3>
+<ul>
+<li><strong>Factorisation cohérente avec la condition</strong> : nouvelle option <code>config.factor_policy</code>,
+  <code>"real_radicals"</code> par défaut. Quand la condition d'une branche s'affiche avec des radicaux (« a ≠
+  √2 et a ≠ −√2 »), la solution, l'inverse et la base du noyau sont factorisés avec ces mêmes
+  radicaux : <code>(a − 2)/((a − 1)·(a − √2)·(a + √2))</code> au lieu de <code>(a − 2)/((a − 1)·(a² − 2))</code>. Seuls
+  les facteurs irréductibles sur ℚ sont décomposés ; <code>"rational"</code> rétablit l'ancienne écriture.
+  Nouvelle méthode <code>Condition.radicals()</code>.</li>
+<li><strong>Réduction par la condition de la branche</strong> : dans une branche définie par une égalité non
+  linéaire en un paramètre (a² − 3 = 0), les coefficients de la forme réduite sont remplacés par
+  leur reste dans la division par ce polynôme, avec une étape de trace de niveau 2
+  (<code>gj.reduce_by_condition</code>). Le témoin d'incompatibilité de la tridiagonale 5 × 5 s'écrit <code>0 = 2</code>
+  au lieu de <code>0 = a⁴ − 3a² + 2</code>. Nouvelles méthodes <code>Condition.reduce()</code> et
+  <code>Condition.nonlinear_equations()</code>.</li>
+<li>Références régénérées et relues : <code>t3_5_pivot_quadratique</code>, <code>t2_asymetrie_factorisation_inverse</code>,
+  <code>t4_tridiagonale_5x5</code> (seules sorties modifiées). Tests dans <code>tests/test_factorisation.py</code>.
+  Documentation : guide 03 (§ 2.4), référence de l'API (§ 8).</li>
+</ul>
+<h3 id="tests-etape-31-du-plan-v6">Tests — étape 3.1 du plan v6</h3>
+<ul>
+<li>Campagnes du bac à sable figées en tests de caractérisation : 21 cas reconstruits d'après le
+  rapport d'évaluation des carnets <code>tests2</code> à <code>test4</code> (tests limites, grosses matrices pleines et
+  creuses, plafonds de branches) dans <code>tests/campagnes.py</code>, références dans
+  <code>tests/references/campagnes/</code>, constats et reconstitution dans <code>docs/dev/campagnes.md</code>.</li>
+<li>Marque pytest <code>lent</code> pour les cas de plus de 5 s, écartés par <code>pytest -m "not lent"</code> et
+  <code>verifier_tout.py --rapide</code>.</li>
+<li><code>scripts/mesurer_performances.py</code> : temps, nombre de branches et taille des expressions de chaque
+  cas ; mesures de référence de la version 3.1.0 dans <code>docs/dev/mesures/campagnes_3.1.0.json</code>.</li>
+</ul>
+<h3 id="documentation-developpeur">Documentation développeur</h3>
+<ul>
+<li>Plan de développement v6 (<code>docs/dev/plans/plan_developpement_v6.md</code>), qui remplace le plan v5 à
+  partir de 3.1.0 : correctifs issus des campagnes de tests du bac à sable (0.3.1.1), moteur
+  d'élimination avec noyau tracé et fusion des branches, bases et sous-espaces avant les valeurs
+  propres (0.3.2.0), valeurs propres (0.3.3.0), familles de matrices structurées (0.3.4.0).
+  Relecture critique du rapport d'évaluation des carnets et du référentiel bases et noyau, dont les
+  erreurs relevées.</li>
+</ul>
+<h2 id="310-2026-10-21">[3.1.0] — 2026-10-21</h2>
+<p>Phase 2 du plan v5 : déterminant exact tracé, thème « Déterminants » du tuteur, annonce des cas
+singuliers dans <code>Matrix.inv()</code>.</p>
+<h3 id="nouveautes-phase-2-du-plan-v5-determinant">Nouveautés — phase 2 du plan v5 (déterminant)</h3>
+<ul>
+<li><strong>Déterminant exact tracé</strong> : <code>Determinant(A, method=...)</code> et <code>Matrix.det()</code>. Méthodes <code>bareiss</code>
+  (défaut avec paramètres : divisions exactes, aucune discussion de cas), <code>elimination</code> (sans
+  dilatation ; arrêt expliqué sur un pivot conditionnel), <code>cofactors</code> (n ≤ 4, ligne ou colonne la
+  plus creuse) et <code>sarrus</code> (n = 3). <code>DetResult</code> : valeur factorisée, facteurs, <code>zeros()</code> (valeurs
+  singulières du paramètre), <code>zeros(split=True)</code> (inversible / non inversible), <code>verify()</code> (contrôle
+  par l'algorithme de Berkowitz). Messages de trace en français.</li>
+<li>Documentation : section 7 du guide 03, § 4.4 du guide 02, référence de l'API (§ 4.6), tutoriel (§
+  5.5), README.</li>
+<li><strong>Tuteur : thème « Déterminants »</strong> (exercices 36 à 39, originaux) : règle de Sarrus, matrice
+  triangulaire par blocs, valeurs d'un paramètre rendant une matrice singulière, effet des
+  opérations élémentaires ; chacun avec trois paliers d'indices, un exercice jumeau résolu
+  (générateurs <code>determinant_sarrus</code>, <code>determinant_blocs</code>, <code>parametre_singulier</code>,
+  <code>determinant_operations</code>) et le diagnostic de ses erreurs typiques.</li>
+<li>Vérificateur <code>valeur</code> : liste facultative <code>erreurs</code> d'erreurs typiques propres à une fiche
+  (<code>valeur</code>, <code>diagnostic</code>), contrôlée par la validation (aucune ne doit coïncider avec la bonne
+  réponse).</li>
+<li>Nouveau vérificateur <code>ensemble_valeurs</code> (<code>verify_value_set</code>, alias <code>verifier_ensemble_valeurs</code>) :
+  valeurs d'un paramètre qui annulent une expression, comparées aux racines réelles ; diagnostics
+  pour une valeur qui ne convient pas, des valeurs manquantes, une liste vide ou une expression
+  donnée à la place des valeurs.</li>
+<li>Catalogue : 39 exercices en 9 thèmes ; <code>docs/generer_catalogue.py</code> compte exercices et thèmes au
+  lieu de les écrire en dur.</li>
+<li><code>Matrix.inv()</code> avec paramètres et <code>strict=True</code> : le message de <code>SingularMatrixError</code> annonce le
+  déterminant et les valeurs qui rendent la matrice singulière (« det A = -(a - 1)*(a + 1) s'annule
+  pour a = 1 ou a = −1 »), ou un déterminant identiquement nul, au lieu de « La matrice 2x2 est
+  singulière (rang 1 &lt; 2) », qui laissait croire la matrice singulière pour toute valeur.</li>
+<li>Cahier d'exercices, exercice 16 : le dernier indice invite à calculer et factoriser $\det A(a)$ au
+  lieu d'en donner la valeur ; le corrigé utilise <code>A.det()</code> et <code>Determinant(A).run().zeros()</code>. Les
+  générateurs de carnets (tutoriel, cahier) calculent les identifiants de cellule à partir du
+  contenu : régénération reproductible.</li>
+</ul>
+<h3 id="corrections_1">Corrections</h3>
+<ul>
+<li>Site de documentation : 54 formules s'affichaient sous la forme de leur jeton de protection brut
+  (pages, sommaires « Sur cette page », index de recherche). Les jetons de protection <code>__…__</code> étaient
+  mis en gras par Markdown et n'étaient plus restitués ; ils sont remplacés par des jetons faits
+  seulement de lettres et de chiffres, retirés des ancres de titres, et la génération échoue s'il en
+  reste. Nouveau test <code>tests/test_site_documentation.py</code>.</li>
+</ul>
+<h2 id="301-2026-10-21">[3.0.1] — 2026-10-21</h2>
+<p>Première version publique : fin de la phase 1 du plan v5 (corrections relevées par les tests de
+caractérisation, préparation et publication du dépôt). Dépôt :
+https://github.com/liouai-digital-education/linalg-pedagopy ; documentation :
+https://liouai-digital-education.github.io/linalg-pedagopy/.</p>
+<h3 id="phase-1-du-plan-v5-corrections">Phase 1 du plan v5 — corrections</h3>
+<ul>
+<li>Oracle de nullité : les valeurs interdites par les dénominateurs sont relevées <strong>avant</strong> toute
+  simplification et rendues dans le nouveau champ <code>ZeroDecision.domain</code> (pour <code>(a**2 - 1)/(a - 1)</code> :
+  domaine <code>a ≠ 1</code>, au lieu de perdre la valeur interdite). Le verdict est décidé sur ce domaine ;
+  sous une hypothèse qui annule un dénominateur, l'oracle répond <code>UNKNOWN</code> avec la méthode
+  <code>undefined</code>.</li>
+<li>Gauss-Jordan (et donc <code>rref</code>, <code>rank</code>, <code>nullspace</code>, <code>inv</code>, <code>solve</code>) tient compte du domaine de
+  définition des coefficients : les valeurs interdites par leurs dénominateurs restreignent toutes
+  les branches (pour <code>[[(a²−1)/(a−1), 1], [1, 1]]</code>, la branche générique devient « a ≠ 1 et a ≠ 0
+  »), la trace l'annonce (<code>gj.domain</code>), et des hypothèses incompatibles lèvent une <code>PedagopyError</code>
+  explicite. Nouvelle fonction <code>domain_of</code> dans <code>core.zero</code>.</li>
+<li>Oracle : la condition d'annulation d'un verdict conditionnel est complète. Le nouveau champ
+  <code>ZeroDecision.cases</code> donne une alternative par facteur, et <code>format_cases()</code> l'affiche (<code>a*b</code> : « a
+  = 0 ou b = 0 ») ; <code>condition</code> reste la première alternative. Le vérificateur d'opérations
+  élémentaires affiche la condition complète.</li>
+<li><code>Vector.is_zero()</code> et <code>Matrix.has_orthonormal_columns()</code> discutent désormais des cas disjoints et
+  exhaustifs (nouvelle fonction <code>decide_all_zero</code>). Auparavant, <code>Vector([a*b, 0]).is_zero()</code>
+  répondait faux en a = 1, b = 0, et <code>Vector([a, b - 1]).is_zero()</code> ne couvrait pas a = 0, b = 2.</li>
+<li><code>explain(level=0)</code> affiche enfin le <strong>résultat seul</strong> (rang, solution, inverse…), en texte, LaTeX,
+  Markdown et HTML, au lieu d'un texte vide ; c'est le résumé déjà utilisé pour les branches d'une
+  discussion par cas. Tableau des niveaux du guide 03 corrigé.</li>
+<li>Tuteur : une réponse illisible n'affiche plus le message brut de SymPy ou de Python (en anglais,
+  variable selon la version), mais une raison en français (formule sur plusieurs lignes ou matrice
+  affichée, signe « = », parenthèses déséquilibrées, multiplication sans <code>*</code>, nom inconnu, syntaxe
+  invalide) : vérificateur de formule, chaînes d'égalités et panneau JupyterLab
+  (<code>raison_illisible</code>). Une matrice ou un vecteur donné à un exercice de formule reçoit le message
+  de forme attendue, avec les variables de l'exercice.</li>
+<li>mypy : attributs de <code>Matrix</code> et <code>Vector</code> (classes à <code>__slots__</code>) annotés, quelques retours <code>Any</code>
+  explicités. <code>mypy --strict</code> ne signale plus aucune erreur sur <code>core</code>, <code>algorithms</code>, <code>objects</code>,
+  <code>render</code>, <code>trace</code>, <code>plot</code>, <code>config.py</code> et <code>special.py</code> (périmètre <code>files</code> de <code>[tool.mypy]</code>),
+  désormais <strong>bloquant</strong> dans la CI et <code>verifier_tout.py</code> ; sur tout le paquet, 71 erreurs au lieu
+  de 212 (tuteur, exercices, <code>compare</code>), vérifiées à titre informatif.</li>
+</ul>
+<h3 id="phase-1-du-plan-v5-preparation-de-la-publication">Phase 1 du plan v5 — préparation de la publication</h3>
+<ul>
+<li>Manuel « Algèbre linéaire et géométrie vectorielle » (PDF de 28 Mo, ouvrage protégé) retiré de
+  <strong>tout l'historique</strong> git avant la première publication : les empreintes de tous les commits ont
+  changé ; dépôt de 26 Mo ramené à 1,5 Mo. Le fichier reste disponible localement, ignoré par git
+  (<code>.gitignore</code> : ce fichier, dossier <code>ressources/</code>, vidages <code>*.stackdump</code>).</li>
+<li>Section <strong>Sources et remerciements</strong> dans le <code>README.md</code> et l'accueil de la documentation : les 35
+  exercices du tuteur sont adaptés du recueil <em>Additional Exercises for Vectors, Matrices, and Least
+  Squares</em> (Boyd et Vandenberghe) ; droits des auteurs rappelés ; la licence MIT ne porte que sur le
+  code et les textes propres au projet. Les fiches elles-mêmes ne citent toujours pas leur source
+  (pour ne pas orienter vers les solutions).</li>
+<li>Site HTML régénéré : il rattrape aussi Python 3.10 minimum (guide JupyterLab) et la description du
+  niveau 0 (guide 03).</li>
+<li>Racine du dépôt rangée : scripts de génération dans <code>scripts/</code> (ancrés sur la racine du dépôt,
+  utilisables depuis n'importe quel dossier), carnets dans <code>carnets/</code> (ils trouvent <code>src/</code> depuis
+  leur dossier ou la racine), plans dans <code>docs/dev/plans/</code>. Chemins mis à jour dans le README, le
+  tutoriel, le guide JupyterLab, <code>tests/run_notebooks.py</code> ; ruff vérifie aussi <code>scripts/</code> (imports
+  inutilisés supprimés).</li>
+<li>Carnets d'essai <code>essai1</code> à <code>essai4</code> sortis du dépôt (conservés localement dans <code>archives/</code>,
+  ignoré) ; <code>essai1</code> et <code>essai2</code>, qui contenaient un énoncé du recueil en clair, retirés de <strong>tout
+  l'historique</strong> : les empreintes de tous les commits ont de nouveau changé.</li>
+<li>Carnets versionnés <strong>sans sorties</strong> : <code>scripts/nettoyer_carnets.py</code> (sans dépendance ; modes
+  <code>--verifier</code> et <code>--filtre</code>), filtre git facultatif <code>carnets</code> déclaré dans <code>.gitattributes</code>, test
+  <code>tests/test_carnets_propres.py</code>. Les 6 carnets suivis sont nettoyés : seules leurs sorties,
+  souvent issues d'exécutions partielles, sont retirées.</li>
+<li>Métadonnées du paquet : statut <strong>Beta</strong> (au lieu de « Production/Stable ») tant que l'API du
+  tuteur évolue, classificateurs « Natural Language :: French » et « Topic :: Education ». Les URL
+  du dépôt et de la documentation viendront avec la publication.</li>
+<li>Publication préparée : URL du dépôt <code>liouai-digital-education/linalg-pedagopy</code> et de la
+  documentation (GitHub Pages) dans <code>[project.urls]</code>, badges du README ; workflow
+  <code>documentation.yml</code> qui publie <code>docs/site/</code> ; les liens du site vers le code source visent GitHub
+  quand l'URL « Source » est connue ; chemins locaux retirés de l'ancien plan d'implémentation ;
+  branche <code>master</code> renommée <code>main</code>.</li>
+<li>Dépôt public <code>liouai-digital-education/linalg-pedagopy</code> : historique publié avec l'adresse e-mail
+  du projet, CI verte sur <code>main</code> et <code>development</code> (Python 3.10 à 3.13), documentation en ligne ;
+  relance manuelle possible du workflow Tests. Version lue dans <code>pyproject.toml</code> par le site ; test
+  de cohérence avec <code>__version__</code>.</li>
+</ul>
+<h3 id="phase-0-du-plan-v5-filet-de-securite">Phase 0 du plan v5 — filet de sécurité</h3>
+<ul>
+<li>Python <strong>3.10</strong> minimum (<code>requires-python</code>, ruff, mypy, classificateurs).</li>
+<li>Tests de caractérisation : traces, discussions de cas et oracle
+  (<code>tests/test_caracterisation_algorithmes.py</code>), énoncés, indices, jumeaux et diagnostics des 35
+  fiches (<code>tests/test_caracterisation_tuteur.py</code>), références dans <code>tests/references/</code> (régénération
+  : <code>LP_MAJ_REFERENCES=1</code>).</li>
+<li><code>tests/run_notebooks.py</code> : exécution des carnets maintenus (moteur Jupyter ou simple), journal du
+  tuteur temporaire.</li>
+<li><code>verifier_tout.py</code> et intégration continue GitHub Actions (<code>.github/workflows/tests.yml</code>) : tests
+  et couverture sur Python 3.10 à 3.13, fiches, ruff, mypy (informatif), carnets.</li>
+<li>Configuration ruff (<code>E4</code>, <code>E7</code>, <code>E9</code>, <code>F</code>) et mypy (bibliothèques sans types ignorées) ;
+  dépendances de développement : <code>nbformat</code>, <code>nbclient</code>, <code>ipykernel</code> (<code>syrupy</code>, inutilisé, retiré).</li>
+<li>Corrections de lint sans effet sur le comportement (imports inutilisés, annotation <code>Mapping</code>
+  manquante, variable inutilisée).</li>
+<li>Documentation développeur : <code>docs/dev/tests_et_verifications.md</code>, <code>docs/dev/couverture.md</code>.</li>
+</ul>
+<h3 id="tuteur-et-exercices">Tuteur et exercices</h3>
+<ul>
+<li>Les 35 exercices ont désormais un <strong>identifiant lisible</strong>, un <strong>titre</strong>, un <strong>thème</strong> (8 thèmes),
+  un <strong>niveau</strong> (★ à ★★★) et un <strong>numéro</strong> ; plus aucune référence à un ouvrage ou recueil externe
+  (fiches renommées <code>&lt;identifiant&gt;.yaml</code>, champs <code>page</code>, <code>source</code>, <code>ecart</code> supprimés).</li>
+<li><code>tutor.catalog()</code> / <code>catalogue()</code> (tableau Markdown dans JupyterLab), <code>tutor.themes()</code>,
+  <code>tutor.list_exercises(theme)</code>, <code>tutor.reload_catalog()</code>.</li>
+<li><code>tutor.exercise()</code> accepte un identifiant, un numéro ou un titre ; <code>UnknownExerciseError</code> avec
+  suggestion en cas de faute de frappe.</li>
+<li>Énoncé avec titre, thème, type et niveau ; <code>ex.title</code>, <code>ex.number</code>, <code>ex.theme</code>, <code>ex.level</code>.</li>
+<li><code>ex.hint()</code> explique quand tous les paliers sont débloqués (au lieu d'un message de « niveau 5 »)
+  ; nouvelle méthode <code>ex.reset()</code> / <code>ex.recommencer()</code>.</li>
+<li><code>ex.verify()</code> ne lève plus d'exception sur une réponse mal formée : il indique la forme attendue.
+  La réponse <code>None</code> n'est plus acceptée comme « invalide ».</li>
+<li>Bilan en Markdown (<code>ex.summary()</code>), panneau JupyterLab refait (énoncé rendu en LaTeX, relecture
+  d'un palier, zone de réponse et bouton Vérifier).</li>
+<li>9 nouveaux exercices jumeaux, adaptés au sujet de chaque fiche (matrice décrite par son effet,
+  adjacence, puissance de matrice, mise à l'échelle diagonale, inverse d'un produit, système
+  linéaire, produit par blocs, valeurs d'un polynôme, inégalité triangulaire) ; jumeau Gram-Schmidt
+  détaillé.</li>
+<li>Glossaire étendu à 40 termes, recherche en français, liste avec <code>glossary()</code>.</li>
+<li>Messages sans références internes (« Principe 6 », « §7.5 », « D5 »…).</li>
+</ul>
+<h3 id="nouveautes">Nouveautés</h3>
+<ul>
+<li>Module <code>linalg_pedagopy.special</code> : <code>difference_matrix</code>, <code>running_sum_matrix</code>,
+  <code>moving_average_matrix</code>, <code>vandermonde</code>, <code>convolution_matrix</code>, <code>convolution</code>, <code>selection_matrix</code>,
+  <code>reversal_matrix</code> (avec alias français).</li>
+</ul>
+<h3 id="corrections_2">Corrections</h3>
+<ul>
+<li>Rendu texte des puissances (<code>a··2</code> → <code>a²</code>) et des racines (<code>√(1 − m²)</code>) ; conditions affichées en
+  notation mathématique et factorisées (<code>b ≠ 1 et b ≠ −1</code>).</li>
+<li>Discussion de cas en Markdown, LaTeX et HTML : solutions rendues en LaTeX.</li>
+<li><code>repr(CaseSplit)</code> concis (au lieu de la trace complète) ; <code>print(case_split)</code> affiche la
+  discussion.</li>
+<li>Titre d'un exercice jumeau corrompu par une tabulation (<code>\text</code> non échappé).</li>
+<li>Fiches du tuteur : restauration des caractères accentués et des symboles perdus (<code>§</code>, <code>é</code>, <code>è</code>,
+  <code>à</code>, <code>ô</code>, <code>⊥</code>, <code>≈</code>) dans les champs <code>source</code> et <code>ecart</code> des 35 fiches ; test de non-régression
+  <code>test_fiches_source_ecart_sans_caracteres_corrompus</code>.</li>
+<li><code>check_row_operation</code> : une opération qui écrase une ligne sans la conserver (ex. <code>L1 &lt;- L2</code>) est
+  désormais diagnostiquée comme <code>row_overwrite</code> (avec suggestion d'échange ou de transvection) au
+  lieu d'être confondue avec une dilatation par 0.</li>
+</ul>
+<h3 id="documentation">Documentation</h3>
+<ul>
+<li>Documentation réécrite : nouveau guide du tuteur, catalogue des exercices
+  (<code>docs/08_catalogue_exercices.md</code>, régénéré par <code>docs/generer_catalogue.py</code>), guide JupyterLab,
+  matrices structurées, site HTML régénéré.</li>
+<li><code>TUTORIAL.md</code> mis à jour ; le carnet tutoriel est désormais généré à partir de <code>TUTORIAL.md</code>.</li>
+<li>Correction de la documentation (<code>docs/*.md</code>, <code>README.md</code>, site HTML <code>docs/site/</code>) pour la rendre
+  conforme à l'API réelle : exemples exécutables vérifiés, signatures et champs de résultats exacts,
+  suppression des fonctionnalités non implémentées (QR Householder/Givens, locale anglaise, méthodes
+  de projection, prédicats <code>is_*</code>…), liens relatifs vers le code source à la place des chemins
+  absolus <code>file:///</code>.</li>
+</ul>
+<h2 id="300-2026-10-19">[3.0.0] — 2026-10-19</h2>
+<p>Version du commit initial <code>48bf2b7</code>, publiée sans étiquette git (les étiquettes commencent à
+<code>v3.0.1</code>).</p>
+<h3 id="nouveautes-majeures-version-30">Nouveautés majeures (Version 3.0)</h3>
+<ul>
+<li><strong>Tuteur interactif pour VMLS (<code>linalg_pedagopy.tuteur</code>)</strong> : accompagnement des étudiants de L1–L2
+  sur le recueil <em>Additional Exercises for Vectors, Matrices, and Least Squares</em> (Boyd &amp;
+  Vandenberghe, éd. 24 nov. 2020) sans jamais révéler la solution en mode étudiant.</li>
+<li><strong>8 principes pédagogiques du tuteur</strong> :</li>
+<li>Vérification par propriété plutôt que par corrigé figé ;</li>
+<li>Diagnostic de ce que calcule la réponse de l'étudiant ;</li>
+<li>Échelle d'indices gradués sur 4 niveaux (Orientation, Outil, Démarrage, Jumeau) ;</li>
+<li>Exercice jumeau résolu avec trace complète au niveau 4 ;</li>
+<li>Verrouillage des données d'exercice (<code>LockedVector</code>, <code>LockedMatrix</code>) jusqu'à validation ;</li>
+<li>Prédiction obligatoire avant exploration au laboratoire de contre-exemples ;</li>
+<li>Refus de confirmer un « toujours vrai » par de simples essais ;</li>
+<li>Journal JSON local transparent et fonction <code>valider_fiche</code>.</li>
+<li><strong>Couverture du recueil VMLS</strong> : 35 fiches d'exercices (33 exercices couverts complètement <code>●</code> +
+  exercices <code>3.3</code> et <code>3.13</code> illustrant le laboratoire de contre-exemples), accompagnées d'un
+  glossaire anglais–français intégré.</li>
+<li><strong>Architecture formelle complète (D1–D11)</strong> :</li>
+<li>Corps de travail $\mathbb{R}$ (<code>real=True</code>, D1) et politique de coercition des flottants
+    (<code>float_policy</code>, D2) ;</li>
+<li>Oracle de nullité à 4 verdicts (<code>ZERO</code>, <code>NONZERO</code>, <code>CONDITIONAL</code>, <code>UNKNOWN</code>, D3) et discussion
+    par cas (<code>CaseSplit</code>, D4) ;</li>
+<li>Objets <code>Vector</code> et <code>Matrix</code> immuables (D5) appuyés sur <code>DomainMatrix</code> (D10) ;</li>
+<li>Traceur contextuel arborescent (<code>tracing</code>, <code>section</code>, <code>record</code>) à 4 niveaux (D6) et moteurs de
+    rendu découplés (<code>text</code>, <code>latex</code>, <code>markdown</code>, <code>html</code>, D7) ;</li>
+<li>Résultats typés (<code>GJResult</code>, <code>SolutionSet</code>, <code>GSResult</code>, <code>QRResult</code>, <code>LSResult</code>, D8) et pivot le
+    plus simple (D11) ;</li>
+<li>Modules <code>exercises</code> (générateurs exacts par matrices unimodulaires, transformée de Cayley,
+    etc.), <code>compare</code> (exact vs flottant, matrice de Läuchli, Hilbert) et <code>plot</code> (figures 2D/3D).</li>
+</ul>
+      </article>
+
+      <!-- Navigation entre chapitres -->
+      <nav class="chapter-nav">
+        
+        <a href="dev_campagnes.html" class="chapter-nav-btn">
+          <span class="nav-direction">&larr; Chapitre précédent</span>
+          <span class="nav-target">Campagnes de tests</span>
+        </a>
+        
+
+        
+      </nav>
+    </main>
+
+    <!-- Barre latérale droite : Sommaire de la page (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-heading">Sur cette page</div>
+      <ul class="toc-list">
+        
+        <li class="toc-item ">
+          <a href="#non-publie-branche-development">[Non publié] — branche development</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#corrections">Corrections</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#corrections-lot-1-de-la-revue-de-la-documentation">Corrections — lot 1 de la revue de la documentation</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#documentation-lot-1-de-la-revue">Documentation — lot 1 de la revue</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#tests-lot-2-de-la-revue-documentation-testee">Tests — lot 2 de la revue (documentation testée)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#documentation-lot-3a-de-la-revue-contenu-des-guides">Documentation — lot 3a de la revue (contenu des guides)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#documentation-lot-3b-de-la-revue-structure-et-coherence">Documentation — lot 3b de la revue (structure et cohérence)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#site-lot-3c-de-la-revue">Site — lot 3c de la revue</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#0312-2026-10-21">[0.3.1.2] — 2026-10-21</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#corrections-installation-de-base">Corrections — installation de base</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#phase-6-du-plan-v6-tuteur">Phase 6 du plan v6 — tuteur</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#nouveautes-traces-en-tableau">Nouveautés — traces en tableau</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#refactorisation-phase-5-du-plan-v6-alleger-matrix">Refactorisation — phase 5 du plan v6 (alléger Matrix)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#nouveautes-etape-49-du-plan-v6">Nouveautés — étape 4.9 du plan v6</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#nouveautes-etape-48-du-plan-v6-revisee">Nouveautés — étape 4.8 du plan v6 (révisée)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#nouveautes-etape-47-du-plan-v6-noyau-trace">Nouveautés — étape 4.7 du plan v6 (noyau tracé)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#nouveautes-etape-45-du-plan-v6">Nouveautés — étape 4.5 du plan v6</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#refactorisation-phase-4-du-plan-v6-moteur-delimination">Refactorisation — phase 4 du plan v6 (moteur d'élimination)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#corrections-traces-de-gauss-jordan">Corrections — traces de Gauss-Jordan</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#0311-2026-10-21">[0.3.1.1] — 2026-10-21</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#nouveautes-etape-35-du-plan-v6">Nouveautés — étape 3.5 du plan v6</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#corrections-etape-34-du-plan-v6">Corrections — étape 3.4 du plan v6</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#corrections-etape-33-du-plan-v6">Corrections — étape 3.3 du plan v6</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#corrections-etape-32-du-plan-v6">Corrections — étape 3.2 du plan v6</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#tests-etape-31-du-plan-v6">Tests — étape 3.1 du plan v6</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#documentation-developpeur">Documentation développeur</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#310-2026-10-21">[3.1.0] — 2026-10-21</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#nouveautes-phase-2-du-plan-v5-determinant">Nouveautés — phase 2 du plan v5 (déterminant)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#corrections_1">Corrections</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#301-2026-10-21">[3.0.1] — 2026-10-21</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#phase-1-du-plan-v5-corrections">Phase 1 du plan v5 — corrections</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#phase-1-du-plan-v5-preparation-de-la-publication">Phase 1 du plan v5 — préparation de la publication</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#phase-0-du-plan-v5-filet-de-securite">Phase 0 du plan v5 — filet de sécurité</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#tuteur-et-exercices">Tuteur et exercices</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#nouveautes">Nouveautés</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#corrections_2">Corrections</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#documentation">Documentation</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#300-2026-10-19">[3.0.0] — 2026-10-19</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#nouveautes-majeures-version-30">Nouveautés majeures (Version 3.0)</a>
+        </li>
+        
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <p>
+      <strong>linalg_pedagopy</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement de l'algèbre linéaire en L1–L2.<br>
+      Documentation sous licence MIT. Code source ouvert.
+    </p>
+  </footer>
+
+  <script src="assets/js/academic.js"></script>
+</body>
+</html>

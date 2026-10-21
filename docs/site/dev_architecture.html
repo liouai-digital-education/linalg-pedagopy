@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architecture du paquet — linalg_pedagopy</title>
+  <meta name="description" content="Couches, registres, moteur d'élimination et décisions de conception">
+
+  <!-- Typographie Web Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="assets/css/academic.css">
+
+  <!-- MathJax pour les formules mathématiques exactes -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <!-- Versions figées et empreintes SRI (sha256 publié par jsDelivr) : une mise à jour du CDN ne
+       change ni le rendu ni le code exécuté. Pour monter de version, mettez à jour l'URL et l'empreinte. -->
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"
+          integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
+
+  <!-- Moteur de diagrammes Mermaid.js ; « strict » : le HTML des libellés est encodé, pas exécuté -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.8/dist/mermaid.min.js"
+          integrity="sha256-jWB9fvHQd6iqIC4Y5iISv6mSxov+q8XPRdUaEo/mZ10=" crossorigin="anonymous"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'strict' });
+  </script>
+</head>
+<body>
+
+  <!-- En-tête institutionnel -->
+  <header class="site-header">
+    <a href="index.html" class="header-brand">
+      <div class="brand-crest">LP</div>
+      <div>
+        <div class="brand-title">linalg_pedagopy</div>
+        <div class="brand-subtitle">Algèbre linéaire formelle et pédagogique</div>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher... (Ctrl+K)" readonly>
+      </div>
+      <button id="themeToggle" class="theme-toggle-btn" title="Changer de thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- Modal de recherche plein texte -->
+  <div id="searchModal" class="search-results-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="Rechercher une fonction, un théorème, un symbole...">
+      </div>
+      <div id="modalSearchResults" class="search-modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;">Saisissez un mot-clé...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-container">
+    <!-- Barre latérale gauche de navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Sommaire de l'ouvrage</div>
+      <ul class="nav-list">
+        
+        
+        <li class="nav-item ">
+          <a href="index.html">
+            <span>Accueil</span>
+            <span class="nav-badge">Portail</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="01_noyau_calcul_formel.html">
+            <span>01. Noyau formel et calcul exact</span>
+            <span class="nav-badge">Fondement</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="02_vecteurs_matrices.html">
+            <span>02. Vecteurs, matrices et métriques</span>
+            <span class="nav-badge">Objets</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="03_algorithmes_traces.html">
+            <span>03. Algorithmes et traçabilité</span>
+            <span class="nav-badge">Algèbre</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="04_tuteur.html">
+            <span>04. Le tuteur interactif</span>
+            <span class="nav-badge">Pédagogie</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="05_exercices_sessions.html">
+            <span>05. Exercices et sessions guidées</span>
+            <span class="nav-badge">Didactique</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="06_rendu_visualisation_numerique.html">
+            <span>06. Rendu, visualisation et comparaison numérique</span>
+            <span class="nav-badge">Visuel</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="07_api_reference.html">
+            <span>07. Référence de l'API</span>
+            <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="08_catalogue_exercices.html">
+            <span>08. Catalogue des exercices</span>
+            <span class="nav-badge">Exercices</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="09_guide_jupyterlab.html">
+            <span>09. Utiliser le package dans JupyterLab</span>
+            <span class="nav-badge">Pratique</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-section">Développement</li>
+        
+        <li class="nav-item ">
+          <a href="contribuer.html">
+            <span>Contribuer</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item active">
+          <a href="dev_architecture.html">
+            <span>Architecture du paquet</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="dev_tests.html">
+            <span>Tests et vérifications</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="dev_campagnes.html">
+            <span>Campagnes de tests</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="journal.html">
+            <span>Journal des modifications</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
+        <strong>Version 0.3.1.2</strong><br>
+        Calcul exact · tuteur interactif
+      </div>
+    </aside>
+
+    <!-- Corps de texte de l'article -->
+    <main class="main-content">
+      <header class="article-header">
+        <span class="article-badge">Chapitre D2 • Dév.</span>
+        <h1 class="article-title">Architecture du paquet</h1>
+        <p class="article-subtitle">Couches, registres, moteur d'élimination et décisions de conception</p>
+      </header>
+
+      <article class="markdown-body">
+        <p>Guide pour les contributeurs : où placer un nouveau code, et quelles dépendances il peut avoir. Rédigé à l'étape 5.4 du <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/docs/dev/plans/plan_developpement_v6.md">plan de développement v6</a>.</p>
+<h2 id="couches">Couches</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Couche</th>
+<th style="text-align: left;">Dossier</th>
+<th style="text-align: left;">Rôle</th>
+<th style="text-align: left;">Peut importer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Configuration</td>
+<td style="text-align: left;"><code>config.py</code></td>
+<td style="text-align: left;">État immuable et contextuel (<code>config</code>, <code>using_config</code>).</td>
+<td style="text-align: left;">—</td>
+</tr>
+<tr>
+<td style="text-align: left;">Noyau formel</td>
+<td style="text-align: left;"><code>core/</code></td>
+<td style="text-align: left;">Scalaires exacts (<code>field.py</code>), oracle de nullité (<code>zero.py</code>), conditions et discussions par cas (<code>cases.py</code>), exceptions.</td>
+<td style="text-align: left;"><code>config</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Trace</td>
+<td style="text-align: left;"><code>trace/</code></td>
+<td style="text-align: left;">Étapes (<code>Step</code>, <code>StepKind</code>, <code>Highlight</code>) et traceur contextuel (<code>record</code>, <code>section</code>, <code>tracing</code>).</td>
+<td style="text-align: left;"><code>core</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Objets</td>
+<td style="text-align: left;"><code>objects/</code></td>
+<td style="text-align: left;"><code>Vector</code> et <code>Matrix</code> : représentation et opérations algébriques.</td>
+<td style="text-align: left;"><code>core</code>, <code>trace</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Rendu</td>
+<td style="text-align: left;"><code>render/</code></td>
+<td style="text-align: left;">Explications en texte, LaTeX, Markdown, HTML ; locales (<code>locales/fr.yaml</code>).</td>
+<td style="text-align: left;"><code>core</code>, <code>trace</code>, <code>objects</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">Algorithmes</td>
+<td style="text-align: left;"><code>algorithms/</code></td>
+<td style="text-align: left;">Procédures tracées (<code>Procedure</code> → <code>Result</code>) : élimination, Gauss-Jordan, déterminant, Gram-Schmidt, QR, moindres carrés, produits.</td>
+<td style="text-align: left;">toutes les couches précédentes</td>
+</tr>
+<tr>
+<td style="text-align: left;">Usages</td>
+<td style="text-align: left;"><code>exercises/</code>, <code>tuteur/</code>, <code>compare/</code>, <code>plot/</code></td>
+<td style="text-align: left;">Séances interactives, tuteur (<code>tutor/</code> : noms anglais réexportés, supprimé en 0.4.0.0), comparaisons numériques, figures.</td>
+<td style="text-align: left;">toutes</td>
+</tr>
+</tbody>
+</table>
+<p>Une couche n'importe jamais une couche située plus bas dans ce tableau. Quand une couche basse a besoin d'un service d'une couche haute, elle passe par un <strong>crochet</strong> que la couche haute remplit à l'import :</p>
+<ul>
+<li><code>core.field.register_trace_hook</code> : l'oracle émet des étapes de trace (<code>emit_core_event</code>) sans importer <code>trace</code> ;</li>
+<li><code>core.cases.register_casesplit_explain_hook</code> : <code>CaseSplit.explain()</code> sans importer <code>render</code> ;</li>
+<li><code>objects.matrix.register_procedure</code> : les méthodes de commodité de <code>Matrix</code> sans importer <code>algorithms</code> (ci-dessous).</li>
+</ul>
+<h2 id="regle-de-delegation-de-matrix">Règle de délégation de <code>Matrix</code></h2>
+<p><code>Matrix</code> contient :</p>
+<ol>
+<li>la <strong>représentation</strong> : construction (<code>from_rows</code>, <code>identity</code>, <code>block</code>…), accès (<code>row</code>, <code>col</code>, indexation), conversions (<code>to_sympy</code>, <code>subs</code>) ;</li>
+<li>les <strong>opérations algébriques</strong> : <code>+</code>, <code>-</code>, produit par un scalaire, transposée, <code>@</code> ;</li>
+<li>des <strong>méthodes de commodité de quelques lignes</strong>, regroupées dans une section délimitée, qui délèguent à une procédure de <code>algorithms/</code> : <code>rref</code>, <code>rank</code>, <code>nullspace</code>, <code>inv</code>, <code>det</code>, <code>solve</code>, <code>gram</code>, <code>has_orthonormal_columns</code>, <code>matmul(view=…)</code>.</li>
+</ol>
+<p>Toute logique d'algorithme (boucle, discussion de cas, trace) vit dans <code>algorithms/</code>. Les méthodes de commodité appellent le registre <code>_procedures</code>, rempli à l'import de <code>algorithms/</code> :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Nom</th>
+<th style="text-align: left;">Procédure</th>
+<th style="text-align: left;">Module</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>gauss_jordan</code></td>
+<td style="text-align: left;"><code>GaussJordan</code></td>
+<td style="text-align: left;"><code>algorithms/gauss_jordan.py</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>determinant</code></td>
+<td style="text-align: left;"><code>Determinant</code></td>
+<td style="text-align: left;"><code>algorithms/determinant.py</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>matmul</code></td>
+<td style="text-align: left;">produit matriciel tracé selon une vue</td>
+<td style="text-align: left;"><code>algorithms/products.py</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>gram</code></td>
+<td style="text-align: left;">matrice de Gram</td>
+<td style="text-align: left;"><code>algorithms/products.py</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>orthonormal_check</code></td>
+<td style="text-align: left;">contrôle de <code>AᵀA = I</code></td>
+<td style="text-align: left;"><code>algorithms/products.py</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>singular_check</code></td>
+<td style="text-align: left;">annonce des valeurs singulières avant <code>inv()</code></td>
+<td style="text-align: left;"><code>algorithms/products.py</code></td>
+</tr>
+</tbody>
+</table>
+<p>Pour ajouter une méthode de commodité (par exemple <code>eigenvalues()</code> en phase 8) :</p>
+<ol>
+<li>écrire la procédure dans <code>algorithms/</code> ;</li>
+<li>l'enregistrer en bas de son module : <code>register_procedure("eigen", Eigen)</code> ;</li>
+<li>importer le module dans <code>algorithms/__init__.py</code> ;</li>
+<li>ajouter à <code>Matrix</code> une méthode de quelques lignes : <code>_procedure("eigen")(self, …).run()</code>, et <code>_champ(res, "attribut")</code> pour en extraire un champ, branche par branche si le résultat est un <code>CaseSplit</code>.</li>
+</ol>
+<p><code>linalg_pedagopy/__init__.py</code> importe <code>algorithms/</code> : dès que le paquet est importé, le registre est rempli.</p>
+<h2 id="moteur-delimination">Moteur d'élimination</h2>
+<p><code>algorithms/elimination.py</code> regroupe ce que partagent les procédures qui échelonnent (phase 4) :</p>
+<ul>
+<li>fonctions pures : <code>_simplify_entry</code>, <code>_pivot_complexity_key</code>, <code>_choose_pivot</code>, <code>_result_entry</code> ;</li>
+<li>opérations de lignes tracées : <code>RowOps</code> (échange, dilatation, transvection, étape de Bareiss), paramétrées par le préfixe des clés de trace (<code>gj</code>, <code>det</code>) ;</li>
+<li>moteur : <code>EliminationEngine</code>, qui parcourt les colonnes, choisit les pivots et ouvre une discussion par cas quand un pivot peut s'annuler. La procédure lui fournit <code>setup</code> (grille de travail sous une condition) et <code>on_complete</code> (résultat d'une branche, ou <code>SplitRequest</code>) ;</li>
+<li>noyau : <code>kernel_basis</code> et <code>trace_kernel</code>.</li>
+</ul>
+<p><code>GaussJordan</code> et l'élimination du déterminant sont construits sur ce moteur. Bareiss garde sa boucle, car il n'ouvre jamais de discussion, et partage <code>RowOps</code>.</p>
+<h2 id="registre-des-verificateurs-du-tuteur">Registre des vérificateurs du tuteur</h2>
+<p>Chaque type de vérificateur d'une fiche (<code>valeur</code>, <code>matrice</code>, <code>labo</code>…) est décrit une fois par un <code>VerifierType</code> (<code>tuteur/registre.py</code>) : nom français et alias anglais, fonction de vérification, forme de réponse attendue (message quand la réponse est illisible), champs obligatoires de la fiche, contrôle croisé de la validation, et deux drapeaux (<code>requires_twin</code>, <code>checks_hint_leak</code>, faux pour le laboratoire). La séance (<code>ExerciseSession.verify</code>) et la validation des fiches (<code>validate_sheet</code>) lisent ce registre.</p>
+<p>Pour ajouter un type (par exemple pour le thème 10 de la phase 7) :</p>
+<ol>
+<li>créer un module <code>tuteur/verificateurs/nom.py</code> (un module par type ; outils communs dans <code>commun.py</code>) ;</li>
+<li>y écrire la fonction de vérification <code>f(réponse, spécification, données)</code> et son contrôle croisé <code>g(séance, spécification, données) -&gt; list[str]</code> ;</li>
+<li>l'enregistrer en bas du module : <code>register_verifier(VerifierType("nom", ("alias",), sans_seance(f), "forme attendue", requires("champ", message=...), g))</code> ;</li>
+<li>importer le module dans <code>tuteur/verificateurs/__init__.py</code>.</li>
+</ol>
+<h2 id="lecture-de-texte-dans-le-tuteur">Lecture de texte dans le tuteur</h2>
+<p>Le tuteur et les exercices ne lisent jamais un texte avec <code>eval</code>, <code>exec</code> ou <code>sympify</code> : un texte vient d'une fiche (peut-être écrite par un tiers) ou d'une saisie. Ils utilisent l'interpréteur <code>tuteur/evaluation_sure.py</code> :</p>
+<ul>
+<li><code>evaluer(texte, noms)</code> : sémantique de Python, seuls <code>noms</code> sont connus ;</li>
+<li><code>expression(texte, noms)</code> : sémantique de <code>sympify</code> (entiers exacts, <code>^</code>, nom inconnu = symbole) ;</li>
+<li><code>en_expression(valeur)</code> : <code>sympify</code> d'un objet qui peut contenir des chaînes ;</li>
+<li><code>lire_donnee(valeur)</code> : données d'une fiche (<code>[1, a]</code>), symboles réels.</li>
+</ul>
+<p>L'interpréteur n'accepte qu'une liste blanche de constructions, refuse les noms et attributs en <code>_</code>, les modules, et toute chaîne contenant « ( » ou « __ » transmise à un appel ou à une opération. Un test interdit le retour d'<code>eval</code> ou de <code>sympify</code> dans <code>tutor/</code>, <code>tuteur/</code> et <code>exercises/</code>.</p>
+<h2 id="noyau-formel-decisions-et-fonctions-internes">Noyau formel : décisions et fonctions internes</h2>
+<p>Le <a href="01_noyau_calcul_formel.html">guide 01</a> décrit le comportement du noyau pour l'utilisateur. Les choix de conception et les fonctions privées qui le réalisent sont ici. Les décisions numérotées (D1 à D11) viennent de la v2 et sont listées dans <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/docs/dev/plans/implementation_plan.md">plans/implementation_plan.md</a>.</p>
+<ul>
+<li><strong>D1, symboles réels</strong> : <code>core.field.symbols</code> ajoute <code>real=True</code> à tout symbole, pour que SymPy simplifie sur $\mathbb{R}$ ($\sqrt{a^2} = |a|$, factorisation des carrés) et que l'oracle raisonne sur des valeurs réelles.</li>
+<li><strong>D3, oracle de nullité à quatre verdicts</strong> : <code>core.zero.ZeroOracle.decide</code> ne lève jamais et renvoie <code>ZERO</code>, <code>NONZERO</code>, <code>CONDITIONAL</code> (avec les facteurs d'annulation) ou <code>UNKNOWN</code> ; <code>is_zero</code> lève <code>UndecidableZeroError</code> pour les deux derniers. Une réponse booléenne forcée diviserait par un pivot qui peut s'annuler, ou oublierait le cas générique.</li>
+<li><strong>Appariement par nom</strong> : <code>core.field.match_symbol_substitutions(free_syms, mapping)</code> construit le dictionnaire de substitution de <code>CaseSplit.at</code> et de <code>Condition.is_satisfied</code> en associant chaque clé (chaîne ou symbole) à tous les symboles libres qui portent son nom, ainsi qu'au symbole réel de ce nom.</li>
+<li><strong>Radicaux paramétriques</strong> : <code>core.zero._extract_factors</code> élimine les radicaux avec <code>sympy.solvers.solvers.unrad</code>, résout la partie polynomiale sur $\mathbb{R}$, puis réinjecte chaque racine candidate dans l'expression de départ pour écarter les racines parasites introduites par l'élévation au carré.</li>
+<li><strong>Clôture transitive</strong> : <code>core.cases._compute_transitive_substitutions</code> transforme les égalités d'une <code>Condition</code> en substitutions ($a = b$ et $b = 3$ donnent $a \mapsto 3$, $b \mapsto 3$), recalculées jusqu'à un point fixe. <code>Condition.substitutions()</code>, <code>is_contradictory</code> et <code>implies_zero</code> s'appuient dessus.</li>
+</ul>
+<h2 id="traces-et-locales">Traces et locales</h2>
+<p>La trace est enregistrée complète (niveau 3) puis filtrée à l'affichage : c'est la décision D6 de la v2 (<a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/docs/dev/plans/implementation_plan.md">plans/implementation_plan.md</a>), présentée aux utilisateurs dans le <a href="03_algorithmes_traces.html">guide 03, § 1.1</a>.</p>
+<p>Chaque étape de trace a une clé (<code>gj.row_add</code>, <code>det.bareiss_step</code>, <code>ker.vector</code>…) et des paramètres. Le texte de chaque clé est dans <code>render/locales/fr.yaml</code>, et <code>str.format</code> y insère les paramètres (accolades littérales doublées : <code>{{0}}</code>). Une nouvelle clé s'ajoute dans la section de son préfixe. Les messages d'exception restent écrits dans le code, <code>core</code> ne pouvant pas lire les locales de <code>render</code>.</p>
+<h2 id="tests">Tests</h2>
+<p>Voir <a href="dev_tests.html">tests_et_verifications.md</a>. Toute refactorisation doit laisser les références de caractérisation identiques. Tout changement voulu de sortie a son propre commit, avec les références régénérées et relues.</p>
+      </article>
+
+      <!-- Navigation entre chapitres -->
+      <nav class="chapter-nav">
+        
+        <a href="contribuer.html" class="chapter-nav-btn">
+          <span class="nav-direction">&larr; Chapitre précédent</span>
+          <span class="nav-target">Contribuer</span>
+        </a>
+        
+
+        
+        <a href="dev_tests.html" class="chapter-nav-btn" style="text-align:right;">
+          <span class="nav-direction">Chapitre suivant &rarr;</span>
+          <span class="nav-target">Tests et vérifications</span>
+        </a>
+        
+      </nav>
+    </main>
+
+    <!-- Barre latérale droite : Sommaire de la page (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-heading">Sur cette page</div>
+      <ul class="toc-list">
+        
+        <li class="toc-item ">
+          <a href="#couches">Couches</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#regle-de-delegation-de-matrix">Règle de délégation de Matrix</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#moteur-delimination">Moteur d'élimination</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#registre-des-verificateurs-du-tuteur">Registre des vérificateurs du tuteur</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#lecture-de-texte-dans-le-tuteur">Lecture de texte dans le tuteur</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#noyau-formel-decisions-et-fonctions-internes">Noyau formel : décisions et fonctions internes</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#traces-et-locales">Traces et locales</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#tests">Tests</a>
+        </li>
+        
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <p>
+      <strong>linalg_pedagopy</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement de l'algèbre linéaire en L1–L2.<br>
+      Documentation sous licence MIT. Code source ouvert.
+    </p>
+  </footer>
+
+  <script src="assets/js/academic.js"></script>
+</body>
+</html>

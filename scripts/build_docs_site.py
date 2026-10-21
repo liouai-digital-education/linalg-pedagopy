@@ -7,6 +7,7 @@ Convertit les fichiers Markdown de docs/ en un site HTML autonome au design sobr
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import re
 from typing import Any
@@ -60,6 +61,23 @@ PAGES = [
      "subtitle": "Les 39 exercices du tuteur par thème et par niveau", "badge": "Exercices", "number": "08"},
     {"id": "09_jupyterlab", "src": "09_guide_jupyterlab.md", "dst": "09_guide_jupyterlab.html",
      "subtitle": "Installation pas à pas, premières cellules et dépannage", "badge": "Pratique", "number": "09"},
+    # Section « Développement » : contribuer, architecture, tests, journal des modifications
+    {"id": "contribuer", "src": "../CONTRIBUTING.md", "dst": "contribuer.html", "nav": "Contribuer",
+     "subtitle": "Langue, branches, commits, vérifications et documentation générée", "badge": "Dév.",
+     "number": "D1", "section": "dev"},
+    {"id": "dev_architecture", "src": "dev/architecture.md", "dst": "dev_architecture.html",
+     "nav": "Architecture du paquet",
+     "subtitle": "Couches, registres, moteur d'élimination et décisions de conception", "badge": "Dév.",
+     "number": "D2", "section": "dev"},
+    {"id": "dev_tests", "src": "dev/tests_et_verifications.md", "dst": "dev_tests.html",
+     "nav": "Tests et vérifications",
+     "subtitle": "Familles de tests, références, exemples vérifiés et qualité du code", "badge": "Dév.",
+     "number": "D3", "section": "dev"},
+    {"id": "dev_campagnes", "src": "dev/campagnes.md", "dst": "dev_campagnes.html", "nav": "Campagnes de tests",
+     "subtitle": "Tests limites, grosses matrices et plafonds de branches", "badge": "Dév.",
+     "number": "D4", "section": "dev"},
+    {"id": "journal", "src": "../CHANGELOG.md", "dst": "journal.html", "nav": "Journal des modifications",
+     "subtitle": "Les changements de chaque version", "badge": "Dév.", "number": "D5", "section": "dev"},
 ]
 
 # Anciennes adresses des pages renommées (noms anglais jusqu'à la v0.3.1.2) : une page de
@@ -362,6 +380,16 @@ body {
   border-radius: 4px;
   text-transform: uppercase;
   font-weight: 600;
+}
+
+.nav-section {
+  margin: 1.25rem 0 0.4rem;
+  padding: 0 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
 .nav-item.active .nav-badge {
@@ -1008,7 +1036,7 @@ PAGE_TEMPLATE = jinja2.Template("""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title }} — linalg_pedagopy</title>
+  <title>{{ page.title }}{% if 'linalg_pedagopy' not in page.title %} — linalg_pedagopy{% endif %}</title>
   <meta name="description" content="{{ page.subtitle }}">
 
   <!-- Typographie Web Google Fonts -->
@@ -1084,6 +1112,9 @@ PAGE_TEMPLATE = jinja2.Template("""<!DOCTYPE html>
       <div class="sidebar-heading">Sommaire de l'ouvrage</div>
       <ul class="nav-list">
         {% for p in pages %}
+        {% if p.section == "dev" and (loop.first or loop.previtem.section != "dev") %}
+        <li class="nav-section">Développement</li>
+        {% endif %}
         <li class="nav-item {% if p.id == page.id %}active{% endif %}">
           <a href="{{ p.dst }}">
             <span>{{ p.nav }}</span>
@@ -1172,7 +1203,37 @@ def _jeton(i: int) -> str:
 JETON_RESIDUEL = re.compile(r"AcadTok\d+Z|ACADEMIC_TOKEN")
 
 
-def preprocess_markdown(text: str) -> tuple[str, list[str]]:
+def _reecrire_liens(text: str, source: Path) -> str:
+    """Réécrit les liens Markdown relatifs de la page ``source`` pour le site.
+
+    Une page publiée devient son fichier HTML (ancre conservée). Un autre fichier ou dossier du
+    dépôt devient un lien vers GitHub (URL « Source » de pyproject.toml) ou, à défaut, un lien
+    relatif depuis docs/site/. Les liens externes, les ancres seules et les cibles introuvables
+    ne changent pas.
+    """
+    publiees = {(DOCS_DIR / p["src"]).resolve(): p["dst"] for p in PAGES}
+    base_source = _url_source_depot()
+
+    def remplacer(m: re.Match[str]) -> str:
+        cible = m.group(1)
+        if cible.startswith(("http://", "https://", "mailto:", "#")):
+            return m.group(0)
+        chemin, diese, ancre = cible.partition("#")
+        fichier = (source.parent / chemin).resolve()
+        if fichier in publiees:
+            return f"]({publiees[fichier]}{diese}{ancre})"
+        if not fichier.exists() or RACINE.resolve() not in fichier.parents:
+            return m.group(0)
+        relatif = fichier.relative_to(RACINE.resolve()).as_posix()
+        if base_source:
+            genre = "tree" if fichier.is_dir() else "blob"
+            return f"]({base_source}/{genre}/main/{relatif}{diese}{ancre})"
+        return f"]({os.path.relpath(fichier, OUTPUT_DIR.resolve()).replace(os.sep, '/')}{diese}{ancre})"
+
+    return re.sub(r"\]\(([^)\s]+)\)", remplacer, text)
+
+
+def preprocess_markdown(text: str, source: Path) -> tuple[str, list[str]]:
     """Protège les formules mathématiques et convertit les callouts et mermaid."""
     tokens: list[str] = []
 
@@ -1228,15 +1289,8 @@ def preprocess_markdown(text: str) -> tuple[str, list[str]]:
         text,
     )
 
-    # 5. Réajuster les liens .md en .html (avec ou sans ancre)
-    text = re.sub(r"\(([\w_-]+)\.md(#[\w-]*)?\)", r"(\1.html\2)", text)
-
-    # 6. Les liens relatifs vers le code source (../src/...) sont écrits depuis docs/.
-    #    Site publié (URL « Source » dans pyproject.toml) : lien vers le fichier sur GitHub ;
-    #    sinon, lien relatif depuis docs/site/, d'où un niveau supplémentaire.
-    base_source = _url_source_depot()
-    cible = rf"({base_source}/blob/main/\1)" if base_source else r"(../../\1)"
-    text = re.sub(r"\(\.\./((?:src|tests)/[^)\s]*)\)", cible, text)
+    # 5. Liens relatifs, résolus depuis le dossier de la page source
+    text = _reecrire_liens(text, source)
 
     return text, tokens
 
@@ -1373,7 +1427,7 @@ def build_site() -> None:
         raw_md = _sans_h1(src_path.read_text(encoding="utf-8"))
 
         # Prétraitement et protection
-        preprocessed_md, tokens = preprocess_markdown(raw_md)
+        preprocessed_md, tokens = preprocess_markdown(raw_md, src_path)
 
         # Conversion Markdown -> HTML
         content_html_raw = markdown.markdown(

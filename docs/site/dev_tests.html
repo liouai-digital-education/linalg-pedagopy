@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tests et vérifications — linalg_pedagopy</title>
+  <meta name="description" content="Familles de tests, références, exemples vérifiés et qualité du code">
+
+  <!-- Typographie Web Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="assets/css/academic.css">
+
+  <!-- MathJax pour les formules mathématiques exactes -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <!-- Versions figées et empreintes SRI (sha256 publié par jsDelivr) : une mise à jour du CDN ne
+       change ni le rendu ni le code exécuté. Pour monter de version, mettez à jour l'URL et l'empreinte. -->
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"
+          integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
+
+  <!-- Moteur de diagrammes Mermaid.js ; « strict » : le HTML des libellés est encodé, pas exécuté -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.8/dist/mermaid.min.js"
+          integrity="sha256-jWB9fvHQd6iqIC4Y5iISv6mSxov+q8XPRdUaEo/mZ10=" crossorigin="anonymous"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'strict' });
+  </script>
+</head>
+<body>
+
+  <!-- En-tête institutionnel -->
+  <header class="site-header">
+    <a href="index.html" class="header-brand">
+      <div class="brand-crest">LP</div>
+      <div>
+        <div class="brand-title">linalg_pedagopy</div>
+        <div class="brand-subtitle">Algèbre linéaire formelle et pédagogique</div>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher... (Ctrl+K)" readonly>
+      </div>
+      <button id="themeToggle" class="theme-toggle-btn" title="Changer de thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- Modal de recherche plein texte -->
+  <div id="searchModal" class="search-results-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="Rechercher une fonction, un théorème, un symbole...">
+      </div>
+      <div id="modalSearchResults" class="search-modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;">Saisissez un mot-clé...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-container">
+    <!-- Barre latérale gauche de navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Sommaire de l'ouvrage</div>
+      <ul class="nav-list">
+        
+        
+        <li class="nav-item ">
+          <a href="index.html">
+            <span>Accueil</span>
+            <span class="nav-badge">Portail</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="01_noyau_calcul_formel.html">
+            <span>01. Noyau formel et calcul exact</span>
+            <span class="nav-badge">Fondement</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="02_vecteurs_matrices.html">
+            <span>02. Vecteurs, matrices et métriques</span>
+            <span class="nav-badge">Objets</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="03_algorithmes_traces.html">
+            <span>03. Algorithmes et traçabilité</span>
+            <span class="nav-badge">Algèbre</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="04_tuteur.html">
+            <span>04. Le tuteur interactif</span>
+            <span class="nav-badge">Pédagogie</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="05_exercices_sessions.html">
+            <span>05. Exercices et sessions guidées</span>
+            <span class="nav-badge">Didactique</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="06_rendu_visualisation_numerique.html">
+            <span>06. Rendu, visualisation et comparaison numérique</span>
+            <span class="nav-badge">Visuel</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="07_api_reference.html">
+            <span>07. Référence de l'API</span>
+            <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="08_catalogue_exercices.html">
+            <span>08. Catalogue des exercices</span>
+            <span class="nav-badge">Exercices</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="09_guide_jupyterlab.html">
+            <span>09. Utiliser le package dans JupyterLab</span>
+            <span class="nav-badge">Pratique</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-section">Développement</li>
+        
+        <li class="nav-item ">
+          <a href="contribuer.html">
+            <span>Contribuer</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="dev_architecture.html">
+            <span>Architecture du paquet</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item active">
+          <a href="dev_tests.html">
+            <span>Tests et vérifications</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="dev_campagnes.html">
+            <span>Campagnes de tests</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="journal.html">
+            <span>Journal des modifications</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
+        <strong>Version 0.3.1.2</strong><br>
+        Calcul exact · tuteur interactif
+      </div>
+    </aside>
+
+    <!-- Corps de texte de l'article -->
+    <main class="main-content">
+      <header class="article-header">
+        <span class="article-badge">Chapitre D3 • Dév.</span>
+        <h1 class="article-title">Tests et vérifications</h1>
+        <p class="article-subtitle">Familles de tests, références, exemples vérifiés et qualité du code</p>
+      </header>
+
+      <article class="markdown-body">
+        <p>Guide pour les contributeurs : comment vérifier qu'une modification ne casse rien. Les règles générales (branches, commits, langue) sont dans <a href="contribuer.html">CONTRIBUTING.md</a>.</p>
+<h2 id="en-une-commande">En une commande</h2>
+<div class="code-container"><div class="code-header"><span>Bash</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bash">pip install -e ".[dev,plot,compare]"
+python verifier_tout.py              # tests (+ couverture), fiches, ruff, mypy, carnets
+python verifier_tout.py --rapide     # tests (sans les cas marqués « lent ») et fiches seulement
+</code></pre></div>
+<p>L'intégration continue (<code>.github/workflows/tests.yml</code>) exécute les mêmes étapes sur Python 3.10 à 3.13 à chaque envoi sur <code>main</code> ou <code>development</code>, une fois le dépôt publié sur GitHub.</p>
+<h2 id="les-familles-de-tests">Les familles de tests</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Fichiers</th>
+<th style="text-align: left;">Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>tests/test_*.py</code> (hors caractérisation)</td>
+<td style="text-align: left;">Tests unitaires : propriétés mathématiques, API, cas limites.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tests/test_caracterisation_algorithmes.py</code></td>
+<td style="text-align: left;">Fige les traces (<code>explain</code> niveaux 0 à 3, Markdown, LaTeX, HTML), les discussions de cas et les décisions de l'oracle pour une trentaine de calculs représentatifs.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tests/test_caracterisation_tuteur.py</code></td>
+<td style="text-align: left;">Fige, pour chacune des 39 fiches, l'énoncé, les paliers d'indices, le jumeau, les diagnostics de réponses fausses génériques et la fiche enseignant ; ainsi que le laboratoire, le catalogue, le glossaire et les 24 générateurs de jumeaux.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tests/test_caracterisation_campagnes.py</code></td>
+<td style="text-align: left;">Fige les 21 cas des campagnes du bac à sable (<code>tests/campagnes.py</code>) : tests limites, grosses matrices pleines et creuses, plafonds de branches ; voir <a href="dev_campagnes.html">campagnes.md</a>. Les 5 cas de plus de 5 s portent la marque <code>lent</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tests/test_exemples_documentation.py</code></td>
+<td style="text-align: left;">Exécute les blocs <code>```python</code> du README, de l'accueil, des guides <code>docs/0*.md</code> (hors 07 et 08) et du tutoriel, et compare les sorties marquées <code>#&gt;</code> (voir <a href="#exemples-de-la-documentation">Exemples de la documentation</a>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tests/run_notebooks.py</code></td>
+<td style="text-align: left;">Exécute les carnets maintenus (tutoriel, problèmes, projet, cahier d'exercices et corrigé).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tests-de-caracterisation-mode-demploi">Tests de caractérisation : mode d'emploi</h2>
+<p>Un test de caractérisation compare une sortie complète au fichier <code>tests/references/&lt;nom&gt;.txt</code>, au caractère près. Il ne dit pas ce qui est juste : il signale <strong>tout changement</strong>.</p>
+<ul>
+<li><strong>Refactorisation</strong> (phases 1 à 3) : les références ne doivent pas bouger. Un échec affiche le diff entre la référence et la sortie obtenue.</li>
+<li><strong>Changement voulu</strong> (nouveau message, correction de trace) : régénérez puis relisez le diff git avant de commiter.</li>
+</ul>
+<div class="code-container"><div class="code-header"><span>Bash</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bash">LP_MAJ_REFERENCES=1 pytest tests/test_caracterisation_algorithmes.py   # macOS / Linux
+set LP_MAJ_REFERENCES=1 &amp;&amp; pytest tests\test_caracterisation_tuteur.py   # Windows (cmd)
+git diff tests/references                                               # relire chaque changement
+</code></pre></div>
+<p>Les références sont stables d'une exécution à l'autre (vérifié avec plusieurs valeurs de <code>PYTHONHASHSEED</code>). Elles dépendent de la version de SymPy, qui peut changer l'écriture de certaines expressions : après une mise à jour de SymPy, régénérez-les et vérifiez que seules des écritures ont changé.</p>
+<p>Les cas longs portent la marque <code>lent</code> : <code>pytest -m "not lent"</code> (ou <code>python verifier_tout.py --rapide</code>) les écarte ; l'intégration continue les exécute tous.</p>
+<p>Le fichier <code>.gitattributes</code> impose des fins de ligne LF pour <code>tests/references/</code>, afin que les comparaisons fonctionnent aussi sous Windows.</p>
+<h2 id="exemples-de-la-documentation">Exemples de la documentation</h2>
+<p><code>tests/test_exemples_documentation.py</code> exécute, page par page, tous les blocs <code>```python</code> de <code>README.md</code>, <code>docs/index.md</code>, <code>docs/0*.md</code> (sauf 07 et 08) et <code>TUTORIAL.md</code>. Les blocs d'une même page partagent leurs variables, comme les cellules d'un carnet ; ils tournent dans un répertoire temporaire (le journal du tuteur y est écrit) avec <code>MPLBACKEND=Agg</code>. Une exception dans un bloc fait échouer le test de la page.</p>
+<p>Les commentaires qui suivent un <code>print(...)</code> obéissent à une convention simple :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Écriture</th>
+<th style="text-align: left;">Sens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code># texte</code></td>
+<td style="text-align: left;">Commentaire libre (paraphrase, extrait, explication) : jamais comparé.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>#&gt; texte</code></td>
+<td style="text-align: left;">Ligne de sortie <strong>exacte</strong>. Les lignes <code>#&gt;</code> qui suivent immédiatement un <code>print(...)</code> sont comparées, ligne à ligne, à ce qu'il affiche ; les espaces de fin sont ignorés et <code>#&gt;</code> seul désigne une ligne vide.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>#&gt; …</code> (dernière ligne)</td>
+<td style="text-align: left;">La sortie doit seulement <strong>commencer</strong> par les lignes <code>#&gt;</code> qui précèdent.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>&lt;!-- exemple: non exécuté --&gt;</code></td>
+<td style="text-align: left;">Placé sur la ligne non vide qui précède un bloc : le bloc n'est pas exécuté (pseudo-code, affichage interactif).</td>
+</tr>
+</tbody>
+</table>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(P.rank())
+#&gt; Discussion selon a
+#&gt; ├─ Cas a ≠ 1 et a ≠ −1 (générique) : 2
+#&gt; └─ Cas a = 1 ou a = −1 : 1
+</code></pre></div>
+<p>N'écrivez <code>#&gt;</code> que si la ligne est la sortie au caractère près ; un extrait, une sortie abrégée par « ... » ou une paraphrase restent en <code>#</code>. Les commentaires en fin de ligne (<code>print(x)  # True</code>) ne sont pas comparés. Une page dont l'exécution dépasse 5 s s'ajoute à <code>LENTES</code> dans le fichier de test, ce qui lui donne la marque <code>lent</code>.</p>
+<h2 id="fichiers-generes-de-la-documentation">Fichiers générés de la documentation</h2>
+<p>Le catalogue des exercices (<code>docs/08_catalogue_exercices.md</code>) et le site HTML (<code>docs/site/</code>) sont générés puis versionnés. Le site publie aussi, dans sa section « Développement », <code>CONTRIBUTING.md</code>, <code>CHANGELOG.md</code>, <code>architecture.md</code>, <code>campagnes.md</code> et cette page. Après une modification d'une fiche du tuteur, d'une page <code>.md</code> de <code>docs/</code> ou de <code>docs/dev/</code>, du CHANGELOG ou de <code>CONTRIBUTING.md</code>, régénérez-les, dans cet ordre (le site reprend le catalogue), et commitez le résultat :</p>
+<div class="code-container"><div class="code-header"><span>Bash</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bash">pip install -e ".[docs]"            # markdown, jinja2, beautifulsoup4
+python docs/generer_catalogue.py
+python scripts/build_docs_site.py
+</code></pre></div>
+<p>Le carnet <code>carnets/tutoriel_linalg_pedagopy.ipynb</code> est lui aussi généré, à partir de <code>TUTORIAL.md</code> : après une modification du tutoriel, lancez <code>python scripts/convert_tutorial_to_ipynb.py</code> (bibliothèque standard seulement).</p>
+<p>Le job « Documentation à jour » de l'intégration continue refait ces trois générations et échoue si <code>git diff</code> montre un écart, ou si un fichier du site n'est pas versionné.</p>
+<h2 id="carnets">Carnets</h2>
+<div class="code-container"><div class="code-header"><span>Bash</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bash">python tests/run_notebooks.py                       # moteur Jupyter si nbclient et ipykernel sont installés
+python tests/run_notebooks.py --moteur simple       # sans Jupyter
+python tests/run_notebooks.py exercices/vecteurs_matrices.ipynb
+</code></pre></div>
+<p>Chaque carnet est exécuté dans un dossier de travail temporaire, avec un journal du tuteur temporaire : les fichiers qu'il exporte n'atterrissent pas dans le dépôt, votre journal personnel n'est pas modifié, et les carnets eux-mêmes ne sont pas réécrits.</p>
+<p>Les carnets sont versionnés <strong>sans leurs sorties</strong> : <code>tests/test_carnets_propres.py</code> le vérifie (donc la CI aussi). Pour nettoyer, sans dépendance externe :</p>
+<div class="code-container"><div class="code-header"><span>Bash</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bash">python scripts/nettoyer_carnets.py              # nettoie les carnets de carnets/ et exercices/
+python scripts/nettoyer_carnets.py --verifier   # échoue si un carnet a encore des sorties
+</code></pre></div>
+<p>Le plus simple est d'activer une fois, dans votre clone, le filtre git déclaré dans <code>.gitattributes</code> : les carnets sont alors nettoyés à chaque commit, tout en gardant leurs sorties sur votre disque.</p>
+<div class="code-container"><div class="code-header"><span>Bash</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bash">git config filter.carnets.clean "python scripts/nettoyer_carnets.py --filtre"
+git config filter.carnets.smudge cat
+</code></pre></div>
+<h2 id="qualite-du-code">Qualité du code</h2>
+<ul>
+<li><code>ruff check src tests scripts</code> : règles <code>E4</code>, <code>E7</code>, <code>E9</code>, <code>F</code> (bloquant).</li>
+<li><code>mypy</code> (sans argument) : mode strict, <strong>bloquant</strong>, sur le périmètre <code>files</code> de <code>[tool.mypy]</code> dans <code>pyproject.toml</code> : <code>core</code>, <code>algorithms</code>, <code>objects</code>, <code>render</code>, <code>trace</code>, <code>plot</code>, <code>config.py</code>, <code>special.py</code>.</li>
+<li><code>mypy src/linalg_pedagopy</code> : tout le paquet, <strong>informatif</strong>. Il reste 63 erreurs (mypy 2.4.0), toutes hors du périmètre strict : <code>tuteur/</code>, <code>exercises/generators.py</code> et <code>compare/numeric.py</code>, surtout des attributs déclarés par <code>__slots__</code> sans annotation et des retours <code>Any</code>. En CI, cette étape échoue sans faire échouer le job (<code>continue-on-error</code>) : son résultat se lit dans le journal du job.</li>
+<li>La version de mypy est figée dans l'option <code>dev</code> (<code>mypy==2.4.0</code>) : d'une version à l'autre, le nombre d'erreurs hors périmètre change (58 avec 2.3, 63 avec 2.4.0). Pour monter de version, modifiez <code>pyproject.toml</code>, relancez les deux commandes ci-dessus et mettez à jour ce décompte.</li>
+</ul>
+      </article>
+
+      <!-- Navigation entre chapitres -->
+      <nav class="chapter-nav">
+        
+        <a href="dev_architecture.html" class="chapter-nav-btn">
+          <span class="nav-direction">&larr; Chapitre précédent</span>
+          <span class="nav-target">Architecture du paquet</span>
+        </a>
+        
+
+        
+        <a href="dev_campagnes.html" class="chapter-nav-btn" style="text-align:right;">
+          <span class="nav-direction">Chapitre suivant &rarr;</span>
+          <span class="nav-target">Campagnes de tests</span>
+        </a>
+        
+      </nav>
+    </main>
+
+    <!-- Barre latérale droite : Sommaire de la page (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-heading">Sur cette page</div>
+      <ul class="toc-list">
+        
+        <li class="toc-item ">
+          <a href="#en-une-commande">En une commande</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#les-familles-de-tests">Les familles de tests</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#tests-de-caracterisation-mode-demploi">Tests de caractérisation : mode d'emploi</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#exemples-de-la-documentation">Exemples de la documentation</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#fichiers-generes-de-la-documentation">Fichiers générés de la documentation</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#carnets">Carnets</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#qualite-du-code">Qualité du code</a>
+        </li>
+        
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <p>
+      <strong>linalg_pedagopy</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement de l'algèbre linéaire en L1–L2.<br>
+      Documentation sous licence MIT. Code source ouvert.
+    </p>
+  </footer>
+
+  <script src="assets/js/academic.js"></script>
+</body>
+</html>
