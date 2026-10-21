@@ -2,6 +2,11 @@
 
 ## [Non publié] — branche `development`
 
+### Nouveautés — étape 4.9 du plan v6
+- **Stratégie de pivot `"sparse"`** (critère de Markowitz, la colonne étant fixée) : le pivot de la ligne qui a le moins de coefficients non nuls, puis le plus simple.
+- **`reduction="back_substitution"`** pour `GaussJordan` : échelonnement vers le bas, puis remontée de la dernière colonne pivot à la première (section de trace `gj.back_substitution`), au lieu de l'élimination simultanée au-dessus et au-dessous de chaque pivot. Même forme réduite.
+- Mesures sur six cas des campagnes (`docs/dev/campagnes.md`) : de 10 à 25 % de temps en moins avec la remontée sur la tridiagonale et la bloc-triangulaire, expressions intermédiaires plus petites avec `sparse` sur l'équicorrélation ; mêmes branches et mêmes résultats. Gains modestes : les réglages par défaut (`simplest`, `simultaneous`) sont conservés, aucune sortie existante ne change. Tests dans `tests/test_elimination.py` (dont une propriété : même forme réduite que SymPy pour les quatre combinaisons) ; guide 03 (§ 2.1), référence de l'API.
+
 ### Nouveautés — étape 4.8 du plan v6 (révisée)
 - **Branches identiques regroupées à l'affichage** : aux niveaux 0 et 1, les branches particulières d'une discussion dont le résumé est identique s'affichent ensemble (« Cas a = 3, a = 2 ou a = 1 : système incompatible » ; « Cas a = −2 ou a = 1 : det A = 0 »), en texte, LaTeX, Markdown et HTML. Le `CaseSplit` n'est pas modifié (`at()`, `branches`) ; à partir du niveau 2, chaque branche garde sa trace. Fonctions `group_branches`, `format_conditions_text` et `format_conditions_latex` (`render/text.py`).
 - Révision du plan : la fusion véritable des branches (conditions disjonctives) est abandonnée après mesure : 4 branches sur 73 dans les cas de référence, et aucune sur la bloc-triangulaire 6 × 6, dont les 10 résultats sont distincts. Ce plafond relève de la méthode par blocs (étape 9.3).

@@ -240,7 +240,8 @@ print(len(arbre.children))
     A: Matrix,
     b: Vector | None = None,
     *,
-    pivot_strategy: "simplest" | "first" | "partial" = "simplest",
+    pivot_strategy: "simplest" | "first" | "partial" | "sparse" = "simplest",
+    reduction: "simultaneous" | "back_substitution" = "simultaneous",
     strict: bool = False,
     max_depth: int | None = None,
     max_cases: int | None = None,
@@ -251,7 +252,8 @@ print(len(arbre.children))
 <ul>
 <li><code>A</code> : Matrice des coefficients $m \times n$.</li>
 <li><code>b</code> : Vecteur second membre (optionnel ; sans lui, seule la RREF de $A$ est calculée).</li>
-<li><code>pivot_strategy</code> : choix du pivot — le plus simple (<code>"simplest"</code>), le premier non nul (<code>"first"</code>) ou le plus grand en valeur absolue (<code>"partial"</code>).</li>
+<li><code>pivot_strategy</code> : choix du pivot — le plus simple (<code>"simplest"</code>), le premier non nul (<code>"first"</code>), le plus grand en valeur absolue (<code>"partial"</code>) ou celui de la ligne la plus creuse (<code>"sparse"</code>, critère de Markowitz : moins de coefficients non nuls à remplir, puis le plus simple).</li>
+<li><code>reduction</code> : <code>"simultaneous"</code> annule au-dessus et au-dessous de chaque pivot en une seule passe (Gauss-Jordan) ; <code>"back_substitution"</code> échelonne d'abord vers le bas, puis remonte de la dernière colonne pivot à la première (méthode du pivot de Gauss suivie de la remontée), ce qui limite la croissance des expressions intermédiaires sur les matrices bande. La forme réduite obtenue est la même.</li>
 <li><code>strict</code> : si <code>True</code>, lève <code>SingularMatrixError</code> pour un système incompatible (ou une matrice non inversible avec <code>compute_inverse=True</code>) au lieu de renvoyer <code>EmptySolution</code> / <code>inverse=None</code>.</li>
 <li><code>max_depth</code>, <code>max_cases</code> : limites de la discussion paramétrique (par défaut <code>config.max_case_depth</code> et <code>config.max_cases</code>). Quand une limite est atteinte, <code>CaseLimitError</code> (sous-classe de <code>PedagopyError</code>) arrête le calcul avec un message qui nomme les facteurs qui ouvrent des cas, la branche en cours, une hypothèse à fournir et un plafond plus élevé :</li>
 </ul>

@@ -59,3 +59,21 @@ Pour comparer après une modification : `python scripts/mesurer_performances.py 
 3. **Plafonds** (messages corrigés à l'étape 3.4 ; nombre de branches : étape 9.3, méthode par blocs) : `t2_blocs_4x4_inverse`, `t2_circulante_3_parametres_inverse` et `t4_bloc_triangulaire_6x6` s'arrêtent sur un message qui ne dit ni quels facteurs sont en cause, ni combien de branches il aurait fallu.
 4. **Branches combinées** (étape 9.3) : `t4_bloc_triangulaire_6x6_max16` produit 10 branches, produit des singularités de blocs indépendants. Leurs 10 résultats sont tous distincts : fusionner les branches identiques n'y change rien (mesure de l'étape 4.8).
 5. **Facteur sans racine réelle** : `t4_permutee_cyclique_5x5` n'ouvre aucune branche pour $a^4 + a^3 + a^2 + a + 1$, comme l'indiquait le rapport.
+
+## Pivot creux et remontée (étape 4.9)
+
+Mesures des quatre combinaisons de `pivot_strategy` (`simplest`, `sparse`) et `reduction` (`simultaneous`, `back_substitution`) sur six cas des campagnes. La taille est le nombre maximal d'opérations SymPy dans une matrice de travail, sur toutes les étapes et toutes les branches.
+
+| Cas | simplest / simultaneous | simplest / back_substitution | sparse / simultaneous | sparse / back_substitution |
+|:---|---:|---:|---:|---:|
+| Tridiagonale 5 × 5 | 3,1 s · 27 | 2,4 s · 27 | 3,2 s · 27 | 2,4 s · 27 |
+| Flèche 6 × 6 | 0,8 s · 23 | 0,8 s · 23 | 0,7 s · 23 | 0,7 s · 23 |
+| Permutée cyclique 5 × 5 | 0,5 s · 58 | 0,5 s · 58 | 0,5 s · 58 | 0,5 s · 58 |
+| Équicorrélation 4 × 4 | 4,1 s · 40 | 4,0 s · 40 | 3,5 s · 25 | 3,3 s · 25 |
+| Vandermonde 4 × 4 | 0,9 s · 26 | 0,9 s · 27 | 0,9 s · 26 | 0,9 s · 27 |
+| Bloc-triangulaire 6 × 6 (a ≠ 1) | 8,3 s · 42 | 7,5 s · 30 | 8,4 s · 42 | 7,1 s · 30 |
+
+Mêmes branches et mêmes résultats dans tous les cas, vérifiés pour des valeurs numériques des paramètres. Seul le témoin d'incompatibilité peut différer avec `sparse` (0 = −2 au lieu de 0 = 1), parce que les opérations de lignes ne sont pas les mêmes.
+
+**Conclusion** : gains réels mais modestes (la taille maximale est le plus souvent celle de la forme réduite finale, identique dans tous les cas). Les deux options restent facultatives, et les réglages par défaut (`simplest`, `simultaneous`) sont conservés, ce qui laisse toutes les traces inchangées. Le gain décisif sur ces familles viendra des méthodes dédiées de la phase 9.
+

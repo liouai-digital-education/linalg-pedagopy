@@ -28,7 +28,8 @@ from linalg_pedagopy.render.text import format_value_text
 from linalg_pedagopy.trace.step import Highlight, StepKind
 from linalg_pedagopy.trace.tracer import record, section, tracing
 
-PivotStrategy = Literal["simplest", "first", "partial"]
+PivotStrategy = Literal["simplest", "first", "partial", "sparse"]
+Reduction = Literal["simultaneous", "back_substitution"]
 R = TypeVar("R")
 
 
@@ -102,14 +103,24 @@ def _pivot_complexity_key(val: sp.Expr) -> tuple[int, int | float, int]:
 
 
 def _choose_pivot(
-    candidates: list[tuple[int, sp.Expr]], strategy: PivotStrategy
+    candidates: list[tuple[int, sp.Expr]],
+    strategy: PivotStrategy,
+    grid: list[list[sp.Expr]] | None = None,
+    col: int = 0,
 ) -> tuple[int, sp.Expr]:
     """Pivot retenu parmi des candidats (ligne, valeur) inconditionnellement non nuls.
 
     ``simplest`` : le plus simple au sens de ``_pivot_complexity_key`` ; ``partial`` : la plus
-    grande valeur absolue numérique ; ``first`` : le premier candidat.
+    grande valeur absolue numérique ; ``first`` : le premier candidat ; ``sparse`` (critère
+    de Markowitz, la colonne étant fixée) : la ligne qui a le moins de coefficients non nuls
+    à partir de la colonne du pivot, ce qui limite le remplissage, puis le plus simple.
     """
-    if strategy == "simplest":
+    if strategy == "sparse" and grid is not None:
+        def _markowitz(item: tuple[int, sp.Expr]) -> tuple[int, tuple[int, int | float, int]]:
+            nonzeros = sum(1 for x in grid[item[0]][col:] if x != 0)
+            return (nonzeros, _pivot_complexity_key(item[1]))
+        return min(candidates, key=_markowitz)
+    if strategy in ("simplest", "sparse"):
         return min(candidates, key=lambda item: _pivot_complexity_key(item[1]))
     if strategy == "partial":
         def _abs_eval(item: tuple[int, sp.Expr]) -> float:
@@ -307,6 +318,9 @@ class EliminationEngine(Generic[R]):
     résultat d'une branche, ou renvoie un ``SplitRequest`` pour une discussion supplémentaire.
 
     ``reduce_above`` : annuler aussi les coefficients au-dessus du pivot (forme réduite) ;
+    ``reduction`` : avec ``reduce_above``, ``simultaneous`` annule au-dessus et au-dessous de
+    chaque pivot en une passe (Gauss-Jordan) ; ``back_substitution`` échelonne d'abord vers le
+    bas, puis remonte de la dernière colonne pivot à la première (``{prefix}.back_substitution``) ;
     ``normalize_pivots`` : ramener chaque pivot à 1 (sinon, le multiplicateur d'une
     transvection est le coefficient divisé par le pivot).
 
@@ -329,6 +343,7 @@ class EliminationEngine(Generic[R]):
         max_cases: int,
         pivot_strategy: PivotStrategy = "simplest",
         reduce_above: bool = True,
+        reduction: Reduction = "simultaneous",
         normalize_pivots: bool = True,
         snapshot_key: str = "augmented_matrix",
         signed_add: bool = True,
@@ -344,6 +359,7 @@ class EliminationEngine(Generic[R]):
         self.max_cases = max_cases
         self.pivot_strategy: PivotStrategy = pivot_strategy
         self.reduce_above = reduce_above
+        self.reduction: Reduction = reduction
         self.normalize_pivots = normalize_pivots
         self.snapshot_key = snapshot_key
         self.signed_add = signed_add
@@ -423,7 +439,7 @@ class EliminationEngine(Generic[R]):
                     )
                     continue
 
-                chosen_r, chosen_val = _choose_pivot(nonzero_cands, self.pivot_strategy)
+                chosen_r, chosen_val = _choose_pivot(nonzero_cands, self.pivot_strategy, grid, col)
 
                 column = (
                     section(
@@ -463,7 +479,8 @@ class EliminationEngine(Generic[R]):
 
                     # Élimination dans les autres lignes (toutes, ou seulement sous le pivot)
                     pivot_val = grid[pivot_row][col]
-                    for r in range(m) if self.reduce_above else range(pivot_row + 1, m):
+                    simultaneous = self.reduce_above and self.reduction == "simultaneous"
+                    for r in range(m) if simultaneous else range(pivot_row + 1, m):
                         if r == pivot_row:
                             continue
                         factor = _simplify_entry(grid[r][col])
@@ -479,10 +496,30 @@ class EliminationEngine(Generic[R]):
                 pivots.append(col)
                 pivot_row += 1
 
+            if self.reduce_above and self.reduction == "back_substitution" and pivots:
+                self._back_substitution(grid, pivots, cond, ops)
+
             outcome = self.on_complete(EliminationState(grid, cond, pivots, setup, ops, swaps))
             if isinstance(outcome, SplitRequest):
                 return self._split(cond, outcome, depth=depth, state=state)
             return outcome
+
+    def _back_substitution(
+        self, grid: list[list[sp.Expr]], pivots: list[int], cond: Condition, ops: RowOps
+    ) -> None:
+        """Remontée : annule les coefficients au-dessus des pivots, de la dernière colonne pivot à la première."""
+        with section(f"{self.prefix}.back_substitution", level=2, k=len(pivots)):
+            for p_row in range(len(pivots) - 1, -1, -1):
+                col = pivots[p_row]
+                pivot_val = grid[p_row][col]
+                for r in range(p_row):
+                    factor = _simplify_entry(grid[r][col])
+                    if oracle.decide(factor, assumptions=cond).verdict == Verdict.ZERO:
+                        grid[r][col] = sp.Integer(0)
+                        continue
+                    if not self.normalize_pivots:
+                        factor = _simplify_entry(factor / pivot_val)
+                    ops.add_multiple(grid, r, p_row, factor, col=col)
 
     def _split(
         self, cond: Condition, request: SplitRequest, *, depth: int, state: dict[str, Any]

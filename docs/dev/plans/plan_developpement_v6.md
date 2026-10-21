@@ -410,7 +410,8 @@ Aucune à ce jour.
 10. Tâche 4.6 **faite** : `tests/test_elimination.py` (12 tests). Fin de la partie refactorisation de la phase 4.
 11. Tâche 4.7 **faite** : `kernel_basis`, `trace_kernel`, clés `ker.*` ; noyau affiché pour une réduction sans second membre et pour une solution affine.
 12. Tâche 4.8 **faite** (révisée) : regroupement à l'affichage (`group_branches`, `format_conditions_text` dans `render/text.py`).
-13. Tâche 4.9 : stratégie de pivot `sparse` (critère de Markowitz) et mode échelonnée puis remontée ; mesures sur la tridiagonale et la flèche.
+13. Tâche 4.9 **faite** : `pivot_strategy="sparse"`, `reduction="back_substitution"`, mesures dans `docs/dev/campagnes.md` ; réglages par défaut conservés. **Phase 4 terminée.**
+14. Phase 5, tâche 5.1 : registre générique `_procedures` dans `Matrix` à la place des crochets `_require_gj` et `_determinant_factory`.
 
 # Annexe B — Esquisse de l'API cible (version 0.3.4)
 

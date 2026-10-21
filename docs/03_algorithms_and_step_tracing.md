@@ -74,7 +74,8 @@ GaussJordan(
     A: Matrix,
     b: Vector | None = None,
     *,
-    pivot_strategy: "simplest" | "first" | "partial" = "simplest",
+    pivot_strategy: "simplest" | "first" | "partial" | "sparse" = "simplest",
+    reduction: "simultaneous" | "back_substitution" = "simultaneous",
     strict: bool = False,
     max_depth: int | None = None,
     max_cases: int | None = None,
@@ -85,7 +86,8 @@ GaussJordan(
 
 - `A` : Matrice des coefficients $m \times n$.
 - `b` : Vecteur second membre (optionnel ; sans lui, seule la RREF de $A$ est calculée).
-- `pivot_strategy` : choix du pivot — le plus simple (`"simplest"`), le premier non nul (`"first"`) ou le plus grand en valeur absolue (`"partial"`).
+- `pivot_strategy` : choix du pivot — le plus simple (`"simplest"`), le premier non nul (`"first"`), le plus grand en valeur absolue (`"partial"`) ou celui de la ligne la plus creuse (`"sparse"`, critère de Markowitz : moins de coefficients non nuls à remplir, puis le plus simple).
+- `reduction` : `"simultaneous"` annule au-dessus et au-dessous de chaque pivot en une seule passe (Gauss-Jordan) ; `"back_substitution"` échelonne d'abord vers le bas, puis remonte de la dernière colonne pivot à la première (méthode du pivot de Gauss suivie de la remontée), ce qui limite la croissance des expressions intermédiaires sur les matrices bande. La forme réduite obtenue est la même.
 - `strict` : si `True`, lève `SingularMatrixError` pour un système incompatible (ou une matrice non inversible avec `compute_inverse=True`) au lieu de renvoyer `EmptySolution` / `inverse=None`.
 - `max_depth`, `max_cases` : limites de la discussion paramétrique (par défaut `config.max_case_depth` et `config.max_cases`). Quand une limite est atteinte, `CaseLimitError` (sous-classe de `PedagopyError`) arrête le calcul avec un message qui nomme les facteurs qui ouvrent des cas, la branche en cours, une hypothèse à fournir et un plafond plus élevé :
 

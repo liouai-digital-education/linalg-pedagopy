@@ -21,6 +21,7 @@ from linalg_pedagopy.algorithms.elimination import (
     EliminationSetup,
     EliminationState,
     PivotStrategy,
+    Reduction,
     SplitRequest,
     _result_entry,
     kernel_basis,
@@ -173,6 +174,7 @@ class GaussJordan(Procedure[GJResult]):
         b: Vector | Matrix | None = None,
         *,
         pivot_strategy: PivotStrategy = "simplest",
+        reduction: Reduction = "simultaneous",
         strict: bool = False,
         max_depth: int | None = None,
         max_cases: int | None = None,
@@ -187,12 +189,15 @@ class GaussJordan(Procedure[GJResult]):
             raise DimensionMismatchError(
                 f"Le nombre de lignes de A ({A.rows}) diffère de celui du second membre ({b.rows})."
             )
-        if pivot_strategy not in ("simplest", "first", "partial"):
+        if pivot_strategy not in ("simplest", "first", "partial", "sparse"):
             raise ValueError(f"Stratégie de pivot inconnue : {pivot_strategy!r}")
+        if reduction not in ("simultaneous", "back_substitution"):
+            raise ValueError(f"Mode de réduction inconnu : {reduction!r}")
 
         self.A = A
         self.b = b
         self.pivot_strategy: PivotStrategy = pivot_strategy
+        self.reduction: Reduction = reduction
         self.strict = strict
         self.max_depth = max_depth if max_depth is not None else config.max_case_depth
         self.max_cases = max_cases if max_cases is not None else config.max_cases
@@ -246,6 +251,7 @@ class GaussJordan(Procedure[GJResult]):
             setup=self._setup,
             on_complete=self._complete,
             pivot_strategy=self.pivot_strategy,
+            reduction=self.reduction,
             max_depth=self.max_depth,
             max_cases=self.max_cases,
         )

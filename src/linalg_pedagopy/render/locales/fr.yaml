@@ -75,6 +75,7 @@ gj:
   start: "Réduction de Gauss-Jordan d'une matrice {m}×{n}."
   reduce_by_condition: "Dans cette branche, {equations} : chaque coefficient est remplacé par son reste dans la division par ce polynôme, ce qui fait disparaître les puissances de degré trop élevé."
   column_step: "Traitement de la colonne {col} (ligne pivot courante : {row})."
+  back_substitution: "Remontée : on annule les coefficients au-dessus des {k} pivot(s), de la dernière colonne pivot à la première."
   pivot_chosen: "Choix du pivot en ({row},{col}) de valeur {pivot} (stratégie : {strategy})."
   col_zero: "Aucun pivot non nul disponible dans la colonne {col} : variable x_{col} libre."
   row_swap: "On échange les lignes L{i} et L{j} : L{i} ↔ L{j}."
