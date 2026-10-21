@@ -311,6 +311,16 @@ for br in res.branches:
 - Le cas $m = 1$ : infinité de solutions (plan affine de dimension 2).
 - Le cas $m = -2$ : système incompatible ($\emptyset$).
 - Le cas $m \notin \{1, -2\}$ : solution unique $x = \left(\frac{1}{m+2}, \frac{1}{m+2}, \frac{1}{m+2}\right)$.</p>
+<h3 id="24-ecriture-des-resultats-selon-la-condition-de-la-branche">2.4 Écriture des résultats selon la condition de la branche</h3>
+<p>Une condition comme $a^2 - 2 \neq 0$ s'affiche avec ses racines : « $a \neq \sqrt 2$ et $a \neq -\sqrt 2$ ». Pour que la solution se lise avec les <strong>mêmes facteurs</strong>, ses coefficients sont factorisés avec les radicaux de la condition :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">a, = symbols("a")
+res = GaussJordan(Matrix([[a**2 - 2, 1], [0, a - 1]]), Vector([1, 1])).run()
+print(res)
+# ├─ Cas a ≠ √(2) et a ≠ −√(2) et a ≠ 1 (générique) : pivots non nuls, rang 2, solution unique
+# │    x = ( (a − 2)/((a − 1)·(a − √(2))·(a + √(2))), 1/(a − 1) )
+</code></pre></div>
+<p>Seuls les facteurs irréductibles sur $\mathbb{Q}$ sont décomposés, et seulement avec les radicaux qui figurent dans la condition de la branche : $1 - 2a$ garde son écriture. L'option <code>config.factor_policy = "rational"</code> (ou <code>using_config(factor_policy="rational")</code>) rétablit la factorisation sur $\mathbb{Q}$ seul.</p>
+<p>Dans une branche définie par une égalité non linéaire, par exemple $a^2 - 3 = 0$, les coefficients de la forme réduite sont remplacés par leur reste dans la division par $a^2 - 3$ ; une étape de niveau 2 l'annonce. Un témoin d'incompatibilité s'écrit alors $0 = 2$ plutôt que $0 = a^4 - 3a^2 + 2$.</p>
 <hr/>
 <h2 id="3-substitutions-triangulaires">3. Substitutions Triangulaires</h2>
 <p>Pour les systèmes dont la matrice est déjà échelonnée, les algorithmes de substitution évitent le coût complet d'un pivot de Gauss :</p>
@@ -563,6 +573,10 @@ Determinant(A, method="elimination", assumptions={"a": 3}).run().value   # 20
         
         <li class="toc-item toc-h3">
           <a href="#23-exemple-avec-parametre-et-discussion-automatique">2.3 Exemple avec paramètre et discussion automatique</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#24-ecriture-des-resultats-selon-la-condition-de-la-branche">2.4 Écriture des résultats selon la condition de la branche</a>
         </li>
         
         <li class="toc-item ">

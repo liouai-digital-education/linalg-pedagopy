@@ -48,12 +48,14 @@ Une exécution par cas, Python 3.11, SymPy 1.14 ; les temps dépendent de la mac
 | `t4_tridiagonale_5x5` | 3,0 s | 5 | 57 | |
 | `t4_vandermonde_4x4` | 0,9 s | 4 | 29 | |
 
+Ces mesures précèdent l'étape 3.2, qui ne change ni les branches ni les temps de façon notable, mais modifie l'écriture des trois cas concernés.
+
 Pour comparer après une modification : `python scripts/mesurer_performances.py --json mesures.json`, puis confronter à `mesures/campagnes_3.1.0.json`.
 
 ## Constats confirmés par la reconstitution
 
-1. **Factorisation incohérente** (étape 3.2) : `t3_5_pivot_quadratique` affiche la condition $a \ne \sqrt 2$ et $a \ne -\sqrt 2$, mais la solution garde $a^2 - 2$, et la branche singulière s'intitule « $a^2 - 2 = 0$ ». Même chose pour $a^2 + a - 3$ dans `t2_asymetrie_factorisation_inverse` et pour $a^2 - 3$ dans `t4_tridiagonale_5x5`.
-2. **Témoins non réduits par la condition de la branche** (constat nouveau, à traiter avec l'étape 3.2) : dans la branche $a^2 - 3 = 0$ de `t4_tridiagonale_5x5`, le témoin d'incompatibilité s'écrit $0 = a^4 - 3a^2 + 2$ au lieu de $0 = 2$ ; dans la branche $a^2 - 2 = 0$ de `t3_5_pivot_quadratique`, il reste $0 = 2 - a$.
+1. **Factorisation incohérente** (corrigé à l'étape 3.2, `factor_policy`) : `t3_5_pivot_quadratique` affiche la condition $a \ne \sqrt 2$ et $a \ne -\sqrt 2$, mais la solution garde $a^2 - 2$, et la branche singulière s'intitule « $a^2 - 2 = 0$ ». Même chose pour $a^2 + a - 3$ dans `t2_asymetrie_factorisation_inverse` et pour $a^2 - 3$ dans `t4_tridiagonale_5x5`.
+2. **Témoins non réduits par la condition de la branche** (constat nouveau, corrigé à l'étape 3.2) : dans la branche $a^2 - 3 = 0$ de `t4_tridiagonale_5x5`, le témoin d'incompatibilité s'écrit $0 = a^4 - 3a^2 + 2$ au lieu de $0 = 2$ ; dans la branche $a^2 - 2 = 0$ de `t3_5_pivot_quadratique`, il reste $0 = 2 - a$.
 3. **Plafonds** (étapes 3.4 et 4.8) : `t2_blocs_4x4_inverse`, `t2_circulante_3_parametres_inverse` et `t4_bloc_triangulaire_6x6` s'arrêtent sur un message qui ne dit ni quels facteurs sont en cause, ni combien de branches il aurait fallu.
 4. **Branches combinées** (étape 4.8) : `t4_bloc_triangulaire_6x6_max16` produit 10 branches, produit des singularités de blocs indépendants.
 5. **Facteur sans racine réelle** : `t4_permutee_cyclique_5x5` n'ouvre aucune branche pour $a^4 + a^3 + a^2 + a + 1$, comme l'indiquait le rapport.

@@ -154,6 +154,22 @@ Ce code produit automatiquement un `CaseSplit` distinguant :
 - Le cas $m = -2$ : système incompatible ($\emptyset$).
 - Le cas $m \notin \{1, -2\}$ : solution unique $x = \left(\frac{1}{m+2}, \frac{1}{m+2}, \frac{1}{m+2}\right)$.
 
+### 2.4 Écriture des résultats selon la condition de la branche
+
+Une condition comme $a^2 - 2 \neq 0$ s'affiche avec ses racines : « $a \neq \sqrt 2$ et $a \neq -\sqrt 2$ ». Pour que la solution se lise avec les **mêmes facteurs**, ses coefficients sont factorisés avec les radicaux de la condition :
+
+```python
+a, = symbols("a")
+res = GaussJordan(Matrix([[a**2 - 2, 1], [0, a - 1]]), Vector([1, 1])).run()
+print(res)
+# ├─ Cas a ≠ √(2) et a ≠ −√(2) et a ≠ 1 (générique) : pivots non nuls, rang 2, solution unique
+# │    x = ( (a − 2)/((a − 1)·(a − √(2))·(a + √(2))), 1/(a − 1) )
+```
+
+Seuls les facteurs irréductibles sur $\mathbb{Q}$ sont décomposés, et seulement avec les radicaux qui figurent dans la condition de la branche : $1 - 2a$ garde son écriture. L'option `config.factor_policy = "rational"` (ou `using_config(factor_policy="rational")`) rétablit la factorisation sur $\mathbb{Q}$ seul.
+
+Dans une branche définie par une égalité non linéaire, par exemple $a^2 - 3 = 0$, les coefficients de la forme réduite sont remplacés par leur reste dans la division par $a^2 - 3$ ; une étape de niveau 2 l'annonce. Un témoin d'incompatibilité s'écrit alors $0 = 2$ plutôt que $0 = a^4 - 3a^2 + 2$.
+
 ---
 
 ## 3. Substitutions Triangulaires

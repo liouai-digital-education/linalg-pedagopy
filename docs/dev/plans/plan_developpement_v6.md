@@ -397,7 +397,8 @@ Aucune à ce jour.
 # Annexe A — Point de reprise pour la prochaine séance
 
 1. Tâche 3.1 **faite** : 21 cas reconstruits et figés (`tests/campagnes.py`, `docs/dev/campagnes.md`), mesures de référence dans `docs/dev/mesures/campagnes_3.1.0.json`.
-2. Tâche 3.2 : `factor_policy`, en partant de `_simplify_entry` (`algorithms/gauss_jordan.py`) et `_split_neq` (`core/cases.py`) ; cas de référence `t3_5_pivot_quadratique`, `t2_asymetrie_factorisation_inverse` et `t4_tridiagonale_5x5`. Traiter avec elle la réduction des témoins d'incompatibilité par la condition de la branche (constat 2 de `docs/dev/campagnes.md`).
+2. Tâche 3.2 **faite** : `config.factor_policy` (`"real_radicals"` par défaut), `Condition.radicals()`, `Condition.reduce()` ; témoins réduits par la condition de la branche ; tests dans `tests/test_factorisation.py`.
+3. Tâche 3.3 : facteurs de signe constant à plusieurs paramètres dans l'oracle (`core/zero.py`, `_extract_factors` et `_decide`) ; tests $a^2 + b^2 + 1$, $a^2 + ab + b^2 + 1$, non-régression `t4_permutee_cyclique_5x5`.
 
 # Annexe B — Esquisse de l'API cible (version 3.4)
 

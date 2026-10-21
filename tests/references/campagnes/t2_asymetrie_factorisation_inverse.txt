@@ -78,9 +78,11 @@ Discussion selon a
 │    │  └─ On annule le coefficient (3,2) : L3 ← L3 - 2 − a²·L2.
 │    │     [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 -a**2 - a + 3 | 1 (a - 2)/(a - 1) (2 - a**2)/(a - 1))]
 │    ├─ Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+│    ├─ Dans cette branche, a² + a − 3 = 0 : chaque coefficient est remplacé par son reste dans la division par ce polynôme, ce qui fait disparaître les puissances de degré trop élevé.
+│    │  [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 0 | 1 (a - 2)/(a - 1) 1)]
 │    ├─ La matrice est singulière (rang 2 < 3) : elle n'est pas inversible.
 │    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
-│       [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 -a**2 - a + 3 | 1 (a - 2)/(a - 1) (2 - a**2)/(a - 1))]
+│       [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 0 | 1 (a - 2)/(a - 1) 1)]
 └─ Cas a = 1 : rang 2, colonnes pivots [1, 2]
      Réduction de Gauss-Jordan d'une matrice 3×3.
         [(1 2 1 | 1 0 0); (1 1 1 | 0 1 0); (1 1 1 | 0 0 1)]
@@ -162,9 +164,11 @@ Discussion selon a
 │    │     [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 -a**2 - a + 3 | 1 (a - 2)/(a - 1) (2 - a**2)/(a - 1))]
 │    ├─ Ce coefficient est nul dans le domaine exact (−a² − a + 3 = 0).
 │    ├─ Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+│    ├─ Dans cette branche, a² + a − 3 = 0 : chaque coefficient est remplacé par son reste dans la division par ce polynôme, ce qui fait disparaître les puissances de degré trop élevé.
+│    │  [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 0 | 1 (a - 2)/(a - 1) 1)]
 │    ├─ La matrice est singulière (rang 2 < 3) : elle n'est pas inversible.
 │    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
-│       [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 -a**2 - a + 3 | 1 (a - 2)/(a - 1) (2 - a**2)/(a - 1))]
+│       [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 0 | 1 (a - 2)/(a - 1) 1)]
 └─ Cas a = 1 : rang 2, colonnes pivots [1, 2]
      Réduction de Gauss-Jordan d'une matrice 3×3.
         [(1 2 1 | 1 0 0); (1 1 1 | 0 1 0); (1 1 1 | 0 0 1)]

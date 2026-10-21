@@ -10,6 +10,7 @@ from typing import Any, Iterator, Literal
 
 FloatPolicy = Literal["rationalize", "reject", "keep"]
 TutorMode = Literal["student", "teacher", "etudiant", "enseignant"]
+FactorPolicy = Literal["rational", "real_radicals"]
 
 
 @dataclass(frozen=True)
@@ -21,6 +22,7 @@ class ConfigState:
     default_trace_level: int = 1
     max_case_depth: int = 3
     max_cases: int = 8
+    factor_policy: FactorPolicy = "real_radicals"
     tutor_mode: TutorMode = "student"
     hint_min_attempts: int = 0
     hint_min_delay_seconds: int = 0
@@ -82,6 +84,17 @@ class ConfigProxy:
     @max_cases.setter
     def max_cases(self, value: int) -> None:
         _config_var.set(replace(_config_var.get(), max_cases=value))
+
+    @property
+    def factor_policy(self) -> FactorPolicy:
+        """Factorisation des résultats : sur Q ("rational") ou avec les radicaux de la condition ("real_radicals")."""
+        return _config_var.get().factor_policy
+
+    @factor_policy.setter
+    def factor_policy(self, value: FactorPolicy) -> None:
+        if value not in ("rational", "real_radicals"):
+            raise ValueError(f"factor_policy invalide : {value!r}")
+        _config_var.set(replace(_config_var.get(), factor_policy=value))
 
     @property
     def tutor_mode(self) -> TutorMode:

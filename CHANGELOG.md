@@ -2,6 +2,11 @@
 
 ## [Non publié] — branche `development`
 
+### Corrections — étape 3.2 du plan v6
+- **Factorisation cohérente avec la condition** : nouvelle option `config.factor_policy`, `"real_radicals"` par défaut. Quand la condition d'une branche s'affiche avec des radicaux (« a ≠ √2 et a ≠ −√2 »), la solution, l'inverse et la base du noyau sont factorisés avec ces mêmes radicaux : `(a − 2)/((a − 1)·(a − √2)·(a + √2))` au lieu de `(a − 2)/((a − 1)·(a² − 2))`. Seuls les facteurs irréductibles sur ℚ sont décomposés ; `"rational"` rétablit l'ancienne écriture. Nouvelle méthode `Condition.radicals()`.
+- **Réduction par la condition de la branche** : dans une branche définie par une égalité non linéaire en un paramètre (a² − 3 = 0), les coefficients de la forme réduite sont remplacés par leur reste dans la division par ce polynôme, avec une étape de trace de niveau 2 (`gj.reduce_by_condition`). Le témoin d'incompatibilité de la tridiagonale 5 × 5 s'écrit `0 = 2` au lieu de `0 = a⁴ − 3a² + 2`. Nouvelles méthodes `Condition.reduce()` et `Condition.nonlinear_equations()`.
+- Références régénérées et relues : `t3_5_pivot_quadratique`, `t2_asymetrie_factorisation_inverse`, `t4_tridiagonale_5x5` (seules sorties modifiées). Tests dans `tests/test_factorisation.py`. Documentation : guide 03 (§ 2.4), référence de l'API (§ 8).
+
 ### Tests — étape 3.1 du plan v6
 - Campagnes du bac à sable figées en tests de caractérisation : 21 cas reconstruits d'après le rapport d'évaluation des carnets `tests2` à `test4` (tests limites, grosses matrices pleines et creuses, plafonds de branches) dans `tests/campagnes.py`, références dans `tests/references/campagnes/`, constats et reconstitution dans `docs/dev/campagnes.md`.
 - Marque pytest `lent` pour les cas de plus de 5 s, écartés par `pytest -m "not lent"` et `verifier_tout.py --rapide`.

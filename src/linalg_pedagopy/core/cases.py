@@ -278,6 +278,61 @@ class Condition:
                     pass
         return None
 
+    def radicals(self) -> dict[sp.Symbol, tuple[sp.Expr, ...]]:
+        """Radicaux carrés √d qui apparaissent dans l'écriture de la condition, par paramètre.
+
+        Ce sont ceux des valeurs exclues affichées par ``format_text`` : pour
+        « a ≠ √2 et a ≠ −√2 », ``{a: (√2,)}``. Ils servent à factoriser les
+        résultats d'une branche avec les mêmes facteurs que sa condition.
+        """
+        found: dict[sp.Symbol, set[sp.Expr]] = {}
+        for lhs, rhs in self.neqs:
+            for l2, r2 in self._split_neq(lhs, rhs):
+                if not isinstance(l2, sp.Symbol):
+                    continue
+                for p in sp.sympify(r2).atoms(sp.Pow):
+                    if p.exp == sp.S.Half and p.base.is_Integer and p.base > 0:
+                        found.setdefault(l2, set()).add(p)
+        return {s: tuple(sorted(r, key=sp.default_sort_key)) for s, r in found.items()}
+
+    def nonlinear_equations(self) -> tuple[tuple[sp.Expr, sp.Symbol], ...]:
+        """Égalités polynomiales de degré ≥ 2 en un seul paramètre (ex. a² − 3 = 0), sous la forme (P, a)."""
+        found: list[tuple[sp.Expr, sp.Symbol]] = []
+        for lhs, rhs in self.eqs:
+            poly = sp.expand(lhs - rhs)
+            syms = poly.free_symbols
+            if len(syms) != 1:
+                continue
+            s = next(iter(syms))
+            if isinstance(s, sp.Symbol) and poly.is_polynomial(s) and sp.degree(poly, s) >= 2:
+                found.append((poly, s))
+        return tuple(found)
+
+    def reduce(self, expr: sp.Expr) -> sp.Expr:
+        """Réduit expr modulo les égalités non linéaires de la condition.
+
+        Sous a² − 3 = 0, a⁴ − 3a² + 2 devient 2 : numérateur et dénominateur sont
+        remplacés par leur reste dans la division par a² − 3. Les égalités linéaires
+        sont déjà appliquées par substitution (``substitutions``). L'expression est
+        rendue inchangée si elle n'est pas rationnelle en ce paramètre, ou si le
+        dénominateur s'annulerait.
+        """
+        mods = self.nonlinear_equations()
+        if not mods or not getattr(expr, "free_symbols", None):
+            return expr
+        num, den = sp.fraction(sp.together(expr))
+        for poly, s in mods:
+            if s not in num.free_symbols | den.free_symbols:
+                continue
+            if not (num.is_polynomial(s) and den.is_polynomial(s)):
+                continue
+            num_r = sp.rem(sp.expand(num), poly, s)
+            den_r = sp.rem(sp.expand(den), poly, s)
+            if den_r == 0:
+                return expr
+            num, den = num_r, den_r
+        return num / den
+
     def is_satisfied(self, values: Mapping[str | sp.Symbol, Any]) -> bool:
         """Vérifie si les valeurs passées pour les paramètres satisfont la condition."""
         subs_map = match_symbol_substitutions(self.free_symbols, values)

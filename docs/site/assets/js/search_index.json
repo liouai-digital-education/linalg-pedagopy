@@ -365,6 +365,13 @@
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",
+    "title": "2.4 Écriture des résultats selon la condition de la branche",
+    "url": "03_algorithms_and_step_tracing.html#24-ecriture-des-resultats-selon-la-condition-de-la-branche",
+    "snippet": "Une condition comme $a^2 - 2 \\neq 0$ s'affiche avec ses racines : « $a \\neq \\sqrt 2$ et $a \\neq -\\sqrt 2$ ». Pour que la solution se lise avec les mêmes facteur...",
+    "content": "2.4 Écriture des résultats selon la condition de la branche Une condition comme $a^2 - 2 \\neq 0$ s'affiche avec ses racines : « $a \\neq \\sqrt 2$ et $a \\neq -\\sqrt 2$ ». Pour que la solution se lise avec les mêmes facteur..."
+  },
+  {
+    "pageTitle": "03. Algorithmes & traçabilité",
     "title": "3. Substitutions Triangulaires",
     "url": "03_algorithms_and_step_tracing.html#3-substitutions-triangulaires",
     "snippet": "Pour les systèmes dont la matrice est déjà échelonnée, les algorithmes de substitution évitent le coût complet d'un pivot de Gauss :...",

@@ -7,46 +7,46 @@ test4 — pivots de Chebyshev ; la remontée remplit les zéros hors bande
 ===== str =====
 Discussion selon a
 ├─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a ≠ √(3) et a ≠ −√(3) (générique) : pivots non nuls, rang 5, solution unique
-│    x = ( (a² − 2)/(a·(a² − 3)), −1/(a² − 3), 2/(a·(a² − 3)), −1/(a² − 3), (a² − 2)/(a·(a² − 3)) )
+│    x = ( (a² − 2)/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), 2/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), (a² − 2)/(a·(a − √(3))·(a + √(3))) )
 ├─ Cas a = 1 : rang 4, infinité de solutions (1 variable(s) libre(s))
 │    x = (1, 0, -1, 1, 0) + t_1·(-1, 1, 0, -1, 1)
 ├─ Cas a = 0 : L5 devient (0 0 0 0 0 | 2)
 │    système incompatible (témoin : 0 = 2)
 ├─ Cas a = −1 : rang 4, infinité de solutions (1 variable(s) libre(s))
 │    x = (-1, 0, 1, 1, 0) + t_1·(-1, -1, 0, 1, 1)
-└─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0 : L5 devient (0 0 0 0 0 | a**4 - 3*a**2 + 2)
-     système incompatible (témoin : 0 = a**4 - 3*a**2 + 2)
+└─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0 : L5 devient (0 0 0 0 0 | 2)
+     système incompatible (témoin : 0 = 2)
 
 ===== texte niveau 0 =====
 Discussion selon a
 ├─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a ≠ √(3) et a ≠ −√(3) (générique) : pivots non nuls, rang 5, solution unique
-│    x = ( (a² − 2)/(a·(a² − 3)), −1/(a² − 3), 2/(a·(a² − 3)), −1/(a² − 3), (a² − 2)/(a·(a² − 3)) )
+│    x = ( (a² − 2)/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), 2/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), (a² − 2)/(a·(a − √(3))·(a + √(3))) )
 ├─ Cas a = 1 : rang 4, infinité de solutions (1 variable(s) libre(s))
 │    x = (1, 0, -1, 1, 0) + t_1·(-1, 1, 0, -1, 1)
 ├─ Cas a = 0 : L5 devient (0 0 0 0 0 | 2)
 │    système incompatible (témoin : 0 = 2)
 ├─ Cas a = −1 : rang 4, infinité de solutions (1 variable(s) libre(s))
 │    x = (-1, 0, 1, 1, 0) + t_1·(-1, -1, 0, 1, 1)
-└─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0 : L5 devient (0 0 0 0 0 | a**4 - 3*a**2 + 2)
-     système incompatible (témoin : 0 = a**4 - 3*a**2 + 2)
+└─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0 : L5 devient (0 0 0 0 0 | 2)
+     système incompatible (témoin : 0 = 2)
 
 ===== texte niveau 1 =====
 Discussion selon a
 ├─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a ≠ √(3) et a ≠ −√(3) (générique) : pivots non nuls, rang 5, solution unique
-│    x = ( (a² − 2)/(a·(a² − 3)), −1/(a² − 3), 2/(a·(a² − 3)), −1/(a² − 3), (a² − 2)/(a·(a² − 3)) )
+│    x = ( (a² − 2)/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), 2/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), (a² − 2)/(a·(a − √(3))·(a + √(3))) )
 ├─ Cas a = 1 : rang 4, infinité de solutions (1 variable(s) libre(s))
 │    x = (1, 0, -1, 1, 0) + t_1·(-1, 1, 0, -1, 1)
 ├─ Cas a = 0 : L5 devient (0 0 0 0 0 | 2)
 │    système incompatible (témoin : 0 = 2)
 ├─ Cas a = −1 : rang 4, infinité de solutions (1 variable(s) libre(s))
 │    x = (-1, 0, 1, 1, 0) + t_1·(-1, -1, 0, 1, 1)
-└─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0 : L5 devient (0 0 0 0 0 | a**4 - 3*a**2 + 2)
-     système incompatible (témoin : 0 = a**4 - 3*a**2 + 2)
+└─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0 : L5 devient (0 0 0 0 0 | 2)
+     système incompatible (témoin : 0 = 2)
 
 ===== texte niveau 2 =====
 Discussion selon a
 ├─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a ≠ √(3) et a ≠ −√(3) (générique) : pivots non nuls, rang 5, solution unique
-│    x = ( (a² − 2)/(a·(a² − 3)), −1/(a² − 3), 2/(a·(a² − 3)), −1/(a² − 3), (a² − 2)/(a·(a² − 3)) )
+│    x = ( (a² − 2)/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), 2/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), (a² − 2)/(a·(a − √(3))·(a + √(3))) )
 │    Réduction de Gauss-Jordan d'une matrice 5×5.
 │       [(a 1 0 0 0 | 1); (1 a 1 0 0 | 0); (0 1 a 1 0 | 0); (0 0 1 a 1 | 0); (0 0 0 1 a | 1)]
 │    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
@@ -97,7 +97,7 @@ Discussion selon a
 │    │  │  [(1 0 0 0 0 | (a**2 - 2)/(a*(a**2 - 3))); (0 1 0 0 0 | -1/(a**2 - 3)); (0 0 1 0 0 | 2/(a*(a**2 - 3))); (0 0 0 1 a | 1); (0 0 0 0 1 | (a**2 - 2)/(a*(a**2 - 3)))]
 │    │  └─ On annule le coefficient (4,5) : L4 ← L4 - a·L5.
 │    │     [(1 0 0 0 0 | (a**2 - 2)/(a*(a**2 - 3))); (0 1 0 0 0 | -1/(a**2 - 3)); (0 0 1 0 0 | 2/(a*(a**2 - 3))); (0 0 0 1 0 | -1/(a**2 - 3)); (0 0 0 0 1 | (a**2 - 2)/(a*(a**2 - 3)))]
-│    ├─ Pivots non nuls, rang 5, solution unique : x = ( (a² − 2)/(a·(a² − 3)), −1/(a² − 3), 2/(a·(a² − 3)), −1/(a² − 3), (a² − 2)/(a·(a² − 3)) ).
+│    ├─ Pivots non nuls, rang 5, solution unique : x = ( (a² − 2)/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), 2/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), (a² − 2)/(a·(a − √(3))·(a + √(3))) ).
 │    └─ Forme échelonnée réduite atteinte : rang = 5, colonnes pivots = (1, 2, 3, 4, 5).
 │       [(1 0 0 0 0 | (a**2 - 2)/(a*(a**2 - 3))); (0 1 0 0 0 | -1/(a**2 - 3)); (0 0 1 0 0 | 2/(a*(a**2 - 3))); (0 0 0 1 0 | -1/(a**2 - 3)); (0 0 0 0 1 | (a**2 - 2)/(a*(a**2 - 3)))]
 ├─ Cas a = 1 : rang 4, infinité de solutions (1 variable(s) libre(s))
@@ -196,8 +196,8 @@ Discussion selon a
 │    ├─ Rang 4 < 5 : ensemble affine de solutions avec 1 variable(s) libre(s).
 │    └─ Forme échelonnée réduite atteinte : rang = 4, colonnes pivots = (1, 2, 3, 4).
 │       [(1 0 0 0 1 | -1); (0 1 0 0 1 | 0); (0 0 1 0 0 | 1); (0 0 0 1 -1 | 1); (0 0 0 0 0 | 0)]
-└─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0 : L5 devient (0 0 0 0 0 | a**4 - 3*a**2 + 2)
-     système incompatible (témoin : 0 = a**4 - 3*a**2 + 2)
+└─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0 : L5 devient (0 0 0 0 0 | 2)
+     système incompatible (témoin : 0 = 2)
      Réduction de Gauss-Jordan d'une matrice 5×5.
         [(a 1 0 0 0 | 1); (1 a 1 0 0 | 0); (0 1 a 1 0 | 0); (0 0 1 a 1 | 0); (0 0 0 1 a | 1)]
      ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
@@ -237,14 +237,16 @@ Discussion selon a
      │  └─ On annule le coefficient (5,4) : L5 ← L5 + a⁴ − 3·a² + 1·L4.
      │     [(1 0 0 0 -a**4 + 3*a**2 - 1 | -a**3 + 2*a); (0 1 0 0 a**3 - 2*a | a**2 - 1); (0 0 1 0 1 - a**2 | -a); (0 0 0 1 a | 1); (0 0 0 0 a**5 - 4*a**3 + 3*a | a**4 - 3*a**2 + 2)]
      ├─ Aucun pivot non nul disponible dans la colonne 5 : variable x_5 libre.
-     ├─ Système incompatible : la ligne L5 donne 0 = a⁴ − 3·a² + 2 (témoin : 0 = 1).
+     ├─ Dans cette branche, a² − 3 = 0 : chaque coefficient est remplacé par son reste dans la division par ce polynôme, ce qui fait disparaître les puissances de degré trop élevé.
+     │  [(1 0 0 0 -1 | -a); (0 1 0 0 a | 2); (0 0 1 0 -2 | -a); (0 0 0 1 a | 1); (0 0 0 0 0 | 2)]
+     ├─ Système incompatible : la ligne L5 donne 0 = 2 (témoin : 0 = 1).
      └─ Forme échelonnée réduite atteinte : rang = 4, colonnes pivots = (1, 2, 3, 4).
-        [(1 0 0 0 -a**4 + 3*a**2 - 1 | -a**3 + 2*a); (0 1 0 0 a**3 - 2*a | a**2 - 1); (0 0 1 0 1 - a**2 | -a); (0 0 0 1 a | 1); (0 0 0 0 a**5 - 4*a**3 + 3*a | a**4 - 3*a**2 + 2)]
+        [(1 0 0 0 -1 | -a); (0 1 0 0 a | 2); (0 0 1 0 -2 | -a); (0 0 0 1 a | 1); (0 0 0 0 0 | 2)]
 
 ===== texte niveau 3 =====
 Discussion selon a
 ├─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a ≠ √(3) et a ≠ −√(3) (générique) : pivots non nuls, rang 5, solution unique
-│    x = ( (a² − 2)/(a·(a² − 3)), −1/(a² − 3), 2/(a·(a² − 3)), −1/(a² − 3), (a² − 2)/(a·(a² − 3)) )
+│    x = ( (a² − 2)/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), 2/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), (a² − 2)/(a·(a − √(3))·(a + √(3))) )
 │    Réduction de Gauss-Jordan d'une matrice 5×5.
 │       [(a 1 0 0 0 | 1); (1 a 1 0 0 | 0); (0 1 a 1 0 | 0); (0 0 1 a 1 | 0); (0 0 0 1 a | 1)]
 │    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
@@ -311,7 +313,7 @@ Discussion selon a
 │    │  │  [(1 0 0 0 0 | (a**2 - 2)/(a*(a**2 - 3))); (0 1 0 0 0 | -1/(a**2 - 3)); (0 0 1 0 0 | 2/(a*(a**2 - 3))); (0 0 0 1 a | 1); (0 0 0 0 1 | (a**2 - 2)/(a*(a**2 - 3)))]
 │    │  └─ On annule le coefficient (4,5) : L4 ← L4 - a·L5.
 │    │     [(1 0 0 0 0 | (a**2 - 2)/(a*(a**2 - 3))); (0 1 0 0 0 | -1/(a**2 - 3)); (0 0 1 0 0 | 2/(a*(a**2 - 3))); (0 0 0 1 0 | -1/(a**2 - 3)); (0 0 0 0 1 | (a**2 - 2)/(a*(a**2 - 3)))]
-│    ├─ Pivots non nuls, rang 5, solution unique : x = ( (a² − 2)/(a·(a² − 3)), −1/(a² − 3), 2/(a·(a² − 3)), −1/(a² − 3), (a² − 2)/(a·(a² − 3)) ).
+│    ├─ Pivots non nuls, rang 5, solution unique : x = ( (a² − 2)/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), 2/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), (a² − 2)/(a·(a − √(3))·(a + √(3))) ).
 │    └─ Forme échelonnée réduite atteinte : rang = 5, colonnes pivots = (1, 2, 3, 4, 5).
 │       [(1 0 0 0 0 | (a**2 - 2)/(a*(a**2 - 3))); (0 1 0 0 0 | -1/(a**2 - 3)); (0 0 1 0 0 | 2/(a*(a**2 - 3))); (0 0 0 1 0 | -1/(a**2 - 3)); (0 0 0 0 1 | (a**2 - 2)/(a*(a**2 - 3)))]
 ├─ Cas a = 1 : rang 4, infinité de solutions (1 variable(s) libre(s))
@@ -483,8 +485,8 @@ Discussion selon a
 │    ├─ Rang 4 < 5 : ensemble affine de solutions avec 1 variable(s) libre(s).
 │    └─ Forme échelonnée réduite atteinte : rang = 4, colonnes pivots = (1, 2, 3, 4).
 │       [(1 0 0 0 1 | -1); (0 1 0 0 1 | 0); (0 0 1 0 0 | 1); (0 0 0 1 -1 | 1); (0 0 0 0 0 | 0)]
-└─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0 : L5 devient (0 0 0 0 0 | a**4 - 3*a**2 + 2)
-     système incompatible (témoin : 0 = a**4 - 3*a**2 + 2)
+└─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0 : L5 devient (0 0 0 0 0 | 2)
+     système incompatible (témoin : 0 = 2)
      Réduction de Gauss-Jordan d'une matrice 5×5.
         [(a 1 0 0 0 | 1); (1 a 1 0 0 | 0); (0 1 a 1 0 | 0); (0 0 1 a 1 | 0); (0 0 0 1 a | 1)]
      ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
@@ -541,6 +543,8 @@ Discussion selon a
      │     [(1 0 0 0 -a**4 + 3*a**2 - 1 | -a**3 + 2*a); (0 1 0 0 a**3 - 2*a | a**2 - 1); (0 0 1 0 1 - a**2 | -a); (0 0 0 1 a | 1); (0 0 0 0 a**5 - 4*a**3 + 3*a | a**4 - 3*a**2 + 2)]
      ├─ Ce coefficient est nul dans le domaine exact (a⁵ − 4·a³ + 3·a = 0).
      ├─ Aucun pivot non nul disponible dans la colonne 5 : variable x_5 libre.
-     ├─ Système incompatible : la ligne L5 donne 0 = a⁴ − 3·a² + 2 (témoin : 0 = 1).
+     ├─ Dans cette branche, a² − 3 = 0 : chaque coefficient est remplacé par son reste dans la division par ce polynôme, ce qui fait disparaître les puissances de degré trop élevé.
+     │  [(1 0 0 0 -1 | -a); (0 1 0 0 a | 2); (0 0 1 0 -2 | -a); (0 0 0 1 a | 1); (0 0 0 0 0 | 2)]
+     ├─ Système incompatible : la ligne L5 donne 0 = 2 (témoin : 0 = 1).
      └─ Forme échelonnée réduite atteinte : rang = 4, colonnes pivots = (1, 2, 3, 4).
-        [(1 0 0 0 -a**4 + 3*a**2 - 1 | -a**3 + 2*a); (0 1 0 0 a**3 - 2*a | a**2 - 1); (0 0 1 0 1 - a**2 | -a); (0 0 0 1 a | 1); (0 0 0 0 a**5 - 4*a**3 + 3*a | a**4 - 3*a**2 + 2)]
+        [(1 0 0 0 -1 | -a); (0 1 0 0 a | 2); (0 0 1 0 -2 | -a); (0 0 0 1 a | 1); (0 0 0 0 0 | 2)]
