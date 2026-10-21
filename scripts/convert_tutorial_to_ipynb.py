@@ -98,7 +98,8 @@ def create_notebook() -> None:
         "nbformat": 4,
         "nbformat_minor": 5,
     }
-    TARGET.write_text(json.dumps(nb, ensure_ascii=False, indent=1), encoding="utf-8")
+    # Saut de ligne final, comme scripts/nettoyer_carnets.py : le fichier est identique avec ou sans le filtre git.
+    TARGET.write_text(json.dumps(nb, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     n_code = sum(c["cell_type"] == "code" for c in cells)
     print(f"Carnet généré : {TARGET} ({len(cells)} cellules dont {n_code} de code)")
 
