@@ -102,7 +102,7 @@ det:
   zero_column: "Colonne {col} : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul."
   pivot: "Colonne {col} : pivot {pivot}."
   row_add: "On annule le coefficient ({i},{j}) : L{i} ← L{i} − ({lam})·L{j} (une transvection ne change pas le déterminant)."
-  elimination_conditional: "Colonne {col} : le seul pivot possible, {expr}, peut s'annuler selon les paramètres ; l'élimination s'arrête (utiliser Bareiss)."
+  case_split: "Discussion selon {param} pour le pivot ({row},{col}) = {expr}, qui peut s'annuler."
   product: "Matrice triangulaire : det A = ({sign}1) × produit des pivots {pivots} ({swaps} échange(s) de lignes)."
   cofactor_expansion: "Développement suivant la {axis} {index} (la plus creuse) : det A = Σ (−1)^(i+j) a_ij M_ij."
   cofactor_skip: "Coefficient a_({i},{j}) nul : son terme est nul, le mineur n'est pas calculé."

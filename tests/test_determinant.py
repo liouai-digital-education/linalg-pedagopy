@@ -128,14 +128,29 @@ def test_nombre_d_echanges_annonce() -> None:
     assert res.value == 7
 
 
-def test_elimination_interrompue_sur_pivot_conditionnel() -> None:
+def test_elimination_discussion_sur_pivot_conditionnel() -> None:
     (a,) = symbols("a")
     A = Matrix([[a, 1, 1], [1, a, 1], [1, 1, a]])
-    with pytest.raises(PedagopyError, match="method='bareiss'"):
-        Determinant(A, method="elimination").run()
-    # Avec une hypothèse qui tranche les pivots, l'élimination aboutit
-    res = Determinant(A, method="elimination", assumptions={"a": 3}).run()
-    assert res.value == 20
+    res = Determinant(A, method="elimination").run()
+    assert isinstance(res, CaseSplit)
+    assert [br.condition.format_text() for br in res.branches] == ["a ≠ 1 et a ≠ −2", "a = −2", "a = 1"]
+    assert sp.expand(res.branches[0].result.value - (a - 1) ** 2 * (a + 2)) == 0
+    assert res.at(a=1).value == 0 and res.at(a=-2).value == 0
+    assert res.at(a=3).value == 20
+    # Chaque branche porte sa condition, et la trace s'arrête sur la colonne sans pivot
+    assert res.branches[2].result.condition.format_text() == "a = 1"
+    assert "Colonne 2 : aucun pivot non nul" in res.branches[2].result.explain(level=1).to_text()
+    # Avec une hypothèse qui tranche les pivots, pas de discussion
+    assert Determinant(A, method="elimination", assumptions={"a": 3}).run().value == 20
+
+
+def test_matrix_det_elimination_parametree() -> None:
+    (a,) = symbols("a")
+    A = Matrix([[a, 1], [0, a]])
+    valeurs = A.det(method="elimination")
+    assert isinstance(valeurs, CaseSplit)
+    assert valeurs.at(a=0) == 0 and valeurs.at(a=2) == 4
+    assert A.det() == a**2  # Bareiss par défaut avec paramètres : jamais de discussion
 
 
 def test_zeros_et_discussion_inversible() -> None:

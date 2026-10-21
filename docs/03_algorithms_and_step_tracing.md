@@ -386,13 +386,16 @@ print(Determinant(D, method="sarrus").run().explain(level=1))
 # └─ det A = 41.
 ```
 
-L'élimination refuse de diviser par un pivot qui dépend d'un paramètre et peut s'annuler : elle s'arrête avec une explication (`PedagopyError`) qui renvoie vers Bareiss, ou vers des hypothèses explicites.
+L'élimination ne divise jamais par un pivot qui dépend d'un paramètre et peut s'annuler : comme Gauss-Jordan, elle ouvre alors une discussion par cas (`CaseSplit`), avec dans chaque branche le produit des pivots ou l'arrêt sur une colonne sans pivot. Bareiss, lui, n'a jamais besoin de discussion.
 
 ```python
-Determinant(A, method="elimination").run()
-# PedagopyError : Élimination interrompue en colonne 2 : le pivot 1 - a peut s'annuler selon
-# les paramètres [...] Utilisez method='bareiss' [...] ou précisez des hypothèses (assumptions=...).
+print(Determinant(A, method="elimination").run())
+# Discussion selon a
+# ├─ Cas a ≠ 1 et a ≠ −2 (générique) : det A = (a - 1)**2*(a + 2) (méthode : élimination)
+# ├─ Cas a = −2 : det A = 0 (méthode : élimination)
+# └─ Cas a = 1 : det A = 0 (méthode : élimination)
 Determinant(A, method="elimination", assumptions={"a": 3}).run().value   # 20
+A.det(method="elimination")                                              # CaseSplit des valeurs
 ```
 
 ### 7.4 Vérification et cas particuliers

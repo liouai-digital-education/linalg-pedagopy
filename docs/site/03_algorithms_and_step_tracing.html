@@ -513,11 +513,14 @@ print(Determinant(D, method="sarrus").run().explain(level=1))
 # ├─ Règle de Sarrus, diagonales montantes (signe −) : (12, 0, 0).
 # └─ det A = 41.
 </code></pre></div>
-<p>L'élimination refuse de diviser par un pivot qui dépend d'un paramètre et peut s'annuler : elle s'arrête avec une explication (<code>PedagopyError</code>) qui renvoie vers Bareiss, ou vers des hypothèses explicites.</p>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">Determinant(A, method="elimination").run()
-# PedagopyError : Élimination interrompue en colonne 2 : le pivot 1 - a peut s'annuler selon
-# les paramètres [...] Utilisez method='bareiss' [...] ou précisez des hypothèses (assumptions=...).
+<p>L'élimination ne divise jamais par un pivot qui dépend d'un paramètre et peut s'annuler : comme Gauss-Jordan, elle ouvre alors une discussion par cas (<code>CaseSplit</code>), avec dans chaque branche le produit des pivots ou l'arrêt sur une colonne sans pivot. Bareiss, lui, n'a jamais besoin de discussion.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(Determinant(A, method="elimination").run())
+# Discussion selon a
+# ├─ Cas a ≠ 1 et a ≠ −2 (générique) : det A = (a - 1)**2*(a + 2) (méthode : élimination)
+# ├─ Cas a = −2 : det A = 0 (méthode : élimination)
+# └─ Cas a = 1 : det A = 0 (méthode : élimination)
 Determinant(A, method="elimination", assumptions={"a": 3}).run().value   # 20
+A.det(method="elimination")                                              # CaseSplit des valeurs
 </code></pre></div>
 <h3 id="74-verification-et-cas-particuliers">7.4 Vérification et cas particuliers</h3>
 <ul>

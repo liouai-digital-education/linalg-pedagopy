@@ -1,0 +1,94 @@
+===== repr =====
+DetResult(A=Matrix([[0, 2, 1], [3, 1, 2], [1, 1, 1]]), value=0, method='elimination', factors=(), condition=Condition(eqs=(), neqs=()))
+
+===== texte niveau 0 =====
+det A = 0 (méthode : élimination)
+
+===== texte niveau 1 =====
+Calcul du déterminant d'une matrice 3×3 (méthode : élimination).
+├─ On échange les lignes L1 et L3 : L1 ↔ L3 (le déterminant change de signe).
+├─ On annule le coefficient (2,1) : L2 ← L2 − (3)·L1 (une transvection ne change pas le déterminant).
+├─ On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+├─ On annule le coefficient (3,2) : L3 ← L3 − (−1)·L2 (une transvection ne change pas le déterminant).
+├─ Colonne 3 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+└─ det A = 0.
+
+===== texte niveau 2 =====
+Calcul du déterminant d'une matrice 3×3 (méthode : élimination).
+├─ On échange les lignes L1 et L3 : L1 ↔ L3 (le déterminant change de signe).
+├─ Colonne 1 : pivot 1.
+├─ On annule le coefficient (2,1) : L2 ← L2 − (3)·L1 (une transvection ne change pas le déterminant).
+├─ On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+├─ Colonne 2 : pivot 2.
+├─ On annule le coefficient (3,2) : L3 ← L3 − (−1)·L2 (une transvection ne change pas le déterminant).
+├─ Colonne 3 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+└─ det A = 0.
+
+===== texte niveau 3 =====
+Calcul du déterminant d'une matrice 3×3 (méthode : élimination).
+├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+├─ On échange les lignes L1 et L3 : L1 ↔ L3 (le déterminant change de signe).
+├─ Colonne 1 : pivot 1.
+├─ On annule le coefficient (2,1) : L2 ← L2 − (3)·L1 (une transvection ne change pas le déterminant).
+├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+├─ On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+├─ Colonne 2 : pivot 2.
+├─ On annule le coefficient (3,2) : L3 ← L3 − (−1)·L2 (une transvection ne change pas le déterminant).
+├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+├─ Colonne 3 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+└─ det A = 0.
+
+===== markdown niveau 2 =====
+- Calcul du déterminant d'une matrice 3×3 (méthode : élimination).
+  $$\left[\begin{array}{ccc} 0 & 2 & 1 \\ 3 & 1 & 2 \\ 1 & 1 & 1 \end{array}\right]$$
+  - On échange les lignes L1 et L3 : L1 ↔ L3 (le déterminant change de signe).
+    $$\xrightarrow{L_{1} \leftrightarrow L_{3}} \left[\begin{array}{ccc} \boxed{1} & \color{blue}{1} & \color{blue}{1} \\ 3 & 1 & 2 \\ \color{blue}{0} & \color{blue}{2} & \color{blue}{1} \end{array}\right]$$
+  - Colonne 1 : pivot 1.
+  - On annule le coefficient (2,1) : L2 ← L2 − (3)·L1 (une transvection ne change pas le déterminant).
+    $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(3\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{-2} & \color{blue}{-1} \\ 0 & 2 & 1 \end{array}\right]$$
+  - On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+    $$\xrightarrow{L_{2} \leftrightarrow L_{3}} \left[\begin{array}{ccc} 1 & 1 & 1 \\ \color{blue}{0} & \boxed{2} & \color{blue}{1} \\ \color{blue}{0} & \color{blue}{-2} & \color{blue}{-1} \end{array}\right]$$
+  - Colonne 2 : pivot 2.
+  - On annule le coefficient (3,2) : L3 ← L3 − (−1)·L2 (une transvection ne change pas le déterminant).
+    $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(-1\right) L_{2}} \left[\begin{array}{ccc} 1 & 1 & 1 \\ 0 & \boxed{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]$$
+  - Colonne 3 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+  - det A = 0.
+
+===== latex niveau 2 =====
+\begin{itemize}
+  \item Calcul du déterminant d'une matrice 3×3 (méthode : élimination).
+  \[\left[\begin{array}{ccc} 0 & 2 & 1 \\ 3 & 1 & 2 \\ 1 & 1 & 1 \end{array}\right]\]
+  \begin{itemize}
+    \item On échange les lignes L1 et L3 : L1 ↔ L3 (le déterminant change de signe).
+    \[\xrightarrow{L_{1} \leftrightarrow L_{3}} \left[\begin{array}{ccc} \boxed{1} & \color{blue}{1} & \color{blue}{1} \\ 3 & 1 & 2 \\ \color{blue}{0} & \color{blue}{2} & \color{blue}{1} \end{array}\right]\]
+    \item Colonne 1 : pivot 1.
+    \item On annule le coefficient (2,1) : L2 ← L2 − (3)·L1 (une transvection ne change pas le déterminant).
+    \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(3\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{-2} & \color{blue}{-1} \\ 0 & 2 & 1 \end{array}\right]\]
+    \item On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+    \[\xrightarrow{L_{2} \leftrightarrow L_{3}} \left[\begin{array}{ccc} 1 & 1 & 1 \\ \color{blue}{0} & \boxed{2} & \color{blue}{1} \\ \color{blue}{0} & \color{blue}{-2} & \color{blue}{-1} \end{array}\right]\]
+    \item Colonne 2 : pivot 2.
+    \item On annule le coefficient (3,2) : L3 ← L3 − (−1)·L2 (une transvection ne change pas le déterminant).
+    \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(-1\right) L_{2}} \left[\begin{array}{ccc} 1 & 1 & 1 \\ 0 & \boxed{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]
+    \item Colonne 3 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+    \item det A = 0.
+  \end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-explanation'>
+<details open>
+  <summary>Calcul du déterminant d&#x27;une matrice 3×3 (méthode : élimination).</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{ccc} 0 & 2 & 1 \\ 3 & 1 & 2 \\ 1 & 1 & 1 \end{array}\right]\]</div>
+  <div class='pedagopy-step'>On échange les lignes L1 et L3 : L1 ↔ L3 (le déterminant change de signe).<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftrightarrow L_{3}} \left[\begin{array}{ccc} \boxed{1} & \color{blue}{1} & \color{blue}{1} \\ 3 & 1 & 2 \\ \color{blue}{0} & \color{blue}{2} & \color{blue}{1} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Colonne 1 : pivot 1.</div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 − (3)·L1 (une transvection ne change pas le déterminant).<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(3\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{-2} & \color{blue}{-1} \\ 0 & 2 & 1 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftrightarrow L_{3}} \left[\begin{array}{ccc} 1 & 1 & 1 \\ \color{blue}{0} & \boxed{2} & \color{blue}{1} \\ \color{blue}{0} & \color{blue}{-2} & \color{blue}{-1} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Colonne 2 : pivot 2.</div>
+<div class='pedagopy-step'>On annule le coefficient (3,2) : L3 ← L3 − (−1)·L2 (une transvection ne change pas le déterminant).<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(-1\right) L_{2}} \left[\begin{array}{ccc} 1 & 1 & 1 \\ 0 & \boxed{2} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Colonne 3 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.</div>
+<div class='pedagopy-step'>det A = 0.</div>
+</details>
+</div>
+
+===== verify =====
+Vérification du déterminant (méthode élimination) par un calcul indépendant (algorithme de Berkowitz) : résultat confirmé.

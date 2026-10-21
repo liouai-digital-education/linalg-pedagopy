@@ -8,7 +8,14 @@ from typing import Any, Literal, Mapping
 import sympy as sp
 
 from linalg_pedagopy.algorithms.base import Procedure, Result
-from linalg_pedagopy.algorithms.gauss_jordan import _pivot_complexity_key, _simplify_entry
+from linalg_pedagopy.algorithms.elimination import (
+    EliminationEngine,
+    EliminationSetup,
+    EliminationState,
+    RowOps,
+    _simplify_entry,
+)
+from linalg_pedagopy.config import config
 from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
 from linalg_pedagopy.core.exceptions import DimensionMismatchError, PedagopyError
 from linalg_pedagopy.core.zero import (
@@ -20,7 +27,7 @@ from linalg_pedagopy.core.zero import (
     oracle,
 )
 from linalg_pedagopy.objects.matrix import Matrix, register_determinant_hook
-from linalg_pedagopy.trace.step import Highlight, StepKind
+from linalg_pedagopy.trace.step import StepKind
 from linalg_pedagopy.trace.tracer import record, section
 
 DetMethod = Literal["auto", "bareiss", "elimination", "cofactors", "sarrus"]
@@ -33,6 +40,8 @@ NOMS_METHODES = {
     "sarrus": "Sarrus",
 }
 COFACTEURS_TAILLE_MAX = 4
+# Opérations de lignes tracées du déterminant : clés det.*, transvections « L_i ← L_i − (λ)·L_j »
+_OPS = RowOps("det", snapshot_key="matrix", signed_add=False)
 
 
 def _finaliser(expr: Any) -> sp.Expr:
@@ -160,7 +169,7 @@ class Determinant(Procedure[DetResult]):
         self.method: DetMethod = method
         self.assumptions = _normalize_assumptions(assumptions)
 
-    def _execute(self) -> DetResult:
+    def _execute(self) -> DetResult | CaseSplit[DetResult]:
         cond = self.assumptions
         domaine = domain_of(self.A.flat_entries, cond)
         if not domaine.is_trivial:
@@ -182,18 +191,23 @@ class Determinant(Procedure[DetResult]):
         with section("det.start", level=1, snapshot={"matrix": A_cur}, n=n, method=NOMS_METHODES[methode]):
             if self.method == "auto":
                 record(StepKind.INFO, "det.auto", level=2, method=NOMS_METHODES[methode])
+            if methode == "elimination" and n > 0:
+                # Moteur d'élimination : discussion par cas si un pivot peut s'annuler
+                return self._elimination(cond)
             if n == 0:
                 brut: sp.Expr = sp.Integer(1)
             elif methode == "bareiss":
                 brut = self._bareiss(grille, cond)
-            elif methode == "elimination":
-                brut = self._elimination(grille, cond)
             elif methode == "cofactors":
                 brut = self._cofacteurs(grille, cond, profondeur=0)
             else:
                 brut = self._sarrus(grille)
-            valeur = _finaliser(brut)
-            record(StepKind.RESULT, "det.result", level=1, value=valeur)
+            return self._resultat(A_cur, brut, methode, cond)
+
+    @staticmethod
+    def _resultat(A_cur: Matrix, brut: sp.Expr, methode: str, cond: Condition) -> DetResult:
+        valeur = _finaliser(brut)
+        record(StepKind.RESULT, "det.result", level=1, value=valeur)
         return DetResult(
             A=A_cur, value=valeur, method=methode, factors=_facteurs(valeur), condition=cond
         )
@@ -214,46 +228,11 @@ class Determinant(Procedure[DetResult]):
                 if autre is None:
                     record(StepKind.INFO, "det.zero_column", level=1, col=k + 1)
                     return sp.Integer(0)
-                M[k], M[autre] = M[autre], M[k]
                 signe = -signe
                 echanges += 1
-                record(
-                    StepKind.ROW_SWAP,
-                    "det.row_swap",
-                    level=1,
-                    snapshot={"matrix": Matrix._from_exact_rows(M)},
-                    highlight=Highlight(
-                        pivot=(k, k),
-                        rows=(k, autre),
-                        operation_latex=f"L_{{{k + 1}}} \\leftrightarrow L_{{{autre + 1}}}",
-                    ),
-                    i=k + 1,
-                    j=autre + 1,
-                )
+                _OPS.swap(M, k, autre, col=k)
             pivot = M[k][k]
-            for i in range(k + 1, n):
-                for j in range(k + 1, n):
-                    M[i][j] = _simplify_entry(sp.cancel((pivot * M[i][j] - M[i][k] * M[k][j]) / precedent))
-                    record(
-                        StepKind.INFO,
-                        "det.bareiss_entry",
-                        level=3,
-                        i=i + 1,
-                        j=j + 1,
-                        k=k + 1,
-                        value=M[i][j],
-                    )
-                M[i][k] = sp.Integer(0)
-            record(
-                StepKind.ROW_ADD,
-                "det.bareiss_step",
-                level=1,
-                snapshot={"matrix": Matrix._from_exact_rows(M)},
-                highlight=Highlight(pivot=(k, k), rows=tuple(range(k + 1, n))),
-                k=k + 1,
-                pivot=pivot,
-                previous=precedent,
-            )
+            _OPS.bareiss_step(M, k, precedent)
             precedent = pivot
         resultat = M[n - 1][n - 1] if signe == 1 else -M[n - 1][n - 1]
         record(StepKind.INFO, "det.bareiss_last", level=1, value=M[n - 1][n - 1], swaps=echanges)
@@ -261,80 +240,54 @@ class Determinant(Procedure[DetResult]):
 
     # --- Élimination sans dilatation --------------------------------------------------------
 
-    @staticmethod
-    def _elimination(M: list[list[sp.Expr]], cond: Condition) -> sp.Expr:
-        n = len(M)
-        signe = 1
-        echanges = 0
-        pivots: list[sp.Expr] = []
-        for k in range(n):
-            candidats = [(i, M[i][k]) for i in range(k, n)]
-            etats = [(i, v, _est_nul(v, cond)) for i, v in candidats]
-            non_nuls = [(i, v) for i, v, e in etats if e is False]
-            if not non_nuls:
-                conditionnels = [v for _i, v, e in etats if e is None]
-                if conditionnels:
-                    expr = min(conditionnels, key=_pivot_complexity_key)
-                    record(StepKind.WARNING, "det.elimination_conditional", level=1, col=k + 1, expr=expr)
-                    raise PedagopyError(
-                        f"Élimination interrompue en colonne {k + 1} : le pivot {sp.sstr(expr)} peut s'annuler "
-                        "selon les paramètres, et diviser par lui exigerait une discussion de cas. "
-                        "Utilisez method='bareiss' (sans division ni discussion de cas) ou précisez "
-                        "des hypothèses (assumptions=...)."
-                    )
-                record(StepKind.INFO, "det.zero_column", level=1, col=k + 1)
-                return sp.Integer(0)
-            ligne, pivot = min(non_nuls, key=lambda item: _pivot_complexity_key(item[1]))
-            if ligne != k:
-                M[k], M[ligne] = M[ligne], M[k]
-                signe = -signe
-                echanges += 1
-                record(
-                    StepKind.ROW_SWAP,
-                    "det.row_swap",
-                    level=1,
-                    snapshot={"matrix": Matrix._from_exact_rows(M)},
-                    highlight=Highlight(
-                        pivot=(k, k),
-                        rows=(k, ligne),
-                        operation_latex=f"L_{{{k + 1}}} \\leftrightarrow L_{{{ligne + 1}}}",
-                    ),
-                    i=k + 1,
-                    j=ligne + 1,
-                )
-            record(StepKind.INFO, "det.pivot", level=2, col=k + 1, pivot=pivot)
-            for i in range(k + 1, n):
-                if _est_nul(M[i][k], cond) is True:
-                    M[i][k] = sp.Integer(0)
-                    continue
-                facteur = _simplify_entry(M[i][k] / pivot)
-                M[i] = [_simplify_entry(M[i][j] - facteur * M[k][j]) for j in range(n)]
-                M[i][k] = sp.Integer(0)
-                record(
-                    StepKind.ROW_ADD,
-                    "det.row_add",
-                    level=1,
-                    snapshot={"matrix": Matrix._from_exact_rows(M)},
-                    highlight=Highlight(
-                        pivot=(k, k),
-                        rows=(i,),
-                        operation_latex=f"L_{{{i + 1}}} \\leftarrow L_{{{i + 1}}} - \\left({sp.latex(facteur)}\\right) L_{{{k + 1}}}",
-                    ),
-                    i=i + 1,
-                    j=k + 1,
-                    lam=facteur,
-                )
-            pivots.append(pivot)
-        produit = sp.Mul(*pivots)
-        record(
-            StepKind.INFO,
-            "det.product",
-            level=1,
-            pivots=tuple(pivots),
-            sign="+" if signe == 1 else "−",
-            swaps=echanges,
+    def _elimination(self, cond: Condition) -> DetResult | CaseSplit[DetResult]:
+        """Triangulation sans dilatation sur le moteur : det A = (−1)^échanges × produit des pivots.
+
+        Un pivot qui peut s'annuler selon les paramètres ouvre une discussion par cas ;
+        une colonne sans pivot non nul arrête le calcul (déterminant nul).
+        """
+        engine: EliminationEngine[DetResult] = EliminationEngine(
+            prefix="det",
+            setup=self._setup_elimination,
+            on_complete=self._fin_elimination,
+            reduce_above=False,
+            normalize_pivots=False,
+            snapshot_key="matrix",
+            signed_add=False,
+            start_section=False,
+            column_sections=False,
+            stop_on_zero_column=True,
+            limit_arguments=False,
+            max_depth=config.max_case_depth,
+            max_cases=config.max_cases,
         )
-        return produit if signe == 1 else -produit
+        return engine.run(cond)
+
+    def _setup_elimination(self, cond: Condition) -> EliminationSetup:
+        subs_map = cond.substitutions()
+        A_cur = self.A.subs(subs_map) if subs_map else self.A
+        n = A_cur.rows
+        grille = [[_simplify_entry(A_cur[i, j]) for j in range(n)] for i in range(n)]
+        return EliminationSetup(grid=grille, n_cols=n, context=A_cur)
+
+    def _fin_elimination(self, st: EliminationState) -> DetResult:
+        n = st.setup.n_cols
+        if len(st.pivots) < n:
+            brut: sp.Expr = sp.Integer(0)  # colonne sans pivot : déjà annoncée par det.zero_column
+        else:
+            pivots = [st.grid[k][k] for k in range(n)]
+            produit = sp.Mul(*pivots)
+            pair = st.swaps % 2 == 0
+            record(
+                StepKind.INFO,
+                "det.product",
+                level=1,
+                pivots=tuple(pivots),
+                sign="+" if pair else "−",
+                swaps=st.swaps,
+            )
+            brut = produit if pair else -produit
+        return self._resultat(st.setup.context, brut, "elimination", st.cond)
 
     # --- Cofacteurs ---------------------------------------------------------------------------
 

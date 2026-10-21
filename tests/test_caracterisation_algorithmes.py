@@ -15,6 +15,7 @@ import sympy as sp
 from linalg_pedagopy import (
     BackSubstitution,
     CaseSplit,
+    Determinant,
     Condition,
     ForwardSubstitution,
     GaussJordan,
@@ -96,6 +97,14 @@ CAS_ALGORITHMES: dict[str, Callable[[], Any]] = {
     "gs_parametre": lambda: GramSchmidt([Vector([1, a]), Vector([a, 1])]).run(),
     "qr": lambda: QR(Matrix([[1, -1], [1, 0], [1, 1]])).run(),
     "qr_rang_deficient": lambda: QR(Matrix([[1, 2], [2, 4], [3, 6]])).run(),
+    # --- Déterminant (filet de sécurité de la phase 4 : traces de Bareiss, élimination, cofacteurs, Sarrus)
+    "det_bareiss_parametre": lambda: Determinant(Matrix([[a, 1, 1], [1, a, 1], [1, 1, a]])).run(),
+    "det_bareiss_echange": lambda: Determinant(Matrix([[0, a, 1], [1, 0, b], [a, 1, 0]])).run(),
+    "det_elimination_echange": lambda: Determinant(Matrix([[0, 2, 1], [3, 1, 2], [1, 1, 1]]), method="elimination").run(),
+    "det_cofacteurs_4x4": lambda: Determinant(Matrix([[2, -1, 3, 0], [1, 4, 0, 2], [-2, 1, 5, 1], [0, 1, 1, 1]]), method="cofactors").run(),
+    "det_sarrus": lambda: Determinant(Matrix([[2, -1, 3], [1, 4, 0], [-2, 1, 5]]), method="sarrus").run(),
+    "det_singuliere": lambda: Determinant(Matrix([[1, 2], [2, 4]])).run(),
+    "det_elimination_parametre": lambda: Determinant(Matrix([[a, 1, 1], [1, a, 1], [1, 1, a]]), method="elimination").run(),
     # --- Moindres carrés
     "mc_qr_rationnelle": lambda: LeastSquares(Matrix([[1, 0], [1, 1], [1, 2], [1, 3]]), Vector([1, 2, 2, 4])).run(),
     "mc_qr": lambda: LeastSquares(Matrix([[1, 0], [1, 1], [1, 2], [1, 3]]), Vector([1, 2, 2, 4]), method="qr").run(),

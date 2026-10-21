@@ -1,0 +1,90 @@
+===== repr =====
+DetResult(A=Matrix([[0, a, 1], [1, 0, b], [a, 1, 0]]), value=a**2*b + 1, method='bareiss', factors=((a**2*b + 1, 1),), condition=Condition(eqs=(), neqs=()))
+
+===== texte niveau 0 =====
+det A = a**2*b + 1 (méthode : Bareiss)
+
+===== texte niveau 1 =====
+Calcul du déterminant d'une matrice 3×3 (méthode : Bareiss).
+├─ Algorithme de Bareiss (élimination sans fractions) : à l'étape k, m_ij ← (m_kk·m_ij − m_ik·m_kj) / (pivot précédent). La division est exacte : les coefficients restent polynomiaux, sans discussion de cas.
+├─ On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+├─ Étape 1 : pivot 1, division exacte par le pivot précédent 1.
+├─ Étape 2 : pivot a, division exacte par le pivot précédent 1.
+├─ Le dernier coefficient diagonal −a²·b − 1 est le déterminant, au signe des échanges près (1 échange(s)).
+└─ det A = a²·b + 1.
+
+===== texte niveau 2 =====
+Calcul du déterminant d'une matrice 3×3 (méthode : Bareiss).
+├─ Méthode choisie automatiquement : Bareiss (Bareiss dès que la matrice contient des paramètres, élimination sinon).
+├─ Algorithme de Bareiss (élimination sans fractions) : à l'étape k, m_ij ← (m_kk·m_ij − m_ik·m_kj) / (pivot précédent). La division est exacte : les coefficients restent polynomiaux, sans discussion de cas.
+├─ On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+├─ Étape 1 : pivot 1, division exacte par le pivot précédent 1.
+├─ Étape 2 : pivot a, division exacte par le pivot précédent 1.
+├─ Le dernier coefficient diagonal −a²·b − 1 est le déterminant, au signe des échanges près (1 échange(s)).
+└─ det A = a²·b + 1.
+
+===== texte niveau 3 =====
+Calcul du déterminant d'une matrice 3×3 (méthode : Bareiss).
+├─ Méthode choisie automatiquement : Bareiss (Bareiss dès que la matrice contient des paramètres, élimination sinon).
+├─ Algorithme de Bareiss (élimination sans fractions) : à l'étape k, m_ij ← (m_kk·m_ij − m_ik·m_kj) / (pivot précédent). La division est exacte : les coefficients restent polynomiaux, sans discussion de cas.
+├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+├─ On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+├─ Étape 1 : m_(2,2) = a (mineur 2×2 divisé par le pivot précédent).
+├─ Étape 1 : m_(2,3) = 1 (mineur 2×2 divisé par le pivot précédent).
+├─ Étape 1 : m_(3,2) = 1 (mineur 2×2 divisé par le pivot précédent).
+├─ Étape 1 : m_(3,3) = −a·b (mineur 2×2 divisé par le pivot précédent).
+├─ Étape 1 : pivot 1, division exacte par le pivot précédent 1.
+├─ Étape 2 : m_(3,3) = −a²·b − 1 (mineur 2×2 divisé par le pivot précédent).
+├─ Étape 2 : pivot a, division exacte par le pivot précédent 1.
+├─ Le dernier coefficient diagonal −a²·b − 1 est le déterminant, au signe des échanges près (1 échange(s)).
+└─ det A = a²·b + 1.
+
+===== markdown niveau 2 =====
+- Calcul du déterminant d'une matrice 3×3 (méthode : Bareiss).
+  $$\left[\begin{array}{ccc} 0 & a & 1 \\ 1 & 0 & b \\ a & 1 & 0 \end{array}\right]$$
+  - Méthode choisie automatiquement : Bareiss (Bareiss dès que la matrice contient des paramètres, élimination sinon).
+  - Algorithme de Bareiss (élimination sans fractions) : à l'étape k, m_ij ← (m_kk·m_ij − m_ik·m_kj) / (pivot précédent). La division est exacte : les coefficients restent polynomiaux, sans discussion de cas.
+  - On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+    $$\xrightarrow{L_{1} \leftrightarrow L_{2}} \left[\begin{array}{ccc} \boxed{1} & \color{blue}{0} & \color{blue}{b} \\ \color{blue}{0} & \color{blue}{a} & \color{blue}{1} \\ a & 1 & 0 \end{array}\right]$$
+  - Étape 1 : pivot 1, division exacte par le pivot précédent 1.
+    $$\left[\begin{array}{ccc} \boxed{1} & 0 & b \\ \color{blue}{0} & \color{blue}{a} & \color{blue}{1} \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{- a b} \end{array}\right]$$
+  - Étape 2 : pivot a, division exacte par le pivot précédent 1.
+    $$\left[\begin{array}{ccc} 1 & 0 & b \\ 0 & \boxed{a} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{- a^{2} b - 1} \end{array}\right]$$
+  - Le dernier coefficient diagonal −a²·b − 1 est le déterminant, au signe des échanges près (1 échange(s)).
+  - det A = a²·b + 1.
+
+===== latex niveau 2 =====
+\begin{itemize}
+  \item Calcul du déterminant d'une matrice 3×3 (méthode : Bareiss).
+  \[\left[\begin{array}{ccc} 0 & a & 1 \\ 1 & 0 & b \\ a & 1 & 0 \end{array}\right]\]
+  \begin{itemize}
+    \item Méthode choisie automatiquement : Bareiss (Bareiss dès que la matrice contient des paramètres, élimination sinon).
+    \item Algorithme de Bareiss (élimination sans fractions) : à l'étape k, m_ij ← (m_kk·m_ij − m_ik·m_kj) / (pivot précédent). La division est exacte : les coefficients restent polynomiaux, sans discussion de cas.
+    \item On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+    \[\xrightarrow{L_{1} \leftrightarrow L_{2}} \left[\begin{array}{ccc} \boxed{1} & \color{blue}{0} & \color{blue}{b} \\ \color{blue}{0} & \color{blue}{a} & \color{blue}{1} \\ a & 1 & 0 \end{array}\right]\]
+    \item Étape 1 : pivot 1, division exacte par le pivot précédent 1.
+    \[\left[\begin{array}{ccc} \boxed{1} & 0 & b \\ \color{blue}{0} & \color{blue}{a} & \color{blue}{1} \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{- a b} \end{array}\right]\]
+    \item Étape 2 : pivot a, division exacte par le pivot précédent 1.
+    \[\left[\begin{array}{ccc} 1 & 0 & b \\ 0 & \boxed{a} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{- a^{2} b - 1} \end{array}\right]\]
+    \item Le dernier coefficient diagonal −a²·b − 1 est le déterminant, au signe des échanges près (1 échange(s)).
+    \item det A = a²·b + 1.
+  \end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-explanation'>
+<details open>
+  <summary>Calcul du déterminant d&#x27;une matrice 3×3 (méthode : Bareiss).</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{ccc} 0 & a & 1 \\ 1 & 0 & b \\ a & 1 & 0 \end{array}\right]\]</div>
+  <div class='pedagopy-step'>Méthode choisie automatiquement : Bareiss (Bareiss dès que la matrice contient des paramètres, élimination sinon).</div>
+<div class='pedagopy-step'>Algorithme de Bareiss (élimination sans fractions) : à l&#x27;étape k, m_ij ← (m_kk·m_ij − m_ik·m_kj) / (pivot précédent). La division est exacte : les coefficients restent polynomiaux, sans discussion de cas.</div>
+<div class='pedagopy-step'>On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftrightarrow L_{2}} \left[\begin{array}{ccc} \boxed{1} & \color{blue}{0} & \color{blue}{b} \\ \color{blue}{0} & \color{blue}{a} & \color{blue}{1} \\ a & 1 & 0 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Étape 1 : pivot 1, division exacte par le pivot précédent 1.<div class='pedagopy-math'>\[\left[\begin{array}{ccc} \boxed{1} & 0 & b \\ \color{blue}{0} & \color{blue}{a} & \color{blue}{1} \\ \color{blue}{0} & \color{blue}{1} & \color{blue}{- a b} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Étape 2 : pivot a, division exacte par le pivot précédent 1.<div class='pedagopy-math'>\[\left[\begin{array}{ccc} 1 & 0 & b \\ 0 & \boxed{a} & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{- a^{2} b - 1} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Le dernier coefficient diagonal −a²·b − 1 est le déterminant, au signe des échanges près (1 échange(s)).</div>
+<div class='pedagopy-step'>det A = a²·b + 1.</div>
+</details>
+</div>
+
+===== verify =====
+Vérification du déterminant (méthode Bareiss) par un calcul indépendant (algorithme de Berkowitz) : résultat confirmé.

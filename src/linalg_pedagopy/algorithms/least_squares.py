@@ -8,7 +8,8 @@ from typing import Any, Literal, Mapping
 import sympy as sp
 
 from linalg_pedagopy.algorithms.base import Procedure, Result, UniqueSolution
-from linalg_pedagopy.algorithms.gauss_jordan import GaussJordan, _simplify_entry
+from linalg_pedagopy.algorithms.elimination import _simplify_entry
+from linalg_pedagopy.algorithms.gauss_jordan import GaussJordan
 from linalg_pedagopy.algorithms.qr import QR, QRResult
 from linalg_pedagopy.algorithms.triangular import BackSubstitution
 from linalg_pedagopy.core.cases import Branch, CaseSplit
