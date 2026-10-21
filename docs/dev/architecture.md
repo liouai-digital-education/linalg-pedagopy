@@ -12,7 +12,7 @@ Guide pour les contributeurs : où placer un nouveau code, et quelles dépendanc
 | Objets | `objects/` | `Vector` et `Matrix` : représentation et opérations algébriques. | `core`, `trace` |
 | Rendu | `render/` | Explications en texte, LaTeX, Markdown, HTML ; locales (`locales/fr.yaml`). | `core`, `trace`, `objects` |
 | Algorithmes | `algorithms/` | Procédures tracées (`Procedure` → `Result`) : élimination, Gauss-Jordan, déterminant, Gram-Schmidt, QR, moindres carrés, produits. | toutes les couches précédentes |
-| Usages | `exercises/`, `tutor/`, `tuteur/`, `compare/`, `plot/` | Séances interactives, tuteur, comparaisons numériques, figures. | toutes |
+| Usages | `exercises/`, `tuteur/`, `compare/`, `plot/` | Séances interactives, tuteur (`tutor/` : noms anglais réexportés, supprimé en 0.4.0.0), comparaisons numériques, figures. | toutes |
 
 Une couche n'importe jamais une couche située plus bas dans ce tableau. Quand une couche basse a besoin d'un service d'une couche haute, elle passe par un **crochet** que la couche haute remplit à l'import :
 
@@ -61,18 +61,18 @@ Pour ajouter une méthode de commodité (par exemple `eigenvalues()` en phase 8)
 
 ## Registre des vérificateurs du tuteur
 
-Chaque type de vérificateur d'une fiche (`valeur`, `matrice`, `labo`…) est décrit une fois par un `VerifierType` (`tutor/registry.py`) : nom français et alias anglais, fonction de vérification, forme de réponse attendue (message quand la réponse est illisible), champs obligatoires de la fiche, contrôle croisé de la validation, et deux drapeaux (`requires_twin`, `checks_hint_leak`, faux pour le laboratoire). La séance (`ExerciseSession.verify`) et la validation des fiches (`validate_sheet`) lisent ce registre.
+Chaque type de vérificateur d'une fiche (`valeur`, `matrice`, `labo`…) est décrit une fois par un `VerifierType` (`tuteur/registre.py`) : nom français et alias anglais, fonction de vérification, forme de réponse attendue (message quand la réponse est illisible), champs obligatoires de la fiche, contrôle croisé de la validation, et deux drapeaux (`requires_twin`, `checks_hint_leak`, faux pour le laboratoire). La séance (`ExerciseSession.verify`) et la validation des fiches (`validate_sheet`) lisent ce registre.
 
 Pour ajouter un type (par exemple pour le thème 10 de la phase 7) :
 
-1. créer un module `tutor/verifiers/nom.py` (un module par type ; outils communs dans `commun.py`) ;
+1. créer un module `tuteur/verificateurs/nom.py` (un module par type ; outils communs dans `commun.py`) ;
 2. y écrire la fonction de vérification `f(réponse, spécification, données)` et son contrôle croisé `g(séance, spécification, données) -> list[str]` ;
 3. l'enregistrer en bas du module : `register_verifier(VerifierType("nom", ("alias",), sans_seance(f), "forme attendue", requires("champ", message=...), g))` ;
-4. importer le module dans `tutor/verifiers/__init__.py`.
+4. importer le module dans `tuteur/verificateurs/__init__.py`.
 
 ## Lecture de texte dans le tuteur
 
-Le tuteur et les exercices ne lisent jamais un texte avec `eval`, `exec` ou `sympify` : un texte vient d'une fiche (peut-être écrite par un tiers) ou d'une saisie. Ils utilisent l'interpréteur `tutor/evaluation_sure.py` :
+Le tuteur et les exercices ne lisent jamais un texte avec `eval`, `exec` ou `sympify` : un texte vient d'une fiche (peut-être écrite par un tiers) ou d'une saisie. Ils utilisent l'interpréteur `tuteur/evaluation_sure.py` :
 
 - `evaluer(texte, noms)` : sémantique de Python, seuls `noms` sont connus ;
 - `expression(texte, noms)` : sémantique de `sympify` (entiers exacts, `^`, nom inconnu = symbole) ;

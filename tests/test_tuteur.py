@@ -434,7 +434,7 @@ def test_fiches_sans_reference_externe_ni_caractere_corrompu() -> None:
 
 def test_reponses_illisibles_diagnostic_en_francais() -> None:
     from linalg_pedagopy import Matrix
-    from linalg_pedagopy.tutor.verifiers import raison_illisible, verify_formula
+    from linalg_pedagopy.tuteur.verificateurs import raison_illisible, verify_formula
 
     spec = {"parametres": ["norm_u", "norm_v"], "cible": "norm_u**2 + norm_v**2"}
     cas = {
@@ -464,7 +464,7 @@ def test_reponses_illisibles_diagnostic_en_francais() -> None:
 
 def test_verificateur_ensemble_valeurs_et_erreurs_declarees() -> None:
     from linalg_pedagopy import symbols
-    from linalg_pedagopy.tutor.verifiers import verify_value, verify_value_set
+    from linalg_pedagopy.tuteur.verificateurs import verify_value, verify_value_set
 
     a = symbols("a")[0]
     donnees = {"A": Matrix([[2, a, 1], [a, 2, 1], [1, 1, 1]])}

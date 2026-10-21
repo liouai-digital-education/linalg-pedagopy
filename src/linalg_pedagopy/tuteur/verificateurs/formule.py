@@ -8,9 +8,9 @@ import sympy as sp
 
 from linalg_pedagopy.core.field import symbols, to_exact
 from linalg_pedagopy.core.zero import Verdict, oracle
-from linalg_pedagopy.tutor.evaluation_sure import expression
-from linalg_pedagopy.tutor.registry import VerifierType, register_verifier, requires
-from linalg_pedagopy.tutor.verifiers.commun import (
+from linalg_pedagopy.tuteur.evaluation_sure import expression
+from linalg_pedagopy.tuteur.registre import VerifierType, register_verifier, requires
+from linalg_pedagopy.tuteur.verificateurs.commun import (
     VerificationResult,
     raison_illisible,
     sans_seance,

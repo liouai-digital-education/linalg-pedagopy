@@ -8,8 +8,8 @@ import sympy as sp
 
 from linalg_pedagopy.core.zero import Verdict, oracle
 from linalg_pedagopy.objects.vector import Vector
-from linalg_pedagopy.tutor.registry import VerifierType, register_verifier, requires
-from linalg_pedagopy.tutor.verifiers.commun import (
+from linalg_pedagopy.tuteur.registre import VerifierType, register_verifier, requires
+from linalg_pedagopy.tuteur.verificateurs.commun import (
     VerificationResult,
     _format_linear_comb,
     _parse_indexed_expr,

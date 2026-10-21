@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
 from linalg_pedagopy import tutor  # noqa: E402
-from linalg_pedagopy.tutor.catalog import TYPE_LABELS, _all_fiches, _niveau_etoiles  # noqa: E402
+from linalg_pedagopy.tuteur.catalogue import TYPE_LABELS, _all_fiches, _niveau_etoiles  # noqa: E402
 
 VERIF_LABELS = {
     "produit_scalaire": "un vecteur $a$ (forme $a^T x$)",

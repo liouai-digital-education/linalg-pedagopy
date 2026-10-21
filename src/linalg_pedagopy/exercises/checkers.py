@@ -12,7 +12,7 @@ from linalg_pedagopy.core.zero import Verdict, oracle
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.trace.tracer import suspend_tracing
-from linalg_pedagopy.tutor.evaluation_sure import expression
+from linalg_pedagopy.tuteur.evaluation_sure import expression
 
 ProposalStatus = Literal["invalid", "valid_no_progress", "valid_useful"]
 

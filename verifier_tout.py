@@ -60,9 +60,9 @@ def main() -> int:
 
     code_fiches = (
         "import sys; sys.path.insert(0, 'src');"
-        "from linalg_pedagopy import tutor;"
-        "r = [(i, tutor.validate_sheet(i)) for i in tutor.list_exercises()];"
-        "ko = [(i, x.errors) for i, x in r if not x.valid];"
+        "from linalg_pedagopy import tuteur;"
+        "r = [(i, tuteur.valider_fiche(i)) for i in tuteur.lister_exercices()];"
+        "ko = [(i, x.errors) for i, x in r if not x.valide];"
         "print(f'{len(r) - len(ko)}/{len(r)} fiches valides');"
         "[print(' ', i, e) for i, e in ko];"
         "sys.exit(1 if ko else 0)"

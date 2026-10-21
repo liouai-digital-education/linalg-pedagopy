@@ -7,8 +7,8 @@ from typing import Any, Mapping
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.trace.tracer import suspend_tracing
-from linalg_pedagopy.tutor.registry import VerifierType, register_verifier, requires
-from linalg_pedagopy.tutor.verifiers.commun import (
+from linalg_pedagopy.tuteur.registre import VerifierType, register_verifier, requires
+from linalg_pedagopy.tuteur.verificateurs.commun import (
     VerificationResult,
     sans_seance,
 )

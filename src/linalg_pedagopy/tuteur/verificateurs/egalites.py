@@ -10,9 +10,9 @@ from linalg_pedagopy.core.field import symbols
 from linalg_pedagopy.core.zero import Verdict, oracle
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.trace.tracer import suspend_tracing
-from linalg_pedagopy.tutor.evaluation_sure import evaluer, expression
-from linalg_pedagopy.tutor.registry import VerifierType, register_verifier, requires
-from linalg_pedagopy.tutor.verifiers.commun import (
+from linalg_pedagopy.tuteur.evaluation_sure import evaluer, expression
+from linalg_pedagopy.tuteur.registre import VerifierType, register_verifier, requires
+from linalg_pedagopy.tuteur.verificateurs.commun import (
     VerificationResult,
     raison_illisible,
     sans_seance,

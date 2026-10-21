@@ -11,12 +11,12 @@ import sympy as sp
 
 from linalg_pedagopy import Matrix, Vector, symbols
 from linalg_pedagopy.exercises.generators import TwinExercise, generateurs, generators
-from linalg_pedagopy.tutor.evaluation_sure import EvaluationRefusee, en_expression, evaluer, expression, lire_donnee
-from linalg_pedagopy.tutor.hints import evaluate_twin_spec
-from linalg_pedagopy.tutor.lab import _eval_math_predicate
-from linalg_pedagopy.tutor.lock import LockedNamespace, _get_namespace_raw_dict
-from linalg_pedagopy.tutor.panel import _parse_answer
-from linalg_pedagopy.tutor.verifiers import _eval_data_expr, _parse_indexed_expr
+from linalg_pedagopy.tuteur.evaluation_sure import EvaluationRefusee, en_expression, evaluer, expression, lire_donnee
+from linalg_pedagopy.tuteur.indices import evaluate_twin_spec
+from linalg_pedagopy.tuteur.labo import _eval_math_predicate
+from linalg_pedagopy.tuteur.verrou import LockedNamespace, _get_namespace_raw_dict
+from linalg_pedagopy.tuteur.panneau import _parse_answer
+from linalg_pedagopy.tuteur.verificateurs import _eval_data_expr, _parse_indexed_expr
 
 NOMS = {"Vector": Vector, "Matrix": Matrix, "sqrt": sp.sqrt, "u": Vector([1, 2])}
 

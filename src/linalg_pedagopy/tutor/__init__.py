@@ -1,108 +1,26 @@
-"""Tuteur interactif : nomenclature anglaise et alias français."""
+"""Compatibilité : le tuteur s'appelle désormais ``linalg_pedagopy.tuteur``.
+
+``linalg_pedagopy.tutor`` et ses sous-modules (``catalog``, ``session``, ``validation``,
+``hints``, ``journal``, ``lab``, ``lock``, ``panel``, ``registry``, ``verifiers``) réexportent les
+noms de ``tuteur``. Ils seront signalés par un ``DeprecationWarning`` en 0.3.2.0 et supprimés
+en 0.4.0.0.
+"""
 
 from __future__ import annotations
 
-from linalg_pedagopy.tutor.catalog import (
-    catalog,
-    catalogue,
-    ExerciseCatalog,
-    glossaire,
-    glossary,
-    list_exercises,
-    lister_exercices,
-    mode,
-    recharger_catalogue,
-    reload_catalog,
-    THEMES,
-    themes,
+# Les sous-modules sont chargés d'abord : chargés plus tard, ils remplaceraient l'attribut du
+# même nom (le module tutor.catalog masquerait la fonction tutor.catalog).
+from linalg_pedagopy.tutor import (  # noqa: F401
+    catalog as _catalog,
+    hints as _hints,
+    journal as _journal,
+    lab as _lab,
+    lock as _lock,
+    panel as _panel,
+    registry as _registry,
+    session as _session,
+    validation as _validation,
+    verifiers as _verifiers,
 )
-from linalg_pedagopy.tutor.session import (
-    exercice,
-    ExerciceSession,
-    exercise,
-    ExerciseSession,
-)
-from linalg_pedagopy.tutor.validation import (
-    validate_sheet,
-    ValidationReport,
-    valider_fiche,
-)
-from linalg_pedagopy.tutor.hints import HintLadder, evaluate_twin_spec
-from linalg_pedagopy.tutor.journal import ExerciseJournal
-from linalg_pedagopy.tutor.lab import CounterexampleLab, LabReport
-from linalg_pedagopy.tutor.lock import LockedMatrix, LockedNamespace, LockedVector
-from linalg_pedagopy.tutor.panel import PanelFallback, PanneauFallback, build_panel, build_panneau
-from linalg_pedagopy.tutor.verifiers import (
-    VerificationResult,
-    verifier_contre_exemple,
-    verifier_dimensions,
-    verifier_egalites,
-    verifier_formule,
-    verifier_matrice,
-    verifier_produit_scalaire,
-    verifier_propriete,
-    verifier_ensemble_valeurs,
-    verifier_valeur,
-    verify_counterexample,
-    verify_dimensions,
-    verify_equalities,
-    verify_formula,
-    verify_inner_product,
-    verify_matrix,
-    verify_property,
-    verify_value,
-    verify_value_set,
-)
-
-__all__ = [
-    "build_panel",
-    "build_panneau",
-    "catalog",
-    "catalogue",
-    "CounterexampleLab",
-    "evaluate_twin_spec",
-    "exercice",
-    "ExerciceSession",
-    "exercise",
-    "ExerciseCatalog",
-    "ExerciseJournal",
-    "ExerciseSession",
-    "glossaire",
-    "glossary",
-    "HintLadder",
-    "LabReport",
-    "list_exercises",
-    "lister_exercices",
-    "LockedMatrix",
-    "LockedNamespace",
-    "LockedVector",
-    "mode",
-    "PanelFallback",
-    "PanneauFallback",
-    "recharger_catalogue",
-    "reload_catalog",
-    "THEMES",
-    "themes",
-    "validate_sheet",
-    "ValidationReport",
-    "valider_fiche",
-    "VerificationResult",
-    "verifier_contre_exemple",
-    "verifier_dimensions",
-    "verifier_egalites",
-    "verifier_formule",
-    "verifier_matrice",
-    "verifier_produit_scalaire",
-    "verifier_propriete",
-    "verifier_ensemble_valeurs",
-    "verifier_valeur",
-    "verify_counterexample",
-    "verify_dimensions",
-    "verify_equalities",
-    "verify_formula",
-    "verify_inner_product",
-    "verify_matrix",
-    "verify_property",
-    "verify_value",
-    "verify_value_set",
-]
+from linalg_pedagopy.tuteur import *  # noqa: E402, F403
+from linalg_pedagopy.tuteur import __all__  # noqa: E402, F401

@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from typing import Any, Mapping
 
-from linalg_pedagopy.tutor.lab import _eval_math_predicate, _structured_vector_candidates
-from linalg_pedagopy.tutor.registry import VerifierType, register_verifier, requires
-from linalg_pedagopy.tutor.verifiers.commun import (
+from linalg_pedagopy.tuteur.labo import _eval_math_predicate, _structured_vector_candidates
+from linalg_pedagopy.tuteur.registre import VerifierType, register_verifier, requires
+from linalg_pedagopy.tuteur.verificateurs.commun import (
     VerificationResult,
 )
 

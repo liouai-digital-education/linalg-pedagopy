@@ -19,8 +19,8 @@ from linalg_pedagopy.exercises.generators import TwinExercise
 from linalg_pedagopy.tuteur.indices import LEVEL_TITLES, HintLadder, evaluate_twin_spec
 from linalg_pedagopy.tuteur.panneau import PanneauFallback, build_panneau
 from linalg_pedagopy.tuteur.verrou import LockedMatrix, LockedNamespace, LockedVector, _get_namespace_raw_dict
-from linalg_pedagopy.tutor.evaluation_sure import EvaluationRefusee
-from linalg_pedagopy.tutor.panel import _parse_answer
+from linalg_pedagopy.tuteur.evaluation_sure import EvaluationRefusee
+from linalg_pedagopy.tuteur.panneau import _parse_answer
 
 # ---------------------------------------------------------------------------
 # verrou
@@ -218,7 +218,7 @@ def test_deblocage_differe_par_tentatives() -> None:
 
 
 def test_deblocage_differe_par_delai(monkeypatch: pytest.MonkeyPatch) -> None:
-    import linalg_pedagopy.tutor.hints as hints
+    import linalg_pedagopy.tuteur.indices as hints
 
     horloge = [1000.0]
     monkeypatch.setattr(hints.time, "time", lambda: horloge[0])

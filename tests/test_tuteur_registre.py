@@ -6,9 +6,9 @@ from pathlib import Path
 
 import pytest
 
-from linalg_pedagopy.tutor.catalog import _load_fiche_dict
-from linalg_pedagopy.tutor.session import ExerciseSession
-from linalg_pedagopy.tutor.registry import (
+from linalg_pedagopy.tuteur.catalogue import _load_fiche_dict
+from linalg_pedagopy.tuteur.seance import ExerciseSession
+from linalg_pedagopy.tuteur.registre import (
     VerifierType,
     register_verifier,
     requires,
@@ -76,3 +76,21 @@ def test_type_inconnu_dans_une_seance(tmp_path: Path) -> None:
     res = ex.verify(1)
     assert res.valid is False
     assert res.diagnostic == "Votre réponse n'a pas la forme attendue : relisez l'énoncé."
+
+
+def test_anciens_chemins_tutor() -> None:
+    """``tutor`` et ses sous-modules réexportent ``tuteur`` (étape 6.6), sans masquer ses fonctions."""
+    import importlib
+
+    import linalg_pedagopy.tuteur as tuteur
+    import linalg_pedagopy.tutor as tutor
+
+    for ancien in ("catalog", "session", "validation", "hints", "journal", "lab", "lock", "panel", "registry", "verifiers"):
+        importlib.import_module(f"linalg_pedagopy.tutor.{ancien}")
+    assert callable(tutor.catalog) and tutor.catalog is tuteur.catalog
+    assert callable(tuteur.catalogue) and tutor.exercise is tuteur.exercice is tuteur.exercise
+    assert set(tutor.__all__) == set(tuteur.__all__)
+    from linalg_pedagopy.tutor.verifiers import verify_value
+    from linalg_pedagopy.tuteur.verificateurs import verifier_valeur
+
+    assert verify_value is verifier_valeur

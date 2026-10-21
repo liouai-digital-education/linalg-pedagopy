@@ -1,39 +1,38 @@
-"""Backward-compatible French alias module for linalg_pedagopy.tutor (Layer 6)."""
+"""Tuteur interactif : séances guidées sur les fiches d'exercices (noms français et anglais)."""
 
 from __future__ import annotations
 
-from linalg_pedagopy.tutor import (
-    build_panel,
-    build_panneau,
+from linalg_pedagopy.tuteur.catalogue import (
     catalog,
     catalogue,
-    CounterexampleLab,
-    evaluate_twin_spec,
-    exercice,
-    ExerciceSession,
-    exercise,
     ExerciseCatalog,
-    ExerciseJournal,
-    ExerciseSession,
     glossaire,
     glossary,
-    HintLadder,
-    LabReport,
     list_exercises,
     lister_exercices,
-    LockedMatrix,
-    LockedNamespace,
-    LockedVector,
     mode,
-    PanelFallback,
-    PanneauFallback,
     recharger_catalogue,
     reload_catalog,
     THEMES,
     themes,
+)
+from linalg_pedagopy.tuteur.seance import (
+    exercice,
+    ExerciceSession,
+    exercise,
+    ExerciseSession,
+)
+from linalg_pedagopy.tuteur.validation import (
     validate_sheet,
     ValidationReport,
     valider_fiche,
+)
+from linalg_pedagopy.tuteur.indices import HintLadder, evaluate_twin_spec
+from linalg_pedagopy.tuteur.journal import ExerciseJournal
+from linalg_pedagopy.tuteur.labo import CounterexampleLab, LabReport
+from linalg_pedagopy.tuteur.verrou import LockedMatrix, LockedNamespace, LockedVector
+from linalg_pedagopy.tuteur.panneau import PanelFallback, PanneauFallback, build_panel, build_panneau
+from linalg_pedagopy.tuteur.verificateurs import (
     VerificationResult,
     verifier_contre_exemple,
     verifier_dimensions,
