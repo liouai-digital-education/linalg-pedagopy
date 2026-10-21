@@ -64,6 +64,17 @@ print(P.rank())
 
 N'écrivez `#>` que si la ligne est la sortie au caractère près ; un extrait, une sortie abrégée par « ... » ou une paraphrase restent en `#`. Les commentaires en fin de ligne (`print(x)  # True`) ne sont pas comparés. Une page dont l'exécution dépasse 5 s s'ajoute à `LENTES` dans le fichier de test, ce qui lui donne la marque `lent`.
 
+## Fichiers générés de la documentation
+
+Le catalogue des exercices (`docs/08_catalogue_exercices.md`) et le site HTML (`docs/site/`) sont générés puis versionnés. Après une modification d'une fiche du tuteur ou d'une page `.md` de `docs/`, régénérez-les, dans cet ordre (le site reprend le catalogue), et commitez le résultat :
+
+```bash
+python docs/generer_catalogue.py
+python scripts/build_docs_site.py
+```
+
+Le job « Documentation à jour » de l'intégration continue refait ces deux générations et échoue si `git diff` montre un écart, ou si un fichier du site n'est pas versionné.
+
 ## Carnets
 
 ```bash
