@@ -5,6 +5,7 @@
 ### Refactorisation — phase 5 du plan v6 (alléger `Matrix`)
 - 5.1 : registre unique `_procedures` (`register_procedure`, `objects/matrix.py`) à la place des crochets `register_gauss_jordan_hook` et `register_determinant_hook` ; procédures enregistrées : `gauss_jordan`, `determinant`, `matmul`, `gram`, `orthonormal_check`, `singular_check`.
 - 5.2 et 5.3 : la logique tracée sort de `Matrix` vers le nouveau module `algorithms/products.py` : produit matriciel selon une vue (`matmul(view=…)`), matrice de Gram, contrôle d'orthonormalité des colonnes, annonce des valeurs singulières avant `inv()`. Les méthodes de commodité (`rref`, `rank`, `nullspace`, `inv`, `det`, `solve`, `gram`, `has_orthonormal_columns`) sont regroupées dans une section délimitée et ne font plus que quelques lignes (projection d'un `CaseSplit` factorisée dans `_champ`). `matrix.py` passe de 836 à 599 lignes. API et traces inchangées (clés `matrix.*` conservées).
+- 5.4 : `docs/dev/architecture.md` : couches du paquet et dépendances permises, crochets, règle de délégation de `Matrix` et registre des procédures, moteur d'élimination, traces et locales.
 
 ### Nouveautés — étape 4.9 du plan v6
 - **Stratégie de pivot `"sparse"`** (critère de Markowitz, la colonne étant fixée) : le pivot de la ligne qui a le moins de coefficients non nuls, puis le plus simple.

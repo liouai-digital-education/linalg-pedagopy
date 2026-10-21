@@ -411,7 +411,8 @@ Aucune à ce jour.
 11. Tâche 4.7 **faite** : `kernel_basis`, `trace_kernel`, clés `ker.*` ; noyau affiché pour une réduction sans second membre et pour une solution affine.
 12. Tâche 4.8 **faite** (révisée) : regroupement à l'affichage (`group_branches`, `format_conditions_text` dans `render/text.py`).
 13. Tâche 4.9 **faite** : `pivot_strategy="sparse"`, `reduction="back_substitution"`, mesures dans `docs/dev/campagnes.md` ; réglages par défaut conservés. **Phase 4 terminée.**
-14. Phase 5, tâche 5.1 : registre générique `_procedures` dans `Matrix` à la place des crochets `_require_gj` et `_determinant_factory`.
+14. Phase 5 **faite** : registre `_procedures`, `algorithms/products.py`, `matrix.py` à 599 lignes, `docs/dev/architecture.md`.
+15. Phase 6, tâche 6.0 : faire le point sur `tuteur/` (réexportations) et compléter les tests de `verrou`, `indices` et `panneau` avant tout déplacement ; intégrer la correction des tests ipywidgets (branche `claude/clever-davinci-44o1y5`).
 
 # Annexe B — Esquisse de l'API cible (version 0.3.4)
 
