@@ -45,6 +45,6 @@ Depuis l'étape 6.4, tout passe par l'interpréteur `tutor/evaluation_sure.py` (
 |:---:|:---|
 | 6.1 | Fait : registre `tutor/registry.py` ; `catalog.py` passe de 951 à 716 lignes. |
 | 6.2 | Fait : paquet `tutor/verifiers/`, un module par type (vérification, contrôle croisé, enregistrement et forme attendue) et `commun.py` ; le plus gros module fait 212 lignes. Le paquet rejoindra `tuteur/verificateurs/` avec le reste du code à l'étape 6.6 (le faire dès maintenant créerait un import circulaire, `tuteur/` réexportant `tutor/`). |
-| 6.3 | `catalog.py` découpé en `catalogue.py`, `seance.py`, `validation.py`. |
+| 6.3 | Fait : `catalog.py` (716 lignes après 6.1) découpé en `catalog.py` (fiches, thèmes, glossaire, 223 lignes), `session.py` (séance, 320 lignes) et `validation.py` (validation des fiches, 211 lignes) ; ils deviendront `catalogue.py`, `seance.py` et `validation.py` dans `tuteur/` à l'étape 6.6. |
 | 6.4, 6.5, 6.7 | Fait : `tutor/evaluation_sure.py` remplace les douze `eval` et les `sympify` de chaînes ; champ `jumeau` analysé par l'interpréteur avec le seul espace de noms des générateurs ; tests d'évasion. |
 | 6.6 | Le code passe dans `tuteur/` ; `tutor/` réexporte les noms anglais. |

@@ -5,11 +5,7 @@ from __future__ import annotations
 from linalg_pedagopy.tutor.catalog import (
     catalog,
     catalogue,
-    exercice,
-    ExerciceSession,
-    exercise,
     ExerciseCatalog,
-    ExerciseSession,
     glossaire,
     glossary,
     list_exercises,
@@ -19,6 +15,14 @@ from linalg_pedagopy.tutor.catalog import (
     reload_catalog,
     THEMES,
     themes,
+)
+from linalg_pedagopy.tutor.session import (
+    exercice,
+    ExerciceSession,
+    exercise,
+    ExerciseSession,
+)
+from linalg_pedagopy.tutor.validation import (
     validate_sheet,
     ValidationReport,
     valider_fiche,

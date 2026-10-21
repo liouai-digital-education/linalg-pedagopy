@@ -6,7 +6,8 @@ from pathlib import Path
 
 import pytest
 
-from linalg_pedagopy.tutor.catalog import ExerciseSession, _load_fiche_dict
+from linalg_pedagopy.tutor.catalog import _load_fiche_dict
+from linalg_pedagopy.tutor.session import ExerciseSession
 from linalg_pedagopy.tutor.registry import (
     VerifierType,
     register_verifier,
