@@ -1,13 +1,19 @@
-"""Trace d'un algorithme d'élimination présentée en tableau.
+"""Trace d'un algorithme présentée en tableau.
 
-Une ligne par opération élémentaire (échange, dilatation, transvection, étape de Bareiss),
-avec les colonnes N°, Colonne, Pivot, Opération, But et Matrice obtenue. Les autres étapes
-visibles au niveau demandé (colonne sans pivot, noyau, résultat…) deviennent des lignes de
-commentaire, avec leur matrice éventuelle. Une discussion par cas donne un tableau par branche.
+Une ligne par opération, dont les colonnes dépendent de l'algorithme (disposition) :
 
-Le tableau est tiré de la trace telle qu'elle est : aucun algorithme n'est modifié. Il couvre
-Gauss-Jordan et le déterminant (élimination, Bareiss) ; les autres procédures donnent un
-tableau de commentaires.
+- élimination (Gauss-Jordan, inverse, déterminant) : N°, Colonne, Pivot, Opération, But,
+  Matrice obtenue ; une ligne par échange, dilatation, transvection ou étape de Bareiss ;
+- Gram-Schmidt (et QR) : N°, Vecteur traité, Coefficients, Opération, But, Vecteur obtenu ;
+  une ligne par orthogonalisation, une par normalisation ;
+- substitution (systèmes triangulaires) : N°, Inconnue, Calcul, But, Valeur.
+
+Les autres étapes visibles au niveau demandé (colonne sans pivot, noyau, résultat…) deviennent
+des lignes de commentaire, avec leur matrice éventuelle. Une discussion par cas donne un tableau
+par branche ; une trace qui enchaîne deux algorithmes (moindres carrés par QR) donne un tableau
+par algorithme.
+
+Le tableau est tiré de la trace telle qu'elle est : aucun algorithme n'est modifié.
 """
 
 from __future__ import annotations
@@ -27,8 +33,48 @@ from linalg_pedagopy.trace.step import Highlight, Step
 
 # Opérations élémentaires : suffixe de la clé de trace
 _OPERATIONS = ("row_swap", "row_scale", "row_add", "bareiss_step")
-# Étapes absorbées par le tableau (colonne et pivot, matrice de départ)
-_ABSORBEES = ("column_step", "pivot_chosen", "pivot")
+# Étapes absorbées par le tableau (colonne et pivot, vecteur traité et coefficients)
+_ABSORBEES = ("column_step", "pivot_chosen", "pivot", "vector_step", "proj_coeff", "proj_coeff_unit")
+
+
+@dataclass(frozen=True)
+class _Disposition:
+    """Colonnes d'un tableau : en-têtes, cellules d'une ligne d'opération, formats Markdown et LaTeX."""
+
+    headers: tuple[str, ...]
+    cells: tuple[str, ...]  # champ de TableRow affiché dans chaque colonne
+    markdown_rule: str
+    latex_spec: str
+    comment_col: int  # colonne du texte d'un commentaire en Markdown
+    comment_width: str  # largeur du commentaire en LaTeX
+
+
+_DISPOSITIONS = {
+    "elimination": _Disposition(
+        ("number", "column", "pivot", "operation", "purpose", "matrix"),
+        ("number", "column", "pivot", "operation", "purpose", "matrix"),
+        "|---:|:---:|:---:|:---|:---|:---:|",
+        "r c c l p{4.2cm} c",
+        3,
+        "11cm",
+    ),
+    "gram_schmidt": _Disposition(
+        ("number", "vector", "coefficients", "operation", "purpose", "vector_result"),
+        ("number", "subject", "detail", "operation", "purpose", "matrix"),
+        "|---:|:---:|:---|:---|:---|:---:|",
+        "r c l l p{4cm} c",
+        3,
+        "12cm",
+    ),
+    "substitution": _Disposition(
+        ("number", "unknown", "computation", "purpose", "value"),
+        ("number", "subject", "operation", "purpose", "detail"),
+        "|---:|:---:|:---|:---|:---:|",
+        "r c l p{4cm} c",
+        2,
+        "10cm",
+    ),
+}
 
 _TABLE_CSS = """
 <style>
@@ -53,6 +99,9 @@ class TableRow:
     operation_latex: str | None = None
     matrix: Matrix | None = None
     highlight: Highlight | None = None
+    subject: str | None = None  # LaTeX : vecteur traité, inconnue calculée
+    detail: str | None = None  # LaTeX : coefficients de projection, norme
+    layout: str | None = None  # disposition d'une ligne d'opération
 
 
 @dataclass(frozen=True)
@@ -61,6 +110,7 @@ class TableSection:
 
     rows: tuple[TableRow, ...]
     heading: tuple[str, str] | None = None
+    layout: str = "elimination"
 
 
 @dataclass(frozen=True)
@@ -70,17 +120,15 @@ class TraceTable:
     sections: tuple[TableSection, ...]
     locale: str | None = None
 
-    def _headers(self) -> list[str]:
-        return [
-            translate(f"table.header_{k}", locale=self.locale)
-            for k in ("number", "column", "pivot", "operation", "purpose", "matrix")
-        ]
+    def _headers(self, sec: TableSection) -> list[str]:
+        return [translate(f"table.header_{k}", locale=self.locale) for k in _DISPOSITIONS[sec.layout].headers]
 
     def to_html(self, *, standalone: bool = False) -> str:
         """Tableau HTML ; formules en LaTeX pour MathJax (affichage dans JupyterLab)."""
         parts: list[str] = []
-        ths = "".join(f"<th>{html.escape(h)}</th>" for h in self._headers())
         for sec in self.sections:
+            disp = _DISPOSITIONS[sec.layout]
+            ths = "".join(f"<th>{html.escape(h)}</th>" for h in self._headers(sec))
             if sec.heading is not None:
                 parts.append(f"<h4>Cas \\({sec.heading[1]}\\)</h4>")
             trs = []
@@ -88,16 +136,19 @@ class TraceTable:
                 mat = f"\\({_matrice_latex(row)}\\)" if row.matrix is not None else ""
                 if row.kind != "op":
                     trs.append(
-                        f"<tr><td colspan='5' class='pedagopy-commentaire'>{html.escape(row.text)}</td><td>{mat}</td></tr>"
+                        f"<tr><td colspan='{len(disp.cells) - 1}' class='pedagopy-commentaire'>"
+                        f"{html.escape(row.text)}</td><td>{mat}</td></tr>"
                     )
                     continue
-                pivot = _pivot(row, "\\(", "\\)")
-                trs.append(
-                    "<tr>"
-                    f"<td>{row.number}</td><td>{_colonne(row)}</td><td>{pivot}</td>"
-                    f"<td>\\({row.operation_latex}\\)</td><td class='pedagopy-but'>{html.escape(row.text)}</td>"
-                    f"<td>{mat}</td></tr>"
-                )
+                tds = []
+                for champ in disp.cells:
+                    if champ == "matrix":
+                        tds.append(f"<td>{mat}</td>")
+                    elif champ == "purpose":
+                        tds.append(f"<td class='pedagopy-but'>{html.escape(row.text)}</td>")
+                    else:
+                        tds.append("<td>" + _cellule(row, champ, "\\(", "\\)") + "</td>")
+                trs.append("<tr>" + "".join(tds) + "</tr>")
             parts.append(
                 f"<table class='pedagopy-table'><thead><tr>{ths}</tr></thead><tbody>{''.join(trs)}</tbody></table>"
             )
@@ -107,22 +158,28 @@ class TraceTable:
     def to_markdown(self) -> str:
         """Tableau Markdown, formules entre $…$ (sans « | », réservé aux séparateurs de cellules)."""
         out: list[str] = []
-        entete = "| " + " | ".join(self._headers()) + " |"
-        regle = "|---:|:---:|:---:|:---|:---|:---:|"
         for sec in self.sections:
+            disp = _DISPOSITIONS[sec.layout]
             if sec.heading is not None:
                 out += [f"#### Cas ${_sans_barre(sec.heading[1])}$", ""]
-            out += [entete, regle]
+            out += ["| " + " | ".join(self._headers(sec)) + " |", disp.markdown_rule]
             for row in sec.rows:
                 mat = f"${_sans_barre(_matrice_latex(row, markdown=True))}$" if row.matrix is not None else ""
                 texte = row.text.replace("|", "\\|")
                 if row.kind != "op":
-                    out.append(f"|  |  |  | *{texte}* |  | {mat} |")
+                    vides = [""] * (len(disp.cells) - 1)
+                    vides[disp.comment_col] = f"*{texte}*"
+                    out.append("| " + " | ".join(vides + [mat]) + " |")
                     continue
-                op = _sans_barre(row.operation_latex or "")
-                out.append(
-                    f"| {row.number} | {_colonne(row)} | {_pivot(row, '$', '$', markdown=True)} | ${op}$ | {texte} | {mat} |"
-                )
+                cellules = []
+                for champ in disp.cells:
+                    if champ == "matrix":
+                        cellules.append(mat)
+                    elif champ == "purpose":
+                        cellules.append(texte)
+                    else:
+                        cellules.append(_cellule(row, champ, "$", "$", markdown=True))
+                out.append("| " + " | ".join(cellules) + " |")
             out.append("")
         return "\n".join(out).rstrip() + "\n"
 
@@ -133,12 +190,13 @@ class TraceTable:
         LuaLaTeX ou XeLaTeX.
         """
         lignes: list[str] = []
-        entete = " & ".join(f"\\textbf{{{_latex_escape_text(h)}}}" for h in self._headers()) + " \\\\ \\hline"
         for sec in self.sections:
+            disp = _DISPOSITIONS[sec.layout]
+            entete = " & ".join(f"\\textbf{{{_latex_escape_text(h)}}}" for h in self._headers(sec)) + " \\\\ \\hline"
             if sec.heading is not None:
                 lignes.append(f"\\paragraph{{Cas ${sec.heading[1]}$}}")
             lignes += [
-                "\\begin{longtable}{r c c l p{4.2cm} c}",
+                f"\\begin{{longtable}}{{{disp.latex_spec}}}",
                 "\\hline",
                 entete,
                 "\\endhead",
@@ -147,11 +205,20 @@ class TraceTable:
                 mat = f"${_matrice_latex(row)}$" if row.matrix is not None else ""
                 texte = _latex_escape_text(row.text)
                 if row.kind != "op":
-                    lignes.append(f"\\multicolumn{{5}}{{p{{11cm}}}}{{\\emph{{{texte}}}}} & {mat} \\\\")
+                    lignes.append(
+                        f"\\multicolumn{{{len(disp.cells) - 1}}}{{p{{{disp.comment_width}}}}}"
+                        f"{{\\emph{{{texte}}}}} & {mat} \\\\"
+                    )
                     continue
-                lignes.append(
-                    f"{row.number} & {_colonne(row)} & {_pivot(row, '$', '$')} & ${row.operation_latex}$ & {texte} & {mat} \\\\"
-                )
+                cellules = []
+                for champ in disp.cells:
+                    if champ == "matrix":
+                        cellules.append(mat)
+                    elif champ == "purpose":
+                        cellules.append(texte)
+                    else:
+                        cellules.append(_cellule(row, champ, "$", "$"))
+                lignes.append(" & ".join(cellules) + " \\\\")
             lignes += ["\\hline", "\\end{longtable}", ""]
         corps = "\n".join(lignes)
         if not standalone:
@@ -170,6 +237,20 @@ class TraceTable:
 
 def _colonne(row: TableRow) -> str:
     return str(row.column) if row.column is not None else ""
+
+
+def _cellule(row: TableRow, champ: str, ouvre: str, ferme: str, *, markdown: bool = False) -> str:
+    """Cellule d'une ligne d'opération (hors But et matrice)."""
+    if champ == "number":
+        return str(row.number) if row.number is not None else ""
+    if champ == "column":
+        return _colonne(row)
+    if champ == "pivot":
+        return _pivot(row, ouvre, ferme, markdown=markdown)
+    tex = {"operation": row.operation_latex, "subject": row.subject, "detail": row.detail}[champ]
+    if not tex:
+        return ""
+    return f"{ouvre}{_sans_barre(tex) if markdown else tex}{ferme}"
 
 
 def _pivot(row: TableRow, ouvre: str, ferme: str, *, markdown: bool = False) -> str:
@@ -250,6 +331,78 @@ def _but(step: Step, column: int | None, locale: str | None) -> str:
     return texte
 
 
+def _colonne_latex(v: Any) -> str:
+    return format_matrix_latex(Matrix.from_columns([v]))
+
+
+def _ligne_gram_schmidt(c: Step, vecteur: Step | None, locale: str | None) -> TableRow:
+    """Orthogonalisation de a_i (``gs.subtract``) ou normalisation de q̃_i (``gs.normalize_step``)."""
+    i = int(c.params["i"])
+    if _suffixe(c.message_key) == "normalize_step":
+        norme = f"\\lVert \\tilde q_{{{i}}} \\rVert"
+        return TableRow(
+            kind="op",
+            layout="gram_schmidt",
+            text=translate("table.gs_normalize_step", locale=locale),
+            subject=f"\\tilde q_{{{i}}}",
+            detail=f"{norme} = {sp.latex(c.params['norm'])}",
+            operation_latex=f"q_{{{i}}} = \\frac{{\\tilde q_{{{i}}}}}{{{norme}}}",
+            matrix=Matrix.from_columns([c.params["q"]]),
+        )
+    coeffs = [] if vecteur is None else [
+        e for e in vecteur.children if _suffixe(e.message_key) in ("proj_coeff", "proj_coeff_unit")
+    ]
+    q = "q" if any(_suffixe(e.message_key) == "proj_coeff_unit" for e in coeffs) else "\\tilde q"
+    termes = "".join(f" - r_{{{e.params['j']},{i}}}\\,{q}_{{{e.params['j']}}}" for e in coeffs)
+    a_i = vecteur.params["a_i"] if vecteur is not None else None
+    return TableRow(
+        kind="op",
+        layout="gram_schmidt",
+        text=translate("table.gs_subtract" if coeffs else "table.gs_first", {"i": i}, locale=locale),
+        subject=f"a_{{{i}}} = {_colonne_latex(a_i)}" if a_i is not None else f"a_{{{i}}}",
+        detail=", ".join(f"r_{{{e.params['j']},{i}}} = {sp.latex(e.params['coeff'])}" for e in coeffs) or None,
+        operation_latex=f"\\tilde q_{{{i}}} = a_{{{i}}}{termes}",
+        matrix=Matrix.from_columns([c.params["q_tilde"]]),
+    )
+
+
+def _facteur(coef: sp.Expr) -> str:
+    tex = sp.latex(coef)
+    return f"\\left({tex}\\right)" if isinstance(coef, sp.Add) or tex.startswith("-") else tex
+
+
+def _ligne_substitution(c: Step, systeme: Step | None, locale: str | None) -> TableRow:
+    """Calcul d'une inconnue (``triangular.step``) : x_i = (c_i - Σ r_ij x_j) / r_ii."""
+    i = int(c.params["i"])
+    somme = sp.sympify(c.params["sum_terms"])
+    diag = sp.sympify(c.params["diag"])
+
+    def fraction(num: str) -> str:
+        return num if diag == 1 else f"\\frac{{{num}}}{{{sp.latex(diag)}}}"
+
+    ci = sp.latex(c.params["ci"])
+    calcul = f"x_{{{i}}} = "
+    R = _matrice_du_cliche(systeme) if systeme is not None else None
+    if R is not None and somme != 0:
+        # Formule avec les coefficients de la ligne i, puis valeurs des inconnues connues
+        connues = range(i, R.cols) if systeme is not None and systeme.message_key.endswith("back_start") else range(i - 1)
+        termes = "".join(
+            " - " + ("" if R[i - 1, j] == 1 else _facteur(R[i - 1, j]) + "\\,") + f"x_{{{j + 1}}}"
+            for j in connues
+            if R[i - 1, j] != 0
+        )
+        calcul += fraction(ci + termes) + " = "
+    calcul += fraction(ci + (f" - {_facteur(somme)}" if somme != 0 else ""))
+    return TableRow(
+        kind="op",
+        layout="substitution",
+        text=translate("table.triangular_step", {"i": i}, locale=locale),
+        subject=f"x_{{{i}}}",
+        operation_latex=calcul,
+        detail=sp.latex(c.params["xi"]),
+    )
+
+
 def _lignes(trace: Step, level: int, locale: str | None) -> list[TableRow]:
     pivots: dict[int, tuple[sp.Expr, tuple[int, int]]] = {}
     _pivots_par_colonne(trace, pivots)
@@ -259,8 +412,9 @@ def _lignes(trace: Step, level: int, locale: str | None) -> list[TableRow]:
     def visiter(step: Step) -> None:
         nonlocal numero
         for c in step.children:
+            prefixe = c.message_key.rsplit(".", 1)[0]
             suf = _suffixe(c.message_key)
-            if suf == "start":
+            if suf == "start" and prefixe in ("gj", "det"):
                 rows.append(
                     TableRow(
                         kind="start",
@@ -277,6 +431,7 @@ def _lignes(trace: Step, level: int, locale: str | None) -> list[TableRow]:
                 rows.append(
                     TableRow(
                         kind="op",
+                        layout="elimination",
                         number=numero,
                         column=col + 1 if col is not None else None,
                         pivot=pivots.get(col) if col is not None else None,
@@ -286,6 +441,13 @@ def _lignes(trace: Step, level: int, locale: str | None) -> list[TableRow]:
                         highlight=hl,
                     )
                 )
+            elif prefixe == "gs" and suf in ("subtract", "normalize_step"):
+                numero += 1
+                vecteur = step if _suffixe(step.message_key) == "vector_step" else None
+                rows.append(replace(_ligne_gram_schmidt(c, vecteur, locale), number=numero))
+            elif prefixe == "triangular" and suf == "step":
+                numero += 1
+                rows.append(replace(_ligne_substitution(c, step, locale), number=numero))
             elif suf not in _ABSORBEES and c.level <= level:
                 rows.append(
                     TableRow(
@@ -301,23 +463,39 @@ def _lignes(trace: Step, level: int, locale: str | None) -> list[TableRow]:
     return rows
 
 
+def _sections(rows: list[TableRow], heading: tuple[str, str] | None) -> list[TableSection]:
+    """Un tableau par disposition : une trace qui enchaîne deux algorithmes en donne deux."""
+    sections: list[TableSection] = []
+    courant: list[TableRow] = []
+    disposition: str | None = None
+    for row in rows:
+        if row.layout is not None and disposition is not None and row.layout != disposition:
+            sections.append(TableSection(tuple(courant), heading if not sections else None, disposition))
+            courant = []
+        if row.layout is not None:
+            disposition = row.layout
+        courant.append(row)
+    sections.append(TableSection(tuple(courant), heading if not sections else None, disposition or "elimination"))
+    return sections
+
+
 def build_table(source: Any, *, level: int = 1, locale: str | None = None) -> TraceTable:
     """Tableau d'une trace (``Step``), d'une discussion par cas (``CaseSplit``) ou d'un résultat seul."""
     if isinstance(source, CaseSplit):
-        sections = []
+        sections: list[TableSection] = []
         for br in source.branches:
             heading = (
                 format_conditions_text([br.condition]) + (" (générique)" if br.condition.is_generic else ""),
                 format_conditions_latex([br.condition]) + (" \\text{ (générique)}" if br.condition.is_generic else ""),
             )
             if isinstance(br.trace, Step):
-                rows = tuple(_lignes(br.trace, level, locale))
+                sections += _sections(_lignes(br.trace, level, locale), heading)
             else:
                 rows = (TableRow(kind="comment", text=render_result_text(br.result)),)
-            sections.append(TableSection(rows=rows, heading=heading))
+                sections.append(TableSection(rows=rows, heading=heading))
         return TraceTable(sections=tuple(sections), locale=locale)
     if isinstance(source, Step):
-        return TraceTable(sections=(TableSection(rows=tuple(_lignes(source, level, locale))),), locale=locale)
+        return TraceTable(sections=tuple(_sections(_lignes(source, level, locale), None)), locale=locale)
     return TraceTable(
         sections=(TableSection(rows=(TableRow(kind="comment", text=render_result_text(source)),)),), locale=locale
     )

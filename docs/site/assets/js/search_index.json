@@ -640,8 +640,8 @@
     "pageTitle": "06. Rendu, géométrie & numérique",
     "title": "1.2 Trace en tableau (to_table())",
     "url": "06_rendering_visualization_and_numerics.html#12-trace-en-tableau-to_table",
-    "snippet": "Pour Gauss-Jordan et le déterminant, explain().to_table() présente la trace en tableau : une ligne par opération élémentaire, avec les colonnes N°, Colonne, Piv...",
-    "content": "1.2 Trace en tableau (to_table()) Pour Gauss-Jordan et le déterminant, explain().to_table() présente la trace en tableau : une ligne par opération élémentaire, avec les colonnes N°, Colonne, Piv..."
+    "snippet": "explain().to_table() présente la trace en tableau : une ligne par opération, dont les colonnes dépendent de l'algorithme. Pour l'élimination (Gauss-Jordan, inve...",
+    "content": "1.2 Trace en tableau (to_table()) explain().to_table() présente la trace en tableau : une ligne par opération, dont les colonnes dépendent de l'algorithme. Pour l'élimination (Gauss-Jordan, inve..."
   },
   {
     "pageTitle": "06. Rendu, géométrie & numérique",

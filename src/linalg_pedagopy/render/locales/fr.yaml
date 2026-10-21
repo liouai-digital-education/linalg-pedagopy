@@ -98,6 +98,12 @@ table:
   header_operation: "Opération"
   header_purpose: "But"
   header_matrix: "Matrice obtenue"
+  header_vector: "Vecteur traité"
+  header_coefficients: "Coefficients"
+  header_vector_result: "Vecteur obtenu"
+  header_unknown: "Inconnue"
+  header_computation: "Calcul"
+  header_value: "Valeur"
   start: "Matrice de départ"
   row_swap: "amener le pivot en place"
   row_scale: "ramener le pivot à 1"
@@ -105,6 +111,10 @@ table:
   det_row_swap: "amener le pivot en place ; le déterminant change de signe"
   det_row_add: "annuler le coefficient ({i},{col}) ; le déterminant ne change pas"
   det_bareiss_step: "annuler la colonne {k} sous le pivot {pivot} ; division exacte par le pivot précédent {previous}"
+  gs_first: "premier vecteur : conservé tel quel"
+  gs_subtract: "retirer de a{i} ses composantes selon les vecteurs déjà obtenus"
+  gs_normalize_step: "rendre le vecteur unitaire"
+  triangular_step: "isoler x{i} dans l'équation {i}, les autres inconnues étant connues"
 
 ker:
   free_vars: "Noyau : variables libres {free} (colonnes sans pivot), variables principales {pivots} ; dim ker A = n − rg A = {n} − {rank} = {k}."

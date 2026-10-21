@@ -1,0 +1,337 @@
+===== gs_fin — markdown =====
+| N° | Vecteur traité | Coefficients | Opération | But | Vecteur obtenu |
+|---:|:---:|:---|:---|:---|:---:|
+|  |  |  | *Orthogonalisation de Gram-Schmidt de 3 vecteurs dans R^3 (variante normalize='end').* |  |  |
+| 1 | $a_{1} = \left[\begin{array}{c} 1 \\ 1 \\ 0 \end{array}\right]$ |  | $\tilde q_{1} = a_{1}$ | premier vecteur : conservé tel quel | $\left[\begin{array}{c} 1 \\ 1 \\ 0 \end{array}\right]$ |
+| 2 | $a_{2} = \left[\begin{array}{c} 1 \\ 0 \\ 1 \end{array}\right]$ | $r_{1,2} = \frac{1}{2}$ | $\tilde q_{2} = a_{2} - r_{1,2}\,\tilde q_{1}$ | retirer de a2 ses composantes selon les vecteurs déjà obtenus | $\left[\begin{array}{c} \frac{1}{2} \\ - \frac{1}{2} \\ 1 \end{array}\right]$ |
+| 3 | $a_{3} = \left[\begin{array}{c} 0 \\ 1 \\ 1 \end{array}\right]$ | $r_{1,3} = \frac{1}{2}, r_{2,3} = \frac{1}{3}$ | $\tilde q_{3} = a_{3} - r_{1,3}\,\tilde q_{1} - r_{2,3}\,\tilde q_{2}$ | retirer de a3 ses composantes selon les vecteurs déjà obtenus | $\left[\begin{array}{c} - \frac{2}{3} \\ \frac{2}{3} \\ \frac{2}{3} \end{array}\right]$ |
+|  |  |  | *Normalisation finale des 3 vecteurs orthogonaux rationnels.* |  |  |
+| 4 | $\tilde q_{1}$ | $\lVert \tilde q_{1} \rVert = \sqrt{2}$ | $q_{1} = \frac{\tilde q_{1}}{\lVert \tilde q_{1} \rVert}$ | rendre le vecteur unitaire | $\left[\begin{array}{c} \frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2} \\ 0 \end{array}\right]$ |
+| 5 | $\tilde q_{2}$ | $\lVert \tilde q_{2} \rVert = \frac{\sqrt{6}}{2}$ | $q_{2} = \frac{\tilde q_{2}}{\lVert \tilde q_{2} \rVert}$ | rendre le vecteur unitaire | $\left[\begin{array}{c} \frac{\sqrt{6}}{6} \\ - \frac{\sqrt{6}}{6} \\ \frac{\sqrt{6}}{3} \end{array}\right]$ |
+| 6 | $\tilde q_{3}$ | $\lVert \tilde q_{3} \rVert = \frac{2 \sqrt{3}}{3}$ | $q_{3} = \frac{\tilde q_{3}}{\lVert \tilde q_{3} \rVert}$ | rendre le vecteur unitaire | $\left[\begin{array}{c} - \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \end{array}\right]$ |
+|  |  |  | *La famille est libre : 3 vecteurs orthonormés obtenus.* |  |  |
+
+
+===== gs_fin — latex =====
+\begin{longtable}{r c l l p{4cm} c}
+\hline
+\textbf{N°} & \textbf{Vecteur traité} & \textbf{Coefficients} & \textbf{Opération} & \textbf{But} & \textbf{Vecteur obtenu} \\ \hline
+\endhead
+\multicolumn{5}{p{12cm}}{\emph{Orthogonalisation de Gram-Schmidt de 3 vecteurs dans R^3 (variante normalize='end').}} &  \\
+1 & $a_{1} = \left[\begin{array}{c} 1 \\ 1 \\ 0 \end{array}\right]$ &  & $\tilde q_{1} = a_{1}$ & premier vecteur : conservé tel quel & $\left[\begin{array}{c} 1 \\ 1 \\ 0 \end{array}\right]$ \\
+2 & $a_{2} = \left[\begin{array}{c} 1 \\ 0 \\ 1 \end{array}\right]$ & $r_{1,2} = \frac{1}{2}$ & $\tilde q_{2} = a_{2} - r_{1,2}\,\tilde q_{1}$ & retirer de a2 ses composantes selon les vecteurs déjà obtenus & $\left[\begin{array}{c} \frac{1}{2} \\ - \frac{1}{2} \\ 1 \end{array}\right]$ \\
+3 & $a_{3} = \left[\begin{array}{c} 0 \\ 1 \\ 1 \end{array}\right]$ & $r_{1,3} = \frac{1}{2}, r_{2,3} = \frac{1}{3}$ & $\tilde q_{3} = a_{3} - r_{1,3}\,\tilde q_{1} - r_{2,3}\,\tilde q_{2}$ & retirer de a3 ses composantes selon les vecteurs déjà obtenus & $\left[\begin{array}{c} - \frac{2}{3} \\ \frac{2}{3} \\ \frac{2}{3} \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{Normalisation finale des 3 vecteurs orthogonaux rationnels.}} &  \\
+4 & $\tilde q_{1}$ & $\lVert \tilde q_{1} \rVert = \sqrt{2}$ & $q_{1} = \frac{\tilde q_{1}}{\lVert \tilde q_{1} \rVert}$ & rendre le vecteur unitaire & $\left[\begin{array}{c} \frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2} \\ 0 \end{array}\right]$ \\
+5 & $\tilde q_{2}$ & $\lVert \tilde q_{2} \rVert = \frac{\sqrt{6}}{2}$ & $q_{2} = \frac{\tilde q_{2}}{\lVert \tilde q_{2} \rVert}$ & rendre le vecteur unitaire & $\left[\begin{array}{c} \frac{\sqrt{6}}{6} \\ - \frac{\sqrt{6}}{6} \\ \frac{\sqrt{6}}{3} \end{array}\right]$ \\
+6 & $\tilde q_{3}$ & $\lVert \tilde q_{3} \rVert = \frac{2 \sqrt{3}}{3}$ & $q_{3} = \frac{\tilde q_{3}}{\lVert \tilde q_{3} \rVert}$ & rendre le vecteur unitaire & $\left[\begin{array}{c} - \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{La famille est libre : 3 vecteurs orthonormés obtenus.}} &  \\
+\hline
+\end{longtable}
+
+
+===== gs_chaque — markdown =====
+| N° | Vecteur traité | Coefficients | Opération | But | Vecteur obtenu |
+|---:|:---:|:---|:---|:---|:---:|
+|  |  |  | *Orthogonalisation de Gram-Schmidt de 3 vecteurs dans R^3 (variante normalize='each').* |  |  |
+| 1 | $a_{1} = \left[\begin{array}{c} 1 \\ 1 \\ 0 \end{array}\right]$ |  | $\tilde q_{1} = a_{1}$ | premier vecteur : conservé tel quel | $\left[\begin{array}{c} 1 \\ 1 \\ 0 \end{array}\right]$ |
+|  |  |  | *Remarque pédagogique : la normalisation immédiate introduit des radicaux dès l'étape 1.* |  |  |
+| 2 | $\tilde q_{1}$ | $\lVert \tilde q_{1} \rVert = \sqrt{2}$ | $q_{1} = \frac{\tilde q_{1}}{\lVert \tilde q_{1} \rVert}$ | rendre le vecteur unitaire | $\left[\begin{array}{c} \frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2} \\ 0 \end{array}\right]$ |
+| 3 | $a_{2} = \left[\begin{array}{c} 1 \\ 0 \\ 1 \end{array}\right]$ | $r_{1,2} = \frac{\sqrt{2}}{2}$ | $\tilde q_{2} = a_{2} - r_{1,2}\,q_{1}$ | retirer de a2 ses composantes selon les vecteurs déjà obtenus | $\left[\begin{array}{c} \frac{1}{2} \\ - \frac{1}{2} \\ 1 \end{array}\right]$ |
+|  |  |  | *Remarque pédagogique : la normalisation immédiate introduit des radicaux dès l'étape 2.* |  |  |
+| 4 | $\tilde q_{2}$ | $\lVert \tilde q_{2} \rVert = \frac{\sqrt{6}}{2}$ | $q_{2} = \frac{\tilde q_{2}}{\lVert \tilde q_{2} \rVert}$ | rendre le vecteur unitaire | $\left[\begin{array}{c} \frac{\sqrt{6}}{6} \\ - \frac{\sqrt{6}}{6} \\ \frac{\sqrt{6}}{3} \end{array}\right]$ |
+| 5 | $a_{3} = \left[\begin{array}{c} 0 \\ 1 \\ 1 \end{array}\right]$ | $r_{1,3} = \frac{\sqrt{2}}{2}, r_{2,3} = \frac{\sqrt{6}}{6}$ | $\tilde q_{3} = a_{3} - r_{1,3}\,q_{1} - r_{2,3}\,q_{2}$ | retirer de a3 ses composantes selon les vecteurs déjà obtenus | $\left[\begin{array}{c} - \frac{2}{3} \\ \frac{2}{3} \\ \frac{2}{3} \end{array}\right]$ |
+|  |  |  | *Remarque pédagogique : la normalisation immédiate introduit des radicaux dès l'étape 3.* |  |  |
+| 6 | $\tilde q_{3}$ | $\lVert \tilde q_{3} \rVert = \frac{2 \sqrt{3}}{3}$ | $q_{3} = \frac{\tilde q_{3}}{\lVert \tilde q_{3} \rVert}$ | rendre le vecteur unitaire | $\left[\begin{array}{c} - \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \end{array}\right]$ |
+|  |  |  | *La famille est libre : 3 vecteurs orthonormés obtenus.* |  |  |
+
+
+===== gs_chaque — latex =====
+\begin{longtable}{r c l l p{4cm} c}
+\hline
+\textbf{N°} & \textbf{Vecteur traité} & \textbf{Coefficients} & \textbf{Opération} & \textbf{But} & \textbf{Vecteur obtenu} \\ \hline
+\endhead
+\multicolumn{5}{p{12cm}}{\emph{Orthogonalisation de Gram-Schmidt de 3 vecteurs dans R^3 (variante normalize='each').}} &  \\
+1 & $a_{1} = \left[\begin{array}{c} 1 \\ 1 \\ 0 \end{array}\right]$ &  & $\tilde q_{1} = a_{1}$ & premier vecteur : conservé tel quel & $\left[\begin{array}{c} 1 \\ 1 \\ 0 \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{Remarque pédagogique : la normalisation immédiate introduit des radicaux dès l'étape 1.}} &  \\
+2 & $\tilde q_{1}$ & $\lVert \tilde q_{1} \rVert = \sqrt{2}$ & $q_{1} = \frac{\tilde q_{1}}{\lVert \tilde q_{1} \rVert}$ & rendre le vecteur unitaire & $\left[\begin{array}{c} \frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2} \\ 0 \end{array}\right]$ \\
+3 & $a_{2} = \left[\begin{array}{c} 1 \\ 0 \\ 1 \end{array}\right]$ & $r_{1,2} = \frac{\sqrt{2}}{2}$ & $\tilde q_{2} = a_{2} - r_{1,2}\,q_{1}$ & retirer de a2 ses composantes selon les vecteurs déjà obtenus & $\left[\begin{array}{c} \frac{1}{2} \\ - \frac{1}{2} \\ 1 \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{Remarque pédagogique : la normalisation immédiate introduit des radicaux dès l'étape 2.}} &  \\
+4 & $\tilde q_{2}$ & $\lVert \tilde q_{2} \rVert = \frac{\sqrt{6}}{2}$ & $q_{2} = \frac{\tilde q_{2}}{\lVert \tilde q_{2} \rVert}$ & rendre le vecteur unitaire & $\left[\begin{array}{c} \frac{\sqrt{6}}{6} \\ - \frac{\sqrt{6}}{6} \\ \frac{\sqrt{6}}{3} \end{array}\right]$ \\
+5 & $a_{3} = \left[\begin{array}{c} 0 \\ 1 \\ 1 \end{array}\right]$ & $r_{1,3} = \frac{\sqrt{2}}{2}, r_{2,3} = \frac{\sqrt{6}}{6}$ & $\tilde q_{3} = a_{3} - r_{1,3}\,q_{1} - r_{2,3}\,q_{2}$ & retirer de a3 ses composantes selon les vecteurs déjà obtenus & $\left[\begin{array}{c} - \frac{2}{3} \\ \frac{2}{3} \\ \frac{2}{3} \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{Remarque pédagogique : la normalisation immédiate introduit des radicaux dès l'étape 3.}} &  \\
+6 & $\tilde q_{3}$ & $\lVert \tilde q_{3} \rVert = \frac{2 \sqrt{3}}{3}$ & $q_{3} = \frac{\tilde q_{3}}{\lVert \tilde q_{3} \rVert}$ & rendre le vecteur unitaire & $\left[\begin{array}{c} - \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{La famille est libre : 3 vecteurs orthonormés obtenus.}} &  \\
+\hline
+\end{longtable}
+
+
+===== gs_famille_liee — markdown =====
+| N° | Vecteur traité | Coefficients | Opération | But | Vecteur obtenu |
+|---:|:---:|:---|:---|:---|:---:|
+|  |  |  | *Orthogonalisation de Gram-Schmidt de 3 vecteurs dans R^3 (variante normalize='end').* |  |  |
+| 1 | $a_{1} = \left[\begin{array}{c} 1 \\ 1 \\ 0 \end{array}\right]$ |  | $\tilde q_{1} = a_{1}$ | premier vecteur : conservé tel quel | $\left[\begin{array}{c} 1 \\ 1 \\ 0 \end{array}\right]$ |
+| 2 | $a_{2} = \left[\begin{array}{c} 1 \\ 0 \\ 1 \end{array}\right]$ | $r_{1,2} = \frac{1}{2}$ | $\tilde q_{2} = a_{2} - r_{1,2}\,\tilde q_{1}$ | retirer de a2 ses composantes selon les vecteurs déjà obtenus | $\left[\begin{array}{c} \frac{1}{2} \\ - \frac{1}{2} \\ 1 \end{array}\right]$ |
+| 3 | $a_{3} = \left[\begin{array}{c} 2 \\ 1 \\ 1 \end{array}\right]$ | $r_{1,3} = \frac{3}{2}, r_{2,3} = 1$ | $\tilde q_{3} = a_{3} - r_{1,3}\,\tilde q_{1} - r_{2,3}\,\tilde q_{2}$ | retirer de a3 ses composantes selon les vecteurs déjà obtenus | $\left[\begin{array}{c} 0 \\ 0 \\ 0 \end{array}\right]$ |
+|  |  |  | *a_3 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_3 = (3/2)·q̃_1 + q̃_2).* |  |  |
+
+
+===== gs_famille_liee — latex =====
+\begin{longtable}{r c l l p{4cm} c}
+\hline
+\textbf{N°} & \textbf{Vecteur traité} & \textbf{Coefficients} & \textbf{Opération} & \textbf{But} & \textbf{Vecteur obtenu} \\ \hline
+\endhead
+\multicolumn{5}{p{12cm}}{\emph{Orthogonalisation de Gram-Schmidt de 3 vecteurs dans R^3 (variante normalize='end').}} &  \\
+1 & $a_{1} = \left[\begin{array}{c} 1 \\ 1 \\ 0 \end{array}\right]$ &  & $\tilde q_{1} = a_{1}$ & premier vecteur : conservé tel quel & $\left[\begin{array}{c} 1 \\ 1 \\ 0 \end{array}\right]$ \\
+2 & $a_{2} = \left[\begin{array}{c} 1 \\ 0 \\ 1 \end{array}\right]$ & $r_{1,2} = \frac{1}{2}$ & $\tilde q_{2} = a_{2} - r_{1,2}\,\tilde q_{1}$ & retirer de a2 ses composantes selon les vecteurs déjà obtenus & $\left[\begin{array}{c} \frac{1}{2} \\ - \frac{1}{2} \\ 1 \end{array}\right]$ \\
+3 & $a_{3} = \left[\begin{array}{c} 2 \\ 1 \\ 1 \end{array}\right]$ & $r_{1,3} = \frac{3}{2}, r_{2,3} = 1$ & $\tilde q_{3} = a_{3} - r_{1,3}\,\tilde q_{1} - r_{2,3}\,\tilde q_{2}$ & retirer de a3 ses composantes selon les vecteurs déjà obtenus & $\left[\begin{array}{c} 0 \\ 0 \\ 0 \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{a\_3 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a\_3 = (3/2)·q̃\_1 + q̃\_2).}} &  \\
+\hline
+\end{longtable}
+
+
+===== gs_parametre — markdown =====
+#### Cas $a \neq 1 \text{ et } a \neq 0 \text{ et } a \neq -1 \text{ (générique)}$
+
+| N° | Vecteur traité | Coefficients | Opération | But | Vecteur obtenu |
+|---:|:---:|:---|:---|:---|:---:|
+|  |  |  | *Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').* |  |  |
+| 1 | $a_{1} = \left[\begin{array}{c} 1 \\ a \end{array}\right]$ |  | $\tilde q_{1} = a_{1}$ | premier vecteur : conservé tel quel | $\left[\begin{array}{c} 1 \\ a \end{array}\right]$ |
+| 2 | $a_{2} = \left[\begin{array}{c} a \\ 1 \end{array}\right]$ | $r_{1,2} = \frac{2 a}{a^{2} + 1}$ | $\tilde q_{2} = a_{2} - r_{1,2}\,\tilde q_{1}$ | retirer de a2 ses composantes selon les vecteurs déjà obtenus | $\left[\begin{array}{c} \frac{a \left(a - 1\right) \left(a + 1\right)}{a^{2} + 1} \\ - \frac{\left(a - 1\right) \left(a + 1\right)}{a^{2} + 1} \end{array}\right]$ |
+|  |  |  | *Normalisation finale des 2 vecteurs orthogonaux rationnels.* |  |  |
+| 3 | $\tilde q_{1}$ | $\lVert \tilde q_{1} \rVert = \sqrt{a^{2} + 1}$ | $q_{1} = \frac{\tilde q_{1}}{\lVert \tilde q_{1} \rVert}$ | rendre le vecteur unitaire | $\left[\begin{array}{c} \frac{1}{\sqrt{a^{2} + 1}} \\ \frac{a}{\sqrt{a^{2} + 1}} \end{array}\right]$ |
+| 4 | $\tilde q_{2}$ | $\lVert \tilde q_{2} \rVert = \frac{\left\vert {a^{2} - 1}\right\vert }{\sqrt{a^{2} + 1}}$ | $q_{2} = \frac{\tilde q_{2}}{\lVert \tilde q_{2} \rVert}$ | rendre le vecteur unitaire | $\left[\begin{array}{c} \frac{a^{3} - a}{\sqrt{a^{2} + 1} \left\vert {a^{2} - 1}\right\vert } \\ \frac{1 - a^{2}}{\sqrt{a^{2} + 1} \left\vert {a^{2} - 1}\right\vert } \end{array}\right]$ |
+|  |  |  | *La famille est libre : 2 vecteurs orthonormés obtenus.* |  |  |
+
+#### Cas $a = 1$
+
+| N° | Vecteur traité | Coefficients | Opération | But | Vecteur obtenu |
+|---:|:---:|:---|:---|:---|:---:|
+|  |  |  | *Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').* |  |  |
+| 1 | $a_{1} = \left[\begin{array}{c} 1 \\ 1 \end{array}\right]$ |  | $\tilde q_{1} = a_{1}$ | premier vecteur : conservé tel quel | $\left[\begin{array}{c} 1 \\ 1 \end{array}\right]$ |
+| 2 | $a_{2} = \left[\begin{array}{c} 1 \\ 1 \end{array}\right]$ | $r_{1,2} = 1$ | $\tilde q_{2} = a_{2} - r_{1,2}\,\tilde q_{1}$ | retirer de a2 ses composantes selon les vecteurs déjà obtenus | $\left[\begin{array}{c} 0 \\ 0 \end{array}\right]$ |
+|  |  |  | *a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = q̃_1).* |  |  |
+
+#### Cas $a = 0$
+
+| N° | Vecteur traité | Coefficients | Opération | But | Vecteur obtenu |
+|---:|:---:|:---|:---|:---|:---:|
+|  |  |  | *Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').* |  |  |
+| 1 | $a_{1} = \left[\begin{array}{c} 1 \\ 0 \end{array}\right]$ |  | $\tilde q_{1} = a_{1}$ | premier vecteur : conservé tel quel | $\left[\begin{array}{c} 1 \\ 0 \end{array}\right]$ |
+| 2 | $a_{2} = \left[\begin{array}{c} 0 \\ 1 \end{array}\right]$ | $r_{1,2} = 0$ | $\tilde q_{2} = a_{2} - r_{1,2}\,\tilde q_{1}$ | retirer de a2 ses composantes selon les vecteurs déjà obtenus | $\left[\begin{array}{c} 0 \\ 1 \end{array}\right]$ |
+|  |  |  | *Normalisation finale des 2 vecteurs orthogonaux rationnels.* |  |  |
+| 3 | $\tilde q_{1}$ | $\lVert \tilde q_{1} \rVert = 1$ | $q_{1} = \frac{\tilde q_{1}}{\lVert \tilde q_{1} \rVert}$ | rendre le vecteur unitaire | $\left[\begin{array}{c} 1 \\ 0 \end{array}\right]$ |
+| 4 | $\tilde q_{2}$ | $\lVert \tilde q_{2} \rVert = 1$ | $q_{2} = \frac{\tilde q_{2}}{\lVert \tilde q_{2} \rVert}$ | rendre le vecteur unitaire | $\left[\begin{array}{c} 0 \\ 1 \end{array}\right]$ |
+|  |  |  | *La famille est libre : 2 vecteurs orthonormés obtenus.* |  |  |
+
+#### Cas $a = -1$
+
+| N° | Vecteur traité | Coefficients | Opération | But | Vecteur obtenu |
+|---:|:---:|:---|:---|:---|:---:|
+|  |  |  | *Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').* |  |  |
+| 1 | $a_{1} = \left[\begin{array}{c} 1 \\ -1 \end{array}\right]$ |  | $\tilde q_{1} = a_{1}$ | premier vecteur : conservé tel quel | $\left[\begin{array}{c} 1 \\ -1 \end{array}\right]$ |
+| 2 | $a_{2} = \left[\begin{array}{c} -1 \\ 1 \end{array}\right]$ | $r_{1,2} = -1$ | $\tilde q_{2} = a_{2} - r_{1,2}\,\tilde q_{1}$ | retirer de a2 ses composantes selon les vecteurs déjà obtenus | $\left[\begin{array}{c} 0 \\ 0 \end{array}\right]$ |
+|  |  |  | *a_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a_2 = (-1)·q̃_1).* |  |  |
+
+
+===== gs_parametre — latex =====
+\paragraph{Cas $a \neq 1 \text{ et } a \neq 0 \text{ et } a \neq -1 \text{ (générique)}$}
+\begin{longtable}{r c l l p{4cm} c}
+\hline
+\textbf{N°} & \textbf{Vecteur traité} & \textbf{Coefficients} & \textbf{Opération} & \textbf{But} & \textbf{Vecteur obtenu} \\ \hline
+\endhead
+\multicolumn{5}{p{12cm}}{\emph{Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').}} &  \\
+1 & $a_{1} = \left[\begin{array}{c} 1 \\ a \end{array}\right]$ &  & $\tilde q_{1} = a_{1}$ & premier vecteur : conservé tel quel & $\left[\begin{array}{c} 1 \\ a \end{array}\right]$ \\
+2 & $a_{2} = \left[\begin{array}{c} a \\ 1 \end{array}\right]$ & $r_{1,2} = \frac{2 a}{a^{2} + 1}$ & $\tilde q_{2} = a_{2} - r_{1,2}\,\tilde q_{1}$ & retirer de a2 ses composantes selon les vecteurs déjà obtenus & $\left[\begin{array}{c} \frac{a \left(a - 1\right) \left(a + 1\right)}{a^{2} + 1} \\ - \frac{\left(a - 1\right) \left(a + 1\right)}{a^{2} + 1} \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{Normalisation finale des 2 vecteurs orthogonaux rationnels.}} &  \\
+3 & $\tilde q_{1}$ & $\lVert \tilde q_{1} \rVert = \sqrt{a^{2} + 1}$ & $q_{1} = \frac{\tilde q_{1}}{\lVert \tilde q_{1} \rVert}$ & rendre le vecteur unitaire & $\left[\begin{array}{c} \frac{1}{\sqrt{a^{2} + 1}} \\ \frac{a}{\sqrt{a^{2} + 1}} \end{array}\right]$ \\
+4 & $\tilde q_{2}$ & $\lVert \tilde q_{2} \rVert = \frac{\left|{a^{2} - 1}\right|}{\sqrt{a^{2} + 1}}$ & $q_{2} = \frac{\tilde q_{2}}{\lVert \tilde q_{2} \rVert}$ & rendre le vecteur unitaire & $\left[\begin{array}{c} \frac{a^{3} - a}{\sqrt{a^{2} + 1} \left|{a^{2} - 1}\right|} \\ \frac{1 - a^{2}}{\sqrt{a^{2} + 1} \left|{a^{2} - 1}\right|} \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{La famille est libre : 2 vecteurs orthonormés obtenus.}} &  \\
+\hline
+\end{longtable}
+
+\paragraph{Cas $a = 1$}
+\begin{longtable}{r c l l p{4cm} c}
+\hline
+\textbf{N°} & \textbf{Vecteur traité} & \textbf{Coefficients} & \textbf{Opération} & \textbf{But} & \textbf{Vecteur obtenu} \\ \hline
+\endhead
+\multicolumn{5}{p{12cm}}{\emph{Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').}} &  \\
+1 & $a_{1} = \left[\begin{array}{c} 1 \\ 1 \end{array}\right]$ &  & $\tilde q_{1} = a_{1}$ & premier vecteur : conservé tel quel & $\left[\begin{array}{c} 1 \\ 1 \end{array}\right]$ \\
+2 & $a_{2} = \left[\begin{array}{c} 1 \\ 1 \end{array}\right]$ & $r_{1,2} = 1$ & $\tilde q_{2} = a_{2} - r_{1,2}\,\tilde q_{1}$ & retirer de a2 ses composantes selon les vecteurs déjà obtenus & $\left[\begin{array}{c} 0 \\ 0 \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{a\_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a\_2 = q̃\_1).}} &  \\
+\hline
+\end{longtable}
+
+\paragraph{Cas $a = 0$}
+\begin{longtable}{r c l l p{4cm} c}
+\hline
+\textbf{N°} & \textbf{Vecteur traité} & \textbf{Coefficients} & \textbf{Opération} & \textbf{But} & \textbf{Vecteur obtenu} \\ \hline
+\endhead
+\multicolumn{5}{p{12cm}}{\emph{Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').}} &  \\
+1 & $a_{1} = \left[\begin{array}{c} 1 \\ 0 \end{array}\right]$ &  & $\tilde q_{1} = a_{1}$ & premier vecteur : conservé tel quel & $\left[\begin{array}{c} 1 \\ 0 \end{array}\right]$ \\
+2 & $a_{2} = \left[\begin{array}{c} 0 \\ 1 \end{array}\right]$ & $r_{1,2} = 0$ & $\tilde q_{2} = a_{2} - r_{1,2}\,\tilde q_{1}$ & retirer de a2 ses composantes selon les vecteurs déjà obtenus & $\left[\begin{array}{c} 0 \\ 1 \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{Normalisation finale des 2 vecteurs orthogonaux rationnels.}} &  \\
+3 & $\tilde q_{1}$ & $\lVert \tilde q_{1} \rVert = 1$ & $q_{1} = \frac{\tilde q_{1}}{\lVert \tilde q_{1} \rVert}$ & rendre le vecteur unitaire & $\left[\begin{array}{c} 1 \\ 0 \end{array}\right]$ \\
+4 & $\tilde q_{2}$ & $\lVert \tilde q_{2} \rVert = 1$ & $q_{2} = \frac{\tilde q_{2}}{\lVert \tilde q_{2} \rVert}$ & rendre le vecteur unitaire & $\left[\begin{array}{c} 0 \\ 1 \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{La famille est libre : 2 vecteurs orthonormés obtenus.}} &  \\
+\hline
+\end{longtable}
+
+\paragraph{Cas $a = -1$}
+\begin{longtable}{r c l l p{4cm} c}
+\hline
+\textbf{N°} & \textbf{Vecteur traité} & \textbf{Coefficients} & \textbf{Opération} & \textbf{But} & \textbf{Vecteur obtenu} \\ \hline
+\endhead
+\multicolumn{5}{p{12cm}}{\emph{Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^2 (variante normalize='end').}} &  \\
+1 & $a_{1} = \left[\begin{array}{c} 1 \\ -1 \end{array}\right]$ &  & $\tilde q_{1} = a_{1}$ & premier vecteur : conservé tel quel & $\left[\begin{array}{c} 1 \\ -1 \end{array}\right]$ \\
+2 & $a_{2} = \left[\begin{array}{c} -1 \\ 1 \end{array}\right]$ & $r_{1,2} = -1$ & $\tilde q_{2} = a_{2} - r_{1,2}\,\tilde q_{1}$ & retirer de a2 ses composantes selon les vecteurs déjà obtenus & $\left[\begin{array}{c} 0 \\ 0 \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{a\_2 est combinaison linéaire des vecteurs précédents : la famille est liée (témoin : a\_2 = (-1)·q̃\_1).}} &  \\
+\hline
+\end{longtable}
+
+
+===== qr — markdown =====
+| N° | Vecteur traité | Coefficients | Opération | But | Vecteur obtenu |
+|---:|:---:|:---|:---|:---|:---:|
+|  |  |  | *Factorisation QR de la matrice A de taille 3×2.* |  | $\left[\begin{array}{cc} 1 & -1 \\ 1 & 0 \\ 1 & 1 \end{array}\right]$ |
+|  |  |  | *Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^3 (variante normalize='end').* |  |  |
+| 1 | $a_{1} = \left[\begin{array}{c} 1 \\ 1 \\ 1 \end{array}\right]$ |  | $\tilde q_{1} = a_{1}$ | premier vecteur : conservé tel quel | $\left[\begin{array}{c} 1 \\ 1 \\ 1 \end{array}\right]$ |
+| 2 | $a_{2} = \left[\begin{array}{c} -1 \\ 0 \\ 1 \end{array}\right]$ | $r_{1,2} = 0$ | $\tilde q_{2} = a_{2} - r_{1,2}\,\tilde q_{1}$ | retirer de a2 ses composantes selon les vecteurs déjà obtenus | $\left[\begin{array}{c} -1 \\ 0 \\ 1 \end{array}\right]$ |
+|  |  |  | *Normalisation finale des 2 vecteurs orthogonaux rationnels.* |  |  |
+| 3 | $\tilde q_{1}$ | $\lVert \tilde q_{1} \rVert = \sqrt{3}$ | $q_{1} = \frac{\tilde q_{1}}{\lVert \tilde q_{1} \rVert}$ | rendre le vecteur unitaire | $\left[\begin{array}{c} \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \end{array}\right]$ |
+| 4 | $\tilde q_{2}$ | $\lVert \tilde q_{2} \rVert = \sqrt{2}$ | $q_{2} = \frac{\tilde q_{2}}{\lVert \tilde q_{2} \rVert}$ | rendre le vecteur unitaire | $\left[\begin{array}{c} - \frac{\sqrt{2}}{2} \\ 0 \\ \frac{\sqrt{2}}{2} \end{array}\right]$ |
+|  |  |  | *La famille est libre : 2 vecteurs orthonormés obtenus.* |  |  |
+|  |  |  | *Construction de la factorisation rationnelle A = Q_tilde · R_tilde avec Q_tilde^T Q_tilde = D^2.* |  | $\left[\begin{array}{cc} 1 & -1 \\ 1 & 0 \\ 1 & 1 \end{array}\right]$ |
+|  |  |  | *Passage à A = Q · R avec Q = Q_tilde · D^(-1) et R = D · R_tilde (diagonale de R strictement positive).* |  | $\left[\begin{array}{cc} \sqrt{3} & 0 \\ 0 & \sqrt{2} \end{array}\right]$ |
+|  |  |  | *Factorisation A = Q R terminée.* |  | $\left[\begin{array}{cc} \frac{\sqrt{3}}{3} & - \frac{\sqrt{2}}{2} \\ \frac{\sqrt{3}}{3} & 0 \\ \frac{\sqrt{3}}{3} & \frac{\sqrt{2}}{2} \end{array}\right]$ |
+
+
+===== qr — latex =====
+\begin{longtable}{r c l l p{4cm} c}
+\hline
+\textbf{N°} & \textbf{Vecteur traité} & \textbf{Coefficients} & \textbf{Opération} & \textbf{But} & \textbf{Vecteur obtenu} \\ \hline
+\endhead
+\multicolumn{5}{p{12cm}}{\emph{Factorisation QR de la matrice A de taille 3×2.}} & $\left[\begin{array}{cc} 1 & -1 \\ 1 & 0 \\ 1 & 1 \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{Orthogonalisation de Gram-Schmidt de 2 vecteurs dans R^3 (variante normalize='end').}} &  \\
+1 & $a_{1} = \left[\begin{array}{c} 1 \\ 1 \\ 1 \end{array}\right]$ &  & $\tilde q_{1} = a_{1}$ & premier vecteur : conservé tel quel & $\left[\begin{array}{c} 1 \\ 1 \\ 1 \end{array}\right]$ \\
+2 & $a_{2} = \left[\begin{array}{c} -1 \\ 0 \\ 1 \end{array}\right]$ & $r_{1,2} = 0$ & $\tilde q_{2} = a_{2} - r_{1,2}\,\tilde q_{1}$ & retirer de a2 ses composantes selon les vecteurs déjà obtenus & $\left[\begin{array}{c} -1 \\ 0 \\ 1 \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{Normalisation finale des 2 vecteurs orthogonaux rationnels.}} &  \\
+3 & $\tilde q_{1}$ & $\lVert \tilde q_{1} \rVert = \sqrt{3}$ & $q_{1} = \frac{\tilde q_{1}}{\lVert \tilde q_{1} \rVert}$ & rendre le vecteur unitaire & $\left[\begin{array}{c} \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \\ \frac{\sqrt{3}}{3} \end{array}\right]$ \\
+4 & $\tilde q_{2}$ & $\lVert \tilde q_{2} \rVert = \sqrt{2}$ & $q_{2} = \frac{\tilde q_{2}}{\lVert \tilde q_{2} \rVert}$ & rendre le vecteur unitaire & $\left[\begin{array}{c} - \frac{\sqrt{2}}{2} \\ 0 \\ \frac{\sqrt{2}}{2} \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{La famille est libre : 2 vecteurs orthonormés obtenus.}} &  \\
+\multicolumn{5}{p{12cm}}{\emph{Construction de la factorisation rationnelle A = Q\_tilde · R\_tilde avec Q\_tilde^T Q\_tilde = D^2.}} & $\left[\begin{array}{cc} 1 & -1 \\ 1 & 0 \\ 1 & 1 \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{Passage à A = Q · R avec Q = Q\_tilde · D^(-1) et R = D · R\_tilde (diagonale de R strictement positive).}} & $\left[\begin{array}{cc} \sqrt{3} & 0 \\ 0 & \sqrt{2} \end{array}\right]$ \\
+\multicolumn{5}{p{12cm}}{\emph{Factorisation A = Q R terminée.}} & $\left[\begin{array}{cc} \frac{\sqrt{3}}{3} & - \frac{\sqrt{2}}{2} \\ \frac{\sqrt{3}}{3} & 0 \\ \frac{\sqrt{3}}{3} & \frac{\sqrt{2}}{2} \end{array}\right]$ \\
+\hline
+\end{longtable}
+
+
+===== mc_qr — markdown =====
+| N° | Inconnue | Calcul | But | Valeur |
+|---:|:---:|:---|:---|:---:|
+|  |  | *Résolution au sens des moindres carrés min \|\|A x - b\|\| (A de taille 4×2, méthode 'qr').* |  | $\left[\begin{array}{cc} 1 & 0 \\ 1 & 1 \\ 1 & 2 \\ 1 & 3 \end{array}\right]$ |
+|  |  | *Vérification du rang plein en colonnes : rang(A) = 2 = 2.* |  |  |
+|  |  | *Note théorique : la pseudo-inverse est A† = (A^T A)^(-1) A^T, mais on résout par substitution sans inverser.* |  |  |
+|  |  | *Équations réduites par QR orthonormée : R x_hat = Q^T b = ( 9/2, 9·√(5)/10 ).* |  | $\left[\begin{array}{cc} 2 & 3 \\ 0 & \sqrt{5} \end{array}\right]$ |
+|  |  | *Résolution par substitution arrière de R x = c (taille 2×2).* |  | $\left[\begin{array}{cc} 2 & 3 \\ 0 & \sqrt{5} \end{array}\right]$ |
+| 1 | $x_{2}$ | $x_{2} = \frac{\frac{9 \sqrt{5}}{10}}{\sqrt{5}}$ | isoler x2 dans l'équation 2, les autres inconnues étant connues | $\frac{9}{10}$ |
+| 2 | $x_{1}$ | $x_{1} = \frac{\frac{9}{2} - 3\,x_{2}}{2} = \frac{\frac{9}{2} - \frac{27}{10}}{2}$ | isoler x1 dans l'équation 1, les autres inconnues étant connues | $\frac{9}{10}$ |
+|  |  | *Solution du système triangulaire : x = ( 9/10, 9/10 ).* |  |  |
+|  |  | *Analyse de la solution : x_hat = ( 9/10, 9/10 ), projection y_hat = A x_hat = ( 9/10, 9/5, 27/10, 18/5 ), résidu r_hat = A x_hat - b = ( −1/10, −1/5, 7/10, −2/5 ).* |  |  |
+|  |  | *Norme du résidu \|\|r_hat\|\| = √(70)/10, moyenne quadratique rms(r_hat) = √(70)/20.* |  |  |
+
+
+===== mc_qr — latex =====
+\begin{longtable}{r c l p{4cm} c}
+\hline
+\textbf{N°} & \textbf{Inconnue} & \textbf{Calcul} & \textbf{But} & \textbf{Valeur} \\ \hline
+\endhead
+\multicolumn{4}{p{10cm}}{\emph{Résolution au sens des moindres carrés min \textbar{}\textbar{}A x - b\textbar{}\textbar{} (A de taille 4×2, méthode 'qr').}} & $\left[\begin{array}{cc} 1 & 0 \\ 1 & 1 \\ 1 & 2 \\ 1 & 3 \end{array}\right]$ \\
+\multicolumn{4}{p{10cm}}{\emph{Vérification du rang plein en colonnes : rang(A) = 2 = 2.}} &  \\
+\multicolumn{4}{p{10cm}}{\emph{Note théorique : la pseudo-inverse est A† = (A^T A)^(-1) A^T, mais on résout par substitution sans inverser.}} &  \\
+\multicolumn{4}{p{10cm}}{\emph{Équations réduites par QR orthonormée : R x\_hat = Q^T b = ( 9/2, 9·√(5)/10 ).}} & $\left[\begin{array}{cc} 2 & 3 \\ 0 & \sqrt{5} \end{array}\right]$ \\
+\multicolumn{4}{p{10cm}}{\emph{Résolution par substitution arrière de R x = c (taille 2×2).}} & $\left[\begin{array}{cc} 2 & 3 \\ 0 & \sqrt{5} \end{array}\right]$ \\
+1 & $x_{2}$ & $x_{2} = \frac{\frac{9 \sqrt{5}}{10}}{\sqrt{5}}$ & isoler x2 dans l'équation 2, les autres inconnues étant connues & $\frac{9}{10}$ \\
+2 & $x_{1}$ & $x_{1} = \frac{\frac{9}{2} - 3\,x_{2}}{2} = \frac{\frac{9}{2} - \frac{27}{10}}{2}$ & isoler x1 dans l'équation 1, les autres inconnues étant connues & $\frac{9}{10}$ \\
+\multicolumn{4}{p{10cm}}{\emph{Solution du système triangulaire : x = ( 9/10, 9/10 ).}} &  \\
+\multicolumn{4}{p{10cm}}{\emph{Analyse de la solution : x\_hat = ( 9/10, 9/10 ), projection y\_hat = A x\_hat = ( 9/10, 9/5, 27/10, 18/5 ), résidu r\_hat = A x\_hat - b = ( -1/10, -1/5, 7/10, -2/5 ).}} &  \\
+\multicolumn{4}{p{10cm}}{\emph{Norme du résidu \textbar{}\textbar{}r\_hat\textbar{}\textbar{} = √(70)/10, moyenne quadratique rms(r\_hat) = √(70)/20.}} &  \\
+\hline
+\end{longtable}
+
+
+===== substitution_arriere — markdown =====
+| N° | Inconnue | Calcul | But | Valeur |
+|---:|:---:|:---|:---|:---:|
+|  |  | *Résolution par substitution arrière de R x = c (taille 3×3).* |  | $\left[\begin{array}{ccc} 2 & 1 & 1 \\ 0 & 3 & -1 \\ 0 & 0 & 4 \end{array}\right]$ |
+| 1 | $x_{3}$ | $x_{3} = \frac{8}{4}$ | isoler x3 dans l'équation 3, les autres inconnues étant connues | $2$ |
+| 2 | $x_{2}$ | $x_{2} = \frac{2 - \left(-1\right)\,x_{3}}{3} = \frac{2 - \left(-2\right)}{3}$ | isoler x2 dans l'équation 2, les autres inconnues étant connues | $\frac{4}{3}$ |
+| 3 | $x_{1}$ | $x_{1} = \frac{5 - x_{2} - x_{3}}{2} = \frac{5 - \frac{10}{3}}{2}$ | isoler x1 dans l'équation 1, les autres inconnues étant connues | $\frac{5}{6}$ |
+|  |  | *Solution du système triangulaire : x = ( 5/6, 4/3, 2 ).* |  |  |
+
+
+===== substitution_arriere — latex =====
+\begin{longtable}{r c l p{4cm} c}
+\hline
+\textbf{N°} & \textbf{Inconnue} & \textbf{Calcul} & \textbf{But} & \textbf{Valeur} \\ \hline
+\endhead
+\multicolumn{4}{p{10cm}}{\emph{Résolution par substitution arrière de R x = c (taille 3×3).}} & $\left[\begin{array}{ccc} 2 & 1 & 1 \\ 0 & 3 & -1 \\ 0 & 0 & 4 \end{array}\right]$ \\
+1 & $x_{3}$ & $x_{3} = \frac{8}{4}$ & isoler x3 dans l'équation 3, les autres inconnues étant connues & $2$ \\
+2 & $x_{2}$ & $x_{2} = \frac{2 - \left(-1\right)\,x_{3}}{3} = \frac{2 - \left(-2\right)}{3}$ & isoler x2 dans l'équation 2, les autres inconnues étant connues & $\frac{4}{3}$ \\
+3 & $x_{1}$ & $x_{1} = \frac{5 - x_{2} - x_{3}}{2} = \frac{5 - \frac{10}{3}}{2}$ & isoler x1 dans l'équation 1, les autres inconnues étant connues & $\frac{5}{6}$ \\
+\multicolumn{4}{p{10cm}}{\emph{Solution du système triangulaire : x = ( 5/6, 4/3, 2 ).}} &  \\
+\hline
+\end{longtable}
+
+
+===== substitution_avant — markdown =====
+| N° | Inconnue | Calcul | But | Valeur |
+|---:|:---:|:---|:---|:---:|
+|  |  | *Résolution par substitution avant de L x = c (taille 3×3).* |  | $\left[\begin{array}{ccc} 1 & 0 & 0 \\ 2 & 1 & 0 \\ -1 & 3 & 2 \end{array}\right]$ |
+| 1 | $x_{1}$ | $x_{1} = 1$ | isoler x1 dans l'équation 1, les autres inconnues étant connues | $1$ |
+| 2 | $x_{2}$ | $x_{2} = 4 - 2\,x_{1} = 4 - 2$ | isoler x2 dans l'équation 2, les autres inconnues étant connues | $2$ |
+| 3 | $x_{3}$ | $x_{3} = \frac{6 - \left(-1\right)\,x_{1} - 3\,x_{2}}{2} = \frac{6 - 5}{2}$ | isoler x3 dans l'équation 3, les autres inconnues étant connues | $\frac{1}{2}$ |
+|  |  | *Solution du système triangulaire : x = ( 1, 2, 1/2 ).* |  |  |
+
+
+===== substitution_avant — latex =====
+\begin{longtable}{r c l p{4cm} c}
+\hline
+\textbf{N°} & \textbf{Inconnue} & \textbf{Calcul} & \textbf{But} & \textbf{Valeur} \\ \hline
+\endhead
+\multicolumn{4}{p{10cm}}{\emph{Résolution par substitution avant de L x = c (taille 3×3).}} & $\left[\begin{array}{ccc} 1 & 0 & 0 \\ 2 & 1 & 0 \\ -1 & 3 & 2 \end{array}\right]$ \\
+1 & $x_{1}$ & $x_{1} = 1$ & isoler x1 dans l'équation 1, les autres inconnues étant connues & $1$ \\
+2 & $x_{2}$ & $x_{2} = 4 - 2\,x_{1} = 4 - 2$ & isoler x2 dans l'équation 2, les autres inconnues étant connues & $2$ \\
+3 & $x_{3}$ & $x_{3} = \frac{6 - \left(-1\right)\,x_{1} - 3\,x_{2}}{2} = \frac{6 - 5}{2}$ & isoler x3 dans l'équation 3, les autres inconnues étant connues & $\frac{1}{2}$ \\
+\multicolumn{4}{p{10cm}}{\emph{Solution du système triangulaire : x = ( 1, 2, 1/2 ).}} &  \\
+\hline
+\end{longtable}
+
+
+===== inverse — markdown =====
+| N° | Colonne | Pivot | Opération | But | Matrice obtenue |
+|---:|:---:|:---:|:---|:---|:---:|
+|  |  |  | *Matrice de départ* |  | $\left[\begin{array}{cc} 2 & 1 \\ 1 & 1 \end{array}\,\middle\vert\,\begin{array}{cc} 1 & 0 \\ 0 & 1 \end{array}\right]$ |
+| 1 | 1 | $1$ en (2,1) | $L_{1} \leftrightarrow L_{2}$ | amener le pivot en place | $\left[\begin{array}{cc} \boxed{1} & \color{blue}{1} \\ \color{blue}{2} & \color{blue}{1} \end{array}\,\middle\vert\,\begin{array}{cc} \color{blue}{0} & \color{blue}{1} \\ \color{blue}{1} & \color{blue}{0} \end{array}\right]$ |
+| 2 | 1 | $1$ en (2,1) | $L_{2} \leftarrow L_{2} - \left(2\right) L_{1}$ | annuler le coefficient (2,1) | $\left[\begin{array}{cc} \boxed{1} & 1 \\ \color{blue}{0} & \color{blue}{-1} \end{array}\,\middle\vert\,\begin{array}{cc} 0 & 1 \\ \color{blue}{1} & \color{blue}{-2} \end{array}\right]$ |
+| 3 | 2 | $-1$ en (2,2) | $L_{2} \leftarrow \left(-1\right) L_{2}$ | ramener le pivot à 1 | $\left[\begin{array}{cc} 1 & 1 \\ \color{blue}{0} & \boxed{1} \end{array}\,\middle\vert\,\begin{array}{cc} 0 & 1 \\ \color{blue}{-1} & \color{blue}{2} \end{array}\right]$ |
+| 4 | 2 | $-1$ en (2,2) | $L_{1} \leftarrow L_{1} - \left(1\right) L_{2}$ | annuler le coefficient (1,2) | $\left[\begin{array}{cc} \color{blue}{1} & \color{blue}{0} \\ 0 & \boxed{1} \end{array}\,\middle\vert\,\begin{array}{cc} \color{blue}{1} & \color{blue}{-1} \\ -1 & 2 \end{array}\right]$ |
+|  |  |  | *Matrice réduite à I_2 à gauche : l'inverse A^(-1) est extraite à droite.* |  | $\left[\begin{array}{cc} 1 & -1 \\ -1 & 2 \end{array}\right]$ |
+|  |  |  | *Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).* |  | $\left[\begin{array}{cc} 1 & 0 \\ 0 & 1 \end{array}\,\middle\vert\,\begin{array}{cc} 1 & -1 \\ -1 & 2 \end{array}\right]$ |
+
+
+===== inverse — latex =====
+\begin{longtable}{r c c l p{4.2cm} c}
+\hline
+\textbf{N°} & \textbf{Colonne} & \textbf{Pivot} & \textbf{Opération} & \textbf{But} & \textbf{Matrice obtenue} \\ \hline
+\endhead
+\multicolumn{5}{p{11cm}}{\emph{Matrice de départ}} & $\left[\begin{array}{cc|cc} 2 & 1 & 1 & 0 \\ 1 & 1 & 0 & 1 \end{array}\right]$ \\
+1 & 1 & $1$ en (2,1) & $L_{1} \leftrightarrow L_{2}$ & amener le pivot en place & $\left[\begin{array}{cc|cc} \boxed{1} & \color{blue}{1} & \color{blue}{0} & \color{blue}{1} \\ \color{blue}{2} & \color{blue}{1} & \color{blue}{1} & \color{blue}{0} \end{array}\right]$ \\
+2 & 1 & $1$ en (2,1) & $L_{2} \leftarrow L_{2} - \left(2\right) L_{1}$ & annuler le coefficient (2,1) & $\left[\begin{array}{cc|cc} \boxed{1} & 1 & 0 & 1 \\ \color{blue}{0} & \color{blue}{-1} & \color{blue}{1} & \color{blue}{-2} \end{array}\right]$ \\
+3 & 2 & $-1$ en (2,2) & $L_{2} \leftarrow \left(-1\right) L_{2}$ & ramener le pivot à 1 & $\left[\begin{array}{cc|cc} 1 & 1 & 0 & 1 \\ \color{blue}{0} & \boxed{1} & \color{blue}{-1} & \color{blue}{2} \end{array}\right]$ \\
+4 & 2 & $-1$ en (2,2) & $L_{1} \leftarrow L_{1} - \left(1\right) L_{2}$ & annuler le coefficient (1,2) & $\left[\begin{array}{cc|cc} \color{blue}{1} & \color{blue}{0} & \color{blue}{1} & \color{blue}{-1} \\ 0 & \boxed{1} & -1 & 2 \end{array}\right]$ \\
+\multicolumn{5}{p{11cm}}{\emph{Matrice réduite à I\_2 à gauche : l'inverse A^(-1) est extraite à droite.}} & $\left[\begin{array}{cc} 1 & -1 \\ -1 & 2 \end{array}\right]$ \\
+\multicolumn{5}{p{11cm}}{\emph{Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).}} & $\left[\begin{array}{cc|cc} 1 & 0 & 1 & -1 \\ 0 & 1 & -1 & 2 \end{array}\right]$ \\
+\hline
+\end{longtable}
+
