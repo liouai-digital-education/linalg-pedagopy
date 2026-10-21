@@ -65,9 +65,10 @@ Chaque type de vérificateur d'une fiche (`valeur`, `matrice`, `labo`…) est d�
 
 Pour ajouter un type (par exemple pour le thème 10 de la phase 7) :
 
-1. écrire la fonction de vérification `f(réponse, spécification, données)` ;
-2. écrire son contrôle croisé `g(séance, spécification, données) -> list[str]` ;
-3. l'enregistrer dans `tutor/verifier_types.py` : `register_verifier(VerifierType("nom", ("alias",), _sans_seance(f), "forme attendue", requires("champ", message=...), g))`.
+1. créer un module `tutor/verifiers/nom.py` (un module par type ; outils communs dans `commun.py`) ;
+2. y écrire la fonction de vérification `f(réponse, spécification, données)` et son contrôle croisé `g(séance, spécification, données) -> list[str]` ;
+3. l'enregistrer en bas du module : `register_verifier(VerifierType("nom", ("alias",), sans_seance(f), "forme attendue", requires("champ", message=...), g))` ;
+4. importer le module dans `tutor/verifiers/__init__.py`.
 
 ## Lecture de texte dans le tuteur
 

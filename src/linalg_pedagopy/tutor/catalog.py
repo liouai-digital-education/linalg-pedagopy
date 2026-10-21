@@ -24,8 +24,7 @@ from linalg_pedagopy.tutor.lab import CounterexampleLab
 from linalg_pedagopy.tutor.lock import LockedNamespace, _get_namespace_raw_dict
 from linalg_pedagopy.tutor.panel import build_panel
 from linalg_pedagopy.tutor.registry import verifier_type
-from linalg_pedagopy.tutor.verifiers import VerificationResult
-import linalg_pedagopy.tutor.verifier_types  # noqa: F401  (enregistre les types de vérificateurs)
+from linalg_pedagopy.tutor.verifiers import VerificationResult  # l'import enregistre les types
 
 _PACKAGE_DIR = Path(__file__).resolve().parent.parent
 _FICHES_DIR = _PACKAGE_DIR / "tuteur" / "fiches"
