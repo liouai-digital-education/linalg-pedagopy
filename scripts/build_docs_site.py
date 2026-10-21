@@ -1032,12 +1032,17 @@ PAGE_TEMPLATE = jinja2.Template("""<!DOCTYPE html>
       }
     };
   </script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!-- Versions figées et empreintes SRI (sha256 publié par jsDelivr) : une mise à jour du CDN ne
+       change ni le rendu ni le code exécuté. Pour monter de version, mettez à jour l'URL et l'empreinte. -->
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"
+          integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
 
-  <!-- Moteur de diagrammes Mermaid.js -->
-  <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+  <!-- Moteur de diagrammes Mermaid.js ; « strict » : le HTML des libellés est encodé, pas exécuté -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.8/dist/mermaid.min.js"
+          integrity="sha256-jWB9fvHQd6iqIC4Y5iISv6mSxov+q8XPRdUaEo/mZ10=" crossorigin="anonymous"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'strict' });
   </script>
 </head>
 <body>

@@ -135,6 +135,10 @@
   paragraphe suivant (200 Ko au lieu de 80). Les titres qui correspondent passent en premier ;
   l'extrait affiché entoure le terme trouvé ; la comparaison ignore casse et accents (« determinant »
   trouve « déterminant »).
+- **MathJax et Mermaid figés** : `mathjax@3.2.2` et `mermaid@10.9.8` (au lieu de `@3` et `@10`, qui
+  suivaient chaque nouvelle version), avec empreinte SRI ; Mermaid est chargé en script classique
+  (le module ESM ne se prête pas au SRI) et passe en `securityLevel: 'strict'`. Rendu vérifié dans le
+  navigateur (formules, diagrammes, sauts de ligne des libellés).
 
 ## [0.3.1.2] — 2026-10-21
 
