@@ -8,7 +8,7 @@ Tous les noms ci-dessous sont importables depuis `linalg_pedagopy` (sauf mention
 
 ## 1. Noms français et anglais
 
-Le paquet emploie des noms anglais avec des alias français, sauf le **tuteur** (`linalg_pedagopy.tuteur`), qui s'utilise en français. Les noms anglais du tuteur (`linalg_pedagopy.tutor`, `tutor.exercise`, `ex.hint`…) restent disponibles sans avertissement en 0.3.1.2, avec un `DeprecationWarning` en 0.3.2.0, et disparaissent en 0.4.0.0.
+Le paquet emploie des noms anglais avec des alias français, sauf le **tuteur** (`linalg_pedagopy.tuteur`), qui s'utilise en français. Les noms anglais du tuteur (`linalg_pedagopy.tutor`, `tutor.exercise`, `ex.hint`…) restent disponibles sans avertissement jusqu'en 0.3.1.3, avec un `DeprecationWarning` en 0.3.2.0, et disparaissent en 0.4.0.0.
 
 **Tuteur** :
 
