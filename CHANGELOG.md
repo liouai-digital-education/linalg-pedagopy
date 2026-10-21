@@ -2,6 +2,10 @@
 
 ## [Non publié] — branche `development`
 
+### Nouveautés — étape 3.5 du plan v6
+- **Avertissement didactique de taille** : Gauss-Jordan sur une matrice à paramètres de taille supérieure à `config.max_generic_dim` (4 par défaut) émet un `PedagogicalWarning` (nouvelle classe, sous-classe de `UserWarning`), une fois par calcul, qui invite à chercher une structure remarquable. Le calcul est toujours mené à terme ; `config.max_generic_dim = None` supprime l'avertissement. Concerne aussi `Matrix.rref()`, `rank()`, `nullspace()`, `inv()` et `solve()`, qui s'appuient sur Gauss-Jordan.
+- Les références des campagnes enregistrent les avertissements émis : 7 cas de taille 5 ou 6 en portent un (`t4_*`), sans autre changement. Tests dans `tests/test_avertissement_taille.py` ; guide 03 (§ 2.1), référence de l'API.
+
 ### Corrections — étape 3.4 du plan v6
 - **Messages de plafond didactiques** : nouvelle exception `CaseLimitError` (sous-classe de `PedagopyError`, donc compatible avec le code qui attrapait cette dernière) levée quand `max_cases` ou `max_depth` arrête une discussion par cas, dans Gauss-Jordan comme dans `decide_all_zero`. Le message nomme les facteurs qui ouvrent des cas, la branche en cours, propose une hypothèse prête à l'emploi (`assumptions="a != 1"`) et un plafond plus élevé (`max_cases=16, ou config.max_cases = 16`) ; mêmes informations en attributs (`limit`, `value`, `reached`, `factors`, `condition`, `suggested_assumption`). Remplace « Nombre maximal de branches dépassé (max_cases=8). Fournissez des hypothèses… ».
 - Références régénérées et relues : `t2_blocs_4x4_inverse`, `t2_circulante_3_parametres_inverse`, `t4_bloc_triangulaire_6x6` (message d'erreur seul). Tests dans `tests/test_plafonds.py` ; guide 03 (§ 2.1).

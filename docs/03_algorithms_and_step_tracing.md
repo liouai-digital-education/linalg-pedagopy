@@ -97,6 +97,7 @@ GaussJordan(
   ```
 
   Les mêmes informations sont des attributs de l'exception : `limit`, `value`, `reached`, `factors`, `condition`, `suggested_assumption`.
+- **Grandes matrices à paramètres** : au-delà de `config.max_generic_dim` (4 par défaut), Gauss-Jordan sur une matrice qui contient des paramètres émet un `PedagogicalWarning`. Le calcul est mené à terme, mais l'avertissement rappelle qu'une discussion par cas sur une matrice symbolique 5 × 5 est rarement lisible et qu'il vaut mieux chercher d'abord une structure remarquable (triangulaire par blocs, tridiagonale, $aI + bJ$, Vandermonde…). `config.max_generic_dim = None` le supprime ; `warnings.simplefilter("error", PedagogicalWarning)` le transforme en erreur.
 - `assumptions` : hypothèses initiales sur les paramètres de la branche.
 - `compute_inverse` : si `True`, calcule l'inverse via l'échelonnement simultané de $[A \mid I_n]$ (champ `inverse` du résultat).
 

@@ -9,6 +9,10 @@ class PedagopyError(Exception):
     """Base de toutes les exceptions du package linalg_pedagopy."""
 
 
+class PedagogicalWarning(UserWarning):
+    """Avertissement didactique : le calcul est mené à terme, mais une autre démarche serait plus éclairante."""
+
+
 class DimensionMismatchError(PedagopyError, ValueError):
     """Opération entre objets mathématiques de tailles incompatibles."""
 

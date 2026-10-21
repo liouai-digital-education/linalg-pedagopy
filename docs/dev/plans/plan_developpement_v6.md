@@ -400,7 +400,8 @@ Aucune à ce jour.
 2. Tâche 3.2 **faite** : `config.factor_policy` (`"real_radicals"` par défaut), `Condition.radicals()`, `Condition.reduce()` ; témoins réduits par la condition de la branche ; tests dans `tests/test_factorisation.py`.
 3. Tâche 3.3 **faite** : complétion des carrés pour les polynômes de degré 2 à plusieurs paramètres (`sum_of_squares`, `strict_sign` dans `core/zero.py`) ; tests dans `tests/test_signe_constant.py`.
 4. Tâche 3.4 **faite** : `CaseLimitError` et `case_limit_error` (`core/zero.py`) ; message en Python comme les autres exceptions, `core` ne pouvant pas lire la locale de `render` ; tests dans `tests/test_plafonds.py`.
-5. Tâche 3.5 : avertissement `max_generic_dim` (`PedagogicalWarning`) dans `GaussJordan`, puis version 3.1.1 (`pyproject.toml`, `__version__`, CHANGELOG).
+5. Tâche 3.5 **faite** : `PedagogicalWarning` et `config.max_generic_dim` ; tests dans `tests/test_avertissement_taille.py`. **Phase 3 terminée : version 3.1.1.**
+6. Phase 4, tâche 4.1 : extraire les fonctions pures de `gauss_jordan.py` (`_simplify_entry`, `_pivot_complexity_key`, `_factor_with_radicals`, `_result_entry`, choix du pivot) dans `algorithms/elimination.py`, sans changement de sortie.
 
 # Annexe B — Esquisse de l'API cible (version 3.4)
 

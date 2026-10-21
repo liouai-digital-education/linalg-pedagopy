@@ -1,6 +1,9 @@
 ===== carnet =====
 test4 — blocs indépendants : max_cases=8 saturé par le produit des singularités
 
+===== avertissement =====
+Élimination de Gauss-Jordan sur une matrice 6×6 à paramètres : au-delà de 4×4, la discussion par cas et les fractions deviennent difficiles à lire. Cherchez d'abord une structure remarquable (triangulaire par blocs, tridiagonale, a·I + b·J, Vandermonde…) qui conduit à une méthode plus directe. Le calcul est mené à terme ; pour ne plus voir cet avertissement : config.max_generic_dim = None.
+
 ===== erreur =====
 CaseLimitError : Discussion par cas arrêtée : elle demande au moins 9 branches, au-delà du plafond max_cases=8.
 Facteurs qui ouvrent des cas : a − 1, a + 1, b − 1, b + 1, a − b.

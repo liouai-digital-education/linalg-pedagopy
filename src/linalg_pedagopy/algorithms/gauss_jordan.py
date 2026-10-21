@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import warnings
 from dataclasses import dataclass
 from typing import Any, Callable, Literal, Mapping
 
@@ -20,6 +21,7 @@ from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
 from linalg_pedagopy.core.field import pretty_expr
 from linalg_pedagopy.core.exceptions import (
     DimensionMismatchError,
+    PedagogicalWarning,
     PedagopyError,
     SingularMatrixError,
 )
@@ -264,7 +266,27 @@ class GaussJordan(Procedure[GJResult]):
             # Sans second membre, l'inverse se calcule en réduisant [A | I_n].
             self.b = Matrix.identity(A.rows)
 
+    def _warn_if_large_symbolic(self) -> None:
+        """Avertissement didactique au-delà de config.max_generic_dim pour une matrice à paramètres."""
+        limit = config.max_generic_dim
+        m, n = self.A.shape
+        if limit is None or max(m, n) <= limit:
+            return
+        if not any(getattr(e, "free_symbols", None) for e in self.A.flat_entries):
+            return
+        warnings.warn(
+            PedagogicalWarning(
+                f"Élimination de Gauss-Jordan sur une matrice {m}×{n} à paramètres : au-delà de "
+                f"{limit}×{limit}, la discussion par cas et les fractions deviennent difficiles à lire. "
+                "Cherchez d'abord une structure remarquable (triangulaire par blocs, tridiagonale, "
+                "a·I + b·J, Vandermonde…) qui conduit à une méthode plus directe. "
+                "Le calcul est mené à terme ; pour ne plus voir cet avertissement : config.max_generic_dim = None."
+            ),
+            stacklevel=4,
+        )
+
     def _execute(self) -> GJResult | CaseSplit[GJResult]:
+        self._warn_if_large_symbolic()
         state: dict[str, Any] = {"cases_count": 1}
         # Valeurs interdites par les dénominateurs des coefficients : elles restreignent toutes les branches
         entries = list(self.A.flat_entries)

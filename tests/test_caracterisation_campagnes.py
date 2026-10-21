@@ -11,11 +11,12 @@ Régénération après un changement voulu : LP_MAJ_REFERENCES=1 pytest tests/te
 
 from __future__ import annotations
 
+import warnings
 from typing import Any
 
 import pytest
 
-from linalg_pedagopy import CaseSplit, PedagopyError
+from linalg_pedagopy import CaseSplit, PedagogicalWarning, PedagopyError
 
 from ._references import bloc, verifier_reference
 from .campagnes import CAS_CAMPAGNES, Cas
@@ -23,10 +24,17 @@ from .campagnes import CAS_CAMPAGNES, Cas
 
 def rendu(cas: Cas) -> str:
     parts = [bloc("carnet", f"{cas.carnet} — {cas.description}")]
-    try:
-        res: Any = cas.calcul()
-    except PedagopyError as err:
-        parts.append(bloc("erreur", f"{type(err).__name__} : {err}"))
+    with warnings.catch_warnings(record=True) as avertis:
+        warnings.simplefilter("always", PedagogicalWarning)
+        try:
+            res: Any = cas.calcul()
+        except PedagopyError as err:
+            res = err
+    for w in avertis:
+        if issubclass(w.category, PedagogicalWarning):
+            parts.append(bloc("avertissement", str(w.message)))
+    if isinstance(res, PedagopyError):
+        parts.append(bloc("erreur", f"{type(res).__name__} : {res}"))
         return "\n".join(parts)
     parts.append(bloc("repr", repr(res)))
     if isinstance(res, CaseSplit):
