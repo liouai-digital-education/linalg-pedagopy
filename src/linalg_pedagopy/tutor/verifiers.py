@@ -17,6 +17,7 @@ from linalg_pedagopy.core.zero import Verdict, oracle
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.trace.tracer import suspend_tracing
+from linalg_pedagopy.tutor.evaluation_sure import en_expression, evaluer, expression
 
 
 def raison_illisible(texte: str, exc: BaseException | None = None) -> str:
@@ -149,6 +150,16 @@ def _format_linear_comb(coeffs: Sequence[sp.Expr], var_name: str) -> str:
     return " ".join(parts) if parts else "0"
 
 
+class _IndicesDepuisUn:
+    """Vecteur de symboles indexé à partir de 1 dans les expressions des fiches (``p[1]``)."""
+
+    def __init__(self, syms: Sequence[sp.Symbol]) -> None:
+        self.syms = syms
+
+    def __getitem__(self, idx: Any) -> sp.Symbol:
+        return self.syms[int(idx) - 1]
+
+
 def _parse_indexed_expr(
     expr_str: str,
     var_name: str,
@@ -157,18 +168,13 @@ def _parse_indexed_expr(
 ) -> tuple[sp.Expr, list[sp.Symbol]]:
     """Converts a 1-based indexed expression like 'p[4] - (p[1]+p[2]+p[3])/3' into a SymPy expression."""
     vec_syms = [sp.Symbol(f"{var_name}_{k}", real=True) for k in range(1, n + 1)]
-    rewritten = re.sub(
-        rf"\b{re.escape(var_name)}\[([^\]]+)\]",
-        lambda m: f"__idx_{var_name}__({m.group(1)})",
-        expr_str,
-    )
     local_env: dict[str, Any] = {
         f"{var_name}_{k}": vec_syms[k - 1] for k in range(1, n + 1)
     }
-    local_env[f"__idx_{var_name}__"] = lambda idx: vec_syms[int(idx) - 1]
     if extra_locals:
         local_env.update(extra_locals)
-    parsed = sp.sympify(rewritten, locals=local_env)
+    local_env[var_name] = _IndicesDepuisUn(vec_syms)
+    parsed = expression(expr_str, local_env)
     return sp.expand(parsed), vec_syms
 
 
@@ -404,12 +410,12 @@ def verify_formula(
             "Votre réponse n'a pas la forme attendue : une formule sous forme de chaîne, "
             f"écrite avec les variables {variables}.",
         )
-    target_expr = sp.sympify(str(cible_raw), locals=local_env)
+    target_expr = expression(str(cible_raw), local_env)
     try:
         student_expr = (
             response
             if isinstance(response, sp.Expr)
-            else sp.sympify(str(response), locals=local_env)
+            else expression(str(response), local_env)
         )
     except Exception as exc:
         return VerificationResult(
@@ -452,7 +458,7 @@ def _eval_data_expr(expr_str: str, raw_data: Mapping[str, Any]) -> Any:
         }
     )
     with suspend_tracing():
-        return eval(expr_str, {"__builtins__": {}}, env)  # noqa: S307
+        return evaluer(expr_str, env)
 
 
 def _detect_typical_value_error(
@@ -536,7 +542,7 @@ def verify_value_set(
     nom = str(spec.get("inconnue", spec.get("unknown", "a")))
     param = symbols(nom)[0]
     quoi = str(spec.get("expression", "l'expression"))
-    expr = sp.sympify(_eval_data_expr(str(spec.get("calcul", spec.get("compute"))), data))
+    expr = en_expression(_eval_data_expr(str(spec.get("calcul", spec.get("compute"))), data))
     attendues = racines_reelles(expr, param)
     if attendues is None:
         return VerificationResult(False, f"Vérification impossible : {quoi} ne s'annule pas en un nombre fini de valeurs.")
@@ -1020,7 +1026,7 @@ def verify_equalities(
                     val = (
                         step_expr
                         if isinstance(step_expr, Matrix)
-                        else eval(str(step_expr), {"__builtins__": {}}, env)  # noqa: S307
+                        else evaluer(str(step_expr), env)
                     )
                     if not isinstance(val, Matrix):
                         return VerificationResult(
@@ -1064,15 +1070,13 @@ def verify_equalities(
     local_syms = {v: symbols(v)[0] for v in var_names}
     subs_hyp: dict[sp.Symbol, sp.Expr] = {}
     for h_k, h_v in dict(spec.get("hypotheses_subs", {})).items():
-        subs_hyp[local_syms.get(h_k, symbols(h_k)[0])] = sp.sympify(
-            str(h_v), locals=local_syms
-        )
+        subs_hyp[local_syms.get(h_k, symbols(h_k)[0])] = expression(str(h_v), local_syms)
 
     raw_steps: list[sp.Expr] = []
     parsed_steps: list[sp.Expr] = []
     for idx, item in enumerate(response, start=1):
         try:
-            expr = item if isinstance(item, sp.Expr) else sp.sympify(str(item), locals=local_syms)
+            expr = item if isinstance(item, sp.Expr) else expression(str(item), local_syms)
             raw_steps.append(expr)
             parsed_steps.append(expr.xreplace(subs_hyp))
         except Exception as exc:
@@ -1085,7 +1089,7 @@ def verify_equalities(
     start_spec = spec.get("depart", spec.get("start"))
     end_spec = spec.get("arrivee", spec.get("end"))
     if start_spec is not None:
-        start_expr = sp.sympify(str(start_spec), locals=local_syms)
+        start_expr = expression(str(start_spec), local_syms)
         if oracle.decide(sp.simplify(raw_steps[0] - start_expr)).verdict != Verdict.ZERO:
             return VerificationResult(
                 False,
@@ -1098,7 +1102,7 @@ def verify_equalities(
         )
 
     if end_spec is not None:
-        end_expr = sp.sympify(str(end_spec), locals=local_syms).xreplace(subs_hyp)
+        end_expr = expression(str(end_spec), local_syms).xreplace(subs_hyp)
         if oracle.decide(sp.simplify(parsed_steps[-1] - end_expr)).verdict != Verdict.ZERO:
             return VerificationResult(
                 False,

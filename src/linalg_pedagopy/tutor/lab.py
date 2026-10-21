@@ -13,6 +13,7 @@ from linalg_pedagopy.core.zero import Verdict, oracle
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.trace.tracer import suspend_tracing
+from linalg_pedagopy.tutor.evaluation_sure import evaluer
 
 _LAB_VAULT: WeakKeyDictionary[Any, dict[str, Any]] = WeakKeyDictionary()
 
@@ -39,8 +40,8 @@ def _eval_math_predicate(expr_str: str, env: Mapping[str, Any]) -> bool:
     with suspend_tracing():
         if "<=" in expr_str:
             lhs_s, rhs_s = expr_str.split("<=", 1)
-            lhs = eval(lhs_s.strip(), {"__builtins__": {}}, local_env)  # noqa: S307
-            rhs = eval(rhs_s.strip(), {"__builtins__": {}}, local_env)  # noqa: S307
+            lhs = evaluer(lhs_s, local_env)
+            rhs = evaluer(rhs_s, local_env)
             diff = sp.simplify(rhs - lhs)
             if oracle.decide(diff).verdict == Verdict.ZERO:
                 return True
@@ -48,8 +49,8 @@ def _eval_math_predicate(expr_str: str, env: Mapping[str, Any]) -> bool:
 
         if ">=" in expr_str:
             lhs_s, rhs_s = expr_str.split(">=", 1)
-            lhs = eval(lhs_s.strip(), {"__builtins__": {}}, local_env)  # noqa: S307
-            rhs = eval(rhs_s.strip(), {"__builtins__": {}}, local_env)  # noqa: S307
+            lhs = evaluer(lhs_s, local_env)
+            rhs = evaluer(rhs_s, local_env)
             diff = sp.simplify(lhs - rhs)
             if oracle.decide(diff).verdict == Verdict.ZERO:
                 return True
@@ -57,8 +58,8 @@ def _eval_math_predicate(expr_str: str, env: Mapping[str, Any]) -> bool:
 
         if "==" in expr_str:
             lhs_s, rhs_s = expr_str.split("==", 1)
-            lhs = eval(lhs_s.strip(), {"__builtins__": {}}, local_env)  # noqa: S307
-            rhs = eval(rhs_s.strip(), {"__builtins__": {}}, local_env)  # noqa: S307
+            lhs = evaluer(lhs_s, local_env)
+            rhs = evaluer(rhs_s, local_env)
             if isinstance(lhs, (Vector, Matrix)) and isinstance(rhs, (Vector, Matrix)):
                 return bool(lhs == rhs)
             if isinstance(lhs, Vector) and rhs == 0:
@@ -69,7 +70,7 @@ def _eval_math_predicate(expr_str: str, env: Mapping[str, Any]) -> bool:
             lhs_s, rhs_s = expr_str.split("!=", 1)
             return not _eval_math_predicate(f"{lhs_s} == {rhs_s}", env)
 
-        val = eval(expr_str, {"__builtins__": {}}, local_env)  # noqa: S307
+        val = evaluer(expr_str, local_env)
         return bool(val)
 
 

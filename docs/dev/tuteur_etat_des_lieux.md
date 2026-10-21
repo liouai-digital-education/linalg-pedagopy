@@ -20,19 +20,20 @@ Couverture mesurée avec `test_tuteur.py`, `test_caracterisation_tuteur.py`, `te
 
 Les deux modules au-delà de 350 lignes (`verifiers.py`, `catalog.py`) sont ceux que découpent les étapes 6.1 à 6.3.
 
-## Appels à `eval`
+## Appels à `eval` (corrigés à l'étape 6.4)
 
-Douze appels, tous avec `{"__builtins__": {}}`. **Cette précaution ne suffit pas** : un attribut comme `__globals__` rend les fonctions intégrées, donc tout Python. Par exemple, `_parse_answer("Vector.__init__.__globals__['__builtins__']['len']('abcd')")` renvoie 4. Deux tests marqués `xfail(strict=True)` dans `test_tuteur_verrou_indices_panneau.py` documentent ce contournement ; l'étape 6.4 doit les faire passer et retirer le marqueur.
+À l'étape 6.0, le tuteur comptait douze appels à `eval`, tous avec `{"__builtins__": {}}`. **Cette précaution ne suffisait pas** : un attribut comme `__globals__` rendait les fonctions intégrées, donc tout Python. Par exemple, `_parse_answer("Vector.__init__.__globals__['__builtins__']['len']('abcd')")` renvoyait 4. De même, `sympify` d'une chaîne, et `Vector` ou `Matrix` construits avec des chaînes (ils passent par `sympify`), exécutaient du code.
 
 | Fichier | Appels | Texte évalué | Origine du texte |
 |:---|:---:|:---|:---|
 | `hints.py` | 1 | champ `jumeau` d'une fiche (`generateurs.…(…)`) | fiche YAML |
 | `catalog.py` | 1 | littéraux `Vector([...])`, `Matrix([...])` trouvés dans un indice | fiche YAML |
 | `lab.py` | 7 | prédicats du laboratoire (`<=`, `>=`, `==`, `!=`) | fiche YAML |
-| `verifiers.py` | 2 | expressions d'une fiche ; étapes d'un calcul par blocs saisies sous forme de texte | fiche YAML, saisie de l'élève |
+| `verifiers.py` | 2 (+ 7 `sympify`) | expressions et formules d'une fiche ; réponses saisies sous forme de texte | fiche YAML, saisie de l'élève |
 | `panel.py` | 1 | réponse saisie dans le panneau | saisie de l'élève |
+| `lock.py` | (via `Vector`, `Matrix`) | chaînes des données (`[1, a]`) | fiche YAML |
 
-Une saisie de l'élève s'exécute dans son propre noyau, où il peut déjà tout faire : le risque y est faible. Une fiche YAML, elle, peut venir d'un tiers (fiche partagée entre enseignants) : c'est là que l'interpréteur fondé sur `ast` de l'étape 6.4 est nécessaire.
+Depuis l'étape 6.4, tout passe par l'interpréteur `tutor/evaluation_sure.py` (`evaluer` à la place d'`eval`, `expression` à la place de `sympify` d'une chaîne, `lire_donnee` pour les données des fiches). `tests/test_evaluation_sure.py` essaie les évasions connues à chaque point d'entrée et interdit le retour d'`eval`, d'`exec` ou de `sympify` dans `tutor/`, `tuteur/` et `exercises/`.
 
 ## Tests du tuteur et ipywidgets
 
@@ -45,5 +46,5 @@ Une saisie de l'élève s'exécute dans son propre noyau, où il peut déjà tou
 | 6.1 | Fait : registre `tutor/registry.py`, types enregistrés dans `tutor/verifier_types.py` avec leurs contrôles croisés ; `catalog.py` passe de 951 à 716 lignes. |
 | 6.2 | Un module par vérificateur (`tuteur/verificateurs/`). |
 | 6.3 | `catalog.py` découpé en `catalogue.py`, `seance.py`, `validation.py`. |
-| 6.4, 6.5, 6.7 | `evaluation_sure.py` remplace les douze `eval` ; champ `jumeau` analysé par l'interpréteur ; tests d'évasion. |
+| 6.4, 6.5, 6.7 | Fait : `tutor/evaluation_sure.py` remplace les douze `eval` et les `sympify` de chaînes ; champ `jumeau` analysé par l'interpréteur avec le seul espace de noms des générateurs ; tests d'évasion. |
 | 6.6 | Le code passe dans `tuteur/` ; `tutor/` réexporte les noms anglais. |

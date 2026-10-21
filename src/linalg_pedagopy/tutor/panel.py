@@ -9,16 +9,17 @@ from typing import Any
 def _parse_answer(text: str) -> Any:
     """Interprète une réponse saisie dans le panneau (Vector, Matrix, nombre, liste, dictionnaire…).
 
-    L'évaluation se fait sans fonctions intégrées Python : seuls Vector, Matrix, sqrt, Rational,
-    pi, les nombres, listes, tuples, dictionnaires et chaînes sont disponibles.
+    L'interpréteur sûr (``evaluation_sure``) n'accepte que Vector, Matrix, sqrt, Rational, pi,
+    les nombres, listes, n-uplets, dictionnaires et chaînes.
     """
     import sympy as sp
 
     from linalg_pedagopy.objects.matrix import Matrix
     from linalg_pedagopy.objects.vector import Vector
+    from linalg_pedagopy.tutor.evaluation_sure import evaluer
 
     names = {"Vector": Vector, "Matrix": Matrix, "sqrt": sp.sqrt, "Rational": sp.Rational, "pi": sp.pi}
-    return eval(text, {"__builtins__": {}}, names)  # noqa: S307
+    return evaluer(text, names)
 
 
 class PanelFallback:

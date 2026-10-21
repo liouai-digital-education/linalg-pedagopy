@@ -1,7 +1,8 @@
 """Tests de caractérisation de `verrou`, `indices` et `panneau` (étape 6.0 du plan v6).
 
-Ils figent le comportement actuel avant le déplacement du code de `tutor/` vers `tuteur/`
-(étape 6.6) et le remplacement des `eval` (étape 6.4).
+Ils figent le comportement avant le déplacement du code de `tutor/` vers `tuteur/` (étape 6.6).
+Les deux tests d'accès aux fonctions intégrées, en échec attendu à l'étape 6.0, passent depuis
+l'interpréteur sûr de l'étape 6.4.
 """
 
 from __future__ import annotations
@@ -18,6 +19,7 @@ from linalg_pedagopy.exercises.generators import TwinExercise
 from linalg_pedagopy.tuteur.indices import LEVEL_TITLES, HintLadder, evaluate_twin_spec
 from linalg_pedagopy.tuteur.panneau import PanneauFallback, build_panneau
 from linalg_pedagopy.tuteur.verrou import LockedMatrix, LockedNamespace, LockedVector, _get_namespace_raw_dict
+from linalg_pedagopy.tutor.evaluation_sure import EvaluationRefusee
 from linalg_pedagopy.tutor.panel import _parse_answer
 
 # ---------------------------------------------------------------------------
@@ -174,7 +176,6 @@ def test_jumeau_texte_libre_non_evalue() -> None:
 _EVASION = "statistiques_vecteur.__globals__['__builtins__']['len']('abc')"
 
 
-@pytest.mark.xfail(strict=True, reason="eval contournable par __globals__ : interpréteur ast de l'étape 6.4")
 def test_jumeau_sans_acces_aux_fonctions_integrees() -> None:
     res = evaluate_twin_spec("generators." + _EVASION)
     assert isinstance(res, str) and res.startswith("Erreur dans l'exercice jumeau")
@@ -245,13 +246,12 @@ def test_lecture_des_reponses() -> None:
     assert _parse_answer("{'a': [1, 2], 'b': (3,)}") == {"a": [1, 2], "b": (3,)}
     with pytest.raises(NameError):
         _parse_answer("open('x')")
-    with pytest.raises(NameError):
+    with pytest.raises(EvaluationRefusee):
         _parse_answer("__import__('os')")
 
 
-@pytest.mark.xfail(strict=True, reason="eval contournable par __globals__ : interpréteur ast de l'étape 6.4")
 def test_reponse_sans_acces_aux_fonctions_integrees() -> None:
-    with pytest.raises(Exception):  # noqa: B017
+    with pytest.raises(EvaluationRefusee):
         _parse_answer("Vector.__init__.__globals__['__builtins__']['len']('abcd')")
 
 

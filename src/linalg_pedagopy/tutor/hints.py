@@ -8,6 +8,7 @@ from typing import Callable
 
 from linalg_pedagopy.config import config
 from linalg_pedagopy.exercises.generators import TwinExercise, generators, generateurs
+from linalg_pedagopy.tutor.evaluation_sure import evaluer
 
 LEVEL_TITLES: dict[int, str] = {
     1: "Niveau 1 — Orientation",
@@ -24,11 +25,7 @@ def evaluate_twin_spec(twin_spec: str | None) -> TwinExercise | str:
     spec = twin_spec.strip()
     if spec.startswith(("generateurs.", "generators.")):
         try:
-            res = eval(
-                spec,
-                {"__builtins__": {}},
-                {"generateurs": generateurs, "generators": generators},
-            )  # noqa: S307
+            res = evaluer(spec, {"generateurs": generateurs, "generators": generators})
             if isinstance(res, TwinExercise):
                 return res
             return str(res)

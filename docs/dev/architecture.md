@@ -69,6 +69,17 @@ Pour ajouter un type (par exemple pour le thème 10 de la phase 7) :
 2. écrire son contrôle croisé `g(séance, spécification, données) -> list[str]` ;
 3. l'enregistrer dans `tutor/verifier_types.py` : `register_verifier(VerifierType("nom", ("alias",), _sans_seance(f), "forme attendue", requires("champ", message=...), g))`.
 
+## Lecture de texte dans le tuteur
+
+Le tuteur et les exercices ne lisent jamais un texte avec `eval`, `exec` ou `sympify` : un texte vient d'une fiche (peut-être écrite par un tiers) ou d'une saisie. Ils utilisent l'interpréteur `tutor/evaluation_sure.py` :
+
+- `evaluer(texte, noms)` : sémantique de Python, seuls `noms` sont connus ;
+- `expression(texte, noms)` : sémantique de `sympify` (entiers exacts, `^`, nom inconnu = symbole) ;
+- `en_expression(valeur)` : `sympify` d'un objet qui peut contenir des chaînes ;
+- `lire_donnee(valeur)` : données d'une fiche (`[1, a]`), symboles réels.
+
+L'interpréteur n'accepte qu'une liste blanche de constructions, refuse les noms et attributs en `_`, les modules, et toute chaîne contenant « ( » ou « __ » transmise à un appel ou à une opération. Un test interdit le retour d'`eval` ou de `sympify` dans `tutor/`, `tuteur/` et `exercises/`.
+
 ## Traces et locales
 
 Chaque étape de trace a une clé (`gj.row_add`, `det.bareiss_step`, `ker.vector`…) et des paramètres. Le texte de chaque clé est dans `render/locales/fr.yaml`, et `str.format` y insère les paramètres (accolades littérales doublées : `{{0}}`). Une nouvelle clé s'ajoute dans la section de son préfixe. Les messages d'exception restent écrits dans le code, `core` ne pouvant pas lire les locales de `render`.

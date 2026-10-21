@@ -19,6 +19,7 @@ from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.trace.tracer import suspend_tracing
 from linalg_pedagopy.tutor.hints import HintLadder, evaluate_twin_spec
 from linalg_pedagopy.tutor.journal import ExerciseJournal
+from linalg_pedagopy.tutor.evaluation_sure import evaluer
 from linalg_pedagopy.tutor.lab import CounterexampleLab
 from linalg_pedagopy.tutor.lock import LockedNamespace, _get_namespace_raw_dict
 from linalg_pedagopy.tutor.panel import build_panel
@@ -670,7 +671,7 @@ def validate_sheet(ex_id: str | int) -> ValidationReport:
             # Also check if any Vector([...]) or Matrix([...]) literal inside the hint is accepted
             for lit_match in re.findall(r"(?:Vector|Matrix)\s*\(\s*\[[^\)]+\]\s*\)", h_text):
                 try:
-                    lit_obj = eval(lit_match, {"__builtins__": {}}, {"Vector": Vector, "Matrix": Matrix})  # noqa: S307
+                    lit_obj = evaluer(lit_match, {"Vector": Vector, "Matrix": Matrix})
                     if session.verify(lit_obj).valid:
                         indices_sans_fuite = False
                         erreurs.append(f"L'indice {idx} divulgue une réponse explicite ({lit_match}) !")

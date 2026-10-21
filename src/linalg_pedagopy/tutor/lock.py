@@ -8,6 +8,7 @@ from weakref import WeakKeyDictionary
 from linalg_pedagopy.core.exceptions import LockedExerciseDataError
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
+from linalg_pedagopy.tutor.evaluation_sure import lire_donnee
 
 _LOCKED_MSG = (
     "Les données de cet exercice sont verrouillées tant que vous n'avez pas proposé et validé "
@@ -245,11 +246,11 @@ class LockedNamespace:
                 raw[key] = val
                 wrapped[key] = LockedMatrix(val, is_unlocked, name=key)
             elif isinstance(val, list) and val and isinstance(val[0], list):
-                m = Matrix(val)
+                m = Matrix(lire_donnee(val))
                 raw[key] = m
                 wrapped[key] = LockedMatrix(m, is_unlocked, name=key)
             elif isinstance(val, list):
-                v = Vector(val)
+                v = Vector(lire_donnee(val))
                 raw[key] = v
                 wrapped[key] = LockedVector(v, is_unlocked, name=key)
             else:

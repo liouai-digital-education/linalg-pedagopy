@@ -13,6 +13,7 @@ import sympy as sp
 from linalg_pedagopy.core.field import symbols
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
+from linalg_pedagopy.tutor.evaluation_sure import en_expression
 from linalg_pedagopy.tutor.lab import _eval_math_predicate, _structured_vector_candidates
 from linalg_pedagopy.tutor.registry import VerifierType, register_verifier, requires
 from linalg_pedagopy.tutor.verifiers import (
@@ -108,7 +109,7 @@ def _cross_check_value(session: Any, verif: Mapping[str, Any], raw_data: Mapping
 
 def _cross_check_value_set(session: Any, verif: Mapping[str, Any], raw_data: Mapping[str, Any]) -> list[str]:
     param = symbols(str(verif["inconnue"]))[0]
-    expr = sp.sympify(_eval_data_expr(str(verif["calcul"]), raw_data))
+    expr = en_expression(_eval_data_expr(str(verif["calcul"]), raw_data))
     attendues = racines_reelles(expr, param)
     if attendues is None:
         return ["Cross-check échoué : l'expression ne s'annule pas en un nombre fini de valeurs."]
