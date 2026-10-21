@@ -403,7 +403,8 @@ Aucune à ce jour.
 3. Tâche 3.3 **faite** : complétion des carrés pour les polynômes de degré 2 à plusieurs paramètres (`sum_of_squares`, `strict_sign` dans `core/zero.py`) ; tests dans `tests/test_signe_constant.py`.
 4. Tâche 3.4 **faite** : `CaseLimitError` et `case_limit_error` (`core/zero.py`) ; message en Python comme les autres exceptions, `core` ne pouvant pas lire la locale de `render` ; tests dans `tests/test_plafonds.py`.
 5. Tâche 3.5 **faite** : `PedagogicalWarning` et `config.max_generic_dim` ; tests dans `tests/test_avertissement_taille.py`. **Phase 3 terminée : version 0.3.1.1** (étiquette `v0.3.1.1`).
-6. Phase 4, tâche 4.1 : extraire les fonctions pures de `gauss_jordan.py` (`_simplify_entry`, `_pivot_complexity_key`, `_factor_with_radicals`, `_result_entry`, choix du pivot) dans `algorithms/elimination.py`, sans changement de sortie.
+6. Phase 4, tâche 4.1 **faite** : `algorithms/elimination.py` (fonctions pures et `_choose_pivot`), aucune sortie modifiée.
+7. Tâche 4.2 : extraire les opérations élémentaires tracées (échange, dilatation, transvection, étape de Bareiss) dans `elimination.py`, avec un préfixe de clés de trace (`gj`, `det`) ; traces identiques.
 
 # Annexe B — Esquisse de l'API cible (version 0.3.4)
 

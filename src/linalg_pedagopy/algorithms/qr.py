@@ -8,7 +8,7 @@ from typing import Any, Mapping
 import sympy as sp
 
 from linalg_pedagopy.algorithms.base import Procedure, Result
-from linalg_pedagopy.algorithms.gauss_jordan import _simplify_entry
+from linalg_pedagopy.algorithms.elimination import _simplify_entry
 from linalg_pedagopy.algorithms.gram_schmidt import DependenceWitness, GSResult, GramSchmidt
 from linalg_pedagopy.core.cases import Branch, CaseSplit
 from linalg_pedagopy.core.exceptions import RankDeficientError

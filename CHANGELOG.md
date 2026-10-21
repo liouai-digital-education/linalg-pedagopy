@@ -2,6 +2,9 @@
 
 ## [Non publié] — branche `development`
 
+### Refactorisation — phase 4 du plan v6 (moteur d'élimination)
+- 4.1 : nouveau module `algorithms/elimination.py` qui regroupe les fonctions pures communes à Gauss-Jordan et au déterminant : simplification des coefficients (`_simplify_entry`), critère et choix du pivot (`_pivot_complexity_key`, nouvelle fonction `_choose_pivot`), mise en forme des résultats d'une branche (`_result_entry`, `_factor_with_radicals`). `gauss_jordan.py`, `determinant.py`, `gram_schmidt.py`, `qr.py`, `triangular.py` et `least_squares.py` les importent de là. Aucune sortie modifiée.
+
 ### Corrections — traces de Gauss-Jordan
 - Transvections (`gj.row_add`) : un multiplicateur somme est parenthésé et le signe est le « − » typographique, en texte, LaTeX, Markdown et HTML. La trace affichait « L2 ← L2 - a − 1·L1 », qui change le sens de l'opération, au lieu de « L2 ← L2 − (a − 1)·L1 ».
 - Système incompatible (`gj.inconsistent`, `EmptySolution._repr_markdown_`) : la parenthèse « (témoin : 0 = 1) », ajoutée même quand la ligne donne 0 = 2 ou 0 = 2 − a, est retirée ; le message annonce seulement « la ligne L3 donne 0 = 2 ».
