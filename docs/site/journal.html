@@ -204,7 +204,7 @@
       </ul>
 
       <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
-        <strong>Version 0.3.1.2</strong><br>
+        <strong>Version 0.3.1.3</strong><br>
         Calcul exact · tuteur interactif
       </div>
     </aside>
@@ -218,7 +218,29 @@
       </header>
 
       <article class="markdown-body">
-        <h2 id="non-publie-branche-development">[Non publié] — branche <code>development</code></h2>
+        <h2 id="0313-2026-10-21">[0.3.1.3] — 2026-10-21</h2>
+<p>Revue de la documentation (lots 1 à 3d) et un correctif de <code>Matrix.solve</code>. Pas de publication sur
+PyPI pour cette version.</p>
+<ul>
+<li><strong>Documentation testée</strong> : les 158 blocs Python du README, de l'accueil, des guides et du tutoriel
+  sont exécutés par les tests ; les sorties marquées <code>#&gt;</code> sont comparées à la sortie réelle. Liens,
+  titres et passages communs au README et à l'accueil sont vérifiés.</li>
+<li><strong>Guides</strong> : concepts transversaux (hypothèses, configuration, indices), accesseurs de <code>Matrix</code> et
+  <code>solve</code>, contrat commun des résultats, trace en tableau ; fichiers renommés en français (les
+  anciennes adresses du site redirigent) ; un seul titre par page ; <code>CONTRIBUTING.md</code>.</li>
+<li><strong>Site</strong> : recherche en texte intégral, sans accents, construite sans <code>innerHTML</code> ; MathJax et
+  Mermaid figés avec empreinte SRI ; section « Développement » (contribuer, architecture, tests,
+  journal).</li>
+<li><strong>Intégration continue</strong> : le job « Documentation à jour » vérifie que le site, le catalogue et le
+  carnet du tutoriel correspondent à leurs sources ; option <code>docs</code> ; mypy figé à 2.4.0.</li>
+<li><strong>Code</strong> : <code>Matrix.solve(Matrix.identity(n))</code> renvoyait <code>None</code> ; hypothèses et configuration
+  invalides refusées avec un message clair (<code>InvalidAssumptionError</code>) ; opérations de lignes au
+  niveau 1 de trace ; branches singulières des substitutions triangulaires ; docstrings de tous les
+  éléments publics.</li>
+</ul>
+<p><strong>Mise à jour</strong> : aucun changement d'API incompatible. Les noms anglais du tuteur
+(<code>linalg_pedagopy.tutor</code>) restent disponibles sans avertissement ; <code>DeprecationWarning</code> en 0.3.2.0,
+suppression en 0.4.0.0.</p>
 <h3 id="corrections">Corrections</h3>
 <ul>
 <li><strong><code>Matrix.solve(Matrix.identity(n))</code></strong> renvoyait <code>None</code> : avec un second membre égal à $I_n$,
@@ -928,7 +950,7 @@ https://liouai-digital-education.github.io/linalg-pedagopy/.</p>
       <ul class="toc-list">
         
         <li class="toc-item ">
-          <a href="#non-publie-branche-development">[Non publié] — branche development</a>
+          <a href="#0313-2026-10-21">[0.3.1.3] — 2026-10-21</a>
         </li>
         
         <li class="toc-item toc-h3">

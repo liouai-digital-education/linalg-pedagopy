@@ -414,7 +414,8 @@ Aucune à ce jour.
 14. Phase 5 **faite** : registre `_procedures`, `algorithms/products.py`, `matrix.py` à 599 lignes, `docs/dev/architecture.md`.
 15. Phase 6 **faite** (6.0 à 6.7) : registre des vérificateurs (`tuteur/registre.py`), un module par vérificateur (`tuteur/verificateurs/`), `catalogue.py` / `seance.py` / `validation.py`, interpréteur sûr `tuteur/evaluation_sure.py` à la place des `eval`, code dans `tuteur/` et `tutor/` en réexportation ; état des lieux dans `docs/dev/tuteur_etat_des_lieux.md`. Hors plan : traces en tableau (`explain().to_table()`).
 16. **Version 0.3.1.2** (étiquette `v0.3.1.2`) : phases 4, 5 et 6. **Publication sur PyPI reportée** (décision du 21 octobre 2026).
-17. Prochaine étape : phase 7 (bases et sous-espaces), tâche 7.1.
+17. **Revue de la documentation** (lots 1, 2, 3a à 3d) **faite** : exemples exécutés et sorties `#>` vérifiées, guides complétés et renommés en français, site (recherche, CDN figés, section « Développement »), `CONTRIBUTING.md`, docstrings complètes ; correctif de `Matrix.solve(I)`. **Version 0.3.1.3** (étiquette `v0.3.1.3`), sans publication sur PyPI.
+18. Prochaine étape : phase 7 (bases et sous-espaces), tâche 7.1.
 
 # Annexe B — Esquisse de l'API cible (version 0.3.4)
 

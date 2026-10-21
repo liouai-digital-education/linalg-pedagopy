@@ -68,7 +68,7 @@ Les tests de caractérisation figent des sorties complètes (traces, discussions
 
 ## Tuteur
 
-- L'API d'usage est française : `linalg_pedagopy.tuteur`. `linalg_pedagopy.tutor` réexporte les noms anglais (sans avertissement en 0.3.1.2, avec un `DeprecationWarning` en 0.3.2.0, supprimé en 0.4.0.0). Dans `tutor/__init__.py`, les sous-modules de compatibilité se chargent **avant** `from tuteur import *`, sinon `tutor.catalog()` est masqué par le module.
+- L'API d'usage est française : `linalg_pedagopy.tuteur`. `linalg_pedagopy.tutor` réexporte les noms anglais (sans avertissement jusqu'en 0.3.1.3, avec un `DeprecationWarning` en 0.3.2.0, supprimé en 0.4.0.0). Dans `tutor/__init__.py`, les sous-modules de compatibilité se chargent **avant** `from tuteur import *`, sinon `tutor.catalog()` est masqué par le module.
 - **Lecture de texte** : jamais d'`eval`, d'`exec` ni de `sympify` sur une chaîne dans `tuteur/`, `tutor/` ou `exercises/`. Passez par `tuteur/evaluation_sure.py` (`evaluer`, `expression`, `en_expression`, `lire_donnee`) ; un test le vérifie.
 - Une nouvelle fiche doit passer `tuteur.valider_fiche(id)` (aucune fuite de la cible dans les indices, contrôle croisé avec le solveur).
 - Les exemples du tuteur écrivent leur journal, `.linalg_pedagopy_journal.json`, dans le répertoire courant ; ce fichier est ignoré par git.

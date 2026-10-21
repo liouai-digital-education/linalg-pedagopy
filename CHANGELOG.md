@@ -1,6 +1,29 @@
 # Journal des modifications — `linalg_pedagopy`
 
-## [Non publié] — branche `development`
+## [0.3.1.3] — 2026-10-21
+
+Revue de la documentation (lots 1 à 3d) et un correctif de `Matrix.solve`. Pas de publication sur
+PyPI pour cette version.
+
+- **Documentation testée** : les 158 blocs Python du README, de l'accueil, des guides et du tutoriel
+  sont exécutés par les tests ; les sorties marquées `#>` sont comparées à la sortie réelle. Liens,
+  titres et passages communs au README et à l'accueil sont vérifiés.
+- **Guides** : concepts transversaux (hypothèses, configuration, indices), accesseurs de `Matrix` et
+  `solve`, contrat commun des résultats, trace en tableau ; fichiers renommés en français (les
+  anciennes adresses du site redirigent) ; un seul titre par page ; `CONTRIBUTING.md`.
+- **Site** : recherche en texte intégral, sans accents, construite sans `innerHTML` ; MathJax et
+  Mermaid figés avec empreinte SRI ; section « Développement » (contribuer, architecture, tests,
+  journal).
+- **Intégration continue** : le job « Documentation à jour » vérifie que le site, le catalogue et le
+  carnet du tutoriel correspondent à leurs sources ; option `docs` ; mypy figé à 2.4.0.
+- **Code** : `Matrix.solve(Matrix.identity(n))` renvoyait `None` ; hypothèses et configuration
+  invalides refusées avec un message clair (`InvalidAssumptionError`) ; opérations de lignes au
+  niveau 1 de trace ; branches singulières des substitutions triangulaires ; docstrings de tous les
+  éléments publics.
+
+**Mise à jour** : aucun changement d'API incompatible. Les noms anglais du tuteur
+(`linalg_pedagopy.tutor`) restent disponibles sans avertissement ; `DeprecationWarning` en 0.3.2.0,
+suppression en 0.4.0.0.
 
 ### Corrections
 - **`Matrix.solve(Matrix.identity(n))`** renvoyait `None` : avec un second membre égal à $I_n$,
