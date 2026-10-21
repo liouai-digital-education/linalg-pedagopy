@@ -2,6 +2,9 @@
 
 ## [Non publié] — branche `development`
 
+### Documentation développeur
+- Plan de développement v6 (`docs/dev/plans/plan_developpement_v6.md`), qui remplace le plan v5 à partir de 3.1.0 : correctifs issus des campagnes de tests du bac à sable (3.1.1), moteur d'élimination avec noyau tracé et fusion des branches, bases et sous-espaces avant les valeurs propres (3.2.0), valeurs propres (3.3.0), familles de matrices structurées (3.4.0). Relecture critique du rapport d'évaluation des carnets et du référentiel bases et noyau, dont les erreurs relevées.
+
 ## [3.1.0] — 2026-10-21
 
 Phase 2 du plan v5 : déterminant exact tracé, thème « Déterminants » du tuteur, annonce des cas singuliers dans `Matrix.inv()`.
