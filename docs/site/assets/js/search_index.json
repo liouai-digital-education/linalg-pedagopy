@@ -353,8 +353,8 @@
     "pageTitle": "03. Algorithmes & traçabilité",
     "title": "2.1 Signature et options",
     "url": "03_algorithms_and_step_tracing.html#21-signature-et-options",
-    "snippet": "Le résultat GJResult expose A, b, rref, augmented_rref, pivots, rank, free_vars, nullspace_basis, solution et inverse....",
-    "content": "2.1 Signature et options Le résultat GJResult expose A, b, rref, augmented_rref, pivots, rank, free_vars, nullspace_basis, solution et inverse...."
+    "snippet": "text\n  Discussion par cas arrêtée : elle demande au moins 9 branches, au-delà du plafond max_cases=8.\n  Facteurs qui ouvrent des cas : a − 1, a + 1, b − 1, b + ...",
+    "content": "2.1 Signature et options text\n  Discussion par cas arrêtée : elle demande au moins 9 branches, au-delà du plafond max_cases=8.\n  Facteurs qui ouvrent des cas : a − 1, a + 1, b − 1, b + ..."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",

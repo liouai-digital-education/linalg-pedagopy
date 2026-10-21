@@ -87,7 +87,16 @@ GaussJordan(
 - `b` : Vecteur second membre (optionnel ; sans lui, seule la RREF de $A$ est calculée).
 - `pivot_strategy` : choix du pivot — le plus simple (`"simplest"`), le premier non nul (`"first"`) ou le plus grand en valeur absolue (`"partial"`).
 - `strict` : si `True`, lève `SingularMatrixError` pour un système incompatible (ou une matrice non inversible avec `compute_inverse=True`) au lieu de renvoyer `EmptySolution` / `inverse=None`.
-- `max_depth`, `max_cases` : limites de la discussion paramétrique (par défaut `config.max_case_depth` et `config.max_cases`).
+- `max_depth`, `max_cases` : limites de la discussion paramétrique (par défaut `config.max_case_depth` et `config.max_cases`). Quand une limite est atteinte, `CaseLimitError` (sous-classe de `PedagopyError`) arrête le calcul avec un message qui nomme les facteurs qui ouvrent des cas, la branche en cours, une hypothèse à fournir et un plafond plus élevé :
+
+  ```text
+  Discussion par cas arrêtée : elle demande au moins 9 branches, au-delà du plafond max_cases=8.
+  Facteurs qui ouvrent des cas : a − 1, a + 1, b − 1, b + 1.
+  Branche en cours : a = −1.
+  Pour poursuivre : précisez des hypothèses sur les paramètres, par exemple assumptions="a != 1", ou relevez le plafond (max_cases=16, ou config.max_cases = 16).
+  ```
+
+  Les mêmes informations sont des attributs de l'exception : `limit`, `value`, `reached`, `factors`, `condition`, `suggested_assumption`.
 - `assumptions` : hypothèses initiales sur les paramètres de la branche.
 - `compute_inverse` : si `True`, calcule l'inverse via l'échelonnement simultané de $[A \mid I_n]$ (champ `inverse` du résultat).
 

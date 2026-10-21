@@ -29,6 +29,35 @@ class UndecidableZeroError(PedagopyError, ArithmeticError):
         super().__init__(msg)
 
 
+class CaseLimitError(PedagopyError):
+    """Discussion par cas arrêtée par un plafond (``max_cases`` ou ``max_depth``).
+
+    Attributs : ``limit`` (nom du plafond : ``"max_cases"`` ou ``"max_depth"``), ``value``
+    (sa valeur), ``reached`` (cas ouverts ou niveaux atteints), ``factors`` (facteurs
+    qui ont ouvert des cas, du premier au dernier), ``condition`` (branche en cours) et
+    ``suggested_assumption`` (hypothèse proposée, utilisable telle quelle dans ``assumptions=``).
+    """
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        limit: str,
+        value: int,
+        reached: int,
+        factors: tuple[Any, ...] = (),
+        condition: Any = None,
+        suggested_assumption: str | None = None,
+    ) -> None:
+        self.limit = limit
+        self.value = value
+        self.reached = reached
+        self.factors = factors
+        self.condition = condition
+        self.suggested_assumption = suggested_assumption
+        super().__init__(message)
+
+
 class SingularMatrixError(PedagopyError, ArithmeticError):
     """Inversion ou résolution demandée sur une matrice singulière en mode strict."""
 

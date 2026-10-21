@@ -27,6 +27,7 @@ from linalg_pedagopy.core.zero import (
     AssumptionsType,
     Verdict,
     _normalize_assumptions,
+    case_limit_error,
     domain_of,
     oracle,
 )
@@ -264,7 +265,7 @@ class GaussJordan(Procedure[GJResult]):
             self.b = Matrix.identity(A.rows)
 
     def _execute(self) -> GJResult | CaseSplit[GJResult]:
-        state = {"cases_count": 1}
+        state: dict[str, Any] = {"cases_count": 1}
         # Valeurs interdites par les dénominateurs des coefficients : elles restreignent toutes les branches
         entries = list(self.A.flat_entries)
         if isinstance(self.b, Matrix):
@@ -290,7 +291,7 @@ class GaussJordan(Procedure[GJResult]):
         cond: Condition,
         *,
         depth: int,
-        state: dict[str, int],
+        state: dict[str, Any],
     ) -> GJResult | CaseSplit[GJResult]:
         subs_map = cond.substitutions()
         A_cur = A_in.subs(subs_map) if subs_map else A_in
@@ -604,17 +605,27 @@ class GaussJordan(Procedure[GJResult]):
         col: int,
         expr: sp.Expr,
         depth: int,
-        state: dict[str, int],
+        state: dict[str, Any],
     ) -> CaseSplit[GJResult]:
+        seen: list[sp.Expr] = state.setdefault("factors", [])
+        seen.extend(f for f in factors if f not in seen)
         if depth >= self.max_depth:
-            raise PedagopyError(
-                f"Profondeur maximale de discussion par cas atteinte (max_depth={self.max_depth}). "
-                "Fournissez des hypothèses sur les paramètres (assumptions=...)."
+            raise case_limit_error(
+                limit="max_depth",
+                value=self.max_depth,
+                reached=depth + 1,
+                factors=seen,
+                condition=cond,
+                argument="max_depth",
             )
         if state["cases_count"] + len(factors) > self.max_cases:
-            raise PedagopyError(
-                f"Nombre maximal de branches dépassé (max_cases={self.max_cases}). "
-                "Fournissez des hypothèses sur les paramètres (assumptions=...)."
+            raise case_limit_error(
+                limit="max_cases",
+                value=self.max_cases,
+                reached=state["cases_count"] + len(factors),
+                factors=seen,
+                condition=cond,
+                argument="max_cases",
             )
 
         state["cases_count"] += len(factors)

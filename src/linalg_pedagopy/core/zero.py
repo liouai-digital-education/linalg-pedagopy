@@ -10,7 +10,7 @@ import sympy as sp
 
 from linalg_pedagopy.config import config
 from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
-from linalg_pedagopy.core.exceptions import PedagopyError, UndecidableZeroError
+from linalg_pedagopy.core.exceptions import CaseLimitError, UndecidableZeroError
 from linalg_pedagopy.core.field import emit_core_event, pretty_expr, symbols, to_exact
 
 
@@ -273,6 +273,69 @@ def _extract_factors(expr: sp.Expr) -> list[sp.Expr]:
     return factors
 
 
+def assumption_text(fac: sp.Expr) -> str:
+    """Hypothèse « facteur ≠ 0 » écrite pour ``assumptions=`` : ``a - 1`` donne ``"a != 1"``."""
+    cond = Condition.from_zero_expr(fac, is_zero=False)
+    lhs, rhs = cond.neqs[0]
+    return f"{sp.sstr(lhs)} != {sp.sstr(rhs)}"
+
+
+def case_limit_error(
+    *,
+    limit: str,
+    value: int,
+    reached: int,
+    factors: Iterable[sp.Expr],
+    condition: Condition,
+    argument: str | None,
+) -> CaseLimitError:
+    """Erreur de plafond de discussion par cas, avec un message qui dit quoi faire.
+
+    ``limit`` vaut ``"max_cases"`` (nombre de cas ouverts) ou ``"max_depth"`` (cas
+    emboîtés) ; ``argument`` est le nom du paramètre de la procédure qui règle ce
+    plafond (``None`` si seule la configuration le règle).
+    """
+    facs: list[sp.Expr] = []
+    for f in factors:
+        if f not in facs:
+            facs.append(f)
+    config_attr = "max_cases" if limit == "max_cases" else "max_case_depth"
+    new_value = max(2 * value, reached) if limit == "max_cases" else value + 1
+    if limit == "max_cases":
+        head = (
+            f"Discussion par cas arrêtée : elle demande au moins {reached} branches, "
+            f"au-delà du plafond max_cases={value}."
+        )
+    else:
+        head = (
+            f"Discussion par cas arrêtée : elle demande plus de {value} niveau{'x' if value > 1 else ''} de cas emboîtés "
+            f"(plafond max_depth={value})."
+        )
+    lines = [head]
+    if facs:
+        lines.append("Facteurs qui ouvrent des cas : " + ", ".join(pretty_expr(f) for f in facs) + ".")
+    if not condition.is_trivial:
+        lines.append(f"Branche en cours : {condition.format_text()}.")
+    suggestion = assumption_text(facs[0]) if facs else None
+    raise_cap = f"{argument}={new_value}, ou config.{config_attr} = {new_value}" if argument else f"config.{config_attr} = {new_value}"
+    if suggestion:
+        lines.append(
+            f'Pour poursuivre : précisez des hypothèses sur les paramètres, par exemple assumptions="{suggestion}", '
+            f"ou relevez le plafond ({raise_cap})."
+        )
+    else:
+        lines.append(f"Pour poursuivre : relevez le plafond ({raise_cap}).")
+    return CaseLimitError(
+        "\n".join(lines),
+        limit=limit,
+        value=value,
+        reached=reached,
+        factors=tuple(facs),
+        condition=condition,
+        suggested_assumption=suggestion,
+    )
+
+
 class ZeroOracle:
     """Oracle de nullité formel suivant la stratégie en 5 étapes de la décision D3."""
 
@@ -527,9 +590,13 @@ def _all_zero(exprs: list[sp.Expr], cond: Condition, *, depth: int) -> bool | Ca
         if dec.verdict != Verdict.CONDITIONAL:
             continue
         if depth >= config.max_case_depth:
-            raise PedagopyError(
-                f"Profondeur maximale de discussion par cas atteinte (max_depth={config.max_case_depth}). "
-                "Fournissez des hypothèses sur les paramètres (assumptions=...)."
+            raise case_limit_error(
+                limit="max_depth",
+                value=config.max_case_depth,
+                reached=depth + 1,
+                factors=dec.factors,
+                condition=cond,
+                argument=None,
             )
         sub_conds = [cond]
         for fac in dec.factors:

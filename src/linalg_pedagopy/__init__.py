@@ -37,6 +37,7 @@ from linalg_pedagopy.compare import compare
 from linalg_pedagopy.config import config, using_config
 from linalg_pedagopy.core import (
     Branch,
+    CaseLimitError,
     CaseSplit,
     Condition,
     DimensionMismatchError,
@@ -108,6 +109,7 @@ __all__ = [
     "AffineSolution",
     "BackSubstitution",
     "Branch",
+    "CaseLimitError",
     "CaseSplit",
     "Condition",
     "DependenceWitness",

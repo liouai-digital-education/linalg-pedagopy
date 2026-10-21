@@ -345,7 +345,7 @@ Lit ou fixe `config.tutor_mode` (`"student"`, `"teacher"`, `"etudiant"`, `"ensei
 | `locale` | code de langue (seul `"fr"` est fourni) | `"fr"` |
 | `default_trace_level` | `0` à `3` | `1` |
 | `max_case_depth` | profondeur maximale de la discussion de cas | `3` |
-| `max_cases` | nombre maximal de branches | `8` |
+| `max_cases` | nombre maximal de branches (au-delà : `CaseLimitError`) | `8` |
 | `factor_policy` | `"real_radicals"` : résultats d'une branche factorisés avec les radicaux $\sqrt d$ de sa condition ; `"rational"` : factorisation sur $\mathbb{Q}$ | `"real_radicals"` |
 | `tutor_mode` | `"student"`, `"teacher"`, `"etudiant"`, `"enseignant"` | `"student"` |
 | `hint_min_attempts` | tentatives minimales entre deux indices | `0` |

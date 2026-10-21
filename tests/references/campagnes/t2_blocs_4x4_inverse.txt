@@ -2,4 +2,7 @@
 tests2 — matrice bloc-diagonale 4 × 4 creuse : l'inversion dépasse max_cases=8
 
 ===== erreur =====
-PedagopyError : Nombre maximal de branches dépassé (max_cases=8). Fournissez des hypothèses sur les paramètres (assumptions=...).
+CaseLimitError : Discussion par cas arrêtée : elle demande au moins 9 branches, au-delà du plafond max_cases=8.
+Facteurs qui ouvrent des cas : a − 1, a + 1, b − 1, b + 1.
+Branche en cours : a = −1.
+Pour poursuivre : précisez des hypothèses sur les paramètres, par exemple assumptions="a != 1", ou relevez le plafond (max_cases=16, ou config.max_cases = 16).

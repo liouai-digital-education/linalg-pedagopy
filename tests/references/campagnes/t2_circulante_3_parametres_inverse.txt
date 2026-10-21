@@ -2,4 +2,7 @@
 tests2 — circulante 3 × 3 en (a, b, c) : l'inversion dépasse les plafonds par défaut
 
 ===== erreur =====
-PedagopyError : Profondeur maximale de discussion par cas atteinte (max_depth=3). Fournissez des hypothèses sur les paramètres (assumptions=...).
+CaseLimitError : Discussion par cas arrêtée : elle demande plus de 3 niveaux de cas emboîtés (plafond max_depth=3).
+Facteurs qui ouvrent des cas : a, a² − b·c, a + b + c, a² − a·b − a·c + b² − b·c + c², a·c − b², a·b − c².
+Branche en cours : a ≠ 0 et a·c − b² ≠ 0 et a² − b·c = 0.
+Pour poursuivre : précisez des hypothèses sur les paramètres, par exemple assumptions="a != 0", ou relevez le plafond (max_depth=4, ou config.max_case_depth = 4).

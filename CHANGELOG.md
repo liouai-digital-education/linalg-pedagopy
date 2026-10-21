@@ -2,6 +2,10 @@
 
 ## [Non publié] — branche `development`
 
+### Corrections — étape 3.4 du plan v6
+- **Messages de plafond didactiques** : nouvelle exception `CaseLimitError` (sous-classe de `PedagopyError`, donc compatible avec le code qui attrapait cette dernière) levée quand `max_cases` ou `max_depth` arrête une discussion par cas, dans Gauss-Jordan comme dans `decide_all_zero`. Le message nomme les facteurs qui ouvrent des cas, la branche en cours, propose une hypothèse prête à l'emploi (`assumptions="a != 1"`) et un plafond plus élevé (`max_cases=16, ou config.max_cases = 16`) ; mêmes informations en attributs (`limit`, `value`, `reached`, `factors`, `condition`, `suggested_assumption`). Remplace « Nombre maximal de branches dépassé (max_cases=8). Fournissez des hypothèses… ».
+- Références régénérées et relues : `t2_blocs_4x4_inverse`, `t2_circulante_3_parametres_inverse`, `t4_bloc_triangulaire_6x6` (message d'erreur seul). Tests dans `tests/test_plafonds.py` ; guide 03 (§ 2.1).
+
 ### Corrections — étape 3.3 du plan v6
 - **Oracle : facteurs de signe constant à plusieurs paramètres.** Un polynôme de degré 2 en plusieurs paramètres réels est écrit, en complétant les carrés, comme une somme de carrés et d'une constante ; si la constante est strictement positive, il ne s'annule jamais sur ℝ et n'ouvre plus de branche impossible (`a² + a·b + b² + 1 = (a + b/2)² + 3/4·b² + 1 > 0`). Il est aussi écarté des valeurs interdites des dénominateurs. Étape de trace de niveau 3 (`zero.sign_definite`) avec la décomposition. Nouvelles fonctions `sum_of_squares` et `strict_sign` dans `core.zero`. Auparavant, seules les sommes de carrés déjà explicites (`a² + b² + 1`) étaient reconnues.
 - Aucune référence modifiée ; la permutée cyclique 5 × 5 (`t4_permutee_cyclique_5x5`) reste sans branche parasite. Tests dans `tests/test_signe_constant.py` ; guide 01 (§ 3.4).

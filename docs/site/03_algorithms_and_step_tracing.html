@@ -253,10 +253,16 @@ print(len(arbre.children))
 <li><code>b</code> : Vecteur second membre (optionnel ; sans lui, seule la RREF de $A$ est calculée).</li>
 <li><code>pivot_strategy</code> : choix du pivot — le plus simple (<code>"simplest"</code>), le premier non nul (<code>"first"</code>) ou le plus grand en valeur absolue (<code>"partial"</code>).</li>
 <li><code>strict</code> : si <code>True</code>, lève <code>SingularMatrixError</code> pour un système incompatible (ou une matrice non inversible avec <code>compute_inverse=True</code>) au lieu de renvoyer <code>EmptySolution</code> / <code>inverse=None</code>.</li>
-<li><code>max_depth</code>, <code>max_cases</code> : limites de la discussion paramétrique (par défaut <code>config.max_case_depth</code> et <code>config.max_cases</code>).</li>
-<li><code>assumptions</code> : hypothèses initiales sur les paramètres de la branche.</li>
-<li><code>compute_inverse</code> : si <code>True</code>, calcule l'inverse via l'échelonnement simultané de $[A \mid I_n]$ (champ <code>inverse</code> du résultat).</li>
+<li><code>max_depth</code>, <code>max_cases</code> : limites de la discussion paramétrique (par défaut <code>config.max_case_depth</code> et <code>config.max_cases</code>). Quand une limite est atteinte, <code>CaseLimitError</code> (sous-classe de <code>PedagopyError</code>) arrête le calcul avec un message qui nomme les facteurs qui ouvrent des cas, la branche en cours, une hypothèse à fournir et un plafond plus élevé :</li>
 </ul>
+<p><code>text
+  Discussion par cas arrêtée : elle demande au moins 9 branches, au-delà du plafond max_cases=8.
+  Facteurs qui ouvrent des cas : a − 1, a + 1, b − 1, b + 1.
+  Branche en cours : a = −1.
+  Pour poursuivre : précisez des hypothèses sur les paramètres, par exemple assumptions="a != 1", ou relevez le plafond (max_cases=16, ou config.max_cases = 16).</code></p>
+<p>Les mêmes informations sont des attributs de l'exception : <code>limit</code>, <code>value</code>, <code>reached</code>, <code>factors</code>, <code>condition</code>, <code>suggested_assumption</code>.
+- <code>assumptions</code> : hypothèses initiales sur les paramètres de la branche.
+- <code>compute_inverse</code> : si <code>True</code>, calcule l'inverse via l'échelonnement simultané de $[A \mid I_n]$ (champ <code>inverse</code> du résultat).</p>
 <p>Le résultat <code>GJResult</code> expose <code>A</code>, <code>b</code>, <code>rref</code>, <code>augmented_rref</code>, <code>pivots</code>, <code>rank</code>, <code>free_vars</code>, <code>nullspace_basis</code>, <code>solution</code> et <code>inverse</code>.</p>
 <h3 id="22-typologie-des-ensembles-de-solutions">2.2 Typologie des ensembles de solutions</h3>
 <p>Le résultat renvoyé par <code>GaussJordan.run()</code> est un <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/gauss_jordan.py"><code>GJResult</code></a> dont la propriété <code>solution</code> appartient à l'une des 3 catégories de <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/base.py"><code>SolutionSet</code></a> :</p>
