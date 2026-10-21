@@ -25,6 +25,9 @@
 - **Option `docs`** (`pip install -e ".[docs]"`) : `markdown`, `jinja2` et `beautifulsoup4`, nécessaires pour régénérer le site ; citée dans le README et dans `docs/dev/tests_et_verifications.md`.
 - **mypy figé** à la version 2.4.0 dans l'option `dev`. Le périmètre strict reste sans erreur ; le paquet complet compte 63 erreurs (informatif, en CI comme en local, et non zéro comme on le pensait : l'étape échoue sans faire échouer le job). `pyproject.toml` et `docs/dev/tests_et_verifications.md` le disent désormais.
 
+### Documentation — lot 3a de la revue (contenu des guides)
+- **Guide 01, § 5 « Concepts transversaux »** : les quatre formes d'hypothèses (`Condition`, chaîne, liste, dictionnaire) et le refus des inégalités d'ordre (`InvalidAssumptionError`) ; le tableau des réglages de `config` (défauts, valeurs admises, validation, portée de `using_config`) ; les indices à partir de 0 dans l'API et à partir de 1 dans les traces. Exemples vérifiés par `#>`.
+
 ## [0.3.1.2] — 2026-10-21
 
 Phases 4, 5 et 6 du plan v6, et traces en tableau. Pas de publication sur PyPI pour cette version (reportée à une version ultérieure).

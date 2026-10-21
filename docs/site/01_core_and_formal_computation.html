@@ -163,6 +163,7 @@
       <article class="markdown-body">
         <h1 id="01-noyau-formel-et-calcul-symbolique-exact">01. Noyau formel et Calcul Symbolique Exact</h1>
 <p>Le module <code>linalg_pedagopy.core</code> constitue le socle mathématique fondamental du package. Il garantit la rigueur des calculs formels sur le corps des réels $\mathbb{R}$, empêche les erreurs de troncature numérique et gère de manière déterministe les discussions paramétriques.</p>
+<p>Trois conventions valent pour tout le package : la syntaxe des hypothèses (<code>assumptions</code>), la configuration (<code>config</code>, <code>using_config</code>) et la numérotation des indices. Elles sont réunies au <a href="#5-concepts-transversaux">§ 5, Concepts transversaux</a>.</p>
 <hr/>
 <h2 id="1-representation-des-scalaires-et-coercition-exacte">1. Représentation des scalaires et coercition exacte</h2>
 <h3 id="11-la-fonction-to_exact">1.1 La fonction <code>to_exact</code></h3>
@@ -373,6 +374,181 @@ print(spec_m1.solution)  # EmptySolution(ligne L2 : 0 = 2)
 - <code>print(res)</code> donne la discussion rédigée en texte ;
 - <code>repr(res)</code> donne un résumé d'une ligne : <code>&lt;CaseSplit selon a : 3 cas — a ≠ 1 et a ≠ −1 | a = 1 | a = −1&gt;</code> ;
 - dans JupyterLab, la cellule <code>res</code> affiche la discussion en Markdown, avec les solutions en LaTeX.</p>
+<hr/>
+<h2 id="5-concepts-transversaux">5. Concepts transversaux</h2>
+<h3 id="51-hypotheses-sur-les-parametres-assumptions">5.1 Hypothèses sur les paramètres (<code>assumptions</code>)</h3>
+<p>Les procédures (<code>GaussJordan</code>, <code>BackSubstitution</code>, <code>ForwardSubstitution</code>, <code>GramSchmidt</code>, <code>QR</code>, <code>LeastSquares</code>, <code>Determinant</code>) et les méthodes <code>rref</code>, <code>rank</code>, <code>nullspace</code>, <code>inv</code> et <code>det</code> de <code>Matrix</code> acceptent un argument <code>assumptions</code>. Il restreint la discussion aux valeurs des paramètres qui le vérifient. Quatre formes sont acceptées :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Forme</th>
+<th style="text-align: left;">Exemple</th>
+<th style="text-align: left;">Sens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>Condition</code></td>
+<td style="text-align: left;"><code>Condition.neq(a, 1) &amp; Condition.neq(a, -1)</code></td>
+<td style="text-align: left;">la condition telle quelle (voir § 4.1)</td>
+</tr>
+<tr>
+<td style="text-align: left;">chaîne</td>
+<td style="text-align: left;"><code>"a != 1"</code>, <code>"a = 2"</code> (ou <code>"a == 2"</code>)</td>
+<td style="text-align: left;">une égalité ou une différence</td>
+</tr>
+<tr>
+<td style="text-align: left;">liste de chaînes</td>
+<td style="text-align: left;"><code>["a != 1", "a != -1"]</code></td>
+<td style="text-align: left;">toutes les conditions à la fois (« et »)</td>
+</tr>
+<tr>
+<td style="text-align: left;">dictionnaire</td>
+<td style="text-align: left;"><code>{"a": 2}</code>, <code>{"a": "!= 1"}</code>, <code>{"a": ["!= 1", "!= -1"]}</code></td>
+<td style="text-align: left;">une ou plusieurs conditions par paramètre</td>
+</tr>
+</tbody>
+</table>
+<p>Une hypothèse qui fixe tous les paramètres donne directement le résultat de la branche, sans discussion ; une différence retire seulement les cas qu'elle exclut :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import GaussJordan, Matrix, Vector, symbols
+
+a, = symbols("a")
+A, y = Matrix([[1, a], [a, 1]]), Vector([1, 1])
+
+print(GaussJordan(A, y, assumptions="a != 1").run())
+#&gt; Discussion selon a
+#&gt; ├─ Cas a ≠ 1 et a ≠ −1 (générique) : pivots non nuls, rang 2, solution unique
+#&gt; │    x = ( 1/(a + 1), 1/(a + 1) )
+#&gt; └─ Cas a = −1 : L2 devient (0 0 | 2)
+#&gt;      système incompatible (témoin : 0 = 2)
+print(GaussJordan(A, y, assumptions={"a": 2}).run().solution)
+#&gt; UniqueSolution(x=(1/3, 1/3))
+print(GaussJordan(A, y, assumptions=["a != 1", "a != -1"]).run().solution)
+#&gt; UniqueSolution(x=(1/(a + 1), 1/(a + 1)))
+</code></pre></div>
+<p>Seules les <strong>égalités</strong> et les <strong>différences</strong> sont prises en compte. Une inégalité d'ordre (<code>"a &gt; 0"</code>, <code>"a &lt;= 1"</code>) ou une forme non reconnue lève <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/exceptions.py"><code>InvalidAssumptionError</code></a> (sous-classe de <code>PedagopyError</code> et de <code>ValueError</code>), plutôt que d'être ignorée sans prévenir :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import InvalidAssumptionError
+
+try:
+    GaussJordan(A, y, assumptions="a &gt; 0").run()
+except InvalidAssumptionError as err:
+    print(err)
+#&gt; Hypothèse 'a &gt; 0' : les inégalités d'ordre (&lt;, &gt;, &lt;=, &gt;=) ne sont pas prises en compte. Seules les conditions « paramètre = valeur » et « paramètre != valeur » le sont (par exemple "a != 0").
+</code></pre></div>
+<p>Pour un paramètre de signe connu, déclarez-le plutôt à la création du symbole : <code>symbols("a", positive=True)</code> (voir § 2.1).</p>
+<h3 id="52-configuration-config-et-using_config">5.2 Configuration (<code>config</code> et <code>using_config</code>)</h3>
+<p>L'objet <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/config.py"><code>config</code></a> réunit les réglages globaux. On le modifie par affectation (<code>config.max_cases = 16</code>), pour toute la suite de la session, ou temporairement dans un bloc <code>with using_config(...)</code>, qui rétablit les valeurs précédentes à la sortie du bloc. <code>config.reset()</code> revient aux valeurs par défaut.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Réglage</th>
+<th style="text-align: left;">Défaut</th>
+<th style="text-align: left;">Valeurs</th>
+<th style="text-align: left;">Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>float_policy</code></td>
+<td style="text-align: left;"><code>"rationalize"</code></td>
+<td style="text-align: left;"><code>"rationalize"</code>, <code>"reject"</code>, <code>"keep"</code></td>
+<td style="text-align: left;">traitement des flottants (§ 1.2)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>factor_policy</code></td>
+<td style="text-align: left;"><code>"real_radicals"</code></td>
+<td style="text-align: left;"><code>"real_radicals"</code>, <code>"rational"</code></td>
+<td style="text-align: left;">factorisation des conditions affichées (<a href="03_algorithms_and_step_tracing.html">guide 03</a>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>default_trace_level</code></td>
+<td style="text-align: left;"><code>1</code></td>
+<td style="text-align: left;"><code>0</code>, <code>1</code>, <code>2</code>, <code>3</code></td>
+<td style="text-align: left;">niveau de <code>explain()</code> sans argument</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_cases</code></td>
+<td style="text-align: left;"><code>8</code></td>
+<td style="text-align: left;">entier ≥ 1</td>
+<td style="text-align: left;">nombre maximal de branches d'une discussion</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_case_depth</code></td>
+<td style="text-align: left;"><code>3</code></td>
+<td style="text-align: left;">entier ≥ 1</td>
+<td style="text-align: left;">profondeur maximale des discussions imbriquées</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_generic_dim</code></td>
+<td style="text-align: left;"><code>4</code></td>
+<td style="text-align: left;">entier ≥ 1 ou <code>None</code></td>
+<td style="text-align: left;">taille au-delà de laquelle Gauss-Jordan à paramètres avertit</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>locale</code></td>
+<td style="text-align: left;"><code>"fr"</code></td>
+<td style="text-align: left;">chaîne non vide</td>
+<td style="text-align: left;">langue des messages (<a href="06_rendering_visualization_and_numerics.html">guide 06</a>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tutor_mode</code></td>
+<td style="text-align: left;"><code>"student"</code></td>
+<td style="text-align: left;"><code>"etudiant"</code>, <code>"enseignant"</code> (ou <code>"student"</code>, <code>"teacher"</code>)</td>
+<td style="text-align: left;">mode du tuteur (<a href="04_tuteur.html">guide 04</a>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>hint_min_attempts</code></td>
+<td style="text-align: left;"><code>0</code></td>
+<td style="text-align: left;">entier ≥ 0</td>
+<td style="text-align: left;">tentatives exigées avant un nouvel indice</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>hint_min_delay_seconds</code></td>
+<td style="text-align: left;"><code>0</code></td>
+<td style="text-align: left;">entier ≥ 0</td>
+<td style="text-align: left;">délai exigé avant un nouvel indice</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>journal_path</code></td>
+<td style="text-align: left;"><code>.linalg_pedagopy_journal.json</code></td>
+<td style="text-align: left;">chemin</td>
+<td style="text-align: left;">journal de progression du tuteur</td>
+</tr>
+</tbody>
+</table>
+<p>Une valeur invalide est refusée par une <code>ValueError</code>, que ce soit par affectation ou dans <code>using_config</code> :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import config, using_config
+
+with using_config(default_trace_level=0):
+    print(config.default_trace_level)
+#&gt; 0
+print(config.default_trace_level)
+#&gt; 1
+
+try:
+    config.max_cases = 0
+except ValueError as err:
+    print(err)
+#&gt; max_cases invalide : 0 (entier ≥ 1 attendu).
+</code></pre></div>
+<p>La configuration est stockée dans une <code>ContextVar</code> : un bloc <code>using_config</code> ne touche que le fil d'exécution (ou la tâche <code>asyncio</code>) qui l'ouvre.</p>
+<h3 id="53-indices-a-partir-de-0-dans-lapi-a-partir-de-1-dans-les-traces">5.3 Indices : à partir de 0 dans l'API, à partir de 1 dans les traces</h3>
+<p>Les attributs et arguments Python suivent la convention de Python : <strong>les indices commencent à 0</strong>. Les traces, écrites pour l'étudiant, suivent la convention mathématique : lignes, colonnes et variables sont <strong>numérotées à partir de 1</strong>.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">gj = GaussJordan(Matrix([[1, 2, 3], [2, 4, 7]]), Vector([1, 2])).run()
+print(gj.pivots, gj.free_vars)
+#&gt; (0, 2) (1,)
+print(gj.explain(level=1))
+#&gt; Réduction de Gauss-Jordan d'une matrice 2×3.
+#&gt;    [(1 2 3 | 1); (2 4 7 | 2)]
+#&gt; ├─ On annule le coefficient (2,1) : L2 ← L2 − 2·L1.
+#&gt; │  [(1 2 3 | 1); (0 0 1 | 0)]
+#&gt; ├─ On annule le coefficient (1,3) : L1 ← L1 − 3·L2.
+#&gt; │  [(1 2 0 | 1); (0 0 1 | 0)]
+#&gt; ├─ Rang 2 &lt; 3 : ensemble affine de solutions avec 1 variable(s) libre(s).
+#&gt; └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 3).
+#&gt;    [(1 2 0 | 1); (0 0 1 | 0)]
+</code></pre></div>
+<p>Les pivots <code>(0, 2)</code> de l'API sont les colonnes 1 et 3 de la trace, et la variable libre d'indice 1 est $x_2$. La même règle vaut pour <code>Vector.unit(i, n)</code>, les matrices structurées (<code>selection_matrix</code>…), <code>EmptySolution.row</code> et <code>GSResult.dependent_index</code> ; les coefficients cités dans les traces (« coefficient (2,1) », « L2 ← L2 − 2·L1 ») sont numérotés à partir de 1.</p>
       </article>
 
       <!-- Navigation entre chapitres -->
@@ -468,6 +644,22 @@ print(spec_m1.solution)  # EmptySolution(ligne L2 : 0 = 2)
         
         <li class="toc-item toc-h3">
           <a href="#46-commutation-de-la-specialisation-at">4.6 Commutation de la spécialisation (at)</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#5-concepts-transversaux">5. Concepts transversaux</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#51-hypotheses-sur-les-parametres-assumptions">5.1 Hypothèses sur les paramètres (assumptions)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#52-configuration-config-et-using_config">5.2 Configuration (config et using_config)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#53-indices-a-partir-de-0-dans-lapi-a-partir-de-1-dans-les-traces">5.3 Indices : à partir de 0 dans l'API, à partir de 1 dans les traces</a>
         </li>
         
       </ul>

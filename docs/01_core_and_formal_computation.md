@@ -2,6 +2,8 @@
 
 Le module `linalg_pedagopy.core` constitue le socle mathématique fondamental du package. Il garantit la rigueur des calculs formels sur le corps des réels $\mathbb{R}$, empêche les erreurs de troncature numérique et gère de manière déterministe les discussions paramétriques.
 
+Trois conventions valent pour tout le package : la syntaxe des hypothèses (`assumptions`), la configuration (`config`, `using_config`) et la numérotation des indices. Elles sont réunies au [§ 5, Concepts transversaux](#5-concepts-transversaux).
+
 ---
 
 ## 1. Représentation des scalaires et coercition exacte
@@ -259,3 +261,112 @@ Un `CaseSplit` s'affiche de trois façons :
 - `print(res)` donne la discussion rédigée en texte ;
 - `repr(res)` donne un résumé d'une ligne : `<CaseSplit selon a : 3 cas — a ≠ 1 et a ≠ −1 | a = 1 | a = −1>` ;
 - dans JupyterLab, la cellule `res` affiche la discussion en Markdown, avec les solutions en LaTeX.
+
+---
+
+## 5. Concepts transversaux
+
+### 5.1 Hypothèses sur les paramètres (`assumptions`)
+
+Les procédures (`GaussJordan`, `BackSubstitution`, `ForwardSubstitution`, `GramSchmidt`, `QR`, `LeastSquares`, `Determinant`) et les méthodes `rref`, `rank`, `nullspace`, `inv` et `det` de `Matrix` acceptent un argument `assumptions`. Il restreint la discussion aux valeurs des paramètres qui le vérifient. Quatre formes sont acceptées :
+
+| Forme | Exemple | Sens |
+| :--- | :--- | :--- |
+| `Condition` | `Condition.neq(a, 1) & Condition.neq(a, -1)` | la condition telle quelle (voir § 4.1) |
+| chaîne | `"a != 1"`, `"a = 2"` (ou `"a == 2"`) | une égalité ou une différence |
+| liste de chaînes | `["a != 1", "a != -1"]` | toutes les conditions à la fois (« et ») |
+| dictionnaire | `{"a": 2}`, `{"a": "!= 1"}`, `{"a": ["!= 1", "!= -1"]}` | une ou plusieurs conditions par paramètre |
+
+Une hypothèse qui fixe tous les paramètres donne directement le résultat de la branche, sans discussion ; une différence retire seulement les cas qu'elle exclut :
+
+```python
+from linalg_pedagopy import GaussJordan, Matrix, Vector, symbols
+
+a, = symbols("a")
+A, y = Matrix([[1, a], [a, 1]]), Vector([1, 1])
+
+print(GaussJordan(A, y, assumptions="a != 1").run())
+#> Discussion selon a
+#> ├─ Cas a ≠ 1 et a ≠ −1 (générique) : pivots non nuls, rang 2, solution unique
+#> │    x = ( 1/(a + 1), 1/(a + 1) )
+#> └─ Cas a = −1 : L2 devient (0 0 | 2)
+#>      système incompatible (témoin : 0 = 2)
+print(GaussJordan(A, y, assumptions={"a": 2}).run().solution)
+#> UniqueSolution(x=(1/3, 1/3))
+print(GaussJordan(A, y, assumptions=["a != 1", "a != -1"]).run().solution)
+#> UniqueSolution(x=(1/(a + 1), 1/(a + 1)))
+```
+
+Seules les **égalités** et les **différences** sont prises en compte. Une inégalité d'ordre (`"a > 0"`, `"a <= 1"`) ou une forme non reconnue lève [`InvalidAssumptionError`](../src/linalg_pedagopy/core/exceptions.py) (sous-classe de `PedagopyError` et de `ValueError`), plutôt que d'être ignorée sans prévenir :
+
+```python
+from linalg_pedagopy import InvalidAssumptionError
+
+try:
+    GaussJordan(A, y, assumptions="a > 0").run()
+except InvalidAssumptionError as err:
+    print(err)
+#> Hypothèse 'a > 0' : les inégalités d'ordre (<, >, <=, >=) ne sont pas prises en compte. Seules les conditions « paramètre = valeur » et « paramètre != valeur » le sont (par exemple "a != 0").
+```
+
+Pour un paramètre de signe connu, déclarez-le plutôt à la création du symbole : `symbols("a", positive=True)` (voir § 2.1).
+
+### 5.2 Configuration (`config` et `using_config`)
+
+L'objet [`config`](../src/linalg_pedagopy/config.py) réunit les réglages globaux. On le modifie par affectation (`config.max_cases = 16`), pour toute la suite de la session, ou temporairement dans un bloc `with using_config(...)`, qui rétablit les valeurs précédentes à la sortie du bloc. `config.reset()` revient aux valeurs par défaut.
+
+| Réglage | Défaut | Valeurs | Rôle |
+| :--- | :--- | :--- | :--- |
+| `float_policy` | `"rationalize"` | `"rationalize"`, `"reject"`, `"keep"` | traitement des flottants (§ 1.2) |
+| `factor_policy` | `"real_radicals"` | `"real_radicals"`, `"rational"` | factorisation des conditions affichées ([guide 03](03_algorithms_and_step_tracing.md)) |
+| `default_trace_level` | `1` | `0`, `1`, `2`, `3` | niveau de `explain()` sans argument |
+| `max_cases` | `8` | entier ≥ 1 | nombre maximal de branches d'une discussion |
+| `max_case_depth` | `3` | entier ≥ 1 | profondeur maximale des discussions imbriquées |
+| `max_generic_dim` | `4` | entier ≥ 1 ou `None` | taille au-delà de laquelle Gauss-Jordan à paramètres avertit |
+| `locale` | `"fr"` | chaîne non vide | langue des messages ([guide 06](06_rendering_visualization_and_numerics.md)) |
+| `tutor_mode` | `"student"` | `"etudiant"`, `"enseignant"` (ou `"student"`, `"teacher"`) | mode du tuteur ([guide 04](04_tuteur.md)) |
+| `hint_min_attempts` | `0` | entier ≥ 0 | tentatives exigées avant un nouvel indice |
+| `hint_min_delay_seconds` | `0` | entier ≥ 0 | délai exigé avant un nouvel indice |
+| `journal_path` | `.linalg_pedagopy_journal.json` | chemin | journal de progression du tuteur |
+
+Une valeur invalide est refusée par une `ValueError`, que ce soit par affectation ou dans `using_config` :
+
+```python
+from linalg_pedagopy import config, using_config
+
+with using_config(default_trace_level=0):
+    print(config.default_trace_level)
+#> 0
+print(config.default_trace_level)
+#> 1
+
+try:
+    config.max_cases = 0
+except ValueError as err:
+    print(err)
+#> max_cases invalide : 0 (entier ≥ 1 attendu).
+```
+
+La configuration est stockée dans une `ContextVar` : un bloc `using_config` ne touche que le fil d'exécution (ou la tâche `asyncio`) qui l'ouvre.
+
+### 5.3 Indices : à partir de 0 dans l'API, à partir de 1 dans les traces
+
+Les attributs et arguments Python suivent la convention de Python : **les indices commencent à 0**. Les traces, écrites pour l'étudiant, suivent la convention mathématique : lignes, colonnes et variables sont **numérotées à partir de 1**.
+
+```python
+gj = GaussJordan(Matrix([[1, 2, 3], [2, 4, 7]]), Vector([1, 2])).run()
+print(gj.pivots, gj.free_vars)
+#> (0, 2) (1,)
+print(gj.explain(level=1))
+#> Réduction de Gauss-Jordan d'une matrice 2×3.
+#>    [(1 2 3 | 1); (2 4 7 | 2)]
+#> ├─ On annule le coefficient (2,1) : L2 ← L2 − 2·L1.
+#> │  [(1 2 3 | 1); (0 0 1 | 0)]
+#> ├─ On annule le coefficient (1,3) : L1 ← L1 − 3·L2.
+#> │  [(1 2 0 | 1); (0 0 1 | 0)]
+#> ├─ Rang 2 < 3 : ensemble affine de solutions avec 1 variable(s) libre(s).
+#> └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 3).
+#>    [(1 2 0 | 1); (0 0 1 | 0)]
+```
+
+Les pivots `(0, 2)` de l'API sont les colonnes 1 et 3 de la trace, et la variable libre d'indice 1 est $x_2$. La même règle vaut pour `Vector.unit(i, n)`, les matrices structurées (`selection_matrix`…), `EmptySolution.row` et `GSResult.dependent_index` ; les coefficients cités dans les traces (« coefficient (2,1) », « L2 ← L2 − 2·L1 ») sont numérotés à partir de 1.

@@ -182,6 +182,34 @@
     "content": "4.6 Commutation de la spécialisation (at) Un résultat CaseSplit respecte le principe de commutation fondamentale :\n$$\\left( \\text{Algorithme}(A(p), b(p)) \\right) \\Big|_{p = p_0} = \\text{Algorithme}\\left..."
   },
   {
+    "pageTitle": "01. Noyau formel & calcul exact",
+    "title": "5. Concepts transversaux",
+    "url": "01_core_and_formal_computation.html#5-concepts-transversaux",
+    "snippet": "Les procédures (GaussJordan, BackSubstitution, ForwardSubstitution, GramSchmidt, QR, LeastSquares, Determinant) et les méthodes rref, rank, nullspace, inv et de...",
+    "content": "5. Concepts transversaux Les procédures (GaussJordan, BackSubstitution, ForwardSubstitution, GramSchmidt, QR, LeastSquares, Determinant) et les méthodes rref, rank, nullspace, inv et de..."
+  },
+  {
+    "pageTitle": "01. Noyau formel & calcul exact",
+    "title": "5.1 Hypothèses sur les paramètres (assumptions)",
+    "url": "01_core_and_formal_computation.html#51-hypotheses-sur-les-parametres-assumptions",
+    "snippet": "Les procédures (GaussJordan, BackSubstitution, ForwardSubstitution, GramSchmidt, QR, LeastSquares, Determinant) et les méthodes rref, rank, nullspace, inv et de...",
+    "content": "5.1 Hypothèses sur les paramètres (assumptions) Les procédures (GaussJordan, BackSubstitution, ForwardSubstitution, GramSchmidt, QR, LeastSquares, Determinant) et les méthodes rref, rank, nullspace, inv et de..."
+  },
+  {
+    "pageTitle": "01. Noyau formel & calcul exact",
+    "title": "5.2 Configuration (config et using_config)",
+    "url": "01_core_and_formal_computation.html#52-configuration-config-et-using_config",
+    "snippet": "L'objet config réunit les réglages globaux. On le modifie par affectation (config.max_cases = 16), pour toute la suite de la session, ou temporairement dans un ...",
+    "content": "5.2 Configuration (config et using_config) L'objet config réunit les réglages globaux. On le modifie par affectation (config.max_cases = 16), pour toute la suite de la session, ou temporairement dans un ..."
+  },
+  {
+    "pageTitle": "01. Noyau formel & calcul exact",
+    "title": "5.3 Indices : à partir de 0 dans l'API, à partir de 1 dans les traces",
+    "url": "01_core_and_formal_computation.html#53-indices-a-partir-de-0-dans-lapi-a-partir-de-1-dans-les-traces",
+    "snippet": "Les attributs et arguments Python suivent la convention de Python : les indices commencent à 0. Les traces, écrites pour l'étudiant, suivent la convention mathé...",
+    "content": "5.3 Indices : à partir de 0 dans l'API, à partir de 1 dans les traces Les attributs et arguments Python suivent la convention de Python : les indices commencent à 0. Les traces, écrites pour l'étudiant, suivent la convention mathé..."
+  },
+  {
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "1. La classe Vector",
     "url": "02_vectors_and_matrices.html#1-la-classe-vector",
