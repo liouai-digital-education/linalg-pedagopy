@@ -255,15 +255,22 @@
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "2.1 Initialisation et constructeurs d'usine",
     "url": "02_vectors_and_matrices.html#21-initialisation-et-constructeurs-dusine",
-    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A...",
-    "content": "2.1 Initialisation et constructeurs d'usine Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A..."
+    "snippet": "Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies....",
+    "content": "2.1 Initialisation et constructeurs d'usine Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies...."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "2.2 Opérations matricielles usuelles",
     "url": "02_vectors_and_matrices.html#22-operations-matricielles-usuelles",
-    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A...",
-    "content": "2.2 Opérations matricielles usuelles Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A..."
+    "snippet": "Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies....",
+    "content": "2.2 Opérations matricielles usuelles Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies...."
+  },
+  {
+    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "title": "2.3 Accès aux coefficients, aux lignes et aux colonnes",
+    "url": "02_vectors_and_matrices.html#23-acces-aux-coefficients-aux-lignes-et-aux-colonnes",
+    "snippet": "Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies....",
+    "content": "2.3 Accès aux coefficients, aux lignes et aux colonnes Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies...."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
@@ -337,10 +344,17 @@
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
-    "title": "4.4 Déterminant (det)",
-    "url": "02_vectors_and_matrices.html#44-determinant-det",
+    "title": "4.4 Résolution directe (solve)",
+    "url": "02_vectors_and_matrices.html#44-resolution-directe-solve",
+    "snippet": "A.solve(b, *, assumptions=None, strict=False) résout $A x = b$ par Gauss-Jordan et renvoie seulement l'ensemble des solutions (UniqueSolution, AffineSolution ou...",
+    "content": "4.4 Résolution directe (solve) A.solve(b, *, assumptions=None, strict=False) résout $A x = b$ par Gauss-Jordan et renvoie seulement l'ensemble des solutions (UniqueSolution, AffineSolution ou..."
+  },
+  {
+    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "title": "4.5 Déterminant (det)",
+    "url": "02_vectors_and_matrices.html#45-determinant-det",
     "snippet": "La méthode det(*, method=\"auto\", assumptions=None) renvoie le déterminant exact, factorisé. Elle délègue à la procédure Determinant, décrite dans le guide 03 (m...",
-    "content": "4.4 Déterminant (det) La méthode det(*, method=\"auto\", assumptions=None) renvoie le déterminant exact, factorisé. Elle délègue à la procédure Determinant, décrite dans le guide 03 (m..."
+    "content": "4.5 Déterminant (det) La méthode det(*, method=\"auto\", assumptions=None) renvoie le déterminant exact, factorisé. Elle délègue à la procédure Determinant, décrite dans le guide 03 (m..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",

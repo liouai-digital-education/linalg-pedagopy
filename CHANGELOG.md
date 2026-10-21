@@ -30,6 +30,8 @@
 - **Guide 01 allégé** : les mentions « Décision D1/D3 » et les fonctions privées (`_extract_factors`, `_compute_transitive_substitutions`, `match_symbol_substitutions`) passent dans `docs/dev/architecture.md` (§ « Noyau formel : décisions et fonctions internes ») ; le guide décrit le comportement (paramètres désignés par leur nom, radicaux, clôture transitive).
 - **Trace en tableau** : `explain().to_table()` est présenté dans le guide 03 (§ 1.2, exemple vérifié), le guide 09 (cellule JupyterLab) et le tutoriel (§ 5.1 et synthèse des commandes), avec renvoi au guide 06 pour le détail des colonnes.
 - **Carnet du tutoriel** régénéré depuis `TUTORIAL.md` : il n'avait pas reçu les sorties `#>` du lot 2. Le job « Documentation à jour » le régénère désormais lui aussi et échoue sur tout écart.
+- **Guide 02** : `Matrix.from_rows` et `Matrix.ones` ; nouveau § 2.3 sur l'accès aux coefficients (indexation et tranches, `row`, `col`, `columns`, `rows_as_vectors`, `augment`, `entries_grid`, `flat_entries`, `subs`, `to_sympy`, `to_domain_matrix`) ; nouveau § 4.4 sur `Matrix.solve` (ensemble des solutions, discussion par cas, `assumptions`, second membre matriciel). Le déterminant passe au § 4.5.
+- **Site** : les liens entre pages avec une ancre (`page.md#section`) sont convertis en `page.html#section` ; ils restaient en `.md`, donc cassés.
 
 ## [0.3.1.2] — 2026-10-21
 
