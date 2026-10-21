@@ -79,6 +79,35 @@ def test_gauss_jordan_inversion_and_strict_mode() -> None:
         GaussJordan(S, Matrix.identity(2), strict=True, compute_inverse=True).run()
 
 
+def test_second_membre_identite_donne_solution_et_inverse() -> None:
+    # Régression : avec B = I_n, la détection automatique de l'inverse laissait solution à None,
+    # et Matrix.solve(Matrix.identity(n)) renvoyait None.
+    A = Matrix([[1, 2], [3, 5]])
+    inverse = Matrix([[-5, 2], [3, -1]])
+    sol = A.solve(Matrix.identity(2))
+    assert isinstance(sol, UniqueSolution)
+    assert sol.x == inverse
+
+    res = GaussJordan(A, Matrix.identity(2)).run()
+    assert isinstance(res, GJResult)
+    assert isinstance(res.solution, UniqueSolution) and res.solution.x == inverse
+    assert res.inverse == inverse
+
+    S = Matrix([[1, 2], [2, 4]])
+    res_sing = GaussJordan(S, Matrix.identity(2)).run()
+    assert isinstance(res_sing, GJResult)
+    assert isinstance(res_sing.solution, EmptySolution)
+    assert res_sing.inverse is None
+
+
+def test_compute_inverse_explicite_sans_solution() -> None:
+    # compute_inverse=True (chemin de Matrix.inv) ne calcule que l'inverse, comme avant.
+    res = GaussJordan(Matrix([[1, 2], [3, 5]]), Matrix.identity(2), compute_inverse=True).run()
+    assert isinstance(res, GJResult)
+    assert res.solution is None
+    assert res.inverse == Matrix([[-5, 2], [3, -1]])
+
+
 def test_gauss_jordan_appendix_a_parameter_discussion() -> None:
     """Vérifie exactement la session de l'Annexe A (page 27 du plan v3)."""
     (a,) = symbols("a")

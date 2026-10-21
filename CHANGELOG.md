@@ -2,6 +2,9 @@
 
 ## [Non publié] — branche `development`
 
+### Corrections
+- **`Matrix.solve(Matrix.identity(n))`** renvoyait `None` : avec un second membre égal à $I_n$, `GaussJordan` passait en mode « inverse » et ne calculait pas la solution. Un second membre fourni sans `compute_inverse` donne désormais la solution (ici $X = A^{-1}$), et l'inverse en plus ; `compute_inverse=True` (chemin de `Matrix.inv`) est inchangé.
+
 ### Corrections — lot 1 de la revue de la documentation
 - **Niveaux de trace** : `explain(level=1)` de Gauss-Jordan n'affichait aucune opération de lignes, rangées dans les sections de colonne de niveau 2 et retirées avec elles. Une section plus détaillée que le niveau demandé disparaît désormais, mais ses étapes visibles remontent (`Step.filter_level`). Le niveau 1 montre les opérations et les matrices, comme l'annoncent le guide 03, le README et l'accueil. 16 références enrichies (lignes ajoutées seulement).
 - **Substitutions triangulaires** : avec un coefficient diagonal qui peut s'annuler, `BackSubstitution` et `ForwardSubstitution` ne renvoyaient que la branche générique (`at(a=0)` échouait). La discussion ajoute les branches singulières, où le résultat le signale (`singular`, `singular_index`) au lieu de la solution.

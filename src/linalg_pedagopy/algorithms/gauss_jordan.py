@@ -205,6 +205,9 @@ class GaussJordan(Procedure[GJResult]):
         self.compute_inverse = compute_inverse or (
             isinstance(b, Matrix) and A.rows == A.cols and b == Matrix.identity(A.rows)
         )
+        # Un second membre fourni sans compute_inverse demande la solution, même s'il vaut I_n
+        # (l'inverse est alors calculée en plus) ; avec compute_inverse=True, seule l'inverse l'est.
+        self._solution_demandee = b is not None and not compute_inverse
         if compute_inverse and b is None and A.rows == A.cols:
             # Sans second membre, l'inverse se calcule en réduisant [A | I_n].
             self.b = Matrix.identity(A.rows)
@@ -285,7 +288,7 @@ class GaussJordan(Procedure[GJResult]):
         split_col = st.setup.split_col
         # Vérification de compatibilité sur les lignes nulles si un second membre est présent
         rank = len(pivots)
-        if b_cur is not None and not self.compute_inverse:
+        if b_cur is not None and self._solution_demandee:
             has_unconditional_inconsistency = False
             for r in range(rank, m):
                 for rhs_c in range(n, total_cols):
@@ -355,7 +358,7 @@ class GaussJordan(Procedure[GJResult]):
                     n=n,
                 )
 
-        if b_cur is not None and not self.compute_inverse:
+        if b_cur is not None and self._solution_demandee:
             solution = self._build_solution_set(
                 aug_rref,
                 m=m,
