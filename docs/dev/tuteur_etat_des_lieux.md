@@ -1,5 +1,8 @@
 # Tuteur : état des lieux avant la phase 6
 
+> **Document historique.** État du tuteur au 21 octobre 2026, avant la phase 6 (registre des vérificateurs, lecture de texte sans `eval`, passage au français) ; il n'est plus tenu à jour. L'organisation actuelle est décrite dans [l'architecture](architecture.md) ; le bilan de la phase 6 est dans le [plan v6](plans/plan_developpement_v6.md).
+
+
 Étape 6.0 du [plan de développement v6](plans/plan_developpement_v6.md), établie le 21 octobre 2026 sur la branche `development`.
 
 ## Modules

@@ -1,5 +1,8 @@
 # Couverture des tests — état au 20 octobre 2026 (phase 0)
 
+> **Document historique.** Mesure du 20 octobre 2026, avant les refactorisations ; elle n'est plus tenue à jour. La couverture actuelle s'obtient avec `python verifier_tout.py` (étape tests et couverture), voir [tests et vérifications](tests_et_verifications.md).
+
+
 Ce document consigne la couverture de la suite de tests avant les refactorisations des phases 1 à 3 du plan v5, et les zones où une modification pourrait passer inaperçue.
 
 ## Méthode
