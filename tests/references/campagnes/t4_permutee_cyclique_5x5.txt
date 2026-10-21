@@ -1,0 +1,227 @@
+===== carnet =====
+test4 — det 1 − a⁵ : facteur a⁴ + a³ + a² + a + 1 sans racine réelle, aucune branche parasite
+
+===== repr =====
+<CaseSplit selon a : 2 cas — a ≠ 1 | a = 1>
+
+===== str =====
+Discussion selon a
+├─ Cas a ≠ 1 (générique) : pivots non nuls, rang 5, solution unique
+│    x = ( −a⁴/((a − 1)·(a⁴ + a³ + a² + a + 1)), −1/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a²/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a³/((a − 1)·(a⁴ + a³ + a² + a + 1)) )
+└─ Cas a = 1 : L5 devient (0 0 0 0 0 | 1)
+     système incompatible (témoin : 0 = 1)
+
+===== texte niveau 0 =====
+Discussion selon a
+├─ Cas a ≠ 1 (générique) : pivots non nuls, rang 5, solution unique
+│    x = ( −a⁴/((a − 1)·(a⁴ + a³ + a² + a + 1)), −1/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a²/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a³/((a − 1)·(a⁴ + a³ + a² + a + 1)) )
+└─ Cas a = 1 : L5 devient (0 0 0 0 0 | 1)
+     système incompatible (témoin : 0 = 1)
+
+===== texte niveau 1 =====
+Discussion selon a
+├─ Cas a ≠ 1 (générique) : pivots non nuls, rang 5, solution unique
+│    x = ( −a⁴/((a − 1)·(a⁴ + a³ + a² + a + 1)), −1/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a²/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a³/((a − 1)·(a⁴ + a³ + a² + a + 1)) )
+└─ Cas a = 1 : L5 devient (0 0 0 0 0 | 1)
+     système incompatible (témoin : 0 = 1)
+
+===== texte niveau 2 =====
+Discussion selon a
+├─ Cas a ≠ 1 (générique) : pivots non nuls, rang 5, solution unique
+│    x = ( −a⁴/((a − 1)·(a⁴ + a³ + a² + a + 1)), −1/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a²/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a³/((a − 1)·(a⁴ + a³ + a² + a + 1)) )
+│    Réduction de Gauss-Jordan d'une matrice 5×5.
+│       [(-a 1 0 0 0 | 1); (0 -a 1 0 0 | 0); (0 0 -a 1 0 | 0); (0 0 0 -a 1 | 0); (1 0 0 0 -a | 0)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (5,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ On échange les lignes L1 et L5 : L1 ↔ L5.
+│    │  │  [(1 0 0 0 -a | 0); (0 -a 1 0 0 | 0); (0 0 -a 1 0 | 0); (0 0 0 -a 1 | 0); (-a 1 0 0 0 | 1)]
+│    │  └─ On annule le coefficient (5,1) : L5 ← L5 + a·L1.
+│    │     [(1 0 0 0 -a | 0); (0 -a 1 0 0 | 0); (0 0 -a 1 0 | 0); (0 0 0 -a 1 | 0); (0 1 0 0 -a**2 | 1)]
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (5,2) de valeur 1 (stratégie : simplest).
+│    │  ├─ On échange les lignes L2 et L5 : L2 ↔ L5.
+│    │  │  [(1 0 0 0 -a | 0); (0 1 0 0 -a**2 | 1); (0 0 -a 1 0 | 0); (0 0 0 -a 1 | 0); (0 -a 1 0 0 | 0)]
+│    │  └─ On annule le coefficient (5,2) : L5 ← L5 + a·L2.
+│    │     [(1 0 0 0 -a | 0); (0 1 0 0 -a**2 | 1); (0 0 -a 1 0 | 0); (0 0 0 -a 1 | 0); (0 0 1 0 -a**3 | a)]
+│    ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
+│    │  ├─ Choix du pivot en (5,3) de valeur 1 (stratégie : simplest).
+│    │  ├─ On échange les lignes L3 et L5 : L3 ↔ L5.
+│    │  │  [(1 0 0 0 -a | 0); (0 1 0 0 -a**2 | 1); (0 0 1 0 -a**3 | a); (0 0 0 -a 1 | 0); (0 0 -a 1 0 | 0)]
+│    │  └─ On annule le coefficient (5,3) : L5 ← L5 + a·L3.
+│    │     [(1 0 0 0 -a | 0); (0 1 0 0 -a**2 | 1); (0 0 1 0 -a**3 | a); (0 0 0 -a 1 | 0); (0 0 0 1 -a**4 | a**2)]
+│    ├─ Traitement de la colonne 4 (ligne pivot courante : 4).
+│    │  ├─ Choix du pivot en (5,4) de valeur 1 (stratégie : simplest).
+│    │  ├─ On échange les lignes L4 et L5 : L4 ↔ L5.
+│    │  │  [(1 0 0 0 -a | 0); (0 1 0 0 -a**2 | 1); (0 0 1 0 -a**3 | a); (0 0 0 1 -a**4 | a**2); (0 0 0 -a 1 | 0)]
+│    │  └─ On annule le coefficient (5,4) : L5 ← L5 + a·L4.
+│    │     [(1 0 0 0 -a | 0); (0 1 0 0 -a**2 | 1); (0 0 1 0 -a**3 | a); (0 0 0 1 -a**4 | a**2); (0 0 0 0 1 - a**5 | a**3)]
+│    ├─ Traitement de la colonne 5 (ligne pivot courante : 5).
+│    │  ├─ Choix du pivot en (5,5) de valeur 1 − a⁵ (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 5 : L5 ← (−1/((a − 1)·(a⁴ + a³ + a² + a + 1)))·L5.
+│    │  │  [(1 0 0 0 -a | 0); (0 1 0 0 -a**2 | 1); (0 0 1 0 -a**3 | a); (0 0 0 1 -a**4 | a**2); (0 0 0 0 1 | -a**3/((a - 1)*(a**4 + a**3 + a**2 + a + 1)))]
+│    │  ├─ On annule le coefficient (1,5) : L1 ← L1 + a·L5.
+│    │  │  [(1 0 0 0 0 | -a**4/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 1 0 0 -a**2 | 1); (0 0 1 0 -a**3 | a); (0 0 0 1 -a**4 | a**2); (0 0 0 0 1 | -a**3/((a - 1)*(a**4 + a**3 + a**2 + a + 1)))]
+│    │  ├─ On annule le coefficient (2,5) : L2 ← L2 + a²·L5.
+│    │  │  [(1 0 0 0 0 | -a**4/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 1 0 0 0 | -1/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 1 0 -a**3 | a); (0 0 0 1 -a**4 | a**2); (0 0 0 0 1 | -a**3/((a - 1)*(a**4 + a**3 + a**2 + a + 1)))]
+│    │  ├─ On annule le coefficient (3,5) : L3 ← L3 + a³·L5.
+│    │  │  [(1 0 0 0 0 | -a**4/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 1 0 0 0 | -1/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 1 0 0 | -a/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 0 1 -a**4 | a**2); (0 0 0 0 1 | -a**3/((a - 1)*(a**4 + a**3 + a**2 + a + 1)))]
+│    │  └─ On annule le coefficient (4,5) : L4 ← L4 + a⁴·L5.
+│    │     [(1 0 0 0 0 | -a**4/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 1 0 0 0 | -1/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 1 0 0 | -a/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 0 1 0 | -a**2/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 0 0 1 | -a**3/((a - 1)*(a**4 + a**3 + a**2 + a + 1)))]
+│    ├─ Pivots non nuls, rang 5, solution unique : x = ( −a⁴/((a − 1)·(a⁴ + a³ + a² + a + 1)), −1/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a²/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a³/((a − 1)·(a⁴ + a³ + a² + a + 1)) ).
+│    └─ Forme échelonnée réduite atteinte : rang = 5, colonnes pivots = (1, 2, 3, 4, 5).
+│       [(1 0 0 0 0 | -a**4/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 1 0 0 0 | -1/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 1 0 0 | -a/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 0 1 0 | -a**2/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 0 0 1 | -a**3/((a - 1)*(a**4 + a**3 + a**2 + a + 1)))]
+└─ Cas a = 1 : L5 devient (0 0 0 0 0 | 1)
+     système incompatible (témoin : 0 = 1)
+     Réduction de Gauss-Jordan d'une matrice 5×5.
+        [(-1 1 0 0 0 | 1); (0 -1 1 0 0 | 0); (0 0 -1 1 0 | 0); (0 0 0 -1 1 | 0); (1 0 0 0 -1 | 0)]
+     ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+     │  ├─ Choix du pivot en (5,1) de valeur 1 (stratégie : simplest).
+     │  ├─ On échange les lignes L1 et L5 : L1 ↔ L5.
+     │  │  [(1 0 0 0 -1 | 0); (0 -1 1 0 0 | 0); (0 0 -1 1 0 | 0); (0 0 0 -1 1 | 0); (-1 1 0 0 0 | 1)]
+     │  └─ On annule le coefficient (5,1) : L5 ← L5 + 1·L1.
+     │     [(1 0 0 0 -1 | 0); (0 -1 1 0 0 | 0); (0 0 -1 1 0 | 0); (0 0 0 -1 1 | 0); (0 1 0 0 -1 | 1)]
+     ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+     │  ├─ Choix du pivot en (5,2) de valeur 1 (stratégie : simplest).
+     │  ├─ On échange les lignes L2 et L5 : L2 ↔ L5.
+     │  │  [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 -1 1 0 | 0); (0 0 0 -1 1 | 0); (0 -1 1 0 0 | 0)]
+     │  └─ On annule le coefficient (5,2) : L5 ← L5 + 1·L2.
+     │     [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 -1 1 0 | 0); (0 0 0 -1 1 | 0); (0 0 1 0 -1 | 1)]
+     ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
+     │  ├─ Choix du pivot en (5,3) de valeur 1 (stratégie : simplest).
+     │  ├─ On échange les lignes L3 et L5 : L3 ↔ L5.
+     │  │  [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 1 0 -1 | 1); (0 0 0 -1 1 | 0); (0 0 -1 1 0 | 0)]
+     │  └─ On annule le coefficient (5,3) : L5 ← L5 + 1·L3.
+     │     [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 1 0 -1 | 1); (0 0 0 -1 1 | 0); (0 0 0 1 -1 | 1)]
+     ├─ Traitement de la colonne 4 (ligne pivot courante : 4).
+     │  ├─ Choix du pivot en (5,4) de valeur 1 (stratégie : simplest).
+     │  ├─ On échange les lignes L4 et L5 : L4 ↔ L5.
+     │  │  [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 1 0 -1 | 1); (0 0 0 1 -1 | 1); (0 0 0 -1 1 | 0)]
+     │  └─ On annule le coefficient (5,4) : L5 ← L5 + 1·L4.
+     │     [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 1 0 -1 | 1); (0 0 0 1 -1 | 1); (0 0 0 0 0 | 1)]
+     ├─ Aucun pivot non nul disponible dans la colonne 5 : variable x_5 libre.
+     ├─ Système incompatible : la ligne L5 donne 0 = 1 (témoin : 0 = 1).
+     └─ Forme échelonnée réduite atteinte : rang = 4, colonnes pivots = (1, 2, 3, 4).
+        [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 1 0 -1 | 1); (0 0 0 1 -1 | 1); (0 0 0 0 0 | 1)]
+
+===== texte niveau 3 =====
+Discussion selon a
+├─ Cas a ≠ 1 (générique) : pivots non nuls, rang 5, solution unique
+│    x = ( −a⁴/((a − 1)·(a⁴ + a³ + a² + a + 1)), −1/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a²/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a³/((a − 1)·(a⁴ + a³ + a² + a + 1)) )
+│    Réduction de Gauss-Jordan d'une matrice 5×5.
+│       [(-a 1 0 0 0 | 1); (0 -a 1 0 0 | 0); (0 0 -a 1 0 | 0); (0 0 0 -a 1 | 0); (1 0 0 0 -a | 0)]
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (5,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ On échange les lignes L1 et L5 : L1 ↔ L5.
+│    │  │  [(1 0 0 0 -a | 0); (0 -a 1 0 0 | 0); (0 0 -a 1 0 | 0); (0 0 0 -a 1 | 0); (-a 1 0 0 0 | 1)]
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  └─ On annule le coefficient (5,1) : L5 ← L5 + a·L1.
+│    │     [(1 0 0 0 -a | 0); (0 -a 1 0 0 | 0); (0 0 -a 1 0 | 0); (0 0 0 -a 1 | 0); (0 1 0 0 -a**2 | 1)]
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (5,2) de valeur 1 (stratégie : simplest).
+│    │  ├─ On échange les lignes L2 et L5 : L2 ↔ L5.
+│    │  │  [(1 0 0 0 -a | 0); (0 1 0 0 -a**2 | 1); (0 0 -a 1 0 | 0); (0 0 0 -a 1 | 0); (0 -a 1 0 0 | 0)]
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  └─ On annule le coefficient (5,2) : L5 ← L5 + a·L2.
+│    │     [(1 0 0 0 -a | 0); (0 1 0 0 -a**2 | 1); (0 0 -a 1 0 | 0); (0 0 0 -a 1 | 0); (0 0 1 0 -a**3 | a)]
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
+│    │  ├─ Choix du pivot en (5,3) de valeur 1 (stratégie : simplest).
+│    │  ├─ On échange les lignes L3 et L5 : L3 ↔ L5.
+│    │  │  [(1 0 0 0 -a | 0); (0 1 0 0 -a**2 | 1); (0 0 1 0 -a**3 | a); (0 0 0 -a 1 | 0); (0 0 -a 1 0 | 0)]
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  └─ On annule le coefficient (5,3) : L5 ← L5 + a·L3.
+│    │     [(1 0 0 0 -a | 0); (0 1 0 0 -a**2 | 1); (0 0 1 0 -a**3 | a); (0 0 0 -a 1 | 0); (0 0 0 1 -a**4 | a**2)]
+│    ├─ Traitement de la colonne 4 (ligne pivot courante : 4).
+│    │  ├─ Choix du pivot en (5,4) de valeur 1 (stratégie : simplest).
+│    │  ├─ On échange les lignes L4 et L5 : L4 ↔ L5.
+│    │  │  [(1 0 0 0 -a | 0); (0 1 0 0 -a**2 | 1); (0 0 1 0 -a**3 | a); (0 0 0 1 -a**4 | a**2); (0 0 0 -a 1 | 0)]
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  └─ On annule le coefficient (5,4) : L5 ← L5 + a·L4.
+│    │     [(1 0 0 0 -a | 0); (0 1 0 0 -a**2 | 1); (0 0 1 0 -a**3 | a); (0 0 0 1 -a**4 | a**2); (0 0 0 0 1 - a**5 | a**3)]
+│    ├─ Traitement de la colonne 5 (ligne pivot courante : 5).
+│    │  ├─ Choix du pivot en (5,5) de valeur 1 − a⁵ (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 5 : L5 ← (−1/((a − 1)·(a⁴ + a³ + a² + a + 1)))·L5.
+│    │  │  [(1 0 0 0 -a | 0); (0 1 0 0 -a**2 | 1); (0 0 1 0 -a**3 | a); (0 0 0 1 -a**4 | a**2); (0 0 0 0 1 | -a**3/((a - 1)*(a**4 + a**3 + a**2 + a + 1)))]
+│    │  ├─ On annule le coefficient (1,5) : L1 ← L1 + a·L5.
+│    │  │  [(1 0 0 0 0 | -a**4/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 1 0 0 -a**2 | 1); (0 0 1 0 -a**3 | a); (0 0 0 1 -a**4 | a**2); (0 0 0 0 1 | -a**3/((a - 1)*(a**4 + a**3 + a**2 + a + 1)))]
+│    │  ├─ On annule le coefficient (2,5) : L2 ← L2 + a²·L5.
+│    │  │  [(1 0 0 0 0 | -a**4/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 1 0 0 0 | -1/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 1 0 -a**3 | a); (0 0 0 1 -a**4 | a**2); (0 0 0 0 1 | -a**3/((a - 1)*(a**4 + a**3 + a**2 + a + 1)))]
+│    │  ├─ On annule le coefficient (3,5) : L3 ← L3 + a³·L5.
+│    │  │  [(1 0 0 0 0 | -a**4/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 1 0 0 0 | -1/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 1 0 0 | -a/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 0 1 -a**4 | a**2); (0 0 0 0 1 | -a**3/((a - 1)*(a**4 + a**3 + a**2 + a + 1)))]
+│    │  └─ On annule le coefficient (4,5) : L4 ← L4 + a⁴·L5.
+│    │     [(1 0 0 0 0 | -a**4/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 1 0 0 0 | -1/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 1 0 0 | -a/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 0 1 0 | -a**2/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 0 0 1 | -a**3/((a - 1)*(a**4 + a**3 + a**2 + a + 1)))]
+│    ├─ Pivots non nuls, rang 5, solution unique : x = ( −a⁴/((a − 1)·(a⁴ + a³ + a² + a + 1)), −1/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a²/((a − 1)·(a⁴ + a³ + a² + a + 1)), −a³/((a − 1)·(a⁴ + a³ + a² + a + 1)) ).
+│    └─ Forme échelonnée réduite atteinte : rang = 5, colonnes pivots = (1, 2, 3, 4, 5).
+│       [(1 0 0 0 0 | -a**4/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 1 0 0 0 | -1/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 1 0 0 | -a/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 0 1 0 | -a**2/((a - 1)*(a**4 + a**3 + a**2 + a + 1))); (0 0 0 0 1 | -a**3/((a - 1)*(a**4 + a**3 + a**2 + a + 1)))]
+└─ Cas a = 1 : L5 devient (0 0 0 0 0 | 1)
+     système incompatible (témoin : 0 = 1)
+     Réduction de Gauss-Jordan d'une matrice 5×5.
+        [(-1 1 0 0 0 | 1); (0 -1 1 0 0 | 0); (0 0 -1 1 0 | 0); (0 0 0 -1 1 | 0); (1 0 0 0 -1 | 0)]
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+     │  ├─ Choix du pivot en (5,1) de valeur 1 (stratégie : simplest).
+     │  ├─ On échange les lignes L1 et L5 : L1 ↔ L5.
+     │  │  [(1 0 0 0 -1 | 0); (0 -1 1 0 0 | 0); (0 0 -1 1 0 | 0); (0 0 0 -1 1 | 0); (-1 1 0 0 0 | 1)]
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  └─ On annule le coefficient (5,1) : L5 ← L5 + 1·L1.
+     │     [(1 0 0 0 -1 | 0); (0 -1 1 0 0 | 0); (0 0 -1 1 0 | 0); (0 0 0 -1 1 | 0); (0 1 0 0 -1 | 1)]
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+     │  ├─ Choix du pivot en (5,2) de valeur 1 (stratégie : simplest).
+     │  ├─ On échange les lignes L2 et L5 : L2 ↔ L5.
+     │  │  [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 -1 1 0 | 0); (0 0 0 -1 1 | 0); (0 -1 1 0 0 | 0)]
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  └─ On annule le coefficient (5,2) : L5 ← L5 + 1·L2.
+     │     [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 -1 1 0 | 0); (0 0 0 -1 1 | 0); (0 0 1 0 -1 | 1)]
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
+     │  ├─ Choix du pivot en (5,3) de valeur 1 (stratégie : simplest).
+     │  ├─ On échange les lignes L3 et L5 : L3 ↔ L5.
+     │  │  [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 1 0 -1 | 1); (0 0 0 -1 1 | 0); (0 0 -1 1 0 | 0)]
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  └─ On annule le coefficient (5,3) : L5 ← L5 + 1·L3.
+     │     [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 1 0 -1 | 1); (0 0 0 -1 1 | 0); (0 0 0 1 -1 | 1)]
+     ├─ Traitement de la colonne 4 (ligne pivot courante : 4).
+     │  ├─ Choix du pivot en (5,4) de valeur 1 (stratégie : simplest).
+     │  ├─ On échange les lignes L4 et L5 : L4 ↔ L5.
+     │  │  [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 1 0 -1 | 1); (0 0 0 1 -1 | 1); (0 0 0 -1 1 | 0)]
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  └─ On annule le coefficient (5,4) : L5 ← L5 + 1·L4.
+     │     [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 1 0 -1 | 1); (0 0 0 1 -1 | 1); (0 0 0 0 0 | 1)]
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Aucun pivot non nul disponible dans la colonne 5 : variable x_5 libre.
+     ├─ Système incompatible : la ligne L5 donne 0 = 1 (témoin : 0 = 1).
+     └─ Forme échelonnée réduite atteinte : rang = 4, colonnes pivots = (1, 2, 3, 4).
+        [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 1 0 -1 | 1); (0 0 0 1 -1 | 1); (0 0 0 0 0 | 1)]

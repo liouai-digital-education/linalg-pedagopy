@@ -1,0 +1,200 @@
+{
+  "contexte": {
+    "linalg_pedagopy": "3.1.0",
+    "sympy": "1.14.0",
+    "python": "3.13.16",
+    "machine": "Linux-6.18.44-fc-v140-x86_64-with-glibc2.39",
+    "repetitions": 1
+  },
+  "mesures": [
+    {
+      "cas": "t2_asymetrie_factorisation_inverse",
+      "carnet": "tests2",
+      "lent": false,
+      "temps_s": 1.15,
+      "branches": 3,
+      "taille": 80,
+      "erreur": null
+    },
+    {
+      "cas": "t2_blocs_4x4_inverse",
+      "carnet": "tests2",
+      "lent": false,
+      "temps_s": 2.69,
+      "branches": null,
+      "taille": null,
+      "erreur": "Nombre maximal de branches dépassé (max_cases=8)"
+    },
+    {
+      "cas": "t2_circulante_3_parametres_inverse",
+      "carnet": "tests2",
+      "lent": true,
+      "temps_s": 11.97,
+      "branches": null,
+      "taille": null,
+      "erreur": "Profondeur maximale de discussion par cas atteinte (max_depth=3)"
+    },
+    {
+      "cas": "t3_1_singuliere_partout",
+      "carnet": "tests3",
+      "lent": false,
+      "temps_s": 0.09,
+      "branches": 2,
+      "taille": 1,
+      "erreur": null
+    },
+    {
+      "cas": "t3_2_saut_de_rang_3_vers_1",
+      "carnet": "tests3",
+      "lent": false,
+      "temps_s": 0.76,
+      "branches": 3,
+      "taille": 12,
+      "erreur": null
+    },
+    {
+      "cas": "t3_3_surdetermine_3x2",
+      "carnet": "tests3",
+      "lent": false,
+      "temps_s": 0.12,
+      "branches": 2,
+      "taille": 4,
+      "erreur": null
+    },
+    {
+      "cas": "t3_4_conditions_croisees",
+      "carnet": "tests3",
+      "lent": false,
+      "temps_s": 0.43,
+      "branches": 3,
+      "taille": 12,
+      "erreur": null
+    },
+    {
+      "cas": "t3_5_pivot_quadratique",
+      "carnet": "tests3",
+      "lent": false,
+      "temps_s": 0.59,
+      "branches": 3,
+      "taille": 19,
+      "erreur": null
+    },
+    {
+      "cas": "t3_6_parametre_au_denominateur",
+      "carnet": "tests3",
+      "lent": false,
+      "temps_s": 0.14,
+      "branches": 2,
+      "taille": 5,
+      "erreur": null
+    },
+    {
+      "cas": "t3_7_rang_nul",
+      "carnet": "tests3",
+      "lent": false,
+      "temps_s": 0.04,
+      "branches": 2,
+      "taille": 0,
+      "erreur": null
+    },
+    {
+      "cas": "t3_8_strategie_simplest",
+      "carnet": "tests3",
+      "lent": false,
+      "temps_s": 0.12,
+      "branches": 2,
+      "taille": 7,
+      "erreur": null
+    },
+    {
+      "cas": "t3_9_homogene",
+      "carnet": "tests3",
+      "lent": false,
+      "temps_s": 0.39,
+      "branches": 3,
+      "taille": 2,
+      "erreur": null
+    },
+    {
+      "cas": "t4_bloc_triangulaire_6x6",
+      "carnet": "test4",
+      "lent": true,
+      "temps_s": 8.14,
+      "branches": null,
+      "taille": null,
+      "erreur": "Nombre maximal de branches dépassé (max_cases=8)"
+    },
+    {
+      "cas": "t4_bloc_triangulaire_6x6_hypothese",
+      "carnet": "test4",
+      "lent": true,
+      "temps_s": 8.14,
+      "branches": 7,
+      "taille": 25,
+      "erreur": null
+    },
+    {
+      "cas": "t4_bloc_triangulaire_6x6_max16",
+      "carnet": "test4",
+      "lent": true,
+      "temps_s": 9.89,
+      "branches": 10,
+      "taille": 26,
+      "erreur": null
+    },
+    {
+      "cas": "t4_equicorrelation_4x4",
+      "carnet": "test4",
+      "lent": false,
+      "temps_s": 4.07,
+      "branches": 6,
+      "taille": 42,
+      "erreur": null
+    },
+    {
+      "cas": "t4_equicorrelation_5x5_hypothese",
+      "carnet": "test4",
+      "lent": true,
+      "temps_s": 6.38,
+      "branches": 4,
+      "taille": 47,
+      "erreur": null
+    },
+    {
+      "cas": "t4_fleche_6x6",
+      "carnet": "test4",
+      "lent": false,
+      "temps_s": 0.7,
+      "branches": 2,
+      "taille": 32,
+      "erreur": null
+    },
+    {
+      "cas": "t4_permutee_cyclique_5x5",
+      "carnet": "test4",
+      "lent": false,
+      "temps_s": 0.51,
+      "branches": 2,
+      "taille": 62,
+      "erreur": null
+    },
+    {
+      "cas": "t4_tridiagonale_5x5",
+      "carnet": "test4",
+      "lent": false,
+      "temps_s": 3.0,
+      "branches": 5,
+      "taille": 57,
+      "erreur": null
+    },
+    {
+      "cas": "t4_vandermonde_4x4",
+      "carnet": "test4",
+      "lent": false,
+      "temps_s": 0.89,
+      "branches": 4,
+      "taille": 29,
+      "erreur": null
+    }
+  ]
+}

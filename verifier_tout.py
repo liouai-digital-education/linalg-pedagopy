@@ -3,7 +3,7 @@
 Usage (depuis la racine du dépôt, avec ``pip install -e ".[dev,plot,compare]"``) :
 
     python verifier_tout.py            # tout : tests (+ couverture), fiches, ruff, mypy, carnets
-    python verifier_tout.py --rapide   # tests et fiches seulement
+    python verifier_tout.py --rapide   # tests (sans les cas marqués « lent ») et fiches seulement
     python verifier_tout.py --sans-carnets
 
 Étapes bloquantes : tests, validation des fiches, ruff, mypy sur le périmètre strict
@@ -41,7 +41,7 @@ def _lancer(titre: str, commande: list[str], *, bloquant: bool = True) -> bool:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--rapide", action="store_true", help="tests et fiches seulement")
+    parser.add_argument("--rapide", action="store_true", help="tests (sans les cas lents) et fiches seulement")
     parser.add_argument("--sans-carnets", action="store_true", help="ne pas exécuter les carnets")
     args = parser.parse_args()
 
@@ -52,7 +52,8 @@ def main() -> int:
         resultats["tests + couverture"] = _lancer("Tests et couverture", [py, "-m", "coverage", "run", "-m", "pytest"])
         subprocess.run([py, "-m", "coverage", "report", "--skip-covered", "--sort=cover"], cwd=RACINE)
     elif _present("pytest"):
-        resultats["tests"] = _lancer("Tests", [py, "-m", "pytest"])
+        rapide = ["-m", "not lent"] if args.rapide else []
+        resultats["tests"] = _lancer("Tests", [py, "-m", "pytest", *rapide])
     else:
         print("pytest absent : pip install -e \".[dev]\"")
         resultats["tests"] = False

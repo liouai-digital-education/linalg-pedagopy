@@ -396,8 +396,8 @@ Aucune à ce jour.
 
 # Annexe A — Point de reprise pour la prochaine séance
 
-1. Tâche 3.1 : récupérer les matrices des carnets `tests3` et `test4` du bac à sable, les figer en tests de caractérisation, marquer les cas lents, mesurer les temps.
-2. Tâche 3.2 : `factor_policy`, en partant de `_simplify_entry` (`algorithms/gauss_jordan.py`) et `_split_neq` (`core/cases.py`) ; test 5 de `tests3` comme cas de référence.
+1. Tâche 3.1 **faite** : 21 cas reconstruits et figés (`tests/campagnes.py`, `docs/dev/campagnes.md`), mesures de référence dans `docs/dev/mesures/campagnes_3.1.0.json`.
+2. Tâche 3.2 : `factor_policy`, en partant de `_simplify_entry` (`algorithms/gauss_jordan.py`) et `_split_neq` (`core/cases.py`) ; cas de référence `t3_5_pivot_quadratique`, `t2_asymetrie_factorisation_inverse` et `t4_tridiagonale_5x5`. Traiter avec elle la réduction des témoins d'incompatibilité par la condition de la branche (constat 2 de `docs/dev/campagnes.md`).
 
 # Annexe B — Esquisse de l'API cible (version 3.4)
 

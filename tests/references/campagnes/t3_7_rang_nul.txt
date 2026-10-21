@@ -1,0 +1,93 @@
+===== carnet =====
+tests3 — m = 0 annule la matrice : la solution est R² tout entier
+
+===== repr =====
+<CaseSplit selon m : 2 cas — m ≠ 0 | m = 0>
+
+===== str =====
+Discussion selon m
+├─ Cas m ≠ 0 (générique) : pivots non nuls, rang 2, solution unique
+│    x = ( 1, 2 )
+└─ Cas m = 0 : rang 0, infinité de solutions (2 variable(s) libre(s))
+     x = (0, 0) + t_1·(1, 0) + t_2·(0, 1)
+
+===== texte niveau 0 =====
+Discussion selon m
+├─ Cas m ≠ 0 (générique) : pivots non nuls, rang 2, solution unique
+│    x = ( 1, 2 )
+└─ Cas m = 0 : rang 0, infinité de solutions (2 variable(s) libre(s))
+     x = (0, 0) + t_1·(1, 0) + t_2·(0, 1)
+
+===== texte niveau 1 =====
+Discussion selon m
+├─ Cas m ≠ 0 (générique) : pivots non nuls, rang 2, solution unique
+│    x = ( 1, 2 )
+└─ Cas m = 0 : rang 0, infinité de solutions (2 variable(s) libre(s))
+     x = (0, 0) + t_1·(1, 0) + t_2·(0, 1)
+
+===== texte niveau 2 =====
+Discussion selon m
+├─ Cas m ≠ 0 (générique) : pivots non nuls, rang 2, solution unique
+│    x = ( 1, 2 )
+│    Réduction de Gauss-Jordan d'une matrice 2×2.
+│       [(m 0 | m); (0 m | 2*m)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur m (stratégie : simplest).
+│    │  └─ On normalise le pivot de la ligne 1 : L1 ← (1/m)·L1.
+│    │     [(1 0 | 1); (0 m | 2*m)]
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (2,2) de valeur m (stratégie : simplest).
+│    │  └─ On normalise le pivot de la ligne 2 : L2 ← (1/m)·L2.
+│    │     [(1 0 | 1); (0 1 | 2)]
+│    ├─ Pivots non nuls, rang 2, solution unique : x = ( 1, 2 ).
+│    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+│       [(1 0 | 1); (0 1 | 2)]
+└─ Cas m = 0 : rang 0, infinité de solutions (2 variable(s) libre(s))
+     x = (0, 0) + t_1·(1, 0) + t_2·(0, 1)
+     Réduction de Gauss-Jordan d'une matrice 2×2.
+        [(0 0 | 0); (0 0 | 0)]
+     ├─ Aucun pivot non nul disponible dans la colonne 1 : variable x_1 libre.
+     ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+     ├─ Rang 0 < 2 : ensemble affine de solutions avec 2 variable(s) libre(s).
+     └─ Forme échelonnée réduite atteinte : rang = 0, colonnes pivots = ().
+        [(0 0 | 0); (0 0 | 0)]
+
+===== texte niveau 3 =====
+Discussion selon m
+├─ Cas m ≠ 0 (générique) : pivots non nuls, rang 2, solution unique
+│    x = ( 1, 2 )
+│    Réduction de Gauss-Jordan d'une matrice 2×2.
+│       [(m 0 | m); (0 m | 2*m)]
+│    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (1,1) de valeur m (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 1 : L1 ← (1/m)·L1.
+│    │  │  [(1 0 | 1); (0 m | 2*m)]
+│    │  └─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (2,2) de valeur m (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/m)·L2.
+│    │  │  [(1 0 | 1); (0 1 | 2)]
+│    │  └─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    ├─ Pivots non nuls, rang 2, solution unique : x = ( 1, 2 ).
+│    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+│       [(1 0 | 1); (0 1 | 2)]
+└─ Cas m = 0 : rang 0, infinité de solutions (2 variable(s) libre(s))
+     x = (0, 0) + t_1·(1, 0) + t_2·(0, 1)
+     Réduction de Gauss-Jordan d'une matrice 2×2.
+        [(0 0 | 0); (0 0 | 0)]
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Aucun pivot non nul disponible dans la colonne 1 : variable x_1 libre.
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Rang 0 < 2 : ensemble affine de solutions avec 2 variable(s) libre(s).
+     └─ Forme échelonnée réduite atteinte : rang = 0, colonnes pivots = ().
+        [(0 0 | 0); (0 0 | 0)]

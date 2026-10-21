@@ -1,0 +1,5 @@
+===== carnet =====
+tests2 — circulante 3 × 3 en (a, b, c) : l'inversion dépasse les plafonds par défaut
+
+===== erreur =====
+PedagopyError : Profondeur maximale de discussion par cas atteinte (max_depth=3). Fournissez des hypothèses sur les paramètres (assumptions=...).
