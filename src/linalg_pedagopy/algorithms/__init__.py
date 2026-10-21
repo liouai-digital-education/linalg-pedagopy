@@ -18,6 +18,7 @@ from linalg_pedagopy.algorithms.gram_schmidt import (
     GSResult,
 )
 from linalg_pedagopy.algorithms.least_squares import LeastSquares, LSResult
+from linalg_pedagopy.algorithms import products as _products  # noqa: F401  (enregistre matmul, gram…)
 from linalg_pedagopy.algorithms.qr import QR, QRResult
 from linalg_pedagopy.algorithms.triangular import (
     BackSubstitution,

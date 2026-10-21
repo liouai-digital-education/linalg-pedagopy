@@ -44,7 +44,7 @@ from linalg_pedagopy.core.zero import (
     domain_of,
     oracle,
 )
-from linalg_pedagopy.objects.matrix import Matrix, register_gauss_jordan_hook
+from linalg_pedagopy.objects.matrix import Matrix, register_procedure
 from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.render.text import format_value_text
 from linalg_pedagopy.trace.step import Highlight, StepKind
@@ -488,4 +488,4 @@ class GaussJordan(Procedure[GJResult]):
         return AffineSolution(x0=x0_vec, basis=null_basis, free_vars=free_vars)
 
 
-register_gauss_jordan_hook(GaussJordan)
+register_procedure("gauss_jordan", GaussJordan)
