@@ -1,0 +1,68 @@
+===== repr =====
+DetResult(A=Matrix([[1, 2], [2, 4]]), value=0, method='elimination', factors=(), condition=Condition(eqs=(), neqs=()))
+
+===== texte niveau 0 =====
+det A = 0 (méthode : élimination)
+
+===== texte niveau 1 =====
+Calcul du déterminant d'une matrice 2×2 (méthode : élimination).
+├─ On annule le coefficient (2,1) : L2 ← L2 − (2)·L1 (une transvection ne change pas le déterminant).
+├─ Colonne 2 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+└─ det A = 0.
+
+===== texte niveau 2 =====
+Calcul du déterminant d'une matrice 2×2 (méthode : élimination).
+├─ Méthode choisie automatiquement : élimination (Bareiss dès que la matrice contient des paramètres, élimination sinon).
+├─ Colonne 1 : pivot 1.
+├─ On annule le coefficient (2,1) : L2 ← L2 − (2)·L1 (une transvection ne change pas le déterminant).
+├─ Colonne 2 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+└─ det A = 0.
+
+===== texte niveau 3 =====
+Calcul du déterminant d'une matrice 2×2 (méthode : élimination).
+├─ Méthode choisie automatiquement : élimination (Bareiss dès que la matrice contient des paramètres, élimination sinon).
+├─ Colonne 1 : pivot 1.
+├─ On annule le coefficient (2,1) : L2 ← L2 − (2)·L1 (une transvection ne change pas le déterminant).
+├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+├─ Colonne 2 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+└─ det A = 0.
+
+===== markdown niveau 2 =====
+- Calcul du déterminant d'une matrice 2×2 (méthode : élimination).
+  $$\left[\begin{array}{cc} 1 & 2 \\ 2 & 4 \end{array}\right]$$
+  - Méthode choisie automatiquement : élimination (Bareiss dès que la matrice contient des paramètres, élimination sinon).
+  - Colonne 1 : pivot 1.
+  - On annule le coefficient (2,1) : L2 ← L2 − (2)·L1 (une transvection ne change pas le déterminant).
+    $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(2\right) L_{1}} \left[\begin{array}{cc} \boxed{1} & 2 \\ \color{blue}{0} & \color{blue}{0} \end{array}\right]$$
+  - Colonne 2 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+  - det A = 0.
+
+===== latex niveau 2 =====
+\begin{itemize}
+  \item Calcul du déterminant d'une matrice 2×2 (méthode : élimination).
+  \[\left[\begin{array}{cc} 1 & 2 \\ 2 & 4 \end{array}\right]\]
+  \begin{itemize}
+    \item Méthode choisie automatiquement : élimination (Bareiss dès que la matrice contient des paramètres, élimination sinon).
+    \item Colonne 1 : pivot 1.
+    \item On annule le coefficient (2,1) : L2 ← L2 − (2)·L1 (une transvection ne change pas le déterminant).
+    \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(2\right) L_{1}} \left[\begin{array}{cc} \boxed{1} & 2 \\ \color{blue}{0} & \color{blue}{0} \end{array}\right]\]
+    \item Colonne 2 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+    \item det A = 0.
+  \end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-explanation'>
+<details open>
+  <summary>Calcul du déterminant d&#x27;une matrice 2×2 (méthode : élimination).</summary>
+  <div class='pedagopy-math'>\[\left[\begin{array}{cc} 1 & 2 \\ 2 & 4 \end{array}\right]\]</div>
+  <div class='pedagopy-step'>Méthode choisie automatiquement : élimination (Bareiss dès que la matrice contient des paramètres, élimination sinon).</div>
+<div class='pedagopy-step'>Colonne 1 : pivot 1.</div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 − (2)·L1 (une transvection ne change pas le déterminant).<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(2\right) L_{1}} \left[\begin{array}{cc} \boxed{1} & 2 \\ \color{blue}{0} & \color{blue}{0} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Colonne 2 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.</div>
+<div class='pedagopy-step'>det A = 0.</div>
+</details>
+</div>
+
+===== verify =====
+Vérification du déterminant (méthode élimination) par un calcul indépendant (algorithme de Berkowitz) : résultat confirmé.
