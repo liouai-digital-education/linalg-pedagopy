@@ -2,6 +2,11 @@
 
 ## [Non publié] — branche `development`
 
+### Corrections — traces de Gauss-Jordan
+- Transvections (`gj.row_add`) : un multiplicateur somme est parenthésé et le signe est le « − » typographique, en texte, LaTeX, Markdown et HTML. La trace affichait « L2 ← L2 - a − 1·L1 », qui change le sens de l'opération, au lieu de « L2 ← L2 − (a − 1)·L1 ».
+- Système incompatible (`gj.inconsistent`, `EmptySolution._repr_markdown_`) : la parenthèse « (témoin : 0 = 1) », ajoutée même quand la ligne donne 0 = 2 ou 0 = 2 − a, est retirée ; le message annonce seulement « la ligne L3 donne 0 = 2 ».
+- Références de caractérisation régénérées ; exemple du guide 05 mis à jour.
+
 ## [3.1.0] — 2026-10-21
 
 Phase 2 du plan v5 : déterminant exact tracé, thème « Déterminants » du tuteur, annonce des cas singuliers dans `Matrix.inv()`.

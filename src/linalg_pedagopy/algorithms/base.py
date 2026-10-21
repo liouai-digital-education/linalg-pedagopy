@@ -244,7 +244,7 @@ class EmptySolution(SolutionSet):
         wit_tex = sp.latex(self.witness)
         return (
             f"**Système incompatible :** ensemble vide $\\emptyset$.\n\n"
-            f"- Ligne $L_{{{self.row + 1}}}$ : $0 = {wit_tex}$ (témoin : $0 = 1$)."
+            f"- Ligne $L_{{{self.row + 1}}}$ : $0 = {wit_tex}$."
         )
 
 

@@ -153,3 +153,27 @@ def test_gauss_jordan_domain_of_coefficients() -> None:
     with tracing(level=1) as t_ok:
         GaussJordan(M, assumptions="a != 1").run()
     assert not any(c.message_key == "gj.domain" for c in t_ok.tree.children)
+
+
+def test_gauss_jordan_transvection_multiplicateur_somme_parenthese() -> None:
+    a = symbols("a")[0]
+    attendu = "L2 ← L2 − (a − 1)·L1."
+    exp = GaussJordan(Matrix([[1, 0], [a - 1, 1]]), Vector([1, 2])).run().explain(level=2)
+    for rendu in (exp.to_text(), exp.to_latex(), exp.to_markdown(), exp.to_html()):
+        assert attendu in rendu
+        assert "L2 - a" not in rendu
+
+    # Multiplicateur négatif : le signe passe devant la parenthèse
+    exp_neg = GaussJordan(Matrix([[1, 0], [-a - 1, 1]]), Vector([1, 2])).run().explain(level=2)
+    assert "L2 ← L2 + (a + 1)·L1." in exp_neg.to_text()
+
+    # Multiplicateur simple : pas de parenthèses superflues
+    exp_simple = GaussJordan(Matrix([[1, 0], [2, 1]]), Vector([1, 2])).run().explain(level=2)
+    assert "L2 ← L2 − 2·L1." in exp_simple.to_text()
+
+
+def test_gauss_jordan_incompatible_message_sans_temoin_fictif() -> None:
+    exp = GaussJordan(Matrix([[1, 2], [2, 4]]), Vector([3, 8])).run().explain(level=1)
+    texte = exp.to_text()
+    assert "la ligne L2 donne 0 = 2." in texte
+    assert "0 = 1" not in texte

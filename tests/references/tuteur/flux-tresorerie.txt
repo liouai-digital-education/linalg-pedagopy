@@ -43,13 +43,13 @@ Deux versements $c_1$ et $c_2$ totalisent 5 et leur différence $c_1 - c_2$ vaut
   $$\left[\begin{array}{cc|c} 1 & 1 & 5 \\ 1 & -1 & 1 \end{array}\right]$$
   - Traitement de la colonne 1 (ligne pivot courante : 1).
     - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
-    - On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+    - On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
       $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 5 \\ \color{blue}{0} & \color{blue}{-2} & \color{blue}{-4} \end{array}\right]$$
   - Traitement de la colonne 2 (ligne pivot courante : 2).
     - Choix du pivot en (2,2) de valeur −2 (stratégie : simplest).
     - On normalise le pivot de la ligne 2 : L2 ← (−1/2)·L2.
       $$\xrightarrow{L_{2} \leftarrow \left(- \frac{1}{2}\right) L_{2}} \left[\begin{array}{cc|c} 1 & 1 & 5 \\ \color{blue}{0} & \boxed{1} & \color{blue}{2} \end{array}\right]$$
-    - On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+    - On annule le coefficient (1,2) : L1 ← L1 − 1·L2.
       $$\xrightarrow{L_{1} \leftarrow L_{1} - \left(1\right) L_{2}} \left[\begin{array}{cc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{3} \\ 0 & \boxed{1} & 2 \end{array}\right]$$
   - Pivots non nuls, rang 2, solution unique : x = ( 3, 2 ).
     $$\left[\begin{array}{c} 3 \\ 2 \end{array}\right]$$
@@ -76,13 +76,13 @@ Réduction de Gauss-Jordan d'une matrice 2×2.
    [(1 1 | 5); (1 -1 | 1)]
 ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
 │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
-│  └─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+│  └─ On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
 │     [(1 1 | 5); (0 -2 | -4)]
 ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
 │  ├─ Choix du pivot en (2,2) de valeur −2 (stratégie : simplest).
 │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1/2)·L2.
 │  │  [(1 1 | 5); (0 1 | 2)]
-│  └─ On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+│  └─ On annule le coefficient (1,2) : L1 ← L1 − 1·L2.
 │     [(1 0 | 3); (0 1 | 2)]
 ├─ Pivots non nuls, rang 2, solution unique : x = ( 3, 2 ).
 └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
@@ -107,13 +107,13 @@ Deux versements $c_1$ et $c_2$ totalisent 5 et leur différence $c_1 - c_2$ vaut
   $$\left[\begin{array}{cc|c} 1 & 1 & 5 \\ 1 & -1 & 1 \end{array}\right]$$
   - Traitement de la colonne 1 (ligne pivot courante : 1).
     - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
-    - On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+    - On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
       $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 5 \\ \color{blue}{0} & \color{blue}{-2} & \color{blue}{-4} \end{array}\right]$$
   - Traitement de la colonne 2 (ligne pivot courante : 2).
     - Choix du pivot en (2,2) de valeur −2 (stratégie : simplest).
     - On normalise le pivot de la ligne 2 : L2 ← (−1/2)·L2.
       $$\xrightarrow{L_{2} \leftarrow \left(- \frac{1}{2}\right) L_{2}} \left[\begin{array}{cc|c} 1 & 1 & 5 \\ \color{blue}{0} & \boxed{1} & \color{blue}{2} \end{array}\right]$$
-    - On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+    - On annule le coefficient (1,2) : L1 ← L1 − 1·L2.
       $$\xrightarrow{L_{1} \leftarrow L_{1} - \left(1\right) L_{2}} \left[\begin{array}{cc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{3} \\ 0 & \boxed{1} & 2 \end{array}\right]$$
   - Pivots non nuls, rang 2, solution unique : x = ( 3, 2 ).
     $$\left[\begin{array}{c} 3 \\ 2 \end{array}\right]$$

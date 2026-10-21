@@ -154,7 +154,7 @@ Chaque proposition renvoie un `OperationFeedback` (`status` parmi `"invalid"`, `
 s = InteractiveSession(GaussJordan(A, b), mode="predict_reveal")
 print(s.reveal())   # Veuillez d'abord enregistrer votre prédiction avec predict(...) ...
 s.predict("L2 <- L2 - 3 L1")
-print(s.reveal())   # On annule le coefficient (2,1) : L2 ← L2 - 3·L1.
+print(s.reveal())   # On annule le coefficient (2,1) : L2 ← L2 − 3·L1.
 ```
 
 ---

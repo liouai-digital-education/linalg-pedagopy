@@ -31,7 +31,7 @@ La matrice est déjà sous forme échelonnée réduite !
 complet : True
 Veuillez d'abord enregistrer votre prédiction avec predict(...) avant de révéler l'étape.
 Prédiction enregistrée. Vous pouvez maintenant appeler reveal() pour afficher l'étape.
-On annule le coefficient (2,1) : L2 ← L2 - 3·L1.
+On annule le coefficient (2,1) : L2 ← L2 − 3·L1.
 Veuillez d'abord enregistrer votre prédiction avec predict(...) avant de révéler l'étape.
 Veuillez d'abord enregistrer votre prédiction avec predict(...) avant de révéler l'étape.
 [{'step_number': 1, 'masked': False, 'description': 'Coefficient de projection sur q_1 : r_(1,2) = (q_1^T a_2) / (q_1^T q_1) = 1/2.'}, {'step_number': 2, 'masked': True, 'description': '??? (étape à compléter)'}, {'step_number': 3, 'masked': True, 'description': '??? (étape à compléter)'}]
