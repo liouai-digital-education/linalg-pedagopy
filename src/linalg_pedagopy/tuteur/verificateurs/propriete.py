@@ -19,7 +19,7 @@ def verify_property(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 5: verification by defining mathematical property without storing an answer key."""
+    """Vérifie une réponse par sa propriété caractéristique, sans corrigé stocké."""
     prop_kind = str(spec.get("propriete", spec.get("property", "right_inverse")))
 
     with suspend_tracing():

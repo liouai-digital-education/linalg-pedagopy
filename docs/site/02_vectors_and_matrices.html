@@ -354,31 +354,41 @@ A_cubed = A @ A @ A
 </code></pre></div>
 <hr/>
 <h2 id="3-les-4-vues-du-produit-matriciel">3. Les 4 vues du produit matriciel</h2>
-<p>Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. <code>linalg_pedagopy</code> les rend explicites via <code>A.matmul(B, view=...)</code> : le résultat est identique quelle que soit la vue, mais la trace enregistrée (section <code>matrix.matmul.&lt;vue&gt;</code>) détaille le calcul selon la vue choisie :</p>
+<p>Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. <code>linalg_pedagopy</code> les rend explicites avec <code>A.matmul(B, view=...)</code> : le résultat est le même quelle que soit la vue, mais la trace détaille le calcul selon la vue choisie.</p>
 <p><div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
-    AB["Produit Matriciel C = AB"]
-    AB --&gt; V1["1. Combinaison linéaire des colonnes de A"]
-    AB --&gt; V2["2. Produits scalaires ligne-colonne"]
-    AB --&gt; V3["3. Somme de produits externes (Outer Products)"]
-    AB --&gt; V4["4. Coefficients un par un (vue par défaut)"]</pre></div></p>
-<h3 id="31-vue-1-viewcolumns-combinaisons-lineaires-des-colonnes-de">3.1 Vue 1 (<code>view='columns'</code>) : Combinaisons linéaires des colonnes de $A$</h3>
-<p>Chaque colonne $c_j$ de $C$ est une combinaison linéaire des colonnes $a_1, \dots, a_n$ de $A$, avec pour coefficients les composantes de la $j$-ième colonne de $B$ :
-<div class="math-display">$$c_j = A b_j = \sum_{i=1}^n b_{ij} a_i$$</div></p>
-<h3 id="32-vue-2-viewrows-viewentries-produits-scalaires-ligne-colonne">3.2 Vue 2 (<code>view='rows'</code> / <code>view='entries'</code>) : Produits scalaires ligne-colonne</h3>
-<p>Chaque coefficient $c_{ij}$ est le produit scalaire standard entre la $i$-ième ligne de $A$ et la $j$-ième colonne de $B$ :
-<div class="math-display">$$c_{ij} = \text{row}_i(A) \cdot \text{col}_j(B) = \sum_{k=1}^n a_{ik} b_{kj}$$</div></p>
-<h3 id="33-vue-3-viewouter-somme-de-produits-externes-outer-products">3.3 Vue 3 (<code>view='outer'</code>) : Somme de produits externes (<em>Outer Products</em>)</h3>
-<p>Le produit $A B$ est la somme de $n$ matrices de rang 1 formées par les produits externes des colonnes de $A$ et des lignes de $B$ :
+    AB["Produit matriciel C = AB"]
+    AB --&gt; V1["entries (défaut) : produits scalaires ligne · colonne"]
+    AB --&gt; V2["rows : combinaisons des lignes de B"]
+    AB --&gt; V3["columns : combinaisons des colonnes de A"]
+    AB --&gt; V4["outer : somme de produits extérieurs"]</pre></div></p>
+<h3 id="31-vue-entries-par-defaut-produits-scalaires-ligne-colonne">3.1 Vue <code>entries</code> (par défaut) : produits scalaires ligne · colonne</h3>
+<p>Chaque coefficient $c_{ij}$ est le produit scalaire de la $i$-ième ligne de $A$ et de la $j$-ième colonne de $B$ :
+<div class="math-display">$$c_{ij} = \sum_{k=1}^n a_{ik} b_{kj}$$</div></p>
+<h3 id="32-vue-rows-combinaisons-lineaires-des-lignes-de">3.2 Vue <code>rows</code> : combinaisons linéaires des lignes de $B$</h3>
+<p>La $i$-ième ligne de $C$ est une combinaison des lignes $b_1^T, \dots, b_n^T$ de $B$, avec pour coefficients la $i$-ième ligne de $A$ :
+<div class="math-display">$$\text{ligne}_i(C) = \sum_{k=1}^n a_{ik}\, b_k^T$$</div></p>
+<h3 id="33-vue-columns-combinaisons-lineaires-des-colonnes-de">3.3 Vue <code>columns</code> : combinaisons linéaires des colonnes de $A$</h3>
+<p>La $j$-ième colonne de $C$ est une combinaison des colonnes $a_1, \dots, a_n$ de $A$, avec pour coefficients la $j$-ième colonne de $B$ :
+<div class="math-display">$$c_j = A b_j = \sum_{k=1}^n b_{kj}\, a_k$$</div></p>
+<h3 id="34-vue-outer-somme-de-produits-exterieurs">3.4 Vue <code>outer</code> : somme de produits extérieurs</h3>
+<p>Le produit $A B$ est la somme de $n$ matrices de rang au plus 1, produits d'une colonne de $A$ par une ligne de $B$ :
 <div class="math-display">$$A B = \sum_{k=1}^n a_k b_k^T$$</div></p>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tracing
+<p>Pour voir la trace d'une vue, on enregistre le calcul avec <code>tracing</code> puis on l'affiche :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, tracing
+from linalg_pedagopy.render.explanation import Explanation
 
 A = Matrix([[1, 2], [3, 4]])
 B = Matrix([[2, 0], [1, 2]])
-with tracing(level=2):
-    C = A.matmul(B, view="outer")
+with tracing(level=2) as tr:
+    C = A.matmul(B, view="rows")
+print(Explanation(tr.tree).to_text(level=2))
+# Produit matriciel (2×2) @ (2×2) — vue par lignes (combinaisons linéaires des lignes de B).
+# ├─ Ligne 1 du produit : combinaison des lignes de B avec les coefficients (1, 2) -&gt; ( 4, 4 ).
+# ├─ Ligne 2 du produit : combinaison des lignes de B avec les coefficients (3, 4) -&gt; ( 10, 8 ).
+# └─ Résultat du produit matriciel : [(4 4); (10 8)].
 print(C == A @ B)   # True
 </code></pre></div>
-<h3 id="34-matrices-par-blocs">3.4 Matrices par blocs</h3>
+<h3 id="35-matrices-par-blocs">3.5 Matrices par blocs</h3>
 <p>La méthode de classe <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>Matrix.block</code></a> assemble une matrice à partir d'une grille de blocs sous-matriciels :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">A11 = Matrix([[1, 2], [3, 4]])
 A12 = Matrix([[0], [0]])
@@ -389,10 +399,7 @@ M_bloc = Matrix.block([
     [A11, A12],
     [A21, A22]
 ])
-print(M_bloc)
-# [1, 2, 0]
-# [3, 4, 0]
-# [5, 6, 7]
+print(repr(M_bloc))   # Matrix([[1, 2, 0], [3, 4, 0], [5, 6, 7]])
 </code></pre></div>
 <hr/>
 <h2 id="4-analyse-et-proprietes-des-matrices">4. Analyse et Propriétés des Matrices</h2>
@@ -413,19 +420,31 @@ print(M.rank() == M.rows)                # True  (inversible)
 
 a, = symbols("a")
 A = Matrix([[1, a], [0, 1]])
-print(A.inv()) # Matrix([[1, -a], [0, 1]])  (déterminant 1 : aucun cas particulier)
+print(repr(A.inv()))   # Matrix([[1, -a], [0, 1]])  (déterminant 1 : aucun cas particulier)
 
 B = Matrix([[1, a], [a, 1]])
 inv_B = B.inv(strict=False)    # CaseSplit : inversible si a ≠ ±1
 print(type(inv_B).__name__)    # CaseSplit
 for br in inv_B.branches:
     print(br.condition, "-&gt;", "singulière" if br.result is None else "inversible")
-# a ≠ 1 et a ≠ -1 -&gt; inversible
+# a ≠ 1 et a ≠ −1 -&gt; inversible
 # a = 1 -&gt; singulière
-# a = -1 -&gt; singulière
+# a = −1 -&gt; singulière
 </code></pre></div>
 <h3 id="43-reduction-echelonnee-rang-et-sous-espaces-fondamentaux">4.3 Réduction échelonnée, rang et sous-espaces fondamentaux</h3>
-<p>Les méthodes <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>rref</code></a>, <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>rank</code></a> et <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>nullspace</code></a> acceptent un paramètre <code>assumptions</code> pour spécifier des contraintes de branche :</p>
+<p>Les méthodes <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>rref</code></a>, <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>rank</code></a> et <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>nullspace</code></a> acceptent un paramètre <code>assumptions</code> pour spécifier des contraintes de branche. Avec des paramètres, elles renvoient une discussion par cas (<code>CaseSplit</code>) :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">a, = symbols("a")
+P = Matrix([[1, a], [a, 1]])
+print(P.rank())
+# Discussion selon a
+# ├─ Cas a ≠ 1 et a ≠ −1 (générique) : 2
+# └─ Cas a = 1 ou a = −1 : 1
+print(P.rank(assumptions="a != 1"))
+# Discussion selon a
+# ├─ Cas a ≠ 1 et a ≠ −1 (générique) : 2
+# └─ Cas a = −1 : 1
+</code></pre></div>
+<p>Sans paramètre, le résultat est direct :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">A = Matrix([
     [1, 2, 0, 1],
     [0, 1, 1, 0],
@@ -434,7 +453,7 @@ for br in inv_B.branches:
 
 print(A.rank())        # 2
 R = A.rref()           # Matrix (et non un tuple)
-print(R)               # [[1, 0, -2, 1], [0, 1, 1, 0], [0, 0, 0, 0]]
+print(repr(R))         # Matrix([[1, 0, -2, 1], [0, 1, 1, 0], [0, 0, 0, 0]])
 
 # Base du noyau (Ker A) : tuple de vecteurs
 ker = A.nullspace()
@@ -443,7 +462,7 @@ print(ker)             # (Vector([2, -1, 1, 0]), Vector([-1, 0, 0, 1]))
 # Colonnes pivots et base de l'image (Col A) via GaussJordan
 from linalg_pedagopy import GaussJordan
 gj = GaussJordan(A).run()
-print(gj.pivots)                          # (0, 1)
+print(gj.pivots)                          # (0, 1) : indices à partir de 0 (la trace écrit « colonnes pivots = (1, 2) »)
 im = [A.col(j) for j in gj.pivots]
 print(im)                                 # colonnes pivots de A
 </code></pre></div>
@@ -595,19 +614,23 @@ print(reversal_matrix(3) @ Vector([1, 2, 3]))                       # (3, 2, 1)
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#31-vue-1-viewcolumns-combinaisons-lineaires-des-colonnes-de">3.1 Vue 1 (view='columns') : Combinaisons linéaires des colonnes de $A$</a>
+          <a href="#31-vue-entries-par-defaut-produits-scalaires-ligne-colonne">3.1 Vue entries (par défaut) : produits scalaires ligne · colonne</a>
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#32-vue-2-viewrows-viewentries-produits-scalaires-ligne-colonne">3.2 Vue 2 (view='rows' / view='entries') : Produits scalaires ligne-colonne</a>
+          <a href="#32-vue-rows-combinaisons-lineaires-des-lignes-de">3.2 Vue rows : combinaisons linéaires des lignes de $B$</a>
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#33-vue-3-viewouter-somme-de-produits-externes-outer-products">3.3 Vue 3 (view='outer') : Somme de produits externes (Outer Products)</a>
+          <a href="#33-vue-columns-combinaisons-lineaires-des-colonnes-de">3.3 Vue columns : combinaisons linéaires des colonnes de $A$</a>
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#34-matrices-par-blocs">3.4 Matrices par blocs</a>
+          <a href="#34-vue-outer-somme-de-produits-exterieurs">3.4 Vue outer : somme de produits extérieurs</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#35-matrices-par-blocs">3.5 Matrices par blocs</a>
         </li>
         
         <li class="toc-item ">

@@ -19,7 +19,7 @@ LEVEL_TITLES: dict[int, str] = {
 
 
 def evaluate_twin_spec(twin_spec: str | None) -> TwinExercise | str:
-    """Evaluates the twin exercise generator expression from a YAML sheet."""
+    """Construit l'exercice jumeau décrit par le champ ``jumeau`` d'une fiche (interpréteur sûr)."""
     if not twin_spec:
         return generators.vector_statistics()
     spec = twin_spec.strip()
@@ -36,7 +36,7 @@ def evaluate_twin_spec(twin_spec: str | None) -> TwinExercise | str:
 
 @dataclass
 class HintLadder:
-    """Manager for the 4-level hint ladder of an exercise."""
+    """Échelle d'indices à 4 paliers d'un exercice."""
 
     hints: tuple[str, ...]
     twin_spec: str | None = None
@@ -58,7 +58,7 @@ class HintLadder:
         level: int | None = None,
         current_attempts: int = 0,
     ) -> str:
-        """Unlocks and returns the next hint level (or requested level <= unlocked + 1)."""
+        """Débloque et renvoie le palier suivant (ou le palier demandé, au plus le suivant)."""
         target = (self.unlocked_level + 1) if level is None else level
         if target < 1:
             target = 1
@@ -81,7 +81,7 @@ class HintLadder:
                     rem_att = min_att - delta_att
                     return (
                         f"Déblocage différé : effectuez au moins {rem_att} tentative(s) "
-                        f"avec ex.verify(...) / ex.verifier(...) avant de débloquer le niveau {target}."
+                        f"avec ex.verifier(...) avant de débloquer le niveau {target}."
                     )
 
             if self.unlocked_level > 0 and min_delay > 0:
@@ -102,7 +102,7 @@ class HintLadder:
         return self.format_level(target)
 
     def format_level(self, level: int) -> str:
-        """Formats the content of a hint level (1 to 4)."""
+        """Met en forme le contenu d'un palier (1 à 4)."""
         title = LEVEL_TITLES.get(level, f"Niveau {level}")
         if 1 <= level <= 3:
             idx = level - 1

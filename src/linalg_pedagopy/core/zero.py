@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, replace
 from enum import Enum, auto
 from typing import Any, Iterable, Mapping
@@ -10,7 +11,7 @@ import sympy as sp
 
 from linalg_pedagopy.config import config
 from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
-from linalg_pedagopy.core.exceptions import CaseLimitError, UndecidableZeroError
+from linalg_pedagopy.core.exceptions import CaseLimitError, InvalidAssumptionError, UndecidableZeroError
 from linalg_pedagopy.core.field import emit_core_event, pretty_expr, symbols, to_exact
 
 
@@ -72,7 +73,13 @@ def _normalize_assumptions(assumptions: Any) -> Condition:
             else:
                 cond = cond & _parse_mapping_val(sym, v)
         return cond
-    return Condition.true()
+    raise InvalidAssumptionError(
+        f"Hypothèse non reconnue : {assumptions!r}. Formes acceptées : Condition, chaîne "
+        "(\"a != 1\", \"a = 2\"), liste de chaînes ou dictionnaire ({\"a\": 2}, {\"a\": \"!= 1\"})."
+    )
+
+
+_ORDRE = re.compile(r"<=|>=|<|>")
 
 
 def _parse_mapping_val(sym: sp.Symbol, v: Any) -> Condition:
@@ -92,6 +99,12 @@ def _parse_mapping_val(sym: sp.Symbol, v: Any) -> Condition:
 
 def _parse_single_assumption(s: str) -> Condition:
     s = s.strip()
+    if _ORDRE.search(s):
+        raise InvalidAssumptionError(
+            f"Hypothèse {s!r} : les inégalités d'ordre (<, >, <=, >=) ne sont pas prises en compte. "
+            "Seules les conditions « paramètre = valeur » et « paramètre != valeur » le sont "
+            "(par exemple \"a != 0\")."
+        )
     if "!=" in s:
         lhs_s, rhs_s = s.split("!=", 1)
         lhs = to_exact(lhs_s.strip())
@@ -111,7 +124,10 @@ def _parse_single_assumption(s: str) -> Condition:
         lhs = to_exact(lhs_s.strip())
         rhs = to_exact(rhs_s.strip())
         return Condition.eq(lhs, rhs)
-    return Condition.true()
+    raise InvalidAssumptionError(
+        f"Hypothèse {s!r} non reconnue : écrivez « paramètre = valeur » ou « paramètre != valeur » "
+        "(par exemple \"a != 1\")."
+    )
 
 
 def _extract_polynomial_factors(num: sp.Expr) -> list[sp.Expr]:

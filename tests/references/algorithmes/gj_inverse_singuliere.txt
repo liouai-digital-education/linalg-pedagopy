@@ -7,6 +7,8 @@ rang 1, colonnes pivots [1]
 ===== texte niveau 1 =====
 Réduction de Gauss-Jordan d'une matrice 2×2.
    [(1 2 | 1 0); (2 4 | 0 1)]
+├─ On annule le coefficient (2,1) : L2 ← L2 − 2·L1.
+│  [(1 2 | 1 0); (0 0 | -2 1)]
 ├─ La matrice est singulière (rang 1 < 2) : elle n'est pas inversible.
 └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
    [(1 2 | 1 0); (0 0 | -2 1)]

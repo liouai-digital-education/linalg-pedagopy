@@ -48,9 +48,9 @@ Dans les deux cas, on vérifie $A B_1 = I_2$ et $A B_2 = I_2$ avec $B_1 \neq B_2
 ===== indice après déblocage complet =====
 **Tous les paliers d'aide sont déjà débloqués** (1 à 4).
 
-- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
-- étudiez l'exercice résolu analogue avec `ex.twin()` ;
-- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+- Relisez un palier avec `ex.indice(1)` … `ex.indice(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.jumeau()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.recommencer()`.
 
 Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
 

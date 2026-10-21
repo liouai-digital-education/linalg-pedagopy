@@ -16,7 +16,7 @@ def verify_dimensions(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 9: dimension algebra and validity of vector/matrix notations."""
+    """Vérifie des dimensions de produits et la validité de notations vectorielles ou matricielles."""
     attendu = spec.get("attendu", spec.get("expected"))
 
     if isinstance(attendu, Mapping):

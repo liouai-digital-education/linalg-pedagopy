@@ -4,9 +4,9 @@ titre: Mesures de sommes de paires
 theme: Moindres carrés et optimisation
 niveau: 2
 type: modelisation
-enonce: 'On cherche à estimer $x \in \mathbb{R}^3$ à partir des 6 mesures bruitées de toutes les paires
-  : $y_1 \approx x_1 + x_2$, $y_2 \approx x_1 + x_3$, $y_3 \approx x_2 + x_3$, et des 3 mesures individuelles
-  $y_4 \approx x_1$, $y_5 \approx x_2$, $y_6 \approx x_3$. Donner la matrice de conception $A$ de taille
+enonce: 'On cherche à estimer $x \in \mathbb{R}^3$ à partir de 6 mesures bruitées : les 3 sommes
+  de paires $y_1 \approx x_1 + x_2$, $y_2 \approx x_1 + x_3$, $y_3 \approx x_2 + x_3$, et les 3 mesures individuelles
+  $y_4 \approx x_1$, $y_5 \approx x_2$, $y_6 \approx x_3$. Donner la matrice du modèle $A$ de taille
   $6 \times 3$ telle que le problème s''écrive $\min_x \|A x - y\|^2$.'
 notions:
 - formulation des moindres carrés ||A x - b||^2

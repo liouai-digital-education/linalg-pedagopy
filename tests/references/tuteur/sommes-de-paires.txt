@@ -3,7 +3,7 @@
 
 *Moindres carrés et optimisation · modélisation · niveau ★★☆*
 
-On cherche à estimer $x \in \mathbb{R}^3$ à partir des 6 mesures bruitées de toutes les paires : $y_1 \approx x_1 + x_2$, $y_2 \approx x_1 + x_3$, $y_3 \approx x_2 + x_3$, et des 3 mesures individuelles $y_4 \approx x_1$, $y_5 \approx x_2$, $y_6 \approx x_3$. Donner la matrice de conception $A$ de taille $6 \times 3$ telle que le problème s'écrive $\min_x \|A x - y\|^2$.
+On cherche à estimer $x \in \mathbb{R}^3$ à partir de 6 mesures bruitées : les 3 sommes de paires $y_1 \approx x_1 + x_2$, $y_2 \approx x_1 + x_3$, $y_3 \approx x_2 + x_3$, et les 3 mesures individuelles $y_4 \approx x_1$, $y_5 \approx x_2$, $y_6 \approx x_3$. Donner la matrice du modèle $A$ de taille $6 \times 3$ telle que le problème s'écrive $\min_x \|A x - y\|^2$.
 
 **Notions** : formulation des moindres carrés ||A x - b||^2, mesures de sommes de paires
 
@@ -65,9 +65,9 @@ L'estimateur des moindres carrés est $\hat{x} = \begin{bmatrix} \frac{7}{3} \\ 
 ===== indice après déblocage complet =====
 **Tous les paliers d'aide sont déjà débloqués** (1 à 4).
 
-- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
-- étudiez l'exercice résolu analogue avec `ex.twin()` ;
-- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+- Relisez un palier avec `ex.indice(1)` … `ex.indice(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.jumeau()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.recommencer()`.
 
 Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
 
@@ -186,7 +186,7 @@ True True True True True True ()
 **Identifiant** : `sommes-de-paires` | **N°** : 34 | **Thème** : Moindres carrés et optimisation | **Type** : modelisation | **Niveau** : ★★☆
 
 ### Énoncé
-On cherche à estimer $x \in \mathbb{R}^3$ à partir des 6 mesures bruitées de toutes les paires : $y_1 \approx x_1 + x_2$, $y_2 \approx x_1 + x_3$, $y_3 \approx x_2 + x_3$, et des 3 mesures individuelles $y_4 \approx x_1$, $y_5 \approx x_2$, $y_6 \approx x_3$. Donner la matrice de conception $A$ de taille $6 \times 3$ telle que le problème s'écrive $\min_x \|A x - y\|^2$.
+On cherche à estimer $x \in \mathbb{R}^3$ à partir de 6 mesures bruitées : les 3 sommes de paires $y_1 \approx x_1 + x_2$, $y_2 \approx x_1 + x_3$, $y_3 \approx x_2 + x_3$, et les 3 mesures individuelles $y_4 \approx x_1$, $y_5 \approx x_2$, $y_6 \approx x_3$. Donner la matrice du modèle $A$ de taille $6 \times 3$ telle que le problème s'écrive $\min_x \|A x - y\|^2$.
 
 ### Spécification de vérification
 ```yaml

@@ -106,7 +106,7 @@ Pour ajouter une langue, il suffit de créer `locales/<code>.yaml` avec les mêm
 Le sous-module [`linalg_pedagopy.plot`](../src/linalg_pedagopy/plot/geometry.py) fournit des représentations géométriques directes des concepts vectoriels via Matplotlib.
 
 > [!NOTE]
-> Ce module nécessite l'installation de la dépendance facultative : `pip install linalg_pedagopy[plot]`.
+> Ce module nécessite la dépendance facultative Matplotlib : `pip install -e ".[plot]"` depuis le dépôt.
 
 ### 2.1 Fonctions graphiques disponibles
 
@@ -146,6 +146,9 @@ plt.show()
 
 Le module [`linalg_pedagopy.compare`](../src/linalg_pedagopy/compare/numeric.py) permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 `float64` sous NumPy).
 
+> [!NOTE]
+> Ce module nécessite la dépendance facultative NumPy : `pip install -e ".[compare]"` depuis le dépôt. Sans NumPy, le reste du paquet fonctionne, et les fonctions de comparaison lèvent une `ImportError` qui indique cette commande.
+
 ### 3.1 La fonction universelle `compare`
 
 ```python
@@ -167,7 +170,7 @@ Le rapport [`ComparisonReport`](../src/linalg_pedagopy/compare/numeric.py) conti
 La matrice de Läuchli $L(\epsilon) \in \mathbb{R}^{(n+1) \times n}$ est définie par :
 $$L(\epsilon) = \begin{bmatrix} 1 & 1 & \dots & 1 \\ \epsilon & 0 & \dots & 0 \\ 0 & \epsilon & \dots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \dots & \epsilon \end{bmatrix}$$
 
-Pour $\epsilon$ très petit (par exemple $\epsilon = 10^{-8}$), l'algorithme de Gram-Schmidt classique en virgule flottante perd totalement l'orthogonalité des vecteurs générés ($\|Q^T Q - I\| \approx 1$).
+Pour $\epsilon$ très petit (par exemple $\epsilon = 10^{-8}$), l'algorithme de Gram-Schmidt classique en virgule flottante perd l'orthogonalité des vecteurs générés : $\|Q^T Q - I\| \approx 1/2$, car $q_2$ et $q_3$ font un angle de 60° au lieu de 90°.
 
 ```python
 from linalg_pedagopy.compare import build_lauchli_matrix, compare

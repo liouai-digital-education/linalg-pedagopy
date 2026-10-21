@@ -6,8 +6,8 @@ contrôle croisé de la validation. La séance, la validation des fiches et les 
 forme attendue lisent ce registre au lieu d'enchaîner des ``if v_type in (...)``.
 
 Pour ajouter un type : écrire sa fonction de vérification, puis appeler
-``register_verifier(VerifierType(...))`` dans un nouveau module de ``tutor/verifiers/``, importé
-par ``tutor/verifiers/__init__.py``.
+``register_verifier(VerifierType(...))`` dans un nouveau module de ``tuteur/verificateurs/``, importé
+par ``tuteur/verificateurs/__init__.py``.
 """
 
 from __future__ import annotations

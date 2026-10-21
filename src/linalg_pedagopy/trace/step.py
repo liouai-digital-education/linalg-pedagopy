@@ -51,15 +51,24 @@ class Step:
     children: tuple[Step, ...] = ()
 
     def filter_level(self, max_level: int) -> Step | None:
-        """Renvoie une copie de l'arbre filtrée jusqu'au niveau max_level."""
+        """Renvoie une copie de l'arbre filtrée jusqu'au niveau max_level.
+
+        Une section plus détaillée que ``max_level`` disparaît, mais ses étapes visibles
+        remontent à sa place : les opérations de lignes (niveau 1), rangées dans les sections
+        de colonne (niveau 2), restent affichées au niveau 1.
+        """
         if self.message_key != "trace.root" and self.level > max_level:
             return None
-        filtered_children = tuple(
-            fc
-            for child in self.children
-            if (fc := child.filter_level(max_level)) is not None
-        )
-        return replace(self, children=filtered_children)
+        return replace(self, children=self._filtered_children(max_level))
+
+    def _filtered_children(self, max_level: int) -> tuple[Step, ...]:
+        kept: list[Step] = []
+        for child in self.children:
+            if child.level <= max_level:
+                kept.append(replace(child, children=child._filtered_children(max_level)))
+            else:
+                kept.extend(child._filtered_children(max_level))
+        return tuple(kept)
 
     def __iter__(self) -> Iterator[Step]:
         return iter(self.children)

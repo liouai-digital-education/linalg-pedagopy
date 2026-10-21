@@ -1,10 +1,10 @@
 ===== labo sans prédiction =====
-Engagez-vous avant d'explorer : enregistrez d'abord votre prédiction avec ex.predict(...) / ex.predire(...), puis ouvrez le laboratoire.
+Engagez-vous avant d'explorer : enregistrez d'abord votre prédiction avec ex.predire(...), puis ouvrez le laboratoire.
 
 ===== prédiction =====
 **Prédiction enregistrée** : `{'a': 'peut être faux', 'b': 'toujours vrai', 'c': 'peut être faux'}`.
 
-> Le laboratoire de contre-exemples est maintenant ouvert via `ex.lab()` / `ex.labo()`.
+> Le laboratoire de contre-exemples est maintenant ouvert via `ex.labo()`.
 
 ===== test ['(1, 0, 0)', '(1, 1, 0)', '(0, 0, 1)'] =====
 True {'a': False, 'b': True, 'c': False} True

@@ -8,6 +8,18 @@ x = ( (a − 4)/(a − 1), 1/(a − 1), 2/(a − 1) )
 ===== texte niveau 1 =====
 Réduction de Gauss-Jordan d'une matrice 3×3.
    [(1 1 1 | 1); (1 a 1 | 2); (1 1 a | 3)]
+├─ On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
+│  [(1 1 1 | 1); (0 a - 1 0 | 1); (1 1 a | 3)]
+├─ On annule le coefficient (3,1) : L3 ← L3 − 1·L1.
+│  [(1 1 1 | 1); (0 a - 1 0 | 1); (0 0 a - 1 | 2)]
+├─ On normalise le pivot de la ligne 2 : L2 ← (1/(a − 1))·L2.
+│  [(1 1 1 | 1); (0 1 0 | 1/(a - 1)); (0 0 a - 1 | 2)]
+├─ On annule le coefficient (1,2) : L1 ← L1 − 1·L2.
+│  [(1 0 1 | (a - 2)/(a - 1)); (0 1 0 | 1/(a - 1)); (0 0 a - 1 | 2)]
+├─ On normalise le pivot de la ligne 3 : L3 ← (1/(a − 1))·L3.
+│  [(1 0 1 | (a - 2)/(a - 1)); (0 1 0 | 1/(a - 1)); (0 0 1 | 2/(a - 1))]
+├─ On annule le coefficient (1,3) : L1 ← L1 − 1·L3.
+│  [(1 0 0 | (a - 4)/(a - 1)); (0 1 0 | 1/(a - 1)); (0 0 1 | 2/(a - 1))]
 ├─ Pivots non nuls, rang 3, solution unique : x = ( (a − 4)/(a − 1), 1/(a − 1), 2/(a − 1) ).
 └─ Forme échelonnée réduite atteinte : rang = 3, colonnes pivots = (1, 2, 3).
    [(1 0 0 | (a - 4)/(a - 1)); (0 1 0 | 1/(a - 1)); (0 0 1 | 2/(a - 1))]

@@ -52,9 +52,9 @@ Calculer le déterminant de $M = \begin{bmatrix} 3 & 1 & 5 & 0 \\ 2 & 2 & 1 & -1
 ===== indice après déblocage complet =====
 **Tous les paliers d'aide sont déjà débloqués** (1 à 4).
 
-- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
-- étudiez l'exercice résolu analogue avec `ex.twin()` ;
-- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+- Relisez un palier avec `ex.indice(1)` … `ex.indice(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.jumeau()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.recommencer()`.
 
 Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
 

@@ -65,7 +65,7 @@ def test_indices_apres_deblocage_complet_et_reinitialisation(tmp_path: Path) -> 
     for lvl in range(1, 5):
         assert f"Niveau {lvl}" in ex.hint()
     recap = ex.hint()
-    assert "Tous les paliers" in recap and "ex.reset()" in recap
+    assert "Tous les paliers" in recap and "ex.recommencer()" in recap
     assert "Niveau 2" in ex.hint(2)
     # nouvelle séance : la progression est reprise
     ex2 = tutor.exercise("moyenne-glissante", journal_path=tmp_path / "j.json")

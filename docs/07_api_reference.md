@@ -6,36 +6,43 @@ Tous les noms ci-dessous sont importables depuis `linalg_pedagopy` (sauf mention
 
 ---
 
-## 1. Table de correspondance bilingue (Anglais / Français)
+## 1. Noms français et anglais
 
-Le package privilégie une **nomenclature primaire anglaise** tout en garantissant des **alias français**. Exception : le **tuteur** s'utilise en français (`linalg_pedagopy.tuteur`) ; ses noms anglais (`linalg_pedagopy.tutor`, `tutor.exercise`, `ex.hint`…) restent disponibles sans avertissement en 0.3.1.2, avec un `DeprecationWarning` en 0.3.2.0, et disparaissent en 0.4.0.0.
+Le paquet emploie des noms anglais avec des alias français, sauf le **tuteur** (`linalg_pedagopy.tuteur`), qui s'utilise en français. Les noms anglais du tuteur (`linalg_pedagopy.tutor`, `tutor.exercise`, `ex.hint`…) restent disponibles sans avertissement en 0.3.1.2, avec un `DeprecationWarning` en 0.3.2.0, et disparaissent en 0.4.0.0.
 
-| API Primaire (Anglais) | Alias Français | Module d'origine |
+**Tuteur** :
+
+| Nom français | Nom anglais (jusqu'à 0.4.0.0) | Module |
 | :--- | :--- | :--- |
-| `tutor` | `tuteur` | `linalg_pedagopy` |
-| `tutor.catalog(theme=None)` | `tuteur.catalogue(theme=None)` | `linalg_pedagopy.tuteur` |
-| `tutor.themes()` | `tuteur.themes()` | `linalg_pedagopy.tuteur` |
-| `tutor.reload_catalog()` | `tuteur.recharger_catalogue()` | `linalg_pedagopy.tuteur` |
-| `tutor.exercise(id)` | `tuteur.exercice(id)` | `linalg_pedagopy.tuteur` |
-| `tutor.list_exercises()` | `tuteur.lister_exercices()` | `linalg_pedagopy.tuteur` |
-| `tutor.validate_sheet(id)` | `tuteur.valider_fiche(id)` | `linalg_pedagopy.tuteur` |
-| `tutor.glossary(term)` | `tuteur.glossaire(term)` | `linalg_pedagopy.tuteur` |
-| `tutor.mode("teacher")` | `tuteur.mode("enseignant")` | `linalg_pedagopy.tuteur` |
-| `tutor.build_panel(ex)` | `tuteur.build_panneau(ex)` | `linalg_pedagopy.tuteur` |
-| `tutor.verify_matrix(...)`, `verify_value(...)`… | `tuteur.verifier_matrice(...)`, `verifier_valeur(...)`… | `linalg_pedagopy.tuteur` |
-| `ExerciseSession` | `ExerciceSession` | `linalg_pedagopy.tuteur` |
-| `ex.statement()` | `ex.enonce()` | `ExerciseSession` |
-| `ex.data` | `ex.donnees` | `ExerciseSession` |
-| `ex.hint(level=None)` | `ex.indice(niveau=None)` | `ExerciseSession` |
-| `ex.twin()` | `ex.jumeau()` | `ExerciseSession` |
-| `ex.predict(...)` | `ex.predire(...)` | `ExerciseSession` |
-| `ex.lab()` | `ex.labo()` | `ExerciseSession` |
-| `ex.verify(...)` | `ex.verifier(...)` | `ExerciseSession` |
-| `ex.summary()` | `ex.bilan()` | `ExerciseSession` |
-| `ex.reset()` | `ex.recommencer()` | `ExerciseSession` |
-| `ex.title`, `ex.number`, `ex.level` | `ex.titre`, `ex.numero`, `ex.niveau` | `ExerciseSession` |
-| `ex.panel()` | `ex.panneau()` | `ExerciseSession` |
-| `ex.teacher_sheet()` | `ex.fiche_enseignant()` | `ExerciseSession` |
+| `tuteur` | `tutor` | `linalg_pedagopy` |
+| `tuteur.catalogue(theme=None)` | `tutor.catalog(theme=None)` | `linalg_pedagopy.tuteur` |
+| `tuteur.themes()` | `tutor.themes()` | `linalg_pedagopy.tuteur` |
+| `tuteur.recharger_catalogue()` | `tutor.reload_catalog()` | `linalg_pedagopy.tuteur` |
+| `tuteur.exercice(id)` | `tutor.exercise(id)` | `linalg_pedagopy.tuteur` |
+| `tuteur.lister_exercices()` | `tutor.list_exercises()` | `linalg_pedagopy.tuteur` |
+| `tuteur.valider_fiche(id)` | `tutor.validate_sheet(id)` | `linalg_pedagopy.tuteur` |
+| `tuteur.glossaire(term)` | `tutor.glossary(term)` | `linalg_pedagopy.tuteur` |
+| `tuteur.mode("enseignant")` | `tutor.mode("teacher")` | `linalg_pedagopy.tuteur` |
+| `tuteur.build_panneau(ex)` | `tutor.build_panel(ex)` | `linalg_pedagopy.tuteur` |
+| `tuteur.verifier_matrice(...)`, `verifier_valeur(...)`… | `tutor.verify_matrix(...)`, `verify_value(...)`… | `linalg_pedagopy.tuteur` |
+| `ExerciceSession` | `ExerciseSession` | `linalg_pedagopy.tuteur` |
+| `ex.enonce()` | `ex.statement()` | `ExerciseSession` |
+| `ex.donnees` | `ex.data` | `ExerciseSession` |
+| `ex.indice(level=None)` | `ex.hint(level=None)` | `ExerciseSession` |
+| `ex.jumeau()` | `ex.twin()` | `ExerciseSession` |
+| `ex.predire(...)` | `ex.predict(...)` | `ExerciseSession` |
+| `ex.labo()` | `ex.lab()` | `ExerciseSession` |
+| `ex.verifier(...)` | `ex.verify(...)` | `ExerciseSession` |
+| `ex.bilan()` | `ex.summary()` | `ExerciseSession` |
+| `ex.recommencer()` | `ex.reset()` | `ExerciseSession` |
+| `ex.titre`, `ex.numero`, `ex.niveau` | `ex.title`, `ex.number`, `ex.level` | `ExerciseSession` |
+| `ex.panneau()` | `ex.panel()` | `ExerciseSession` |
+| `ex.fiche_enseignant()` | `ex.teacher_sheet()` | `ExerciseSession` |
+
+**Reste du paquet** (alias français durables) :
+
+| Nom anglais | Alias français | Module |
+| :--- | :--- | :--- |
 | `generators` | `generateurs` | `linalg_pedagopy.exercises` |
 | `generators.moving_average(window, n)` | `generateurs.moyenne_glissante(fenetre, n)` | `linalg_pedagopy.exercises.generators` |
 | `generators.gram_schmidt_example()` | `generateurs.gram_schmidt_exemple()` | `linalg_pedagopy.exercises.generators` |
@@ -57,7 +64,7 @@ Convertit un entier, une `Fraction`, une chaîne (`"2/3"`, `"sqrt(2)"`), une exp
 Crée des symboles SymPy munis par défaut de l'hypothèse `real=True` (toujours un tuple : `a, = symbols("a")`).
 
 #### `match_symbol_substitutions(free_syms, mapping) -> dict[sympy.Symbol, sympy.Expr]`
-Fait correspondre les clés d'un dictionnaire de substitution (symboles ou noms) aux symboles libres, par leur nom.
+À importer depuis `linalg_pedagopy.core.field`. Fait correspondre les clés d'un dictionnaire de substitution (symboles ou noms) aux symboles libres, par leur nom.
 
 #### `choose_domain(entries) -> Domain`
 Choisit le domaine SymPy (`ZZ`, `QQ`, `EX`…) adapté aux coefficients, pour les calculs `DomainMatrix`.
@@ -112,14 +119,22 @@ Partition disjointe de l'espace des paramètres.
 PedagopyError (Exception)
 ├── DimensionMismatchError    (ValueError)
 ├── InexactInputError         (ValueError)
+├── InvalidAssumptionError    (ValueError)
 ├── SingularMatrixError       (ArithmeticError)
 ├── LinearDependenceError     (ArithmeticError)
 ├── RankDeficientError        (ArithmeticError)
 ├── UndecidableZeroError      (ArithmeticError)
 ├── UndefinedOperationError   (ArithmeticError)
+├── CaseLimitError
 ├── LockedExerciseDataError   (PermissionError)
 └── UnknownExerciseError      (LookupError)
+
+PedagogicalWarning (UserWarning)
 ```
+
+- `InvalidAssumptionError` : hypothèse non reconnue (inégalité d'ordre comme `"a > 0"`, syntaxe inconnue).
+- `CaseLimitError` : discussion par cas arrêtée par `max_cases` ou `max_depth` (attributs `limit`, `value`, `reached`, `factors`, `condition`, `suggested_assumption`).
+- `PedagogicalWarning` : avertissement didactique (Gauss-Jordan sur une matrice à paramètres plus grande que `config.max_generic_dim`).
 
 ---
 
@@ -180,7 +195,7 @@ Matrice immuable $m \times n$ à coefficients exacts. Constructeur : `Matrix(row
 - `nullspace(*, assumptions=None) -> tuple[Vector, ...] | CaseSplit[...]`.
 - `inv(*, assumptions=None, strict=True) -> Matrix | None | CaseSplit[Matrix | None]` : lève `SingularMatrixError` si `strict=True` et la matrice peut être singulière ; avec des paramètres, le message donne le déterminant et les valeurs singulières.
 - `solve(b, *, assumptions=None, strict=False)` : résolution de $A x = b$ par Gauss-Jordan.
-- `det(*, method="auto", assumptions=None) -> Expr` : déterminant exact factorisé, via `Determinant` (voir § 4.6).
+- `det(*, method="auto", assumptions=None) -> Expr | CaseSplit[Expr]` : déterminant exact factorisé, via `Determinant` (voir § 4.6) ; une discussion par cas seulement avec `method="elimination"` sur une matrice à paramètres.
 
 #### Constructeurs
 - `Matrix.identity(n)`, `Matrix.zeros(m, n=None)`, `Matrix.ones(m, n=None)`, `Matrix.diag(diagonal)`.
@@ -266,8 +281,8 @@ LeastSquares(A, b, *, method="rational_qr", assumptions=None)
 Determinant(A, *, method="auto", assumptions=None)
 ```
 - `A` : matrice carrée (sinon `DimensionMismatchError`).
-- `method` : `"auto"` (Bareiss si la matrice contient des paramètres, élimination sinon), `"bareiss"`, `"elimination"` (sans dilatation ; `PedagopyError` sur un pivot conditionnel), `"cofactors"` ($n \le 4$, sinon `PedagopyError`) ou `"sarrus"` ($n = 3$, sinon `DimensionMismatchError`).
-- `.run()` → `DetResult` (jamais de `CaseSplit` : le déterminant d'une matrice paramétrée est un polynôme en les paramètres).
+- `method` : `"auto"` (Bareiss si la matrice contient des paramètres, élimination sinon), `"bareiss"`, `"elimination"` (sans dilatation), `"cofactors"` ($n \le 4$, sinon `PedagopyError`) ou `"sarrus"` ($n = 3$, sinon `DimensionMismatchError`).
+- `.run()` → `DetResult`. Avec `"elimination"`, un pivot qui dépend d'un paramètre et peut s'annuler ouvre une discussion : le résultat est alors un `CaseSplit[DetResult]`. Les autres méthodes renvoient toujours un `DetResult` (le déterminant d'une matrice paramétrée est un polynôme en les paramètres).
 - Champs de `DetResult` : `A`, `value` (forme factorisée), `method`, `factors` (couples `(facteur, multiplicité)`), `condition` (hypothèses et domaine de définition).
 - `zeros(*, split=False)` : conditions d'annulation (`tuple[Condition, ...]`, disjonction) ; avec `split=True`, « inversible ? » sous forme de `bool` ou de `CaseSplit[bool]`.
 - `verify()` : contrôle par un calcul indépendant (algorithme de Berkowitz).
@@ -280,61 +295,63 @@ Determinant(A, *, method="auto", assumptions=None)
 - `suspend_tracing()` : suspend l'enregistrement.
 - `section(message_key, *, level=1, ...)`, `record(kind, message_key, *, level=1, ...)` : primitives d'enregistrement pour écrire de nouvelles procédures.
 - `Step`, `StepKind`, `Highlight` : nœuds de l'arbre de trace.
-- `Explanation` : `to_text(level=None)`, `to_latex(level=None)`, `to_markdown(level=None)`, `to_html(level=None)`, `to_table(level=None)`, `save(path, *, fmt=None)` ; rendu automatique dans Jupyter.
+- `Explanation` : `to_text(level=None)`, `to_latex(level=None)`, `to_markdown(level=None)`, `to_html(level=None, *, standalone=True)` (page complète par défaut), `to_table(level=None)`, `save(path, *, fmt=None)` ; rendu automatique dans Jupyter.
 - `TraceTable` (`render.table`), renvoyé par `to_table()` : `to_html(standalone=False)`, `to_markdown()`, `to_latex(standalone=False)`, `sections` (une par branche d'une discussion et par algorithme), `layout` de chaque section (`"elimination"`, `"gram_schmidt"`, `"substitution"`), `rows` de chaque section (`kind`, `number`, `column`, `pivot`, `subject`, `detail`, `operation_latex`, `text`, `matrix`) ; affichage HTML automatique dans Jupyter.
 
 ---
 
 ## 6. Module `linalg_pedagopy.tuteur` (noms anglais : `tutor`)
 
+Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0.
+
 Sous-modules : `catalogue` (fiches, thèmes, glossaire, mode), `seance` (`ExerciseSession`), `validation` (`validate_sheet`), `verificateurs/` (un module par type de vérification), `registre` (registre des types), `indices`, `journal`, `labo`, `verrou`, `panneau`, `evaluation_sure` (interpréteur sûr des expressions des fiches et des saisies). Les anciens chemins `linalg_pedagopy.tutor.catalog`, `.verifiers`… réexportent les mêmes noms jusqu'à 0.4.0.0.
 
 ### 6.1 Catalogue
 
-#### `catalog(theme=None) -> ExerciseCatalog` (alias `catalogue`)
+#### `catalogue(theme=None) -> ExerciseCatalog` (anglais : `catalog`)
 Table des exercices (tuple de dictionnaires `numero`, `id`, `titre`, `theme`, `type`, `niveau`, `notions`), rendue en tableau Markdown dans JupyterLab et groupée par thème avec `print`. `theme` filtre sur une partie du nom du thème.
 
 #### `themes() -> list[str]`
 Les thèmes, dans l'ordre du cours (constante `THEMES`).
 
-#### `list_exercises(theme=None) -> list[str]` (alias `lister_exercices`)
+#### `lister_exercices(theme=None) -> list[str]` (anglais : `list_exercises`)
 Identifiants des exercices dans l'ordre du catalogue.
 
-#### `exercise(ref, *, journal_path=None) -> ExerciseSession` (alias `exercice`)
-Ouvre une séance. `ref` est un identifiant (`"moyenne-glissante"`), un numéro (`16` ou `"16"`) ou un titre exact. Lève `UnknownExerciseError` (avec suggestions) si l'exercice n'existe pas.
+#### `exercice(ex_id, *, journal_path=None) -> ExerciseSession` (anglais : `exercise`)
+Ouvre une séance. `ex_id` est un identifiant (`"moyenne-glissante"`), un numéro (`16` ou `"16"`) ou un titre exact. Lève `UnknownExerciseError` (avec suggestions) si l'exercice n'existe pas.
 
-#### `validate_sheet(ref) -> ValidationReport` (alias `valider_fiche`)
-Valide une fiche (champs, métadonnées, numéro unique, vérificateur, jumeau, absence de fuite, contrôle croisé) sans écrire dans le journal. `ValidationReport` : `valid`, `target_ok`, `twin_ok`, `hints_leak_free`, `source_ok` (métadonnées de catalogue), `cross_check_ok`, `errors` (alias `valide`, `cible_ok`, `jumeau_ok`, `indices_sans_fuite`, `erreurs`).
+#### `valider_fiche(ex_id) -> ValidationReport` (anglais : `validate_sheet`)
+Valide une fiche (champs, métadonnées, numéro unique, vérificateur, jumeau, absence de fuite, contrôle croisé) sans écrire dans le journal. `ValidationReport` : `valide`, `cible_ok`, `jumeau_ok`, `indices_sans_fuite`, `source_ok` (métadonnées de catalogue), `cross_check_ok`, `erreurs` (noms anglais : `valid`, `target_ok`, `twin_ok`, `hints_leak_free`, `errors`).
 
-#### `reload_catalog()` (alias `recharger_catalogue`)
+#### `recharger_catalogue()` (anglais : `reload_catalog`)
 Relit les fiches sur le disque.
 
-#### `glossary(term=None) -> str` (alias `glossaire`)
+#### `glossaire(term=None) -> str` (anglais : `glossary`)
 Définition d'un terme (anglais ou français, recherche partielle) ; sans argument, la liste des 40 termes. Lève `KeyError` avec des suggestions si le terme est absent.
 
 #### `mode(new_mode=None) -> str`
-Lit ou fixe `config.tutor_mode` (`"student"`, `"teacher"`, `"etudiant"`, `"enseignant"`).
+Lit ou fixe `config.tutor_mode` (`"etudiant"` ou `"enseignant"` ; `"student"` et `"teacher"` sont acceptés).
 
-### 6.2 Classe `ExerciseSession` (alias `ExerciceSession`)
+### 6.2 Classe `ExerciceSession` (anglais : `ExerciseSession`)
 
-- Attributs : `id`, `number`/`numero`, `title`/`titre`, `theme`, `level`/`niveau`, `type`, `notions`, `text`/`texte` (énoncé brut), `data`/`donnees` (`LockedNamespace`), `journal` (`ExerciseJournal`), `predictions`.
-- `statement() -> MarkdownText` (alias `enonce`) : titre, thème, type, niveau, énoncé et notions.
-- `hint(level=None, *, niveau=None) -> MarkdownText` (alias `indice`) : palier suivant (1 à 4) ou relecture d'un palier débloqué ; récapitulatif quand tout est débloqué.
-- `twin() -> TwinExercise` (alias `jumeau`) : exercice analogue résolu (`title`, `statement`, `solution_summary`, `explanation`).
-- `predict(*args, **kwargs) -> MarkdownText` (alias `predire`) : enregistre une prédiction (obligatoire avant `lab()`).
-- `lab() -> CounterexampleLab` (alias `labo`) ; `lab.test(**instances) -> LabReport` (`hypotheses_satisfied`, `results_by_part`, `found_counterexample`, `message`).
-- `verify(response) -> VerificationResult` (alias `verifier`) : `valid`, `diagnostic`, `simplicity_note` (alias `valide`, `note_simplicite`). Une réponse de forme inattendue donne un diagnostic, jamais une exception.
-- `summary() -> MarkdownText` (alias `bilan`) : bilan de la séance.
-- `reset() -> MarkdownText` (alias `recommencer`) : efface la progression sur l'exercice.
-- `panel()` (alias `panneau`) : panneau `ipywidgets` (ou `PanelFallback`).
-- `teacher_sheet() -> TeacherSheet` (alias `fiche_enseignant`) : fiche complète, mode enseignant uniquement (`PermissionError` sinon).
+- Attributs : `id`, `numero`, `titre`, `theme`, `niveau`, `type`, `notions`, `texte` (énoncé brut), `donnees` (`LockedNamespace`), `journal` (`ExerciseJournal`), `predictions` (noms anglais : `number`, `title`, `level`, `text`, `data`).
+- `enonce() -> MarkdownText` (anglais : `statement`) : titre, thème, type, niveau, énoncé et notions.
+- `indice(level=None, *, niveau=None) -> MarkdownText` (anglais : `hint`) : palier suivant (1 à 4) ou relecture d'un palier débloqué ; récapitulatif quand tout est débloqué.
+- `jumeau() -> TwinExercise` (anglais : `twin`) : exercice analogue résolu (`title`, `statement`, `solution_summary`, `explanation`).
+- `predire(*args, **kwargs) -> MarkdownText` (anglais : `predict`) : enregistre une prédiction (obligatoire avant `labo()`).
+- `labo() -> CounterexampleLab` (anglais : `lab`) ; `lab.tester(**instances) -> LabReport` (anglais : `test`) : `hypotheses_satisfied`, `results_by_part`, `found_counterexample`, `message`.
+- `verifier(reponse) -> VerificationResult` (anglais : `verify`) : `valide`, `diagnostic`, `note_simplicite` (noms anglais : `valid`, `simplicity_note`). Une réponse de forme inattendue donne un diagnostic, jamais une exception.
+- `bilan() -> MarkdownText` (anglais : `summary`) : bilan de la séance.
+- `recommencer() -> MarkdownText` (anglais : `reset`) : efface la progression sur l'exercice.
+- `panneau()` (anglais : `panel`) : panneau `ipywidgets` (ou `PanneauFallback`).
+- `fiche_enseignant() -> TeacherSheet` (anglais : `teacher_sheet`) : fiche complète, mode enseignant uniquement (`PermissionError` sinon).
 
 ---
 
 ## 7. Modules `exercises`, `compare` et `plot`
 
-- `linalg_pedagopy.exercises` : `generate_unimodular_matrix`, `generate_integer_rref_matrix`, `generate_rational_qr_matrix`, `generate_clean_least_squares`, `generate_parametric_system`, `cayley_orthogonal`, `generators` / `generateurs`, `TwinExercise` (20 générateurs, voir le guide 05), `InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)`, `check_row_operation`, `check_gram_schmidt_step`, `OperationFeedback` (voir [guide 05](05_pedagogical_exercises_and_sessions.md)).
-- `linalg_pedagopy.compare` (extra `compare`, NumPy) : `compare(procedure, inputs=None) -> ComparisonReport`, `build_lauchli_matrix(n=3, epsilon=1/10**8)`, `build_hilbert_matrix(n)`, `lauchli_gram_schmidt_experiment`, `lauchli_least_squares_experiment`, `hilbert_conditioning_experiment`, `explicit_inverse_vs_solve_experiment` (voir [guide 06](06_rendering_visualization_and_numerics.md)).
+- `linalg_pedagopy.exercises` : `generate_unimodular_matrix`, `generate_integer_rref_matrix`, `generate_rational_qr_matrix`, `generate_clean_least_squares`, `generate_parametric_system`, `cayley_orthogonal`, `generators` / `generateurs`, `TwinExercise` (24 générateurs, voir le guide 05), `InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)`, `check_row_operation`, `check_gram_schmidt_step`, `OperationFeedback` (voir [guide 05](05_pedagogical_exercises_and_sessions.md)).
+- `linalg_pedagopy.compare` (extra `compare`, NumPy ; importer avec `from linalg_pedagopy.compare import …`, car `linalg_pedagopy.compare` désigne aussi la fonction `compare`) : `compare(procedure, inputs=None) -> ComparisonReport`, `build_lauchli_matrix(n=3, epsilon=1/10**8)`, `build_hilbert_matrix(n)`, `lauchli_gram_schmidt_experiment`, `lauchli_least_squares_experiment`, `hilbert_conditioning_experiment`, `explicit_inverse_vs_solve_experiment` (voir [guide 06](06_rendering_visualization_and_numerics.md)).
 - `linalg_pedagopy.plot` (extra `plot`, Matplotlib) : `plot_linear_combination_2d`, `plot_orthogonal_projection_2d`, `plot_gram_schmidt_2d`, `plot_least_squares_fit`, `plot_least_squares_geometry_3d`.
 
 ---

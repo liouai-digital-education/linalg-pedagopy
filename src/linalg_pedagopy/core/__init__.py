@@ -5,6 +5,7 @@ from __future__ import annotations
 from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
 from linalg_pedagopy.core.exceptions import (
     CaseLimitError,
+    InvalidAssumptionError,
     DimensionMismatchError,
     InexactInputError,
     LinearDependenceError,
@@ -23,6 +24,7 @@ from linalg_pedagopy.core.zero import Verdict, ZeroDecision, ZeroOracle, oracle
 __all__ = [
     "Branch",
     "CaseLimitError",
+    "InvalidAssumptionError",
     "CaseSplit",
     "Condition",
     "DimensionMismatchError",

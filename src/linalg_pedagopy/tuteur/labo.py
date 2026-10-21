@@ -1,4 +1,4 @@
-"""Counterexample laboratory for true/false exercises."""
+"""Laboratoire de contre-exemples des exercices vrai/faux."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ _LAB_VAULT: WeakKeyDictionary[Any, dict[str, Any]] = WeakKeyDictionary()
 
 
 def _eval_math_predicate(expr_str: str, env: Mapping[str, Any]) -> bool:
-    """Evaluates a mathematical predicate (==, <=, >=, <, >) on Vector/Matrix in exact arithmetic."""
+    """Évalue un prédicat (==, <=, >=, <, >) sur des vecteurs ou des matrices, en calcul exact."""
     local_env: dict[str, Any] = dict(env)
     local_env.update(
         {
@@ -75,7 +75,7 @@ def _eval_math_predicate(expr_str: str, env: Mapping[str, Any]) -> bool:
 
 
 def _structured_vector_candidates() -> list[dict[str, Vector]]:
-    """Structured families of vectors in R^2 and R^3 (zero, canonical, collinear, orthogonal)."""
+    """Familles de vecteurs structurées de R^2 et R^3 (nul, canoniques, colinéaires, orthogonaux)."""
     e1 = Vector([1, 0, 0])
     e2 = Vector([0, 1, 0])
     e3 = Vector([0, 0, 1])
@@ -96,7 +96,7 @@ def _structured_vector_candidates() -> list[dict[str, Vector]]:
 
 @dataclass(frozen=True)
 class LabReport:
-    """Result of an instance test in the counterexample laboratory."""
+    """Résultat du test d'une instance au laboratoire de contre-exemples."""
 
     hypotheses_satisfied: bool
     results_by_part: Mapping[str, bool]
@@ -108,7 +108,7 @@ class LabReport:
 
 
 class CounterexampleLab:
-    """Exploration and counterexample testing laboratory."""
+    """Laboratoire d'exploration et de test de contre-exemples."""
 
     __slots__ = ("__weakref__",)
 
@@ -122,7 +122,7 @@ class CounterexampleLab:
         if not predictions:
             raise PedagopyError(
                 "Engagez-vous avant d'explorer : enregistrez d'abord "
-                "votre prédiction avec ex.predict(...) / ex.predire(...), puis ouvrez le laboratoire."
+                "votre prédiction avec ex.predire(...), puis ouvrez le laboratoire."
             )
         _LAB_VAULT[self] = {
             "spec": dict(verification_spec),
@@ -138,7 +138,7 @@ class CounterexampleLab:
         return dict(_LAB_VAULT[self]["predictions"])
 
     def _has_internal_counterexample(self, pred_expr: str, hypotheses: list[str]) -> bool:
-        """Internal search on structured families without ever disclosing the counterexample."""
+        """Recherche interne sur les familles structurées, sans jamais divulguer le contre-exemple."""
         for cand in _structured_vector_candidates():
             try:
                 if all(_eval_math_predicate(h, cand) for h in hypotheses):
@@ -149,7 +149,7 @@ class CounterexampleLab:
         return False
 
     def test(self, **instances: Any) -> LabReport:
-        """Tests a student-provided instance against the exercise hypotheses and claims."""
+        """Teste l'instance proposée par l'étudiant contre les hypothèses et les affirmations de l'exercice."""
         st = _LAB_VAULT[self]
         on_test = st["on_test"]
         if on_test is not None:

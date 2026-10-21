@@ -3,7 +3,7 @@
 
 *Orthogonalisation · calcul · niveau ★★★*
 
-On donne les vecteurs $a_1 = (1, 2, -1)$, $a_2 = (2, 0, 1)$ et $a_3 = (0, 4, -3)$ de $\mathbb{R}^3$. En appliquant Gram-Schmidt, déterminer le résidu orthogonal $\tilde{q}_3$ obtenu à la 3ᵉ étape (ou indiquer son carré de norme \|\tilde{q}_3\|^2 pour tester l'indépendance).
+On donne les vecteurs $a_1 = (1, 2, -1)$, $a_2 = (2, 0, 1)$ et $a_3 = (0, 4, -3)$ de $\mathbb{R}^3$. En appliquant Gram-Schmidt, déterminer le résidu orthogonal $\tilde{q}_3$ obtenu à la 3ᵉ étape (ou indiquer son carré de norme $\|\tilde{q}_3\|^2$ pour tester l'indépendance).
 
 **Notions** : test d'indépendance linéaire par Gram-Schmidt
 
@@ -60,9 +60,9 @@ On orthogonalise successivement : $\tilde q_k = a_k - \sum_{j<k} \frac{\tilde q_
 ===== indice après déblocage complet =====
 **Tous les paliers d'aide sont déjà débloqués** (1 à 4).
 
-- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
-- étudiez l'exercice résolu analogue avec `ex.twin()` ;
-- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+- Relisez un palier avec `ex.indice(1)` … `ex.indice(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.jumeau()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.recommencer()`.
 
 Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
 
@@ -172,7 +172,7 @@ True True True True True True ()
 **Identifiant** : `independance-gram-schmidt` | **N°** : 15 | **Thème** : Orthogonalisation | **Type** : calcul | **Niveau** : ★★★
 
 ### Énoncé
-On donne les vecteurs $a_1 = (1, 2, -1)$, $a_2 = (2, 0, 1)$ et $a_3 = (0, 4, -3)$ de $\mathbb{R}^3$. En appliquant Gram-Schmidt, déterminer le résidu orthogonal $\tilde{q}_3$ obtenu à la 3ᵉ étape (ou indiquer son carré de norme \|\tilde{q}_3\|^2 pour tester l'indépendance).
+On donne les vecteurs $a_1 = (1, 2, -1)$, $a_2 = (2, 0, 1)$ et $a_3 = (0, 4, -3)$ de $\mathbb{R}^3$. En appliquant Gram-Schmidt, déterminer le résidu orthogonal $\tilde{q}_3$ obtenu à la 3ᵉ étape (ou indiquer son carré de norme $\|\tilde{q}_3\|^2$ pour tester l'indépendance).
 
 ### Spécification de vérification
 ```yaml

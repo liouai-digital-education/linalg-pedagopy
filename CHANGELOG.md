@@ -2,6 +2,22 @@
 
 ## [Non publié] — branche `development`
 
+### Corrections — lot 1 de la revue de la documentation
+- **Niveaux de trace** : `explain(level=1)` de Gauss-Jordan n'affichait aucune opération de lignes, rangées dans les sections de colonne de niveau 2 et retirées avec elles. Une section plus détaillée que le niveau demandé disparaît désormais, mais ses étapes visibles remontent (`Step.filter_level`). Le niveau 1 montre les opérations et les matrices, comme l'annoncent le guide 03, le README et l'accueil. 16 références enrichies (lignes ajoutées seulement).
+- **Substitutions triangulaires** : avec un coefficient diagonal qui peut s'annuler, `BackSubstitution` et `ForwardSubstitution` ne renvoyaient que la branche générique (`at(a=0)` échouait). La discussion ajoute les branches singulières, où le résultat le signale (`singular`, `singular_index`) au lieu de la solution.
+- **Hypothèses** : une hypothèse non reconnue (« a > 0 », « a », type inconnu) était ignorée sans prévenir. Nouvelle exception `InvalidAssumptionError` (`PedagopyError`, `ValueError`), avec un message propre aux inégalités d'ordre, non prises en compte.
+- **Configuration** : `using_config` acceptait des valeurs invalides (`factor_policy="x"`, `default_trace_level=4`), et `max_cases`, `max_case_depth` n'étaient jamais validés. Validation commune aux affectations et à `using_config`.
+- **Tuteur** : les messages vus par l'étudiant ne citent plus que les noms français (`tuteur.catalogue()`, `ex.predire`, `ex.indice`, `lab.tester`…) ; les 37 docstrings encore en anglais sont traduites. Fiches : énoncé de « sommes de paires » corrigé (3 sommes de paires et 3 mesures individuelles, « matrice du modèle ») ; formule de « indépendance par Gram-Schmidt » rendue en LaTeX.
+
+### Documentation — lot 1 de la revue
+- Guide 02 : les quatre vues du produit matriciel (`entries`, `rows`, `columns`, `outer`) corrigées, avec un exemple de trace ; sorties de `print(Matrix)` remplacées par `repr` ; discussion par cas de `rank()` ; indices des pivots à partir de 0.
+- Guide 03 : tableau des niveaux de trace d'après les sorties réelles ; formes acceptées pour `assumptions` ; `GJResult` ou `CaseSplit` ; conditions des substitutions et branches singulières ; sorties regroupées du § 7.
+- Guide 01 : `is_zero` lève `UndecidableZeroError` pour les verdicts `CONDITIONAL` et `UNKNOWN`.
+- Guide 06 : écart à l'orthonormalité de Gram-Schmidt classique ≈ 1/2 (et non 1) ; installation des options `plot` et `compare` depuis le dépôt.
+- Référence de l'API (07) : noms du tuteur en français d'abord ; `Determinant(method="elimination")` peut renvoyer un `CaseSplit` ; hiérarchie des exceptions complétée (`InvalidAssumptionError`, `CaseLimitError`, `PedagogicalWarning`) ; 24 générateurs ; import de `compare`.
+- Guides 04 et 05 : noms français dans le texte, bilan cohérent avec l'exemple, journal du tuteur ; table des 24 générateurs de jumeaux (nom français d'abord, thème Déterminants compris).
+- Tutoriel : témoin de dépendance de Gram-Schmidt (`witness.a_coeffs`). README et accueil : journal du tuteur créé dans le répertoire courant. Site : « 39 exercices ».
+
 ## [0.3.1.2] — 2026-10-21
 
 Phases 4, 5 et 6 du plan v6, et traces en tableau. Pas de publication sur PyPI pour cette version (reportée à une version ultérieure).

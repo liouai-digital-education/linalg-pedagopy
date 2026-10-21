@@ -1,7 +1,7 @@
 """Vérificateurs du tuteur : un module par type de vérification.
 
 Chaque module contient la fonction de vérification, son contrôle croisé (validation des fiches)
-et l'enregistrement du type dans le registre (``tutor/registry.py``), forme attendue comprise.
+et l'enregistrement du type dans le registre (``tuteur/registre.py``), forme attendue comprise.
 L'import de ce paquet enregistre tous les types.
 """
 

@@ -165,137 +165,150 @@
 <p>Ce document constitue la référence des modules, classes, fonctions et exceptions publics du package <code>linalg_pedagopy</code>. Les signatures sont celles du code source (<code>src/linalg_pedagopy</code>).</p>
 <p>Tous les noms ci-dessous sont importables depuis <code>linalg_pedagopy</code> (sauf mention d'un sous-module).</p>
 <hr/>
-<h2 id="1-table-de-correspondance-bilingue-anglais-francais">1. Table de correspondance bilingue (Anglais / Français)</h2>
-<p>Le package privilégie une <strong>nomenclature primaire anglaise</strong> tout en garantissant des <strong>alias français</strong>. Exception : le <strong>tuteur</strong> s'utilise en français (<code>linalg_pedagopy.tuteur</code>) ; ses noms anglais (<code>linalg_pedagopy.tutor</code>, <code>tutor.exercise</code>, <code>ex.hint</code>…) restent disponibles sans avertissement en 0.3.1.2, avec un <code>DeprecationWarning</code> en 0.3.2.0, et disparaissent en 0.4.0.0.</p>
+<h2 id="1-noms-francais-et-anglais">1. Noms français et anglais</h2>
+<p>Le paquet emploie des noms anglais avec des alias français, sauf le <strong>tuteur</strong> (<code>linalg_pedagopy.tuteur</code>), qui s'utilise en français. Les noms anglais du tuteur (<code>linalg_pedagopy.tutor</code>, <code>tutor.exercise</code>, <code>ex.hint</code>…) restent disponibles sans avertissement en 0.3.1.2, avec un <code>DeprecationWarning</code> en 0.3.2.0, et disparaissent en 0.4.0.0.</p>
+<p><strong>Tuteur</strong> :</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">API Primaire (Anglais)</th>
-<th style="text-align: left;">Alias Français</th>
-<th style="text-align: left;">Module d'origine</th>
+<th style="text-align: left;">Nom français</th>
+<th style="text-align: left;">Nom anglais (jusqu'à 0.4.0.0)</th>
+<th style="text-align: left;">Module</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;"><code>tutor</code></td>
 <td style="text-align: left;"><code>tuteur</code></td>
+<td style="text-align: left;"><code>tutor</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>tutor.catalog(theme=None)</code></td>
 <td style="text-align: left;"><code>tuteur.catalogue(theme=None)</code></td>
+<td style="text-align: left;"><code>tutor.catalog(theme=None)</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>tutor.themes()</code></td>
 <td style="text-align: left;"><code>tuteur.themes()</code></td>
+<td style="text-align: left;"><code>tutor.themes()</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>tutor.reload_catalog()</code></td>
 <td style="text-align: left;"><code>tuteur.recharger_catalogue()</code></td>
+<td style="text-align: left;"><code>tutor.reload_catalog()</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>tutor.exercise(id)</code></td>
 <td style="text-align: left;"><code>tuteur.exercice(id)</code></td>
+<td style="text-align: left;"><code>tutor.exercise(id)</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>tutor.list_exercises()</code></td>
 <td style="text-align: left;"><code>tuteur.lister_exercices()</code></td>
+<td style="text-align: left;"><code>tutor.list_exercises()</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>tutor.validate_sheet(id)</code></td>
 <td style="text-align: left;"><code>tuteur.valider_fiche(id)</code></td>
+<td style="text-align: left;"><code>tutor.validate_sheet(id)</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>tutor.glossary(term)</code></td>
 <td style="text-align: left;"><code>tuteur.glossaire(term)</code></td>
+<td style="text-align: left;"><code>tutor.glossary(term)</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>tutor.mode("teacher")</code></td>
 <td style="text-align: left;"><code>tuteur.mode("enseignant")</code></td>
+<td style="text-align: left;"><code>tutor.mode("teacher")</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>tutor.build_panel(ex)</code></td>
 <td style="text-align: left;"><code>tuteur.build_panneau(ex)</code></td>
+<td style="text-align: left;"><code>tutor.build_panel(ex)</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>tutor.verify_matrix(...)</code>, <code>verify_value(...)</code>…</td>
 <td style="text-align: left;"><code>tuteur.verifier_matrice(...)</code>, <code>verifier_valeur(...)</code>…</td>
+<td style="text-align: left;"><code>tutor.verify_matrix(...)</code>, <code>verify_value(...)</code>…</td>
 <td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ExerciseSession</code></td>
 <td style="text-align: left;"><code>ExerciceSession</code></td>
+<td style="text-align: left;"><code>ExerciseSession</code></td>
 <td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ex.statement()</code></td>
 <td style="text-align: left;"><code>ex.enonce()</code></td>
+<td style="text-align: left;"><code>ex.statement()</code></td>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ex.data</code></td>
 <td style="text-align: left;"><code>ex.donnees</code></td>
+<td style="text-align: left;"><code>ex.data</code></td>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
+<td style="text-align: left;"><code>ex.indice(level=None)</code></td>
 <td style="text-align: left;"><code>ex.hint(level=None)</code></td>
-<td style="text-align: left;"><code>ex.indice(niveau=None)</code></td>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ex.twin()</code></td>
 <td style="text-align: left;"><code>ex.jumeau()</code></td>
+<td style="text-align: left;"><code>ex.twin()</code></td>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ex.predict(...)</code></td>
 <td style="text-align: left;"><code>ex.predire(...)</code></td>
+<td style="text-align: left;"><code>ex.predict(...)</code></td>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ex.lab()</code></td>
 <td style="text-align: left;"><code>ex.labo()</code></td>
+<td style="text-align: left;"><code>ex.lab()</code></td>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ex.verify(...)</code></td>
 <td style="text-align: left;"><code>ex.verifier(...)</code></td>
+<td style="text-align: left;"><code>ex.verify(...)</code></td>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ex.summary()</code></td>
 <td style="text-align: left;"><code>ex.bilan()</code></td>
+<td style="text-align: left;"><code>ex.summary()</code></td>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ex.reset()</code></td>
 <td style="text-align: left;"><code>ex.recommencer()</code></td>
+<td style="text-align: left;"><code>ex.reset()</code></td>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ex.title</code>, <code>ex.number</code>, <code>ex.level</code></td>
 <td style="text-align: left;"><code>ex.titre</code>, <code>ex.numero</code>, <code>ex.niveau</code></td>
+<td style="text-align: left;"><code>ex.title</code>, <code>ex.number</code>, <code>ex.level</code></td>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ex.panel()</code></td>
 <td style="text-align: left;"><code>ex.panneau()</code></td>
+<td style="text-align: left;"><code>ex.panel()</code></td>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
 <tr>
-<td style="text-align: left;"><code>ex.teacher_sheet()</code></td>
 <td style="text-align: left;"><code>ex.fiche_enseignant()</code></td>
+<td style="text-align: left;"><code>ex.teacher_sheet()</code></td>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 </tr>
+</tbody>
+</table>
+<p><strong>Reste du paquet</strong> (alias français durables) :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Nom anglais</th>
+<th style="text-align: left;">Alias français</th>
+<th style="text-align: left;">Module</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td style="text-align: left;"><code>generators</code></td>
 <td style="text-align: left;"><code>generateurs</code></td>
@@ -332,7 +345,7 @@
 <h4 id="symbolsnames-assumptions-tuplesympysymbol"><code>symbols(*names, **assumptions) -&gt; tuple[sympy.Symbol, ...]</code></h4>
 <p>Crée des symboles SymPy munis par défaut de l'hypothèse <code>real=True</code> (toujours un tuple : <code>a, = symbols("a")</code>).</p>
 <h4 id="match_symbol_substitutionsfree_syms-mapping-dictsympysymbol-sympyexpr"><code>match_symbol_substitutions(free_syms, mapping) -&gt; dict[sympy.Symbol, sympy.Expr]</code></h4>
-<p>Fait correspondre les clés d'un dictionnaire de substitution (symboles ou noms) aux symboles libres, par leur nom.</p>
+<p>À importer depuis <code>linalg_pedagopy.core.field</code>. Fait correspondre les clés d'un dictionnaire de substitution (symboles ou noms) aux symboles libres, par leur nom.</p>
 <h4 id="choose_domainentries-domain"><code>choose_domain(entries) -&gt; Domain</code></h4>
 <p>Choisit le domaine SymPy (<code>ZZ</code>, <code>QQ</code>, <code>EX</code>…) adapté aux coefficients, pour les calculs <code>DomainMatrix</code>.</p>
 <h3 id="22-oracle-de-nullite-zerooracle">2.2 Oracle de nullité (<code>ZeroOracle</code>)</h3>
@@ -378,14 +391,23 @@
 <div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">PedagopyError (Exception)
 ├── DimensionMismatchError    (ValueError)
 ├── InexactInputError         (ValueError)
+├── InvalidAssumptionError    (ValueError)
 ├── SingularMatrixError       (ArithmeticError)
 ├── LinearDependenceError     (ArithmeticError)
 ├── RankDeficientError        (ArithmeticError)
 ├── UndecidableZeroError      (ArithmeticError)
 ├── UndefinedOperationError   (ArithmeticError)
+├── CaseLimitError
 ├── LockedExerciseDataError   (PermissionError)
 └── UnknownExerciseError      (LookupError)
+
+PedagogicalWarning (UserWarning)
 </code></pre></div>
+<ul>
+<li><code>InvalidAssumptionError</code> : hypothèse non reconnue (inégalité d'ordre comme <code>"a &gt; 0"</code>, syntaxe inconnue).</li>
+<li><code>CaseLimitError</code> : discussion par cas arrêtée par <code>max_cases</code> ou <code>max_depth</code> (attributs <code>limit</code>, <code>value</code>, <code>reached</code>, <code>factors</code>, <code>condition</code>, <code>suggested_assumption</code>).</li>
+<li><code>PedagogicalWarning</code> : avertissement didactique (Gauss-Jordan sur une matrice à paramètres plus grande que <code>config.max_generic_dim</code>).</li>
+</ul>
 <hr/>
 <h2 id="3-module-linalg_pedagopyobjects">3. Module <code>linalg_pedagopy.objects</code></h2>
 <h3 id="31-classe-vector">3.1 Classe <code>Vector</code></h3>
@@ -446,7 +468,7 @@
 <li><code>nullspace(*, assumptions=None) -&gt; tuple[Vector, ...] | CaseSplit[...]</code>.</li>
 <li><code>inv(*, assumptions=None, strict=True) -&gt; Matrix | None | CaseSplit[Matrix | None]</code> : lève <code>SingularMatrixError</code> si <code>strict=True</code> et la matrice peut être singulière ; avec des paramètres, le message donne le déterminant et les valeurs singulières.</li>
 <li><code>solve(b, *, assumptions=None, strict=False)</code> : résolution de $A x = b$ par Gauss-Jordan.</li>
-<li><code>det(*, method="auto", assumptions=None) -&gt; Expr</code> : déterminant exact factorisé, via <code>Determinant</code> (voir § 4.6).</li>
+<li><code>det(*, method="auto", assumptions=None) -&gt; Expr | CaseSplit[Expr]</code> : déterminant exact factorisé, via <code>Determinant</code> (voir § 4.6) ; une discussion par cas seulement avec <code>method="elimination"</code> sur une matrice à paramètres.</li>
 </ul>
 <h4 id="constructeurs">Constructeurs</h4>
 <ul>
@@ -521,8 +543,8 @@ BackSubstitution(R, c, *, assumptions=None)
 </code></pre></div>
 <ul>
 <li><code>A</code> : matrice carrée (sinon <code>DimensionMismatchError</code>).</li>
-<li><code>method</code> : <code>"auto"</code> (Bareiss si la matrice contient des paramètres, élimination sinon), <code>"bareiss"</code>, <code>"elimination"</code> (sans dilatation ; <code>PedagopyError</code> sur un pivot conditionnel), <code>"cofactors"</code> ($n \le 4$, sinon <code>PedagopyError</code>) ou <code>"sarrus"</code> ($n = 3$, sinon <code>DimensionMismatchError</code>).</li>
-<li><code>.run()</code> → <code>DetResult</code> (jamais de <code>CaseSplit</code> : le déterminant d'une matrice paramétrée est un polynôme en les paramètres).</li>
+<li><code>method</code> : <code>"auto"</code> (Bareiss si la matrice contient des paramètres, élimination sinon), <code>"bareiss"</code>, <code>"elimination"</code> (sans dilatation), <code>"cofactors"</code> ($n \le 4$, sinon <code>PedagopyError</code>) ou <code>"sarrus"</code> ($n = 3$, sinon <code>DimensionMismatchError</code>).</li>
+<li><code>.run()</code> → <code>DetResult</code>. Avec <code>"elimination"</code>, un pivot qui dépend d'un paramètre et peut s'annuler ouvre une discussion : le résultat est alors un <code>CaseSplit[DetResult]</code>. Les autres méthodes renvoient toujours un <code>DetResult</code> (le déterminant d'une matrice paramétrée est un polynôme en les paramètres).</li>
 <li>Champs de <code>DetResult</code> : <code>A</code>, <code>value</code> (forme factorisée), <code>method</code>, <code>factors</code> (couples <code>(facteur, multiplicité)</code>), <code>condition</code> (hypothèses et domaine de définition).</li>
 <li><code>zeros(*, split=False)</code> : conditions d'annulation (<code>tuple[Condition, ...]</code>, disjonction) ; avec <code>split=True</code>, « inversible ? » sous forme de <code>bool</code> ou de <code>CaseSplit[bool]</code>.</li>
 <li><code>verify()</code> : contrôle par un calcul indépendant (algorithme de Berkowitz).</li>
@@ -534,48 +556,49 @@ BackSubstitution(R, c, *, assumptions=None)
 <li><code>suspend_tracing()</code> : suspend l'enregistrement.</li>
 <li><code>section(message_key, *, level=1, ...)</code>, <code>record(kind, message_key, *, level=1, ...)</code> : primitives d'enregistrement pour écrire de nouvelles procédures.</li>
 <li><code>Step</code>, <code>StepKind</code>, <code>Highlight</code> : nœuds de l'arbre de trace.</li>
-<li><code>Explanation</code> : <code>to_text(level=None)</code>, <code>to_latex(level=None)</code>, <code>to_markdown(level=None)</code>, <code>to_html(level=None)</code>, <code>to_table(level=None)</code>, <code>save(path, *, fmt=None)</code> ; rendu automatique dans Jupyter.</li>
+<li><code>Explanation</code> : <code>to_text(level=None)</code>, <code>to_latex(level=None)</code>, <code>to_markdown(level=None)</code>, <code>to_html(level=None, *, standalone=True)</code> (page complète par défaut), <code>to_table(level=None)</code>, <code>save(path, *, fmt=None)</code> ; rendu automatique dans Jupyter.</li>
 <li><code>TraceTable</code> (<code>render.table</code>), renvoyé par <code>to_table()</code> : <code>to_html(standalone=False)</code>, <code>to_markdown()</code>, <code>to_latex(standalone=False)</code>, <code>sections</code> (une par branche d'une discussion et par algorithme), <code>layout</code> de chaque section (<code>"elimination"</code>, <code>"gram_schmidt"</code>, <code>"substitution"</code>), <code>rows</code> de chaque section (<code>kind</code>, <code>number</code>, <code>column</code>, <code>pivot</code>, <code>subject</code>, <code>detail</code>, <code>operation_latex</code>, <code>text</code>, <code>matrix</code>) ; affichage HTML automatique dans Jupyter.</li>
 </ul>
 <hr/>
 <h2 id="6-module-linalg_pedagopytuteur-noms-anglais-tutor">6. Module <code>linalg_pedagopy.tuteur</code> (noms anglais : <code>tutor</code>)</h2>
+<p>Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0.</p>
 <p>Sous-modules : <code>catalogue</code> (fiches, thèmes, glossaire, mode), <code>seance</code> (<code>ExerciseSession</code>), <code>validation</code> (<code>validate_sheet</code>), <code>verificateurs/</code> (un module par type de vérification), <code>registre</code> (registre des types), <code>indices</code>, <code>journal</code>, <code>labo</code>, <code>verrou</code>, <code>panneau</code>, <code>evaluation_sure</code> (interpréteur sûr des expressions des fiches et des saisies). Les anciens chemins <code>linalg_pedagopy.tutor.catalog</code>, <code>.verifiers</code>… réexportent les mêmes noms jusqu'à 0.4.0.0.</p>
 <h3 id="61-catalogue">6.1 Catalogue</h3>
-<h4 id="catalogthemenone-exercisecatalog-alias-catalogue"><code>catalog(theme=None) -&gt; ExerciseCatalog</code> (alias <code>catalogue</code>)</h4>
+<h4 id="cataloguethemenone-exercisecatalog-anglais-catalog"><code>catalogue(theme=None) -&gt; ExerciseCatalog</code> (anglais : <code>catalog</code>)</h4>
 <p>Table des exercices (tuple de dictionnaires <code>numero</code>, <code>id</code>, <code>titre</code>, <code>theme</code>, <code>type</code>, <code>niveau</code>, <code>notions</code>), rendue en tableau Markdown dans JupyterLab et groupée par thème avec <code>print</code>. <code>theme</code> filtre sur une partie du nom du thème.</p>
 <h4 id="themes-liststr"><code>themes() -&gt; list[str]</code></h4>
 <p>Les thèmes, dans l'ordre du cours (constante <code>THEMES</code>).</p>
-<h4 id="list_exercisesthemenone-liststr-alias-lister_exercices"><code>list_exercises(theme=None) -&gt; list[str]</code> (alias <code>lister_exercices</code>)</h4>
+<h4 id="lister_exercicesthemenone-liststr-anglais-list_exercises"><code>lister_exercices(theme=None) -&gt; list[str]</code> (anglais : <code>list_exercises</code>)</h4>
 <p>Identifiants des exercices dans l'ordre du catalogue.</p>
-<h4 id="exerciseref-journal_pathnone-exercisesession-alias-exercice"><code>exercise(ref, *, journal_path=None) -&gt; ExerciseSession</code> (alias <code>exercice</code>)</h4>
-<p>Ouvre une séance. <code>ref</code> est un identifiant (<code>"moyenne-glissante"</code>), un numéro (<code>16</code> ou <code>"16"</code>) ou un titre exact. Lève <code>UnknownExerciseError</code> (avec suggestions) si l'exercice n'existe pas.</p>
-<h4 id="validate_sheetref-validationreport-alias-valider_fiche"><code>validate_sheet(ref) -&gt; ValidationReport</code> (alias <code>valider_fiche</code>)</h4>
-<p>Valide une fiche (champs, métadonnées, numéro unique, vérificateur, jumeau, absence de fuite, contrôle croisé) sans écrire dans le journal. <code>ValidationReport</code> : <code>valid</code>, <code>target_ok</code>, <code>twin_ok</code>, <code>hints_leak_free</code>, <code>source_ok</code> (métadonnées de catalogue), <code>cross_check_ok</code>, <code>errors</code> (alias <code>valide</code>, <code>cible_ok</code>, <code>jumeau_ok</code>, <code>indices_sans_fuite</code>, <code>erreurs</code>).</p>
-<h4 id="reload_catalog-alias-recharger_catalogue"><code>reload_catalog()</code> (alias <code>recharger_catalogue</code>)</h4>
+<h4 id="exerciceex_id-journal_pathnone-exercisesession-anglais-exercise"><code>exercice(ex_id, *, journal_path=None) -&gt; ExerciseSession</code> (anglais : <code>exercise</code>)</h4>
+<p>Ouvre une séance. <code>ex_id</code> est un identifiant (<code>"moyenne-glissante"</code>), un numéro (<code>16</code> ou <code>"16"</code>) ou un titre exact. Lève <code>UnknownExerciseError</code> (avec suggestions) si l'exercice n'existe pas.</p>
+<h4 id="valider_ficheex_id-validationreport-anglais-validate_sheet"><code>valider_fiche(ex_id) -&gt; ValidationReport</code> (anglais : <code>validate_sheet</code>)</h4>
+<p>Valide une fiche (champs, métadonnées, numéro unique, vérificateur, jumeau, absence de fuite, contrôle croisé) sans écrire dans le journal. <code>ValidationReport</code> : <code>valide</code>, <code>cible_ok</code>, <code>jumeau_ok</code>, <code>indices_sans_fuite</code>, <code>source_ok</code> (métadonnées de catalogue), <code>cross_check_ok</code>, <code>erreurs</code> (noms anglais : <code>valid</code>, <code>target_ok</code>, <code>twin_ok</code>, <code>hints_leak_free</code>, <code>errors</code>).</p>
+<h4 id="recharger_catalogue-anglais-reload_catalog"><code>recharger_catalogue()</code> (anglais : <code>reload_catalog</code>)</h4>
 <p>Relit les fiches sur le disque.</p>
-<h4 id="glossarytermnone-str-alias-glossaire"><code>glossary(term=None) -&gt; str</code> (alias <code>glossaire</code>)</h4>
+<h4 id="glossairetermnone-str-anglais-glossary"><code>glossaire(term=None) -&gt; str</code> (anglais : <code>glossary</code>)</h4>
 <p>Définition d'un terme (anglais ou français, recherche partielle) ; sans argument, la liste des 40 termes. Lève <code>KeyError</code> avec des suggestions si le terme est absent.</p>
 <h4 id="modenew_modenone-str"><code>mode(new_mode=None) -&gt; str</code></h4>
-<p>Lit ou fixe <code>config.tutor_mode</code> (<code>"student"</code>, <code>"teacher"</code>, <code>"etudiant"</code>, <code>"enseignant"</code>).</p>
-<h3 id="62-classe-exercisesession-alias-exercicesession">6.2 Classe <code>ExerciseSession</code> (alias <code>ExerciceSession</code>)</h3>
+<p>Lit ou fixe <code>config.tutor_mode</code> (<code>"etudiant"</code> ou <code>"enseignant"</code> ; <code>"student"</code> et <code>"teacher"</code> sont acceptés).</p>
+<h3 id="62-classe-exercicesession-anglais-exercisesession">6.2 Classe <code>ExerciceSession</code> (anglais : <code>ExerciseSession</code>)</h3>
 <ul>
-<li>Attributs : <code>id</code>, <code>number</code>/<code>numero</code>, <code>title</code>/<code>titre</code>, <code>theme</code>, <code>level</code>/<code>niveau</code>, <code>type</code>, <code>notions</code>, <code>text</code>/<code>texte</code> (énoncé brut), <code>data</code>/<code>donnees</code> (<code>LockedNamespace</code>), <code>journal</code> (<code>ExerciseJournal</code>), <code>predictions</code>.</li>
-<li><code>statement() -&gt; MarkdownText</code> (alias <code>enonce</code>) : titre, thème, type, niveau, énoncé et notions.</li>
-<li><code>hint(level=None, *, niveau=None) -&gt; MarkdownText</code> (alias <code>indice</code>) : palier suivant (1 à 4) ou relecture d'un palier débloqué ; récapitulatif quand tout est débloqué.</li>
-<li><code>twin() -&gt; TwinExercise</code> (alias <code>jumeau</code>) : exercice analogue résolu (<code>title</code>, <code>statement</code>, <code>solution_summary</code>, <code>explanation</code>).</li>
-<li><code>predict(*args, **kwargs) -&gt; MarkdownText</code> (alias <code>predire</code>) : enregistre une prédiction (obligatoire avant <code>lab()</code>).</li>
-<li><code>lab() -&gt; CounterexampleLab</code> (alias <code>labo</code>) ; <code>lab.test(**instances) -&gt; LabReport</code> (<code>hypotheses_satisfied</code>, <code>results_by_part</code>, <code>found_counterexample</code>, <code>message</code>).</li>
-<li><code>verify(response) -&gt; VerificationResult</code> (alias <code>verifier</code>) : <code>valid</code>, <code>diagnostic</code>, <code>simplicity_note</code> (alias <code>valide</code>, <code>note_simplicite</code>). Une réponse de forme inattendue donne un diagnostic, jamais une exception.</li>
-<li><code>summary() -&gt; MarkdownText</code> (alias <code>bilan</code>) : bilan de la séance.</li>
-<li><code>reset() -&gt; MarkdownText</code> (alias <code>recommencer</code>) : efface la progression sur l'exercice.</li>
-<li><code>panel()</code> (alias <code>panneau</code>) : panneau <code>ipywidgets</code> (ou <code>PanelFallback</code>).</li>
-<li><code>teacher_sheet() -&gt; TeacherSheet</code> (alias <code>fiche_enseignant</code>) : fiche complète, mode enseignant uniquement (<code>PermissionError</code> sinon).</li>
+<li>Attributs : <code>id</code>, <code>numero</code>, <code>titre</code>, <code>theme</code>, <code>niveau</code>, <code>type</code>, <code>notions</code>, <code>texte</code> (énoncé brut), <code>donnees</code> (<code>LockedNamespace</code>), <code>journal</code> (<code>ExerciseJournal</code>), <code>predictions</code> (noms anglais : <code>number</code>, <code>title</code>, <code>level</code>, <code>text</code>, <code>data</code>).</li>
+<li><code>enonce() -&gt; MarkdownText</code> (anglais : <code>statement</code>) : titre, thème, type, niveau, énoncé et notions.</li>
+<li><code>indice(level=None, *, niveau=None) -&gt; MarkdownText</code> (anglais : <code>hint</code>) : palier suivant (1 à 4) ou relecture d'un palier débloqué ; récapitulatif quand tout est débloqué.</li>
+<li><code>jumeau() -&gt; TwinExercise</code> (anglais : <code>twin</code>) : exercice analogue résolu (<code>title</code>, <code>statement</code>, <code>solution_summary</code>, <code>explanation</code>).</li>
+<li><code>predire(*args, **kwargs) -&gt; MarkdownText</code> (anglais : <code>predict</code>) : enregistre une prédiction (obligatoire avant <code>labo()</code>).</li>
+<li><code>labo() -&gt; CounterexampleLab</code> (anglais : <code>lab</code>) ; <code>lab.tester(**instances) -&gt; LabReport</code> (anglais : <code>test</code>) : <code>hypotheses_satisfied</code>, <code>results_by_part</code>, <code>found_counterexample</code>, <code>message</code>.</li>
+<li><code>verifier(reponse) -&gt; VerificationResult</code> (anglais : <code>verify</code>) : <code>valide</code>, <code>diagnostic</code>, <code>note_simplicite</code> (noms anglais : <code>valid</code>, <code>simplicity_note</code>). Une réponse de forme inattendue donne un diagnostic, jamais une exception.</li>
+<li><code>bilan() -&gt; MarkdownText</code> (anglais : <code>summary</code>) : bilan de la séance.</li>
+<li><code>recommencer() -&gt; MarkdownText</code> (anglais : <code>reset</code>) : efface la progression sur l'exercice.</li>
+<li><code>panneau()</code> (anglais : <code>panel</code>) : panneau <code>ipywidgets</code> (ou <code>PanneauFallback</code>).</li>
+<li><code>fiche_enseignant() -&gt; TeacherSheet</code> (anglais : <code>teacher_sheet</code>) : fiche complète, mode enseignant uniquement (<code>PermissionError</code> sinon).</li>
 </ul>
 <hr/>
 <h2 id="7-modules-exercises-compare-et-plot">7. Modules <code>exercises</code>, <code>compare</code> et <code>plot</code></h2>
 <ul>
-<li><code>linalg_pedagopy.exercises</code> : <code>generate_unimodular_matrix</code>, <code>generate_integer_rref_matrix</code>, <code>generate_rational_qr_matrix</code>, <code>generate_clean_least_squares</code>, <code>generate_parametric_system</code>, <code>cayley_orthogonal</code>, <code>generators</code> / <code>generateurs</code>, <code>TwinExercise</code> (20 générateurs, voir le guide 05), <code>InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)</code>, <code>check_row_operation</code>, <code>check_gram_schmidt_step</code>, <code>OperationFeedback</code> (voir <a href="05_pedagogical_exercises_and_sessions.html">guide 05</a>).</li>
-<li><code>linalg_pedagopy.compare</code> (extra <code>compare</code>, NumPy) : <code>compare(procedure, inputs=None) -&gt; ComparisonReport</code>, <code>build_lauchli_matrix(n=3, epsilon=1/10**8)</code>, <code>build_hilbert_matrix(n)</code>, <code>lauchli_gram_schmidt_experiment</code>, <code>lauchli_least_squares_experiment</code>, <code>hilbert_conditioning_experiment</code>, <code>explicit_inverse_vs_solve_experiment</code> (voir <a href="06_rendering_visualization_and_numerics.html">guide 06</a>).</li>
+<li><code>linalg_pedagopy.exercises</code> : <code>generate_unimodular_matrix</code>, <code>generate_integer_rref_matrix</code>, <code>generate_rational_qr_matrix</code>, <code>generate_clean_least_squares</code>, <code>generate_parametric_system</code>, <code>cayley_orthogonal</code>, <code>generators</code> / <code>generateurs</code>, <code>TwinExercise</code> (24 générateurs, voir le guide 05), <code>InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)</code>, <code>check_row_operation</code>, <code>check_gram_schmidt_step</code>, <code>OperationFeedback</code> (voir <a href="05_pedagogical_exercises_and_sessions.html">guide 05</a>).</li>
+<li><code>linalg_pedagopy.compare</code> (extra <code>compare</code>, NumPy ; importer avec <code>from linalg_pedagopy.compare import …</code>, car <code>linalg_pedagopy.compare</code> désigne aussi la fonction <code>compare</code>) : <code>compare(procedure, inputs=None) -&gt; ComparisonReport</code>, <code>build_lauchli_matrix(n=3, epsilon=1/10**8)</code>, <code>build_hilbert_matrix(n)</code>, <code>lauchli_gram_schmidt_experiment</code>, <code>lauchli_least_squares_experiment</code>, <code>hilbert_conditioning_experiment</code>, <code>explicit_inverse_vs_solve_experiment</code> (voir <a href="06_rendering_visualization_and_numerics.html">guide 06</a>).</li>
 <li><code>linalg_pedagopy.plot</code> (extra <code>plot</code>, Matplotlib) : <code>plot_linear_combination_2d</code>, <code>plot_orthogonal_projection_2d</code>, <code>plot_gram_schmidt_2d</code>, <code>plot_least_squares_fit</code>, <code>plot_least_squares_geometry_3d</code>.</li>
 </ul>
 <hr/>
@@ -677,7 +700,7 @@ BackSubstitution(R, c, *, assumptions=None)
       <ul class="toc-list">
         
         <li class="toc-item ">
-          <a href="#1-table-de-correspondance-bilingue-anglais-francais">1. Table de correspondance bilingue (Anglais / Français)</a>
+          <a href="#1-noms-francais-et-anglais">1. Noms français et anglais</a>
         </li>
         
         <li class="toc-item ">
@@ -757,7 +780,7 @@ BackSubstitution(R, c, *, assumptions=None)
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#62-classe-exercisesession-alias-exercicesession">6.2 Classe ExerciseSession (alias ExerciceSession)</a>
+          <a href="#62-classe-exercicesession-anglais-exercisesession">6.2 Classe ExerciceSession (anglais : ExerciseSession)</a>
         </li>
         
         <li class="toc-item ">

@@ -12,8 +12,8 @@ from linalg_pedagopy.tuteur.evaluation_sure import lire_donnee
 
 _LOCKED_MSG = (
     "Les données de cet exercice sont verrouillées tant que vous n'avez pas proposé et validé "
-    "votre propre réponse avec ex.verify(...) / ex.verifier(...). Effectuez le calcul par vous-même "
-    "(ou demandez un indice avec ex.hint() / ex.indice()) avant d'utiliser les méthodes automatiques !"
+    "votre propre réponse avec ex.verifier(...). Effectuez le calcul par vous-même "
+    "(ou demandez un indice avec ex.indice()) avant d'utiliser les méthodes automatiques !"
 )
 
 # Private vault keyed by object identity via weak references so no underlying Vector/Matrix
@@ -30,7 +30,7 @@ def _unwrap_locked_arg(obj: Any) -> Any:
 
 
 class LockedVector:
-    """Tamper-proof locked wrapper around an exercise Vector."""
+    """Vecteur d'exercice verrouillé, protégé contre la modification."""
 
     __slots__ = ("__weakref__",)
     _is_locked_tutor_proxy = True
@@ -144,7 +144,7 @@ class LockedVector:
 
 
 class LockedMatrix:
-    """Tamper-proof locked wrapper around an exercise Matrix."""
+    """Matrice d'exercice verrouillée, protégée contre la modification."""
 
     __slots__ = ("__weakref__",)
     _is_locked_tutor_proxy = True
@@ -230,7 +230,7 @@ class LockedMatrix:
 
 
 class LockedNamespace:
-    """Tamper-proof namespace exposing locked exercise data (`ex.data` / `ex.donnees`)."""
+    """Espace de noms des données verrouillées d'un exercice (``ex.donnees``)."""
 
     __slots__ = ("__weakref__",)
 
@@ -294,5 +294,5 @@ class LockedNamespace:
 
 
 def _get_namespace_raw_dict(ns: LockedNamespace) -> dict[str, Any]:
-    """Internal helper for tutor verifiers to read raw exercise data without exposing it to students."""
+    """Données brutes d'un exercice, pour les vérificateurs, sans les exposer à l'étudiant."""
     return dict(_LOCK_VAULT[ns]["raw"])

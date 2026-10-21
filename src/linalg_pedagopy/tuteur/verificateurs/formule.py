@@ -22,7 +22,7 @@ def verify_formula(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 3: symbolic formula in terms of parameters."""
+    """Vérifie une formule symbolique écrite avec les paramètres de l'énoncé."""
     param_names = list(spec.get("parametres", spec.get("parameters", ["norm_u", "norm_v"])))
     param_syms = {name: symbols(name)[0] for name in param_names}
     local_env: dict[str, Any] = dict(param_syms)

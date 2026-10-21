@@ -24,7 +24,7 @@ def verify_equalities(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 8: equality chain verified link by link with anti-triviality and endpoint checks."""
+    """Vérifie une chaîne d'égalités maillon par maillon (chaîne non triviale, membres de départ et d'arrivée)."""
     if not isinstance(response, (list, tuple)) or len(response) < 2:
         return VerificationResult(
             False,

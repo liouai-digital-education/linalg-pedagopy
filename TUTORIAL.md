@@ -411,7 +411,8 @@ v3 = 3 * v1 - 2 * v2 # Vecteur dépendant
 res_dep = GramSchmidt([v1, v2, v3], strict=False).run()
 print("Famille libre ?", res_dep.independent) # False
 print("Indice du vecteur lié : a_", res_dep.dependent_index + 1)
-print("Témoin :", res_dep.witness) # a_3 = 3·a_1 - 2·a_2
+print("Témoin :", res_dep.witness)              # a_3 = (8/3)·q̃_1 + (-2)·q̃_2
+print("Coefficients sur a_1, a_2 :", res_dep.witness.a_coeffs)   # (3, -2) : a_3 = 3·a_1 − 2·a_2
 ```
 
 ### 8.3 Factorisation QR ($A = QR$)
@@ -748,7 +749,7 @@ $(0, 1), (1, 2), (2, 2), (3, 4)$.
 Calculer la solution optimale $\hat{x}$ par factorisation QR rationnelle et vérifier l'orthogonalité du résidu.
 
 **Démarche pas à pas** :
-1. Posons la matrice de conception $A$ et le vecteur d'observations $b$ :
+1. Posons la matrice du modèle $A$ et le vecteur d'observations $b$ :
    $$A = \begin{pmatrix} 1 & 0 \\ 1 & 1 \\ 1 & 2 \\ 1 & 3 \end{pmatrix}, \quad b = \begin{pmatrix} 1 \\ 2 \\ 2 \\ 4 \end{pmatrix}$$
 2. Orthogonalisons les colonnes de $A$ sans racine carrée :
    - $\tilde{q}_1 = a_1 = \begin{pmatrix} 1 & 1 & 1 & 1 \end{pmatrix}^T$, avec $\|\tilde{q}_1\|^2 = 4$.

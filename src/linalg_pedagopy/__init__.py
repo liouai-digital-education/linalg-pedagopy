@@ -38,6 +38,7 @@ from linalg_pedagopy.config import config, using_config
 from linalg_pedagopy.core import (
     Branch,
     CaseLimitError,
+    InvalidAssumptionError,
     CaseSplit,
     Condition,
     DimensionMismatchError,
@@ -111,6 +112,7 @@ __all__ = [
     "BackSubstitution",
     "Branch",
     "CaseLimitError",
+    "InvalidAssumptionError",
     "CaseSplit",
     "Condition",
     "DependenceWitness",

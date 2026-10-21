@@ -232,7 +232,7 @@ try:
 except Exception as err:
     print(err)   # Exercice 'moyene-glissante' introuvable. Vouliez-vous dire : moyenne-glissante ? ...
 </code></pre></div>
-<p>Les attributs <code>ex.id</code>, <code>ex.number</code> (alias <code>numero</code>), <code>ex.title</code> (alias <code>titre</code>), <code>ex.theme</code>, <code>ex.level</code> (alias <code>niveau</code>), <code>ex.type</code> et <code>ex.notions</code> décrivent l'exercice.</p>
+<p>Les attributs <code>ex.id</code>, <code>ex.numero</code>, <code>ex.titre</code>, <code>ex.theme</code>, <code>ex.niveau</code>, <code>ex.type</code> et <code>ex.notions</code> décrivent l'exercice.</p>
 <hr/>
 <h2 id="3-une-seance-pas-a-pas">3. Une séance pas à pas</h2>
 <h3 id="31-lire-lenonce">3.1 Lire l'énoncé</h3>
@@ -290,7 +290,7 @@ print(ex.indice(1))    # relire un palier déjà débloqué
 print(jumeau.title)       # Écart à la moyenne glissante (fenêtre $k=2$, $n=5$)
 jumeau                    # dans JupyterLab : énoncé analogue + résolution pas à pas
 </code></pre></div>
-<p><code>twin()</code> renvoie un <code>TwinExercise</code> (<code>title</code>, <code>statement</code>, <code>solution_summary</code>, <code>explanation</code>) et débloque le palier 4.</p>
+<p><code>jumeau()</code> renvoie un <code>TwinExercise</code> (<code>title</code>, <code>statement</code>, <code>solution_summary</code>, <code>explanation</code>) et débloque le palier 4.</p>
 <h3 id="34-soumettre-une-reponse">3.4 Soumettre une réponse</h3>
 <p><code>ex.verifier(reponse)</code> renvoie un <code>VerificationResult</code> immuable : <code>valide</code>, <code>diagnostic</code> et, pour certains contre-exemples, <code>note_simplicite</code>.</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from fractions import Fraction
@@ -315,11 +315,11 @@ ex12 = tuteur.exercice("orthogonalite-vrai-faux")
 print(ex12.predire(a="peut être faux", b="toujours vrai", c="peut être faux"))
 
 lab = ex12.labo()         # impossible avant predire(...)
-rapport = lab.test(a=Vector([1, 0, 0]), b=Vector([1, 1, 0]), c=Vector([0, 0, 1]))
+rapport = lab.tester(a=Vector([1, 0, 0]), b=Vector([1, 1, 0]), c=Vector([0, 0, 1]))
 print(rapport.found_counterexample)   # True
 print(rapport.message)
 </code></pre></div>
-<p><code>lab.test(**instances)</code> renvoie un <code>LabReport</code> : <code>hypotheses_satisfied</code>, <code>results_by_part</code>, <code>found_counterexample</code>, <code>message</code>.</p>
+<p><code>lab.tester(**instances)</code> renvoie un <code>LabReport</code> : <code>hypotheses_satisfied</code>, <code>results_by_part</code>, <code>found_counterexample</code>, <code>message</code>.</p>
 <h3 id="36-bilan-et-reprise">3.6 Bilan et reprise</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(ex.bilan())         # nom anglais : ex.summary()
 </code></pre></div>
@@ -327,13 +327,13 @@ print(rapport.message)
 
 - Statut : en cours
 - Tentatives soumises : 1
-- Paliers d'indices consultés : 1, 2
-- Exercice jumeau consulté : non
+- Paliers d'indices consultés : 1, 2, 4
+- Exercice jumeau consulté : oui
 - Essais au laboratoire : 0
 - Temps passé : 95 s
 - Dernier diagnostic : …
 </code></pre></div>
-<p>La progression est enregistrée dans un journal JSON (<code>config.journal_path</code>, par défaut <code>.linalg_pedagopy_journal.json</code> dans le dossier du carnet). En rouvrant l'exercice plus tard, on retrouve ses indices et ses tentatives. Pour repartir de zéro sur un exercice :</p>
+<p>La progression est enregistrée dans un journal JSON (<code>config.journal_path</code>, par défaut <code>.linalg_pedagopy_journal.json</code> dans le dossier du carnet). En rouvrant l'exercice plus tard, on retrouve ses indices et ses tentatives : un second lancement des exemples de cette page commence donc au palier suivant. Pour un TP ou un test, <code>tuteur.exercice(..., journal_path=...)</code> choisit un autre fichier. Pour repartir de zéro sur un exercice :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.recommencer()          # nom anglais : ex.reset()
 </code></pre></div>
 <hr/>
@@ -345,7 +345,7 @@ print(rapport.message)
 - les boutons <strong>Indice suivant</strong>, <strong>Relire le palier…</strong>, <strong>Exercice jumeau</strong> et <strong>Bilan</strong> ;
 - une zone de réponse (par exemple <code>Matrix([[1, 0], [0, 1]])</code> ou <code>Vector([1, 2])</code>) et un bouton <strong>Vérifier</strong> ;
 - une zone de retour où s'affichent indices, jumeau, diagnostic et bilan.</p>
-<p>La zone de réponse n'accepte que <code>Vector</code>, <code>Matrix</code>, <code>sqrt</code>, <code>Rational</code>, <code>pi</code>, des nombres, listes, tuples, dictionnaires et chaînes. Sans <code>ipywidgets</code>, <code>panel()</code> affiche l'énoncé et le bilan en Markdown.</p>
+<p>La zone de réponse n'accepte que <code>Vector</code>, <code>Matrix</code>, <code>sqrt</code>, <code>Rational</code>, <code>pi</code>, des nombres, listes, tuples, dictionnaires et chaînes. Sans <code>ipywidgets</code>, <code>panneau()</code> affiche l'énoncé et le bilan en Markdown.</p>
 <hr/>
 <h2 id="5-le-glossaire">5. Le glossaire</h2>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(tuteur.glossaire("least squares"))   # **least squares** → Moindres carrés : …
@@ -361,7 +361,7 @@ print(fiche["verification"]["cible"])
 fiche                            # dans JupyterLab : rendu Markdown de la fiche
 tuteur.mode("etudiant")          # ou "student"
 </code></pre></div>
-<p>En mode étudiant, <code>teacher_sheet()</code> lève <code>PermissionError</code>. En mode enseignant, les données des exercices sont déverrouillées.</p>
+<p>En mode étudiant, <code>fiche_enseignant()</code> lève <code>PermissionError</code>. En mode enseignant, les données des exercices sont déverrouillées.</p>
 <hr/>
 <h2 id="7-protection-contre-les-contournements">7. Protection contre les contournements</h2>
 <p>Dans un carnet, l'étudiant dispose de tout Python. Le tuteur empêche les raccourcis les plus directs :
@@ -442,9 +442,9 @@ jumeau: generateurs.moyenne_glissante(fenetre=2, n=5)
 </tbody>
 </table>
 <h3 id="valider-une-fiche">Valider une fiche</h3>
-<p><code>validate_sheet</code> (alias <code>valider_fiche</code>) contrôle une fiche : champs et métadonnées présents, numéro unique, type de vérificateur valide, jumeau exécutable, <strong>absence de fuite</strong> dans les indices (aucun indice ne contient la cible, ni n'est accepté comme réponse) et contrôle croisé du vérificateur avec le solveur. Elle n'écrit rien dans le journal.</p>
+<p><code>valider_fiche</code> contrôle une fiche : champs et métadonnées présents, numéro unique, type de vérificateur valide, jumeau exécutable, <strong>absence de fuite</strong> dans les indices (aucun indice ne contient la cible, ni n'est accepté comme réponse) et contrôle croisé du vérificateur avec le solveur. Elle n'écrit rien dans le journal.</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">rapport = tuteur.valider_fiche("moyenne-glissante")
-print(rapport.valide, rapport.errors)       # True ()
+print(rapport.valide, rapport.erreurs)      # True ()
 
 assert all(tuteur.valider_fiche(i).valide for i in tuteur.lister_exercices())
 </code></pre></div>

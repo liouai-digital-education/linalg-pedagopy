@@ -50,12 +50,12 @@ def glossary(term: str | None = None) -> str:
     proches = difflib.get_close_matches(key, list(terms), n=3)
     suggestion = f" Termes proches : {proches}." if proches else ""
     raise KeyError(
-        f"Terme {term!r} absent du glossaire.{suggestion} Appelez glossary() pour la liste complète."
+        f"Terme {term!r} absent du glossaire.{suggestion} Appelez tuteur.glossaire() pour la liste complète."
     )
 
 
 def mode(new_mode: TutorMode | None = None) -> TutorMode:
-    """Gets or sets the tutor mode ('student'/'etudiant' or 'teacher'/'enseignant')."""
+    """Lit ou change le mode du tuteur (« etudiant » ou « enseignant » ; « student », « teacher » acceptés)."""
     if new_mode is not None:
         config.tutor_mode = new_mode
     return config.tutor_mode
@@ -185,7 +185,7 @@ def _resolve_exercise(ref: Any) -> dict[str, Any]:
             if int(f.get("numero", -1)) == num:
                 return dict(f)
         raise UnknownExerciseError(
-            f"Aucun exercice n° {num}. Les numéros vont de 1 à {len(fiches)} : voir tutor.catalog()."
+            f"Aucun exercice n° {num}. Les numéros vont de 1 à {len(fiches)} : voir tuteur.catalogue()."
         )
     key = str(ref).strip()
     low = key.lower()
@@ -199,7 +199,7 @@ def _resolve_exercise(ref: Any) -> dict[str, Any]:
     proches = list(dict.fromkeys(proches))
     suggestion = f" Vouliez-vous dire : {', '.join(proches)} ?" if proches else ""
     raise UnknownExerciseError(
-        f"Exercice {key!r} introuvable.{suggestion} Consultez la liste avec tutor.catalog()."
+        f"Exercice {key!r} introuvable.{suggestion} Consultez la liste avec tuteur.catalogue()."
     )
 
 
@@ -208,7 +208,7 @@ def _load_fiche_dict(ex_id: Any) -> dict[str, Any]:
 
 
 class MarkdownText(str):
-    """Subclass of str with rich Markdown and LaTeX math rendering in JupyterLab."""
+    """Chaîne affichée en Markdown, avec formules LaTeX, dans JupyterLab."""
 
     def _repr_markdown_(self) -> str:
         return str(self)

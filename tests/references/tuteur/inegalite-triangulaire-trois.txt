@@ -40,9 +40,9 @@ Avec $a = \begin{bmatrix} 3 \\ 0 \end{bmatrix}$ et $b = \begin{bmatrix} 0 \\ 4 \
 ===== indice après déblocage complet =====
 **Tous les paliers d'aide sont déjà débloqués** (1 à 4).
 
-- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;
-- étudiez l'exercice résolu analogue avec `ex.twin()` ;
-- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.
+- Relisez un palier avec `ex.indice(1)` … `ex.indice(4)` ;
+- étudiez l'exercice résolu analogue avec `ex.jumeau()` ;
+- pour repartir de zéro sur cet exercice, utilisez `ex.recommencer()`.
 
 Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau.
 
@@ -68,37 +68,37 @@ Avec $a = \begin{bmatrix} 3 \\ 0 \end{bmatrix}$ et $b = \begin{bmatrix} 0 \\ 4 \
 3. Un essai numérique illustre l'inégalité ; seule la preuve la justifie pour tous les vecteurs.
 
 ===== verify(0) -> False =====
-Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predire(...) puis explorez avec lab = ex.labo() ; lab.tester(...).
 
 ===== verify('0') -> False =====
-Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predire(...) puis explorez avec lab = ex.labo() ; lab.tester(...).
 
 ===== verify(Vector.zeros(2)) -> False =====
-Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predire(...) puis explorez avec lab = ex.labo() ; lab.tester(...).
 
 ===== verify(Vector.zeros(3)) -> False =====
-Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predire(...) puis explorez avec lab = ex.labo() ; lab.tester(...).
 
 ===== verify(Vector.ones(5)) -> False =====
-Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predire(...) puis explorez avec lab = ex.labo() ; lab.tester(...).
 
 ===== verify(Matrix.zeros(2, 2)) -> False =====
-Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predire(...) puis explorez avec lab = ex.labo() ; lab.tester(...).
 
 ===== verify(Matrix.zeros(3, 1)) -> False =====
-Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predire(...) puis explorez avec lab = ex.labo() ; lab.tester(...).
 
 ===== verify(Matrix.identity(3)) -> False =====
-Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predire(...) puis explorez avec lab = ex.labo() ; lab.tester(...).
 
 ===== verify([1, 2]) -> False =====
-Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predire(...) puis explorez avec lab = ex.labo() ; lab.tester(...).
 
 ===== verify({'a': 'valide'}) -> False =====
-Engagez-vous avant d'explorer : enregistrez d'abord votre prédiction avec ex.predict(...) / ex.predire(...), puis ouvrez le laboratoire.
+Engagez-vous avant d'explorer : enregistrez d'abord votre prédiction avec ex.predire(...), puis ouvrez le laboratoire.
 
 ===== verify(('0', '0')) -> False =====
-Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predire(...) puis explorez avec lab = ex.labo() ; lab.tester(...).
 
 ===== bilan =====
 **Bilan — Inégalité triangulaire à trois vecteurs**
@@ -108,7 +108,7 @@ Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) 
 - Paliers d'indices consultés : 1, 2, 3, 4
 - Exercice jumeau consulté : oui
 - Essais au laboratoire : 0
-- Dernier diagnostic : Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) puis explorez avec lab = ex.lab() ; lab.test(...).
+- Dernier diagnostic : Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predire(...) puis explorez avec lab = ex.labo() ; lab.tester(...).
 
 ===== validation =====
 True True True True True True ()

@@ -36,7 +36,7 @@ def _is_teacher_mode() -> bool:
 
 
 class TeacherSheet(dict):
-    """Exercise sheet dictionary with rich Markdown and LaTeX math rendering in JupyterLab."""
+    """Fiche d'exercice (dictionnaire) affichée en Markdown, avec formules LaTeX, dans JupyterLab."""
 
     def _repr_markdown_(self) -> str:
         lines = [
@@ -201,9 +201,9 @@ class ExerciseSession:
                 "**Tous les paliers d'aide sont déjà débloqués** (1 à 4"
                 + (", lors d'une séance précédente" if st.get("resumed") else "")
                 + ").\n\n"
-                "- Relisez un palier avec `ex.hint(1)` … `ex.hint(4)` ;\n"
-                "- étudiez l'exercice résolu analogue avec `ex.twin()` ;\n"
-                "- pour repartir de zéro sur cet exercice, utilisez `ex.reset()`.\n\n"
+                "- Relisez un palier avec `ex.indice(1)` … `ex.indice(4)` ;\n"
+                "- étudiez l'exercice résolu analogue avec `ex.jumeau()` ;\n"
+                "- pour repartir de zéro sur cet exercice, utilisez `ex.recommencer()`.\n\n"
                 "Il n'y a pas de palier « solution » : transposez la méthode de l'exercice jumeau."
             )
         res = ladder.request_hint(
@@ -223,14 +223,14 @@ class ExerciseSession:
         return MarkdownText(f"Progression sur « {st['titre']} » remise à zéro.")
 
     def twin(self) -> TwinExercise | str:
-        """Solves and displays the analogous twin exercise (palier 4)."""
+        """Résout et affiche l'exercice jumeau analogue (palier 4)."""
         st = self._state()
         st["journal"].record_twin()
         st["ladder"].unlocked_level = max(st["ladder"].unlocked_level, 4)
         return evaluate_twin_spec(st["fiche"].get("jumeau"))
 
     def predict(self, *args: str, **kwargs: str) -> MarkdownText:
-        """Records the student's prediction before opening the counterexample lab."""
+        """Enregistre la prédiction de l'étudiant avant d'ouvrir le laboratoire de contre-exemples."""
         st = self._state()
         preds: dict[str, str] = st["predictions"]
         if args and not kwargs:
@@ -238,15 +238,15 @@ class ExerciseSession:
         for k, v in kwargs.items():
             preds[str(k)] = str(v)
         if not preds:
-            raise ValueError("Fournissez au moins une prédiction (ex. ex.predict('toujours vrai')).")
+            raise ValueError("Fournissez au moins une prédiction (par exemple ex.predire('toujours vrai')).")
         st["journal"].record_prediction(preds)
         return MarkdownText(
             f"**Prédiction enregistrée** : `{preds}`.\n\n"
-            "> Le laboratoire de contre-exemples est maintenant ouvert via `ex.lab()` / `ex.labo()`."
+            "> Le laboratoire de contre-exemples est maintenant ouvert via `ex.labo()`."
         )
 
     def lab(self) -> CounterexampleLab:
-        """Opens the counterexample laboratory after recording a prediction."""
+        """Ouvre le laboratoire de contre-exemples, une fois la prédiction enregistrée."""
         st = self._state()
         return CounterexampleLab(
             st["verification_spec"],
@@ -255,7 +255,7 @@ class ExerciseSession:
         )
 
     def verify(self, response: Any) -> VerificationResult:
-        """Verifies the student's response and produces a diagnostic without revealing the answer."""
+        """Vérifie la réponse de l'étudiant et donne un diagnostic sans révéler la solution."""
         st = self._state()
         spec = st["verification_spec"]
         v_type = str(spec.get("type", "valeur"))
@@ -286,14 +286,14 @@ class ExerciseSession:
         return MarkdownText(st["journal"].format_summary(title=st["titre"]))
 
     def panel(self) -> Any:
-        """Returns the interactive ipywidgets panel for JupyterLab."""
+        """Renvoie le panneau interactif (ipywidgets) pour JupyterLab."""
         return build_panel(self)
 
     def teacher_sheet(self) -> TeacherSheet:
-        """Returns the full exercise sheet in teacher mode only."""
+        """Renvoie la fiche complète, en mode enseignant seulement."""
         if not _is_teacher_mode():
             raise PermissionError(
-                "L'inspection de la fiche complète est réservée au mode enseignant (tutor.mode('teacher') / tuteur.mode('enseignant'))."
+                "L'inspection de la fiche complète est réservée au mode enseignant (tuteur.mode('enseignant'))."
             )
         return TeacherSheet(self._state()["fiche"])
 
