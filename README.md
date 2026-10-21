@@ -83,7 +83,7 @@ Le dossier [`exercices/`](exercices/) contient un cahier de **20 exercices de ca
 python verifier_tout.py          # tout : tests + couverture, fiches, ruff, mypy, carnets
 ```
 
-Familles de tests, références de caractérisation et conventions : [docs/dev/tests_et_verifications.md](docs/dev/tests_et_verifications.md).
+Familles de tests, références de caractérisation et conventions : [docs/dev/tests_et_verifications.md](docs/dev/tests_et_verifications.md). Pour contribuer (branches, commits, vérifications, documentation générée) : [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
