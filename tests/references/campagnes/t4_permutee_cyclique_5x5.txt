@@ -102,7 +102,7 @@ Discussion selon a
      │  └─ On annule le coefficient (5,4) : L5 ← L5 + 1·L4.
      │     [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 1 0 -1 | 1); (0 0 0 1 -1 | 1); (0 0 0 0 0 | 1)]
      ├─ Aucun pivot non nul disponible dans la colonne 5 : variable x_5 libre.
-     ├─ Système incompatible : la ligne L5 donne 0 = 1 (témoin : 0 = 1).
+     ├─ Système incompatible : la ligne L5 donne 0 = 1.
      └─ Forme échelonnée réduite atteinte : rang = 4, colonnes pivots = (1, 2, 3, 4).
         [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 1 0 -1 | 1); (0 0 0 1 -1 | 1); (0 0 0 0 0 | 1)]
 
@@ -225,6 +225,6 @@ Discussion selon a
      │     [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 1 0 -1 | 1); (0 0 0 1 -1 | 1); (0 0 0 0 0 | 1)]
      ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
      ├─ Aucun pivot non nul disponible dans la colonne 5 : variable x_5 libre.
-     ├─ Système incompatible : la ligne L5 donne 0 = 1 (témoin : 0 = 1).
+     ├─ Système incompatible : la ligne L5 donne 0 = 1.
      └─ Forme échelonnée réduite atteinte : rang = 4, colonnes pivots = (1, 2, 3, 4).
         [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 1); (0 0 1 0 -1 | 1); (0 0 0 1 -1 | 1); (0 0 0 0 0 | 1)]

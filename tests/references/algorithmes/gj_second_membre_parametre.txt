@@ -30,10 +30,10 @@ Discussion selon a
 │       [(1 1 | 1); (1 1 | a)]
 │    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
 │    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
-│    │  └─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+│    │  └─ On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
 │    │     [(1 1 | 1); (0 0 | a - 1)]
 │    ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
-│    ├─ Système incompatible : la ligne L2 donne 0 = a − 1 (témoin : 0 = 1).
+│    ├─ Système incompatible : la ligne L2 donne 0 = a − 1.
 │    └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
 │       [(1 1 | 1); (0 0 | a - 1)]
 └─ Cas a = 1 : rang 1, infinité de solutions (1 variable(s) libre(s))
@@ -42,7 +42,7 @@ Discussion selon a
         [(1 1 | 1); (1 1 | 1)]
      ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
      │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
-     │  └─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+     │  └─ On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
      │     [(1 1 | 1); (0 0 | 0)]
      ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
      ├─ Rang 1 < 2 : ensemble affine de solutions avec 1 variable(s) libre(s).
@@ -58,11 +58,11 @@ Discussion selon a
 │    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
 │    │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
 │    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
-│    │  └─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+│    │  └─ On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
 │    │     [(1 1 | 1); (0 0 | a - 1)]
 │    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
 │    ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
-│    ├─ Système incompatible : la ligne L2 donne 0 = a − 1 (témoin : 0 = 1).
+│    ├─ Système incompatible : la ligne L2 donne 0 = a − 1.
 │    └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
 │       [(1 1 | 1); (0 0 | a - 1)]
 └─ Cas a = 1 : rang 1, infinité de solutions (1 variable(s) libre(s))
@@ -72,7 +72,7 @@ Discussion selon a
      ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
      │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
      │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
-     │  └─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+     │  └─ On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
      │     [(1 1 | 1); (0 0 | 0)]
      ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
      ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
@@ -92,10 +92,10 @@ Discussion selon a
     $$\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 1 & 1 & a \end{array}\right]$$
     - Traitement de la colonne 1 (ligne pivot courante : 1).
       - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
-      - On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+      - On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
         $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{a - 1} \end{array}\right]$$
     - Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
-    - Système incompatible : la ligne L2 donne 0 = a − 1 (témoin : 0 = 1).
+    - Système incompatible : la ligne L2 donne 0 = a − 1.
     - Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
       $$\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 0 & 0 & a - 1 \end{array}\right]$$
 - **Cas $a = 1$** : rang 1, infinité de solutions (1 variable(s) libre(s))
@@ -104,7 +104,7 @@ Discussion selon a
     $$\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 1 & 1 & 1 \end{array}\right]$$
     - Traitement de la colonne 1 (ligne pivot courante : 1).
       - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
-      - On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+      - On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
         $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]$$
     - Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
     - Rang 1 < 2 : ensemble affine de solutions avec 1 variable(s) libre(s).
@@ -122,11 +122,11 @@ Discussion selon a
     \item Traitement de la colonne 1 (ligne pivot courante : 1).
     \begin{itemize}
       \item Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
-      \item On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+      \item On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
       \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{a - 1} \end{array}\right]\]
     \end{itemize}
     \item Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
-    \item Système incompatible : la ligne L2 donne 0 = a − 1 (témoin : 0 = 1).
+    \item Système incompatible : la ligne L2 donne 0 = a − 1.
     \item Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
     \[\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 0 & 0 & a - 1 \end{array}\right]\]
   \end{itemize}
@@ -139,7 +139,7 @@ Discussion selon a
     \item Traitement de la colonne 1 (ligne pivot courante : 1).
     \begin{itemize}
       \item Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
-      \item On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+      \item On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
       \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]
     \end{itemize}
     \item Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
@@ -162,10 +162,10 @@ Discussion selon a
   <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
   
   <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).</div>
-<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{a - 1} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 − 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{a - 1} \end{array}\right]\]</div></div>
 </details>
 <div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.</div>
-<div class='pedagopy-step'>Système incompatible : la ligne L2 donne 0 = a − 1 (témoin : 0 = 1).</div>
+<div class='pedagopy-step'>Système incompatible : la ligne L2 donne 0 = a − 1.</div>
 <div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).<div class='pedagopy-math'>\[\left[\begin{array}{cc|c} 1 & 1 & 1 \\ 0 & 0 & a - 1 \end{array}\right]\]</div></div>
 </details>
 </div></li>
@@ -177,7 +177,7 @@ Discussion selon a
   <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
   
   <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).</div>
-<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 - 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 − 1·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]</div></div>
 </details>
 <div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.</div>
 <div class='pedagopy-step'>Rang 1 &lt; 2 : ensemble affine de solutions avec 1 variable(s) libre(s).</div>

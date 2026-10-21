@@ -35,13 +35,13 @@ Discussion selon a
 │    │  ├─ Choix du pivot en (2,1) de valeur 1 (stratégie : simplest).
 │    │  ├─ On échange les lignes L1 et L2 : L1 ↔ L2.
 │    │  │  [(1 1 | 2); (a 1 | 1)]
-│    │  └─ On annule le coefficient (2,1) : L2 ← L2 - a·L1.
+│    │  └─ On annule le coefficient (2,1) : L2 ← L2 − a·L1.
 │    │     [(1 1 | 2); (0 1 - a | 1 - 2*a)]
 │    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
 │    │  ├─ Choix du pivot en (2,2) de valeur 1 − a (stratégie : simplest).
 │    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1/(a − 1))·L2.
 │    │  │  [(1 1 | 2); (0 1 | (2*a - 1)/(a - 1))]
-│    │  └─ On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+│    │  └─ On annule le coefficient (1,2) : L1 ← L1 − 1·L2.
 │    │     [(1 0 | -1/(a - 1)); (0 1 | (2*a - 1)/(a - 1))]
 │    ├─ Pivots non nuls, rang 2, solution unique : x = ( −1/(a − 1), (2·a − 1)/(a − 1) ).
 │    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
@@ -52,10 +52,10 @@ Discussion selon a
         [(1 1 | 1); (1 1 | 2)]
      ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
      │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
-     │  └─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+     │  └─ On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
      │     [(1 1 | 1); (0 0 | 1)]
      ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
-     ├─ Système incompatible : la ligne L2 donne 0 = 1 (témoin : 0 = 1).
+     ├─ Système incompatible : la ligne L2 donne 0 = 1.
      └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
         [(1 1 | 1); (0 0 | 1)]
 
@@ -70,13 +70,13 @@ Discussion selon a
 │    │  ├─ On échange les lignes L1 et L2 : L1 ↔ L2.
 │    │  │  [(1 1 | 2); (a 1 | 1)]
 │    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
-│    │  └─ On annule le coefficient (2,1) : L2 ← L2 - a·L1.
+│    │  └─ On annule le coefficient (2,1) : L2 ← L2 − a·L1.
 │    │     [(1 1 | 2); (0 1 - a | 1 - 2*a)]
 │    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
 │    │  ├─ Choix du pivot en (2,2) de valeur 1 − a (stratégie : simplest).
 │    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1/(a − 1))·L2.
 │    │  │  [(1 1 | 2); (0 1 | (2*a - 1)/(a - 1))]
-│    │  └─ On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+│    │  └─ On annule le coefficient (1,2) : L1 ← L1 − 1·L2.
 │    │     [(1 0 | -1/(a - 1)); (0 1 | (2*a - 1)/(a - 1))]
 │    ├─ Pivots non nuls, rang 2, solution unique : x = ( −1/(a − 1), (2·a − 1)/(a − 1) ).
 │    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
@@ -88,10 +88,10 @@ Discussion selon a
      ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
      │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
      │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
-     │  └─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+     │  └─ On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
      │     [(1 1 | 1); (0 0 | 1)]
      ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
      ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
-     ├─ Système incompatible : la ligne L2 donne 0 = 1 (témoin : 0 = 1).
+     ├─ Système incompatible : la ligne L2 donne 0 = 1.
      └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
         [(1 1 | 1); (0 0 | 1)]

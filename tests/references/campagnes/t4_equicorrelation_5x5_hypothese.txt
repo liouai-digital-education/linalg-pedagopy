@@ -50,13 +50,13 @@ Discussion selon a, b
 │    │  ├─ Choix du pivot en (1,1) de valeur a (stratégie : simplest).
 │    │  ├─ On normalise le pivot de la ligne 1 : L1 ← (1/a)·L1.
 │    │  │  [(1 b/a b/a b/a b/a | 1/a); (b a b b b | 0); (b b a b b | 0); (b b b a b | 0); (b b b b a | 0)]
-│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - b·L1.
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 − b·L1.
 │    │  │  [(1 b/a b/a b/a b/a | 1/a); (0 (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a b*(a - b)/a | -b/a); (b b a b b | 0); (b b b a b | 0); (b b b b a | 0)]
-│    │  ├─ On annule le coefficient (3,1) : L3 ← L3 - b·L1.
+│    │  ├─ On annule le coefficient (3,1) : L3 ← L3 − b·L1.
 │    │  │  [(1 b/a b/a b/a b/a | 1/a); (0 (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a | -b/a); (b b b a b | 0); (b b b b a | 0)]
-│    │  ├─ On annule le coefficient (4,1) : L4 ← L4 - b·L1.
+│    │  ├─ On annule le coefficient (4,1) : L4 ← L4 − b·L1.
 │    │  │  [(1 b/a b/a b/a b/a | 1/a); (0 (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a | -b/a); (b b b b a | 0)]
-│    │  └─ On annule le coefficient (5,1) : L5 ← L5 - b·L1.
+│    │  └─ On annule le coefficient (5,1) : L5 ← L5 − b·L1.
 │    │     [(1 b/a b/a b/a b/a | 1/a); (0 (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a | -b/a)]
 │    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
 │    │  ├─ Choix du pivot en (3,2) de valeur b·(a − b)/a (stratégie : simplest).
@@ -64,13 +64,13 @@ Discussion selon a, b
 │    │  │  [(1 b/a b/a b/a b/a | 1/a); (0 b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a | -b/a)]
 │    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (a/(b·(a − b)))·L2.
 │    │  │  [(1 b/a b/a b/a b/a | 1/a); (0 1 (a + b)/b 1 1 | -1/(a - b)); (0 (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a | -b/a)]
-│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 - b/a·L2.
+│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 − b/a·L2.
 │    │  │  [(1 0 -1 0 0 | 1/(a - b)); (0 1 (a + b)/b 1 1 | -1/(a - b)); (0 (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a | -b/a)]
-│    │  ├─ On annule le coefficient (3,2) : L3 ← L3 - (a − b)·(a + b)/a·L2.
+│    │  ├─ On annule le coefficient (3,2) : L3 ← L3 − (a − b)·(a + b)/a·L2.
 │    │  │  [(1 0 -1 0 0 | 1/(a - b)); (0 1 (a + b)/b 1 1 | -1/(a - b)); (0 0 -(a - b)*(a + 2*b)/b -a + b -a + b | 1); (0 b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a | -b/a)]
-│    │  ├─ On annule le coefficient (4,2) : L4 ← L4 - b·(a − b)/a·L2.
+│    │  ├─ On annule le coefficient (4,2) : L4 ← L4 − b·(a − b)/a·L2.
 │    │  │  [(1 0 -1 0 0 | 1/(a - b)); (0 1 (a + b)/b 1 1 | -1/(a - b)); (0 0 -(a - b)*(a + 2*b)/b -a + b -a + b | 1); (0 0 -a + b a - b 0 | 0); (0 b*(a - b)/a b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a | -b/a)]
-│    │  └─ On annule le coefficient (5,2) : L5 ← L5 - b·(a − b)/a·L2.
+│    │  └─ On annule le coefficient (5,2) : L5 ← L5 − b·(a − b)/a·L2.
 │    │     [(1 0 -1 0 0 | 1/(a - b)); (0 1 (a + b)/b 1 1 | -1/(a - b)); (0 0 -(a - b)*(a + 2*b)/b -a + b -a + b | 1); (0 0 -a + b a - b 0 | 0); (0 0 -a + b 0 a - b | 0)]
 │    ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
 │    │  ├─ Choix du pivot en (4,3) de valeur −a + b (stratégie : simplest).
@@ -80,11 +80,11 @@ Discussion selon a, b
 │    │  │  [(1 0 -1 0 0 | 1/(a - b)); (0 1 (a + b)/b 1 1 | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 -(a - b)*(a + 2*b)/b -a + b -a + b | 1); (0 0 -a + b 0 a - b | 0)]
 │    │  ├─ On annule le coefficient (1,3) : L1 ← L1 + 1·L3.
 │    │  │  [(1 0 0 -1 0 | 1/(a - b)); (0 1 (a + b)/b 1 1 | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 -(a - b)*(a + 2*b)/b -a + b -a + b | 1); (0 0 -a + b 0 a - b | 0)]
-│    │  ├─ On annule le coefficient (2,3) : L2 ← L2 - (a + b)/b·L3.
+│    │  ├─ On annule le coefficient (2,3) : L2 ← L2 − (a + b)/b·L3.
 │    │  │  [(1 0 0 -1 0 | 1/(a - b)); (0 1 0 (a + 2*b)/b 1 | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 -(a - b)*(a + 2*b)/b -a + b -a + b | 1); (0 0 -a + b 0 a - b | 0)]
 │    │  ├─ On annule le coefficient (4,3) : L4 ← L4 + (a − b)·(a + 2·b)/b·L3.
 │    │  │  [(1 0 0 -1 0 | 1/(a - b)); (0 1 0 (a + 2*b)/b 1 | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 0 -(a - b)*(a + 3*b)/b -a + b | 1); (0 0 -a + b 0 a - b | 0)]
-│    │  └─ On annule le coefficient (5,3) : L5 ← L5 + a − b·L3.
+│    │  └─ On annule le coefficient (5,3) : L5 ← L5 + (a − b)·L3.
 │    │     [(1 0 0 -1 0 | 1/(a - b)); (0 1 0 (a + 2*b)/b 1 | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 0 -(a - b)*(a + 3*b)/b -a + b | 1); (0 0 0 -a + b a - b | 0)]
 │    ├─ Traitement de la colonne 4 (ligne pivot courante : 4).
 │    │  ├─ Choix du pivot en (5,4) de valeur −a + b (stratégie : simplest).
@@ -94,7 +94,7 @@ Discussion selon a, b
 │    │  │  [(1 0 0 -1 0 | 1/(a - b)); (0 1 0 (a + 2*b)/b 1 | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 0 1 -1 | 0); (0 0 0 -(a - b)*(a + 3*b)/b -a + b | 1)]
 │    │  ├─ On annule le coefficient (1,4) : L1 ← L1 + 1·L4.
 │    │  │  [(1 0 0 0 -1 | 1/(a - b)); (0 1 0 (a + 2*b)/b 1 | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 0 1 -1 | 0); (0 0 0 -(a - b)*(a + 3*b)/b -a + b | 1)]
-│    │  ├─ On annule le coefficient (2,4) : L2 ← L2 - (a + 2·b)/b·L4.
+│    │  ├─ On annule le coefficient (2,4) : L2 ← L2 − (a + 2·b)/b·L4.
 │    │  │  [(1 0 0 0 -1 | 1/(a - b)); (0 1 0 0 (a + 3*b)/b | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 0 1 -1 | 0); (0 0 0 -(a - b)*(a + 3*b)/b -a + b | 1)]
 │    │  ├─ On annule le coefficient (3,4) : L3 ← L3 + 1·L4.
 │    │  │  [(1 0 0 0 -1 | 1/(a - b)); (0 1 0 0 (a + 3*b)/b | -1/(a - b)); (0 0 1 0 -1 | 0); (0 0 0 1 -1 | 0); (0 0 0 -(a - b)*(a + 3*b)/b -a + b | 1)]
@@ -106,7 +106,7 @@ Discussion selon a, b
 │    │  │  [(1 0 0 0 -1 | 1/(a - b)); (0 1 0 0 (a + 3*b)/b | -1/(a - b)); (0 0 1 0 -1 | 0); (0 0 0 1 -1 | 0); (0 0 0 0 1 | -b/((a - b)*(a + 4*b)))]
 │    │  ├─ On annule le coefficient (1,5) : L1 ← L1 + 1·L5.
 │    │  │  [(1 0 0 0 0 | (a + 3*b)/((a - b)*(a + 4*b))); (0 1 0 0 (a + 3*b)/b | -1/(a - b)); (0 0 1 0 -1 | 0); (0 0 0 1 -1 | 0); (0 0 0 0 1 | -b/((a - b)*(a + 4*b)))]
-│    │  ├─ On annule le coefficient (2,5) : L2 ← L2 - (a + 3·b)/b·L5.
+│    │  ├─ On annule le coefficient (2,5) : L2 ← L2 − (a + 3·b)/b·L5.
 │    │  │  [(1 0 0 0 0 | (a + 3*b)/((a - b)*(a + 4*b))); (0 1 0 0 0 | -b/((a - b)*(a + 4*b))); (0 0 1 0 -1 | 0); (0 0 0 1 -1 | 0); (0 0 0 0 1 | -b/((a - b)*(a + 4*b)))]
 │    │  ├─ On annule le coefficient (3,5) : L3 ← L3 + 1·L5.
 │    │  │  [(1 0 0 0 0 | (a + 3*b)/((a - b)*(a + 4*b))); (0 1 0 0 0 | -b/((a - b)*(a + 4*b))); (0 0 1 0 0 | -b/((a - b)*(a + 4*b))); (0 0 0 1 -1 | 0); (0 0 0 0 1 | -b/((a - b)*(a + 4*b)))]
@@ -127,11 +127,11 @@ Discussion selon a, b
 │    │  │  [(1 -4 1 1 1 | 0); (-4*b b b b b | 1); (b b -4*b b b | 0); (b b b -4*b b | 0); (b b b b -4*b | 0)]
 │    │  ├─ On annule le coefficient (2,1) : L2 ← L2 + 4·b·L1.
 │    │  │  [(1 -4 1 1 1 | 0); (0 -15*b 5*b 5*b 5*b | 1); (b b -4*b b b | 0); (b b b -4*b b | 0); (b b b b -4*b | 0)]
-│    │  ├─ On annule le coefficient (3,1) : L3 ← L3 - b·L1.
+│    │  ├─ On annule le coefficient (3,1) : L3 ← L3 − b·L1.
 │    │  │  [(1 -4 1 1 1 | 0); (0 -15*b 5*b 5*b 5*b | 1); (0 5*b -5*b 0 0 | 0); (b b b -4*b b | 0); (b b b b -4*b | 0)]
-│    │  ├─ On annule le coefficient (4,1) : L4 ← L4 - b·L1.
+│    │  ├─ On annule le coefficient (4,1) : L4 ← L4 − b·L1.
 │    │  │  [(1 -4 1 1 1 | 0); (0 -15*b 5*b 5*b 5*b | 1); (0 5*b -5*b 0 0 | 0); (0 5*b 0 -5*b 0 | 0); (b b b b -4*b | 0)]
-│    │  └─ On annule le coefficient (5,1) : L5 ← L5 - b·L1.
+│    │  └─ On annule le coefficient (5,1) : L5 ← L5 − b·L1.
 │    │     [(1 -4 1 1 1 | 0); (0 -15*b 5*b 5*b 5*b | 1); (0 5*b -5*b 0 0 | 0); (0 5*b 0 -5*b 0 | 0); (0 5*b 0 0 -5*b | 0)]
 │    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
 │    │  ├─ Choix du pivot en (3,2) de valeur 5·b (stratégie : simplest).
@@ -143,9 +143,9 @@ Discussion selon a, b
 │    │  │  [(1 0 -3 1 1 | 0); (0 1 -1 0 0 | 0); (0 -15*b 5*b 5*b 5*b | 1); (0 5*b 0 -5*b 0 | 0); (0 5*b 0 0 -5*b | 0)]
 │    │  ├─ On annule le coefficient (3,2) : L3 ← L3 + 15·b·L2.
 │    │  │  [(1 0 -3 1 1 | 0); (0 1 -1 0 0 | 0); (0 0 -10*b 5*b 5*b | 1); (0 5*b 0 -5*b 0 | 0); (0 5*b 0 0 -5*b | 0)]
-│    │  ├─ On annule le coefficient (4,2) : L4 ← L4 - 5·b·L2.
+│    │  ├─ On annule le coefficient (4,2) : L4 ← L4 − 5·b·L2.
 │    │  │  [(1 0 -3 1 1 | 0); (0 1 -1 0 0 | 0); (0 0 -10*b 5*b 5*b | 1); (0 0 5*b -5*b 0 | 0); (0 5*b 0 0 -5*b | 0)]
-│    │  └─ On annule le coefficient (5,2) : L5 ← L5 - 5·b·L2.
+│    │  └─ On annule le coefficient (5,2) : L5 ← L5 − 5·b·L2.
 │    │     [(1 0 -3 1 1 | 0); (0 1 -1 0 0 | 0); (0 0 -10*b 5*b 5*b | 1); (0 0 5*b -5*b 0 | 0); (0 0 5*b 0 -5*b | 0)]
 │    ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
 │    │  ├─ Choix du pivot en (4,3) de valeur 5·b (stratégie : simplest).
@@ -159,7 +159,7 @@ Discussion selon a, b
 │    │  │  [(1 0 0 -2 1 | 0); (0 1 0 -1 0 | 0); (0 0 1 -1 0 | 0); (0 0 -10*b 5*b 5*b | 1); (0 0 5*b 0 -5*b | 0)]
 │    │  ├─ On annule le coefficient (4,3) : L4 ← L4 + 10·b·L3.
 │    │  │  [(1 0 0 -2 1 | 0); (0 1 0 -1 0 | 0); (0 0 1 -1 0 | 0); (0 0 0 -5*b 5*b | 1); (0 0 5*b 0 -5*b | 0)]
-│    │  └─ On annule le coefficient (5,3) : L5 ← L5 - 5·b·L3.
+│    │  └─ On annule le coefficient (5,3) : L5 ← L5 − 5·b·L3.
 │    │     [(1 0 0 -2 1 | 0); (0 1 0 -1 0 | 0); (0 0 1 -1 0 | 0); (0 0 0 -5*b 5*b | 1); (0 0 0 5*b -5*b | 0)]
 │    ├─ Traitement de la colonne 4 (ligne pivot courante : 4).
 │    │  ├─ Choix du pivot en (5,4) de valeur 5·b (stratégie : simplest).
@@ -176,7 +176,7 @@ Discussion selon a, b
 │    │  └─ On annule le coefficient (5,4) : L5 ← L5 + 5·b·L4.
 │    │     [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 0); (0 0 1 0 -1 | 0); (0 0 0 1 -1 | 0); (0 0 0 0 0 | 1)]
 │    ├─ Aucun pivot non nul disponible dans la colonne 5 : variable x_5 libre.
-│    ├─ Système incompatible : la ligne L5 donne 0 = 1 (témoin : 0 = 1).
+│    ├─ Système incompatible : la ligne L5 donne 0 = 1.
 │    └─ Forme échelonnée réduite atteinte : rang = 4, colonnes pivots = (1, 2, 3, 4).
 │       [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 0); (0 0 1 0 -1 | 0); (0 0 0 1 -1 | 0); (0 0 0 0 0 | 1)]
 ├─ Cas a ≠ 0 et b = 0 : pivots non nuls, rang 5, solution unique
@@ -216,21 +216,21 @@ Discussion selon a, b
      │  │  [(b 0 b b b | 0); (0 b b b b | 1); (b b 0 b b | 0); (b b b 0 b | 0); (b b b b 0 | 0)]
      │  ├─ On normalise le pivot de la ligne 1 : L1 ← (1/b)·L1.
      │  │  [(1 0 1 1 1 | 0); (0 b b b b | 1); (b b 0 b b | 0); (b b b 0 b | 0); (b b b b 0 | 0)]
-     │  ├─ On annule le coefficient (3,1) : L3 ← L3 - b·L1.
+     │  ├─ On annule le coefficient (3,1) : L3 ← L3 − b·L1.
      │  │  [(1 0 1 1 1 | 0); (0 b b b b | 1); (0 b -b 0 0 | 0); (b b b 0 b | 0); (b b b b 0 | 0)]
-     │  ├─ On annule le coefficient (4,1) : L4 ← L4 - b·L1.
+     │  ├─ On annule le coefficient (4,1) : L4 ← L4 − b·L1.
      │  │  [(1 0 1 1 1 | 0); (0 b b b b | 1); (0 b -b 0 0 | 0); (0 b 0 -b 0 | 0); (b b b b 0 | 0)]
-     │  └─ On annule le coefficient (5,1) : L5 ← L5 - b·L1.
+     │  └─ On annule le coefficient (5,1) : L5 ← L5 − b·L1.
      │     [(1 0 1 1 1 | 0); (0 b b b b | 1); (0 b -b 0 0 | 0); (0 b 0 -b 0 | 0); (0 b 0 0 -b | 0)]
      ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
      │  ├─ Choix du pivot en (2,2) de valeur b (stratégie : simplest).
      │  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/b)·L2.
      │  │  [(1 0 1 1 1 | 0); (0 1 1 1 1 | 1/b); (0 b -b 0 0 | 0); (0 b 0 -b 0 | 0); (0 b 0 0 -b | 0)]
-     │  ├─ On annule le coefficient (3,2) : L3 ← L3 - b·L2.
+     │  ├─ On annule le coefficient (3,2) : L3 ← L3 − b·L2.
      │  │  [(1 0 1 1 1 | 0); (0 1 1 1 1 | 1/b); (0 0 -2*b -b -b | -1); (0 b 0 -b 0 | 0); (0 b 0 0 -b | 0)]
-     │  ├─ On annule le coefficient (4,2) : L4 ← L4 - b·L2.
+     │  ├─ On annule le coefficient (4,2) : L4 ← L4 − b·L2.
      │  │  [(1 0 1 1 1 | 0); (0 1 1 1 1 | 1/b); (0 0 -2*b -b -b | -1); (0 0 -b -2*b -b | -1); (0 b 0 0 -b | 0)]
-     │  └─ On annule le coefficient (5,2) : L5 ← L5 - b·L2.
+     │  └─ On annule le coefficient (5,2) : L5 ← L5 − b·L2.
      │     [(1 0 1 1 1 | 0); (0 1 1 1 1 | 1/b); (0 0 -2*b -b -b | -1); (0 0 -b -2*b -b | -1); (0 0 -b -b -2*b | -1)]
      ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
      │  ├─ Choix du pivot en (4,3) de valeur −b (stratégie : simplest).
@@ -238,9 +238,9 @@ Discussion selon a, b
      │  │  [(1 0 1 1 1 | 0); (0 1 1 1 1 | 1/b); (0 0 -b -2*b -b | -1); (0 0 -2*b -b -b | -1); (0 0 -b -b -2*b | -1)]
      │  ├─ On normalise le pivot de la ligne 3 : L3 ← (−1/b)·L3.
      │  │  [(1 0 1 1 1 | 0); (0 1 1 1 1 | 1/b); (0 0 1 2 1 | 1/b); (0 0 -2*b -b -b | -1); (0 0 -b -b -2*b | -1)]
-     │  ├─ On annule le coefficient (1,3) : L1 ← L1 - 1·L3.
+     │  ├─ On annule le coefficient (1,3) : L1 ← L1 − 1·L3.
      │  │  [(1 0 0 -1 0 | -1/b); (0 1 1 1 1 | 1/b); (0 0 1 2 1 | 1/b); (0 0 -2*b -b -b | -1); (0 0 -b -b -2*b | -1)]
-     │  ├─ On annule le coefficient (2,3) : L2 ← L2 - 1·L3.
+     │  ├─ On annule le coefficient (2,3) : L2 ← L2 − 1·L3.
      │  │  [(1 0 0 -1 0 | -1/b); (0 1 0 -1 0 | 0); (0 0 1 2 1 | 1/b); (0 0 -2*b -b -b | -1); (0 0 -b -b -2*b | -1)]
      │  ├─ On annule le coefficient (4,3) : L4 ← L4 + 2·b·L3.
      │  │  [(1 0 0 -1 0 | -1/b); (0 1 0 -1 0 | 0); (0 0 1 2 1 | 1/b); (0 0 0 3*b b | 1); (0 0 -b -b -2*b | -1)]
@@ -256,9 +256,9 @@ Discussion selon a, b
      │  │  [(1 0 0 0 -1 | -1/b); (0 1 0 -1 0 | 0); (0 0 1 2 1 | 1/b); (0 0 0 1 -1 | 0); (0 0 0 3*b b | 1)]
      │  ├─ On annule le coefficient (2,4) : L2 ← L2 + 1·L4.
      │  │  [(1 0 0 0 -1 | -1/b); (0 1 0 0 -1 | 0); (0 0 1 2 1 | 1/b); (0 0 0 1 -1 | 0); (0 0 0 3*b b | 1)]
-     │  ├─ On annule le coefficient (3,4) : L3 ← L3 - 2·L4.
+     │  ├─ On annule le coefficient (3,4) : L3 ← L3 − 2·L4.
      │  │  [(1 0 0 0 -1 | -1/b); (0 1 0 0 -1 | 0); (0 0 1 0 3 | 1/b); (0 0 0 1 -1 | 0); (0 0 0 3*b b | 1)]
-     │  └─ On annule le coefficient (5,4) : L5 ← L5 - 3·b·L4.
+     │  └─ On annule le coefficient (5,4) : L5 ← L5 − 3·b·L4.
      │     [(1 0 0 0 -1 | -1/b); (0 1 0 0 -1 | 0); (0 0 1 0 3 | 1/b); (0 0 0 1 -1 | 0); (0 0 0 0 4*b | 1)]
      ├─ Traitement de la colonne 5 (ligne pivot courante : 5).
      │  ├─ Choix du pivot en (5,5) de valeur 4·b (stratégie : simplest).
@@ -268,7 +268,7 @@ Discussion selon a, b
      │  │  [(1 0 0 0 0 | -3/(4*b)); (0 1 0 0 -1 | 0); (0 0 1 0 3 | 1/b); (0 0 0 1 -1 | 0); (0 0 0 0 1 | 1/(4*b))]
      │  ├─ On annule le coefficient (2,5) : L2 ← L2 + 1·L5.
      │  │  [(1 0 0 0 0 | -3/(4*b)); (0 1 0 0 0 | 1/(4*b)); (0 0 1 0 3 | 1/b); (0 0 0 1 -1 | 0); (0 0 0 0 1 | 1/(4*b))]
-     │  ├─ On annule le coefficient (3,5) : L3 ← L3 - 3·L5.
+     │  ├─ On annule le coefficient (3,5) : L3 ← L3 − 3·L5.
      │  │  [(1 0 0 0 0 | -3/(4*b)); (0 1 0 0 0 | 1/(4*b)); (0 0 1 0 0 | 1/(4*b)); (0 0 0 1 -1 | 0); (0 0 0 0 1 | 1/(4*b))]
      │  └─ On annule le coefficient (4,5) : L4 ← L4 + 1·L5.
      │     [(1 0 0 0 0 | -3/(4*b)); (0 1 0 0 0 | 1/(4*b)); (0 0 1 0 0 | 1/(4*b)); (0 0 0 1 0 | 1/(4*b)); (0 0 0 0 1 | 1/(4*b))]
@@ -286,13 +286,13 @@ Discussion selon a, b
 │    │  ├─ Choix du pivot en (1,1) de valeur a (stratégie : simplest).
 │    │  ├─ On normalise le pivot de la ligne 1 : L1 ← (1/a)·L1.
 │    │  │  [(1 b/a b/a b/a b/a | 1/a); (b a b b b | 0); (b b a b b | 0); (b b b a b | 0); (b b b b a | 0)]
-│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - b·L1.
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 − b·L1.
 │    │  │  [(1 b/a b/a b/a b/a | 1/a); (0 (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a b*(a - b)/a | -b/a); (b b a b b | 0); (b b b a b | 0); (b b b b a | 0)]
-│    │  ├─ On annule le coefficient (3,1) : L3 ← L3 - b·L1.
+│    │  ├─ On annule le coefficient (3,1) : L3 ← L3 − b·L1.
 │    │  │  [(1 b/a b/a b/a b/a | 1/a); (0 (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a | -b/a); (b b b a b | 0); (b b b b a | 0)]
-│    │  ├─ On annule le coefficient (4,1) : L4 ← L4 - b·L1.
+│    │  ├─ On annule le coefficient (4,1) : L4 ← L4 − b·L1.
 │    │  │  [(1 b/a b/a b/a b/a | 1/a); (0 (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a | -b/a); (b b b b a | 0)]
-│    │  └─ On annule le coefficient (5,1) : L5 ← L5 - b·L1.
+│    │  └─ On annule le coefficient (5,1) : L5 ← L5 − b·L1.
 │    │     [(1 b/a b/a b/a b/a | 1/a); (0 (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a | -b/a)]
 │    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
 │    │  ├─ Choix du pivot en (3,2) de valeur b·(a − b)/a (stratégie : simplest).
@@ -300,13 +300,13 @@ Discussion selon a, b
 │    │  │  [(1 b/a b/a b/a b/a | 1/a); (0 b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a | -b/a)]
 │    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (a/(b·(a − b)))·L2.
 │    │  │  [(1 b/a b/a b/a b/a | 1/a); (0 1 (a + b)/b 1 1 | -1/(a - b)); (0 (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a | -b/a)]
-│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 - b/a·L2.
+│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 − b/a·L2.
 │    │  │  [(1 0 -1 0 0 | 1/(a - b)); (0 1 (a + b)/b 1 1 | -1/(a - b)); (0 (a - b)*(a + b)/a b*(a - b)/a b*(a - b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a | -b/a)]
-│    │  ├─ On annule le coefficient (3,2) : L3 ← L3 - (a − b)·(a + b)/a·L2.
+│    │  ├─ On annule le coefficient (3,2) : L3 ← L3 − (a − b)·(a + b)/a·L2.
 │    │  │  [(1 0 -1 0 0 | 1/(a - b)); (0 1 (a + b)/b 1 1 | -1/(a - b)); (0 0 -(a - b)*(a + 2*b)/b -a + b -a + b | 1); (0 b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a b*(a - b)/a | -b/a); (0 b*(a - b)/a b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a | -b/a)]
-│    │  ├─ On annule le coefficient (4,2) : L4 ← L4 - b·(a − b)/a·L2.
+│    │  ├─ On annule le coefficient (4,2) : L4 ← L4 − b·(a − b)/a·L2.
 │    │  │  [(1 0 -1 0 0 | 1/(a - b)); (0 1 (a + b)/b 1 1 | -1/(a - b)); (0 0 -(a - b)*(a + 2*b)/b -a + b -a + b | 1); (0 0 -a + b a - b 0 | 0); (0 b*(a - b)/a b*(a - b)/a b*(a - b)/a (a - b)*(a + b)/a | -b/a)]
-│    │  └─ On annule le coefficient (5,2) : L5 ← L5 - b·(a − b)/a·L2.
+│    │  └─ On annule le coefficient (5,2) : L5 ← L5 − b·(a − b)/a·L2.
 │    │     [(1 0 -1 0 0 | 1/(a - b)); (0 1 (a + b)/b 1 1 | -1/(a - b)); (0 0 -(a - b)*(a + 2*b)/b -a + b -a + b | 1); (0 0 -a + b a - b 0 | 0); (0 0 -a + b 0 a - b | 0)]
 │    ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
 │    │  ├─ Choix du pivot en (4,3) de valeur −a + b (stratégie : simplest).
@@ -316,11 +316,11 @@ Discussion selon a, b
 │    │  │  [(1 0 -1 0 0 | 1/(a - b)); (0 1 (a + b)/b 1 1 | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 -(a - b)*(a + 2*b)/b -a + b -a + b | 1); (0 0 -a + b 0 a - b | 0)]
 │    │  ├─ On annule le coefficient (1,3) : L1 ← L1 + 1·L3.
 │    │  │  [(1 0 0 -1 0 | 1/(a - b)); (0 1 (a + b)/b 1 1 | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 -(a - b)*(a + 2*b)/b -a + b -a + b | 1); (0 0 -a + b 0 a - b | 0)]
-│    │  ├─ On annule le coefficient (2,3) : L2 ← L2 - (a + b)/b·L3.
+│    │  ├─ On annule le coefficient (2,3) : L2 ← L2 − (a + b)/b·L3.
 │    │  │  [(1 0 0 -1 0 | 1/(a - b)); (0 1 0 (a + 2*b)/b 1 | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 -(a - b)*(a + 2*b)/b -a + b -a + b | 1); (0 0 -a + b 0 a - b | 0)]
 │    │  ├─ On annule le coefficient (4,3) : L4 ← L4 + (a − b)·(a + 2·b)/b·L3.
 │    │  │  [(1 0 0 -1 0 | 1/(a - b)); (0 1 0 (a + 2*b)/b 1 | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 0 -(a - b)*(a + 3*b)/b -a + b | 1); (0 0 -a + b 0 a - b | 0)]
-│    │  └─ On annule le coefficient (5,3) : L5 ← L5 + a − b·L3.
+│    │  └─ On annule le coefficient (5,3) : L5 ← L5 + (a − b)·L3.
 │    │     [(1 0 0 -1 0 | 1/(a - b)); (0 1 0 (a + 2*b)/b 1 | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 0 -(a - b)*(a + 3*b)/b -a + b | 1); (0 0 0 -a + b a - b | 0)]
 │    ├─ Traitement de la colonne 4 (ligne pivot courante : 4).
 │    │  ├─ Choix du pivot en (5,4) de valeur −a + b (stratégie : simplest).
@@ -330,7 +330,7 @@ Discussion selon a, b
 │    │  │  [(1 0 0 -1 0 | 1/(a - b)); (0 1 0 (a + 2*b)/b 1 | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 0 1 -1 | 0); (0 0 0 -(a - b)*(a + 3*b)/b -a + b | 1)]
 │    │  ├─ On annule le coefficient (1,4) : L1 ← L1 + 1·L4.
 │    │  │  [(1 0 0 0 -1 | 1/(a - b)); (0 1 0 (a + 2*b)/b 1 | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 0 1 -1 | 0); (0 0 0 -(a - b)*(a + 3*b)/b -a + b | 1)]
-│    │  ├─ On annule le coefficient (2,4) : L2 ← L2 - (a + 2·b)/b·L4.
+│    │  ├─ On annule le coefficient (2,4) : L2 ← L2 − (a + 2·b)/b·L4.
 │    │  │  [(1 0 0 0 -1 | 1/(a - b)); (0 1 0 0 (a + 3*b)/b | -1/(a - b)); (0 0 1 -1 0 | 0); (0 0 0 1 -1 | 0); (0 0 0 -(a - b)*(a + 3*b)/b -a + b | 1)]
 │    │  ├─ On annule le coefficient (3,4) : L3 ← L3 + 1·L4.
 │    │  │  [(1 0 0 0 -1 | 1/(a - b)); (0 1 0 0 (a + 3*b)/b | -1/(a - b)); (0 0 1 0 -1 | 0); (0 0 0 1 -1 | 0); (0 0 0 -(a - b)*(a + 3*b)/b -a + b | 1)]
@@ -342,7 +342,7 @@ Discussion selon a, b
 │    │  │  [(1 0 0 0 -1 | 1/(a - b)); (0 1 0 0 (a + 3*b)/b | -1/(a - b)); (0 0 1 0 -1 | 0); (0 0 0 1 -1 | 0); (0 0 0 0 1 | -b/((a - b)*(a + 4*b)))]
 │    │  ├─ On annule le coefficient (1,5) : L1 ← L1 + 1·L5.
 │    │  │  [(1 0 0 0 0 | (a + 3*b)/((a - b)*(a + 4*b))); (0 1 0 0 (a + 3*b)/b | -1/(a - b)); (0 0 1 0 -1 | 0); (0 0 0 1 -1 | 0); (0 0 0 0 1 | -b/((a - b)*(a + 4*b)))]
-│    │  ├─ On annule le coefficient (2,5) : L2 ← L2 - (a + 3·b)/b·L5.
+│    │  ├─ On annule le coefficient (2,5) : L2 ← L2 − (a + 3·b)/b·L5.
 │    │  │  [(1 0 0 0 0 | (a + 3*b)/((a - b)*(a + 4*b))); (0 1 0 0 0 | -b/((a - b)*(a + 4*b))); (0 0 1 0 -1 | 0); (0 0 0 1 -1 | 0); (0 0 0 0 1 | -b/((a - b)*(a + 4*b)))]
 │    │  ├─ On annule le coefficient (3,5) : L3 ← L3 + 1·L5.
 │    │  │  [(1 0 0 0 0 | (a + 3*b)/((a - b)*(a + 4*b))); (0 1 0 0 0 | -b/((a - b)*(a + 4*b))); (0 0 1 0 0 | -b/((a - b)*(a + 4*b))); (0 0 0 1 -1 | 0); (0 0 0 0 1 | -b/((a - b)*(a + 4*b)))]
@@ -363,11 +363,11 @@ Discussion selon a, b
 │    │  │  [(1 -4 1 1 1 | 0); (-4*b b b b b | 1); (b b -4*b b b | 0); (b b b -4*b b | 0); (b b b b -4*b | 0)]
 │    │  ├─ On annule le coefficient (2,1) : L2 ← L2 + 4·b·L1.
 │    │  │  [(1 -4 1 1 1 | 0); (0 -15*b 5*b 5*b 5*b | 1); (b b -4*b b b | 0); (b b b -4*b b | 0); (b b b b -4*b | 0)]
-│    │  ├─ On annule le coefficient (3,1) : L3 ← L3 - b·L1.
+│    │  ├─ On annule le coefficient (3,1) : L3 ← L3 − b·L1.
 │    │  │  [(1 -4 1 1 1 | 0); (0 -15*b 5*b 5*b 5*b | 1); (0 5*b -5*b 0 0 | 0); (b b b -4*b b | 0); (b b b b -4*b | 0)]
-│    │  ├─ On annule le coefficient (4,1) : L4 ← L4 - b·L1.
+│    │  ├─ On annule le coefficient (4,1) : L4 ← L4 − b·L1.
 │    │  │  [(1 -4 1 1 1 | 0); (0 -15*b 5*b 5*b 5*b | 1); (0 5*b -5*b 0 0 | 0); (0 5*b 0 -5*b 0 | 0); (b b b b -4*b | 0)]
-│    │  └─ On annule le coefficient (5,1) : L5 ← L5 - b·L1.
+│    │  └─ On annule le coefficient (5,1) : L5 ← L5 − b·L1.
 │    │     [(1 -4 1 1 1 | 0); (0 -15*b 5*b 5*b 5*b | 1); (0 5*b -5*b 0 0 | 0); (0 5*b 0 -5*b 0 | 0); (0 5*b 0 0 -5*b | 0)]
 │    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
 │    │  ├─ Choix du pivot en (3,2) de valeur 5·b (stratégie : simplest).
@@ -379,9 +379,9 @@ Discussion selon a, b
 │    │  │  [(1 0 -3 1 1 | 0); (0 1 -1 0 0 | 0); (0 -15*b 5*b 5*b 5*b | 1); (0 5*b 0 -5*b 0 | 0); (0 5*b 0 0 -5*b | 0)]
 │    │  ├─ On annule le coefficient (3,2) : L3 ← L3 + 15·b·L2.
 │    │  │  [(1 0 -3 1 1 | 0); (0 1 -1 0 0 | 0); (0 0 -10*b 5*b 5*b | 1); (0 5*b 0 -5*b 0 | 0); (0 5*b 0 0 -5*b | 0)]
-│    │  ├─ On annule le coefficient (4,2) : L4 ← L4 - 5·b·L2.
+│    │  ├─ On annule le coefficient (4,2) : L4 ← L4 − 5·b·L2.
 │    │  │  [(1 0 -3 1 1 | 0); (0 1 -1 0 0 | 0); (0 0 -10*b 5*b 5*b | 1); (0 0 5*b -5*b 0 | 0); (0 5*b 0 0 -5*b | 0)]
-│    │  └─ On annule le coefficient (5,2) : L5 ← L5 - 5·b·L2.
+│    │  └─ On annule le coefficient (5,2) : L5 ← L5 − 5·b·L2.
 │    │     [(1 0 -3 1 1 | 0); (0 1 -1 0 0 | 0); (0 0 -10*b 5*b 5*b | 1); (0 0 5*b -5*b 0 | 0); (0 0 5*b 0 -5*b | 0)]
 │    ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
 │    │  ├─ Choix du pivot en (4,3) de valeur 5·b (stratégie : simplest).
@@ -395,7 +395,7 @@ Discussion selon a, b
 │    │  │  [(1 0 0 -2 1 | 0); (0 1 0 -1 0 | 0); (0 0 1 -1 0 | 0); (0 0 -10*b 5*b 5*b | 1); (0 0 5*b 0 -5*b | 0)]
 │    │  ├─ On annule le coefficient (4,3) : L4 ← L4 + 10·b·L3.
 │    │  │  [(1 0 0 -2 1 | 0); (0 1 0 -1 0 | 0); (0 0 1 -1 0 | 0); (0 0 0 -5*b 5*b | 1); (0 0 5*b 0 -5*b | 0)]
-│    │  └─ On annule le coefficient (5,3) : L5 ← L5 - 5·b·L3.
+│    │  └─ On annule le coefficient (5,3) : L5 ← L5 − 5·b·L3.
 │    │     [(1 0 0 -2 1 | 0); (0 1 0 -1 0 | 0); (0 0 1 -1 0 | 0); (0 0 0 -5*b 5*b | 1); (0 0 0 5*b -5*b | 0)]
 │    ├─ Traitement de la colonne 4 (ligne pivot courante : 4).
 │    │  ├─ Choix du pivot en (5,4) de valeur 5·b (stratégie : simplest).
@@ -413,7 +413,7 @@ Discussion selon a, b
 │    │     [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 0); (0 0 1 0 -1 | 0); (0 0 0 1 -1 | 0); (0 0 0 0 0 | 1)]
 │    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
 │    ├─ Aucun pivot non nul disponible dans la colonne 5 : variable x_5 libre.
-│    ├─ Système incompatible : la ligne L5 donne 0 = 1 (témoin : 0 = 1).
+│    ├─ Système incompatible : la ligne L5 donne 0 = 1.
 │    └─ Forme échelonnée réduite atteinte : rang = 4, colonnes pivots = (1, 2, 3, 4).
 │       [(1 0 0 0 -1 | 0); (0 1 0 0 -1 | 0); (0 0 1 0 -1 | 0); (0 0 0 1 -1 | 0); (0 0 0 0 0 | 1)]
 ├─ Cas a ≠ 0 et b = 0 : pivots non nuls, rang 5, solution unique
@@ -485,22 +485,22 @@ Discussion selon a, b
      │  ├─ On normalise le pivot de la ligne 1 : L1 ← (1/b)·L1.
      │  │  [(1 0 1 1 1 | 0); (0 b b b b | 1); (b b 0 b b | 0); (b b b 0 b | 0); (b b b b 0 | 0)]
      │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
-     │  ├─ On annule le coefficient (3,1) : L3 ← L3 - b·L1.
+     │  ├─ On annule le coefficient (3,1) : L3 ← L3 − b·L1.
      │  │  [(1 0 1 1 1 | 0); (0 b b b b | 1); (0 b -b 0 0 | 0); (b b b 0 b | 0); (b b b b 0 | 0)]
-     │  ├─ On annule le coefficient (4,1) : L4 ← L4 - b·L1.
+     │  ├─ On annule le coefficient (4,1) : L4 ← L4 − b·L1.
      │  │  [(1 0 1 1 1 | 0); (0 b b b b | 1); (0 b -b 0 0 | 0); (0 b 0 -b 0 | 0); (b b b b 0 | 0)]
-     │  └─ On annule le coefficient (5,1) : L5 ← L5 - b·L1.
+     │  └─ On annule le coefficient (5,1) : L5 ← L5 − b·L1.
      │     [(1 0 1 1 1 | 0); (0 b b b b | 1); (0 b -b 0 0 | 0); (0 b 0 -b 0 | 0); (0 b 0 0 -b | 0)]
      ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
      │  ├─ Choix du pivot en (2,2) de valeur b (stratégie : simplest).
      │  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/b)·L2.
      │  │  [(1 0 1 1 1 | 0); (0 1 1 1 1 | 1/b); (0 b -b 0 0 | 0); (0 b 0 -b 0 | 0); (0 b 0 0 -b | 0)]
      │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
-     │  ├─ On annule le coefficient (3,2) : L3 ← L3 - b·L2.
+     │  ├─ On annule le coefficient (3,2) : L3 ← L3 − b·L2.
      │  │  [(1 0 1 1 1 | 0); (0 1 1 1 1 | 1/b); (0 0 -2*b -b -b | -1); (0 b 0 -b 0 | 0); (0 b 0 0 -b | 0)]
-     │  ├─ On annule le coefficient (4,2) : L4 ← L4 - b·L2.
+     │  ├─ On annule le coefficient (4,2) : L4 ← L4 − b·L2.
      │  │  [(1 0 1 1 1 | 0); (0 1 1 1 1 | 1/b); (0 0 -2*b -b -b | -1); (0 0 -b -2*b -b | -1); (0 b 0 0 -b | 0)]
-     │  └─ On annule le coefficient (5,2) : L5 ← L5 - b·L2.
+     │  └─ On annule le coefficient (5,2) : L5 ← L5 − b·L2.
      │     [(1 0 1 1 1 | 0); (0 1 1 1 1 | 1/b); (0 0 -2*b -b -b | -1); (0 0 -b -2*b -b | -1); (0 0 -b -b -2*b | -1)]
      ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
      │  ├─ Choix du pivot en (4,3) de valeur −b (stratégie : simplest).
@@ -508,9 +508,9 @@ Discussion selon a, b
      │  │  [(1 0 1 1 1 | 0); (0 1 1 1 1 | 1/b); (0 0 -b -2*b -b | -1); (0 0 -2*b -b -b | -1); (0 0 -b -b -2*b | -1)]
      │  ├─ On normalise le pivot de la ligne 3 : L3 ← (−1/b)·L3.
      │  │  [(1 0 1 1 1 | 0); (0 1 1 1 1 | 1/b); (0 0 1 2 1 | 1/b); (0 0 -2*b -b -b | -1); (0 0 -b -b -2*b | -1)]
-     │  ├─ On annule le coefficient (1,3) : L1 ← L1 - 1·L3.
+     │  ├─ On annule le coefficient (1,3) : L1 ← L1 − 1·L3.
      │  │  [(1 0 0 -1 0 | -1/b); (0 1 1 1 1 | 1/b); (0 0 1 2 1 | 1/b); (0 0 -2*b -b -b | -1); (0 0 -b -b -2*b | -1)]
-     │  ├─ On annule le coefficient (2,3) : L2 ← L2 - 1·L3.
+     │  ├─ On annule le coefficient (2,3) : L2 ← L2 − 1·L3.
      │  │  [(1 0 0 -1 0 | -1/b); (0 1 0 -1 0 | 0); (0 0 1 2 1 | 1/b); (0 0 -2*b -b -b | -1); (0 0 -b -b -2*b | -1)]
      │  ├─ On annule le coefficient (4,3) : L4 ← L4 + 2·b·L3.
      │  │  [(1 0 0 -1 0 | -1/b); (0 1 0 -1 0 | 0); (0 0 1 2 1 | 1/b); (0 0 0 3*b b | 1); (0 0 -b -b -2*b | -1)]
@@ -526,9 +526,9 @@ Discussion selon a, b
      │  │  [(1 0 0 0 -1 | -1/b); (0 1 0 -1 0 | 0); (0 0 1 2 1 | 1/b); (0 0 0 1 -1 | 0); (0 0 0 3*b b | 1)]
      │  ├─ On annule le coefficient (2,4) : L2 ← L2 + 1·L4.
      │  │  [(1 0 0 0 -1 | -1/b); (0 1 0 0 -1 | 0); (0 0 1 2 1 | 1/b); (0 0 0 1 -1 | 0); (0 0 0 3*b b | 1)]
-     │  ├─ On annule le coefficient (3,4) : L3 ← L3 - 2·L4.
+     │  ├─ On annule le coefficient (3,4) : L3 ← L3 − 2·L4.
      │  │  [(1 0 0 0 -1 | -1/b); (0 1 0 0 -1 | 0); (0 0 1 0 3 | 1/b); (0 0 0 1 -1 | 0); (0 0 0 3*b b | 1)]
-     │  └─ On annule le coefficient (5,4) : L5 ← L5 - 3·b·L4.
+     │  └─ On annule le coefficient (5,4) : L5 ← L5 − 3·b·L4.
      │     [(1 0 0 0 -1 | -1/b); (0 1 0 0 -1 | 0); (0 0 1 0 3 | 1/b); (0 0 0 1 -1 | 0); (0 0 0 0 4*b | 1)]
      ├─ Traitement de la colonne 5 (ligne pivot courante : 5).
      │  ├─ Choix du pivot en (5,5) de valeur 4·b (stratégie : simplest).
@@ -538,7 +538,7 @@ Discussion selon a, b
      │  │  [(1 0 0 0 0 | -3/(4*b)); (0 1 0 0 -1 | 0); (0 0 1 0 3 | 1/b); (0 0 0 1 -1 | 0); (0 0 0 0 1 | 1/(4*b))]
      │  ├─ On annule le coefficient (2,5) : L2 ← L2 + 1·L5.
      │  │  [(1 0 0 0 0 | -3/(4*b)); (0 1 0 0 0 | 1/(4*b)); (0 0 1 0 3 | 1/b); (0 0 0 1 -1 | 0); (0 0 0 0 1 | 1/(4*b))]
-     │  ├─ On annule le coefficient (3,5) : L3 ← L3 - 3·L5.
+     │  ├─ On annule le coefficient (3,5) : L3 ← L3 − 3·L5.
      │  │  [(1 0 0 0 0 | -3/(4*b)); (0 1 0 0 0 | 1/(4*b)); (0 0 1 0 0 | 1/(4*b)); (0 0 0 1 -1 | 0); (0 0 0 0 1 | 1/(4*b))]
      │  └─ On annule le coefficient (4,5) : L4 ← L4 + 1·L5.
      │     [(1 0 0 0 0 | -3/(4*b)); (0 1 0 0 0 | 1/(4*b)); (0 0 1 0 0 | 1/(4*b)); (0 0 0 1 0 | 1/(4*b)); (0 0 0 0 1 | 1/(4*b))]
