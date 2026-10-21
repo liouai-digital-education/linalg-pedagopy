@@ -135,6 +135,25 @@ Les expressions contenant des racines carrées paramétriques (comme $\sqrt{1 - 
 2. Il résout la partie polynomiale sur $\mathbb{R}$.
 3. **Filtrage des racines parasites** : Chaque racine candidate $r$ est réinjectée dans l'expression radicale initiale pour vérifier que $f(r) = 0$. Cela élimine les racines parasites introduites par l'élévation au carré de `unrad`.
 
+### 3.4 Facteurs de signe constant à plusieurs paramètres
+
+Un facteur qui ne s'annule pour aucune valeur réelle des paramètres ne doit pas ouvrir de branche. En un seul paramètre, l'oracle cherche ses racines réelles ($a^4 + a^3 + a^2 + a + 1$ n'en a pas). En plusieurs paramètres, il traite les polynômes de degré 2 en **complétant les carrés** (réduction de Gauss des formes quadratiques), paramètre par paramètre dans l'ordre alphabétique :
+
+$$a^2 + ab + b^2 + 1 = \left(a + \tfrac{b}{2}\right)^2 + \tfrac{3}{4}\, b^2 + 1 > 0.$$
+
+Si tous les coefficients des carrés sont positifs et que la constante restante est strictement positive, le facteur est strictement positif sur $\mathbb{R}^k$ (strictement négatif si c'est le cas de son opposé). Il est alors écarté des facteurs d'annulation et des valeurs interdites des dénominateurs ; la trace de niveau 3 donne la décomposition. Si la constante restante est nulle ou négative, le facteur s'annule en un point réel (on annule tous les carrés) et la discussion reste nécessaire : $a^2 - 2a + b^2 + 1 = (a - 1)^2 + b^2$ s'annule en $(1, 0)$.
+
+```python
+from linalg_pedagopy import oracle, symbols
+from linalg_pedagopy.core.zero import strict_sign
+
+a, b = symbols("a b")
+oracle.decide((b - 2) * (a**2 + a*b + b**2 + 1)).factors   # (b - 2,)
+strict_sign(a**2 + a*b + b**2 + 1)                          # (1, '(a + b/2)² + 3/4·b² + 1')
+```
+
+Les polynômes de degré supérieur à 2 en plusieurs paramètres ne sont reconnus que lorsque SymPy conclut seul (sommes de puissances paires comme $a^4 + b^2 + 1$).
+
 ---
 
 ## 4. Disjonction de cas paramétriques (`CaseSplit`)

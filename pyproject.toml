@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "linalg_pedagopy"
-version = "3.1.0"
+version = "0.3.1.1"
 description = "Package pédagogique d'algèbre linéaire formelle : calcul exact, discussion de cas, explications pas à pas et tuteur interactif"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -74,6 +74,9 @@ linalg_pedagopy = [
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "-q"
+markers = [
+    "lent: cas long (plus de 5 s), écarté par pytest -m \"not lent\" et verifier_tout.py --rapide",
+]
 
 [tool.mypy]
 python_version = "3.10"

@@ -7,7 +7,7 @@ Guide pour les contributeurs : comment vérifier qu'une modification ne casse ri
 ```bash
 pip install -e ".[dev,plot,compare]"
 python verifier_tout.py              # tests (+ couverture), fiches, ruff, mypy, carnets
-python verifier_tout.py --rapide     # tests et fiches seulement
+python verifier_tout.py --rapide     # tests (sans les cas marqués « lent ») et fiches seulement
 ```
 
 L'intégration continue (`.github/workflows/tests.yml`) exécute les mêmes étapes sur Python 3.10 à 3.13 à chaque envoi sur `main` ou `development`, une fois le dépôt publié sur GitHub.
@@ -19,6 +19,7 @@ L'intégration continue (`.github/workflows/tests.yml`) exécute les mêmes éta
 | `tests/test_*.py` (hors caractérisation) | Tests unitaires : propriétés mathématiques, API, cas limites. |
 | `tests/test_caracterisation_algorithmes.py` | Fige les traces (`explain` niveaux 0 à 3, Markdown, LaTeX, HTML), les discussions de cas et les décisions de l'oracle pour une trentaine de calculs représentatifs. |
 | `tests/test_caracterisation_tuteur.py` | Fige, pour chacune des 35 fiches, l'énoncé, les paliers d'indices, le jumeau, les diagnostics de réponses fausses génériques et la fiche enseignant ; ainsi que le laboratoire, le catalogue, le glossaire et les 40 générateurs de jumeaux. |
+| `tests/test_caracterisation_campagnes.py` | Fige les 21 cas des campagnes du bac à sable (`tests/campagnes.py`) : tests limites, grosses matrices pleines et creuses, plafonds de branches ; voir [campagnes.md](campagnes.md). Les 5 cas de plus de 5 s portent la marque `lent`. |
 | `tests/run_notebooks.py` | Exécute les carnets maintenus (tutoriel, problèmes, projet, cahier d'exercices et corrigé). |
 
 ## Tests de caractérisation : mode d'emploi
@@ -35,6 +36,8 @@ git diff tests/references                                               # relire
 ```
 
 Les références sont stables d'une exécution à l'autre (vérifié avec plusieurs valeurs de `PYTHONHASHSEED`). Elles dépendent de la version de SymPy, qui peut changer l'écriture de certaines expressions : après une mise à jour de SymPy, régénérez-les et vérifiez que seules des écritures ont changé.
+
+Les cas longs portent la marque `lent` : `pytest -m "not lent"` (ou `python verifier_tout.py --rapide`) les écarte ; l'intégration continue les exécute tous.
 
 Le fichier `.gitattributes` impose des fins de ligne LF pour `tests/references/`, afin que les comparaisons fonctionnent aussi sous Windows.
 

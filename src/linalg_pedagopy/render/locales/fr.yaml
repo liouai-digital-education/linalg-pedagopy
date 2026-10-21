@@ -8,6 +8,7 @@ zero:
   domain_zero: "Ce coefficient est nul dans le domaine exact ({expr} = 0)."
   minpoly_zero: "Ce coefficient est nul : son polynôme minimal est x ({expr} = 0)."
   simplify_zero: "Ce coefficient est nul après simplification algébrique ({expr} = 0)."
+  sign_definite: "Le facteur {expr} ne s'annule pas sur ℝ : en complétant les carrés, {expr} = {certificate} {sign} 0."
 
 vector:
   add: "Addition de deux vecteurs composante par composante."
@@ -72,6 +73,7 @@ matrix:
 gj:
   domain: "Domaine de définition : les dénominateurs des coefficients imposent {domain} ; toute la suite se place sous cette condition."
   start: "Réduction de Gauss-Jordan d'une matrice {m}×{n}."
+  reduce_by_condition: "Dans cette branche, {equations} : chaque coefficient est remplacé par son reste dans la division par ce polynôme, ce qui fait disparaître les puissances de degré trop élevé."
   column_step: "Traitement de la colonne {col} (ligne pivot courante : {row})."
   pivot_chosen: "Choix du pivot en ({row},{col}) de valeur {pivot} (stratégie : {strategy})."
   col_zero: "Aucun pivot non nul disponible dans la colonne {col} : variable x_{col} libre."

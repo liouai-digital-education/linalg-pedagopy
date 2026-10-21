@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+import warnings
 from dataclasses import dataclass
-from typing import Any, Literal, Mapping
+from typing import Any, Callable, Literal, Mapping
 
 import sympy as sp
 
@@ -17,8 +18,10 @@ from linalg_pedagopy.algorithms.base import (
 )
 from linalg_pedagopy.config import config
 from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
+from linalg_pedagopy.core.field import pretty_expr
 from linalg_pedagopy.core.exceptions import (
     DimensionMismatchError,
+    PedagogicalWarning,
     PedagopyError,
     SingularMatrixError,
 )
@@ -26,6 +29,7 @@ from linalg_pedagopy.core.zero import (
     AssumptionsType,
     Verdict,
     _normalize_assumptions,
+    case_limit_error,
     domain_of,
     oracle,
 )
@@ -48,6 +52,47 @@ def _simplify_entry(expr: sp.Expr) -> sp.Expr:
             return sp.Mul(sp.factor(num), 1 / sp.factor(den), evaluate=True)
         return sp.expand(num)
     return sp.simplify(expr)
+
+
+def _factor_with_radicals(expr: sp.Expr, radicals: Mapping[sp.Symbol, tuple[sp.Expr, ...]]) -> sp.Expr:
+    """Factorise une entrée sur Q(√d), pour les radicaux √d de la condition de sa branche.
+
+    Sous « a ≠ √2 et a ≠ −√2 », (a − 2)/((a − 1)(a² − 2)) s'écrit
+    (a − 2)/((a − 1)(a − √2)(a + √2)) : mêmes facteurs que la condition.
+    Seuls les radicaux associés aux paramètres présents dans l'entrée sont utilisés.
+    """
+    syms = expr.free_symbols
+    if not radicals or not syms:
+        return expr
+    ext = sorted({r for s in syms for r in radicals.get(s, ())}, key=sp.default_sort_key)
+    if not ext or not expr.is_rational_function(*syms):
+        return expr
+    num, den = sp.fraction(sp.together(sp.cancel(expr)))
+    return sp.Mul(_split_over(num, ext), 1 / _split_over(den, ext), evaluate=True)
+
+
+def _split_over(poly: sp.Expr, ext: list[sp.Expr]) -> sp.Expr:
+    """Factorise sur Q, puis décompose sur Q(√d) les seuls facteurs irréductibles de degré ≥ 2.
+
+    Les facteurs déjà décomposés sur Q gardent leur écriture (1 − 2a ne devient pas −2(a − 1/2)).
+    """
+    parts = []
+    for f in sp.Mul.make_args(sp.factor(poly)):
+        base, e = f.as_base_exp()
+        if base.free_symbols and base.is_polynomial() and sp.Poly(base).total_degree() >= 2:
+            split = sp.factor(base, extension=ext)
+            if len(sp.Mul.make_args(split)) > 1:
+                f = split**e
+        parts.append(f)
+    return sp.Mul(*parts)
+
+
+def _result_entry(cond: Condition) -> Callable[[sp.Expr], sp.Expr]:
+    """Mise en forme des entrées d'un résultat (solution, inverse, base du noyau) selon ``config.factor_policy``."""
+    radicals = cond.radicals() if config.factor_policy == "real_radicals" else {}
+    if not radicals:
+        return _simplify_entry
+    return lambda e: _factor_with_radicals(_simplify_entry(e), radicals)
 
 
 def _pivot_complexity_key(val: sp.Expr) -> tuple[int, int | float, int]:
@@ -221,8 +266,28 @@ class GaussJordan(Procedure[GJResult]):
             # Sans second membre, l'inverse se calcule en réduisant [A | I_n].
             self.b = Matrix.identity(A.rows)
 
+    def _warn_if_large_symbolic(self) -> None:
+        """Avertissement didactique au-delà de config.max_generic_dim pour une matrice à paramètres."""
+        limit = config.max_generic_dim
+        m, n = self.A.shape
+        if limit is None or max(m, n) <= limit:
+            return
+        if not any(getattr(e, "free_symbols", None) for e in self.A.flat_entries):
+            return
+        warnings.warn(
+            PedagogicalWarning(
+                f"Élimination de Gauss-Jordan sur une matrice {m}×{n} à paramètres : au-delà de "
+                f"{limit}×{limit}, la discussion par cas et les fractions deviennent difficiles à lire. "
+                "Cherchez d'abord une structure remarquable (triangulaire par blocs, tridiagonale, "
+                "a·I + b·J, Vandermonde…) qui conduit à une méthode plus directe. "
+                "Le calcul est mené à terme ; pour ne plus voir cet avertissement : config.max_generic_dim = None."
+            ),
+            stacklevel=4,
+        )
+
     def _execute(self) -> GJResult | CaseSplit[GJResult]:
-        state = {"cases_count": 1}
+        self._warn_if_large_symbolic()
+        state: dict[str, Any] = {"cases_count": 1}
         # Valeurs interdites par les dénominateurs des coefficients : elles restreignent toutes les branches
         entries = list(self.A.flat_entries)
         if isinstance(self.b, Matrix):
@@ -248,7 +313,7 @@ class GaussJordan(Procedure[GJResult]):
         cond: Condition,
         *,
         depth: int,
-        state: dict[str, int],
+        state: dict[str, Any],
     ) -> GJResult | CaseSplit[GJResult]:
         subs_map = cond.substitutions()
         A_cur = A_in.subs(subs_map) if subs_map else A_in
@@ -464,10 +529,26 @@ class GaussJordan(Procedure[GJResult]):
                                     state=state,
                                 )
 
+            # Branche à égalité non linéaire (a² − 3 = 0) : coefficients réduits modulo cette égalité
+            nonlinear = cond.nonlinear_equations()
+            if nonlinear:
+                reduced = [[_simplify_entry(cond.reduce(x)) for x in row] for row in grid]
+                if reduced != grid:
+                    grid = reduced
+                    record(
+                        StepKind.INFO,
+                        "gj.reduce_by_condition",
+                        level=2,
+                        snapshot={"augmented_matrix": Matrix._from_exact_rows(grid)},
+                        highlight=Highlight(augmented_split=split_col),
+                        equations=" et ".join(f"{pretty_expr(p)} = 0" for p, _ in nonlinear),
+                    )
+
+            finish = _result_entry(cond)
             aug_rref = Matrix._from_exact_rows(grid)
             rref_a = aug_rref[:, :n] if n > 0 else Matrix.zeros(m, 0)
             free_vars = tuple(j for j in range(n) if j not in pivots)
-            null_basis = self._extract_nullspace(rref_a, pivots, free_vars)
+            null_basis = self._extract_nullspace(rref_a, pivots, free_vars, finish=finish)
 
             solution: SolutionSet | None = None
             inverse_mat: Matrix | None = None
@@ -488,7 +569,9 @@ class GaussJordan(Procedure[GJResult]):
                         )
                     inverse_mat = None
                 else:
-                    inverse_mat = aug_rref[:, n:]
+                    inverse_mat = Matrix._from_exact_rows(
+                        [[finish(x) for x in row] for row in aug_rref[:, n:].entries_grid]
+                    )
                     record(
                         StepKind.RESULT,
                         "gj.inverse_found",
@@ -544,17 +627,27 @@ class GaussJordan(Procedure[GJResult]):
         col: int,
         expr: sp.Expr,
         depth: int,
-        state: dict[str, int],
+        state: dict[str, Any],
     ) -> CaseSplit[GJResult]:
+        seen: list[sp.Expr] = state.setdefault("factors", [])
+        seen.extend(f for f in factors if f not in seen)
         if depth >= self.max_depth:
-            raise PedagopyError(
-                f"Profondeur maximale de discussion par cas atteinte (max_depth={self.max_depth}). "
-                "Fournissez des hypothèses sur les paramètres (assumptions=...)."
+            raise case_limit_error(
+                limit="max_depth",
+                value=self.max_depth,
+                reached=depth + 1,
+                factors=seen,
+                condition=cond,
+                argument="max_depth",
             )
         if state["cases_count"] + len(factors) > self.max_cases:
-            raise PedagopyError(
-                f"Nombre maximal de branches dépassé (max_cases={self.max_cases}). "
-                "Fournissez des hypothèses sur les paramètres (assumptions=...)."
+            raise case_limit_error(
+                limit="max_cases",
+                value=self.max_cases,
+                reached=state["cases_count"] + len(factors),
+                factors=seen,
+                condition=cond,
+                argument="max_cases",
             )
 
         state["cases_count"] += len(factors)
@@ -614,6 +707,8 @@ class GaussJordan(Procedure[GJResult]):
         rref_a: Matrix,
         pivots: list[int],
         free_vars: tuple[int, ...],
+        *,
+        finish: Callable[[sp.Expr], sp.Expr] = _simplify_entry,
     ) -> tuple[Vector, ...]:
         n = rref_a.cols
         basis: list[Vector] = []
@@ -621,7 +716,7 @@ class GaussJordan(Procedure[GJResult]):
             vec = [sp.Integer(0)] * n
             vec[f_col] = sp.Integer(1)
             for row_idx, p_col in enumerate(pivots):
-                vec[p_col] = _simplify_entry(-rref_a[row_idx, f_col])
+                vec[p_col] = finish(-rref_a[row_idx, f_col])
             basis.append(Vector._from_exact(vec))
         return tuple(basis)
 
@@ -639,6 +734,7 @@ class GaussJordan(Procedure[GJResult]):
         cond: Condition,
     ) -> SolutionSet:
         rank = len(pivots)
+        finish = _result_entry(cond)
         inconsistent: list[tuple[int, sp.Expr]] = []
         for r in range(rank, m):
             for c_idx in range(n, total_cols):
@@ -647,7 +743,7 @@ class GaussJordan(Procedure[GJResult]):
                 if dec_val.verdict == Verdict.UNKNOWN:
                     oracle.is_zero(val, assumptions=cond)
                 if dec_val.verdict == Verdict.NONZERO:
-                    inconsistent.append((r, val))
+                    inconsistent.append((r, finish(val)))
                     break
 
         if inconsistent:
@@ -675,7 +771,7 @@ class GaussJordan(Procedure[GJResult]):
             if is_vector_rhs or rhs_cols == 1:
                 x_entries = [sp.Integer(0)] * n
                 for row_idx, p_col in enumerate(pivots):
-                    x_entries[p_col] = _simplify_entry(aug_rref[row_idx, n])
+                    x_entries[p_col] = finish(aug_rref[row_idx, n])
                 x_vec = Vector._from_exact(x_entries)
                 record(
                     StepKind.RESULT,
@@ -690,7 +786,7 @@ class GaussJordan(Procedure[GJResult]):
                 x_mat_rows = [[sp.Integer(0)] * rhs_cols for _ in range(n)]
                 for row_idx, p_col in enumerate(pivots):
                     for k_idx in range(rhs_cols):
-                        x_mat_rows[p_col][k_idx] = _simplify_entry(aug_rref[row_idx, n + k_idx])
+                        x_mat_rows[p_col][k_idx] = finish(aug_rref[row_idx, n + k_idx])
                 x_mat = Matrix._from_exact_rows(x_mat_rows)
                 record(
                     StepKind.RESULT,
@@ -705,7 +801,7 @@ class GaussJordan(Procedure[GJResult]):
         # Cas affine (variables libres présentes)
         x0_entries = [sp.Integer(0)] * n
         for row_idx, p_col in enumerate(pivots):
-            x0_entries[p_col] = _simplify_entry(aug_rref[row_idx, n])
+            x0_entries[p_col] = finish(aug_rref[row_idx, n])
         x0_vec = Vector._from_exact(x0_entries)
         record(
             StepKind.RESULT,

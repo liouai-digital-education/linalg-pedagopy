@@ -147,7 +147,7 @@
       </ul>
 
       <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
-        <strong>Version 3.1.0</strong><br>
+        <strong>Version 0.3.1.1</strong><br>
         Calcul exact · tuteur interactif
       </div>
     </aside>
@@ -609,8 +609,18 @@ BackSubstitution(R, c, *, assumptions=None)
 </tr>
 <tr>
 <td style="text-align: left;"><code>max_cases</code></td>
-<td style="text-align: left;">nombre maximal de branches</td>
+<td style="text-align: left;">nombre maximal de branches (au-delà : <code>CaseLimitError</code>)</td>
 <td style="text-align: left;"><code>8</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>max_generic_dim</code></td>
+<td style="text-align: left;">taille au-delà de laquelle Gauss-Jordan sur une matrice à paramètres émet un <code>PedagogicalWarning</code> ; <code>None</code> : jamais</td>
+<td style="text-align: left;"><code>4</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>factor_policy</code></td>
+<td style="text-align: left;"><code>"real_radicals"</code> : résultats d'une branche factorisés avec les radicaux $\sqrt d$ de sa condition ; <code>"rational"</code> : factorisation sur $\mathbb{Q}$</td>
+<td style="text-align: left;"><code>"real_radicals"</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>tutor_mode</code></td>

@@ -147,7 +147,7 @@
       </ul>
 
       <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
-        <strong>Version 3.1.0</strong><br>
+        <strong>Version 0.3.1.1</strong><br>
         Calcul exact · tuteur interactif
       </div>
     </aside>
@@ -253,10 +253,17 @@ print(len(arbre.children))
 <li><code>b</code> : Vecteur second membre (optionnel ; sans lui, seule la RREF de $A$ est calculée).</li>
 <li><code>pivot_strategy</code> : choix du pivot — le plus simple (<code>"simplest"</code>), le premier non nul (<code>"first"</code>) ou le plus grand en valeur absolue (<code>"partial"</code>).</li>
 <li><code>strict</code> : si <code>True</code>, lève <code>SingularMatrixError</code> pour un système incompatible (ou une matrice non inversible avec <code>compute_inverse=True</code>) au lieu de renvoyer <code>EmptySolution</code> / <code>inverse=None</code>.</li>
-<li><code>max_depth</code>, <code>max_cases</code> : limites de la discussion paramétrique (par défaut <code>config.max_case_depth</code> et <code>config.max_cases</code>).</li>
-<li><code>assumptions</code> : hypothèses initiales sur les paramètres de la branche.</li>
-<li><code>compute_inverse</code> : si <code>True</code>, calcule l'inverse via l'échelonnement simultané de $[A \mid I_n]$ (champ <code>inverse</code> du résultat).</li>
+<li><code>max_depth</code>, <code>max_cases</code> : limites de la discussion paramétrique (par défaut <code>config.max_case_depth</code> et <code>config.max_cases</code>). Quand une limite est atteinte, <code>CaseLimitError</code> (sous-classe de <code>PedagopyError</code>) arrête le calcul avec un message qui nomme les facteurs qui ouvrent des cas, la branche en cours, une hypothèse à fournir et un plafond plus élevé :</li>
 </ul>
+<p><code>text
+  Discussion par cas arrêtée : elle demande au moins 9 branches, au-delà du plafond max_cases=8.
+  Facteurs qui ouvrent des cas : a − 1, a + 1, b − 1, b + 1.
+  Branche en cours : a = −1.
+  Pour poursuivre : précisez des hypothèses sur les paramètres, par exemple assumptions="a != 1", ou relevez le plafond (max_cases=16, ou config.max_cases = 16).</code></p>
+<p>Les mêmes informations sont des attributs de l'exception : <code>limit</code>, <code>value</code>, <code>reached</code>, <code>factors</code>, <code>condition</code>, <code>suggested_assumption</code>.
+- <strong>Grandes matrices à paramètres</strong> : au-delà de <code>config.max_generic_dim</code> (4 par défaut), Gauss-Jordan sur une matrice qui contient des paramètres émet un <code>PedagogicalWarning</code>. Le calcul est mené à terme, mais l'avertissement rappelle qu'une discussion par cas sur une matrice symbolique 5 × 5 est rarement lisible et qu'il vaut mieux chercher d'abord une structure remarquable (triangulaire par blocs, tridiagonale, $aI + bJ$, Vandermonde…). <code>config.max_generic_dim = None</code> le supprime ; <code>warnings.simplefilter("error", PedagogicalWarning)</code> le transforme en erreur.
+- <code>assumptions</code> : hypothèses initiales sur les paramètres de la branche.
+- <code>compute_inverse</code> : si <code>True</code>, calcule l'inverse via l'échelonnement simultané de $[A \mid I_n]$ (champ <code>inverse</code> du résultat).</p>
 <p>Le résultat <code>GJResult</code> expose <code>A</code>, <code>b</code>, <code>rref</code>, <code>augmented_rref</code>, <code>pivots</code>, <code>rank</code>, <code>free_vars</code>, <code>nullspace_basis</code>, <code>solution</code> et <code>inverse</code>.</p>
 <h3 id="22-typologie-des-ensembles-de-solutions">2.2 Typologie des ensembles de solutions</h3>
 <p>Le résultat renvoyé par <code>GaussJordan.run()</code> est un <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/gauss_jordan.py"><code>GJResult</code></a> dont la propriété <code>solution</code> appartient à l'une des 3 catégories de <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/base.py"><code>SolutionSet</code></a> :</p>
@@ -311,6 +318,16 @@ for br in res.branches:
 - Le cas $m = 1$ : infinité de solutions (plan affine de dimension 2).
 - Le cas $m = -2$ : système incompatible ($\emptyset$).
 - Le cas $m \notin \{1, -2\}$ : solution unique $x = \left(\frac{1}{m+2}, \frac{1}{m+2}, \frac{1}{m+2}\right)$.</p>
+<h3 id="24-ecriture-des-resultats-selon-la-condition-de-la-branche">2.4 Écriture des résultats selon la condition de la branche</h3>
+<p>Une condition comme $a^2 - 2 \neq 0$ s'affiche avec ses racines : « $a \neq \sqrt 2$ et $a \neq -\sqrt 2$ ». Pour que la solution se lise avec les <strong>mêmes facteurs</strong>, ses coefficients sont factorisés avec les radicaux de la condition :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">a, = symbols("a")
+res = GaussJordan(Matrix([[a**2 - 2, 1], [0, a - 1]]), Vector([1, 1])).run()
+print(res)
+# ├─ Cas a ≠ √(2) et a ≠ −√(2) et a ≠ 1 (générique) : pivots non nuls, rang 2, solution unique
+# │    x = ( (a − 2)/((a − 1)·(a − √(2))·(a + √(2))), 1/(a − 1) )
+</code></pre></div>
+<p>Seuls les facteurs irréductibles sur $\mathbb{Q}$ sont décomposés, et seulement avec les radicaux qui figurent dans la condition de la branche : $1 - 2a$ garde son écriture. L'option <code>config.factor_policy = "rational"</code> (ou <code>using_config(factor_policy="rational")</code>) rétablit la factorisation sur $\mathbb{Q}$ seul.</p>
+<p>Dans une branche définie par une égalité non linéaire, par exemple $a^2 - 3 = 0$, les coefficients de la forme réduite sont remplacés par leur reste dans la division par $a^2 - 3$ ; une étape de niveau 2 l'annonce. Un témoin d'incompatibilité s'écrit alors $0 = 2$ plutôt que $0 = a^4 - 3a^2 + 2$.</p>
 <hr/>
 <h2 id="3-substitutions-triangulaires">3. Substitutions Triangulaires</h2>
 <p>Pour les systèmes dont la matrice est déjà échelonnée, les algorithmes de substitution évitent le coût complet d'un pivot de Gauss :</p>
@@ -563,6 +580,10 @@ Determinant(A, method="elimination", assumptions={"a": 3}).run().value   # 20
         
         <li class="toc-item toc-h3">
           <a href="#23-exemple-avec-parametre-et-discussion-automatique">2.3 Exemple avec paramètre et discussion automatique</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#24-ecriture-des-resultats-selon-la-condition-de-la-branche">2.4 Écriture des résultats selon la condition de la branche</a>
         </li>
         
         <li class="toc-item ">

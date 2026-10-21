@@ -10,6 +10,7 @@ from typing import Any, Iterator, Literal
 
 FloatPolicy = Literal["rationalize", "reject", "keep"]
 TutorMode = Literal["student", "teacher", "etudiant", "enseignant"]
+FactorPolicy = Literal["rational", "real_radicals"]
 
 
 @dataclass(frozen=True)
@@ -21,6 +22,8 @@ class ConfigState:
     default_trace_level: int = 1
     max_case_depth: int = 3
     max_cases: int = 8
+    factor_policy: FactorPolicy = "real_radicals"
+    max_generic_dim: int | None = 4
     tutor_mode: TutorMode = "student"
     hint_min_attempts: int = 0
     hint_min_delay_seconds: int = 0
@@ -82,6 +85,28 @@ class ConfigProxy:
     @max_cases.setter
     def max_cases(self, value: int) -> None:
         _config_var.set(replace(_config_var.get(), max_cases=value))
+
+    @property
+    def max_generic_dim(self) -> int | None:
+        """Taille au-delà de laquelle Gauss-Jordan sur une matrice à paramètres émet un PedagogicalWarning (None : jamais)."""
+        return _config_var.get().max_generic_dim
+
+    @max_generic_dim.setter
+    def max_generic_dim(self, value: int | None) -> None:
+        if value is not None and (not isinstance(value, int) or value < 1):
+            raise ValueError(f"max_generic_dim invalide : {value!r} (entier ≥ 1 ou None)")
+        _config_var.set(replace(_config_var.get(), max_generic_dim=value))
+
+    @property
+    def factor_policy(self) -> FactorPolicy:
+        """Factorisation des résultats : sur Q ("rational") ou avec les radicaux de la condition ("real_radicals")."""
+        return _config_var.get().factor_policy
+
+    @factor_policy.setter
+    def factor_policy(self, value: FactorPolicy) -> None:
+        if value not in ("rational", "real_radicals"):
+            raise ValueError(f"factor_policy invalide : {value!r}")
+        _config_var.set(replace(_config_var.get(), factor_policy=value))
 
     @property
     def tutor_mode(self) -> TutorMode:

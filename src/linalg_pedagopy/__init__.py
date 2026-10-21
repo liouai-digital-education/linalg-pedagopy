@@ -37,6 +37,7 @@ from linalg_pedagopy.compare import compare
 from linalg_pedagopy.config import config, using_config
 from linalg_pedagopy.core import (
     Branch,
+    CaseLimitError,
     CaseSplit,
     Condition,
     DimensionMismatchError,
@@ -45,6 +46,7 @@ from linalg_pedagopy.core import (
     LockedExerciseDataError,
     UnknownExerciseError,
     PedagopyError,
+    PedagogicalWarning,
     RankDeficientError,
     SingularMatrixError,
     UndecidableZeroError,
@@ -101,13 +103,14 @@ from linalg_pedagopy.trace import (
 )
 from linalg_pedagopy import tuteur, tutor
 
-__version__ = "3.1.0"
+__version__ = "0.3.1.1"
 
 __all__ = [
     "__version__",
     "AffineSolution",
     "BackSubstitution",
     "Branch",
+    "CaseLimitError",
     "CaseSplit",
     "Condition",
     "DependenceWitness",
@@ -131,6 +134,7 @@ __all__ = [
     "UnknownExerciseError",
     "Matrix",
     "PedagopyError",
+    "PedagogicalWarning",
     "Procedure",
     "QR",
     "QRResult",

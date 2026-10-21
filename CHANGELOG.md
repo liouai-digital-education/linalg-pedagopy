@@ -2,6 +2,37 @@
 
 ## [Non publié] — branche `development`
 
+## [0.3.1.1] — 2026-10-21
+
+Numéro de version : `0.3.1.1` (étiquette `v0.3.1.1`), au lieu de `3.1.1` prévu par le plan v6. Le préfixe « v » est réservé à l'étiquette git : la norme PEP 440 le retire de la version du paquet. Attention, `0.3.1.1` est inférieur, pour pip, aux versions déjà étiquetées `3.0.1` et `3.1.0`.
+
+Phase 3 du plan v6 : correctifs issus des campagnes de tests du bac à sable (factorisation cohérente avec la condition, réduction par la condition de la branche, facteurs de signe constant à plusieurs paramètres, messages de plafond, avertissement de taille).
+
+### Nouveautés — étape 3.5 du plan v6
+- **Avertissement didactique de taille** : Gauss-Jordan sur une matrice à paramètres de taille supérieure à `config.max_generic_dim` (4 par défaut) émet un `PedagogicalWarning` (nouvelle classe, sous-classe de `UserWarning`), une fois par calcul, qui invite à chercher une structure remarquable. Le calcul est toujours mené à terme ; `config.max_generic_dim = None` supprime l'avertissement. Concerne aussi `Matrix.rref()`, `rank()`, `nullspace()`, `inv()` et `solve()`, qui s'appuient sur Gauss-Jordan.
+- Les références des campagnes enregistrent les avertissements émis : 7 cas de taille 5 ou 6 en portent un (`t4_*`), sans autre changement. Tests dans `tests/test_avertissement_taille.py` ; guide 03 (§ 2.1), référence de l'API.
+
+### Corrections — étape 3.4 du plan v6
+- **Messages de plafond didactiques** : nouvelle exception `CaseLimitError` (sous-classe de `PedagopyError`, donc compatible avec le code qui attrapait cette dernière) levée quand `max_cases` ou `max_depth` arrête une discussion par cas, dans Gauss-Jordan comme dans `decide_all_zero`. Le message nomme les facteurs qui ouvrent des cas, la branche en cours, propose une hypothèse prête à l'emploi (`assumptions="a != 1"`) et un plafond plus élevé (`max_cases=16, ou config.max_cases = 16`) ; mêmes informations en attributs (`limit`, `value`, `reached`, `factors`, `condition`, `suggested_assumption`). Remplace « Nombre maximal de branches dépassé (max_cases=8). Fournissez des hypothèses… ».
+- Références régénérées et relues : `t2_blocs_4x4_inverse`, `t2_circulante_3_parametres_inverse`, `t4_bloc_triangulaire_6x6` (message d'erreur seul). Tests dans `tests/test_plafonds.py` ; guide 03 (§ 2.1).
+
+### Corrections — étape 3.3 du plan v6
+- **Oracle : facteurs de signe constant à plusieurs paramètres.** Un polynôme de degré 2 en plusieurs paramètres réels est écrit, en complétant les carrés, comme une somme de carrés et d'une constante ; si la constante est strictement positive, il ne s'annule jamais sur ℝ et n'ouvre plus de branche impossible (`a² + a·b + b² + 1 = (a + b/2)² + 3/4·b² + 1 > 0`). Il est aussi écarté des valeurs interdites des dénominateurs. Étape de trace de niveau 3 (`zero.sign_definite`) avec la décomposition. Nouvelles fonctions `sum_of_squares` et `strict_sign` dans `core.zero`. Auparavant, seules les sommes de carrés déjà explicites (`a² + b² + 1`) étaient reconnues.
+- Aucune référence modifiée ; la permutée cyclique 5 × 5 (`t4_permutee_cyclique_5x5`) reste sans branche parasite. Tests dans `tests/test_signe_constant.py` ; guide 01 (§ 3.4).
+
+### Corrections — étape 3.2 du plan v6
+- **Factorisation cohérente avec la condition** : nouvelle option `config.factor_policy`, `"real_radicals"` par défaut. Quand la condition d'une branche s'affiche avec des radicaux (« a ≠ √2 et a ≠ −√2 »), la solution, l'inverse et la base du noyau sont factorisés avec ces mêmes radicaux : `(a − 2)/((a − 1)·(a − √2)·(a + √2))` au lieu de `(a − 2)/((a − 1)·(a² − 2))`. Seuls les facteurs irréductibles sur ℚ sont décomposés ; `"rational"` rétablit l'ancienne écriture. Nouvelle méthode `Condition.radicals()`.
+- **Réduction par la condition de la branche** : dans une branche définie par une égalité non linéaire en un paramètre (a² − 3 = 0), les coefficients de la forme réduite sont remplacés par leur reste dans la division par ce polynôme, avec une étape de trace de niveau 2 (`gj.reduce_by_condition`). Le témoin d'incompatibilité de la tridiagonale 5 × 5 s'écrit `0 = 2` au lieu de `0 = a⁴ − 3a² + 2`. Nouvelles méthodes `Condition.reduce()` et `Condition.nonlinear_equations()`.
+- Références régénérées et relues : `t3_5_pivot_quadratique`, `t2_asymetrie_factorisation_inverse`, `t4_tridiagonale_5x5` (seules sorties modifiées). Tests dans `tests/test_factorisation.py`. Documentation : guide 03 (§ 2.4), référence de l'API (§ 8).
+
+### Tests — étape 3.1 du plan v6
+- Campagnes du bac à sable figées en tests de caractérisation : 21 cas reconstruits d'après le rapport d'évaluation des carnets `tests2` à `test4` (tests limites, grosses matrices pleines et creuses, plafonds de branches) dans `tests/campagnes.py`, références dans `tests/references/campagnes/`, constats et reconstitution dans `docs/dev/campagnes.md`.
+- Marque pytest `lent` pour les cas de plus de 5 s, écartés par `pytest -m "not lent"` et `verifier_tout.py --rapide`.
+- `scripts/mesurer_performances.py` : temps, nombre de branches et taille des expressions de chaque cas ; mesures de référence de la version 3.1.0 dans `docs/dev/mesures/campagnes_3.1.0.json`.
+
+### Documentation développeur
+- Plan de développement v6 (`docs/dev/plans/plan_developpement_v6.md`), qui remplace le plan v5 à partir de 3.1.0 : correctifs issus des campagnes de tests du bac à sable (0.3.1.1), moteur d'élimination avec noyau tracé et fusion des branches, bases et sous-espaces avant les valeurs propres (0.3.2.0), valeurs propres (0.3.3.0), familles de matrices structurées (0.3.4.0). Relecture critique du rapport d'évaluation des carnets et du référentiel bases et noyau, dont les erreurs relevées.
+
 ## [3.1.0] — 2026-10-21
 
 Phase 2 du plan v5 : déterminant exact tracé, thème « Déterminants » du tuteur, annonce des cas singuliers dans `Matrix.inv()`.

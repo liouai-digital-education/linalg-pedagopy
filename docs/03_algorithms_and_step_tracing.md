@@ -87,7 +87,17 @@ GaussJordan(
 - `b` : Vecteur second membre (optionnel ; sans lui, seule la RREF de $A$ est calculée).
 - `pivot_strategy` : choix du pivot — le plus simple (`"simplest"`), le premier non nul (`"first"`) ou le plus grand en valeur absolue (`"partial"`).
 - `strict` : si `True`, lève `SingularMatrixError` pour un système incompatible (ou une matrice non inversible avec `compute_inverse=True`) au lieu de renvoyer `EmptySolution` / `inverse=None`.
-- `max_depth`, `max_cases` : limites de la discussion paramétrique (par défaut `config.max_case_depth` et `config.max_cases`).
+- `max_depth`, `max_cases` : limites de la discussion paramétrique (par défaut `config.max_case_depth` et `config.max_cases`). Quand une limite est atteinte, `CaseLimitError` (sous-classe de `PedagopyError`) arrête le calcul avec un message qui nomme les facteurs qui ouvrent des cas, la branche en cours, une hypothèse à fournir et un plafond plus élevé :
+
+  ```text
+  Discussion par cas arrêtée : elle demande au moins 9 branches, au-delà du plafond max_cases=8.
+  Facteurs qui ouvrent des cas : a − 1, a + 1, b − 1, b + 1.
+  Branche en cours : a = −1.
+  Pour poursuivre : précisez des hypothèses sur les paramètres, par exemple assumptions="a != 1", ou relevez le plafond (max_cases=16, ou config.max_cases = 16).
+  ```
+
+  Les mêmes informations sont des attributs de l'exception : `limit`, `value`, `reached`, `factors`, `condition`, `suggested_assumption`.
+- **Grandes matrices à paramètres** : au-delà de `config.max_generic_dim` (4 par défaut), Gauss-Jordan sur une matrice qui contient des paramètres émet un `PedagogicalWarning`. Le calcul est mené à terme, mais l'avertissement rappelle qu'une discussion par cas sur une matrice symbolique 5 × 5 est rarement lisible et qu'il vaut mieux chercher d'abord une structure remarquable (triangulaire par blocs, tridiagonale, $aI + bJ$, Vandermonde…). `config.max_generic_dim = None` le supprime ; `warnings.simplefilter("error", PedagogicalWarning)` le transforme en erreur.
 - `assumptions` : hypothèses initiales sur les paramètres de la branche.
 - `compute_inverse` : si `True`, calcule l'inverse via l'échelonnement simultané de $[A \mid I_n]$ (champ `inverse` du résultat).
 
@@ -153,6 +163,22 @@ Ce code produit automatiquement un `CaseSplit` distinguant :
 - Le cas $m = 1$ : infinité de solutions (plan affine de dimension 2).
 - Le cas $m = -2$ : système incompatible ($\emptyset$).
 - Le cas $m \notin \{1, -2\}$ : solution unique $x = \left(\frac{1}{m+2}, \frac{1}{m+2}, \frac{1}{m+2}\right)$.
+
+### 2.4 Écriture des résultats selon la condition de la branche
+
+Une condition comme $a^2 - 2 \neq 0$ s'affiche avec ses racines : « $a \neq \sqrt 2$ et $a \neq -\sqrt 2$ ». Pour que la solution se lise avec les **mêmes facteurs**, ses coefficients sont factorisés avec les radicaux de la condition :
+
+```python
+a, = symbols("a")
+res = GaussJordan(Matrix([[a**2 - 2, 1], [0, a - 1]]), Vector([1, 1])).run()
+print(res)
+# ├─ Cas a ≠ √(2) et a ≠ −√(2) et a ≠ 1 (générique) : pivots non nuls, rang 2, solution unique
+# │    x = ( (a − 2)/((a − 1)·(a − √(2))·(a + √(2))), 1/(a − 1) )
+```
+
+Seuls les facteurs irréductibles sur $\mathbb{Q}$ sont décomposés, et seulement avec les radicaux qui figurent dans la condition de la branche : $1 - 2a$ garde son écriture. L'option `config.factor_policy = "rational"` (ou `using_config(factor_policy="rational")`) rétablit la factorisation sur $\mathbb{Q}$ seul.
+
+Dans une branche définie par une égalité non linéaire, par exemple $a^2 - 3 = 0$, les coefficients de la forme réduite sont remplacés par leur reste dans la division par $a^2 - 3$ ; une étape de niveau 2 l'annonce. Un témoin d'incompatibilité s'écrit alors $0 = 2$ plutôt que $0 = a^4 - 3a^2 + 2$.
 
 ---
 

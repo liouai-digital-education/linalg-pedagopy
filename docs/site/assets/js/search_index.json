@@ -127,6 +127,13 @@
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
+    "title": "3.4 Facteurs de signe constant à plusieurs paramètres",
+    "url": "01_core_and_formal_computation.html#34-facteurs-de-signe-constant-a-plusieurs-parametres",
+    "snippet": "Un facteur qui ne s'annule pour aucune valeur réelle des paramètres ne doit pas ouvrir de branche. En un seul paramètre, l'oracle cherche ses racines réelles ($...",
+    "content": "3.4 Facteurs de signe constant à plusieurs paramètres Un facteur qui ne s'annule pour aucune valeur réelle des paramètres ne doit pas ouvrir de branche. En un seul paramètre, l'oracle cherche ses racines réelles ($..."
+  },
+  {
+    "pageTitle": "01. Noyau formel & calcul exact",
     "title": "4. Disjonction de cas paramétriques (CaseSplit)",
     "url": "01_core_and_formal_computation.html#4-disjonction-de-cas-parametriques-casesplit",
     "snippet": "Une Condition modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :\n- Des égalités formelles : $a = 1$, $b = 0$.\n- Des inégalités...",
@@ -346,8 +353,8 @@
     "pageTitle": "03. Algorithmes & traçabilité",
     "title": "2.1 Signature et options",
     "url": "03_algorithms_and_step_tracing.html#21-signature-et-options",
-    "snippet": "Le résultat GJResult expose A, b, rref, augmented_rref, pivots, rank, free_vars, nullspace_basis, solution et inverse....",
-    "content": "2.1 Signature et options Le résultat GJResult expose A, b, rref, augmented_rref, pivots, rank, free_vars, nullspace_basis, solution et inverse...."
+    "snippet": "text\n  Discussion par cas arrêtée : elle demande au moins 9 branches, au-delà du plafond max_cases=8.\n  Facteurs qui ouvrent des cas : a − 1, a + 1, b − 1, b + ...",
+    "content": "2.1 Signature et options text\n  Discussion par cas arrêtée : elle demande au moins 9 branches, au-delà du plafond max_cases=8.\n  Facteurs qui ouvrent des cas : a − 1, a + 1, b − 1, b + ..."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",
@@ -362,6 +369,13 @@
     "url": "03_algorithms_and_step_tracing.html#23-exemple-avec-parametre-et-discussion-automatique",
     "snippet": "Ce code produit automatiquement un CaseSplit distinguant :\n- Le cas $m = 1$ : infinité de solutions (plan affine de dimension 2).\n- Le cas $m = -2$ : système in...",
     "content": "2.3 Exemple avec paramètre et discussion automatique Ce code produit automatiquement un CaseSplit distinguant :\n- Le cas $m = 1$ : infinité de solutions (plan affine de dimension 2).\n- Le cas $m = -2$ : système in..."
+  },
+  {
+    "pageTitle": "03. Algorithmes & traçabilité",
+    "title": "2.4 Écriture des résultats selon la condition de la branche",
+    "url": "03_algorithms_and_step_tracing.html#24-ecriture-des-resultats-selon-la-condition-de-la-branche",
+    "snippet": "Une condition comme $a^2 - 2 \\neq 0$ s'affiche avec ses racines : « $a \\neq \\sqrt 2$ et $a \\neq -\\sqrt 2$ ». Pour que la solution se lise avec les mêmes facteur...",
+    "content": "2.4 Écriture des résultats selon la condition de la branche Une condition comme $a^2 - 2 \\neq 0$ s'affiche avec ses racines : « $a \\neq \\sqrt 2$ et $a \\neq -\\sqrt 2$ ». Pour que la solution se lise avec les mêmes facteur..."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",

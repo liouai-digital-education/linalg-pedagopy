@@ -1,0 +1,194 @@
+===== carnet =====
+tests2 — det (a − 1)(a² + a − 3) : condition en radicaux, inverse avec a² + a − 3 non factorisé
+
+===== repr =====
+<CaseSplit selon a : 3 cas — a ≠ 1 et a ≠ −1/2 + √(13)/2 et a ≠ −√(13)/2 − 1/2 | a ≠ 1 et a² + a − 3 = 0 | a = 1>
+
+===== str =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −1/2 + √(13)/2 et a ≠ −√(13)/2 − 1/2 (générique) : matrice inversible de rang 3
+├─ Cas a ≠ 1 et a² + a − 3 = 0 : rang 2, colonnes pivots [1, 2]
+└─ Cas a = 1 : rang 2, colonnes pivots [1, 2]
+
+===== texte niveau 0 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −1/2 + √(13)/2 et a ≠ −√(13)/2 − 1/2 (générique) : matrice inversible de rang 3
+├─ Cas a ≠ 1 et a² + a − 3 = 0 : rang 2, colonnes pivots [1, 2]
+└─ Cas a = 1 : rang 2, colonnes pivots [1, 2]
+
+===== texte niveau 1 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −1/2 + √(13)/2 et a ≠ −√(13)/2 − 1/2 (générique) : matrice inversible de rang 3
+├─ Cas a ≠ 1 et a² + a − 3 = 0 : rang 2, colonnes pivots [1, 2]
+└─ Cas a = 1 : rang 2, colonnes pivots [1, 2]
+
+===== texte niveau 2 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −1/2 + √(13)/2 et a ≠ −√(13)/2 − 1/2 (générique) : matrice inversible de rang 3
+│    Réduction de Gauss-Jordan d'une matrice 3×3.
+│       [(a 2 1 | 1 0 0); (1 a 1 | 0 1 0); (1 1 a | 0 0 1)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (2,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ On échange les lignes L1 et L2 : L1 ↔ L2.
+│    │  │  [(1 a 1 | 0 1 0); (a 2 1 | 1 0 0); (1 1 a | 0 0 1)]
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - a·L1.
+│    │  │  [(1 a 1 | 0 1 0); (0 2 - a**2 1 - a | 1 -a 0); (1 1 a | 0 0 1)]
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│    │     [(1 a 1 | 0 1 0); (0 2 - a**2 1 - a | 1 -a 0); (0 1 - a a - 1 | 0 -1 1)]
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (3,2) de valeur 1 − a (stratégie : simplest).
+│    │  ├─ On échange les lignes L2 et L3 : L2 ↔ L3.
+│    │  │  [(1 a 1 | 0 1 0); (0 1 - a a - 1 | 0 -1 1); (0 2 - a**2 1 - a | 1 -a 0)]
+│    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1/(a − 1))·L2.
+│    │  │  [(1 a 1 | 0 1 0); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 2 - a**2 1 - a | 1 -a 0)]
+│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 - a·L2.
+│    │  │  [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 2 - a**2 1 - a | 1 -a 0)]
+│    │  └─ On annule le coefficient (3,2) : L3 ← L3 - 2 − a²·L2.
+│    │     [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 -a**2 - a + 3 | 1 (a - 2)/(a - 1) (2 - a**2)/(a - 1))]
+│    ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
+│    │  ├─ Choix du pivot en (3,3) de valeur −a² − a + 3 (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 3 : L3 ← (−1/(a² + a − 3))·L3.
+│    │  │  [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 1 | -1/(a**2 + a - 3) (2 - a)/((a - 1)*(a**2 + a - 3)) (a**2 - 2)/((a - 1)*(a**2 + a - 3)))]
+│    │  ├─ On annule le coefficient (1,3) : L1 ← L1 - a + 1·L3.
+│    │  │  [(1 0 0 | (a + 1)/(a**2 + a - 3) (1 - 2*a)/((a - 1)*(a**2 + a - 3)) (2 - a)/((a - 1)*(a**2 + a - 3))); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 1 | -1/(a**2 + a - 3) (2 - a)/((a - 1)*(a**2 + a - 3)) (a**2 - 2)/((a - 1)*(a**2 + a - 3)))]
+│    │  └─ On annule le coefficient (2,3) : L2 ← L2 + 1·L3.
+│    │     [(1 0 0 | (a + 1)/(a**2 + a - 3) (1 - 2*a)/((a - 1)*(a**2 + a - 3)) (2 - a)/((a - 1)*(a**2 + a - 3))); (0 1 0 | -1/(a**2 + a - 3) (a + 1)/(a**2 + a - 3) -1/(a**2 + a - 3)); (0 0 1 | -1/(a**2 + a - 3) (2 - a)/((a - 1)*(a**2 + a - 3)) (a**2 - 2)/((a - 1)*(a**2 + a - 3)))]
+│    ├─ Matrice réduite à I_3 à gauche : l'inverse A^(-1) est extraite à droite.
+│    └─ Forme échelonnée réduite atteinte : rang = 3, colonnes pivots = (1, 2, 3).
+│       [(1 0 0 | (a + 1)/(a**2 + a - 3) (1 - 2*a)/((a - 1)*(a**2 + a - 3)) (2 - a)/((a - 1)*(a**2 + a - 3))); (0 1 0 | -1/(a**2 + a - 3) (a + 1)/(a**2 + a - 3) -1/(a**2 + a - 3)); (0 0 1 | -1/(a**2 + a - 3) (2 - a)/((a - 1)*(a**2 + a - 3)) (a**2 - 2)/((a - 1)*(a**2 + a - 3)))]
+├─ Cas a ≠ 1 et a² + a − 3 = 0 : rang 2, colonnes pivots [1, 2]
+│    Réduction de Gauss-Jordan d'une matrice 3×3.
+│       [(a 2 1 | 1 0 0); (1 a 1 | 0 1 0); (1 1 a | 0 0 1)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (2,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ On échange les lignes L1 et L2 : L1 ↔ L2.
+│    │  │  [(1 a 1 | 0 1 0); (a 2 1 | 1 0 0); (1 1 a | 0 0 1)]
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - a·L1.
+│    │  │  [(1 a 1 | 0 1 0); (0 2 - a**2 1 - a | 1 -a 0); (1 1 a | 0 0 1)]
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│    │     [(1 a 1 | 0 1 0); (0 2 - a**2 1 - a | 1 -a 0); (0 1 - a a - 1 | 0 -1 1)]
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (3,2) de valeur 1 − a (stratégie : simplest).
+│    │  ├─ On échange les lignes L2 et L3 : L2 ↔ L3.
+│    │  │  [(1 a 1 | 0 1 0); (0 1 - a a - 1 | 0 -1 1); (0 2 - a**2 1 - a | 1 -a 0)]
+│    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1/(a − 1))·L2.
+│    │  │  [(1 a 1 | 0 1 0); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 2 - a**2 1 - a | 1 -a 0)]
+│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 - a·L2.
+│    │  │  [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 2 - a**2 1 - a | 1 -a 0)]
+│    │  └─ On annule le coefficient (3,2) : L3 ← L3 - 2 − a²·L2.
+│    │     [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 -a**2 - a + 3 | 1 (a - 2)/(a - 1) (2 - a**2)/(a - 1))]
+│    ├─ Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+│    ├─ Dans cette branche, a² + a − 3 = 0 : chaque coefficient est remplacé par son reste dans la division par ce polynôme, ce qui fait disparaître les puissances de degré trop élevé.
+│    │  [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 0 | 1 (a - 2)/(a - 1) 1)]
+│    ├─ La matrice est singulière (rang 2 < 3) : elle n'est pas inversible.
+│    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+│       [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 0 | 1 (a - 2)/(a - 1) 1)]
+└─ Cas a = 1 : rang 2, colonnes pivots [1, 2]
+     Réduction de Gauss-Jordan d'une matrice 3×3.
+        [(1 2 1 | 1 0 0); (1 1 1 | 0 1 0); (1 1 1 | 0 0 1)]
+     ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+     │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+     │  ├─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+     │  │  [(1 2 1 | 1 0 0); (0 -1 0 | -1 1 0); (1 1 1 | 0 0 1)]
+     │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+     │     [(1 2 1 | 1 0 0); (0 -1 0 | -1 1 0); (0 -1 0 | -1 0 1)]
+     ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+     │  ├─ Choix du pivot en (2,2) de valeur −1 (stratégie : simplest).
+     │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1)·L2.
+     │  │  [(1 2 1 | 1 0 0); (0 1 0 | 1 -1 0); (0 -1 0 | -1 0 1)]
+     │  ├─ On annule le coefficient (1,2) : L1 ← L1 - 2·L2.
+     │  │  [(1 0 1 | -1 2 0); (0 1 0 | 1 -1 0); (0 -1 0 | -1 0 1)]
+     │  └─ On annule le coefficient (3,2) : L3 ← L3 + 1·L2.
+     │     [(1 0 1 | -1 2 0); (0 1 0 | 1 -1 0); (0 0 0 | 0 -1 1)]
+     ├─ Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+     ├─ La matrice est singulière (rang 2 < 3) : elle n'est pas inversible.
+     └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+        [(1 0 1 | -1 2 0); (0 1 0 | 1 -1 0); (0 0 0 | 0 -1 1)]
+
+===== texte niveau 3 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −1/2 + √(13)/2 et a ≠ −√(13)/2 − 1/2 (générique) : matrice inversible de rang 3
+│    Réduction de Gauss-Jordan d'une matrice 3×3.
+│       [(a 2 1 | 1 0 0); (1 a 1 | 0 1 0); (1 1 a | 0 0 1)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (2,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ On échange les lignes L1 et L2 : L1 ↔ L2.
+│    │  │  [(1 a 1 | 0 1 0); (a 2 1 | 1 0 0); (1 1 a | 0 0 1)]
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - a·L1.
+│    │  │  [(1 a 1 | 0 1 0); (0 2 - a**2 1 - a | 1 -a 0); (1 1 a | 0 0 1)]
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│    │     [(1 a 1 | 0 1 0); (0 2 - a**2 1 - a | 1 -a 0); (0 1 - a a - 1 | 0 -1 1)]
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (3,2) de valeur 1 − a (stratégie : simplest).
+│    │  ├─ On échange les lignes L2 et L3 : L2 ↔ L3.
+│    │  │  [(1 a 1 | 0 1 0); (0 1 - a a - 1 | 0 -1 1); (0 2 - a**2 1 - a | 1 -a 0)]
+│    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1/(a − 1))·L2.
+│    │  │  [(1 a 1 | 0 1 0); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 2 - a**2 1 - a | 1 -a 0)]
+│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 - a·L2.
+│    │  │  [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 2 - a**2 1 - a | 1 -a 0)]
+│    │  └─ On annule le coefficient (3,2) : L3 ← L3 - 2 − a²·L2.
+│    │     [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 -a**2 - a + 3 | 1 (a - 2)/(a - 1) (2 - a**2)/(a - 1))]
+│    ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
+│    │  ├─ Choix du pivot en (3,3) de valeur −a² − a + 3 (stratégie : simplest).
+│    │  ├─ On normalise le pivot de la ligne 3 : L3 ← (−1/(a² + a − 3))·L3.
+│    │  │  [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 1 | -1/(a**2 + a - 3) (2 - a)/((a - 1)*(a**2 + a - 3)) (a**2 - 2)/((a - 1)*(a**2 + a - 3)))]
+│    │  ├─ On annule le coefficient (1,3) : L1 ← L1 - a + 1·L3.
+│    │  │  [(1 0 0 | (a + 1)/(a**2 + a - 3) (1 - 2*a)/((a - 1)*(a**2 + a - 3)) (2 - a)/((a - 1)*(a**2 + a - 3))); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 1 | -1/(a**2 + a - 3) (2 - a)/((a - 1)*(a**2 + a - 3)) (a**2 - 2)/((a - 1)*(a**2 + a - 3)))]
+│    │  └─ On annule le coefficient (2,3) : L2 ← L2 + 1·L3.
+│    │     [(1 0 0 | (a + 1)/(a**2 + a - 3) (1 - 2*a)/((a - 1)*(a**2 + a - 3)) (2 - a)/((a - 1)*(a**2 + a - 3))); (0 1 0 | -1/(a**2 + a - 3) (a + 1)/(a**2 + a - 3) -1/(a**2 + a - 3)); (0 0 1 | -1/(a**2 + a - 3) (2 - a)/((a - 1)*(a**2 + a - 3)) (a**2 - 2)/((a - 1)*(a**2 + a - 3)))]
+│    ├─ Matrice réduite à I_3 à gauche : l'inverse A^(-1) est extraite à droite.
+│    └─ Forme échelonnée réduite atteinte : rang = 3, colonnes pivots = (1, 2, 3).
+│       [(1 0 0 | (a + 1)/(a**2 + a - 3) (1 - 2*a)/((a - 1)*(a**2 + a - 3)) (2 - a)/((a - 1)*(a**2 + a - 3))); (0 1 0 | -1/(a**2 + a - 3) (a + 1)/(a**2 + a - 3) -1/(a**2 + a - 3)); (0 0 1 | -1/(a**2 + a - 3) (2 - a)/((a - 1)*(a**2 + a - 3)) (a**2 - 2)/((a - 1)*(a**2 + a - 3)))]
+├─ Cas a ≠ 1 et a² + a − 3 = 0 : rang 2, colonnes pivots [1, 2]
+│    Réduction de Gauss-Jordan d'une matrice 3×3.
+│       [(a 2 1 | 1 0 0); (1 a 1 | 0 1 0); (1 1 a | 0 0 1)]
+│    ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+│    │  ├─ Choix du pivot en (2,1) de valeur 1 (stratégie : simplest).
+│    │  ├─ On échange les lignes L1 et L2 : L1 ↔ L2.
+│    │  │  [(1 a 1 | 0 1 0); (a 2 1 | 1 0 0); (1 1 a | 0 0 1)]
+│    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - a·L1.
+│    │  │  [(1 a 1 | 0 1 0); (0 2 - a**2 1 - a | 1 -a 0); (1 1 a | 0 0 1)]
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+│    │     [(1 a 1 | 0 1 0); (0 2 - a**2 1 - a | 1 -a 0); (0 1 - a a - 1 | 0 -1 1)]
+│    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+│    │  ├─ Choix du pivot en (3,2) de valeur 1 − a (stratégie : simplest).
+│    │  ├─ On échange les lignes L2 et L3 : L2 ↔ L3.
+│    │  │  [(1 a 1 | 0 1 0); (0 1 - a a - 1 | 0 -1 1); (0 2 - a**2 1 - a | 1 -a 0)]
+│    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1/(a − 1))·L2.
+│    │  │  [(1 a 1 | 0 1 0); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 2 - a**2 1 - a | 1 -a 0)]
+│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 - a·L2.
+│    │  │  [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 2 - a**2 1 - a | 1 -a 0)]
+│    │  └─ On annule le coefficient (3,2) : L3 ← L3 - 2 − a²·L2.
+│    │     [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 -a**2 - a + 3 | 1 (a - 2)/(a - 1) (2 - a**2)/(a - 1))]
+│    ├─ Ce coefficient est nul dans le domaine exact (−a² − a + 3 = 0).
+│    ├─ Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+│    ├─ Dans cette branche, a² + a − 3 = 0 : chaque coefficient est remplacé par son reste dans la division par ce polynôme, ce qui fait disparaître les puissances de degré trop élevé.
+│    │  [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 0 | 1 (a - 2)/(a - 1) 1)]
+│    ├─ La matrice est singulière (rang 2 < 3) : elle n'est pas inversible.
+│    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+│       [(1 0 a + 1 | 0 -1/(a - 1) a/(a - 1)); (0 1 -1 | 0 1/(a - 1) -1/(a - 1)); (0 0 0 | 1 (a - 2)/(a - 1) 1)]
+└─ Cas a = 1 : rang 2, colonnes pivots [1, 2]
+     Réduction de Gauss-Jordan d'une matrice 3×3.
+        [(1 2 1 | 1 0 0); (1 1 1 | 0 1 0); (1 1 1 | 0 0 1)]
+     ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
+     │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
+     │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     │  ├─ On annule le coefficient (2,1) : L2 ← L2 - 1·L1.
+     │  │  [(1 2 1 | 1 0 0); (0 -1 0 | -1 1 0); (1 1 1 | 0 0 1)]
+     │  └─ On annule le coefficient (3,1) : L3 ← L3 - 1·L1.
+     │     [(1 2 1 | 1 0 0); (0 -1 0 | -1 1 0); (0 -1 0 | -1 0 1)]
+     ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
+     │  ├─ Choix du pivot en (2,2) de valeur −1 (stratégie : simplest).
+     │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1)·L2.
+     │  │  [(1 2 1 | 1 0 0); (0 1 0 | 1 -1 0); (0 -1 0 | -1 0 1)]
+     │  ├─ On annule le coefficient (1,2) : L1 ← L1 - 2·L2.
+     │  │  [(1 0 1 | -1 2 0); (0 1 0 | 1 -1 0); (0 -1 0 | -1 0 1)]
+     │  └─ On annule le coefficient (3,2) : L3 ← L3 + 1·L2.
+     │     [(1 0 1 | -1 2 0); (0 1 0 | 1 -1 0); (0 0 0 | 0 -1 1)]
+     ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
+     ├─ Aucun pivot non nul disponible dans la colonne 3 : variable x_3 libre.
+     ├─ La matrice est singulière (rang 2 < 3) : elle n'est pas inversible.
+     └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
+        [(1 0 1 | -1 2 0); (0 1 0 | 1 -1 0); (0 0 0 | 0 -1 1)]
