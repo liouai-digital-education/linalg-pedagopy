@@ -5,7 +5,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Sequence
 
-import numpy as np
 import sympy as sp
 
 from linalg_pedagopy.algorithms.gauss_jordan import GaussJordan
@@ -15,6 +14,20 @@ from linalg_pedagopy.algorithms.qr import QR
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.trace.tracer import suspend_tracing
+
+# numpy est une dépendance optionnelle (option « compare ») : son absence ne doit pas empêcher
+# d'importer linalg_pedagopy ; seules les comparaisons numériques l'exigent.
+try:
+    import numpy as np
+except ImportError:  # pragma: no cover - dépend de l'installation
+    np = None  # type: ignore[assignment, unused-ignore]
+
+
+def _exiger_numpy() -> None:
+    if np is None:
+        raise ImportError(
+            "Les comparaisons numériques demandent numpy : pip install \"linalg_pedagopy[compare]\"."
+        )
 
 
 def _to_numpy_float(obj: Matrix | Vector) -> np.ndarray:
@@ -159,6 +172,7 @@ def _modified_gram_schmidt_float(A_np: np.ndarray) -> np.ndarray:
 
 def compare(procedure: Any, inputs: Any = None) -> ComparisonReport:
     """Exécute un algorithme en exact et en flottant (NumPy) et mesure l'écart."""
+    _exiger_numpy()
     if isinstance(procedure, type) and inputs is not None:
         if isinstance(inputs, tuple):
             proc_inst = procedure(*inputs)
@@ -228,6 +242,7 @@ def lauchli_gram_schmidt_experiment(
     n: int = 3,
 ) -> LauchliGSReport:
     """Expérience 1 : Gram-Schmidt classique vs modifié vs exact sur la matrice de Läuchli."""
+    _exiger_numpy()
     A = build_lauchli_matrix(n=n, epsilon=epsilon)
     with suspend_tracing():
         gs_res = GramSchmidt(A.columns(), normalize="end").run()
@@ -264,6 +279,7 @@ def lauchli_least_squares_experiment(
     n: int = 3,
 ) -> LauchliLSReport:
     """Expérience 2 : Équations normales vs QR sur la matrice de Läuchli (1 + ε^2 == 1 en machine)."""
+    _exiger_numpy()
     A = build_lauchli_matrix(n=n, epsilon=epsilon)
     b = Vector([sp.Integer(1)] + [sp.Integer(i + 1) for i in range(n)])
 
@@ -306,6 +322,7 @@ def hilbert_conditioning_experiment(
     sizes: Sequence[int] = (3, 5, 7, 9),
 ) -> HilbertReport:
     """Expérience 3 : Croissance du conditionnement et erreur relative sur les matrices de Hilbert."""
+    _exiger_numpy()
     entries: list[HilbertEntry] = []
     lines = ["Matrices de Hilbert H_n :"]
     for n in sizes:
@@ -332,6 +349,7 @@ def hilbert_conditioning_experiment(
 
 def explicit_inverse_vs_solve_experiment(n: int = 6) -> InverseVsSolveReport:
     """Expérience 4 : Coût en flops et erreur supplémentaire de A^(-1) b face à une résolution directe."""
+    _exiger_numpy()
     H = build_hilbert_matrix(n)
     x_true = Vector([sp.Integer((-1) ** i * (i + 1)) for i in range(n)])
     with suspend_tracing():
