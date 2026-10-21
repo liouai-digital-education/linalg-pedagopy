@@ -8,22 +8,22 @@ Tous les noms ci-dessous sont importables depuis `linalg_pedagopy` (sauf mention
 
 ## 1. Table de correspondance bilingue (Anglais / Français)
 
-Le package privilégie une **nomenclature primaire anglaise** tout en garantissant des **alias français** :
+Le package privilégie une **nomenclature primaire anglaise** tout en garantissant des **alias français**. Exception : le **tuteur** s'utilise en français (`linalg_pedagopy.tuteur`) ; ses noms anglais (`linalg_pedagopy.tutor`, `tutor.exercise`, `ex.hint`…) restent disponibles sans avertissement en 0.3.1.2, avec un `DeprecationWarning` en 0.3.2.0, et disparaissent en 0.4.0.0.
 
 | API Primaire (Anglais) | Alias Français | Module d'origine |
 | :--- | :--- | :--- |
 | `tutor` | `tuteur` | `linalg_pedagopy` |
-| `tutor.catalog(theme=None)` | `tuteur.catalogue(theme=None)` | `linalg_pedagopy.tutor` |
-| `tutor.themes()` | `tuteur.themes()` | `linalg_pedagopy.tutor` |
-| `tutor.reload_catalog()` | `tuteur.recharger_catalogue()` | `linalg_pedagopy.tutor` |
-| `tutor.exercise(id)` | `tuteur.exercice(id)` | `linalg_pedagopy.tutor` |
-| `tutor.list_exercises()` | `tuteur.lister_exercices()` | `linalg_pedagopy.tutor` |
-| `tutor.validate_sheet(id)` | `tuteur.valider_fiche(id)` | `linalg_pedagopy.tutor` |
-| `tutor.glossary(term)` | `tuteur.glossaire(term)` | `linalg_pedagopy.tutor` |
-| `tutor.mode("teacher")` | `tuteur.mode("enseignant")` | `linalg_pedagopy.tutor` |
-| `tutor.build_panel(ex)` | `tuteur.build_panneau(ex)` | `linalg_pedagopy.tutor` |
-| `tutor.verify_matrix(...)`, `verify_value(...)`… | `tuteur.verifier_matrice(...)`, `verifier_valeur(...)`… | `linalg_pedagopy.tutor` |
-| `ExerciseSession` | `ExerciceSession` | `linalg_pedagopy.tutor` |
+| `tutor.catalog(theme=None)` | `tuteur.catalogue(theme=None)` | `linalg_pedagopy.tuteur` |
+| `tutor.themes()` | `tuteur.themes()` | `linalg_pedagopy.tuteur` |
+| `tutor.reload_catalog()` | `tuteur.recharger_catalogue()` | `linalg_pedagopy.tuteur` |
+| `tutor.exercise(id)` | `tuteur.exercice(id)` | `linalg_pedagopy.tuteur` |
+| `tutor.list_exercises()` | `tuteur.lister_exercices()` | `linalg_pedagopy.tuteur` |
+| `tutor.validate_sheet(id)` | `tuteur.valider_fiche(id)` | `linalg_pedagopy.tuteur` |
+| `tutor.glossary(term)` | `tuteur.glossaire(term)` | `linalg_pedagopy.tuteur` |
+| `tutor.mode("teacher")` | `tuteur.mode("enseignant")` | `linalg_pedagopy.tuteur` |
+| `tutor.build_panel(ex)` | `tuteur.build_panneau(ex)` | `linalg_pedagopy.tuteur` |
+| `tutor.verify_matrix(...)`, `verify_value(...)`… | `tuteur.verifier_matrice(...)`, `verifier_valeur(...)`… | `linalg_pedagopy.tuteur` |
+| `ExerciseSession` | `ExerciceSession` | `linalg_pedagopy.tuteur` |
 | `ex.statement()` | `ex.enonce()` | `ExerciseSession` |
 | `ex.data` | `ex.donnees` | `ExerciseSession` |
 | `ex.hint(level=None)` | `ex.indice(niveau=None)` | `ExerciseSession` |
@@ -285,7 +285,9 @@ Determinant(A, *, method="auto", assumptions=None)
 
 ---
 
-## 6. Module `linalg_pedagopy.tutor` / `tuteur`
+## 6. Module `linalg_pedagopy.tuteur` (noms anglais : `tutor`)
+
+Sous-modules : `catalogue` (fiches, thèmes, glossaire, mode), `seance` (`ExerciseSession`), `validation` (`validate_sheet`), `verificateurs/` (un module par type de vérification), `registre` (registre des types), `indices`, `journal`, `labo`, `verrou`, `panneau`, `evaluation_sure` (interpréteur sûr des expressions des fiches et des saisies). Les anciens chemins `linalg_pedagopy.tutor.catalog`, `.verifiers`… réexportent les mêmes noms jusqu'à 0.4.0.0.
 
 ### 6.1 Catalogue
 

@@ -74,16 +74,16 @@ print(result.at(a=0).solution)   # UniqueSolution(x=(4, -1, -2))
 ### Première séance avec le tuteur
 
 ```python
-from linalg_pedagopy import tutor, Matrix
+from linalg_pedagopy import tuteur, Matrix
 
-print(tutor.catalog())                     # les 39 exercices, par thème
+print(tuteur.catalogue())                     # les 39 exercices, par thème
 
-ex = tutor.exercise("moyenne-glissante")   # ou tutor.exercise(16)
-print(ex.statement())                      # dans JupyterLab : ex.statement() suffit
-print(ex.hint())                           # palier 1 : orientation
+ex = tuteur.exercice("moyenne-glissante")   # ou tuteur.exercice(16)
+print(ex.enonce())                      # dans JupyterLab : ex.enonce() suffit
+print(ex.indice())                           # palier 1 : orientation
 
-rapport = ex.verify(Matrix.zeros(3, 6))    # une réponse fausse
-print(rapport.valid)                       # False
+rapport = ex.verifier(Matrix.zeros(3, 6))    # une réponse fausse
+print(rapport.valide)                       # False
 print(rapport.diagnostic)                  # ce que calcule la réponse, et une question
 ```
 
@@ -102,30 +102,30 @@ print(rapport.diagnostic)                  # ce que calcule la réponse, et une 
 
 ---
 
-## Noms anglais et alias français
+## Noms du tuteur : français et anglais
 
-L'API principale est en anglais ; chaque élément du tuteur a un alias français :
+Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :
 
-| Concept | API (anglais) | Alias français |
+| Concept | Nom français | Nom anglais (jusqu'à 0.4.0.0) |
 | :--- | :--- | :--- |
-| Module | `from linalg_pedagopy import tutor` | `from linalg_pedagopy import tuteur` |
-| Catalogue | `tutor.catalog()` | `tuteur.catalogue()` |
-| Ouvrir un exercice | `tutor.exercise("moyenne-glissante")` | `tuteur.exercice("moyenne-glissante")` |
-| Énoncé | `ex.statement()` | `ex.enonce()` |
-| Indice | `ex.hint()` | `ex.indice()` |
-| Exercice jumeau | `ex.twin()` | `ex.jumeau()` |
-| Prédiction | `ex.predict(...)` | `ex.predire(...)` |
-| Laboratoire | `ex.lab()` | `ex.labo()` |
-| Vérification | `ex.verify(reponse)` | `ex.verifier(reponse)` |
-| Bilan | `ex.summary()` | `ex.bilan()` |
-| Repartir de zéro | `ex.reset()` | `ex.recommencer()` |
-| Fiche enseignant | `ex.teacher_sheet()` | `ex.fiche_enseignant()` |
-| Liste des identifiants | `tutor.list_exercises()` | `tuteur.lister_exercices()` |
-| Valider une fiche | `tutor.validate_sheet(id)` | `tuteur.valider_fiche(id)` |
-| Glossaire | `tutor.glossary(terme)` | `tuteur.glossaire(terme)` |
-| Mode | `tutor.mode("teacher")` | `tuteur.mode("enseignant")` |
-| Jumeaux | `generators.moving_average(...)` | `generateurs.moyenne_glissante(...)` |
-| Matrices structurées | `difference_matrix(n)` | `matrice_differences(n)` |
+| Module | `from linalg_pedagopy import tuteur` | `from linalg_pedagopy import tutor` |
+| Catalogue | `tuteur.catalogue()` | `tutor.catalog()` |
+| Ouvrir un exercice | `tuteur.exercice("moyenne-glissante")` | `tutor.exercise("moyenne-glissante")` |
+| Énoncé | `ex.enonce()` | `ex.statement()` |
+| Indice | `ex.indice()` | `ex.hint()` |
+| Exercice jumeau | `ex.jumeau()` | `ex.twin()` |
+| Prédiction | `ex.predire(...)` | `ex.predict(...)` |
+| Laboratoire | `ex.labo()` | `ex.lab()` |
+| Vérification | `ex.verifier(reponse)` | `ex.verify(reponse)` |
+| Bilan | `ex.bilan()` | `ex.summary()` |
+| Repartir de zéro | `ex.recommencer()` | `ex.reset()` |
+| Fiche enseignant | `ex.fiche_enseignant()` | `ex.teacher_sheet()` |
+| Liste des identifiants | `tuteur.lister_exercices()` | `tutor.list_exercises()` |
+| Valider une fiche | `tuteur.valider_fiche(id)` | `tutor.validate_sheet(id)` |
+| Glossaire | `tuteur.glossaire(terme)` | `tutor.glossary(terme)` |
+| Mode | `tuteur.mode("enseignant")` | `tutor.mode("teacher")` |
+
+Le reste du package garde ses noms anglais, avec des alias français durables : `generators.moving_average(...)` / `generateurs.moyenne_glissante(...)`, `difference_matrix(n)` / `matrice_differences(n)`…
 
 ---
 

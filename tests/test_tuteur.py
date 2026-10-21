@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from fractions import Fraction
+import sys
 from pathlib import Path
 import pytest
 import sympy as sp
@@ -73,7 +74,12 @@ def test_all_35_fiches_present_and_valid() -> None:
         assert rep.indices_sans_fuite is True
 
 
-def test_seance_type_6_4_from_section_7_8(tmp_path: Path) -> None:
+def _sans_ipywidgets(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Simule l'absence d'ipywidgets : `import ipywidgets` lève alors ImportError."""
+    monkeypatch.setitem(sys.modules, "ipywidgets", None)
+
+
+def test_seance_type_6_4_from_section_7_8(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Séance type sur la moyenne glissante : diagnostic ligne par ligne puis validation."""
     t = Fraction(1, 3)
     ex = exercice("moyenne-glissante", journal_path=tmp_path / "journal.json")
@@ -109,6 +115,7 @@ def test_seance_type_6_4_from_section_7_8(tmp_path: Path) -> None:
     ver_right = ex.verifier(A_right)
     assert ver_right.valide is True
 
+    _sans_ipywidgets(monkeypatch)
     pan = ex.panneau()
     assert "Écart à la moyenne glissante" in str(pan)
     assert "validé" in ex.bilan()
@@ -350,7 +357,7 @@ def test_phase0_journal_persistence_across_sessions_and_no_validation_pollution(
         assert s2.journal.hints_unlocked == [1, 2, 3]
 
 
-def test_phase0_english_nomenclature_api(tmp_path: Path) -> None:
+def test_phase0_english_nomenclature_api(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Vérifie l'API anglaise complète du module tutor et de generators."""
     from linalg_pedagopy import generators, tutor
 
@@ -368,7 +375,9 @@ def test_phase0_english_nomenclature_api(tmp_path: Path) -> None:
     res = ex.verify(Vector([0, 1, 0, -1, 0]))
     assert res.valid is True
     assert "validé" in ex.summary()
-    assert "Sélectionner des composantes" in str(ex.panel())
+    with monkeypatch.context() as mp:
+        _sans_ipywidgets(mp)
+        assert "Sélectionner des composantes" in str(ex.panel())
 
     with using_config(tutor_mode="teacher"):
         assert tutor.mode() == "teacher"
@@ -378,6 +387,26 @@ def test_phase0_english_nomenclature_api(tmp_path: Path) -> None:
 
     twin_ma = generators.moving_average(window=2, n=5)
     assert "5" in twin_ma.title
+
+
+def test_panneau_ipywidgets_affiche_enonce(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Avec ipywidgets, le panneau est un VBox dont la première sortie affiche l'énoncé."""
+    widgets = pytest.importorskip("ipywidgets")
+    import IPython.display
+
+    # Hors noyau, `Output` ne capture rien : on relève ce que le panneau passe à `display`.
+    affiches: list[str] = []
+    monkeypatch.setattr(IPython.display, "display", lambda obj: affiches.append(obj.data))
+
+    ex = exercice("selection-composantes", journal_path=tmp_path / "journal.json")
+    pan = ex.panneau()
+    assert isinstance(pan, widgets.VBox)
+    assert len(pan.children) == 4
+    assert isinstance(pan.children[0], widgets.Output)
+    assert affiches == [str(ex.enonce())]
+    assert "Sélectionner des composantes" in affiches[0]
+    boutons = [w.description for box in pan.children[1:3] for w in box.children if isinstance(w, widgets.Button)]
+    assert boutons == ["Indice suivant", "Exercice jumeau", "Bilan", "Vérifier"]
 
 
 def test_fiches_sans_reference_externe_ni_caractere_corrompu() -> None:
@@ -405,7 +434,7 @@ def test_fiches_sans_reference_externe_ni_caractere_corrompu() -> None:
 
 def test_reponses_illisibles_diagnostic_en_francais() -> None:
     from linalg_pedagopy import Matrix
-    from linalg_pedagopy.tutor.verifiers import raison_illisible, verify_formula
+    from linalg_pedagopy.tuteur.verificateurs import raison_illisible, verify_formula
 
     spec = {"parametres": ["norm_u", "norm_v"], "cible": "norm_u**2 + norm_v**2"}
     cas = {
@@ -435,7 +464,7 @@ def test_reponses_illisibles_diagnostic_en_francais() -> None:
 
 def test_verificateur_ensemble_valeurs_et_erreurs_declarees() -> None:
     from linalg_pedagopy import symbols
-    from linalg_pedagopy.tutor.verifiers import verify_value, verify_value_set
+    from linalg_pedagopy.tuteur.verificateurs import verify_value, verify_value_set
 
     a = symbols("a")[0]
     donnees = {"A": Matrix([[2, a, 1], [a, 2, 1], [1, 1, 1]])}

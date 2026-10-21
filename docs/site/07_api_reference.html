@@ -166,7 +166,7 @@
 <p>Tous les noms ci-dessous sont importables depuis <code>linalg_pedagopy</code> (sauf mention d'un sous-module).</p>
 <hr/>
 <h2 id="1-table-de-correspondance-bilingue-anglais-francais">1. Table de correspondance bilingue (Anglais / Français)</h2>
-<p>Le package privilégie une <strong>nomenclature primaire anglaise</strong> tout en garantissant des <strong>alias français</strong> :</p>
+<p>Le package privilégie une <strong>nomenclature primaire anglaise</strong> tout en garantissant des <strong>alias français</strong>. Exception : le <strong>tuteur</strong> s'utilise en français (<code>linalg_pedagopy.tuteur</code>) ; ses noms anglais (<code>linalg_pedagopy.tutor</code>, <code>tutor.exercise</code>, <code>ex.hint</code>…) restent disponibles sans avertissement en 0.3.1.2, avec un <code>DeprecationWarning</code> en 0.3.2.0, et disparaissent en 0.4.0.0.</p>
 <table>
 <thead>
 <tr>
@@ -184,57 +184,57 @@
 <tr>
 <td style="text-align: left;"><code>tutor.catalog(theme=None)</code></td>
 <td style="text-align: left;"><code>tuteur.catalogue(theme=None)</code></td>
-<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>tutor.themes()</code></td>
 <td style="text-align: left;"><code>tuteur.themes()</code></td>
-<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>tutor.reload_catalog()</code></td>
 <td style="text-align: left;"><code>tuteur.recharger_catalogue()</code></td>
-<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>tutor.exercise(id)</code></td>
 <td style="text-align: left;"><code>tuteur.exercice(id)</code></td>
-<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>tutor.list_exercises()</code></td>
 <td style="text-align: left;"><code>tuteur.lister_exercices()</code></td>
-<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>tutor.validate_sheet(id)</code></td>
 <td style="text-align: left;"><code>tuteur.valider_fiche(id)</code></td>
-<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>tutor.glossary(term)</code></td>
 <td style="text-align: left;"><code>tuteur.glossaire(term)</code></td>
-<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>tutor.mode("teacher")</code></td>
 <td style="text-align: left;"><code>tuteur.mode("enseignant")</code></td>
-<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>tutor.build_panel(ex)</code></td>
 <td style="text-align: left;"><code>tuteur.build_panneau(ex)</code></td>
-<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>tutor.verify_matrix(...)</code>, <code>verify_value(...)</code>…</td>
 <td style="text-align: left;"><code>tuteur.verifier_matrice(...)</code>, <code>verifier_valeur(...)</code>…</td>
-<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>ExerciseSession</code></td>
 <td style="text-align: left;"><code>ExerciceSession</code></td>
-<td style="text-align: left;"><code>linalg_pedagopy.tutor</code></td>
+<td style="text-align: left;"><code>linalg_pedagopy.tuteur</code></td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>ex.statement()</code></td>
@@ -538,7 +538,8 @@ BackSubstitution(R, c, *, assumptions=None)
 <li><code>TraceTable</code> (<code>render.table</code>), renvoyé par <code>to_table()</code> : <code>to_html(standalone=False)</code>, <code>to_markdown()</code>, <code>to_latex(standalone=False)</code>, <code>sections</code> (une par branche d'une discussion et par algorithme), <code>layout</code> de chaque section (<code>"elimination"</code>, <code>"gram_schmidt"</code>, <code>"substitution"</code>), <code>rows</code> de chaque section (<code>kind</code>, <code>number</code>, <code>column</code>, <code>pivot</code>, <code>subject</code>, <code>detail</code>, <code>operation_latex</code>, <code>text</code>, <code>matrix</code>) ; affichage HTML automatique dans Jupyter.</li>
 </ul>
 <hr/>
-<h2 id="6-module-linalg_pedagopytutor-tuteur">6. Module <code>linalg_pedagopy.tutor</code> / <code>tuteur</code></h2>
+<h2 id="6-module-linalg_pedagopytuteur-noms-anglais-tutor">6. Module <code>linalg_pedagopy.tuteur</code> (noms anglais : <code>tutor</code>)</h2>
+<p>Sous-modules : <code>catalogue</code> (fiches, thèmes, glossaire, mode), <code>seance</code> (<code>ExerciseSession</code>), <code>validation</code> (<code>validate_sheet</code>), <code>verificateurs/</code> (un module par type de vérification), <code>registre</code> (registre des types), <code>indices</code>, <code>journal</code>, <code>labo</code>, <code>verrou</code>, <code>panneau</code>, <code>evaluation_sure</code> (interpréteur sûr des expressions des fiches et des saisies). Les anciens chemins <code>linalg_pedagopy.tutor.catalog</code>, <code>.verifiers</code>… réexportent les mêmes noms jusqu'à 0.4.0.0.</p>
 <h3 id="61-catalogue">6.1 Catalogue</h3>
 <h4 id="catalogthemenone-exercisecatalog-alias-catalogue"><code>catalog(theme=None) -&gt; ExerciseCatalog</code> (alias <code>catalogue</code>)</h4>
 <p>Table des exercices (tuple de dictionnaires <code>numero</code>, <code>id</code>, <code>titre</code>, <code>theme</code>, <code>type</code>, <code>niveau</code>, <code>notions</code>), rendue en tableau Markdown dans JupyterLab et groupée par thème avec <code>print</code>. <code>theme</code> filtre sur une partie du nom du thème.</p>
@@ -748,7 +749,7 @@ BackSubstitution(R, c, *, assumptions=None)
         </li>
         
         <li class="toc-item ">
-          <a href="#6-module-linalg_pedagopytutor-tuteur">6. Module linalg_pedagopy.tutor / tuteur</a>
+          <a href="#6-module-linalg_pedagopytuteur-noms-anglais-tutor">6. Module linalg_pedagopy.tuteur (noms anglais : tutor)</a>
         </li>
         
         <li class="toc-item toc-h3">

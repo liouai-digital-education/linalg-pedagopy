@@ -161,8 +161,9 @@
       </header>
 
       <article class="markdown-body">
-        <h1 id="04-le-tuteur-interactif-tutor-tuteur">04. Le tuteur interactif (<code>tutor</code> / <code>tuteur</code>)</h1>
-<p>Le module <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/tutor/__init__.py"><code>linalg_pedagopy.tutor</code></a>, aussi accessible sous le nom français <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/tuteur/__init__.py"><code>linalg_pedagopy.tuteur</code></a>, accompagne un étudiant sur une banque de <strong>39 exercices nommés</strong>. Il l'aide à trouver la méthode <strong>sans jamais donner la solution</strong> : indices gradués, exercice analogue résolu, laboratoire de contre-exemples et diagnostic précis des réponses fausses.</p>
+        <h1 id="04-le-tuteur-interactif-tuteur">04. Le tuteur interactif (<code>tuteur</code>)</h1>
+<p>Le module <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/tuteur/__init__.py"><code>linalg_pedagopy.tuteur</code></a> accompagne un étudiant sur une banque de <strong>39 exercices nommés</strong>. Il l'aide à trouver la méthode <strong>sans jamais donner la solution</strong> : indices gradués, exercice analogue résolu, laboratoire de contre-exemples et diagnostic précis des réponses fausses.</p>
+<p>Les exemples utilisent les noms français. Les noms anglais (<code>linalg_pedagopy.tutor</code>, <code>tutor.exercise</code>, <code>ex.hint</code>…) restent disponibles jusqu'à la version 0.4.0.0 ; la correspondance figure dans la <a href="07_api_reference.html">référence de l'API</a>.</p>
 <hr/>
 <h2 id="1-principes-pedagogiques">1. Principes pédagogiques</h2>
 <table>
@@ -210,24 +211,24 @@
 <hr/>
 <h2 id="2-trouver-un-exercice-le-catalogue">2. Trouver un exercice : le catalogue</h2>
 <p>Chaque exercice a un <strong>numéro</strong> (1 à 39), un <strong>identifiant</strong> lisible, un <strong>titre</strong>, un <strong>thème</strong> et un <strong>niveau</strong> (★ à ★★★). La liste complète figure dans le <a href="08_catalogue_exercices.html">catalogue des exercices</a>.</p>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tutor
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tuteur
 
-cat = tutor.catalog()          # tableau Markdown dans JupyterLab
+cat = tuteur.catalogue()          # tableau Markdown dans JupyterLab
 print(cat)                     # version texte, groupée par thème
 print(len(cat))                # 39
 
-print(tutor.themes())          # les 9 thèmes, dans l'ordre du cours
-print(tutor.list_exercises("convolution"))   # ['convolution-vecteurs', 'produit-polynomes']
+print(tuteur.themes())          # les 9 thèmes, dans l'ordre du cours
+print(tuteur.lister_exercices("convolution"))   # ['convolution-vecteurs', 'produit-polynomes']
 
-tutor.catalog("Inverses")      # filtrer par (partie du) thème
+tuteur.catalogue("Inverses")      # filtrer par (partie du) thème
 </code></pre></div>
 <p>Un exercice s'ouvre par son identifiant, son numéro ou son titre exact. Une faute de frappe donne une suggestion :</p>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex = tutor.exercise("moyenne-glissante")       # par identifiant
-ex = tutor.exercise(16)                        # par numéro
-ex = tutor.exercise("Écart à la moyenne glissante")   # par titre
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex = tuteur.exercice("moyenne-glissante")       # par identifiant
+ex = tuteur.exercice(16)                        # par numéro
+ex = tuteur.exercice("Écart à la moyenne glissante")   # par titre
 
 try:
-    tutor.exercise("moyene-glissante")
+    tuteur.exercice("moyene-glissante")
 except Exception as err:
     print(err)   # Exercice 'moyene-glissante' introuvable. Vouliez-vous dire : moyenne-glissante ? ...
 </code></pre></div>
@@ -235,9 +236,9 @@ except Exception as err:
 <hr/>
 <h2 id="3-une-seance-pas-a-pas">3. Une séance pas à pas</h2>
 <h3 id="31-lire-lenonce">3.1 Lire l'énoncé</h3>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex = tutor.exercise("moyenne-glissante")
-ex.statement()          # dans JupyterLab : rendu Markdown + LaTeX
-print(ex.statement())
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex = tuteur.exercice("moyenne-glissante")
+ex.enonce()          # dans JupyterLab : rendu Markdown + LaTeX
+print(ex.enonce())
 </code></pre></div>
 <div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">### Exercice 16 — Écart à la moyenne glissante
 
@@ -246,7 +247,7 @@ print(ex.statement())
 $p \in \mathbb{R}^6$ est une série de prix. $d \in \mathbb{R}^3$ mesure, à partir du 4ᵉ jour, …
 </code></pre></div>
 <h3 id="32-demander-de-laide-les-4-paliers">3.2 Demander de l'aide : les 4 paliers</h3>
-<p>Chaque appel à <code>ex.hint()</code> (alias <code>ex.indice()</code>) débloque le palier suivant :</p>
+<p>Chaque appel à <code>ex.indice()</code> débloque le palier suivant :</p>
 <table>
 <thead>
 <tr>
@@ -278,20 +279,20 @@ $p \in \mathbb{R}^6$ est une série de prix. $d \in \mathbb{R}^3$ mesure, à par
 </tr>
 </tbody>
 </table>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(ex.hint())     # **[Niveau 1 — Orientation]** …
-print(ex.hint())     # **[Niveau 2 — Outil]** …
-print(ex.hint(1))    # relire un palier déjà débloqué
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(ex.indice())     # **[Niveau 1 — Orientation]** …
+print(ex.indice())     # **[Niveau 2 — Outil]** …
+print(ex.indice(1))    # relire un palier déjà débloqué
 </code></pre></div>
-<p>Quand les quatre paliers sont débloqués, <code>ex.hint()</code> le dit et rappelle comment relire un palier, consulter le jumeau ou repartir de zéro. On ne peut pas sauter de palier : <code>ex.hint(3)</code> avant le palier 2 débloque le palier 2.</p>
+<p>Quand les quatre paliers sont débloqués, <code>ex.indice()</code> le dit et rappelle comment relire un palier, consulter le jumeau ou repartir de zéro. On ne peut pas sauter de palier : <code>ex.indice(3)</code> avant le palier 2 débloque le palier 2.</p>
 <p>Pour imposer de l'effort entre deux indices, l'enseignant peut régler <code>config.hint_min_attempts</code> (nombre de tentatives) et <code>config.hint_min_delay_seconds</code> (délai).</p>
 <h3 id="33-lexercice-jumeau">3.3 L'exercice jumeau</h3>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">jumeau = ex.twin()        # alias ex.jumeau()
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">jumeau = ex.jumeau()      # nom anglais : ex.twin()
 print(jumeau.title)       # Écart à la moyenne glissante (fenêtre $k=2$, $n=5$)
 jumeau                    # dans JupyterLab : énoncé analogue + résolution pas à pas
 </code></pre></div>
 <p><code>twin()</code> renvoie un <code>TwinExercise</code> (<code>title</code>, <code>statement</code>, <code>solution_summary</code>, <code>explanation</code>) et débloque le palier 4.</p>
 <h3 id="34-soumettre-une-reponse">3.4 Soumettre une réponse</h3>
-<p><code>ex.verify(reponse)</code> (alias <code>ex.verifier</code>) renvoie un <code>VerificationResult</code> immuable : <code>valid</code>, <code>diagnostic</code> et, pour certains contre-exemples, <code>simplicity_note</code>.</p>
+<p><code>ex.verifier(reponse)</code> renvoie un <code>VerificationResult</code> immuable : <code>valide</code>, <code>diagnostic</code> et, pour certains contre-exemples, <code>note_simplicite</code>.</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from fractions import Fraction
 from linalg_pedagopy import Matrix
 
@@ -299,8 +300,8 @@ t = Fraction(1, 3)
 fausse = Matrix([[-t, -t, -t, 1, 0, 0],
                  [-t, -t, -t, 1, 0, 0],
                  [0, 0, -t, -t, -t, 1]])
-r = ex.verify(fausse)
-print(r.valid)        # False
+r = ex.verifier(fausse)
+print(r.valide)        # False
 print(r.diagnostic)
 # Taille correcte (3 x 6). Lignes 1 et 3 correctes.
 # Votre ligne 2 calcule d_2 = p_4 - (p_1 + p_2 + p_3)/3.
@@ -310,17 +311,17 @@ print(r.diagnostic)
 <h3 id="35-vrai-ou-faux-prediction-puis-laboratoire">3.5 Vrai ou faux : prédiction puis laboratoire</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Vector
 
-ex12 = tutor.exercise("orthogonalite-vrai-faux")
-print(ex12.predict(a="peut être faux", b="toujours vrai", c="peut être faux"))
+ex12 = tuteur.exercice("orthogonalite-vrai-faux")
+print(ex12.predire(a="peut être faux", b="toujours vrai", c="peut être faux"))
 
-lab = ex12.lab()          # impossible avant predict(...)
+lab = ex12.labo()         # impossible avant predire(...)
 rapport = lab.test(a=Vector([1, 0, 0]), b=Vector([1, 1, 0]), c=Vector([0, 0, 1]))
 print(rapport.found_counterexample)   # True
 print(rapport.message)
 </code></pre></div>
 <p><code>lab.test(**instances)</code> renvoie un <code>LabReport</code> : <code>hypotheses_satisfied</code>, <code>results_by_part</code>, <code>found_counterexample</code>, <code>message</code>.</p>
 <h3 id="36-bilan-et-reprise">3.6 Bilan et reprise</h3>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(ex.summary())       # alias ex.bilan()
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(ex.bilan())         # nom anglais : ex.summary()
 </code></pre></div>
 <div class="code-container"><div class="code-header"><span>Text</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-text">**Bilan — Écart à la moyenne glissante**
 
@@ -333,11 +334,11 @@ print(rapport.message)
 - Dernier diagnostic : …
 </code></pre></div>
 <p>La progression est enregistrée dans un journal JSON (<code>config.journal_path</code>, par défaut <code>.linalg_pedagopy_journal.json</code> dans le dossier du carnet). En rouvrant l'exercice plus tard, on retrouve ses indices et ses tentatives. Pour repartir de zéro sur un exercice :</p>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.reset()                # alias ex.recommencer()
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.recommencer()          # nom anglais : ex.reset()
 </code></pre></div>
 <hr/>
 <h2 id="4-le-panneau-jupyterlab">4. Le panneau JupyterLab</h2>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.panel()                # alias ex.panneau()
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">ex.panneau()              # nom anglais : ex.panel()
 </code></pre></div>
 <p>Avec <code>ipywidgets</code> installé (extra <code>tuteur</code>), le panneau affiche :
 - l'énoncé rendu en LaTeX ;
@@ -347,18 +348,18 @@ print(rapport.message)
 <p>La zone de réponse n'accepte que <code>Vector</code>, <code>Matrix</code>, <code>sqrt</code>, <code>Rational</code>, <code>pi</code>, des nombres, listes, tuples, dictionnaires et chaînes. Sans <code>ipywidgets</code>, <code>panel()</code> affiche l'énoncé et le bilan en Markdown.</p>
 <hr/>
 <h2 id="5-le-glossaire">5. Le glossaire</h2>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(tutor.glossary("least squares"))   # **least squares** → Moindres carrés : …
-print(tutor.glossary("noyau"))           # recherche aussi en français
-tutor.glossary()                          # liste des 40 termes
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(tuteur.glossaire("least squares"))   # **least squares** → Moindres carrés : …
+print(tuteur.glossaire("noyau"))           # recherche aussi en français
+tuteur.glossaire()                          # liste des 40 termes
 </code></pre></div>
 <hr/>
 <h2 id="6-mode-enseignant">6. Mode enseignant</h2>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">tutor.mode("teacher")            # ou "enseignant" ; équivalent : config.tutor_mode = "teacher"
-ex = tutor.exercise("moyenne-glissante")
-fiche = ex.teacher_sheet()       # TeacherSheet : la fiche complète (cible, indices, jumeau)
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">tuteur.mode("enseignant")        # ou "teacher" ; équivalent : config.tutor_mode = "enseignant"
+ex = tuteur.exercice("moyenne-glissante")
+fiche = ex.fiche_enseignant()       # TeacherSheet : la fiche complète (cible, indices, jumeau)
 print(fiche["verification"]["cible"])
 fiche                            # dans JupyterLab : rendu Markdown de la fiche
-tutor.mode("student")            # ou "etudiant"
+tuteur.mode("etudiant")          # ou "student"
 </code></pre></div>
 <p>En mode étudiant, <code>teacher_sheet()</code> lève <code>PermissionError</code>. En mode enseignant, les données des exercices sont déverrouillées.</p>
 <hr/>
@@ -366,7 +367,7 @@ tutor.mode("student")            # ou "etudiant"
 <p>Dans un carnet, l'étudiant dispose de tout Python. Le tuteur empêche les raccourcis les plus directs :
 - la fiche, la cible et l'état de la séance sont rangés dans des dictionnaires privés à clés faibles (<code>WeakKeyDictionary</code>) du module, pas sur l'objet <code>ex</code> ;
 - <code>ExerciseSession</code>, <code>LockedVector</code>, <code>LockedMatrix</code> et <code>LockedNamespace</code> définissent <code>__slots__ = ("__weakref__",)</code> : pas de <code>__dict__</code> à inspecter, et toute affectation d'attribut est refusée ;
-- tant que l'exercice n'est pas résolu, <code>ex.data.x.rms()</code>, <code>Vector(ex.data.x)</code> ou <code>ex.data.x[0]</code> lèvent <code>LockedExerciseDataError</code>.</p>
+- tant que l'exercice n'est pas résolu, <code>ex.donnees.x.rms()</code>, <code>Vector(ex.donnees.x)</code> ou <code>ex.donnees.x[0]</code> lèvent <code>LockedExerciseDataError</code>.</p>
 <p>Ce n'est pas une protection cryptographique : un étudiant déterminé peut lire les fichiers YAML. Le but est d'éviter que la réponse s'obtienne par une simple ligne de code.</p>
 <hr/>
 <h2 id="8-les-fiches-dexercices">8. Les fiches d'exercices</h2>
@@ -442,12 +443,12 @@ jumeau: generateurs.moyenne_glissante(fenetre=2, n=5)
 </table>
 <h3 id="valider-une-fiche">Valider une fiche</h3>
 <p><code>validate_sheet</code> (alias <code>valider_fiche</code>) contrôle une fiche : champs et métadonnées présents, numéro unique, type de vérificateur valide, jumeau exécutable, <strong>absence de fuite</strong> dans les indices (aucun indice ne contient la cible, ni n'est accepté comme réponse) et contrôle croisé du vérificateur avec le solveur. Elle n'écrit rien dans le journal.</p>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">rapport = tutor.validate_sheet("moyenne-glissante")
-print(rapport.valid, rapport.errors)       # True ()
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">rapport = tuteur.valider_fiche("moyenne-glissante")
+print(rapport.valide, rapport.errors)       # True ()
 
-assert all(tutor.validate_sheet(i).valid for i in tutor.list_exercises())
+assert all(tuteur.valider_fiche(i).valide for i in tuteur.lister_exercices())
 </code></pre></div>
-<p>Après avoir ajouté ou modifié une fiche pendant une séance, appelez <code>tutor.reload_catalog()</code> (alias <code>recharger_catalogue</code>).</p>
+<p>Après avoir ajouté ou modifié une fiche pendant une séance, appelez <code>tuteur.recharger_catalogue()</code>.</p>
       </article>
 
       <!-- Navigation entre chapitres -->

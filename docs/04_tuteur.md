@@ -1,6 +1,8 @@
-# 04. Le tuteur interactif (`tutor` / `tuteur`)
+# 04. Le tuteur interactif (`tuteur`)
 
-Le module [`linalg_pedagopy.tutor`](../src/linalg_pedagopy/tutor/__init__.py), aussi accessible sous le nom français [`linalg_pedagopy.tuteur`](../src/linalg_pedagopy/tuteur/__init__.py), accompagne un étudiant sur une banque de **39 exercices nommés**. Il l'aide à trouver la méthode **sans jamais donner la solution** : indices gradués, exercice analogue résolu, laboratoire de contre-exemples et diagnostic précis des réponses fausses.
+Le module [`linalg_pedagopy.tuteur`](../src/linalg_pedagopy/tuteur/__init__.py) accompagne un étudiant sur une banque de **39 exercices nommés**. Il l'aide à trouver la méthode **sans jamais donner la solution** : indices gradués, exercice analogue résolu, laboratoire de contre-exemples et diagnostic précis des réponses fausses.
+
+Les exemples utilisent les noms français. Les noms anglais (`linalg_pedagopy.tutor`, `tutor.exercise`, `ex.hint`…) restent disponibles jusqu'à la version 0.4.0.0 ; la correspondance figure dans la [référence de l'API](07_api_reference.md).
 
 ---
 
@@ -24,27 +26,27 @@ Le module [`linalg_pedagopy.tutor`](../src/linalg_pedagopy/tutor/__init__.py), a
 Chaque exercice a un **numéro** (1 à 39), un **identifiant** lisible, un **titre**, un **thème** et un **niveau** (★ à ★★★). La liste complète figure dans le [catalogue des exercices](08_catalogue_exercices.md).
 
 ```python
-from linalg_pedagopy import tutor
+from linalg_pedagopy import tuteur
 
-cat = tutor.catalog()          # tableau Markdown dans JupyterLab
+cat = tuteur.catalogue()          # tableau Markdown dans JupyterLab
 print(cat)                     # version texte, groupée par thème
 print(len(cat))                # 39
 
-print(tutor.themes())          # les 9 thèmes, dans l'ordre du cours
-print(tutor.list_exercises("convolution"))   # ['convolution-vecteurs', 'produit-polynomes']
+print(tuteur.themes())          # les 9 thèmes, dans l'ordre du cours
+print(tuteur.lister_exercices("convolution"))   # ['convolution-vecteurs', 'produit-polynomes']
 
-tutor.catalog("Inverses")      # filtrer par (partie du) thème
+tuteur.catalogue("Inverses")      # filtrer par (partie du) thème
 ```
 
 Un exercice s'ouvre par son identifiant, son numéro ou son titre exact. Une faute de frappe donne une suggestion :
 
 ```python
-ex = tutor.exercise("moyenne-glissante")       # par identifiant
-ex = tutor.exercise(16)                        # par numéro
-ex = tutor.exercise("Écart à la moyenne glissante")   # par titre
+ex = tuteur.exercice("moyenne-glissante")       # par identifiant
+ex = tuteur.exercice(16)                        # par numéro
+ex = tuteur.exercice("Écart à la moyenne glissante")   # par titre
 
 try:
-    tutor.exercise("moyene-glissante")
+    tuteur.exercice("moyene-glissante")
 except Exception as err:
     print(err)   # Exercice 'moyene-glissante' introuvable. Vouliez-vous dire : moyenne-glissante ? ...
 ```
@@ -58,9 +60,9 @@ Les attributs `ex.id`, `ex.number` (alias `numero`), `ex.title` (alias `titre`),
 ### 3.1 Lire l'énoncé
 
 ```python
-ex = tutor.exercise("moyenne-glissante")
-ex.statement()          # dans JupyterLab : rendu Markdown + LaTeX
-print(ex.statement())
+ex = tuteur.exercice("moyenne-glissante")
+ex.enonce()          # dans JupyterLab : rendu Markdown + LaTeX
+print(ex.enonce())
 ```
 
 ```text
@@ -73,7 +75,7 @@ $p \in \mathbb{R}^6$ est une série de prix. $d \in \mathbb{R}^3$ mesure, à par
 
 ### 3.2 Demander de l'aide : les 4 paliers
 
-Chaque appel à `ex.hint()` (alias `ex.indice()`) débloque le palier suivant :
+Chaque appel à `ex.indice()` débloque le palier suivant :
 
 | Palier | Titre | Exemple (exercice 16) |
 | :---: | :--- | :--- |
@@ -83,19 +85,19 @@ Chaque appel à `ex.hint()` (alias `ex.indice()`) débloque le palier suivant :
 | 4 | Exercice jumeau résolu | Résolution complète d'un exercice analogue (fenêtre de 2 jours, série de 5 prix). |
 
 ```python
-print(ex.hint())     # **[Niveau 1 — Orientation]** …
-print(ex.hint())     # **[Niveau 2 — Outil]** …
-print(ex.hint(1))    # relire un palier déjà débloqué
+print(ex.indice())     # **[Niveau 1 — Orientation]** …
+print(ex.indice())     # **[Niveau 2 — Outil]** …
+print(ex.indice(1))    # relire un palier déjà débloqué
 ```
 
-Quand les quatre paliers sont débloqués, `ex.hint()` le dit et rappelle comment relire un palier, consulter le jumeau ou repartir de zéro. On ne peut pas sauter de palier : `ex.hint(3)` avant le palier 2 débloque le palier 2.
+Quand les quatre paliers sont débloqués, `ex.indice()` le dit et rappelle comment relire un palier, consulter le jumeau ou repartir de zéro. On ne peut pas sauter de palier : `ex.indice(3)` avant le palier 2 débloque le palier 2.
 
 Pour imposer de l'effort entre deux indices, l'enseignant peut régler `config.hint_min_attempts` (nombre de tentatives) et `config.hint_min_delay_seconds` (délai).
 
 ### 3.3 L'exercice jumeau
 
 ```python
-jumeau = ex.twin()        # alias ex.jumeau()
+jumeau = ex.jumeau()      # nom anglais : ex.twin()
 print(jumeau.title)       # Écart à la moyenne glissante (fenêtre $k=2$, $n=5$)
 jumeau                    # dans JupyterLab : énoncé analogue + résolution pas à pas
 ```
@@ -104,7 +106,7 @@ jumeau                    # dans JupyterLab : énoncé analogue + résolution pa
 
 ### 3.4 Soumettre une réponse
 
-`ex.verify(reponse)` (alias `ex.verifier`) renvoie un `VerificationResult` immuable : `valid`, `diagnostic` et, pour certains contre-exemples, `simplicity_note`.
+`ex.verifier(reponse)` renvoie un `VerificationResult` immuable : `valide`, `diagnostic` et, pour certains contre-exemples, `note_simplicite`.
 
 ```python
 from fractions import Fraction
@@ -114,8 +116,8 @@ t = Fraction(1, 3)
 fausse = Matrix([[-t, -t, -t, 1, 0, 0],
                  [-t, -t, -t, 1, 0, 0],
                  [0, 0, -t, -t, -t, 1]])
-r = ex.verify(fausse)
-print(r.valid)        # False
+r = ex.verifier(fausse)
+print(r.valide)        # False
 print(r.diagnostic)
 # Taille correcte (3 x 6). Lignes 1 et 3 correctes.
 # Votre ligne 2 calcule d_2 = p_4 - (p_1 + p_2 + p_3)/3.
@@ -129,10 +131,10 @@ Une réponse de forme inattendue (une liste à la place d'une matrice, par exemp
 ```python
 from linalg_pedagopy import Vector
 
-ex12 = tutor.exercise("orthogonalite-vrai-faux")
-print(ex12.predict(a="peut être faux", b="toujours vrai", c="peut être faux"))
+ex12 = tuteur.exercice("orthogonalite-vrai-faux")
+print(ex12.predire(a="peut être faux", b="toujours vrai", c="peut être faux"))
 
-lab = ex12.lab()          # impossible avant predict(...)
+lab = ex12.labo()         # impossible avant predire(...)
 rapport = lab.test(a=Vector([1, 0, 0]), b=Vector([1, 1, 0]), c=Vector([0, 0, 1]))
 print(rapport.found_counterexample)   # True
 print(rapport.message)
@@ -143,7 +145,7 @@ print(rapport.message)
 ### 3.6 Bilan et reprise
 
 ```python
-print(ex.summary())       # alias ex.bilan()
+print(ex.bilan())         # nom anglais : ex.summary()
 ```
 
 ```text
@@ -161,7 +163,7 @@ print(ex.summary())       # alias ex.bilan()
 La progression est enregistrée dans un journal JSON (`config.journal_path`, par défaut `.linalg_pedagopy_journal.json` dans le dossier du carnet). En rouvrant l'exercice plus tard, on retrouve ses indices et ses tentatives. Pour repartir de zéro sur un exercice :
 
 ```python
-ex.reset()                # alias ex.recommencer()
+ex.recommencer()          # nom anglais : ex.reset()
 ```
 
 ---
@@ -169,7 +171,7 @@ ex.reset()                # alias ex.recommencer()
 ## 4. Le panneau JupyterLab
 
 ```python
-ex.panel()                # alias ex.panneau()
+ex.panneau()              # nom anglais : ex.panel()
 ```
 
 Avec `ipywidgets` installé (extra `tuteur`), le panneau affiche :
@@ -185,9 +187,9 @@ La zone de réponse n'accepte que `Vector`, `Matrix`, `sqrt`, `Rational`, `pi`, 
 ## 5. Le glossaire
 
 ```python
-print(tutor.glossary("least squares"))   # **least squares** → Moindres carrés : …
-print(tutor.glossary("noyau"))           # recherche aussi en français
-tutor.glossary()                          # liste des 40 termes
+print(tuteur.glossaire("least squares"))   # **least squares** → Moindres carrés : …
+print(tuteur.glossaire("noyau"))           # recherche aussi en français
+tuteur.glossaire()                          # liste des 40 termes
 ```
 
 ---
@@ -195,12 +197,12 @@ tutor.glossary()                          # liste des 40 termes
 ## 6. Mode enseignant
 
 ```python
-tutor.mode("teacher")            # ou "enseignant" ; équivalent : config.tutor_mode = "teacher"
-ex = tutor.exercise("moyenne-glissante")
-fiche = ex.teacher_sheet()       # TeacherSheet : la fiche complète (cible, indices, jumeau)
+tuteur.mode("enseignant")        # ou "teacher" ; équivalent : config.tutor_mode = "enseignant"
+ex = tuteur.exercice("moyenne-glissante")
+fiche = ex.fiche_enseignant()       # TeacherSheet : la fiche complète (cible, indices, jumeau)
 print(fiche["verification"]["cible"])
 fiche                            # dans JupyterLab : rendu Markdown de la fiche
-tutor.mode("student")            # ou "etudiant"
+tuteur.mode("etudiant")          # ou "student"
 ```
 
 En mode étudiant, `teacher_sheet()` lève `PermissionError`. En mode enseignant, les données des exercices sont déverrouillées.
@@ -212,7 +214,7 @@ En mode étudiant, `teacher_sheet()` lève `PermissionError`. En mode enseignant
 Dans un carnet, l'étudiant dispose de tout Python. Le tuteur empêche les raccourcis les plus directs :
 - la fiche, la cible et l'état de la séance sont rangés dans des dictionnaires privés à clés faibles (`WeakKeyDictionary`) du module, pas sur l'objet `ex` ;
 - `ExerciseSession`, `LockedVector`, `LockedMatrix` et `LockedNamespace` définissent `__slots__ = ("__weakref__",)` : pas de `__dict__` à inspecter, et toute affectation d'attribut est refusée ;
-- tant que l'exercice n'est pas résolu, `ex.data.x.rms()`, `Vector(ex.data.x)` ou `ex.data.x[0]` lèvent `LockedExerciseDataError`.
+- tant que l'exercice n'est pas résolu, `ex.donnees.x.rms()`, `Vector(ex.donnees.x)` ou `ex.donnees.x[0]` lèvent `LockedExerciseDataError`.
 
 Ce n'est pas une protection cryptographique : un étudiant déterminé peut lire les fichiers YAML. Le but est d'éviter que la réponse s'obtienne par une simple ligne de code.
 
@@ -264,10 +266,10 @@ jumeau: generateurs.moyenne_glissante(fenetre=2, n=5)
 `validate_sheet` (alias `valider_fiche`) contrôle une fiche : champs et métadonnées présents, numéro unique, type de vérificateur valide, jumeau exécutable, **absence de fuite** dans les indices (aucun indice ne contient la cible, ni n'est accepté comme réponse) et contrôle croisé du vérificateur avec le solveur. Elle n'écrit rien dans le journal.
 
 ```python
-rapport = tutor.validate_sheet("moyenne-glissante")
-print(rapport.valid, rapport.errors)       # True ()
+rapport = tuteur.valider_fiche("moyenne-glissante")
+print(rapport.valide, rapport.errors)       # True ()
 
-assert all(tutor.validate_sheet(i).valid for i in tutor.list_exercises())
+assert all(tuteur.valider_fiche(i).valide for i in tuteur.lister_exercices())
 ```
 
-Après avoir ajouté ou modifié une fiche pendant une séance, appelez `tutor.reload_catalog()` (alias `recharger_catalogue`).
+Après avoir ajouté ou modifié une fiche pendant une séance, appelez `tuteur.recharger_catalogue()`.

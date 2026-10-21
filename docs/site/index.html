@@ -233,16 +233,16 @@ print(result)
 print(result.at(a=0).solution)   # UniqueSolution(x=(4, -1, -2))
 </code></pre></div>
 <h3 id="premiere-seance-avec-le-tuteur">Première séance avec le tuteur</h3>
-<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tutor, Matrix
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tuteur, Matrix
 
-print(tutor.catalog())                     # les 39 exercices, par thème
+print(tuteur.catalogue())                     # les 39 exercices, par thème
 
-ex = tutor.exercise("moyenne-glissante")   # ou tutor.exercise(16)
-print(ex.statement())                      # dans JupyterLab : ex.statement() suffit
-print(ex.hint())                           # palier 1 : orientation
+ex = tuteur.exercice("moyenne-glissante")   # ou tuteur.exercice(16)
+print(ex.enonce())                      # dans JupyterLab : ex.enonce() suffit
+print(ex.indice())                           # palier 1 : orientation
 
-rapport = ex.verify(Matrix.zeros(3, 6))    # une réponse fausse
-print(rapport.valid)                       # False
+rapport = ex.verifier(Matrix.zeros(3, 6))    # une réponse fausse
+print(rapport.valide)                       # False
 print(rapport.diagnostic)                  # ce que calcule la réponse, et une question
 </code></pre></div>
 <hr/>
@@ -289,109 +289,100 @@ print(rapport.diagnostic)                  # ce que calcule la réponse, et une 
 </tbody>
 </table>
 <hr/>
-<h2 id="noms-anglais-et-alias-francais">Noms anglais et alias français</h2>
-<p>L'API principale est en anglais ; chaque élément du tuteur a un alias français :</p>
+<h2 id="noms-du-tuteur-francais-et-anglais">Noms du tuteur : français et anglais</h2>
+<p>Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :</p>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">Concept</th>
-<th style="text-align: left;">API (anglais)</th>
-<th style="text-align: left;">Alias français</th>
+<th style="text-align: left;">Nom français</th>
+<th style="text-align: left;">Nom anglais (jusqu'à 0.4.0.0)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: left;">Module</td>
-<td style="text-align: left;"><code>from linalg_pedagopy import tutor</code></td>
 <td style="text-align: left;"><code>from linalg_pedagopy import tuteur</code></td>
+<td style="text-align: left;"><code>from linalg_pedagopy import tutor</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Catalogue</td>
-<td style="text-align: left;"><code>tutor.catalog()</code></td>
 <td style="text-align: left;"><code>tuteur.catalogue()</code></td>
+<td style="text-align: left;"><code>tutor.catalog()</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Ouvrir un exercice</td>
-<td style="text-align: left;"><code>tutor.exercise("moyenne-glissante")</code></td>
 <td style="text-align: left;"><code>tuteur.exercice("moyenne-glissante")</code></td>
+<td style="text-align: left;"><code>tutor.exercise("moyenne-glissante")</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Énoncé</td>
-<td style="text-align: left;"><code>ex.statement()</code></td>
 <td style="text-align: left;"><code>ex.enonce()</code></td>
+<td style="text-align: left;"><code>ex.statement()</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Indice</td>
-<td style="text-align: left;"><code>ex.hint()</code></td>
 <td style="text-align: left;"><code>ex.indice()</code></td>
+<td style="text-align: left;"><code>ex.hint()</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Exercice jumeau</td>
-<td style="text-align: left;"><code>ex.twin()</code></td>
 <td style="text-align: left;"><code>ex.jumeau()</code></td>
+<td style="text-align: left;"><code>ex.twin()</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Prédiction</td>
-<td style="text-align: left;"><code>ex.predict(...)</code></td>
 <td style="text-align: left;"><code>ex.predire(...)</code></td>
+<td style="text-align: left;"><code>ex.predict(...)</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Laboratoire</td>
-<td style="text-align: left;"><code>ex.lab()</code></td>
 <td style="text-align: left;"><code>ex.labo()</code></td>
+<td style="text-align: left;"><code>ex.lab()</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Vérification</td>
-<td style="text-align: left;"><code>ex.verify(reponse)</code></td>
 <td style="text-align: left;"><code>ex.verifier(reponse)</code></td>
+<td style="text-align: left;"><code>ex.verify(reponse)</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Bilan</td>
-<td style="text-align: left;"><code>ex.summary()</code></td>
 <td style="text-align: left;"><code>ex.bilan()</code></td>
+<td style="text-align: left;"><code>ex.summary()</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Repartir de zéro</td>
-<td style="text-align: left;"><code>ex.reset()</code></td>
 <td style="text-align: left;"><code>ex.recommencer()</code></td>
+<td style="text-align: left;"><code>ex.reset()</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Fiche enseignant</td>
-<td style="text-align: left;"><code>ex.teacher_sheet()</code></td>
 <td style="text-align: left;"><code>ex.fiche_enseignant()</code></td>
+<td style="text-align: left;"><code>ex.teacher_sheet()</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Liste des identifiants</td>
-<td style="text-align: left;"><code>tutor.list_exercises()</code></td>
 <td style="text-align: left;"><code>tuteur.lister_exercices()</code></td>
+<td style="text-align: left;"><code>tutor.list_exercises()</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Valider une fiche</td>
-<td style="text-align: left;"><code>tutor.validate_sheet(id)</code></td>
 <td style="text-align: left;"><code>tuteur.valider_fiche(id)</code></td>
+<td style="text-align: left;"><code>tutor.validate_sheet(id)</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Glossaire</td>
-<td style="text-align: left;"><code>tutor.glossary(terme)</code></td>
 <td style="text-align: left;"><code>tuteur.glossaire(terme)</code></td>
+<td style="text-align: left;"><code>tutor.glossary(terme)</code></td>
 </tr>
 <tr>
 <td style="text-align: left;">Mode</td>
-<td style="text-align: left;"><code>tutor.mode("teacher")</code></td>
 <td style="text-align: left;"><code>tuteur.mode("enseignant")</code></td>
-</tr>
-<tr>
-<td style="text-align: left;">Jumeaux</td>
-<td style="text-align: left;"><code>generators.moving_average(...)</code></td>
-<td style="text-align: left;"><code>generateurs.moyenne_glissante(...)</code></td>
-</tr>
-<tr>
-<td style="text-align: left;">Matrices structurées</td>
-<td style="text-align: left;"><code>difference_matrix(n)</code></td>
-<td style="text-align: left;"><code>matrice_differences(n)</code></td>
+<td style="text-align: left;"><code>tutor.mode("teacher")</code></td>
 </tr>
 </tbody>
 </table>
+<p>Le reste du package garde ses noms anglais, avec des alias français durables : <code>generators.moving_average(...)</code> / <code>generateurs.moyenne_glissante(...)</code>, <code>difference_matrix(n)</code> / <code>matrice_differences(n)</code>…</p>
 <hr/>
 <h2 id="sources-et-remerciements">Sources et remerciements</h2>
 <p>Les exercices 1 à 35 du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil <em>Additional Exercises for Vectors, Matrices, and Least Squares</em> de Stephen Boyd et Lieven Vandenberghe, compagnon de leur livre <em>Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares</em> (Cambridge University Press, 2018), disponibles sur <a href="https://web.stanford.edu/~boyd/vmls/">le site des auteurs</a>. Plusieurs conventions du package en viennent aussi (résidu des moindres carrés r̂ = A x̂ − b, variantes de Gram-Schmidt). Les exercices du thème « Déterminants » (numéros 36 à 39) sont originaux.</p>
@@ -443,7 +434,7 @@ print(rapport.diagnostic)                  # ce que calcule la réponse, et une 
         </li>
         
         <li class="toc-item ">
-          <a href="#noms-anglais-et-alias-francais">Noms anglais et alias français</a>
+          <a href="#noms-du-tuteur-francais-et-anglais">Noms du tuteur : français et anglais</a>
         </li>
         
         <li class="toc-item ">

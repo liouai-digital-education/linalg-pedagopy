@@ -11,8 +11,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from linalg_pedagopy import tutor  # noqa: E402
-from linalg_pedagopy.tutor.catalog import TYPE_LABELS, _all_fiches, _niveau_etoiles  # noqa: E402
+from linalg_pedagopy import tuteur  # noqa: E402
+from linalg_pedagopy.tuteur.catalogue import TYPE_LABELS, _all_fiches, _niveau_etoiles  # noqa: E402
 
 VERIF_LABELS = {
     "produit_scalaire": "un vecteur $a$ (forme $a^T x$)",
@@ -33,19 +33,19 @@ def main() -> None:
     lines = [
         "# 08. Catalogue des exercices",
         "",
-        f"Le tuteur propose **{len(fiches)} exercices** répartis en {len(tutor.themes())} thèmes, "
+        f"Le tuteur propose **{len(fiches)} exercices** répartis en {len(tuteur.themes())} thèmes, "
         "du plus simple (★☆☆) au plus exigeant (★★★).",
         "Chaque exercice s'ouvre par son identifiant, son numéro ou son titre :",
         "",
         "```python",
-        "from linalg_pedagopy import tutor",
+        "from linalg_pedagopy import tuteur",
         "",
-        'ex = tutor.exercise("moyenne-glissante")   # ou tutor.exercise(16)',
-        "ex.statement()",
+        'ex = tuteur.exercice("moyenne-glissante")   # ou tuteur.exercice(16)',
+        "ex.enonce()",
         "```",
         "",
         "Ce tableau est produit par `python docs/generer_catalogue.py` à partir des fiches ; "
-        "dans un carnet, `tutor.catalog()` affiche la même liste.",
+        "dans un carnet, `tuteur.catalogue()` affiche la même liste.",
         "",
         "## Vue d'ensemble",
         "",
@@ -83,7 +83,7 @@ def main() -> None:
             lines += [f"**Notions** : {', '.join(f['notions'])}", ""]
     out = ROOT / "docs" / "08_catalogue_exercices.md"
     out.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
-    print(f"{out} : {len(fiches)} exercices, {len(tutor.themes())} thèmes")
+    print(f"{out} : {len(fiches)} exercices, {len(tuteur.themes())} thèmes")
 
 
 if __name__ == "__main__":

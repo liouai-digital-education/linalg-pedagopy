@@ -4,13 +4,13 @@ Le tuteur propose **39 exercices** répartis en 9 thèmes, du plus simple (★�
 Chaque exercice s'ouvre par son identifiant, son numéro ou son titre :
 
 ```python
-from linalg_pedagopy import tutor
+from linalg_pedagopy import tuteur
 
-ex = tutor.exercise("moyenne-glissante")   # ou tutor.exercise(16)
-ex.statement()
+ex = tuteur.exercice("moyenne-glissante")   # ou tuteur.exercice(16)
+ex.enonce()
 ```
 
-Ce tableau est produit par `python docs/generer_catalogue.py` à partir des fiches ; dans un carnet, `tutor.catalog()` affiche la même liste.
+Ce tableau est produit par `python docs/generer_catalogue.py` à partir des fiches ; dans un carnet, `tuteur.catalogue()` affiche la même liste.
 
 ## Vue d'ensemble
 

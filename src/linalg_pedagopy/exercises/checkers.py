@@ -12,6 +12,7 @@ from linalg_pedagopy.core.zero import Verdict, oracle
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.trace.tracer import suspend_tracing
+from linalg_pedagopy.tuteur.evaluation_sure import expression
 
 ProposalStatus = Literal["invalid", "valid_no_progress", "valid_useful"]
 
@@ -125,15 +126,16 @@ def check_row_operation(
         idx = int(match.group(1)) - 1
         if not (0 <= idx < m):
             raise IndexError(f"Ligne L{idx + 1} hors bornes.")
-        return f"_ROW_{idx}"
+        return f"ROW_{idx}"
 
     try:
         rhs_rewritten = re.sub(r"\bL(\d+)\b", _repl_row, rhs_str, flags=re.IGNORECASE)
-        local_dict: dict[str, Any] = {f"_ROW_{k}": row_syms[k] for k in range(m)}
+        # Noms sans « _ » initial : l'interpréteur sûr les refuse
+        local_dict: dict[str, Any] = {f"ROW_{k}": row_syms[k] for k in range(m)}
         for sym in aug_matrix.to_sympy().free_symbols:
             if isinstance(sym, sp.Symbol):
                 local_dict[sym.name] = sym
-        parsed = sp.sympify(rhs_rewritten, locals=local_dict)
+        parsed = expression(rhs_rewritten, local_dict)
     except Exception as exc:
         return OperationFeedback(
             status="invalid",
