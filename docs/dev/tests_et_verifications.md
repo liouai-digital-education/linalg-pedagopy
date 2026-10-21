@@ -69,6 +69,7 @@ N'écrivez `#>` que si la ligne est la sortie au caractère près ; un extrait, 
 Le catalogue des exercices (`docs/08_catalogue_exercices.md`) et le site HTML (`docs/site/`) sont générés puis versionnés. Après une modification d'une fiche du tuteur ou d'une page `.md` de `docs/`, régénérez-les, dans cet ordre (le site reprend le catalogue), et commitez le résultat :
 
 ```bash
+pip install -e ".[docs]"            # markdown, jinja2, beautifulsoup4
 python docs/generer_catalogue.py
 python scripts/build_docs_site.py
 ```

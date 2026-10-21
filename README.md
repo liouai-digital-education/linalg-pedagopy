@@ -22,6 +22,7 @@ pip install -e .                               # base
 pip install -e ".[tuteur]"                     # + JupyterLab et panneau interactif
 pip install -e ".[plot]"                       # + figures Matplotlib
 pip install -e ".[compare]"                    # + comparaison avec NumPy
+pip install -e ".[docs]"                       # + génération du site et du catalogue (contributeurs)
 pip install -e ".[dev,tuteur,plot,compare]"    # tout, avec les outils de test
 ```
 
@@ -83,7 +84,7 @@ La progression est enregistrée dans un journal, `.linalg_pedagopy_journal.json`
 
 ## Documentation
 
-La documentation complète est dans [`docs/`](docs/index.md) (version HTML : `docs/site/index.html`, régénérée par `python scripts/build_docs_site.py`) :
+La documentation complète est dans [`docs/`](docs/index.md) (version HTML : `docs/site/index.html`, régénérée par `python scripts/build_docs_site.py` après `pip install -e ".[docs]"`) :
 
 | Guide | Contenu |
 | :--- | :--- |

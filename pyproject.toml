@@ -49,6 +49,13 @@ plot = [
 compare = [
     "numpy>=1.24",
 ]
+# Génération des fichiers versionnés de la documentation : site HTML (scripts/build_docs_site.py)
+# et catalogue des exercices (docs/generer_catalogue.py).
+docs = [
+    "markdown>=3.5",
+    "jinja2>=3.1",
+    "beautifulsoup4>=4.12",
+]
 dev = [
     "pytest>=7.0",
     "hypothesis>=6.80",

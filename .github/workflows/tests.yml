@@ -84,7 +84,7 @@ jobs:
       - name: Installation
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e . markdown jinja2 beautifulsoup4
+          python -m pip install -e ".[docs]"
       # Le catalogue d'abord : le site reprend docs/08_catalogue_exercices.md.
       - name: Régénération du catalogue des exercices
         run: python docs/generer_catalogue.py
