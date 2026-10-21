@@ -26,7 +26,7 @@ from linalg_pedagopy.core.zero import (
     domain_of,
     oracle,
 )
-from linalg_pedagopy.objects.matrix import Matrix, register_determinant_hook
+from linalg_pedagopy.objects.matrix import Matrix, register_procedure
 from linalg_pedagopy.trace.step import StepKind
 from linalg_pedagopy.trace.tracer import record, section
 
@@ -354,4 +354,4 @@ class Determinant(Procedure[DetResult]):
         return _simplify_entry(sp.Add(*plus) - sp.Add(*moins))
 
 
-register_determinant_hook(Determinant)
+register_procedure("determinant", Determinant)

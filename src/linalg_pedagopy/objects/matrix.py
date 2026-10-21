@@ -10,35 +10,41 @@ from sympy.polys.matrices import DomainMatrix
 from linalg_pedagopy.core.cases import Branch, CaseSplit
 from linalg_pedagopy.core.exceptions import (
     DimensionMismatchError,
-    SingularMatrixError,
     UndefinedOperationError,
 )
 from linalg_pedagopy.core.field import choose_domain, match_symbol_substitutions, to_exact
-from linalg_pedagopy.core.zero import AssumptionsType, Verdict, decide_all_zero, oracle
+from linalg_pedagopy.core.zero import AssumptionsType, Verdict, oracle
 from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.trace.step import StepKind
 from linalg_pedagopy.trace.tracer import record, section, suspend_tracing
 
 MatmulView = Literal["entries", "rows", "columns", "outer"]
 
-# Hook optionnel enregistré par le module algorithms pour déléguer à GaussJordan sans import montant
-_gauss_jordan_factory: Callable[..., Any] | None = None
+# Registre des procédures de ``algorithms/`` auxquelles ``Matrix`` délègue (sans import montant) :
+# "gauss_jordan", "determinant", "matmul", "gram", "orthonormal_check", "singular_check".
+_procedures: dict[str, Callable[..., Any]] = {}
 
 
-def register_gauss_jordan_hook(factory: Callable[..., Any]) -> None:
-    """Enregistre la fabrique GaussJordan pour les méthodes déléguées de Matrix."""
-    global _gauss_jordan_factory
-    _gauss_jordan_factory = factory
+def register_procedure(name: str, factory: Callable[..., Any]) -> None:
+    """Enregistre une procédure de ``algorithms/`` pour les méthodes déléguées de Matrix."""
+    _procedures[name] = factory
 
 
-# Hook de la procédure Determinant (même principe que GaussJordan)
-_determinant_factory: Callable[..., Any] | None = None
+def _procedure(name: str) -> Callable[..., Any]:
+    try:
+        return _procedures[name]
+    except KeyError:
+        raise RuntimeError(f"La procédure « {name} » de linalg_pedagopy.algorithms n'est pas initialisée.") from None
 
 
-def register_determinant_hook(factory: Callable[..., Any]) -> None:
-    """Enregistre la fabrique Determinant pour Matrix.det()."""
-    global _determinant_factory
-    _determinant_factory = factory
+def _champ(res: Any, attr: str) -> Any:
+    """Attribut ``attr`` d'un résultat, ou ``CaseSplit`` de cet attribut branche par branche."""
+    if isinstance(res, CaseSplit):
+        return CaseSplit(
+            branches=tuple(Branch(b.condition, getattr(b.result, attr), b.trace) for b in res.branches),
+            parameters=res.parameters,
+        )
+    return getattr(res, attr)
 
 
 class Matrix:
@@ -475,230 +481,36 @@ class Matrix:
         - 'columns' : colonne j de AB comme combinaison linéaire A * b_j des colonnes de A ;
         - 'outer'   : somme de produits extérieurs sum_{k=1}^n a_k * b_k^T.
         """
-        is_vec = isinstance(other, Vector)
-        rhs_mat = Matrix(other) if isinstance(other, Vector) else other
-        if self._ncols != rhs_mat.rows:
-            raise DimensionMismatchError(
-                f"Dimensions incompatibles pour le produit matriciel : "
-                f"{self.shape} @ {rhs_mat.shape} ({self._ncols} != {rhs_mat.rows})."
-            )
-        if view not in ("entries", "rows", "columns", "outer"):
-            raise ValueError(f"Vue de produit matriciel inconnue : {view!r}")
+        return _procedure("matmul")(self, other, view=view)  # type: ignore[no-any-return]
 
-        m, k_dim, p = self._nrows, self._ncols, rhs_mat.cols
-
-        with section(
-            f"matrix.matmul.{view}",
-            level=1,
-            snapshot={"A": self, "B": other},
-            m=m,
-            k=k_dim,
-            p=p,
-            view=view,
-        ):
-            # Calcul interne rapide via DomainMatrix
-            with suspend_tracing():
-                all_entries = (*self.flat_entries, *rhs_mat.flat_entries)
-                dom = choose_domain(all_entries)
-                dm_a = DomainMatrix(
-                    [[dom.from_sympy(e) for e in r] for r in self._rows],
-                    (m, k_dim),
-                    dom,
-                )
-                dm_b = DomainMatrix(
-                    [[dom.from_sympy(e) for e in r] for r in rhs_mat._rows],
-                    (k_dim, p),
-                    dom,
-                )
-                dm_res = dm_a.matmul(dm_b)
-                sym_mat = dm_res.to_Matrix()
-                res_rows = [
-                    [sp.simplify(sym_mat[i, j]) for j in range(p)] for i in range(m)
-                ]
-                res_mat = Matrix._from_exact_rows(res_rows)
-
-            if view == "entries":
-                for i in range(m):
-                    row_i = self.row(i)
-                    for j in range(p):
-                        col_j = rhs_mat.col(j)
-                        val = res_rows[i][j]
-                        record(
-                            StepKind.DOT,
-                            "matrix.matmul_entry",
-                            level=2,
-                            i=i + 1,
-                            j=j + 1,
-                            row=row_i,
-                            col=col_j,
-                            value=val,
-                        )
-            elif view == "rows":
-                b_rows = rhs_mat.rows_as_vectors()
-                for i in range(m):
-                    coeffs = self._rows[i]
-                    row_res = res_mat.row(i)
-                    record(
-                        StepKind.INFO,
-                        "matrix.matmul_row",
-                        level=2,
-                        i=i + 1,
-                        coeffs=coeffs,
-                        b_rows=b_rows,
-                        row_result=row_res,
-                    )
-            elif view == "columns":
-                a_cols = self.columns()
-                for j in range(p):
-                    col_coeffs = [rhs_mat._rows[idx][j] for idx in range(k_dim)]
-                    col_res = res_mat.col(j)
-                    record(
-                        StepKind.INFO,
-                        "matrix.matmul_col",
-                        level=2,
-                        j=j + 1,
-                        coeffs=tuple(col_coeffs),
-                        a_cols=a_cols,
-                        col_result=col_res,
-                    )
-            elif view == "outer":
-                for k_idx in range(k_dim):
-                    col_k = Matrix(self.col(k_idx))
-                    row_k = Matrix([rhs_mat._rows[k_idx]])
-                    with suspend_tracing():
-                        outer_k = col_k.matmul(row_k, view="entries")
-                    record(
-                        StepKind.INFO,
-                        "matrix.matmul_outer_term",
-                        level=2,
-                        k=k_idx + 1,
-                        col=self.col(k_idx),
-                        row=rhs_mat.row(k_idx),
-                        outer=outer_k,
-                    )
-
-            final_out: Matrix | Vector = res_mat.col(0) if is_vec else res_mat
-            record(
-                StepKind.RESULT,
-                "matrix.matmul_result",
-                level=1,
-                snapshot={"result": final_out},
-                result=final_out,
-            )
-            return final_out
+    # --- Méthodes de commodité -------------------------------------------------------------
+    # Règle de délégation : quelques lignes chacune, qui appellent une procédure de
+    # ``algorithms/`` (registre ``_procedures``). Toute boucle, discussion de cas ou trace vit
+    # dans ``algorithms/`` ; voir docs/dev/architecture.md.
 
     def gram(self) -> Matrix:
         """Matrice de Gram G = A^T A avec coefficient (i, j) = a_i^T a_j."""
-        cols = self.columns()
-        n = self._ncols
-        with section("matrix.gram", level=1, snapshot={"A": self}, n=n):
-            grid = [[sp.Integer(0)] * n for _ in range(n)]
-            for i in range(n):
-                for j in range(i, n):
-                    with suspend_tracing():
-                        ip = cols[i].dot(cols[j])
-                    grid[i][j] = ip
-                    grid[j][i] = ip
-                    record(
-                        StepKind.DOT,
-                        "matrix.gram_entry",
-                        level=2,
-                        i=i + 1,
-                        j=j + 1,
-                        col_i=cols[i],
-                        col_j=cols[j],
-                        value=ip,
-                    )
-            res = Matrix._from_exact_rows(grid)
-            record(
-                StepKind.RESULT,
-                "matrix.gram_result",
-                level=1,
-                snapshot={"result": res},
-                result=res,
-            )
-            return res
+        return _procedure("gram")(self)  # type: ignore[no-any-return]
 
     def has_orthonormal_columns(
         self, assumptions: AssumptionsType = None
     ) -> bool | CaseSplit[bool]:
         """Vérifie A^T A = I_n via l'oracle de nullité."""
-        with section("matrix.orthonormal_check", level=1, snapshot={"A": self}):
-            with suspend_tracing():
-                g = self.gram()
-                ident = Matrix.identity(self._ncols)
-                diff = g - ident
-            has_cond = False
-            for i in range(self._ncols):
-                for j in range(self._ncols):
-                    dec = oracle.decide(diff[i, j], assumptions=assumptions)
-                    record(
-                        StepKind.CHECK,
-                        "matrix.orthonormal_entry",
-                        level=2,
-                        i=i + 1,
-                        j=j + 1,
-                        value= g[i, j],
-                        target=ident[i, j],
-                        verdict=dec.verdict.name,
-                    )
-                    if dec.verdict == Verdict.NONZERO:
-                        return False
-                    if dec.verdict == Verdict.CONDITIONAL:
-                        has_cond = True
-                    elif dec.verdict == Verdict.UNKNOWN:
-                        oracle.is_zero(diff[i, j], assumptions=assumptions)
-
-            if not has_cond:
-                return True
-            return decide_all_zero(diff.flat_entries, assumptions)
-
-    def _require_gj(self) -> Callable[..., Any]:
-        if _gauss_jordan_factory is None:
-            raise RuntimeError("Le module algorithms.gauss_jordan n'est pas initialisé.")
-        return _gauss_jordan_factory
+        return _procedure("orthonormal_check")(self, assumptions)  # type: ignore[no-any-return]
 
     def rref(self, *, assumptions: Any = None) -> Matrix | CaseSplit[Matrix]:
         """Calcule la forme échelonnée réduite via GaussJordan."""
-        gj_cls = self._require_gj()
-        res = gj_cls(self, assumptions=assumptions).run()
-        if isinstance(res, CaseSplit):
-            return CaseSplit(
-                branches=tuple(
-                    Branch(b.condition, b.result.rref, b.trace) for b in res.branches
-                ),
-                parameters=res.parameters,
-            )
-        return res.rref  # type: ignore[no-any-return]
+        return _champ(_procedure("gauss_jordan")(self, assumptions=assumptions).run(), "rref")  # type: ignore[no-any-return]
 
     def rank(self, *, assumptions: Any = None) -> int | CaseSplit[int]:
         """Calcule le rang de la matrice via GaussJordan."""
-        gj_cls = self._require_gj()
-        res = gj_cls(self, assumptions=assumptions).run()
-        if isinstance(res, CaseSplit):
-            return CaseSplit(
-                branches=tuple(
-                    Branch(b.condition, b.result.rank, b.trace) for b in res.branches
-                ),
-                parameters=res.parameters,
-            )
-        return res.rank  # type: ignore[no-any-return]
+        return _champ(_procedure("gauss_jordan")(self, assumptions=assumptions).run(), "rank")  # type: ignore[no-any-return]
 
     def nullspace(
         self, *, assumptions: Any = None
     ) -> tuple[Vector, ...] | CaseSplit[tuple[Vector, ...]]:
         """Calcule une base du noyau ker(A) via GaussJordan (réduction de A seule, sans colonne de zéros)."""
-        gj_cls = self._require_gj()
-        res = gj_cls(self, assumptions=assumptions).run()
-        if isinstance(res, CaseSplit):
-            return CaseSplit(
-                branches=tuple(
-                    Branch(b.condition, b.result.nullspace_basis, b.trace)
-                    for b in res.branches
-                ),
-                parameters=res.parameters,
-            )
-        return res.nullspace_basis  # type: ignore[no-any-return]
+        return _champ(_procedure("gauss_jordan")(self, assumptions=assumptions).run(), "nullspace_basis")  # type: ignore[no-any-return]
 
     def inv(
         self,
@@ -715,44 +527,12 @@ class Matrix:
             raise DimensionMismatchError(
                 f"Seules les matrices carrées sont inversibles (reçu {self.shape})."
             )
-        if strict and _determinant_factory is not None and any(e.free_symbols for e in self.flat_entries):
-            self._annoncer_cas_singuliers(assumptions)
-        gj_cls = self._require_gj()
-        res = gj_cls(
-            self,
-            Matrix.identity(self._nrows),
-            assumptions=assumptions,
-            strict=strict,
-            compute_inverse=True,
+        if strict and any(e.free_symbols for e in self.flat_entries):
+            _procedure("singular_check")(self, assumptions)
+        res = _procedure("gauss_jordan")(
+            self, Matrix.identity(self._nrows), assumptions=assumptions, strict=strict, compute_inverse=True
         ).run()
-        if isinstance(res, CaseSplit):
-            return CaseSplit(
-                branches=tuple(
-                    Branch(b.condition, b.result.inverse, b.trace) for b in res.branches
-                ),
-                parameters=res.parameters,
-            )
-        return res.inverse  # type: ignore[no-any-return]
-
-    def _annoncer_cas_singuliers(self, assumptions: Any) -> None:
-        """Lève SingularMatrixError, avec les valeurs singulières, si des paramètres peuvent annuler det A."""
-        assert _determinant_factory is not None
-        with suspend_tracing():
-            res = _determinant_factory(self, method="bareiss", assumptions=assumptions).run()
-            cas = res.zeros()
-        if not cas:
-            return
-        if len(cas) == 1 and cas[0].is_trivial:
-            raise SingularMatrixError(
-                f"La matrice {self._nrows}x{self._ncols} n'est inversible pour aucune valeur des paramètres : "
-                "son déterminant est identiquement nul."
-            )
-        valeurs = " ou ".join(c.format_text() for c in cas)
-        raise SingularMatrixError(
-            f"La matrice {self._nrows}x{self._ncols} n'est pas inversible pour toutes les valeurs des "
-            f"paramètres : det A = {sp.sstr(res.value)} s'annule pour {valeurs}. Utilisez strict=False "
-            "pour obtenir l'inverse avec la discussion de cas, ou précisez des hypothèses (assumptions=...)."
-        )
+        return _champ(res, "inverse")  # type: ignore[no-any-return]
 
     @overload
     def det(
@@ -768,16 +548,8 @@ class Matrix:
         Avec ``method="elimination"`` et des paramètres, un pivot qui peut s'annuler donne
         une discussion par cas (``CaseSplit`` des valeurs).
         """
-        if _determinant_factory is None:
-            raise RuntimeError("Le module algorithms.determinant n'est pas initialisé.")
-        res = _determinant_factory(self, method=method, assumptions=assumptions).run()
-        if isinstance(res, CaseSplit):
-            return CaseSplit(
-                branches=tuple(Branch(b.condition, b.result.value, b.trace) for b in res.branches),
-                parameters=res.parameters,
-            )
-        valeur: sp.Expr = res.value
-        return valeur
+        res = _procedure("determinant")(self, method=method, assumptions=assumptions).run()
+        return _champ(res, "value")
 
     def solve(
         self,
@@ -787,16 +559,7 @@ class Matrix:
         strict: bool = False,
     ) -> Any:
         """Résout A x = b via GaussJordan et renvoie un SolutionSet ou un CaseSplit."""
-        gj_cls = self._require_gj()
-        res = gj_cls(self, b, assumptions=assumptions, strict=strict).run()
-        if isinstance(res, CaseSplit):
-            return CaseSplit(
-                branches=tuple(
-                    Branch(b.condition, b.result.solution, b.trace) for b in res.branches
-                ),
-                parameters=res.parameters,
-            )
-        return res.solution
+        return _champ(_procedure("gauss_jordan")(self, b, assumptions=assumptions, strict=strict).run(), "solution")
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Matrix):
