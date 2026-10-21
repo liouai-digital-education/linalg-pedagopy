@@ -125,6 +125,12 @@
 - **Liens vérifiés** : `tests/test_liens_documentation.py` échoue si un lien relatif d'une page
   Markdown versionnée vise un fichier absent, ou si le site garde un lien `.md` vers un guide.
 
+### Site — lot 3c de la revue
+- **Recherche sans `innerHTML`** : les résultats sont construits avec `textContent`. La saisie et le
+  texte indexé ne sont plus interprétés comme du HTML (un extrait « a < b » cassait l'affichage ; une
+  saisie `<img onerror=…>` était injectée dans la page). Le bouton « Copier » n'utilise plus
+  `innerHTML` non plus.
+
 ## [0.3.1.2] — 2026-10-21
 
 Phases 4, 5 et 6 du plan v6, et traces en tableau. Pas de publication sur PyPI pour cette version

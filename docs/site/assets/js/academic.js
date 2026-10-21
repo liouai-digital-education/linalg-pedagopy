@@ -19,10 +19,10 @@
     btn.addEventListener("click", () => {
       const code = btn.closest(".code-container").querySelector("pre code").innerText;
       navigator.clipboard.writeText(code).then(() => {
-        const originalText = btn.innerHTML;
-        btn.innerHTML = "<span>✓ Copié</span>";
+        const originalText = btn.textContent;
+        btn.textContent = "✓ Copié";
         setTimeout(() => {
-          btn.innerHTML = originalText;
+          btn.textContent = originalText;
         }, 2000);
       });
     });
@@ -72,11 +72,36 @@
     });
   }
 
+  // Les résultats sont construits avec textContent : ni la saisie ni le texte indexé ne sont
+  // interprétés comme du HTML (un extrait « a < b » ou une saisie « <img onerror=…> » restent du texte).
+  function message(texte) {
+    const p = document.createElement("p");
+    p.style.color = "var(--text-muted)";
+    p.style.fontSize = "0.875rem";
+    p.textContent = texte;
+    modalResults.replaceChildren(p);
+  }
+
+  function resultat(res) {
+    const lien = document.createElement("a");
+    lien.href = res.url;
+    lien.className = "search-result-item";
+    lien.addEventListener("click", closeSearch);
+    const titre = document.createElement("div");
+    titre.className = "search-result-title";
+    titre.textContent = res.pageTitle + " → " + res.title;
+    const extrait = document.createElement("div");
+    extrait.className = "search-result-snippet";
+    extrait.textContent = res.snippet;
+    lien.append(titre, extrait);
+    return lien;
+  }
+
   if (modalInput) {
     modalInput.addEventListener("input", (e) => {
       const q = e.target.value.toLowerCase().trim();
       if (!q || !searchData.length) {
-        modalResults.innerHTML = "<p style='color:var(--text-muted);font-size:0.875rem;'>Saisissez un terme à rechercher...</p>";
+        message("Saisissez un terme à rechercher...");
         return;
       }
 
@@ -85,20 +110,11 @@
         .slice(0, 10);
 
       if (!results.length) {
-        modalResults.innerHTML = "<p style='color:var(--text-muted);font-size:0.875rem;'>Aucun résultat trouvé pour « " + q + " ».</p>";
+        message("Aucun résultat trouvé pour « " + q + " ».");
         return;
       }
 
-      modalResults.innerHTML = results
-        .map((res) => {
-          return `
-            <a href="${res.url}" class="search-result-item" onclick="document.getElementById('searchModal').style.display='none'">
-              <div class="search-result-title">${res.pageTitle} &rarr; ${res.title}</div>
-              <div class="search-result-snippet">${res.snippet}</div>
-            </a>
-          `;
-        })
-        .join("");
+      modalResults.replaceChildren(...results.map(resultat));
     });
   }
 
