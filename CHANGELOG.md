@@ -1,4 +1,4 @@
-# Changelog — `linalg_pedagopy`
+# Journal des modifications — `linalg_pedagopy`
 
 ## [Non publié] — branche `development`
 
@@ -124,6 +124,27 @@
   la 3.0.0 signale qu'elle n'a pas d'étiquette git ; lignes repliées à 100 caractères (rendu inchangé).
 - **Liens vérifiés** : `tests/test_liens_documentation.py` échoue si un lien relatif d'une page
   Markdown versionnée vise un fichier absent, ou si le site garde un lien `.md` vers un guide.
+
+### Site — lot 3c de la revue
+- **Recherche sans `innerHTML`** : les résultats sont construits avec `textContent`. La saisie et le
+  texte indexé ne sont plus interprétés comme du HTML (un extrait « a < b » cassait l'affichage ; une
+  saisie `<img onerror=…>` était injectée dans la page). Le bouton « Copier » n'utilise plus
+  `innerHTML` non plus.
+- **Recherche en texte intégral** : l'index contient tout le texte de chaque section (h2 ou h3),
+  code compris, et l'introduction de chaque page, au lieu du titre et des 160 premiers caractères du
+  paragraphe suivant (200 Ko au lieu de 80). Les titres qui correspondent passent en premier ;
+  l'extrait affiché entoure le terme trouvé ; la comparaison ignore casse et accents (« determinant »
+  trouve « déterminant »).
+- **MathJax et Mermaid figés** : `mathjax@3.2.2` et `mermaid@10.9.8` (au lieu de `@3` et `@10`, qui
+  suivaient chaque nouvelle version), avec empreinte SRI ; Mermaid est chargé en script classique
+  (le module ESM ne se prête pas au SRI) et passe en `securityLevel: 'strict'`. Rendu vérifié dans le
+  navigateur (formules, diagrammes, sauts de ligne des libellés).
+- **Section « Développement »** : le site publie `CONTRIBUTING.md`, l'architecture, les tests et
+  vérifications, les campagnes de tests et ce journal (titre désormais en français), avec un renvoi
+  depuis l'accueil. Les liens relatifs sont résolus depuis le dossier de chaque page : une page publiée
+  devient son `.html`, tout autre fichier du dépôt un lien GitHub (`tree` pour un dossier). Le test
+  « un seul H1 » couvre toutes les pages publiées. Ces fichiers sources demandent désormais de
+  régénérer le site.
 
 ## [0.3.1.2] — 2026-10-21
 
@@ -454,11 +475,11 @@ singuliers dans `Matrix.inv()`.
   contenu : régénération reproductible.
 
 ### Corrections
-- Site de documentation : 54 formules s'affichaient comme `ACADEMIC_TOKEN_n` (pages, sommaires « Sur
-  cette page », index de recherche). Les jetons de protection `__…__` étaient mis en gras par
-  Markdown et n'étaient plus restitués ; ils sont remplacés par des jetons alphanumériques
-  (`AcadTok6Z`), retirés des ancres de titres, et la génération échoue s'il en reste. Nouveau test
-  `tests/test_site_documentation.py`.
+- Site de documentation : 54 formules s'affichaient sous la forme de leur jeton de protection brut
+  (pages, sommaires « Sur cette page », index de recherche). Les jetons de protection `__…__` étaient
+  mis en gras par Markdown et n'étaient plus restitués ; ils sont remplacés par des jetons faits
+  seulement de lettres et de chiffres, retirés des ancres de titres, et la génération échoue s'il en
+  reste. Nouveau test `tests/test_site_documentation.py`.
 
 ## [3.0.1] — 2026-10-21
 

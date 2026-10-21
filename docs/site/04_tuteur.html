@@ -27,12 +27,17 @@
       }
     };
   </script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!-- Versions figées et empreintes SRI (sha256 publié par jsDelivr) : une mise à jour du CDN ne
+       change ni le rendu ni le code exécuté. Pour monter de version, mettez à jour l'URL et l'empreinte. -->
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"
+          integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
 
-  <!-- Moteur de diagrammes Mermaid.js -->
-  <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+  <!-- Moteur de diagrammes Mermaid.js ; « strict » : le HTML des libellés est encodé, pas exécuté -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.8/dist/mermaid.min.js"
+          integrity="sha256-jWB9fvHQd6iqIC4Y5iISv6mSxov+q8XPRdUaEo/mZ10=" crossorigin="anonymous"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'strict' });
   </script>
 </head>
 <body>
@@ -74,12 +79,14 @@
       <div class="sidebar-heading">Sommaire de l'ouvrage</div>
       <ul class="nav-list">
         
+        
         <li class="nav-item ">
           <a href="index.html">
             <span>Accueil</span>
             <span class="nav-badge">Portail</span>
           </a>
         </li>
+        
         
         <li class="nav-item ">
           <a href="01_noyau_calcul_formel.html">
@@ -88,12 +95,14 @@
           </a>
         </li>
         
+        
         <li class="nav-item ">
           <a href="02_vecteurs_matrices.html">
             <span>02. Vecteurs, matrices et métriques</span>
             <span class="nav-badge">Objets</span>
           </a>
         </li>
+        
         
         <li class="nav-item ">
           <a href="03_algorithmes_traces.html">
@@ -102,12 +111,14 @@
           </a>
         </li>
         
+        
         <li class="nav-item active">
           <a href="04_tuteur.html">
             <span>04. Le tuteur interactif</span>
             <span class="nav-badge">Pédagogie</span>
           </a>
         </li>
+        
         
         <li class="nav-item ">
           <a href="05_exercices_sessions.html">
@@ -116,12 +127,14 @@
           </a>
         </li>
         
+        
         <li class="nav-item ">
           <a href="06_rendu_visualisation_numerique.html">
             <span>06. Rendu, visualisation et comparaison numérique</span>
             <span class="nav-badge">Visuel</span>
           </a>
         </li>
+        
         
         <li class="nav-item ">
           <a href="07_api_reference.html">
@@ -130,6 +143,7 @@
           </a>
         </li>
         
+        
         <li class="nav-item ">
           <a href="08_catalogue_exercices.html">
             <span>08. Catalogue des exercices</span>
@@ -137,10 +151,53 @@
           </a>
         </li>
         
+        
         <li class="nav-item ">
           <a href="09_guide_jupyterlab.html">
             <span>09. Utiliser le package dans JupyterLab</span>
             <span class="nav-badge">Pratique</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-section">Développement</li>
+        
+        <li class="nav-item ">
+          <a href="contribuer.html">
+            <span>Contribuer</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="dev_architecture.html">
+            <span>Architecture du paquet</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="dev_tests.html">
+            <span>Tests et vérifications</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="dev_campagnes.html">
+            <span>Campagnes de tests</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="journal.html">
+            <span>Journal des modifications</span>
+            <span class="nav-badge">Dév.</span>
           </a>
         </li>
         
@@ -370,7 +427,7 @@ tuteur.mode("etudiant")          # ou "student"
 <p>Ce n'est pas une protection cryptographique : un étudiant déterminé peut lire les fichiers YAML. Le but est d'éviter que la réponse s'obtienne par une simple ligne de code.</p>
 <hr/>
 <h2 id="8-les-fiches-dexercices">8. Les fiches d'exercices</h2>
-<p>Les fiches sont des fichiers YAML dans <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/tuteur/fiches/"><code>src/linalg_pedagopy/tuteur/fiches/</code></a>, un par exercice, nommés d'après leur identifiant.</p>
+<p>Les fiches sont des fichiers YAML dans <a href="https://github.com/liouai-digital-education/linalg-pedagopy/tree/main/src/linalg_pedagopy/tuteur/fiches"><code>src/linalg_pedagopy/tuteur/fiches/</code></a>, un par exercice, nommés d'après leur identifiant.</p>
 <div class="code-container"><div class="code-header"><span>Yaml</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-yaml">id: moyenne-glissante
 numero: 16
 titre: Écart à la moyenne glissante

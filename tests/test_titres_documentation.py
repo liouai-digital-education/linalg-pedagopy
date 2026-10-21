@@ -51,6 +51,9 @@ def test_readme_et_accueil_citent_le_titre(guide: Path) -> None:
 
 
 def test_chaque_page_du_site_a_un_seul_h1() -> None:
-    pages = [DOCS / "site" / "index.html", *(DOCS / "site" / g.with_suffix(".html").name for g in GUIDES)]
-    nombres = {p.name: p.read_text(encoding="utf-8").count("<h1") for p in pages}
+    # Toutes les pages publiées (guides, accueil, section « Développement »), hors pages de redirection
+    pages = {p.name: p.read_text(encoding="utf-8") for p in (DOCS / "site").glob("*.html")}
+    publiees = {nom: html for nom, html in pages.items() if 'http-equiv="refresh"' not in html}
+    assert {g.with_suffix(".html").name for g in GUIDES} <= publiees.keys()
+    nombres = {nom: html.count("<h1") for nom, html in publiees.items()}
     assert all(n == 1 for n in nombres.values()), nombres

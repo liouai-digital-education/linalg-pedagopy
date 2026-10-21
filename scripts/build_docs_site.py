@@ -7,6 +7,7 @@ Convertit les fichiers Markdown de docs/ en un site HTML autonome au design sobr
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import re
 from typing import Any
@@ -60,6 +61,23 @@ PAGES = [
      "subtitle": "Les 39 exercices du tuteur par thème et par niveau", "badge": "Exercices", "number": "08"},
     {"id": "09_jupyterlab", "src": "09_guide_jupyterlab.md", "dst": "09_guide_jupyterlab.html",
      "subtitle": "Installation pas à pas, premières cellules et dépannage", "badge": "Pratique", "number": "09"},
+    # Section « Développement » : contribuer, architecture, tests, journal des modifications
+    {"id": "contribuer", "src": "../CONTRIBUTING.md", "dst": "contribuer.html", "nav": "Contribuer",
+     "subtitle": "Langue, branches, commits, vérifications et documentation générée", "badge": "Dév.",
+     "number": "D1", "section": "dev"},
+    {"id": "dev_architecture", "src": "dev/architecture.md", "dst": "dev_architecture.html",
+     "nav": "Architecture du paquet",
+     "subtitle": "Couches, registres, moteur d'élimination et décisions de conception", "badge": "Dév.",
+     "number": "D2", "section": "dev"},
+    {"id": "dev_tests", "src": "dev/tests_et_verifications.md", "dst": "dev_tests.html",
+     "nav": "Tests et vérifications",
+     "subtitle": "Familles de tests, références, exemples vérifiés et qualité du code", "badge": "Dév.",
+     "number": "D3", "section": "dev"},
+    {"id": "dev_campagnes", "src": "dev/campagnes.md", "dst": "dev_campagnes.html", "nav": "Campagnes de tests",
+     "subtitle": "Tests limites, grosses matrices et plafonds de branches", "badge": "Dév.",
+     "number": "D4", "section": "dev"},
+    {"id": "journal", "src": "../CHANGELOG.md", "dst": "journal.html", "nav": "Journal des modifications",
+     "subtitle": "Les changements de chaque version", "badge": "Dév.", "number": "D5", "section": "dev"},
 ]
 
 # Anciennes adresses des pages renommées (noms anglais jusqu'à la v0.3.1.2) : une page de
@@ -362,6 +380,16 @@ body {
   border-radius: 4px;
   text-transform: uppercase;
   font-weight: 600;
+}
+
+.nav-section {
+  margin: 1.25rem 0 0.4rem;
+  padding: 0 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
 .nav-item.active .nav-badge {
@@ -861,10 +889,10 @@ ACADEMIC_JS = """// Gestion du thème sombre / clair, recherche instantanée et 
     btn.addEventListener("click", () => {
       const code = btn.closest(".code-container").querySelector("pre code").innerText;
       navigator.clipboard.writeText(code).then(() => {
-        const originalText = btn.innerHTML;
-        btn.innerHTML = "<span>✓ Copié</span>";
+        const originalText = btn.textContent;
+        btn.textContent = "✓ Copié";
         setTimeout(() => {
-          btn.innerHTML = originalText;
+          btn.textContent = originalText;
         }, 2000);
       });
     });
@@ -914,33 +942,65 @@ ACADEMIC_JS = """// Gestion du thème sombre / clair, recherche instantanée et 
     });
   }
 
+  // Les résultats sont construits avec textContent : ni la saisie ni le texte indexé ne sont
+  // interprétés comme du HTML (un extrait « a < b » ou une saisie « <img onerror=…> » restent du texte).
+  function message(texte) {
+    const p = document.createElement("p");
+    p.style.color = "var(--text-muted)";
+    p.style.fontSize = "0.875rem";
+    p.textContent = texte;
+    modalResults.replaceChildren(p);
+  }
+
+  // Comparaison sans casse ni accents (« determinant » trouve « déterminant ») ; la longueur du texte
+  // est conservée pour un texte en NFC, si bien que les positions trouvées valent dans l'original.
+  function sansAccents(texte) {
+    return texte.toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "");
+  }
+
+  function extraitAutour(res, q) {
+    const i = sansAccents(res.content).indexOf(q);
+    if (i < 0) return res.snippet;
+    const debut = Math.max(0, i - 60);
+    const fin = Math.min(res.content.length, i + q.length + 100);
+    return (debut > 0 ? "…" : "") + res.content.slice(debut, fin) + (fin < res.content.length ? "…" : "");
+  }
+
+  function resultat(res, q) {
+    const lien = document.createElement("a");
+    lien.href = res.url;
+    lien.className = "search-result-item";
+    lien.addEventListener("click", closeSearch);
+    const titre = document.createElement("div");
+    titre.className = "search-result-title";
+    titre.textContent = res.pageTitle + " → " + res.title;
+    const extrait = document.createElement("div");
+    extrait.className = "search-result-snippet";
+    extrait.textContent = extraitAutour(res, q);
+    lien.append(titre, extrait);
+    return lien;
+  }
+
   if (modalInput) {
     modalInput.addEventListener("input", (e) => {
-      const q = e.target.value.toLowerCase().trim();
+      const q = sansAccents(e.target.value.trim());
       if (!q || !searchData.length) {
-        modalResults.innerHTML = "<p style='color:var(--text-muted);font-size:0.875rem;'>Saisissez un terme à rechercher...</p>";
+        message("Saisissez un terme à rechercher...");
         return;
       }
 
-      const results = searchData
-        .filter((item) => item.title.toLowerCase().includes(q) || item.content.toLowerCase().includes(q))
-        .slice(0, 10);
+      const dansTitre = searchData.filter((item) => sansAccents(item.title).includes(q));
+      const dansTexte = searchData.filter(
+        (item) => !sansAccents(item.title).includes(q) && sansAccents(item.content).includes(q)
+      );
+      const results = dansTitre.concat(dansTexte).slice(0, 10);
 
       if (!results.length) {
-        modalResults.innerHTML = "<p style='color:var(--text-muted);font-size:0.875rem;'>Aucun résultat trouvé pour « " + q + " ».</p>";
+        message("Aucun résultat trouvé pour « " + e.target.value.trim() + " ».");
         return;
       }
 
-      modalResults.innerHTML = results
-        .map((res) => {
-          return `
-            <a href="${res.url}" class="search-result-item" onclick="document.getElementById('searchModal').style.display='none'">
-              <div class="search-result-title">${res.pageTitle} &rarr; ${res.title}</div>
-              <div class="search-result-snippet">${res.snippet}</div>
-            </a>
-          `;
-        })
-        .join("");
+      modalResults.replaceChildren(...results.map((res) => resultat(res, q)));
     });
   }
 
@@ -976,7 +1036,7 @@ PAGE_TEMPLATE = jinja2.Template("""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title }} — linalg_pedagopy</title>
+  <title>{{ page.title }}{% if 'linalg_pedagopy' not in page.title %} — linalg_pedagopy{% endif %}</title>
   <meta name="description" content="{{ page.subtitle }}">
 
   <!-- Typographie Web Google Fonts -->
@@ -1000,12 +1060,17 @@ PAGE_TEMPLATE = jinja2.Template("""<!DOCTYPE html>
       }
     };
   </script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!-- Versions figées et empreintes SRI (sha256 publié par jsDelivr) : une mise à jour du CDN ne
+       change ni le rendu ni le code exécuté. Pour monter de version, mettez à jour l'URL et l'empreinte. -->
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"
+          integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
 
-  <!-- Moteur de diagrammes Mermaid.js -->
-  <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+  <!-- Moteur de diagrammes Mermaid.js ; « strict » : le HTML des libellés est encodé, pas exécuté -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.8/dist/mermaid.min.js"
+          integrity="sha256-jWB9fvHQd6iqIC4Y5iISv6mSxov+q8XPRdUaEo/mZ10=" crossorigin="anonymous"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'strict' });
   </script>
 </head>
 <body>
@@ -1047,6 +1112,9 @@ PAGE_TEMPLATE = jinja2.Template("""<!DOCTYPE html>
       <div class="sidebar-heading">Sommaire de l'ouvrage</div>
       <ul class="nav-list">
         {% for p in pages %}
+        {% if p.section == "dev" and (loop.first or loop.previtem.section != "dev") %}
+        <li class="nav-section">Développement</li>
+        {% endif %}
         <li class="nav-item {% if p.id == page.id %}active{% endif %}">
           <a href="{{ p.dst }}">
             <span>{{ p.nav }}</span>
@@ -1135,7 +1203,37 @@ def _jeton(i: int) -> str:
 JETON_RESIDUEL = re.compile(r"AcadTok\d+Z|ACADEMIC_TOKEN")
 
 
-def preprocess_markdown(text: str) -> tuple[str, list[str]]:
+def _reecrire_liens(text: str, source: Path) -> str:
+    """Réécrit les liens Markdown relatifs de la page ``source`` pour le site.
+
+    Une page publiée devient son fichier HTML (ancre conservée). Un autre fichier ou dossier du
+    dépôt devient un lien vers GitHub (URL « Source » de pyproject.toml) ou, à défaut, un lien
+    relatif depuis docs/site/. Les liens externes, les ancres seules et les cibles introuvables
+    ne changent pas.
+    """
+    publiees = {(DOCS_DIR / p["src"]).resolve(): p["dst"] for p in PAGES}
+    base_source = _url_source_depot()
+
+    def remplacer(m: re.Match[str]) -> str:
+        cible = m.group(1)
+        if cible.startswith(("http://", "https://", "mailto:", "#")):
+            return m.group(0)
+        chemin, diese, ancre = cible.partition("#")
+        fichier = (source.parent / chemin).resolve()
+        if fichier in publiees:
+            return f"]({publiees[fichier]}{diese}{ancre})"
+        if not fichier.exists() or RACINE.resolve() not in fichier.parents:
+            return m.group(0)
+        relatif = fichier.relative_to(RACINE.resolve()).as_posix()
+        if base_source:
+            genre = "tree" if fichier.is_dir() else "blob"
+            return f"]({base_source}/{genre}/main/{relatif}{diese}{ancre})"
+        return f"]({os.path.relpath(fichier, OUTPUT_DIR.resolve()).replace(os.sep, '/')}{diese}{ancre})"
+
+    return re.sub(r"\]\(([^)\s]+)\)", remplacer, text)
+
+
+def preprocess_markdown(text: str, source: Path) -> tuple[str, list[str]]:
     """Protège les formules mathématiques et convertit les callouts et mermaid."""
     tokens: list[str] = []
 
@@ -1191,15 +1289,8 @@ def preprocess_markdown(text: str) -> tuple[str, list[str]]:
         text,
     )
 
-    # 5. Réajuster les liens .md en .html (avec ou sans ancre)
-    text = re.sub(r"\(([\w_-]+)\.md(#[\w-]*)?\)", r"(\1.html\2)", text)
-
-    # 6. Les liens relatifs vers le code source (../src/...) sont écrits depuis docs/.
-    #    Site publié (URL « Source » dans pyproject.toml) : lien vers le fichier sur GitHub ;
-    #    sinon, lien relatif depuis docs/site/, d'où un niveau supplémentaire.
-    base_source = _url_source_depot()
-    cible = rf"({base_source}/blob/main/\1)" if base_source else r"(../../\1)"
-    text = re.sub(r"\(\.\./((?:src|tests)/[^)\s]*)\)", cible, text)
+    # 5. Liens relatifs, résolus depuis le dossier de la page source
+    text = _reecrire_liens(text, source)
 
     return text, tokens
 
@@ -1278,6 +1369,41 @@ def _sans_h1(markdown_brut: str) -> str:
     return re.sub(r"\A(\s*)# [^\n]*\n", r"\1", markdown_brut, count=1)
 
 
+def _index_de_la_page(content_html: str, page: dict[str, Any]) -> list[dict[str, str]]:
+    """Entrées de l'index de recherche d'une page : introduction, puis une par section h2 ou h3."""
+    soup = BeautifulSoup(content_html, "html.parser")
+    entrees: list[dict[str, str]] = []
+    titre, ancre, morceaux = page["title"], "", []
+
+    def ajouter() -> None:
+        texte = re.sub(r"\s+", " ", " ".join(morceaux)).strip()
+        if texte or ancre:
+            entrees.append(
+                {
+                    "pageTitle": page["title"],
+                    "title": titre,
+                    "url": f"{page['dst']}#{ancre}" if ancre else page["dst"],
+                    "snippet": texte[:160] + ("…" if len(texte) > 160 else ""),
+                    "content": texte,
+                }
+            )
+
+    for noeud in soup.children:
+        nom = getattr(noeud, "name", None)
+        if nom in ("h2", "h3"):
+            ajouter()
+            titre, ancre, morceaux = noeud.get_text().strip(), str(noeud.get("id", "")), []
+        elif nom is not None:
+            # Le bouton « Copier » des blocs de code n'a rien à faire dans l'index
+            for bouton in noeud.select(".code-header"):
+                bouton.decompose()
+            morceaux.append(noeud.get_text(" "))
+        elif str(noeud).strip():
+            morceaux.append(str(noeud))
+    ajouter()
+    return entrees
+
+
 def build_site() -> None:
     """Génère le site web complet dans docs/site/."""
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -1301,7 +1427,7 @@ def build_site() -> None:
         raw_md = _sans_h1(src_path.read_text(encoding="utf-8"))
 
         # Prétraitement et protection
-        preprocessed_md, tokens = preprocess_markdown(raw_md)
+        preprocessed_md, tokens = preprocess_markdown(raw_md, src_path)
 
         # Conversion Markdown -> HTML
         content_html_raw = markdown.markdown(
@@ -1315,23 +1441,9 @@ def build_site() -> None:
         # Extraction de la TOC
         toc_items = extract_toc(content_html)
 
-        # Indexation pour la recherche plein texte
-        soup = BeautifulSoup(content_html, "html.parser")
-        for section in soup.find_all(["h2", "h3"]):
-            title = section.get_text()
-            s_id = section.get("id", "")
-            # Prendre le texte suivant
-            next_p = section.find_next("p")
-            snippet = next_p.get_text()[:160] + "..." if next_p else ""
-            search_index.append(
-                {
-                    "pageTitle": page["title"],
-                    "title": title,
-                    "url": f"{page['dst']}#{s_id}",
-                    "snippet": snippet,
-                    "content": title + " " + snippet,
-                }
-            )
+        # Indexation pour la recherche plein texte : une entrée par section (h2 ou h3) avec tout son
+        # texte jusqu'au titre suivant, code compris, plus l'introduction qui précède le premier h2.
+        search_index.extend(_index_de_la_page(content_html, page))
 
         prev_page = pages[idx - 1] if idx > 0 else None
         next_page = pages[idx + 1] if idx < len(pages) - 1 else None

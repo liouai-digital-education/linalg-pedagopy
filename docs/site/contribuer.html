@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contribuer à linalg_pedagopy</title>
+  <meta name="description" content="Langue, branches, commits, vérifications et documentation générée">
+
+  <!-- Typographie Web Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="assets/css/academic.css">
+
+  <!-- MathJax pour les formules mathématiques exactes -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <!-- Versions figées et empreintes SRI (sha256 publié par jsDelivr) : une mise à jour du CDN ne
+       change ni le rendu ni le code exécuté. Pour monter de version, mettez à jour l'URL et l'empreinte. -->
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"
+          integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
+
+  <!-- Moteur de diagrammes Mermaid.js ; « strict » : le HTML des libellés est encodé, pas exécuté -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.8/dist/mermaid.min.js"
+          integrity="sha256-jWB9fvHQd6iqIC4Y5iISv6mSxov+q8XPRdUaEo/mZ10=" crossorigin="anonymous"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'strict' });
+  </script>
+</head>
+<body>
+
+  <!-- En-tête institutionnel -->
+  <header class="site-header">
+    <a href="index.html" class="header-brand">
+      <div class="brand-crest">LP</div>
+      <div>
+        <div class="brand-title">linalg_pedagopy</div>
+        <div class="brand-subtitle">Algèbre linéaire formelle et pédagogique</div>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher... (Ctrl+K)" readonly>
+      </div>
+      <button id="themeToggle" class="theme-toggle-btn" title="Changer de thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- Modal de recherche plein texte -->
+  <div id="searchModal" class="search-results-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="Rechercher une fonction, un théorème, un symbole...">
+      </div>
+      <div id="modalSearchResults" class="search-modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;">Saisissez un mot-clé...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-container">
+    <!-- Barre latérale gauche de navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Sommaire de l'ouvrage</div>
+      <ul class="nav-list">
+        
+        
+        <li class="nav-item ">
+          <a href="index.html">
+            <span>Accueil</span>
+            <span class="nav-badge">Portail</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="01_noyau_calcul_formel.html">
+            <span>01. Noyau formel et calcul exact</span>
+            <span class="nav-badge">Fondement</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="02_vecteurs_matrices.html">
+            <span>02. Vecteurs, matrices et métriques</span>
+            <span class="nav-badge">Objets</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="03_algorithmes_traces.html">
+            <span>03. Algorithmes et traçabilité</span>
+            <span class="nav-badge">Algèbre</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="04_tuteur.html">
+            <span>04. Le tuteur interactif</span>
+            <span class="nav-badge">Pédagogie</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="05_exercices_sessions.html">
+            <span>05. Exercices et sessions guidées</span>
+            <span class="nav-badge">Didactique</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="06_rendu_visualisation_numerique.html">
+            <span>06. Rendu, visualisation et comparaison numérique</span>
+            <span class="nav-badge">Visuel</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="07_api_reference.html">
+            <span>07. Référence de l'API</span>
+            <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="08_catalogue_exercices.html">
+            <span>08. Catalogue des exercices</span>
+            <span class="nav-badge">Exercices</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="09_guide_jupyterlab.html">
+            <span>09. Utiliser le package dans JupyterLab</span>
+            <span class="nav-badge">Pratique</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-section">Développement</li>
+        
+        <li class="nav-item active">
+          <a href="contribuer.html">
+            <span>Contribuer</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="dev_architecture.html">
+            <span>Architecture du paquet</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="dev_tests.html">
+            <span>Tests et vérifications</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="dev_campagnes.html">
+            <span>Campagnes de tests</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="journal.html">
+            <span>Journal des modifications</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
+        <strong>Version 0.3.1.2</strong><br>
+        Calcul exact · tuteur interactif
+      </div>
+    </aside>
+
+    <!-- Corps de texte de l'article -->
+    <main class="main-content">
+      <header class="article-header">
+        <span class="article-badge">Chapitre D1 • Dév.</span>
+        <h1 class="article-title">Contribuer à linalg_pedagopy</h1>
+        <p class="article-subtitle">Langue, branches, commits, vérifications et documentation générée</p>
+      </header>
+
+      <article class="markdown-body">
+        <p>Ce guide réunit les règles du projet. Le détail est dans <a href="https://github.com/liouai-digital-education/linalg-pedagopy/tree/main/docs/dev"><code>docs/dev/</code></a> : <a href="dev_architecture.html">architecture du paquet</a> (couches, registres, moteur d'élimination) et <a href="dev_tests.html">tests et vérifications</a>.</p>
+<h2 id="langue">Langue</h2>
+<p>Tout est en français : code (noms publics du tuteur, messages, traces), docstrings, documentation, messages de commit et descriptions de PR. Le reste du package garde ses noms anglais, avec des alias français durables.</p>
+<h2 id="installation-pour-contribuer">Installation pour contribuer</h2>
+<div class="code-container"><div class="code-header"><span>Bash</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bash">pip install -e ".[dev,docs,tuteur,plot,compare]"
+git config filter.carnets.clean "python scripts/nettoyer_carnets.py --filtre"   # carnets commités sans sorties
+git config filter.carnets.smudge cat
+</code></pre></div>
+<h2 id="branches-pr-et-versions">Branches, PR et versions</h2>
+<ul>
+<li>Une branche par lot de travail, partie de <code>development</code> à jour ; la PR vise <code>development</code>.</li>
+<li><code>main</code> n'avance qu'avec l'accord du mainteneur, par fusion de <code>development</code>.</li>
+<li>Versions numérotées <code>0.3.x.y</code>, étiquettes <code>v0.3.x.y</code>. Le paquet n'est pas publié sur PyPI.</li>
+<li>Chaque PR a sa ligne dans la section « Non publié » du <a href="journal.html"><code>CHANGELOG.md</code></a>.</li>
+</ul>
+<h2 id="commits">Commits</h2>
+<p>Format <code>type(portée): résumé</code>, avec un corps qui explique <strong>pourquoi</strong> :</p>
+<div class="code-container"><div class="code-header"><span>Code</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code>fix(gauss-jordan): Matrix.solve(I) renvoie la solution au lieu de None
+
+Avec un second membre égal à I_n, GaussJordan activait d'office le mode
+« inverse »… (cause, correction, ce qui ne change pas)
+</code></pre></div>
+<p>Types courants : <code>feat</code>, <code>fix</code>, <code>docs</code>, <code>test</code>, <code>refactor</code>, <code>ci</code>, <code>build</code>, <code>chore</code>.</p>
+<h2 id="avant-chaque-commit">Avant chaque commit</h2>
+<div class="code-container"><div class="code-header"><span>Bash</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bash">python verifier_tout.py --rapide        # tests (sans les cas « lent ») et fiches
+ruff check src tests scripts
+python tests/run_notebooks.py           # si un carnet est concerné
+python scripts/build_docs_site.py       # si un .md de docs/ ou docs/dev/, le CHANGELOG ou ce fichier change
+</code></pre></div>
+<p><code>python verifier_tout.py</code> (sans option) ajoute la couverture, mypy et les carnets ; l'intégration continue lance tout, sur Python 3.10 à 3.13.</p>
+<h2 id="references-de-caracterisation">Références de caractérisation</h2>
+<p>Les tests de caractérisation figent des sorties complètes (traces, discussions, diagnostics du tuteur) dans <code>tests/references/</code>.</p>
+<ul>
+<li>Une <strong>refactorisation</strong> laisse les références identiques.</li>
+<li>Un <strong>changement de sortie voulu</strong> a son propre commit : régénérez avec <code>LP_MAJ_REFERENCES=1 pytest</code>, relisez <code>git diff tests/references</code>, et résumez ce diff dans le message de commit.</li>
+</ul>
+<h2 id="documentation">Documentation</h2>
+<ul>
+<li>Les blocs <code>```python</code> du README, de l'accueil, des guides et du tutoriel sont <strong>exécutés</strong> par les tests. Après un <code>print(...)</code>, une ligne <code>#&gt; texte</code> est une sortie exacte, comparée ; <code># texte</code> est un commentaire libre. Convention complète : <a href="dev_tests.html#exemples-de-la-documentation">tests et vérifications</a>.</li>
+<li>Trois fichiers sont <strong>générés puis versionnés</strong> ; régénérez-les et commitez-les avec leur source :</li>
+</ul>
+<p><code>bash
+  python docs/generer_catalogue.py              # docs/08_catalogue_exercices.md, depuis les fiches
+  python scripts/build_docs_site.py             # docs/site/, depuis docs/*.md, docs/dev/, CHANGELOG et CONTRIBUTING
+  python scripts/convert_tutorial_to_ipynb.py   # carnets/tutoriel_linalg_pedagopy.ipynb, depuis TUTORIAL.md</code></p>
+<p>Le job « Documentation à jour » de la CI échoue s'ils ne correspondent pas à leurs sources.
+- Le titre d'un guide est son H1, repris tel quel par le README, l'accueil et le site ; les liens relatifs doivent viser des fichiers existants. Des tests le vérifient.</p>
+<h2 id="tuteur">Tuteur</h2>
+<ul>
+<li>L'API d'usage est française : <code>linalg_pedagopy.tuteur</code>. <code>linalg_pedagopy.tutor</code> réexporte les noms anglais (sans avertissement en 0.3.1.2, avec un <code>DeprecationWarning</code> en 0.3.2.0, supprimé en 0.4.0.0). Dans <code>tutor/__init__.py</code>, les sous-modules de compatibilité se chargent <strong>avant</strong> <code>from tuteur import *</code>, sinon <code>tutor.catalog()</code> est masqué par le module.</li>
+<li><strong>Lecture de texte</strong> : jamais d'<code>eval</code>, d'<code>exec</code> ni de <code>sympify</code> sur une chaîne dans <code>tuteur/</code>, <code>tutor/</code> ou <code>exercises/</code>. Passez par <code>tuteur/evaluation_sure.py</code> (<code>evaluer</code>, <code>expression</code>, <code>en_expression</code>, <code>lire_donnee</code>) ; un test le vérifie.</li>
+<li>Une nouvelle fiche doit passer <code>tuteur.valider_fiche(id)</code> (aucune fuite de la cible dans les indices, contrôle croisé avec le solveur).</li>
+<li>Les exemples du tuteur écrivent leur journal, <code>.linalg_pedagopy_journal.json</code>, dans le répertoire courant ; ce fichier est ignoré par git.</li>
+</ul>
+<h2 id="ou-placer-un-nouveau-code">Où placer un nouveau code</h2>
+<p>Une couche n'importe jamais une couche plus haute (configuration → noyau → trace → objets → rendu → algorithmes → usages). Une nouvelle procédure tracée hérite de <code>Procedure</code> et renvoie un <code>Result</code> ; une nouvelle clé de trace va dans <code>render/locales/fr.yaml</code>. Voir <a href="dev_architecture.html">l'architecture</a>.</p>
+      </article>
+
+      <!-- Navigation entre chapitres -->
+      <nav class="chapter-nav">
+        
+        <a href="09_guide_jupyterlab.html" class="chapter-nav-btn">
+          <span class="nav-direction">&larr; Chapitre précédent</span>
+          <span class="nav-target">09. Utiliser le package dans JupyterLab</span>
+        </a>
+        
+
+        
+        <a href="dev_architecture.html" class="chapter-nav-btn" style="text-align:right;">
+          <span class="nav-direction">Chapitre suivant &rarr;</span>
+          <span class="nav-target">Architecture du paquet</span>
+        </a>
+        
+      </nav>
+    </main>
+
+    <!-- Barre latérale droite : Sommaire de la page (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-heading">Sur cette page</div>
+      <ul class="toc-list">
+        
+        <li class="toc-item ">
+          <a href="#langue">Langue</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#installation-pour-contribuer">Installation pour contribuer</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#branches-pr-et-versions">Branches, PR et versions</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#commits">Commits</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#avant-chaque-commit">Avant chaque commit</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#references-de-caracterisation">Références de caractérisation</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#documentation">Documentation</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#tuteur">Tuteur</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#ou-placer-un-nouveau-code">Où placer un nouveau code</a>
+        </li>
+        
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <p>
+      <strong>linalg_pedagopy</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement de l'algèbre linéaire en L1–L2.<br>
+      Documentation sous licence MIT. Code source ouvert.
+    </p>
+  </footer>
+
+  <script src="assets/js/academic.js"></script>
+</body>
+</html>

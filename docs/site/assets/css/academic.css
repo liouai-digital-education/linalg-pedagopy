@@ -275,6 +275,16 @@ body {
   font-weight: 600;
 }
 
+.nav-section {
+  margin: 1.25rem 0 0.4rem;
+  padding: 0 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
 .nav-item.active .nav-badge {
   background: var(--accent-primary);
   color: #ffffff;

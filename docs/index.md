@@ -33,6 +33,8 @@
 9. [**09. Utiliser le package dans JupyterLab**](09_guide_jupyterlab.md)  
    Installation pas à pas, premières cellules et dépannage.
 
+Pour contribuer au projet : [règles de contribution](../CONTRIBUTING.md), [architecture du paquet](dev/architecture.md), [tests et vérifications](dev/tests_et_verifications.md) et [journal des modifications](../CHANGELOG.md).
+
 ---
 
 ## Démarrage rapide

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campagnes de tests du bac à sable — linalg_pedagopy</title>
+  <meta name="description" content="Tests limites, grosses matrices et plafonds de branches">
+
+  <!-- Typographie Web Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="assets/css/academic.css">
+
+  <!-- MathJax pour les formules mathématiques exactes -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <!-- Versions figées et empreintes SRI (sha256 publié par jsDelivr) : une mise à jour du CDN ne
+       change ni le rendu ni le code exécuté. Pour monter de version, mettez à jour l'URL et l'empreinte. -->
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"
+          integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
+
+  <!-- Moteur de diagrammes Mermaid.js ; « strict » : le HTML des libellés est encodé, pas exécuté -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.8/dist/mermaid.min.js"
+          integrity="sha256-jWB9fvHQd6iqIC4Y5iISv6mSxov+q8XPRdUaEo/mZ10=" crossorigin="anonymous"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'strict' });
+  </script>
+</head>
+<body>
+
+  <!-- En-tête institutionnel -->
+  <header class="site-header">
+    <a href="index.html" class="header-brand">
+      <div class="brand-crest">LP</div>
+      <div>
+        <div class="brand-title">linalg_pedagopy</div>
+        <div class="brand-subtitle">Algèbre linéaire formelle et pédagogique</div>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher... (Ctrl+K)" readonly>
+      </div>
+      <button id="themeToggle" class="theme-toggle-btn" title="Changer de thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- Modal de recherche plein texte -->
+  <div id="searchModal" class="search-results-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="Rechercher une fonction, un théorème, un symbole...">
+      </div>
+      <div id="modalSearchResults" class="search-modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;">Saisissez un mot-clé...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-container">
+    <!-- Barre latérale gauche de navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Sommaire de l'ouvrage</div>
+      <ul class="nav-list">
+        
+        
+        <li class="nav-item ">
+          <a href="index.html">
+            <span>Accueil</span>
+            <span class="nav-badge">Portail</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="01_noyau_calcul_formel.html">
+            <span>01. Noyau formel et calcul exact</span>
+            <span class="nav-badge">Fondement</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="02_vecteurs_matrices.html">
+            <span>02. Vecteurs, matrices et métriques</span>
+            <span class="nav-badge">Objets</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="03_algorithmes_traces.html">
+            <span>03. Algorithmes et traçabilité</span>
+            <span class="nav-badge">Algèbre</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="04_tuteur.html">
+            <span>04. Le tuteur interactif</span>
+            <span class="nav-badge">Pédagogie</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="05_exercices_sessions.html">
+            <span>05. Exercices et sessions guidées</span>
+            <span class="nav-badge">Didactique</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="06_rendu_visualisation_numerique.html">
+            <span>06. Rendu, visualisation et comparaison numérique</span>
+            <span class="nav-badge">Visuel</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="07_api_reference.html">
+            <span>07. Référence de l'API</span>
+            <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="08_catalogue_exercices.html">
+            <span>08. Catalogue des exercices</span>
+            <span class="nav-badge">Exercices</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="09_guide_jupyterlab.html">
+            <span>09. Utiliser le package dans JupyterLab</span>
+            <span class="nav-badge">Pratique</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-section">Développement</li>
+        
+        <li class="nav-item ">
+          <a href="contribuer.html">
+            <span>Contribuer</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="dev_architecture.html">
+            <span>Architecture du paquet</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="dev_tests.html">
+            <span>Tests et vérifications</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item active">
+          <a href="dev_campagnes.html">
+            <span>Campagnes de tests</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+        
+        <li class="nav-item ">
+          <a href="journal.html">
+            <span>Journal des modifications</span>
+            <span class="nav-badge">Dév.</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
+        <strong>Version 0.3.1.2</strong><br>
+        Calcul exact · tuteur interactif
+      </div>
+    </aside>
+
+    <!-- Corps de texte de l'article -->
+    <main class="main-content">
+      <header class="article-header">
+        <span class="article-badge">Chapitre D4 • Dév.</span>
+        <h1 class="article-title">Campagnes de tests du bac à sable</h1>
+        <p class="article-subtitle">Tests limites, grosses matrices et plafonds de branches</p>
+      </header>
+
+      <article class="markdown-body">
+        <p>Étape 3.1 du <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/docs/dev/plans/plan_developpement_v6.md">plan de développement v6</a>. Les carnets <code>tests2</code> à <code>test4</code> du bac à sable <code>bac-a-sable-linalg</code> ont fait l'objet d'un rapport d'évaluation (21 octobre 2026). Leurs cas sont repris dans le dépôt pour servir de filet de sécurité et de base de mesure.</p>
+<h2 id="ou-sont-les-cas">Où sont les cas</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Fichier</th>
+<th style="text-align: left;">Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>tests/campagnes.py</code></td>
+<td style="text-align: left;">Les 21 cas (<code>CAS_CAMPAGNES</code>) : carnet d'origine, phénomène illustré, calcul, marque « lent ».</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>tests/test_caracterisation_campagnes.py</code></td>
+<td style="text-align: left;">Fige chaque cas dans <code>tests/references/campagnes/</code> : discussion de cas et explications en texte (niveaux 0 à 3), ou message d'erreur quand un plafond est atteint.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>scripts/mesurer_performances.py</code></td>
+<td style="text-align: left;">Mesure le temps, le nombre de branches et la taille des expressions (nombre d'opérations SymPy dans les matrices réduites).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>mesures/campagnes_3.1.0.json</code></td>
+<td style="text-align: left;">Mesures de référence avant toute correction (version 3.1.0).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="reconstitution">Reconstitution</h2>
+<p>Les carnets ne sont pas dans le dépôt : les cas sont reconstruits à partir du rapport.</p>
+<ul>
+<li><strong><code>test4</code> et <code>tests2</code></strong> : matrices du rapport ; seuls les seconds membres absents du rapport sont choisis.</li>
+<li><strong><code>tests3</code></strong> : les 9 tests limites sont reconstitués d'après leur description (même phénomène, mêmes conditions). Le test 5 reproduit exactement la solution du rapport.</li>
+<li><strong>Matrice bloc-triangulaire 6 × 6</strong> : le rapport ne la décrit que comme « 3 blocs 2 × 2 diagonaux couplés supérieurement ». Les blocs retenus, $\begin{bmatrix} a&amp;1 \\ 1&amp;a \end{bmatrix}$, $\begin{bmatrix} b&amp;1 \\ 1&amp;b \end{bmatrix}$, $\begin{bmatrix} a&amp;b \\ 1&amp;1 \end{bmatrix}$, reproduisent le phénomène : <code>max_cases=8</code> est dépassé, 10 branches avec <code>max_cases=16</code> (9 dans le rapport), 7 sous l'hypothèse $a \ne 1$ (6 dans le rapport).</li>
+<li><strong>Matrice bloc 4 × 4 de <code>tests2</code></strong> : le rapport signale <code>max_depth</code> atteint ; la matrice retenue (deux blocs $\begin{bmatrix} a&amp;1 \\ 1&amp;a \end{bmatrix}$ et $\begin{bmatrix} b&amp;1 \\ 1&amp;b \end{bmatrix}$) dépasse <code>max_cases=8</code>, ce qui illustre la même limite.</li>
+</ul>
+<h2 id="mesures-de-reference-310">Mesures de référence (3.1.0)</h2>
+<p>Une exécution par cas, Python 3.11, SymPy 1.14 ; les temps dépendent de la machine, les branches et les tailles non.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Cas</th>
+<th style="text-align: right;">Temps</th>
+<th style="text-align: right;">Branches</th>
+<th style="text-align: right;">Taille</th>
+<th style="text-align: left;">Remarque</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>t2_asymetrie_factorisation_inverse</code></td>
+<td style="text-align: right;">1,2 s</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t2_blocs_4x4_inverse</code></td>
+<td style="text-align: right;">2,7 s</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: left;"><code>max_cases=8</code> dépassé</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t2_circulante_3_parametres_inverse</code></td>
+<td style="text-align: right;">12,0 s</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: left;"><code>max_depth=3</code> atteint</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t3_1_singuliere_partout</code></td>
+<td style="text-align: right;">0,1 s</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t3_2_saut_de_rang_3_vers_1</code></td>
+<td style="text-align: right;">0,8 s</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t3_3_surdetermine_3x2</code></td>
+<td style="text-align: right;">0,1 s</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t3_4_conditions_croisees</code></td>
+<td style="text-align: right;">0,4 s</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t3_5_pivot_quadratique</code></td>
+<td style="text-align: right;">0,6 s</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t3_6_parametre_au_denominateur</code></td>
+<td style="text-align: right;">0,1 s</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t3_7_rang_nul</code></td>
+<td style="text-align: right;">0,0 s</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t3_8_strategie_simplest</code></td>
+<td style="text-align: right;">0,1 s</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t3_9_homogene</code></td>
+<td style="text-align: right;">0,4 s</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t4_bloc_triangulaire_6x6</code></td>
+<td style="text-align: right;">8,1 s</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: left;"><code>max_cases=8</code> dépassé</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t4_bloc_triangulaire_6x6_hypothese</code></td>
+<td style="text-align: right;">8,1 s</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: left;"><code>max_cases=16</code>, $a \ne 1$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t4_bloc_triangulaire_6x6_max16</code></td>
+<td style="text-align: right;">9,9 s</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: left;"><code>max_cases=16</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t4_equicorrelation_4x4</code></td>
+<td style="text-align: right;">4,1 s</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t4_equicorrelation_5x5_hypothese</code></td>
+<td style="text-align: right;">6,4 s</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: left;">$a \ne b$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t4_fleche_6x6</code></td>
+<td style="text-align: right;">0,7 s</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t4_permutee_cyclique_5x5</code></td>
+<td style="text-align: right;">0,5 s</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t4_tridiagonale_5x5</code></td>
+<td style="text-align: right;">3,0 s</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t4_vandermonde_4x4</code></td>
+<td style="text-align: right;">0,9 s</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p>Ces mesures précèdent l'étape 3.2, qui ne change ni les branches ni les temps de façon notable, mais modifie l'écriture des trois cas concernés.</p>
+<p>Pour comparer après une modification : <code>python scripts/mesurer_performances.py --json mesures.json</code>, puis confronter à <code>mesures/campagnes_3.1.0.json</code>.</p>
+<h2 id="constats-confirmes-par-la-reconstitution">Constats confirmés par la reconstitution</h2>
+<ol>
+<li><strong>Factorisation incohérente</strong> (corrigé à l'étape 3.2, <code>factor_policy</code>) : <code>t3_5_pivot_quadratique</code> affiche la condition $a \ne \sqrt 2$ et $a \ne -\sqrt 2$, mais la solution garde $a^2 - 2$, et la branche singulière s'intitule « $a^2 - 2 = 0$ ». Même chose pour $a^2 + a - 3$ dans <code>t2_asymetrie_factorisation_inverse</code> et pour $a^2 - 3$ dans <code>t4_tridiagonale_5x5</code>.</li>
+<li><strong>Témoins non réduits par la condition de la branche</strong> (constat nouveau, corrigé à l'étape 3.2) : dans la branche $a^2 - 3 = 0$ de <code>t4_tridiagonale_5x5</code>, le témoin d'incompatibilité s'écrit $0 = a^4 - 3a^2 + 2$ au lieu de $0 = 2$ ; dans la branche $a^2 - 2 = 0$ de <code>t3_5_pivot_quadratique</code>, il reste $0 = 2 - a$.</li>
+<li><strong>Plafonds</strong> (messages corrigés à l'étape 3.4 ; nombre de branches : étape 9.3, méthode par blocs) : <code>t2_blocs_4x4_inverse</code>, <code>t2_circulante_3_parametres_inverse</code> et <code>t4_bloc_triangulaire_6x6</code> s'arrêtent sur un message qui ne dit ni quels facteurs sont en cause, ni combien de branches il aurait fallu.</li>
+<li><strong>Branches combinées</strong> (étape 9.3) : <code>t4_bloc_triangulaire_6x6_max16</code> produit 10 branches, produit des singularités de blocs indépendants. Leurs 10 résultats sont tous distincts : fusionner les branches identiques n'y change rien (mesure de l'étape 4.8).</li>
+<li><strong>Facteur sans racine réelle</strong> : <code>t4_permutee_cyclique_5x5</code> n'ouvre aucune branche pour $a^4 + a^3 + a^2 + a + 1$, comme l'indiquait le rapport.</li>
+</ol>
+<h2 id="pivot-creux-et-remontee-etape-49">Pivot creux et remontée (étape 4.9)</h2>
+<p>Mesures des quatre combinaisons de <code>pivot_strategy</code> (<code>simplest</code>, <code>sparse</code>) et <code>reduction</code> (<code>simultaneous</code>, <code>back_substitution</code>) sur six cas des campagnes. La taille est le nombre maximal d'opérations SymPy dans une matrice de travail, sur toutes les étapes et toutes les branches.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Cas</th>
+<th style="text-align: right;">simplest / simultaneous</th>
+<th style="text-align: right;">simplest / back_substitution</th>
+<th style="text-align: right;">sparse / simultaneous</th>
+<th style="text-align: right;">sparse / back_substitution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Tridiagonale 5 × 5</td>
+<td style="text-align: right;">3,1 s · 27</td>
+<td style="text-align: right;">2,4 s · 27</td>
+<td style="text-align: right;">3,2 s · 27</td>
+<td style="text-align: right;">2,4 s · 27</td>
+</tr>
+<tr>
+<td style="text-align: left;">Flèche 6 × 6</td>
+<td style="text-align: right;">0,8 s · 23</td>
+<td style="text-align: right;">0,8 s · 23</td>
+<td style="text-align: right;">0,7 s · 23</td>
+<td style="text-align: right;">0,7 s · 23</td>
+</tr>
+<tr>
+<td style="text-align: left;">Permutée cyclique 5 × 5</td>
+<td style="text-align: right;">0,5 s · 58</td>
+<td style="text-align: right;">0,5 s · 58</td>
+<td style="text-align: right;">0,5 s · 58</td>
+<td style="text-align: right;">0,5 s · 58</td>
+</tr>
+<tr>
+<td style="text-align: left;">Équicorrélation 4 × 4</td>
+<td style="text-align: right;">4,1 s · 40</td>
+<td style="text-align: right;">4,0 s · 40</td>
+<td style="text-align: right;">3,5 s · 25</td>
+<td style="text-align: right;">3,3 s · 25</td>
+</tr>
+<tr>
+<td style="text-align: left;">Vandermonde 4 × 4</td>
+<td style="text-align: right;">0,9 s · 26</td>
+<td style="text-align: right;">0,9 s · 27</td>
+<td style="text-align: right;">0,9 s · 26</td>
+<td style="text-align: right;">0,9 s · 27</td>
+</tr>
+<tr>
+<td style="text-align: left;">Bloc-triangulaire 6 × 6 (a ≠ 1)</td>
+<td style="text-align: right;">8,3 s · 42</td>
+<td style="text-align: right;">7,5 s · 30</td>
+<td style="text-align: right;">8,4 s · 42</td>
+<td style="text-align: right;">7,1 s · 30</td>
+</tr>
+</tbody>
+</table>
+<p>Mêmes branches et mêmes résultats dans tous les cas, vérifiés pour des valeurs numériques des paramètres. Seul le témoin d'incompatibilité peut différer avec <code>sparse</code> (0 = −2 au lieu de 0 = 1), parce que les opérations de lignes ne sont pas les mêmes.</p>
+<p><strong>Conclusion</strong> : gains réels mais modestes (la taille maximale est le plus souvent celle de la forme réduite finale, identique dans tous les cas). Les deux options restent facultatives, et les réglages par défaut (<code>simplest</code>, <code>simultaneous</code>) sont conservés, ce qui laisse toutes les traces inchangées. Le gain décisif sur ces familles viendra des méthodes dédiées de la phase 9.</p>
+      </article>
+
+      <!-- Navigation entre chapitres -->
+      <nav class="chapter-nav">
+        
+        <a href="dev_tests.html" class="chapter-nav-btn">
+          <span class="nav-direction">&larr; Chapitre précédent</span>
+          <span class="nav-target">Tests et vérifications</span>
+        </a>
+        
+
+        
+        <a href="journal.html" class="chapter-nav-btn" style="text-align:right;">
+          <span class="nav-direction">Chapitre suivant &rarr;</span>
+          <span class="nav-target">Journal des modifications</span>
+        </a>
+        
+      </nav>
+    </main>
+
+    <!-- Barre latérale droite : Sommaire de la page (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-heading">Sur cette page</div>
+      <ul class="toc-list">
+        
+        <li class="toc-item ">
+          <a href="#ou-sont-les-cas">Où sont les cas</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#reconstitution">Reconstitution</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#mesures-de-reference-310">Mesures de référence (3.1.0)</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#constats-confirmes-par-la-reconstitution">Constats confirmés par la reconstitution</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#pivot-creux-et-remontee-etape-49">Pivot creux et remontée (étape 4.9)</a>
+        </li>
+        
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <p>
+      <strong>linalg_pedagopy</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement de l'algèbre linéaire en L1–L2.<br>
+      Documentation sous licence MIT. Code source ouvert.
+    </p>
+  </footer>
+
+  <script src="assets/js/academic.js"></script>
+</body>
+</html>

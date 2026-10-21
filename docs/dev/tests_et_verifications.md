@@ -66,7 +66,7 @@ N'écrivez `#>` que si la ligne est la sortie au caractère près ; un extrait, 
 
 ## Fichiers générés de la documentation
 
-Le catalogue des exercices (`docs/08_catalogue_exercices.md`) et le site HTML (`docs/site/`) sont générés puis versionnés. Après une modification d'une fiche du tuteur ou d'une page `.md` de `docs/`, régénérez-les, dans cet ordre (le site reprend le catalogue), et commitez le résultat :
+Le catalogue des exercices (`docs/08_catalogue_exercices.md`) et le site HTML (`docs/site/`) sont générés puis versionnés. Le site publie aussi, dans sa section « Développement », `CONTRIBUTING.md`, `CHANGELOG.md`, `architecture.md`, `campagnes.md` et cette page. Après une modification d'une fiche du tuteur, d'une page `.md` de `docs/` ou de `docs/dev/`, du CHANGELOG ou de `CONTRIBUTING.md`, régénérez-les, dans cet ordre (le site reprend le catalogue), et commitez le résultat :
 
 ```bash
 pip install -e ".[docs]"            # markdown, jinja2, beautifulsoup4

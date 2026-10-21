@@ -40,7 +40,7 @@ Types courants : `feat`, `fix`, `docs`, `test`, `refactor`, `ci`, `build`, `chor
 python verifier_tout.py --rapide        # tests (sans les cas « lent ») et fiches
 ruff check src tests scripts
 python tests/run_notebooks.py           # si un carnet est concerné
-python scripts/build_docs_site.py       # si un .md de docs/ change
+python scripts/build_docs_site.py       # si un .md de docs/ ou docs/dev/, le CHANGELOG ou ce fichier change
 ```
 
 `python verifier_tout.py` (sans option) ajoute la couverture, mypy et les carnets ; l'intégration continue lance tout, sur Python 3.10 à 3.13.
@@ -59,7 +59,7 @@ Les tests de caractérisation figent des sorties complètes (traces, discussions
 
   ```bash
   python docs/generer_catalogue.py              # docs/08_catalogue_exercices.md, depuis les fiches
-  python scripts/build_docs_site.py             # docs/site/, depuis docs/*.md
+  python scripts/build_docs_site.py             # docs/site/, depuis docs/*.md, docs/dev/, CHANGELOG et CONTRIBUTING
   python scripts/convert_tutorial_to_ipynb.py   # carnets/tutoriel_linalg_pedagopy.ipynb, depuis TUTORIAL.md
   ```
 
