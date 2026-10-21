@@ -2,6 +2,10 @@
 
 ## [Non publié] — branche `development`
 
+## [3.1.1] — 2026-10-21
+
+Phase 3 du plan v6 : correctifs issus des campagnes de tests du bac à sable (factorisation cohérente avec la condition, réduction par la condition de la branche, facteurs de signe constant à plusieurs paramètres, messages de plafond, avertissement de taille).
+
 ### Nouveautés — étape 3.5 du plan v6
 - **Avertissement didactique de taille** : Gauss-Jordan sur une matrice à paramètres de taille supérieure à `config.max_generic_dim` (4 par défaut) émet un `PedagogicalWarning` (nouvelle classe, sous-classe de `UserWarning`), une fois par calcul, qui invite à chercher une structure remarquable. Le calcul est toujours mené à terme ; `config.max_generic_dim = None` supprime l'avertissement. Concerne aussi `Matrix.rref()`, `rank()`, `nullspace()`, `inv()` et `solve()`, qui s'appuient sur Gauss-Jordan.
 - Les références des campagnes enregistrent les avertissements émis : 7 cas de taille 5 ou 6 en portent un (`t4_*`), sans autre changement. Tests dans `tests/test_avertissement_taille.py` ; guide 03 (§ 2.1), référence de l'API.
