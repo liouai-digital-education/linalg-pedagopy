@@ -372,10 +372,10 @@
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",
-    "title": "1.1 Pourquoi une traçabilité hiérarchique ? (Décision D6)",
-    "url": "03_algorithms_and_step_tracing.html#11-pourquoi-une-tracabilite-hierarchique-decision-d6",
+    "title": "1.1 Pourquoi une traçabilité hiérarchique ?",
+    "url": "03_algorithms_and_step_tracing.html#11-pourquoi-une-tracabilite-hierarchique",
     "snippet": "L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une réponse numérique brute, mais à comprendre la succession d'étapes de calcul. Cepen...",
-    "content": "1.1 Pourquoi une traçabilité hiérarchique ? (Décision D6) L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une réponse numérique brute, mais à comprendre la succession d'étapes de calcul. Cepen..."
+    "content": "1.1 Pourquoi une traçabilité hiérarchique ? L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une réponse numérique brute, mais à comprendre la succession d'étapes de calcul. Cepen..."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",
@@ -390,6 +390,13 @@
     "url": "03_algorithms_and_step_tracing.html#13-nuds-de-larbre-step-stepkind-et-highlight",
     "snippet": "L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (SECTION, INFO, WARNING, ROW_SWAP, ROW_SCALE, ROW_ADD, ...",
     "content": "1.3 Nœuds de l'arbre : Step, StepKind et Highlight L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (SECTION, INFO, WARNING, ROW_SWAP, ROW_SCALE, ROW_ADD, ..."
+  },
+  {
+    "pageTitle": "03. Algorithmes & traçabilité",
+    "title": "1.4 Ce que renvoie run() : le contrat commun des résultats",
+    "url": "03_algorithms_and_step_tracing.html#14-ce-que-renvoie-run-le-contrat-commun-des-resultats",
+    "snippet": "Chaque procédure s'utilise de la même façon : on la construit avec ses données et ses options, puis run() renvoie un résultat typé (GJResult, TriangularResult, ...",
+    "content": "1.4 Ce que renvoie run() : le contrat commun des résultats Chaque procédure s'utilise de la même façon : on la construit avec ses données et ses options, puis run() renvoie un résultat typé (GJResult, TriangularResult, ..."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",

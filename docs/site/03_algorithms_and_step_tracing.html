@@ -166,7 +166,7 @@
 <p>Chaque procédure hérite de la classe de base <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/base.py"><code>Procedure</code></a> et s'exécute dans un contexte de traçabilité pédagogique.</p>
 <hr/>
 <h2 id="1-moteur-de-tracabilite-contextuelle-tracer">1. Moteur de traçabilité contextuelle (<code>Tracer</code>)</h2>
-<h3 id="11-pourquoi-une-tracabilite-hierarchique-decision-d6">1.1 Pourquoi une traçabilité hiérarchique ? (Décision D6)</h3>
+<h3 id="11-pourquoi-une-tracabilite-hierarchique">1.1 Pourquoi une traçabilité hiérarchique ?</h3>
 <p>L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une réponse numérique brute, mais à comprendre la succession d'étapes de calcul. Cependant, un niveau d'explication unique ne convient pas à tous les publics :
 - Un enseignant qui projette au tableau veut les opérations de lignes et les matrices obtenues.
 - Un étudiant en TD a besoin, en plus, du découpage colonne par colonne et du choix de chaque pivot.
@@ -237,6 +237,53 @@ print([ligne.text for ligne in table.sections[0].rows if ligne.kind == "op"])
 - Un type d'action <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/trace/step.py"><code>StepKind</code></a> (<code>SECTION</code>, <code>INFO</code>, <code>WARNING</code>, <code>ROW_SWAP</code>, <code>ROW_SCALE</code>, <code>ROW_ADD</code>, <code>DOT</code>, <code>NORM</code>, <code>PROJECTION</code>, <code>SUBTRACT</code>, <code>NORMALIZE</code>, <code>BACK_SUBSTITUTION</code>, <code>CASE_SPLIT</code>, <code>CHECK</code>, <code>RESULT</code>).
 - Des instantanés matriciels (<code>snapshot</code>).
 - Une mise en valeur graphique <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/trace/step.py"><code>Highlight</code></a> spécifiant les coordonnées du pivot $(i, j)$, les lignes modifiées et la barre de séparation augmentée.</p>
+<h3 id="14-ce-que-renvoie-run-le-contrat-commun-des-resultats">1.4 Ce que renvoie <code>run()</code> : le contrat commun des résultats</h3>
+<p>Chaque procédure s'utilise de la même façon : on la construit avec ses données et ses options, puis <code>run()</code> renvoie un <strong>résultat typé</strong> (<code>GJResult</code>, <code>TriangularResult</code>, <code>GSResult</code>, <code>QRResult</code>, <code>LSResult</code>, <code>DetResult</code>), ou un <code>CaseSplit</code> de ces résultats quand une discussion selon les paramètres est nécessaire (voir le <a href="01_core_and_formal_computation.html">guide 01, § 4</a>). Tous les résultats partagent :</p>
+<ul>
+<li><code>trace</code> : l'arbre complet des étapes (niveau 3) ;</li>
+<li><code>explain(level=None)</code> : une <code>Explanation</code> filtrée au niveau demandé, à afficher (<code>print</code>) ou à exporter (<code>to_text</code>, <code>to_markdown</code>, <code>to_latex</code>, <code>to_html</code>, <code>to_table</code>, <code>save</code>) ; voir le <a href="06_rendering_visualization_and_numerics.html">guide 06</a> ;</li>
+<li><code>verify()</code> : un <strong>contrôle a posteriori</strong>, refait indépendamment du calcul et renvoyé lui aussi sous forme d'<code>Explanation</code> ;</li>
+<li>l'affichage automatique dans JupyterLab (Markdown et LaTeX, au niveau 2 au moins).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Résultat</th>
+<th style="text-align: left;">Ce que vérifie <code>verify()</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>GJResult</code></td>
+<td style="text-align: left;">$A x - b = 0$ pour la solution, et $A v = 0$ pour chaque vecteur de la base du noyau</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>TriangularResult</code></td>
+<td style="text-align: left;">résidu $A x - c$ nul (rien à vérifier dans une branche singulière)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>GSResult</code></td>
+<td style="text-align: left;">famille orthonormée, ou témoin de dépendance $a_k - \sum_i \lambda_i \tilde q_i = 0$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>QRResult</code></td>
+<td style="text-align: left;">$Q R = A$ et $Q^T Q = I_n$, coefficient par coefficient</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>LSResult</code></td>
+<td style="text-align: left;">$A^T \hat r = 0$, colonne par colonne</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>DetResult</code></td>
+<td style="text-align: left;">même déterminant par un algorithme indépendant (Berkowitz, sans division)</td>
+</tr>
+</tbody>
+</table>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(res.verify())
+#&gt; Vérification a posteriori du résultat de Gauss-Jordan.
+#&gt; └─ Contrôle vérifié : A x - b = (0, 0).
+</code></pre></div>
+<p>Les attributs propres à chaque résultat sont décrits avec sa procédure, ci-dessous.</p>
 <hr/>
 <h2 id="2-elimination-de-gauss-jordan-gaussjordan">2. Élimination de Gauss-Jordan (<code>GaussJordan</code>)</h2>
 <p>La procédure <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/gauss_jordan.py"><code>GaussJordan</code></a> résout les systèmes linéaires formels $A x = b$ et calcule l'inverse de matrices carrées.</p>
@@ -456,6 +503,31 @@ print("RMS du résidu :", ls.residual_rms)         # sqrt(70)/20
 # Vérification pédagogique fondamentale : A^T r_hat == 0
 # verify() renvoie une Explanation qui détaille le contrôle colonne par colonne
 print(ls.verify())
+#&gt; Vérification de la condition d'orthogonalité du résidu : A^T r_hat = 0 colonne par colonne.
+#&gt; ├─ Colonne a_1 : a_1^T r_hat = 0 (verdict : ZERO).
+#&gt; └─ Colonne a_2 : a_2^T r_hat = 0 (verdict : ZERO).
+</code></pre></div>
+<p>Le résultat <code>LSResult</code> expose aussi :</p>
+<ul>
+<li><code>residual</code> : synonyme de <code>r_hat</code> ($A \hat x - b$) ;</li>
+<li><code>pseudoinverse</code> : la pseudo-inverse $A^\dagger = (A^T A)^{-1} A^T$, calculée à la demande (et non par le calcul de <code>run()</code>) ; $\hat x = A^\dagger b$ ;</li>
+<li><code>method</code> (méthode employée), <code>A</code>, <code>b</code>, et <code>subs(...)</code> pour spécialiser les paramètres.</li>
+</ul>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(ls.residual)
+#&gt; (-1/10, -1/5, 7/10, -2/5)
+print(repr(ls.pseudoinverse))
+#&gt; Matrix([[7/10, 2/5, 1/10, -1/5], [-3/10, -1/10, 1/10, 3/10]])
+print(ls.pseudoinverse @ b == ls.x_hat)
+#&gt; True
+</code></pre></div>
+<p><code>LeastSquares</code> exige une matrice <strong>de rang plein en colonnes</strong>, sans quoi $\hat x$ n'est pas unique. Sinon, <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/exceptions.py"><code>RankDeficientError</code></a> (sous-classe de <code>PedagopyError</code> et d'<code>ArithmeticError</code>) est levée, avec le rang (<code>rank</code>) et le nombre de colonnes (<code>ncols</code>) ; c'est aussi le cas si $A$ a moins de lignes que de colonnes. <code>QR(A, strict=True)</code> lève la même exception sur une matrice de rang déficient, alors que <code>QR(A)</code> renvoie un résultat avec <code>full_rank=False</code> et le témoin de dépendance.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import RankDeficientError
+
+try:
+    LeastSquares(Matrix([[1, 2], [2, 4], [3, 6]]), Vector([1, 2, 3])).run()
+except RankDeficientError as err:
+    print(err, "| rang :", err.rank, "| colonnes :", err.ncols)
+#&gt; La matrice A (3x2) n'est pas de rang plein en colonnes. | rang : 1 | colonnes : 2
 </code></pre></div>
 <hr/>
 <h2 id="7-determinant-determinant">7. Déterminant (<code>Determinant</code>)</h2>
@@ -599,7 +671,7 @@ A.det(method="elimination")                                              # CaseS
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#11-pourquoi-une-tracabilite-hierarchique-decision-d6">1.1 Pourquoi une traçabilité hiérarchique ? (Décision D6)</a>
+          <a href="#11-pourquoi-une-tracabilite-hierarchique">1.1 Pourquoi une traçabilité hiérarchique ?</a>
         </li>
         
         <li class="toc-item toc-h3">
@@ -608,6 +680,10 @@ A.det(method="elimination")                                              # CaseS
         
         <li class="toc-item toc-h3">
           <a href="#13-nuds-de-larbre-step-stepkind-et-highlight">1.3 Nœuds de l'arbre : Step, StepKind et Highlight</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#14-ce-que-renvoie-run-le-contrat-commun-des-resultats">1.4 Ce que renvoie run() : le contrat commun des résultats</a>
         </li>
         
         <li class="toc-item ">

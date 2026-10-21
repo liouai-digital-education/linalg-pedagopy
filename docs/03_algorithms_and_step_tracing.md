@@ -8,7 +8,7 @@ Chaque procédure hérite de la classe de base [`Procedure`](../src/linalg_pedag
 
 ## 1. Moteur de traçabilité contextuelle (`Tracer`)
 
-### 1.1 Pourquoi une traçabilité hiérarchique ? (Décision D6)
+### 1.1 Pourquoi une traçabilité hiérarchique ?
 
 L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une réponse numérique brute, mais à comprendre la succession d'étapes de calcul. Cependant, un niveau d'explication unique ne convient pas à tous les publics :
 - Un enseignant qui projette au tableau veut les opérations de lignes et les matrices obtenues.
@@ -68,6 +68,32 @@ L'arbre de trace est composé de nœuds immuables [`Step`](../src/linalg_pedagop
 - Un type d'action [`StepKind`](../src/linalg_pedagopy/trace/step.py) (`SECTION`, `INFO`, `WARNING`, `ROW_SWAP`, `ROW_SCALE`, `ROW_ADD`, `DOT`, `NORM`, `PROJECTION`, `SUBTRACT`, `NORMALIZE`, `BACK_SUBSTITUTION`, `CASE_SPLIT`, `CHECK`, `RESULT`).
 - Des instantanés matriciels (`snapshot`).
 - Une mise en valeur graphique [`Highlight`](../src/linalg_pedagopy/trace/step.py) spécifiant les coordonnées du pivot $(i, j)$, les lignes modifiées et la barre de séparation augmentée.
+
+### 1.4 Ce que renvoie `run()` : le contrat commun des résultats
+
+Chaque procédure s'utilise de la même façon : on la construit avec ses données et ses options, puis `run()` renvoie un **résultat typé** (`GJResult`, `TriangularResult`, `GSResult`, `QRResult`, `LSResult`, `DetResult`), ou un `CaseSplit` de ces résultats quand une discussion selon les paramètres est nécessaire (voir le [guide 01, § 4](01_core_and_formal_computation.md)). Tous les résultats partagent :
+
+- `trace` : l'arbre complet des étapes (niveau 3) ;
+- `explain(level=None)` : une `Explanation` filtrée au niveau demandé, à afficher (`print`) ou à exporter (`to_text`, `to_markdown`, `to_latex`, `to_html`, `to_table`, `save`) ; voir le [guide 06](06_rendering_visualization_and_numerics.md) ;
+- `verify()` : un **contrôle a posteriori**, refait indépendamment du calcul et renvoyé lui aussi sous forme d'`Explanation` ;
+- l'affichage automatique dans JupyterLab (Markdown et LaTeX, au niveau 2 au moins).
+
+| Résultat | Ce que vérifie `verify()` |
+| :--- | :--- |
+| `GJResult` | $A x - b = 0$ pour la solution, et $A v = 0$ pour chaque vecteur de la base du noyau |
+| `TriangularResult` | résidu $A x - c$ nul (rien à vérifier dans une branche singulière) |
+| `GSResult` | famille orthonormée, ou témoin de dépendance $a_k - \sum_i \lambda_i \tilde q_i = 0$ |
+| `QRResult` | $Q R = A$ et $Q^T Q = I_n$, coefficient par coefficient |
+| `LSResult` | $A^T \hat r = 0$, colonne par colonne |
+| `DetResult` | même déterminant par un algorithme indépendant (Berkowitz, sans division) |
+
+```python
+print(res.verify())
+#> Vérification a posteriori du résultat de Gauss-Jordan.
+#> └─ Contrôle vérifié : A x - b = (0, 0).
+```
+
+Les attributs propres à chaque résultat sont décrits avec sa procédure, ci-dessous.
 
 ---
 
@@ -346,6 +372,36 @@ print("RMS du résidu :", ls.residual_rms)         # sqrt(70)/20
 # Vérification pédagogique fondamentale : A^T r_hat == 0
 # verify() renvoie une Explanation qui détaille le contrôle colonne par colonne
 print(ls.verify())
+#> Vérification de la condition d'orthogonalité du résidu : A^T r_hat = 0 colonne par colonne.
+#> ├─ Colonne a_1 : a_1^T r_hat = 0 (verdict : ZERO).
+#> └─ Colonne a_2 : a_2^T r_hat = 0 (verdict : ZERO).
+```
+
+Le résultat `LSResult` expose aussi :
+
+- `residual` : synonyme de `r_hat` ($A \hat x - b$) ;
+- `pseudoinverse` : la pseudo-inverse $A^\dagger = (A^T A)^{-1} A^T$, calculée à la demande (et non par le calcul de `run()`) ; $\hat x = A^\dagger b$ ;
+- `method` (méthode employée), `A`, `b`, et `subs(...)` pour spécialiser les paramètres.
+
+```python
+print(ls.residual)
+#> (-1/10, -1/5, 7/10, -2/5)
+print(repr(ls.pseudoinverse))
+#> Matrix([[7/10, 2/5, 1/10, -1/5], [-3/10, -1/10, 1/10, 3/10]])
+print(ls.pseudoinverse @ b == ls.x_hat)
+#> True
+```
+
+`LeastSquares` exige une matrice **de rang plein en colonnes**, sans quoi $\hat x$ n'est pas unique. Sinon, [`RankDeficientError`](../src/linalg_pedagopy/core/exceptions.py) (sous-classe de `PedagopyError` et d'`ArithmeticError`) est levée, avec le rang (`rank`) et le nombre de colonnes (`ncols`) ; c'est aussi le cas si $A$ a moins de lignes que de colonnes. `QR(A, strict=True)` lève la même exception sur une matrice de rang déficient, alors que `QR(A)` renvoie un résultat avec `full_rank=False` et le témoin de dépendance.
+
+```python
+from linalg_pedagopy import RankDeficientError
+
+try:
+    LeastSquares(Matrix([[1, 2], [2, 4], [3, 6]]), Vector([1, 2, 3])).run()
+except RankDeficientError as err:
+    print(err, "| rang :", err.rank, "| colonnes :", err.ncols)
+#> La matrice A (3x2) n'est pas de rang plein en colonnes. | rang : 1 | colonnes : 2
 ```
 
 ---

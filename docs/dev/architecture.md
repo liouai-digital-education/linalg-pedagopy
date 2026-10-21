@@ -93,6 +93,8 @@ Le [guide 01](../01_core_and_formal_computation.md) décrit le comportement du n
 
 ## Traces et locales
 
+La trace est enregistrée complète (niveau 3) puis filtrée à l'affichage : c'est la décision D6 de la v2 ([plans/implementation_plan.md](plans/implementation_plan.md)), présentée aux utilisateurs dans le [guide 03, § 1.1](../03_algorithms_and_step_tracing.md).
+
 Chaque étape de trace a une clé (`gj.row_add`, `det.bareiss_step`, `ker.vector`…) et des paramètres. Le texte de chaque clé est dans `render/locales/fr.yaml`, et `str.format` y insère les paramètres (accolades littérales doublées : `{{0}}`). Une nouvelle clé s'ajoute dans la section de son préfixe. Les messages d'exception restent écrits dans le code, `core` ne pouvant pas lire les locales de `render`.
 
 ## Tests
