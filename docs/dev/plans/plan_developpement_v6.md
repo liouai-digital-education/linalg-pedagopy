@@ -25,7 +25,7 @@ Quatre décisions structurent la révision :
 | Phase | Contenu | Nature | Effort estimé | Version |
 |:----:|:---------------------------|:---------------------------|:--------:|:------:|
 | 0–2 | Filet de sécurité, corrections et publication, déterminant (plan v5) | — | **fait** | 3.1.0 |
-| 3 | Correctifs issus des campagnes de tests | correctifs | 1 à 2 séances | 3.1.1 |
+| 3 | Correctifs issus des campagnes de tests | correctifs | 1 à 2 séances | 0.3.1.1 |
 | 4 | **Moteur d'élimination** réutilisable, noyau tracé, fusion des branches | refactorisation + fonctionnalité | 3 à 4 séances | 3.1.2 |
 | 5 | Allègement de `Matrix` (règle de délégation, registre de procédures) | refactorisation | 1 séance | 3.1.2 |
 | 6 | Tuteur : registre des vérificateurs, suppression des `eval`, API française | refactorisation + sécurité | 2 séances | 3.1.2 + PyPI |
@@ -141,7 +141,7 @@ Ceux du plan v5 restent en vigueur, avec deux ajouts :
 | 3.4 | Messages de plafond didactiques | Quand `max_cases` ou `max_depth` est atteint, le message nomme les facteurs responsables, le nombre de branches qu'il aurait fallu, et propose `assumptions="..."` ou un plafond plus élevé. Message en français dans `fr.yaml`. |
 | 3.5 | Avertissement de taille | `ConfigState.max_generic_dim = 4` : au-delà, Gauss-Jordan sur une matrice contenant des paramètres émet un `PedagogicalWarning` (« l'élimination sur une matrice symbolique n × n produit une discussion peu lisible ; cherchez une structure remarquable »). Le calcul continue ; `max_generic_dim=None` désactive l'avertissement. |
 
-**Critères de fin** : campagnes figées en références, test 5 cohérent, messages de plafond relus, version **3.1.1**.
+**Critères de fin** : campagnes figées en références, test 5 cohérent, messages de plafond relus, version **0.3.1.1** (prévue d'abord sous le numéro 3.1.1).
 
 # 6. Phase 4 — Moteur d'élimination réutilisable
 
@@ -333,7 +333,7 @@ Phase 3 ──► Phase 4 ──► Phase 5 ──► Phase 7 ──► Phase 8 
 
 | Ordre | Phase | Séances | Jalon | Version |
 |:-------:|:--------|:--------:|:-------------------------------------------|:------:|
-| 1 | Phase 3 | 1–2 | campagnes figées, factorisation cohérente, messages de plafond | 3.1.1 |
+| 1 | Phase 3 | 1–2 | campagnes figées, factorisation cohérente, messages de plafond | 0.3.1.1 |
 | 2 | Phase 4 | 3–4 | moteur commun, noyau tracé, fusion des branches | — |
 | 3 | Phase 5 | 1 | `Matrix` < 600 lignes, registre de procédures | — |
 | 4 | Phase 6 | 2 | tuteur découpé, plus d'`eval`, API française | 3.1.2 + PyPI |
@@ -374,7 +374,7 @@ Total indicatif : **17 à 22 séances** jusqu'à la version 3.4.0.
 Réponses aux questions laissées ouvertes par la première rédaction du plan v6 :
 
 9. **Langue du cœur de l'API** : noms anglais, cohérents avec `rref()`, `rank()`, `nullspace()`, `det()` (`kernel()`, `image()`, `rowspace()`, `Subspace.span()`…), avec des **alias français documentés** (`noyau()`, `espace_lignes()`, `Subspace.engendre()`…). Les valeurs des options de `ConfigState` restent en anglais. Le tuteur garde le français comme API principale.
-10. **`factor_policy`** : `"real_radicals"` par défaut **dès 3.1.1** ; la factorisation sur $\mathbb{Q}(\sqrt d)$ ne s'applique que lorsque la condition de la branche contient $\sqrt d$. `"rational"` reste disponible.
+10. **`factor_policy`** : `"real_radicals"` par défaut **dès 0.3.1.1** ; la factorisation sur $\mathbb{Q}(\sqrt d)$ ne s'applique que lorsque la condition de la branche contient $\sqrt d$. `"rational"` reste disponible.
 11. **Fusion des branches** : `merge_branches=True` par défaut, désactivable ; les traces des branches fusionnées restent consultables.
 12. **Format des bases** : `basis_format="canonical"` par défaut (fidèle à la méthode enseignée et à la trace) ; `"integer"` et `"orthonormal"` sur demande ; le tuteur accepte toute base correcte.
 13. **Alias anglais du tuteur** (`tutor`, `verify_*`…) : silencieux en 3.1.2 (première publication sur PyPI), `DeprecationWarning` à partir de 3.2.0, suppression en 4.0.
@@ -400,7 +400,7 @@ Aucune à ce jour.
 2. Tâche 3.2 **faite** : `config.factor_policy` (`"real_radicals"` par défaut), `Condition.radicals()`, `Condition.reduce()` ; témoins réduits par la condition de la branche ; tests dans `tests/test_factorisation.py`.
 3. Tâche 3.3 **faite** : complétion des carrés pour les polynômes de degré 2 à plusieurs paramètres (`sum_of_squares`, `strict_sign` dans `core/zero.py`) ; tests dans `tests/test_signe_constant.py`.
 4. Tâche 3.4 **faite** : `CaseLimitError` et `case_limit_error` (`core/zero.py`) ; message en Python comme les autres exceptions, `core` ne pouvant pas lire la locale de `render` ; tests dans `tests/test_plafonds.py`.
-5. Tâche 3.5 **faite** : `PedagogicalWarning` et `config.max_generic_dim` ; tests dans `tests/test_avertissement_taille.py`. **Phase 3 terminée : version 3.1.1.**
+5. Tâche 3.5 **faite** : `PedagogicalWarning` et `config.max_generic_dim` ; tests dans `tests/test_avertissement_taille.py`. **Phase 3 terminée : version 0.3.1.1** (étiquette `v0.3.1.1`).
 6. Phase 4, tâche 4.1 : extraire les fonctions pures de `gauss_jordan.py` (`_simplify_entry`, `_pivot_complexity_key`, `_factor_with_radicals`, `_result_entry`, choix du pivot) dans `algorithms/elimination.py`, sans changement de sortie.
 
 # Annexe B — Esquisse de l'API cible (version 3.4)

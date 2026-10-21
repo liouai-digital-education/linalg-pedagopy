@@ -2,7 +2,9 @@
 
 ## [Non publié] — branche `development`
 
-## [3.1.1] — 2026-10-21
+## [0.3.1.1] — 2026-10-21
+
+Numéro de version : `0.3.1.1` (étiquette `v0.3.1.1`), au lieu de `3.1.1` prévu par le plan v6. Le préfixe « v » est réservé à l'étiquette git : la norme PEP 440 le retire de la version du paquet. Attention, `0.3.1.1` est inférieur, pour pip, aux versions déjà étiquetées `3.0.1` et `3.1.0`.
 
 Phase 3 du plan v6 : correctifs issus des campagnes de tests du bac à sable (factorisation cohérente avec la condition, réduction par la condition de la branche, facteurs de signe constant à plusieurs paramètres, messages de plafond, avertissement de taille).
 
@@ -29,7 +31,7 @@ Phase 3 du plan v6 : correctifs issus des campagnes de tests du bac à sable (fa
 - `scripts/mesurer_performances.py` : temps, nombre de branches et taille des expressions de chaque cas ; mesures de référence de la version 3.1.0 dans `docs/dev/mesures/campagnes_3.1.0.json`.
 
 ### Documentation développeur
-- Plan de développement v6 (`docs/dev/plans/plan_developpement_v6.md`), qui remplace le plan v5 à partir de 3.1.0 : correctifs issus des campagnes de tests du bac à sable (3.1.1), moteur d'élimination avec noyau tracé et fusion des branches, bases et sous-espaces avant les valeurs propres (3.2.0), valeurs propres (3.3.0), familles de matrices structurées (3.4.0). Relecture critique du rapport d'évaluation des carnets et du référentiel bases et noyau, dont les erreurs relevées.
+- Plan de développement v6 (`docs/dev/plans/plan_developpement_v6.md`), qui remplace le plan v5 à partir de 3.1.0 : correctifs issus des campagnes de tests du bac à sable (3.1.1, devenue 0.3.1.1), moteur d'élimination avec noyau tracé et fusion des branches, bases et sous-espaces avant les valeurs propres (3.2.0), valeurs propres (3.3.0), familles de matrices structurées (3.4.0). Relecture critique du rapport d'évaluation des carnets et du référentiel bases et noyau, dont les erreurs relevées.
 
 ## [3.1.0] — 2026-10-21
 
