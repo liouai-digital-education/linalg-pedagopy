@@ -115,6 +115,7 @@ class Condition:
 
     @property
     def is_trivial(self) -> bool:
+        """Vrai si la condition ne contient ni égalité ni différence (toujours vérifiée)."""
         return not self.eqs and not self.neqs
 
     @property
@@ -152,6 +153,7 @@ class Condition:
 
     @property
     def free_symbols(self) -> set[sp.Symbol]:
+        """Paramètres qui apparaissent dans les égalités et les différences de la condition."""
         syms: set[sp.Symbol] = set()
         for l, r in (*self.eqs, *self.neqs):
             syms |= l.free_symbols | r.free_symbols

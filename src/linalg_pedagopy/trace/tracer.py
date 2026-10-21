@@ -51,6 +51,7 @@ class Tracer:
 
     @property
     def is_suppressed(self) -> bool:
+        """Vrai à l'intérieur d'une section filtrée (niveau trop détaillé) : rien n'y est enregistré."""
         return self._suppressed_depth > 0
 
     def push_section(
@@ -62,6 +63,7 @@ class Tracer:
         highlight: Highlight | None = None,
         **params: Any,
     ) -> bool:
+        """Ouvre une section ; renvoie False si elle est filtrée (niveau trop détaillé), et ses étapes le sont aussi."""
         if self._suppressed_depth > 0 or level > self.level:
             self._suppressed_depth += 1
             return False
@@ -78,6 +80,7 @@ class Tracer:
         return True
 
     def pop_section(self, pushed: bool) -> None:
+        """Ferme la section ouverte par ``push_section`` (``pushed`` : sa valeur de retour)."""
         if not pushed:
             self._suppressed_depth = max(0, self._suppressed_depth - 1)
         elif len(self._stack) > 1:
@@ -94,6 +97,7 @@ class Tracer:
         children: tuple[Step, ...] = (),
         **params: Any,
     ) -> None:
+        """Enregistre une étape dans la section courante, sauf si elle est filtrée par son niveau."""
         if self._suppressed_depth > 0 or level > self.level:
             return
         node = _MutableNode(

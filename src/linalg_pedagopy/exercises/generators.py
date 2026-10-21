@@ -218,6 +218,7 @@ class TwinExercise:
     explanation: Explanation | None = None
 
     def format_text(self) -> str:
+        """Énoncé et résolution du jumeau en texte brut, avec la trace de niveau 2 si elle existe."""
         lines = [
             f"=== Exercice jumeau résolu : {self.title} ===",
             f"Énoncé analogue : {self.statement}",

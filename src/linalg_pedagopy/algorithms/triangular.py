@@ -38,6 +38,7 @@ class TriangularResult(Result):
         return self.singular_index is not None
 
     def subs(self, mapping: Mapping[Any, Any]) -> TriangularResult:
+        """Résultat spécialisé : paramètres remplacés par des valeurs (``mapping`` : symbole ou nom → valeur)."""
         return TriangularResult(
             trace=self.trace,
             x=self.x.subs(mapping),

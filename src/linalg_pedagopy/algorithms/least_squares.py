@@ -57,6 +57,7 @@ class LSResult(Result):
             return ata_inv @ self.A.T
 
     def subs(self, mapping: Mapping[Any, Any]) -> LSResult:
+        """Résultat spécialisé : paramètres remplacés par des valeurs (``mapping`` : symbole ou nom → valeur)."""
         sym_map = {
             (sp.Symbol(k, real=True) if isinstance(k, str) else k): v
             for k, v in mapping.items()

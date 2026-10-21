@@ -64,6 +64,7 @@ class GSResult(Result):
         return Matrix.from_columns(self.orthogonal)
 
     def subs(self, mapping: Mapping[Any, Any]) -> GSResult:
+        """Résultat spécialisé : paramètres remplacés par des valeurs (``mapping`` : symbole ou nom → valeur)."""
         sym_map = {
             (sp.Symbol(k, real=True) if isinstance(k, str) else k): v
             for k, v in mapping.items()

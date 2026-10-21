@@ -66,6 +66,7 @@ class GJResult(Result):
     inverse: Matrix | None = None
 
     def subs(self, mapping: Mapping[Any, Any]) -> GJResult:
+        """Résultat spécialisé : paramètres remplacés par des valeurs (``mapping`` : symbole ou nom → valeur)."""
         return GJResult(
             trace=self.trace,
             A=self.A.subs(mapping),
