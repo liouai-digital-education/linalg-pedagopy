@@ -1,4 +1,4 @@
-# 05. Exercices pédagogiques et Sessions interactives
+# 05. Exercices et sessions guidées
 
 Le module `linalg_pedagopy.exercises` propose des outils de génération procédurale d'exercices d'algèbre linéaire à coefficients « propres » (entiers ou rationnels simples) ainsi qu'un moteur de sessions interactives pas-à-pas.
 

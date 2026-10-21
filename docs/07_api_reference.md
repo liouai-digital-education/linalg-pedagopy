@@ -1,4 +1,4 @@
-# 07. Référence complète de l'API
+# 07. Référence de l'API
 
 Ce document constitue la référence des modules, classes, fonctions et exceptions publics du package `linalg_pedagopy`. Les signatures sont celles du code source (`src/linalg_pedagopy`).
 

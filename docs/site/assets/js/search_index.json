@@ -1,510 +1,510 @@
 [
   {
-    "pageTitle": "Accueil & démarrage",
+    "pageTitle": "Documentation de linalg_pedagopy",
     "title": "Plan de la documentation",
     "url": "index.html#plan-de-la-documentation",
     "snippet": "01. Noyau formel et calcul exact\n   Conversion exacte des scalaires (to_exact, float_policy), symboles réels (symbols), oracle de nullité à 4 verdicts (ZeroOrac...",
     "content": "Plan de la documentation 01. Noyau formel et calcul exact\n   Conversion exacte des scalaires (to_exact, float_policy), symboles réels (symbols), oracle de nullité à 4 verdicts (ZeroOrac..."
   },
   {
-    "pageTitle": "Accueil & démarrage",
+    "pageTitle": "Documentation de linalg_pedagopy",
     "title": "Démarrage rapide",
     "url": "index.html#demarrage-rapide",
     "snippet": "Le pas-à-pas complet pour JupyterLab est dans le guide 09....",
     "content": "Démarrage rapide Le pas-à-pas complet pour JupyterLab est dans le guide 09...."
   },
   {
-    "pageTitle": "Accueil & démarrage",
+    "pageTitle": "Documentation de linalg_pedagopy",
     "title": "Installation",
     "url": "index.html#installation",
     "snippet": "Le pas-à-pas complet pour JupyterLab est dans le guide 09....",
     "content": "Installation Le pas-à-pas complet pour JupyterLab est dans le guide 09...."
   },
   {
-    "pageTitle": "Accueil & démarrage",
+    "pageTitle": "Documentation de linalg_pedagopy",
     "title": "Premier calcul : un système avec paramètre",
     "url": "index.html#premier-calcul-un-systeme-avec-parametre",
     "snippet": "La progression est enregistrée dans un journal, .linalg_pedagopy_journal.json, créé dans le répertoire courant : en relançant l'exemple, ex.indice() donne le pa...",
     "content": "Premier calcul : un système avec paramètre La progression est enregistrée dans un journal, .linalg_pedagopy_journal.json, créé dans le répertoire courant : en relançant l'exemple, ex.indice() donne le pa..."
   },
   {
-    "pageTitle": "Accueil & démarrage",
+    "pageTitle": "Documentation de linalg_pedagopy",
     "title": "Première séance avec le tuteur",
     "url": "index.html#premiere-seance-avec-le-tuteur",
     "snippet": "La progression est enregistrée dans un journal, .linalg_pedagopy_journal.json, créé dans le répertoire courant : en relançant l'exemple, ex.indice() donne le pa...",
     "content": "Première séance avec le tuteur La progression est enregistrée dans un journal, .linalg_pedagopy_journal.json, créé dans le répertoire courant : en relançant l'exemple, ex.indice() donne le pa..."
   },
   {
-    "pageTitle": "Accueil & démarrage",
+    "pageTitle": "Documentation de linalg_pedagopy",
     "title": "Principes de conception",
     "url": "index.html#principes-de-conception",
     "snippet": "Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :...",
     "content": "Principes de conception Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :..."
   },
   {
-    "pageTitle": "Accueil & démarrage",
+    "pageTitle": "Documentation de linalg_pedagopy",
     "title": "Noms du tuteur : français et anglais",
     "url": "index.html#noms-du-tuteur-francais-et-anglais",
     "snippet": "Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :...",
     "content": "Noms du tuteur : français et anglais Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :..."
   },
   {
-    "pageTitle": "Accueil & démarrage",
+    "pageTitle": "Documentation de linalg_pedagopy",
     "title": "Sources et remerciements",
     "url": "index.html#sources-et-remerciements",
     "snippet": "Les exercices 1 à 35 du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil Additional Exercises for Vectors, Matrices, and Least Sq...",
     "content": "Sources et remerciements Les exercices 1 à 35 du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil Additional Exercises for Vectors, Matrices, and Least Sq..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "1. Représentation des scalaires et coercition exacte",
     "url": "01_noyau_calcul_formel.html#1-representation-des-scalaires-et-coercition-exacte",
     "snippet": "En calcul formel didactique, manipuler des nombres à virgule flottante (float) conduit inévitablement à des artefacts déroutants pour l'étudiant (pivots non nul...",
     "content": "1. Représentation des scalaires et coercition exacte En calcul formel didactique, manipuler des nombres à virgule flottante (float) conduit inévitablement à des artefacts déroutants pour l'étudiant (pivots non nul..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "1.1 La fonction to_exact",
     "url": "01_noyau_calcul_formel.html#11-la-fonction-to_exact",
     "snippet": "En calcul formel didactique, manipuler des nombres à virgule flottante (float) conduit inévitablement à des artefacts déroutants pour l'étudiant (pivots non nul...",
     "content": "1.1 La fonction to_exact En calcul formel didactique, manipuler des nombres à virgule flottante (float) conduit inévitablement à des artefacts déroutants pour l'étudiant (pivots non nul..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "1.2 Politique de gestion des flottants (float_policy)",
     "url": "01_noyau_calcul_formel.html#12-politique-de-gestion-des-flottants-float_policy",
     "snippet": "Le comportement face à l'introduction explicite d'un flottant standard (float) est régi par config.float_policy :...",
     "content": "1.2 Politique de gestion des flottants (float_policy) Le comportement face à l'introduction explicite d'un flottant standard (float) est régi par config.float_policy :..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "2. Déclaration et gestion des symboles réels (symbols)",
     "url": "01_noyau_calcul_formel.html#2-declaration-et-gestion-des-symboles-reels-symbols",
     "snippet": "Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \\in \\mathbb{C}$), ce qui empêche de nombreuses simplificat...",
     "content": "2. Déclaration et gestion des symboles réels (symbols) Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \\in \\mathbb{C}$), ce qui empêche de nombreuses simplificat..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "2.1 Hypothèse real=True par défaut",
     "url": "01_noyau_calcul_formel.html#21-hypothese-realtrue-par-defaut",
     "snippet": "Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \\in \\mathbb{C}$), ce qui empêche de nombreuses simplificat...",
     "content": "2.1 Hypothèse real=True par défaut Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \\in \\mathbb{C}$), ce qui empêche de nombreuses simplificat..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "2.2 Paramètres désignés par leur nom",
     "url": "01_noyau_calcul_formel.html#22-parametres-designes-par-leur-nom",
     "snippet": "Pour SymPy, deux symboles de même nom mais d'hypothèses différentes (sympy.Symbol(\"a\") et le a réel de symbols(\"a\")) sont deux objets distincts. CaseSplit.at(a=...",
     "content": "2.2 Paramètres désignés par leur nom Pour SymPy, deux symboles de même nom mais d'hypothèses différentes (sympy.Symbol(\"a\") et le a réel de symbols(\"a\")) sont deux objets distincts. CaseSplit.at(a=..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "3. L'Oracle de nullité (ZeroOracle)",
     "url": "01_noyau_calcul_formel.html#3-loracle-de-nullite-zerooracle",
     "snippet": "En présence de paramètres symboliques, tester si un scalaire $v$ est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si $v = a - 1$, la réponse...",
     "content": "3. L'Oracle de nullité (ZeroOracle) En présence de paramètres symboliques, tester si un scalaire $v$ est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si $v = a - 1$, la réponse..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "3.1 Pourquoi un oracle dédié ?",
     "url": "01_noyau_calcul_formel.html#31-pourquoi-un-oracle-dedie",
     "snippet": "En présence de paramètres symboliques, tester si un scalaire $v$ est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si $v = a - 1$, la réponse...",
     "content": "3.1 Pourquoi un oracle dédié ? En présence de paramètres symboliques, tester si un scalaire $v$ est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si $v = a - 1$, la réponse..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "3.2 Les 4 Verdicts",
     "url": "01_noyau_calcul_formel.html#32-les-4-verdicts",
     "snippet": "stateDiagram-v2\n    [*] --> Evaluation\n    Evaluation --> ZERO : Expression constante nulle\n    Evaluation --> NONZERO : Expression constante non nulle\n    Eval...",
     "content": "3.2 Les 4 Verdicts stateDiagram-v2\n    [*] --> Evaluation\n    Evaluation --> ZERO : Expression constante nulle\n    Evaluation --> NONZERO : Expression constante non nulle\n    Eval..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "3.3 Traitement des radicaux paramétriques (unrad)",
     "url": "01_noyau_calcul_formel.html#33-traitement-des-radicaux-parametriques-unrad",
     "snippet": "Les expressions contenant des racines carrées paramétriques (comme $\\sqrt{1 - m^2}$ ou $\\sqrt{a^2 + b^2}$) sont traitées en trois temps :\n1. L'oracle fait appel...",
     "content": "3.3 Traitement des radicaux paramétriques (unrad) Les expressions contenant des racines carrées paramétriques (comme $\\sqrt{1 - m^2}$ ou $\\sqrt{a^2 + b^2}$) sont traitées en trois temps :\n1. L'oracle fait appel..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "3.4 Facteurs de signe constant à plusieurs paramètres",
     "url": "01_noyau_calcul_formel.html#34-facteurs-de-signe-constant-a-plusieurs-parametres",
     "snippet": "Un facteur qui ne s'annule pour aucune valeur réelle des paramètres ne doit pas ouvrir de branche. En un seul paramètre, l'oracle cherche ses racines réelles ($...",
     "content": "3.4 Facteurs de signe constant à plusieurs paramètres Un facteur qui ne s'annule pour aucune valeur réelle des paramètres ne doit pas ouvrir de branche. En un seul paramètre, l'oracle cherche ses racines réelles ($..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "4. Disjonction de cas paramétriques (CaseSplit)",
     "url": "01_noyau_calcul_formel.html#4-disjonction-de-cas-parametriques-casesplit",
     "snippet": "Une Condition modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :\n- Des égalités formelles : $a = 1$, $b = 0$.\n- Des inégalités...",
     "content": "4. Disjonction de cas paramétriques (CaseSplit) Une Condition modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :\n- Des égalités formelles : $a = 1$, $b = 0$.\n- Des inégalités..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "4.1 La classe Condition",
     "url": "01_noyau_calcul_formel.html#41-la-classe-condition",
     "snippet": "Une Condition modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :\n- Des égalités formelles : $a = 1$, $b = 0$.\n- Des inégalités...",
     "content": "4.1 La classe Condition Une Condition modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :\n- Des égalités formelles : $a = 1$, $b = 0$.\n- Des inégalités..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "4.2 Affichage lisible des conditions",
     "url": "01_noyau_calcul_formel.html#42-affichage-lisible-des-conditions",
     "snippet": "Les conditions s'affichent en notation mathématique : puissances en exposant, racines avec √, et une condition « produit non nul » est décomposée en facteurs lo...",
     "content": "4.2 Affichage lisible des conditions Les conditions s'affichent en notation mathématique : puissances en exposant, racines avec √, et une condition « produit non nul » est décomposée en facteurs lo..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "4.3 Clôture transitive et détection de contradictions",
     "url": "01_noyau_calcul_formel.html#43-cloture-transitive-et-detection-de-contradictions",
     "snippet": "La classe Condition implémente deux propriétés critiques :\n1. Clôture transitive des substitutions :\n   Si la condition contient $a = b$ et $b = 3$, la substitu...",
     "content": "4.3 Clôture transitive et détection de contradictions La classe Condition implémente deux propriétés critiques :\n1. Clôture transitive des substitutions :\n   Si la condition contient $a = b$ et $b = 3$, la substitu..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "4.4 Structure d'un CaseSplit",
     "url": "01_noyau_calcul_formel.html#44-structure-dun-casesplit",
     "snippet": "Un CaseSplit[T] regroupe un ensemble fini de branches disjointes Branch[T] couvrant la totalité de l'espace des paramètres :...",
     "content": "4.4 Structure d'un CaseSplit Un CaseSplit[T] regroupe un ensemble fini de branches disjointes Branch[T] couvrant la totalité de l'espace des paramètres :..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "4.5 Partitionnement disjoint par préfixes d'inégalités",
     "url": "01_noyau_calcul_formel.html#45-partitionnement-disjoint-par-prefixes-dinegalites",
     "snippet": "Lorsqu'un pivot présente plusieurs facteurs d'annulation $(f_1, f_2, \\dots, f_k)$, l'algorithme génère des branches mutuellement disjointes selon la méthode des...",
     "content": "4.5 Partitionnement disjoint par préfixes d'inégalités Lorsqu'un pivot présente plusieurs facteurs d'annulation $(f_1, f_2, \\dots, f_k)$, l'algorithme génère des branches mutuellement disjointes selon la méthode des..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "4.6 Commutation de la spécialisation (at)",
     "url": "01_noyau_calcul_formel.html#46-commutation-de-la-specialisation-at",
     "snippet": "Un résultat CaseSplit respecte le principe de commutation fondamentale :\n$$\\left( \\text{Algorithme}(A(p), b(p)) \\right) \\Big|_{p = p_0} = \\text{Algorithme}\\left...",
     "content": "4.6 Commutation de la spécialisation (at) Un résultat CaseSplit respecte le principe de commutation fondamentale :\n$$\\left( \\text{Algorithme}(A(p), b(p)) \\right) \\Big|_{p = p_0} = \\text{Algorithme}\\left..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "5. Concepts transversaux",
     "url": "01_noyau_calcul_formel.html#5-concepts-transversaux",
     "snippet": "Les procédures (GaussJordan, BackSubstitution, ForwardSubstitution, GramSchmidt, QR, LeastSquares, Determinant) et les méthodes rref, rank, nullspace, inv et de...",
     "content": "5. Concepts transversaux Les procédures (GaussJordan, BackSubstitution, ForwardSubstitution, GramSchmidt, QR, LeastSquares, Determinant) et les méthodes rref, rank, nullspace, inv et de..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "5.1 Hypothèses sur les paramètres (assumptions)",
     "url": "01_noyau_calcul_formel.html#51-hypotheses-sur-les-parametres-assumptions",
     "snippet": "Les procédures (GaussJordan, BackSubstitution, ForwardSubstitution, GramSchmidt, QR, LeastSquares, Determinant) et les méthodes rref, rank, nullspace, inv et de...",
     "content": "5.1 Hypothèses sur les paramètres (assumptions) Les procédures (GaussJordan, BackSubstitution, ForwardSubstitution, GramSchmidt, QR, LeastSquares, Determinant) et les méthodes rref, rank, nullspace, inv et de..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "5.2 Configuration (config et using_config)",
     "url": "01_noyau_calcul_formel.html#52-configuration-config-et-using_config",
     "snippet": "L'objet config réunit les réglages globaux. On le modifie par affectation (config.max_cases = 16), pour toute la suite de la session, ou temporairement dans un ...",
     "content": "5.2 Configuration (config et using_config) L'objet config réunit les réglages globaux. On le modifie par affectation (config.max_cases = 16), pour toute la suite de la session, ou temporairement dans un ..."
   },
   {
-    "pageTitle": "01. Noyau formel & calcul exact",
+    "pageTitle": "01. Noyau formel et calcul exact",
     "title": "5.3 Indices : à partir de 0 dans l'API, à partir de 1 dans les traces",
     "url": "01_noyau_calcul_formel.html#53-indices-a-partir-de-0-dans-lapi-a-partir-de-1-dans-les-traces",
     "snippet": "Les attributs et arguments Python suivent la convention de Python : les indices commencent à 0. Les traces, écrites pour l'étudiant, suivent la convention mathé...",
     "content": "5.3 Indices : à partir de 0 dans l'API, à partir de 1 dans les traces Les attributs et arguments Python suivent la convention de Python : les indices commencent à 0. Les traces, écrites pour l'étudiant, suivent la convention mathé..."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "1. La classe Vector",
     "url": "02_vecteurs_matrices.html#1-la-classe-vector",
     "snippet": "Un Vector représente un vecteur colonne de $\\mathbb{R}^n$ (de dimension formelle $n \\times 1$)....",
     "content": "1. La classe Vector Un Vector représente un vecteur colonne de $\\mathbb{R}^n$ (de dimension formelle $n \\times 1$)...."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "1.1 Initialisation et constructeurs d'usine",
     "url": "02_vecteurs_matrices.html#11-initialisation-et-constructeurs-dusine",
     "snippet": "linalg_pedagopy implémente les métriques géométriques et statistiques usuelles sur les vecteurs :...",
     "content": "1.1 Initialisation et constructeurs d'usine linalg_pedagopy implémente les métriques géométriques et statistiques usuelles sur les vecteurs :..."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "1.2 Opérations algébriques",
     "url": "02_vecteurs_matrices.html#12-operations-algebriques",
     "snippet": "linalg_pedagopy implémente les métriques géométriques et statistiques usuelles sur les vecteurs :...",
     "content": "1.2 Opérations algébriques linalg_pedagopy implémente les métriques géométriques et statistiques usuelles sur les vecteurs :..."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "1.3 Métriques et géométrie",
     "url": "02_vecteurs_matrices.html#13-metriques-et-geometrie",
     "snippet": "linalg_pedagopy implémente les métriques géométriques et statistiques usuelles sur les vecteurs :...",
     "content": "1.3 Métriques et géométrie linalg_pedagopy implémente les métriques géométriques et statistiques usuelles sur les vecteurs :..."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "1.4 Vecteurs empilés et conversions",
     "url": "02_vecteurs_matrices.html#14-vecteurs-empiles-et-conversions",
     "snippet": "Une Matrix représente une matrice $m \\times n$ sur $\\mathbb{R}$....",
     "content": "1.4 Vecteurs empilés et conversions Une Matrix représente une matrice $m \\times n$ sur $\\mathbb{R}$...."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "2. La classe Matrix",
     "url": "02_vecteurs_matrices.html#2-la-classe-matrix",
     "snippet": "Une Matrix représente une matrice $m \\times n$ sur $\\mathbb{R}$....",
     "content": "2. La classe Matrix Une Matrix représente une matrice $m \\times n$ sur $\\mathbb{R}$...."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "2.1 Initialisation et constructeurs d'usine",
     "url": "02_vecteurs_matrices.html#21-initialisation-et-constructeurs-dusine",
     "snippet": "Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies....",
     "content": "2.1 Initialisation et constructeurs d'usine Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies...."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "2.2 Opérations matricielles usuelles",
     "url": "02_vecteurs_matrices.html#22-operations-matricielles-usuelles",
     "snippet": "Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies....",
     "content": "2.2 Opérations matricielles usuelles Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies...."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "2.3 Accès aux coefficients, aux lignes et aux colonnes",
     "url": "02_vecteurs_matrices.html#23-acces-aux-coefficients-aux-lignes-et-aux-colonnes",
     "snippet": "Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies....",
     "content": "2.3 Accès aux coefficients, aux lignes et aux colonnes Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies...."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "3. Les 4 vues du produit matriciel",
     "url": "02_vecteurs_matrices.html#3-les-4-vues-du-produit-matriciel",
     "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A...",
     "content": "3. Les 4 vues du produit matriciel Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A..."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "3.1 Vue entries (par défaut) : produits scalaires ligne · colonne",
     "url": "02_vecteurs_matrices.html#31-vue-entries-par-defaut-produits-scalaires-ligne-colonne",
     "snippet": "Chaque coefficient $c_{ij}$ est le produit scalaire de la $i$-ième ligne de $A$ et de la $j$-ième colonne de $B$ :\n$$c_{ij} = \\sum_{k=1}^n a_{ik} b_{kj}$$...",
     "content": "3.1 Vue entries (par défaut) : produits scalaires ligne · colonne Chaque coefficient $c_{ij}$ est le produit scalaire de la $i$-ième ligne de $A$ et de la $j$-ième colonne de $B$ :\n$$c_{ij} = \\sum_{k=1}^n a_{ik} b_{kj}$$..."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "3.2 Vue rows : combinaisons linéaires des lignes de $B$",
     "url": "02_vecteurs_matrices.html#32-vue-rows-combinaisons-lineaires-des-lignes-de",
     "snippet": "La $i$-ième ligne de $C$ est une combinaison des lignes $b_1^T, \\dots, b_n^T$ de $B$, avec pour coefficients la $i$-ième ligne de $A$ :\n$$\\text{ligne}_i(C) = \\s...",
     "content": "3.2 Vue rows : combinaisons linéaires des lignes de $B$ La $i$-ième ligne de $C$ est une combinaison des lignes $b_1^T, \\dots, b_n^T$ de $B$, avec pour coefficients la $i$-ième ligne de $A$ :\n$$\\text{ligne}_i(C) = \\s..."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "3.3 Vue columns : combinaisons linéaires des colonnes de $A$",
     "url": "02_vecteurs_matrices.html#33-vue-columns-combinaisons-lineaires-des-colonnes-de",
     "snippet": "La $j$-ième colonne de $C$ est une combinaison des colonnes $a_1, \\dots, a_n$ de $A$, avec pour coefficients la $j$-ième colonne de $B$ :\n$$c_j = A b_j = \\sum_{...",
     "content": "3.3 Vue columns : combinaisons linéaires des colonnes de $A$ La $j$-ième colonne de $C$ est une combinaison des colonnes $a_1, \\dots, a_n$ de $A$, avec pour coefficients la $j$-ième colonne de $B$ :\n$$c_j = A b_j = \\sum_{..."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "3.4 Vue outer : somme de produits extérieurs",
     "url": "02_vecteurs_matrices.html#34-vue-outer-somme-de-produits-exterieurs",
     "snippet": "Le produit $A B$ est la somme de $n$ matrices de rang au plus 1, produits d'une colonne de $A$ par une ligne de $B$ :\n$$A B = \\sum_{k=1}^n a_k b_k^T$$...",
     "content": "3.4 Vue outer : somme de produits extérieurs Le produit $A B$ est la somme de $n$ matrices de rang au plus 1, produits d'une colonne de $A$ par une ligne de $B$ :\n$$A B = \\sum_{k=1}^n a_k b_k^T$$..."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "3.5 Matrices par blocs",
     "url": "02_vecteurs_matrices.html#35-matrices-par-blocs",
     "snippet": "La méthode de classe Matrix.block assemble une matrice à partir d'une grille de blocs sous-matriciels :...",
     "content": "3.5 Matrices par blocs La méthode de classe Matrix.block assemble une matrice à partir d'une grille de blocs sous-matriciels :..."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "4. Analyse et Propriétés des Matrices",
     "url": "02_vecteurs_matrices.html#4-analyse-et-proprietes-des-matrices",
     "snippet": "Matrix ne fournit pas de prédicats is_square, is_symmetric… : on les écrit à partir des attributs, ce qui garde la définition sous les yeux....",
     "content": "4. Analyse et Propriétés des Matrices Matrix ne fournit pas de prédicats is_square, is_symmetric… : on les écrit à partir des attributs, ce qui garde la définition sous les yeux...."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "4.1 Tests structurels",
     "url": "02_vecteurs_matrices.html#41-tests-structurels",
     "snippet": "Matrix ne fournit pas de prédicats is_square, is_symmetric… : on les écrit à partir des attributs, ce qui garde la définition sous les yeux....",
     "content": "4.1 Tests structurels Matrix ne fournit pas de prédicats is_square, is_symmetric… : on les écrit à partir des attributs, ce qui garde la définition sous les yeux...."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "4.2 Inversion formelle (inv)",
     "url": "02_vecteurs_matrices.html#42-inversion-formelle-inv",
     "snippet": "La méthode inv(*, assumptions=None, strict=True) calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :\n- Si la matrice est numérique ...",
     "content": "4.2 Inversion formelle (inv) La méthode inv(*, assumptions=None, strict=True) calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :\n- Si la matrice est numérique ..."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "4.3 Réduction échelonnée, rang et sous-espaces fondamentaux",
     "url": "02_vecteurs_matrices.html#43-reduction-echelonnee-rang-et-sous-espaces-fondamentaux",
     "snippet": "Les méthodes rref, rank et nullspace acceptent un paramètre assumptions pour spécifier des contraintes de branche. Avec des paramètres, elles renvoient une disc...",
     "content": "4.3 Réduction échelonnée, rang et sous-espaces fondamentaux Les méthodes rref, rank et nullspace acceptent un paramètre assumptions pour spécifier des contraintes de branche. Avec des paramètres, elles renvoient une disc..."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "4.4 Résolution directe (solve)",
     "url": "02_vecteurs_matrices.html#44-resolution-directe-solve",
     "snippet": "A.solve(b, *, assumptions=None, strict=False) résout $A x = b$ par Gauss-Jordan et renvoie seulement l'ensemble des solutions (UniqueSolution, AffineSolution ou...",
     "content": "4.4 Résolution directe (solve) A.solve(b, *, assumptions=None, strict=False) résout $A x = b$ par Gauss-Jordan et renvoie seulement l'ensemble des solutions (UniqueSolution, AffineSolution ou..."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "4.5 Déterminant (det)",
     "url": "02_vecteurs_matrices.html#45-determinant-det",
     "snippet": "La méthode det(*, method=\"auto\", assumptions=None) renvoie le déterminant exact, factorisé. Elle délègue à la procédure Determinant, décrite dans le guide 03 (m...",
     "content": "4.5 Déterminant (det) La méthode det(*, method=\"auto\", assumptions=None) renvoie le déterminant exact, factorisé. Elle délègue à la procédure Determinant, décrite dans le guide 03 (m..."
   },
   {
-    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "pageTitle": "02. Vecteurs, matrices et métriques",
     "title": "5. Matrices structurées classiques (linalg_pedagopy.special)",
     "url": "02_vecteurs_matrices.html#5-matrices-structurees-classiques-linalg_pedagopyspecial",
     "snippet": "Les matrices que l'on rencontre dans tout cours d'algèbre linéaire appliquée se construisent directement, en arithmétique exacte. Les indices de composantes son...",
     "content": "5. Matrices structurées classiques (linalg_pedagopy.special) Les matrices que l'on rencontre dans tout cours d'algèbre linéaire appliquée se construisent directement, en arithmétique exacte. Les indices de composantes son..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "1. Moteur de traçabilité contextuelle (Tracer)",
     "url": "03_algorithmes_traces.html#1-moteur-de-tracabilite-contextuelle-tracer",
     "snippet": "L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une réponse numérique brute, mais à comprendre la succession d'étapes de calcul. Cepen...",
     "content": "1. Moteur de traçabilité contextuelle (Tracer) L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une réponse numérique brute, mais à comprendre la succession d'étapes de calcul. Cepen..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "1.1 Pourquoi une traçabilité hiérarchique ?",
     "url": "03_algorithmes_traces.html#11-pourquoi-une-tracabilite-hierarchique",
     "snippet": "L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une réponse numérique brute, mais à comprendre la succession d'étapes de calcul. Cepen...",
     "content": "1.1 Pourquoi une traçabilité hiérarchique ? L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une réponse numérique brute, mais à comprendre la succession d'étapes de calcul. Cepen..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "1.2 Les 4 niveaux de zoom didactiques",
     "url": "03_algorithmes_traces.html#12-les-4-niveaux-de-zoom-didactiques",
     "snippet": "La même trace s'affiche aussi en tableau, avec une ligne par opération : res.explain().to_table() renvoie un TraceTable qui s'affiche en HTML dans JupyterLab et...",
     "content": "1.2 Les 4 niveaux de zoom didactiques La même trace s'affiche aussi en tableau, avec une ligne par opération : res.explain().to_table() renvoie un TraceTable qui s'affiche en HTML dans JupyterLab et..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "1.3 Nœuds de l'arbre : Step, StepKind et Highlight",
     "url": "03_algorithmes_traces.html#13-nuds-de-larbre-step-stepkind-et-highlight",
     "snippet": "L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (SECTION, INFO, WARNING, ROW_SWAP, ROW_SCALE, ROW_ADD, ...",
     "content": "1.3 Nœuds de l'arbre : Step, StepKind et Highlight L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (SECTION, INFO, WARNING, ROW_SWAP, ROW_SCALE, ROW_ADD, ..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "1.4 Ce que renvoie run() : le contrat commun des résultats",
     "url": "03_algorithmes_traces.html#14-ce-que-renvoie-run-le-contrat-commun-des-resultats",
     "snippet": "Chaque procédure s'utilise de la même façon : on la construit avec ses données et ses options, puis run() renvoie un résultat typé (GJResult, TriangularResult, ...",
     "content": "1.4 Ce que renvoie run() : le contrat commun des résultats Chaque procédure s'utilise de la même façon : on la construit avec ses données et ses options, puis run() renvoie un résultat typé (GJResult, TriangularResult, ..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "2. Élimination de Gauss-Jordan (GaussJordan)",
     "url": "03_algorithmes_traces.html#2-elimination-de-gauss-jordan-gaussjordan",
     "snippet": "La procédure GaussJordan résout les systèmes linéaires formels $A x = b$ et calcule l'inverse de matrices carrées....",
     "content": "2. Élimination de Gauss-Jordan (GaussJordan) La procédure GaussJordan résout les systèmes linéaires formels $A x = b$ et calcule l'inverse de matrices carrées...."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "2.1 Signature et options",
     "url": "03_algorithmes_traces.html#21-signature-et-options",
     "snippet": "text\n  Discussion par cas arrêtée : elle demande au moins 9 branches, au-delà du plafond max_cases=8.\n  Facteurs qui ouvrent des cas : a − 1, a + 1, b − 1, b + ...",
     "content": "2.1 Signature et options text\n  Discussion par cas arrêtée : elle demande au moins 9 branches, au-delà du plafond max_cases=8.\n  Facteurs qui ouvrent des cas : a − 1, a + 1, b − 1, b + ..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "2.2 Typologie des ensembles de solutions",
     "url": "03_algorithmes_traces.html#22-typologie-des-ensembles-de-solutions",
     "snippet": "Le résultat renvoyé par GaussJordan.run() est un GJResult, ou, si la matrice contient des paramètres, une discussion par cas (CaseSplit) dont chaque branche por...",
     "content": "2.2 Typologie des ensembles de solutions Le résultat renvoyé par GaussJordan.run() est un GJResult, ou, si la matrice contient des paramètres, une discussion par cas (CaseSplit) dont chaque branche por..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "2.3 Exemple avec paramètre et discussion automatique",
     "url": "03_algorithmes_traces.html#23-exemple-avec-parametre-et-discussion-automatique",
     "snippet": "Ce code produit automatiquement un CaseSplit distinguant :\n- Le cas $m = 1$ : infinité de solutions (plan affine de dimension 2).\n- Le cas $m = -2$ : système in...",
     "content": "2.3 Exemple avec paramètre et discussion automatique Ce code produit automatiquement un CaseSplit distinguant :\n- Le cas $m = 1$ : infinité de solutions (plan affine de dimension 2).\n- Le cas $m = -2$ : système in..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "2.4 Base du noyau expliquée",
     "url": "03_algorithmes_traces.html#24-base-du-noyau-expliquee",
     "snippet": "Quand la réduction laisse des variables libres, la trace de niveau 2 explique la base du noyau lue sur la forme réduite. Elle apparaît pour une réduction sans s...",
     "content": "2.4 Base du noyau expliquée Quand la réduction laisse des variables libres, la trace de niveau 2 explique la base du noyau lue sur la forme réduite. Elle apparaît pour une réduction sans s..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "2.5 Écriture des résultats selon la condition de la branche",
     "url": "03_algorithmes_traces.html#25-ecriture-des-resultats-selon-la-condition-de-la-branche",
     "snippet": "Une condition comme $a^2 - 2 \\neq 0$ s'affiche avec ses racines : « $a \\neq \\sqrt 2$ et $a \\neq -\\sqrt 2$ ». Pour que la solution se lise avec les mêmes facteur...",
     "content": "2.5 Écriture des résultats selon la condition de la branche Une condition comme $a^2 - 2 \\neq 0$ s'affiche avec ses racines : « $a \\neq \\sqrt 2$ et $a \\neq -\\sqrt 2$ ». Pour que la solution se lise avec les mêmes facteur..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "3. Substitutions triangulaires",
     "url": "03_algorithmes_traces.html#3-substitutions-triangulaires",
     "snippet": "Pour un système dont la matrice est triangulaire et carrée, les algorithmes de substitution évitent le coût complet d'un pivot de Gauss. Une matrice non carrée ...",
     "content": "3. Substitutions triangulaires Pour un système dont la matrice est triangulaire et carrée, les algorithmes de substitution évitent le coût complet d'un pivot de Gauss. Une matrice non carrée ..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "4. Orthogonalisation de Gram-Schmidt (GramSchmidt)",
     "url": "03_algorithmes_traces.html#4-orthogonalisation-de-gram-schmidt-gramschmidt",
     "snippet": "La procédure GramSchmidt (GramSchmidt(vectors, *, normalize=\"end\", strict=False, assumptions=None)) transforme une famille libre de vecteurs $(a_1, \\dots, a_k)$...",
     "content": "4. Orthogonalisation de Gram-Schmidt (GramSchmidt) La procédure GramSchmidt (GramSchmidt(vectors, *, normalize=\"end\", strict=False, assumptions=None)) transforme une famille libre de vecteurs $(a_1, \\dots, a_k)$..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "Détection de dépendance linéaire",
     "url": "03_algorithmes_traces.html#detection-de-dependance-lineaire",
     "snippet": "Si la famille est liée, GramSchmidt s'arrête au premier vecteur dépendant : le résultat a independent=False, dependent_index (indice 0-based) et un témoin Depen...",
     "content": "Détection de dépendance linéaire Si la famille est liée, GramSchmidt s'arrête au premier vecteur dépendant : le résultat a independent=False, dependent_index (indice 0-based) et un témoin Depen..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "5. Factorisation QR (QR)",
     "url": "03_algorithmes_traces.html#5-factorisation-qr-qr",
     "snippet": "La classe QR factorise une matrice $A$ de rang plein colonne sous la forme $A = Q R$, où $Q$ a des colonnes orthonormales ($Q^T Q = I$) et $R$ est triangulaire ...",
     "content": "5. Factorisation QR (QR) La classe QR factorise une matrice $A$ de rang plein colonne sous la forme $A = Q R$, où $Q$ a des colonnes orthonormales ($Q^T Q = I$) et $R$ est triangulaire ..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "6. Moindres Carrés Linéaires (LeastSquares)",
     "url": "03_algorithmes_traces.html#6-moindres-carres-lineaires-leastsquares",
     "snippet": "La régression au sens des moindres carrés résout le problème d'optimisation :\n$$\\min_{x} \\|A x - b\\|^2$$...",
     "content": "6. Moindres Carrés Linéaires (LeastSquares) La régression au sens des moindres carrés résout le problème d'optimisation :\n$$\\min_{x} \\|A x - b\\|^2$$..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "7. Déterminant (Determinant)",
     "url": "03_algorithmes_traces.html#7-determinant-determinant",
     "snippet": "La procédure Determinant (Determinant(A, *, method=\"auto\", assumptions=None)) calcule le déterminant exact d'une matrice carrée, avec paramètres éventuels, et t...",
     "content": "7. Déterminant (Determinant) La procédure Determinant (Determinant(A, *, method=\"auto\", assumptions=None)) calcule le déterminant exact d'une matrice carrée, avec paramètres éventuels, et t..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "7.1 Matrice paramétrée : Bareiss",
     "url": "03_algorithmes_traces.html#71-matrice-parametree-bareiss",
     "snippet": "Avec des paramètres, l'élimination classique divise par des pivots comme $a - 1$, qui peuvent s'annuler : chaque étape ne vaudrait que sous une condition. L'alg...",
     "content": "7.1 Matrice paramétrée : Bareiss Avec des paramètres, l'élimination classique divise par des pivots comme $a - 1$, qui peuvent s'annuler : chaque étape ne vaudrait que sous une condition. L'alg..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "7.2 Valeurs singulières du paramètre",
     "url": "03_algorithmes_traces.html#72-valeurs-singulieres-du-parametre",
     "snippet": "zeros() renvoie les conditions d'annulation (une disjonction : le déterminant est nul si l'une d'elles est vérifiée) ; zeros(split=True) renvoie la discussion «...",
     "content": "7.2 Valeurs singulières du paramètre zeros() renvoie les conditions d'annulation (une disjonction : le déterminant est nul si l'une d'elles est vérifiée) ; zeros(split=True) renvoie la discussion «..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "7.3 Élimination, cofacteurs et Sarrus",
     "url": "03_algorithmes_traces.html#73-elimination-cofacteurs-et-sarrus",
     "snippet": "L'élimination ne divise jamais par un pivot qui dépend d'un paramètre et peut s'annuler : comme Gauss-Jordan, elle ouvre alors une discussion par cas (CaseSplit...",
     "content": "7.3 Élimination, cofacteurs et Sarrus L'élimination ne divise jamais par un pivot qui dépend d'un paramètre et peut s'annuler : comme Gauss-Jordan, elle ouvre alors une discussion par cas (CaseSplit..."
   },
   {
-    "pageTitle": "03. Algorithmes & traçabilité",
+    "pageTitle": "03. Algorithmes et traçabilité",
     "title": "7.4 Vérification et cas particuliers",
     "url": "03_algorithmes_traces.html#74-verification-et-cas-particuliers",
     "snippet": "",
@@ -616,140 +616,140 @@
     "content": "Valider une fiche valider_fiche contrôle une fiche : champs et métadonnées présents, numéro unique, type de vérificateur valide, jumeau exécutable, absence de fuite dans les indi..."
   },
   {
-    "pageTitle": "05. Exercices & sessions guidées",
+    "pageTitle": "05. Exercices et sessions guidées",
     "title": "1. Générateurs de matrices et problèmes « propres » (generators)",
     "url": "05_exercices_sessions.html#1-generateurs-de-matrices-et-problemes-propres-generators",
     "snippet": "Pour les matrices structurées classiques (différences, sommes cumulées, moyenne glissante, Vandermonde, convolution, sélection, renversement), voir la section 5...",
     "content": "1. Générateurs de matrices et problèmes « propres » (generators) Pour les matrices structurées classiques (différences, sommes cumulées, moyenne glissante, Vandermonde, convolution, sélection, renversement), voir la section 5..."
   },
   {
-    "pageTitle": "05. Exercices & sessions guidées",
+    "pageTitle": "05. Exercices et sessions guidées",
     "title": "1.1 Le problème des fractions géantes",
     "url": "05_exercices_sessions.html#11-le-probleme-des-fractions-geantes",
     "snippet": "Dans un cours d'algèbre linéaire, générer des matrices avec des entiers aléatoires produit presque systématiquement, dès la 3e étape du pivot de Gauss ou de Gra...",
     "content": "1.1 Le problème des fractions géantes Dans un cours d'algèbre linéaire, générer des matrices avec des entiers aléatoires produit presque systématiquement, dès la 3e étape du pivot de Gauss ou de Gra..."
   },
   {
-    "pageTitle": "05. Exercices & sessions guidées",
+    "pageTitle": "05. Exercices et sessions guidées",
     "title": "1.2 Générateurs à résultats propres",
     "url": "05_exercices_sessions.html#12-generateurs-a-resultats-propres",
     "snippet": "Le module generators.py fournit des fonctions de génération reproductibles (paramètre seed) dont les résultats sont garantis « propres » :...",
     "content": "1.2 Générateurs à résultats propres Le module generators.py fournit des fonctions de génération reproductibles (paramètre seed) dont les résultats sont garantis « propres » :..."
   },
   {
-    "pageTitle": "05. Exercices & sessions guidées",
+    "pageTitle": "05. Exercices et sessions guidées",
     "title": "1.3 Générateurs d'exercices jumeaux (generateurs)",
     "url": "05_exercices_sessions.html#13-generateurs-dexercices-jumeaux-generateurs",
     "snippet": "L'espace de noms generateurs (nom anglais generators) regroupe les 24 générateurs d'exercices jumeaux résolus appelés par les fiches du tuteur (champ jumeau, pa...",
     "content": "1.3 Générateurs d'exercices jumeaux (generateurs) L'espace de noms generateurs (nom anglais generators) regroupe les 24 générateurs d'exercices jumeaux résolus appelés par les fiches du tuteur (champ jumeau, pa..."
   },
   {
-    "pageTitle": "05. Exercices & sessions guidées",
+    "pageTitle": "05. Exercices et sessions guidées",
     "title": "2. Sessions interactives pas-à-pas (InteractiveSession)",
     "url": "05_exercices_sessions.html#2-sessions-interactives-pas-a-pas-interactivesession",
     "snippet": "La classe InteractiveSession (InteractiveSession(procedure, *, mode=\"autonomous\", mask_ratio=0.5), ou procedure.interactive(mode=...)) transforme une procédure ...",
     "content": "2. Sessions interactives pas-à-pas (InteractiveSession) La classe InteractiveSession (InteractiveSession(procedure, *, mode=\"autonomous\", mask_ratio=0.5), ou procedure.interactive(mode=...)) transforme une procédure ..."
   },
   {
-    "pageTitle": "05. Exercices & sessions guidées",
+    "pageTitle": "05. Exercices et sessions guidées",
     "title": "2.1 Les 4 modes interactifs",
     "url": "05_exercices_sessions.html#21-les-4-modes-interactifs",
     "snippet": "stateDiagram-v2\n    [*] --> ChoixDuMode\n    ChoixDuMode --> Read : mode=\"read\" (Consultation pas-à-pas)\n    ChoixDuMode --> PredictReveal : mode=\"predict_reveal...",
     "content": "2.1 Les 4 modes interactifs stateDiagram-v2\n    [*] --> ChoixDuMode\n    ChoixDuMode --> Read : mode=\"read\" (Consultation pas-à-pas)\n    ChoixDuMode --> PredictReveal : mode=\"predict_reveal..."
   },
   {
-    "pageTitle": "05. Exercices & sessions guidées",
+    "pageTitle": "05. Exercices et sessions guidées",
     "title": "2.2 Exemple de session autonome sur Gauss-Jordan",
     "url": "05_exercices_sessions.html#22-exemple-de-session-autonome-sur-gauss-jordan",
     "snippet": "Les opérations s'écrivent sous forme de texte : échange \"L1 <-> L2\", dilatation \"L2 <- (1/2)*L2\", transvection \"L2 <- L2 - 3*L1\" (préfixe only_A: ou propose(......",
     "content": "2.2 Exemple de session autonome sur Gauss-Jordan Les opérations s'écrivent sous forme de texte : échange \"L1 <-> L2\", dilatation \"L2 <- (1/2)*L2\", transvection \"L2 <- L2 - 3*L1\" (préfixe only_A: ou propose(......"
   },
   {
-    "pageTitle": "05. Exercices & sessions guidées",
+    "pageTitle": "05. Exercices et sessions guidées",
     "title": "2.3 Exemple en mode prédire-puis-révéler",
     "url": "05_exercices_sessions.html#23-exemple-en-mode-predire-puis-reveler",
     "snippet": "Le vérificateur check_row_operation (check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)), utilisé par propose, ne se contente pas ...",
     "content": "2.3 Exemple en mode prédire-puis-révéler Le vérificateur check_row_operation (check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)), utilisé par propose, ne se contente pas ..."
   },
   {
-    "pageTitle": "05. Exercices & sessions guidées",
+    "pageTitle": "05. Exercices et sessions guidées",
     "title": "3. Analyseur d'erreurs et rétroactions pédagogiques",
     "url": "05_exercices_sessions.html#3-analyseur-derreurs-et-retroactions-pedagogiques",
     "snippet": "Le vérificateur check_row_operation (check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)), utilisé par propose, ne se contente pas ...",
     "content": "3. Analyseur d'erreurs et rétroactions pédagogiques Le vérificateur check_row_operation (check_row_operation(aug_matrix, operation, *, num_lhs_cols=None, only_lhs=False)), utilisé par propose, ne se contente pas ..."
   },
   {
-    "pageTitle": "06. Rendu, géométrie & numérique",
+    "pageTitle": "06. Rendu, visualisation et comparaison numérique",
     "title": "1. Moteurs de rendu multi-formats (Explanation)",
     "url": "06_rendu_visualisation_numerique.html#1-moteurs-de-rendu-multi-formats-explanation",
     "snippet": "Toutes les procédures algorithmiques renvoient un résultat muni d'une méthode explain(level=...) produisant une instance immuable d'Explanation....",
     "content": "1. Moteurs de rendu multi-formats (Explanation) Toutes les procédures algorithmiques renvoient un résultat muni d'une méthode explain(level=...) produisant une instance immuable d'Explanation...."
   },
   {
-    "pageTitle": "06. Rendu, géométrie & numérique",
+    "pageTitle": "06. Rendu, visualisation et comparaison numérique",
     "title": "1.1 Formats de sortie disponibles",
     "url": "06_rendu_visualisation_numerique.html#11-formats-de-sortie-disponibles",
     "snippet": "Le paramètre fmt de explain(level=..., fmt=\"auto\") fixe le format utilisé pour l'affichage automatique ; les méthodes to_text(), to_latex(), to_markdown() et to...",
     "content": "1.1 Formats de sortie disponibles Le paramètre fmt de explain(level=..., fmt=\"auto\") fixe le format utilisé pour l'affichage automatique ; les méthodes to_text(), to_latex(), to_markdown() et to..."
   },
   {
-    "pageTitle": "06. Rendu, géométrie & numérique",
+    "pageTitle": "06. Rendu, visualisation et comparaison numérique",
     "title": "1.2 Trace en tableau (to_table())",
     "url": "06_rendu_visualisation_numerique.html#12-trace-en-tableau-to_table",
     "snippet": "explain().to_table() présente la trace en tableau : une ligne par opération, dont les colonnes dépendent de l'algorithme. Pour l'élimination (Gauss-Jordan, inve...",
     "content": "1.2 Trace en tableau (to_table()) explain().to_table() présente la trace en tableau : une ligne par opération, dont les colonnes dépendent de l'algorithme. Pour l'élimination (Gauss-Jordan, inve..."
   },
   {
-    "pageTitle": "06. Rendu, géométrie & numérique",
+    "pageTitle": "06. Rendu, visualisation et comparaison numérique",
     "title": "1.3 Localisation et multilinguisme (locales)",
     "url": "06_rendu_visualisation_numerique.html#13-localisation-et-multilinguisme-locales",
     "snippet": "Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans src/linalg_pedagopy/render/locales/. Seule la locale française ...",
     "content": "1.3 Localisation et multilinguisme (locales) Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans src/linalg_pedagopy/render/locales/. Seule la locale française ..."
   },
   {
-    "pageTitle": "06. Rendu, géométrie & numérique",
+    "pageTitle": "06. Rendu, visualisation et comparaison numérique",
     "title": "2. Visualisation géométrique 2D et 3D (linalg_pedagopy.plot)",
     "url": "06_rendu_visualisation_numerique.html#2-visualisation-geometrique-2d-et-3d-linalg_pedagopyplot",
     "snippet": "Le sous-module linalg_pedagopy.plot fournit des représentations géométriques directes des concepts vectoriels via Matplotlib....",
     "content": "2. Visualisation géométrique 2D et 3D (linalg_pedagopy.plot) Le sous-module linalg_pedagopy.plot fournit des représentations géométriques directes des concepts vectoriels via Matplotlib...."
   },
   {
-    "pageTitle": "06. Rendu, géométrie & numérique",
+    "pageTitle": "06. Rendu, visualisation et comparaison numérique",
     "title": "2.1 Fonctions graphiques disponibles",
     "url": "06_rendu_visualisation_numerique.html#21-fonctions-graphiques-disponibles",
     "snippet": "Le module linalg_pedagopy.compare permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 float64 sous Nu...",
     "content": "2.1 Fonctions graphiques disponibles Le module linalg_pedagopy.compare permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 float64 sous Nu..."
   },
   {
-    "pageTitle": "06. Rendu, géométrie & numérique",
+    "pageTitle": "06. Rendu, visualisation et comparaison numérique",
     "title": "2.2 Exemple : Géométrie 3D des Moindres Carrés",
     "url": "06_rendu_visualisation_numerique.html#22-exemple-geometrie-3d-des-moindres-carres",
     "snippet": "Le module linalg_pedagopy.compare permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 float64 sous Nu...",
     "content": "2.2 Exemple : Géométrie 3D des Moindres Carrés Le module linalg_pedagopy.compare permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 float64 sous Nu..."
   },
   {
-    "pageTitle": "06. Rendu, géométrie & numérique",
+    "pageTitle": "06. Rendu, visualisation et comparaison numérique",
     "title": "3. Comparaison Exact vs Virgule Flottante (linalg_pedagopy.compare)",
     "url": "06_rendu_visualisation_numerique.html#3-comparaison-exact-vs-virgule-flottante-linalg_pedagopycompare",
     "snippet": "Le module linalg_pedagopy.compare permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 float64 sous Nu...",
     "content": "3. Comparaison Exact vs Virgule Flottante (linalg_pedagopy.compare) Le module linalg_pedagopy.compare permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 float64 sous Nu..."
   },
   {
-    "pageTitle": "06. Rendu, géométrie & numérique",
+    "pageTitle": "06. Rendu, visualisation et comparaison numérique",
     "title": "3.1 La fonction universelle compare",
     "url": "06_rendu_visualisation_numerique.html#31-la-fonction-universelle-compare",
     "snippet": "Le rapport ComparisonReport contient procedure_name, exact_result, float_result, max_abs_error, orthogonality_defect_float (pour GramSchmidt et QR) et summary....",
     "content": "3.1 La fonction universelle compare Le rapport ComparisonReport contient procedure_name, exact_result, float_result, max_abs_error, orthogonality_defect_float (pour GramSchmidt et QR) et summary...."
   },
   {
-    "pageTitle": "06. Rendu, géométrie & numérique",
+    "pageTitle": "06. Rendu, visualisation et comparaison numérique",
     "title": "3.2 Cas d'école 1 : La matrice de Läuchli et la perte d'orthogonalité",
     "url": "06_rendu_visualisation_numerique.html#32-cas-decole-1-la-matrice-de-lauchli-et-la-perte-dorthogonalite",
     "snippet": "La matrice de Läuchli $L(\\epsilon) \\in \\mathbb{R}^{(n+1) \\times n}$ est définie par :\n$$L(\\epsilon) = \\begin{bmatrix} 1 & 1 & \\dots & 1 \\\\ \\epsilon & 0 & \\dots ...",
     "content": "3.2 Cas d'école 1 : La matrice de Läuchli et la perte d'orthogonalité La matrice de Läuchli $L(\\epsilon) \\in \\mathbb{R}^{(n+1) \\times n}$ est définie par :\n$$L(\\epsilon) = \\begin{bmatrix} 1 & 1 & \\dots & 1 \\\\ \\epsilon & 0 & \\dots ..."
   },
   {
-    "pageTitle": "06. Rendu, géométrie & numérique",
+    "pageTitle": "06. Rendu, visualisation et comparaison numérique",
     "title": "3.3 Cas d'école 2 : La matrice de Hilbert et le mauvais conditionnement",
     "url": "06_rendu_visualisation_numerique.html#33-cas-decole-2-la-matrice-de-hilbert-et-le-mauvais-conditionnement",
     "snippet": "La matrice de Hilbert d'ordre $n$, $H_{ij} = \\frac{1}{i + j + 1}$ (indices à partir de 0), est célèbre pour son conditionnement qui croît exponentiellement ($\\t...",
@@ -994,56 +994,56 @@
     "content": "Déterminants ..."
   },
   {
-    "pageTitle": "09. Guide JupyterLab",
+    "pageTitle": "09. Utiliser le package dans JupyterLab",
     "title": "1. Ouvrir un terminal dans le dossier du projet",
     "url": "09_guide_jupyterlab.html#1-ouvrir-un-terminal-dans-le-dossier-du-projet",
     "snippet": "Lancez Anaconda Prompt depuis le menu Démarrer, puis placez-vous dans le dossier du dépôt :...",
     "content": "1. Ouvrir un terminal dans le dossier du projet Lancez Anaconda Prompt depuis le menu Démarrer, puis placez-vous dans le dossier du dépôt :..."
   },
   {
-    "pageTitle": "09. Guide JupyterLab",
+    "pageTitle": "09. Utiliser le package dans JupyterLab",
     "title": "2. Créer un environnement dédié",
     "url": "09_guide_jupyterlab.html#2-creer-un-environnement-dedie",
     "snippet": "L'invite affiche alors (pedagopy). Un environnement séparé évite les conflits avec les autres paquets....",
     "content": "2. Créer un environnement dédié L'invite affiche alors (pedagopy). Un environnement séparé évite les conflits avec les autres paquets...."
   },
   {
-    "pageTitle": "09. Guide JupyterLab",
+    "pageTitle": "09. Utiliser le package dans JupyterLab",
     "title": "3. Installer le package en mode éditable",
     "url": "09_guide_jupyterlab.html#3-installer-le-package-en-mode-editable",
     "snippet": "Avec -e, une modification du code dans src/ est prise en compte sans réinstaller : il suffit de redémarrer le noyau du carnet....",
     "content": "3. Installer le package en mode éditable Avec -e, une modification du code dans src/ est prise en compte sans réinstaller : il suffit de redémarrer le noyau du carnet...."
   },
   {
-    "pageTitle": "09. Guide JupyterLab",
+    "pageTitle": "09. Utiliser le package dans JupyterLab",
     "title": "4. Vérifier l'installation",
     "url": "09_guide_jupyterlab.html#4-verifier-linstallation",
     "snippet": "Tous les tests doivent passer....",
     "content": "4. Vérifier l'installation Tous les tests doivent passer...."
   },
   {
-    "pageTitle": "09. Guide JupyterLab",
+    "pageTitle": "09. Utiliser le package dans JupyterLab",
     "title": "5. Lancer JupyterLab",
     "url": "09_guide_jupyterlab.html#5-lancer-jupyterlab",
     "snippet": "Créez un carnet (File → New → Notebook, noyau Python 3). JupyterLab ayant été lancé depuis l'environnement pedagopy, ce noyau est bien celui de l'environnement....",
     "content": "5. Lancer JupyterLab Créez un carnet (File → New → Notebook, noyau Python 3). JupyterLab ayant été lancé depuis l'environnement pedagopy, ce noyau est bien celui de l'environnement...."
   },
   {
-    "pageTitle": "09. Guide JupyterLab",
+    "pageTitle": "09. Utiliser le package dans JupyterLab",
     "title": "6. Premières cellules",
     "url": "09_guide_jupyterlab.html#6-premieres-cellules",
     "snippet": "Import...",
     "content": "6. Premières cellules Import..."
   },
   {
-    "pageTitle": "09. Guide JupyterLab",
+    "pageTitle": "09. Utiliser le package dans JupyterLab",
     "title": "7. Les fois suivantes",
     "url": "09_guide_jupyterlab.html#7-les-fois-suivantes",
     "snippet": "Le journal du tuteur est le fichier .linalg_pedagopy_journal.json du dossier du carnet (réglable par config.journal_path). Le supprimer remet à zéro la progress...",
     "content": "7. Les fois suivantes Le journal du tuteur est le fichier .linalg_pedagopy_journal.json du dossier du carnet (réglable par config.journal_path). Le supprimer remet à zéro la progress..."
   },
   {
-    "pageTitle": "09. Guide JupyterLab",
+    "pageTitle": "09. Utiliser le package dans JupyterLab",
     "title": "8. Dépannage",
     "url": "09_guide_jupyterlab.html#8-depannage",
     "snippet": "Le journal du tuteur est le fichier .linalg_pedagopy_journal.json du dossier du carnet (réglable par config.journal_path). Le supprimer remet à zéro la progress...",

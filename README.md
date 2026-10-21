@@ -88,15 +88,15 @@ La documentation complète est dans [`docs/`](docs/index.md) (version HTML : `do
 
 | Guide | Contenu |
 | :--- | :--- |
-| [01. Noyau formel](docs/01_noyau_calcul_formel.md) | `to_exact`, `float_policy`, `symbols`, `ZeroOracle`, `Condition`, `CaseSplit` |
-| [02. Vecteurs et matrices](docs/02_vecteurs_matrices.md) | `Vector`, `Matrix`, métriques, 4 vues du produit, matrices structurées |
-| [03. Algorithmes](docs/03_algorithmes_traces.md) | trace à 4 niveaux, `GaussJordan`, `GramSchmidt`, `QR`, `LeastSquares` |
-| [04. Tuteur](docs/04_tuteur.md) | catalogue, séance, panneau, mode enseignant, format des fiches |
-| [05. Exercices et sessions](docs/05_exercices_sessions.md) | générateurs, exercices jumeaux, sessions interactives, diagnostic d'erreurs |
-| [06. Rendu et numérique](docs/06_rendu_visualisation_numerique.md) | `Explanation`, figures, comparaison exact / flottant |
+| [01. Noyau formel et calcul exact](docs/01_noyau_calcul_formel.md) | `to_exact`, `float_policy`, `symbols`, `ZeroOracle`, `Condition`, `CaseSplit` |
+| [02. Vecteurs, matrices et métriques](docs/02_vecteurs_matrices.md) | `Vector`, `Matrix`, métriques, 4 vues du produit, matrices structurées |
+| [03. Algorithmes et traçabilité](docs/03_algorithmes_traces.md) | trace à 4 niveaux, `GaussJordan`, `GramSchmidt`, `QR`, `LeastSquares` |
+| [04. Le tuteur interactif](docs/04_tuteur.md) | catalogue, séance, panneau, mode enseignant, format des fiches |
+| [05. Exercices et sessions guidées](docs/05_exercices_sessions.md) | générateurs, exercices jumeaux, sessions interactives, diagnostic d'erreurs |
+| [06. Rendu, visualisation et comparaison numérique](docs/06_rendu_visualisation_numerique.md) | `Explanation`, figures, comparaison exact / flottant |
 | [07. Référence de l'API](docs/07_api_reference.md) | signatures, exceptions, alias français |
 | [08. Catalogue des exercices](docs/08_catalogue_exercices.md) | les 39 exercices et leurs énoncés |
-| [09. Guide JupyterLab](docs/09_guide_jupyterlab.md) | installation pas à pas et dépannage |
+| [09. Utiliser le package dans JupyterLab](docs/09_guide_jupyterlab.md) | installation pas à pas et dépannage |
 
 Le [tutoriel](TUTORIAL.md) parcourt l'ensemble du package ; le carnet `carnets/tutoriel_linalg_pedagopy.ipynb` en est généré par `python scripts/convert_tutorial_to_ipynb.py`. Le dossier [`carnets/`](carnets/) contient aussi les grands problèmes et le projet d'exploration ; les scripts qui génèrent les carnets et le site sont dans [`scripts/`](scripts/).
 

@@ -1,4 +1,4 @@
-# 04. Le tuteur interactif (`tuteur`)
+# 04. Le tuteur interactif
 
 Le module [`linalg_pedagopy.tuteur`](../src/linalg_pedagopy/tuteur/__init__.py) accompagne un étudiant sur une banque de **39 exercices nommés**. Il l'aide à trouver la méthode **sans jamais donner la solution** : indices gradués, exercice analogue résolu, laboratoire de contre-exemples et diagnostic précis des réponses fausses.
 

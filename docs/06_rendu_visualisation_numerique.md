@@ -1,4 +1,4 @@
-# 06. Rendu, Visualisation et Comparaison Numérique
+# 06. Rendu, visualisation et comparaison numérique
 
 Le package `linalg_pedagopy` offre des moteurs d'affichage polyvalents, un module graphique géométrique basé sur Matplotlib, ainsi qu'un banc de comparaison formel/numérique pour illustrer les limites du calcul flottant.
 

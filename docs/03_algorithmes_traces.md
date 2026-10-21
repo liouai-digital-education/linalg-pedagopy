@@ -1,4 +1,4 @@
-# 03. Algorithmes fondamentaux et Traçabilité hiérarchique
+# 03. Algorithmes et traçabilité
 
 Le module `linalg_pedagopy.algorithms` regroupe les procédures fondamentales de l'algèbre linéaire telles qu'on les enseigne en L1–L2, avec une trace pas à pas de chaque calcul.
 

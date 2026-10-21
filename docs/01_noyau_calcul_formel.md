@@ -1,4 +1,4 @@
-# 01. Noyau formel et Calcul Symbolique Exact
+# 01. Noyau formel et calcul exact
 
 Le module `linalg_pedagopy.core` constitue le socle mathématique fondamental du package. Il garantit la rigueur des calculs formels sur le corps des réels $\mathbb{R}$, empêche les erreurs de troncature numérique et gère de manière déterministe les discussions paramétriques.
 

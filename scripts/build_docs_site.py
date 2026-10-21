@@ -40,32 +40,25 @@ def _version_paquet() -> str:
     return trouve.group(1) if trouve else "?"
 
 PAGES = [
-    {"id": "index", "src": "index.md", "dst": "index.html", "title": "Accueil & démarrage",
+    {"id": "index", "src": "index.md", "dst": "index.html", "nav": "Accueil",
      "subtitle": "Présentation, installation, démarrage rapide et principes", "badge": "Portail", "number": "00"},
     {"id": "01_core", "src": "01_noyau_calcul_formel.md", "dst": "01_noyau_calcul_formel.html",
-     "title": "01. Noyau formel & calcul exact",
      "subtitle": "Scalaires exacts, ZeroOracle, conditions et discussion de cas", "badge": "Fondement", "number": "01"},
     {"id": "02_objects", "src": "02_vecteurs_matrices.md", "dst": "02_vecteurs_matrices.html",
-     "title": "02. Vecteurs, matrices & métriques",
      "subtitle": "Métriques, 4 vues du produit matriciel, sous-espaces et matrices structurées", "badge": "Objets", "number": "02"},
     {"id": "03_algorithms", "src": "03_algorithmes_traces.md", "dst": "03_algorithmes_traces.html",
-     "title": "03. Algorithmes & traçabilité",
      "subtitle": "Trace à 4 niveaux, Gauss-Jordan, Gram-Schmidt, QR et moindres carrés", "badge": "Algèbre", "number": "03"},
-    {"id": "04_tutor", "src": "04_tuteur.md", "dst": "04_tuteur.html", "title": "04. Le tuteur interactif",
+    {"id": "04_tutor", "src": "04_tuteur.md", "dst": "04_tuteur.html",
      "subtitle": "Catalogue nommé, indices gradués, jumeau, laboratoire et panneau", "badge": "Pédagogie", "number": "04"},
     {"id": "05_exercises", "src": "05_exercices_sessions.md", "dst": "05_exercices_sessions.html",
-     "title": "05. Exercices & sessions guidées",
      "subtitle": "Générateurs propres, exercices jumeaux, sessions et diagnostic d'erreurs", "badge": "Didactique", "number": "05"},
     {"id": "06_rendering", "src": "06_rendu_visualisation_numerique.md", "dst": "06_rendu_visualisation_numerique.html",
-     "title": "06. Rendu, géométrie & numérique",
      "subtitle": "Formats d'explication, figures 2D/3D, Läuchli et Hilbert", "badge": "Visuel", "number": "06"},
-    {"id": "07_api", "src": "07_api_reference.md", "dst": "07_api_reference.html", "title": "07. Référence de l'API",
+    {"id": "07_api", "src": "07_api_reference.md", "dst": "07_api_reference.html",
      "subtitle": "Signatures, exceptions et alias français", "badge": "Référence", "number": "07"},
     {"id": "08_catalogue", "src": "08_catalogue_exercices.md", "dst": "08_catalogue_exercices.html",
-     "title": "08. Catalogue des exercices",
      "subtitle": "Les 39 exercices du tuteur par thème et par niveau", "badge": "Exercices", "number": "08"},
     {"id": "09_jupyterlab", "src": "09_guide_jupyterlab.md", "dst": "09_guide_jupyterlab.html",
-     "title": "09. Guide JupyterLab",
      "subtitle": "Installation pas à pas, premières cellules et dépannage", "badge": "Pratique", "number": "09"},
 ]
 
@@ -1056,7 +1049,7 @@ PAGE_TEMPLATE = jinja2.Template("""<!DOCTYPE html>
         {% for p in pages %}
         <li class="nav-item {% if p.id == page.id %}active{% endif %}">
           <a href="{{ p.dst }}">
-            <span>{{ p.title }}</span>
+            <span>{{ p.nav }}</span>
             <span class="nav-badge">{{ p.badge }}</span>
           </a>
         </li>
@@ -1086,7 +1079,7 @@ PAGE_TEMPLATE = jinja2.Template("""<!DOCTYPE html>
         {% if prev_page %}
         <a href="{{ prev_page.dst }}" class="chapter-nav-btn">
           <span class="nav-direction">&larr; Chapitre précédent</span>
-          <span class="nav-target">{{ prev_page.title }}</span>
+          <span class="nav-target">{{ prev_page.nav }}</span>
         </a>
         {% else %}
         <div></div>
@@ -1095,7 +1088,7 @@ PAGE_TEMPLATE = jinja2.Template("""<!DOCTYPE html>
         {% if next_page %}
         <a href="{{ next_page.dst }}" class="chapter-nav-btn" style="text-align:right;">
           <span class="nav-direction">Chapitre suivant &rarr;</span>
-          <span class="nav-target">{{ next_page.title }}</span>
+          <span class="nav-target">{{ next_page.nav }}</span>
         </a>
         {% endif %}
       </nav>
@@ -1269,6 +1262,22 @@ def extract_toc(html: str) -> list[dict[str, Any]]:
     return toc
 
 
+def _titre_h1(markdown_brut: str) -> str:
+    """Texte du titre de niveau 1 de la page (hors blocs de code), sans les accents graves."""
+    dans_code = False
+    for ligne in markdown_brut.splitlines():
+        if ligne.lstrip().startswith("```"):
+            dans_code = not dans_code
+        elif not dans_code and ligne.startswith("# "):
+            return ligne[2:].strip().replace("`", "")
+    raise ValueError("page sans titre de niveau 1")
+
+
+def _sans_h1(markdown_brut: str) -> str:
+    """Retire le titre de niveau 1 : le gabarit l'affiche déjà en tête de page."""
+    return re.sub(r"\A(\s*)# [^\n]*\n", r"\1", markdown_brut, count=1)
+
+
 def build_site() -> None:
     """Génère le site web complet dans docs/site/."""
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -1281,13 +1290,15 @@ def build_site() -> None:
 
     search_index = []
 
-    for idx, page in enumerate(PAGES):
-        src_path = DOCS_DIR / page["src"]
-        if not src_path.exists():
-            print(f"Avertissement : Fichier source manquant : {src_path}")
-            continue
+    # Une seule source pour le titre d'une page : son H1, repris dans l'onglet, la navigation et la recherche
+    pages = []
+    for page in PAGES:
+        titre = _titre_h1((DOCS_DIR / page["src"]).read_text(encoding="utf-8"))
+        pages.append({**page, "title": titre, "nav": page.get("nav", titre)})
 
-        raw_md = src_path.read_text(encoding="utf-8")
+    for idx, page in enumerate(pages):
+        src_path = DOCS_DIR / page["src"]
+        raw_md = _sans_h1(src_path.read_text(encoding="utf-8"))
 
         # Prétraitement et protection
         preprocessed_md, tokens = preprocess_markdown(raw_md)
@@ -1322,12 +1333,12 @@ def build_site() -> None:
                 }
             )
 
-        prev_page = PAGES[idx - 1] if idx > 0 else None
-        next_page = PAGES[idx + 1] if idx < len(PAGES) - 1 else None
+        prev_page = pages[idx - 1] if idx > 0 else None
+        next_page = pages[idx + 1] if idx < len(pages) - 1 else None
 
         rendered_html = PAGE_TEMPLATE.render(
             page=page,
-            pages=PAGES,
+            pages=pages,
             prev_page=prev_page,
             next_page=next_page,
             content_html=content_html,
