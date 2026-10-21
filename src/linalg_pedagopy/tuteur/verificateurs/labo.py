@@ -17,8 +17,8 @@ def _verify_lab(session: Any, response: Any, spec: Mapping[str, Any], raw_data: 
         return VerificationResult(rep.found_counterexample, rep.message)
     return VerificationResult(
         False,
-        "Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) "
-        "puis explorez avec lab = ex.lab() ; lab.test(...).",
+        "Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predire(...) "
+        "puis explorez avec lab = ex.labo() ; lab.tester(...).",
     )
 
 
@@ -34,7 +34,7 @@ register_verifier(
         "labo",
         ("lab",),
         _verify_lab,
-        "un dictionnaire d'instances à tester au laboratoire, après ex.predict(...).",
+        "un dictionnaire d'instances à tester au laboratoire, après ex.predire(...).",
         requires("enonce|affirmations", message="Le vérificateur 'labo' requiert 'enonce' ou 'affirmations'."),
         _cross_check_lab,
         requires_twin=False,

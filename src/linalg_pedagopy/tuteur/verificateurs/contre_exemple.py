@@ -42,7 +42,7 @@ def verify_counterexample(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 6: counterexample validation and simplicity note."""
+    """Vérifie un contre-exemple et note sa simplicité."""
     ce_kind = str(spec.get("cas", spec.get("case", "")))
 
     with suspend_tracing():

@@ -19,7 +19,7 @@ from linalg_pedagopy.tuteur.seance import ExerciseSession
 
 
 class ValidationReport:
-    """Automatic validation report for an exercise sheet via validate_sheet."""
+    """Rapport de validation automatique d'une fiche (``valider_fiche``)."""
 
     __slots__ = (
         "id",
@@ -85,7 +85,7 @@ def _cross_check_verifier(
     verif: Mapping[str, Any],
     raw_data: Mapping[str, Any],
 ) -> tuple[bool, list[str]]:
-    """Cross-checks the sheet's verifier by constructing a mathematical solution and testing acceptance/rejection."""
+    """Contrôle croisé du vérificateur : construit une solution et vérifie qu'il l'accepte (et rejette une réponse fausse)."""
     vtype = verifier_type(str(verif.get("type", "")))
     if vtype is None:
         return True, []

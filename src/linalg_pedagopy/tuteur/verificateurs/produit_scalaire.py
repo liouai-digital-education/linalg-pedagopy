@@ -22,7 +22,7 @@ def verify_inner_product(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 1: inner_product / produit_scalaire."""
+    """Vérifie le vecteur des coefficients d'une forme linéaire (produit scalaire)."""
     if not isinstance(response, Vector):
         try:
             response = Vector(response)

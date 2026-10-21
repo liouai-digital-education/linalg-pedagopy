@@ -86,7 +86,7 @@ def verify_value(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 4: exact value computed on the fly + typical error detectors."""
+    """Vérifie une valeur exacte calculée à la volée et reconnaît les erreurs typiques."""
     calcul_spec = spec.get("calcul", spec.get("compute"))
 
     if isinstance(calcul_spec, Mapping):

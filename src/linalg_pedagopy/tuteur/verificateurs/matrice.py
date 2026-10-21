@@ -23,7 +23,7 @@ def verify_matrix(
     spec: Mapping[str, Any],
     data: Mapping[str, Any],
 ) -> VerificationResult:
-    """Verifier 2: matrix / matrice — shape check then row-by-row diagnostic."""
+    """Vérifie une matrice : taille, puis diagnostic ligne par ligne."""
     expected_rhs = spec.get("second_membre", spec.get("rhs"))
     rhs_student: Vector | None = None
     if isinstance(response, tuple) and len(response) == 2:

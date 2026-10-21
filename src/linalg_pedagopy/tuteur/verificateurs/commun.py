@@ -41,7 +41,7 @@ def raison_illisible(texte: str, exc: BaseException | None = None) -> str:
 
 
 class VerificationResult:
-    """Result of a tutor verification with bilingual attribute support."""
+    """Résultat d'une vérification du tuteur (attributs en français et en anglais)."""
 
     __slots__ = ("valid", "diagnostic", "simplicity_note")
 
@@ -103,7 +103,7 @@ class VerificationResult:
 
 
 def _format_linear_comb(coeffs: Sequence[sp.Expr], var_name: str) -> str:
-    """Formats a linear combination sum_j coeffs[j] * var_{j+1} in readable form."""
+    """Écrit lisiblement la combinaison linéaire somme_j coeffs[j]·var_{j+1}."""
     pos_unit_terms: list[str] = []
     neg_frac_groups: dict[sp.Expr, list[str]] = {}
     other_terms: list[tuple[sp.Expr, str]] = []
@@ -165,7 +165,7 @@ def _parse_indexed_expr(
     n: int,
     extra_locals: Mapping[str, Any] | None = None,
 ) -> tuple[sp.Expr, list[sp.Symbol]]:
-    """Converts a 1-based indexed expression like 'p[4] - (p[1]+p[2]+p[3])/3' into a SymPy expression."""
+    """Lit une expression indexée à partir de 1, comme 'p[4] - (p[1]+p[2]+p[3])/3', en expression SymPy."""
     vec_syms = [sp.Symbol(f"{var_name}_{k}", real=True) for k in range(1, n + 1)]
     local_env: dict[str, Any] = {
         f"{var_name}_{k}": vec_syms[k - 1] for k in range(1, n + 1)

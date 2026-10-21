@@ -32,7 +32,7 @@ class PanelFallback:
         return (
             f"{self.session.statement()}\n\n---\n\n{self.session.summary()}\n\n"
             "> Panneau graphique indisponible (installez `ipywidgets`). "
-            "Utilisez `ex.hint()`, `ex.twin()`, `ex.verify(...)` et `ex.summary()`."
+            "Utilisez `ex.indice()`, `ex.jumeau()`, `ex.verifier(...)` et `ex.bilan()`."
         )
 
     def _repr_html_(self) -> str:
@@ -41,8 +41,8 @@ class PanelFallback:
             f"<pre style='white-space:pre-wrap'>{html.escape(str(self.session.statement()))}</pre>"
             f"<pre style='white-space:pre-wrap'>{html.escape(str(self.session.summary()))}</pre>"
             "<small>Installez ipywidgets pour le panneau interactif. Actions : "
-            "<code>ex.hint()</code>, <code>ex.twin()</code>, <code>ex.verify(...)</code>, "
-            "<code>ex.summary()</code></small></div>"
+            "<code>ex.indice()</code>, <code>ex.jumeau()</code>, <code>ex.verifier(...)</code>, "
+            "<code>ex.bilan()</code></small></div>"
         )
 
     def __str__(self) -> str:
