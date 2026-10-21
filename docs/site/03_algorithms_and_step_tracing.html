@@ -227,6 +227,11 @@ print(len(arbre.children))
 </tr>
 </tbody>
 </table>
+<p>La même trace s'affiche aussi <strong>en tableau</strong>, avec une ligne par opération : <code>res.explain().to_table()</code> renvoie un <code>TraceTable</code> qui s'affiche en HTML dans JupyterLab et s'exporte en Markdown (<code>to_markdown()</code>), en LaTeX (<code>to_latex()</code>) ou en HTML (<code>to_html()</code>). Pour l'élimination, les colonnes sont <strong>N°</strong>, <strong>Colonne</strong>, <strong>Pivot</strong>, <strong>Opération</strong>, <strong>But</strong> et <strong>Matrice obtenue</strong> ; une discussion par cas donne une section par branche. Le détail des colonnes et l'exemple de Gram-Schmidt sont dans le <a href="06_rendering_visualization_and_numerics.html">guide 06, § 1.2</a>.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">table = res.explain().to_table()
+print([ligne.text for ligne in table.sections[0].rows if ligne.kind == "op"])
+#&gt; ['ramener le pivot à 1', 'annuler le coefficient (2,1)', 'annuler le coefficient (1,2)']
+</code></pre></div>
 <h3 id="13-nuds-de-larbre-step-stepkind-et-highlight">1.3 Nœuds de l'arbre : <code>Step</code>, <code>StepKind</code> et <code>Highlight</code></h3>
 <p>L'arbre de trace est composé de nœuds immuables <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/trace/step.py"><code>Step</code></a>. Chaque étape possède :
 - Un type d'action <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/trace/step.py"><code>StepKind</code></a> (<code>SECTION</code>, <code>INFO</code>, <code>WARNING</code>, <code>ROW_SWAP</code>, <code>ROW_SCALE</code>, <code>ROW_ADD</code>, <code>DOT</code>, <code>NORM</code>, <code>PROJECTION</code>, <code>SUBTRACT</code>, <code>NORMALIZE</code>, <code>BACK_SUBSTITUTION</code>, <code>CASE_SPLIT</code>, <code>CHECK</code>, <code>RESULT</code>).

@@ -367,8 +367,8 @@
     "pageTitle": "03. Algorithmes & traçabilité",
     "title": "1.2 Les 4 niveaux de zoom didactiques",
     "url": "03_algorithms_and_step_tracing.html#12-les-4-niveaux-de-zoom-didactiques",
-    "snippet": "L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (SECTION, INFO, WARNING, ROW_SWAP, ROW_SCALE, ROW_ADD, ...",
-    "content": "1.2 Les 4 niveaux de zoom didactiques L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (SECTION, INFO, WARNING, ROW_SWAP, ROW_SCALE, ROW_ADD, ..."
+    "snippet": "La même trace s'affiche aussi en tableau, avec une ligne par opération : res.explain().to_table() renvoie un TraceTable qui s'affiche en HTML dans JupyterLab et...",
+    "content": "1.2 Les 4 niveaux de zoom didactiques La même trace s'affiche aussi en tableau, avec une ligne par opération : res.explain().to_table() renvoie un TraceTable qui s'affiche en HTML dans JupyterLab et..."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",

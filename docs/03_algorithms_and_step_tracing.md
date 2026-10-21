@@ -54,6 +54,14 @@ print(len(arbre.children))
 | **2** | **Micro-étapes** *(recommandé en TD)* | Ajoute le traitement colonne par colonne, le choix et la stratégie de pivot, la base du noyau, les projections et normalisations. |
 | **3** | **Contrôles élémentaires** | Ajoute les tests de nullité de l'oracle (« Ce coefficient est nul dans le domaine exact »), qui expliquent pourquoi une case est sautée ou une discussion ouverte. |
 
+La même trace s'affiche aussi **en tableau**, avec une ligne par opération : `res.explain().to_table()` renvoie un `TraceTable` qui s'affiche en HTML dans JupyterLab et s'exporte en Markdown (`to_markdown()`), en LaTeX (`to_latex()`) ou en HTML (`to_html()`). Pour l'élimination, les colonnes sont **N°**, **Colonne**, **Pivot**, **Opération**, **But** et **Matrice obtenue** ; une discussion par cas donne une section par branche. Le détail des colonnes et l'exemple de Gram-Schmidt sont dans le [guide 06, § 1.2](06_rendering_visualization_and_numerics.md).
+
+```python
+table = res.explain().to_table()
+print([ligne.text for ligne in table.sections[0].rows if ligne.kind == "op"])
+#> ['ramener le pivot à 1', 'annuler le coefficient (2,1)', 'annuler le coefficient (1,2)']
+```
+
 ### 1.3 Nœuds de l'arbre : `Step`, `StepKind` et `Highlight`
 
 L'arbre de trace est composé de nœuds immuables [`Step`](../src/linalg_pedagopy/trace/step.py). Chaque étape possède :

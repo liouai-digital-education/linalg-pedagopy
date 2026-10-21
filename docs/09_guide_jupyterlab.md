@@ -83,6 +83,10 @@ res                         # discussion selon a, solutions en LaTeX
 res.explain(level=2)        # avec le détail des opérations de lignes
 ```
 
+```python
+res.explain().to_table()    # la même trace en tableau : une ligne par opération, une section par cas
+```
+
 **Le tuteur**
 
 ```python
