@@ -32,6 +32,7 @@
 - **Carnet du tutoriel** régénéré depuis `TUTORIAL.md` : il n'avait pas reçu les sorties `#>` du lot 2. Le job « Documentation à jour » le régénère désormais lui aussi et échoue sur tout écart.
 - **Guide 02** : `Matrix.from_rows` et `Matrix.ones` ; nouveau § 2.3 sur l'accès aux coefficients (indexation et tranches, `row`, `col`, `columns`, `rows_as_vectors`, `augment`, `entries_grid`, `flat_entries`, `subs`, `to_sympy`, `to_domain_matrix`) ; nouveau § 4.4 sur `Matrix.solve` (ensemble des solutions, discussion par cas, `assumptions`, second membre matriciel). Le déterminant passe au § 4.5.
 - **Guide 03** : nouveau § 1.4 sur le contrat commun des résultats (`trace`, `explain`, `verify()` et ce que vérifie chaque résultat) ; au § 6, `LSResult.residual`, `pseudoinverse` et `RankDeficientError` (cas levés, attributs `rank` et `ncols`, `QR(strict=True)`) ; « (Décision D6) » retiré du titre du § 1.1, la décision est citée dans `docs/dev/architecture.md`.
+- **Guide 06, matrices de Hilbert** : seul l'en-tête de la sortie est comparé (`#> …`). Les erreurs relatives flottantes changent selon la version de NumPy et faisaient échouer les tests sous Python 3.11 et 3.13 après la fusion du lot 2.
 - **Site** : les liens entre pages avec une ancre (`page.md#section`) sont convertis en `page.html#section` ; ils restaient en `.md`, donc cassés.
 
 ## [0.3.1.2] — 2026-10-21
