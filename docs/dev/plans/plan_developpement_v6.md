@@ -407,7 +407,8 @@ Aucune à ce jour.
 7. Tâche 4.2 **faite** : `RowOps` dans `elimination.py` ; traces du déterminant ajoutées aux tests de caractérisation.
 8. Tâches 4.3 et 4.4 **faites** : `EliminationEngine`, `SplitRequest` ; `GaussJordan` réécrit sur le moteur (`_setup`, `_complete`), 496 lignes (objectif < 400 à reprendre avec l'extraction du noyau, étape 4.7).
 9. Tâche 4.5 **faite** : élimination du déterminant sur le moteur, avec discussion par cas ; Bareiss garde sa boucle (il n'ouvre jamais de discussion) et partage `RowOps`.
-10. Tâche 4.6 : tests propres au moteur (mode triangulaire, comptage des échanges, arrêt sur colonne nulle, options de présentation, `SplitRequest`).
+10. Tâche 4.6 **faite** : `tests/test_elimination.py` (12 tests). Fin de la partie refactorisation de la phase 4.
+11. Tâche 4.7 : noyau tracé dans le moteur (variables libres, système paramétré, vecteurs de base, sous-matrice identité), sans matrice augmentée `[A | 0]` ; changement de sortie, références à relire.
 
 # Annexe B — Esquisse de l'API cible (version 0.3.4)
 
