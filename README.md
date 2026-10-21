@@ -30,9 +30,7 @@ Le pas-à-pas pour JupyterLab (environnement conda, premières cellules, dépann
 
 ---
 
-## Exemples
-
-### Discussion selon un paramètre
+## Exemple : un système qui dépend d'un paramètre
 
 ```python
 from linalg_pedagopy import Matrix, Vector, symbols, GaussJordan
@@ -43,42 +41,17 @@ A = Matrix([[1, 1, 1],
             [1, 1, a]])
 res = GaussJordan(A, Vector([1, 2, 3])).run()
 
-print(res)                                   # a ≠ 1 : solution unique ; a = 1 : système incompatible
-print(res.at(a=0).solution)                  # UniqueSolution(x=(4, -1, -2))
-print(res.explain(level=2))                  # avec le détail des opérations de lignes
+print(res)
+#> Discussion selon a
+#> ├─ Cas a ≠ 1 (générique) : pivots non nuls, rang 3, solution unique
+#> │    x = ( (a − 4)/(a − 1), 1/(a − 1), 2/(a − 1) )
+#> └─ Cas a = 1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
+#>      système incompatible (témoin : 0 = 1)
+print(res.at(a=0).solution)
+#> UniqueSolution(x=(4, -1, -2))
 ```
 
-### Moindres carrés
-
-```python
-from linalg_pedagopy import Matrix, Vector, LeastSquares
-
-A = Matrix([[1, 0], [1, 1], [1, 2], [1, 3]])
-ls = LeastSquares(A, Vector([1, 2, 2, 4])).run()
-print(ls.x_hat)          # (9/10, 9/10)
-print(ls.r_hat)          # (-1/10, -1/5, 7/10, -2/5)
-print(ls.verify())       # contrôle de A^T r_hat = 0, colonne par colonne
-```
-
-### Séance avec le tuteur
-
-```python
-from linalg_pedagopy import tuteur, Matrix
-
-print(tuteur.catalogue())                       # les 39 exercices, par thème
-
-ex = tuteur.exercice("moyenne-glissante")     # ou tuteur.exercice(16)
-print(ex.enonce())
-print(ex.indice())                             # palier 1 au premier lancement (voir ci-dessous)
-
-rapport = ex.verifier(Matrix.zeros(3, 6))      # une réponse fausse
-print(rapport.valide)                         # False
-print(rapport.diagnostic)                    # ce que calcule la réponse, et une question
-```
-
-Dans JupyterLab, `ex.panneau()` ouvre un panneau avec les indices, l'exercice jumeau, une zone de réponse et le bilan.
-
-La progression est enregistrée dans un journal, `.linalg_pedagopy_journal.json`, créé dans le répertoire courant : en relançant l'exemple, `ex.indice()` donne le palier suivant. `ex.recommencer()` repart de zéro.
+`res.explain(level=2)` détaille chaque opération de lignes. La [page d'accueil de la documentation](docs/index.md) montre aussi une première séance avec le tuteur.
 
 ---
 
@@ -107,13 +80,10 @@ Le dossier [`exercices/`](exercices/) contient un cahier de **20 exercices de ca
 ## Tests
 
 ```bash
-pytest tests/ -v                 # tests unitaires et de caractérisation
 python verifier_tout.py          # tout : tests + couverture, fiches, ruff, mypy, carnets
 ```
 
-Les tests couvrent notamment la partition disjointe des cas et la commutation `CaseSplit.at(**p)` = calcul direct en `p`, les radicaux paramétriques, la validation des 39 fiches (absence de fuite dans les indices, contrôle croisé avec le solveur), la robustesse du tuteur face aux réponses mal formées et l'impossibilité d'extraire les données verrouillées par introspection.
-
-Les tests de caractérisation figent les traces et les diagnostics du tuteur dans `tests/references/` pour sécuriser les refactorisations ; voir [docs/dev/tests_et_verifications.md](docs/dev/tests_et_verifications.md).
+Familles de tests, références de caractérisation et conventions : [docs/dev/tests_et_verifications.md](docs/dev/tests_et_verifications.md).
 
 ---
 

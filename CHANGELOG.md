@@ -41,6 +41,7 @@
 ### Documentation — lot 3b de la revue (structure et cohérence)
 - **Guides renommés en français** : `01_noyau_calcul_formel.md`, `02_vecteurs_matrices.md`, `03_algorithmes_traces.md`, `05_exercices_sessions.md`, `06_rendu_visualisation_numerique.md` (`git mv`, liens mis à jour). Sur le site, les anciennes adresses (`01_core_and_formal_computation.html`…) deviennent des pages de redirection, ancre comprise.
 - **Titres alignés, un seul H1 par page** : le H1 de chaque guide est la seule source de son titre ; le générateur du site le reprend (onglet, navigation, recherche) et le retire du corps, qui n'affiche plus deux titres de niveau 1. H1, README, accueil et site emploient les mêmes titres (« 01. Noyau formel et calcul exact »…) ; `tests/test_titres_documentation.py` le vérifie.
+- **README et accueil dédoublonnés** : le README devient une vitrine courte (présentation, installation, un exemple vérifié par `#>`, liens) ; les exemples du tuteur et des moindres carrés, le journal et le détail des tests sont dans l'accueil, les guides et `docs/dev/`. L'installation (option `docs` comprise) et les remerciements, présents dans les deux, sont identiques ; `tests/test_readme_accueil.py` le vérifie. L'accueil s'intitule « Accueil de la documentation ».
 - **Liens vérifiés** : `tests/test_liens_documentation.py` échoue si un lien relatif d'une page Markdown versionnée vise un fichier absent, ou si le site garde un lien `.md` vers un guide.
 
 ## [0.3.1.2] — 2026-10-21

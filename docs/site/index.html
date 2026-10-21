@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Documentation de linalg_pedagopy — linalg_pedagopy</title>
+  <title>Accueil de la documentation — linalg_pedagopy</title>
   <meta name="description" content="Présentation, installation, démarrage rapide et principes">
 
   <!-- Typographie Web Google Fonts -->
@@ -156,7 +156,7 @@
     <main class="main-content">
       <header class="article-header">
         <span class="article-badge">Chapitre 00 • Portail</span>
-        <h1 class="article-title">Documentation de linalg_pedagopy</h1>
+        <h1 class="article-title">Accueil de la documentation</h1>
         <p class="article-subtitle">Présentation, installation, démarrage rapide et principes</p>
       </header>
 
@@ -205,11 +205,12 @@
 <hr/>
 <h2 id="demarrage-rapide">Démarrage rapide</h2>
 <h3 id="installation">Installation</h3>
-<div class="code-container"><div class="code-header"><span>Bash</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bash">pip install -e .                               # installation de base
+<div class="code-container"><div class="code-header"><span>Bash</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-bash">pip install -e .                               # base
 pip install -e ".[tuteur]"                     # + JupyterLab et panneau interactif
 pip install -e ".[plot]"                       # + figures Matplotlib
 pip install -e ".[compare]"                    # + comparaison avec NumPy
-pip install -e ".[dev,tuteur,plot,compare]"    # installation complète (avec les tests)
+pip install -e ".[docs]"                       # + génération du site et du catalogue (contributeurs)
+pip install -e ".[dev,tuteur,plot,compare]"    # tout, avec les outils de test
 </code></pre></div>
 <p>Le pas-à-pas complet pour JupyterLab est dans le <a href="09_guide_jupyterlab.html">guide 09</a>.</p>
 <h3 id="premier-calcul-un-systeme-avec-parametre">Premier calcul : un système avec paramètre</h3>
@@ -229,7 +230,8 @@ print(result)
 #&gt; └─ Cas a = 1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
 #&gt;      système incompatible (témoin : 0 = 1)
 
-print(result.at(a=0).solution)   # UniqueSolution(x=(4, -1, -2))
+print(result.at(a=0).solution)
+#&gt; UniqueSolution(x=(4, -1, -2))
 </code></pre></div>
 <h3 id="premiere-seance-avec-le-tuteur">Première séance avec le tuteur</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tuteur, Matrix
@@ -244,6 +246,7 @@ rapport = ex.verifier(Matrix.zeros(3, 6))    # une réponse fausse
 print(rapport.valide)                       # False
 print(rapport.diagnostic)                  # ce que calcule la réponse, et une question
 </code></pre></div>
+<p>Dans JupyterLab, <code>ex.panneau()</code> ouvre un panneau avec les indices, l'exercice jumeau, une zone de réponse et le bilan.</p>
 <p>La progression est enregistrée dans un journal, <code>.linalg_pedagopy_journal.json</code>, créé dans le répertoire courant : en relançant l'exemple, <code>ex.indice()</code> donne le palier suivant. <code>ex.recommencer()</code> repart de zéro.</p>
 <hr/>
 <h2 id="principes-de-conception">Principes de conception</h2>
@@ -385,8 +388,8 @@ print(rapport.diagnostic)                  # ce que calcule la réponse, et une 
 <p>Le reste du package garde ses noms anglais, avec des alias français durables : <code>generators.moving_average(...)</code> / <code>generateurs.moyenne_glissante(...)</code>, <code>difference_matrix(n)</code> / <code>matrice_differences(n)</code>…</p>
 <hr/>
 <h2 id="sources-et-remerciements">Sources et remerciements</h2>
-<p>Les exercices 1 à 35 du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil <em>Additional Exercises for Vectors, Matrices, and Least Squares</em> de Stephen Boyd et Lieven Vandenberghe, compagnon de leur livre <em>Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares</em> (Cambridge University Press, 2018), disponibles sur <a href="https://web.stanford.edu/~boyd/vmls/">le site des auteurs</a>. Plusieurs conventions du package en viennent aussi (résidu des moindres carrés r̂ = A x̂ − b, variantes de Gram-Schmidt). Les exercices du thème « Déterminants » (numéros 36 à 39) sont originaux.</p>
-<p>Les droits sur les exercices originaux appartiennent à leurs auteurs ; <code>linalg_pedagopy</code> est un projet indépendant, sans lien avec les auteurs ni avec l'éditeur. Les énoncés des fiches ne citent pas leur source, pour que l'étudiant ne puisse pas aller chercher la solution à l'extérieur : cette page et le <code>README.md</code> en tiennent lieu.</p>
+<p>Les exercices 1 à 35 du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil <em>Additional Exercises for Vectors, Matrices, and Least Squares</em> de Stephen Boyd et Lieven Vandenberghe, compagnon de leur livre <em>Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares</em> (Cambridge University Press, 2018). Le livre et le recueil sont disponibles sur <a href="https://web.stanford.edu/~boyd/vmls/">le site des auteurs</a>. Plusieurs conventions du package en viennent aussi, par exemple le résidu des moindres carrés r̂ = A x̂ − b et les deux variantes de Gram-Schmidt. Les exercices du thème « Déterminants » (numéros 36 à 39) sont originaux.</p>
+<p>Les droits sur les exercices originaux appartiennent à leurs auteurs. <code>linalg_pedagopy</code> est un projet indépendant, sans lien avec les auteurs ni avec l'éditeur, qui ne l'approuvent pas formellement. Les énoncés des fiches ne citent pas leur source, pour que l'étudiant ne puisse pas aller chercher la solution à l'extérieur, d'où cette mention groupée.</p>
       </article>
 
       <!-- Navigation entre chapitres -->

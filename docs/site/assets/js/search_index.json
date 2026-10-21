@@ -1,55 +1,55 @@
 [
   {
-    "pageTitle": "Documentation de linalg_pedagopy",
+    "pageTitle": "Accueil de la documentation",
     "title": "Plan de la documentation",
     "url": "index.html#plan-de-la-documentation",
     "snippet": "01. Noyau formel et calcul exact\n   Conversion exacte des scalaires (to_exact, float_policy), symboles réels (symbols), oracle de nullité à 4 verdicts (ZeroOrac...",
     "content": "Plan de la documentation 01. Noyau formel et calcul exact\n   Conversion exacte des scalaires (to_exact, float_policy), symboles réels (symbols), oracle de nullité à 4 verdicts (ZeroOrac..."
   },
   {
-    "pageTitle": "Documentation de linalg_pedagopy",
+    "pageTitle": "Accueil de la documentation",
     "title": "Démarrage rapide",
     "url": "index.html#demarrage-rapide",
     "snippet": "Le pas-à-pas complet pour JupyterLab est dans le guide 09....",
     "content": "Démarrage rapide Le pas-à-pas complet pour JupyterLab est dans le guide 09...."
   },
   {
-    "pageTitle": "Documentation de linalg_pedagopy",
+    "pageTitle": "Accueil de la documentation",
     "title": "Installation",
     "url": "index.html#installation",
     "snippet": "Le pas-à-pas complet pour JupyterLab est dans le guide 09....",
     "content": "Installation Le pas-à-pas complet pour JupyterLab est dans le guide 09...."
   },
   {
-    "pageTitle": "Documentation de linalg_pedagopy",
+    "pageTitle": "Accueil de la documentation",
     "title": "Premier calcul : un système avec paramètre",
     "url": "index.html#premier-calcul-un-systeme-avec-parametre",
-    "snippet": "La progression est enregistrée dans un journal, .linalg_pedagopy_journal.json, créé dans le répertoire courant : en relançant l'exemple, ex.indice() donne le pa...",
-    "content": "Premier calcul : un système avec paramètre La progression est enregistrée dans un journal, .linalg_pedagopy_journal.json, créé dans le répertoire courant : en relançant l'exemple, ex.indice() donne le pa..."
+    "snippet": "Dans JupyterLab, ex.panneau() ouvre un panneau avec les indices, l'exercice jumeau, une zone de réponse et le bilan....",
+    "content": "Premier calcul : un système avec paramètre Dans JupyterLab, ex.panneau() ouvre un panneau avec les indices, l'exercice jumeau, une zone de réponse et le bilan...."
   },
   {
-    "pageTitle": "Documentation de linalg_pedagopy",
+    "pageTitle": "Accueil de la documentation",
     "title": "Première séance avec le tuteur",
     "url": "index.html#premiere-seance-avec-le-tuteur",
-    "snippet": "La progression est enregistrée dans un journal, .linalg_pedagopy_journal.json, créé dans le répertoire courant : en relançant l'exemple, ex.indice() donne le pa...",
-    "content": "Première séance avec le tuteur La progression est enregistrée dans un journal, .linalg_pedagopy_journal.json, créé dans le répertoire courant : en relançant l'exemple, ex.indice() donne le pa..."
+    "snippet": "Dans JupyterLab, ex.panneau() ouvre un panneau avec les indices, l'exercice jumeau, une zone de réponse et le bilan....",
+    "content": "Première séance avec le tuteur Dans JupyterLab, ex.panneau() ouvre un panneau avec les indices, l'exercice jumeau, une zone de réponse et le bilan...."
   },
   {
-    "pageTitle": "Documentation de linalg_pedagopy",
+    "pageTitle": "Accueil de la documentation",
     "title": "Principes de conception",
     "url": "index.html#principes-de-conception",
     "snippet": "Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :...",
     "content": "Principes de conception Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :..."
   },
   {
-    "pageTitle": "Documentation de linalg_pedagopy",
+    "pageTitle": "Accueil de la documentation",
     "title": "Noms du tuteur : français et anglais",
     "url": "index.html#noms-du-tuteur-francais-et-anglais",
     "snippet": "Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :...",
     "content": "Noms du tuteur : français et anglais Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :..."
   },
   {
-    "pageTitle": "Documentation de linalg_pedagopy",
+    "pageTitle": "Accueil de la documentation",
     "title": "Sources et remerciements",
     "url": "index.html#sources-et-remerciements",
     "snippet": "Les exercices 1 à 35 du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil Additional Exercises for Vectors, Matrices, and Least Sq...",
