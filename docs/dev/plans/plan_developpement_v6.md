@@ -398,7 +398,8 @@ Aucune à ce jour.
 
 1. Tâche 3.1 **faite** : 21 cas reconstruits et figés (`tests/campagnes.py`, `docs/dev/campagnes.md`), mesures de référence dans `docs/dev/mesures/campagnes_3.1.0.json`.
 2. Tâche 3.2 **faite** : `config.factor_policy` (`"real_radicals"` par défaut), `Condition.radicals()`, `Condition.reduce()` ; témoins réduits par la condition de la branche ; tests dans `tests/test_factorisation.py`.
-3. Tâche 3.3 : facteurs de signe constant à plusieurs paramètres dans l'oracle (`core/zero.py`, `_extract_factors` et `_decide`) ; tests $a^2 + b^2 + 1$, $a^2 + ab + b^2 + 1$, non-régression `t4_permutee_cyclique_5x5`.
+3. Tâche 3.3 **faite** : complétion des carrés pour les polynômes de degré 2 à plusieurs paramètres (`sum_of_squares`, `strict_sign` dans `core/zero.py`) ; tests dans `tests/test_signe_constant.py`.
+4. Tâche 3.4 : messages de plafond didactiques (`_split_on_factors` dans `algorithms/gauss_jordan.py`, `max_depth` dans `core/zero.py`) ; cas de référence `t2_blocs_4x4_inverse`, `t2_circulante_3_parametres_inverse`, `t4_bloc_triangulaire_6x6`.
 
 # Annexe B — Esquisse de l'API cible (version 3.4)
 

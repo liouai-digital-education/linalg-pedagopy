@@ -8,6 +8,7 @@ zero:
   domain_zero: "Ce coefficient est nul dans le domaine exact ({expr} = 0)."
   minpoly_zero: "Ce coefficient est nul : son polynôme minimal est x ({expr} = 0)."
   simplify_zero: "Ce coefficient est nul après simplification algébrique ({expr} = 0)."
+  sign_definite: "Le facteur {expr} ne s'annule pas sur ℝ : en complétant les carrés, {expr} = {certificate} {sign} 0."
 
 vector:
   add: "Addition de deux vecteurs composante par composante."

@@ -2,6 +2,10 @@
 
 ## [Non publié] — branche `development`
 
+### Corrections — étape 3.3 du plan v6
+- **Oracle : facteurs de signe constant à plusieurs paramètres.** Un polynôme de degré 2 en plusieurs paramètres réels est écrit, en complétant les carrés, comme une somme de carrés et d'une constante ; si la constante est strictement positive, il ne s'annule jamais sur ℝ et n'ouvre plus de branche impossible (`a² + a·b + b² + 1 = (a + b/2)² + 3/4·b² + 1 > 0`). Il est aussi écarté des valeurs interdites des dénominateurs. Étape de trace de niveau 3 (`zero.sign_definite`) avec la décomposition. Nouvelles fonctions `sum_of_squares` et `strict_sign` dans `core.zero`. Auparavant, seules les sommes de carrés déjà explicites (`a² + b² + 1`) étaient reconnues.
+- Aucune référence modifiée ; la permutée cyclique 5 × 5 (`t4_permutee_cyclique_5x5`) reste sans branche parasite. Tests dans `tests/test_signe_constant.py` ; guide 01 (§ 3.4).
+
 ### Corrections — étape 3.2 du plan v6
 - **Factorisation cohérente avec la condition** : nouvelle option `config.factor_policy`, `"real_radicals"` par défaut. Quand la condition d'une branche s'affiche avec des radicaux (« a ≠ √2 et a ≠ −√2 »), la solution, l'inverse et la base du noyau sont factorisés avec ces mêmes radicaux : `(a − 2)/((a − 1)·(a − √2)·(a + √2))` au lieu de `(a − 2)/((a − 1)·(a² − 2))`. Seuls les facteurs irréductibles sur ℚ sont décomposés ; `"rational"` rétablit l'ancienne écriture. Nouvelle méthode `Condition.radicals()`.
 - **Réduction par la condition de la branche** : dans une branche définie par une égalité non linéaire en un paramètre (a² − 3 = 0), les coefficients de la forme réduite sont remplacés par leur reste dans la division par ce polynôme, avec une étape de trace de niveau 2 (`gj.reduce_by_condition`). Le témoin d'incompatibilité de la tridiagonale 5 × 5 s'écrit `0 = 2` au lieu de `0 = a⁴ − 3a² + 2`. Nouvelles méthodes `Condition.reduce()` et `Condition.nonlinear_equations()`.

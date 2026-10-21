@@ -11,7 +11,7 @@ import sympy as sp
 from linalg_pedagopy.config import config
 from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
 from linalg_pedagopy.core.exceptions import PedagopyError, UndecidableZeroError
-from linalg_pedagopy.core.field import emit_core_event, symbols, to_exact
+from linalg_pedagopy.core.field import emit_core_event, pretty_expr, symbols, to_exact
 
 
 class Verdict(Enum):
@@ -124,6 +124,73 @@ def _extract_polynomial_factors(num: sp.Expr) -> list[sp.Expr]:
         return [num]
 
 
+def sum_of_squares(poly: Any) -> tuple[tuple[tuple[sp.Expr, sp.Expr], ...], sp.Expr] | None:
+    """Réduction de Gauss d'un polynôme réel de degré 2 : p = Σ c_k·ℓ_k² + r, avec c_k > 0.
+
+    Les carrés sont complétés paramètre par paramètre (ordre alphabétique) ; chaque
+    ℓ_k est linéaire et r est une constante. Renvoie ``None`` si le polynôme n'est pas
+    de degré total 2 à coefficients rationnels en des symboles réels, ou s'il n'est pas
+    minoré (un coefficient de carré ≤ 0 ou un paramètre qui n'apparaît qu'au degré 1).
+
+    Exemple : a² + a·b + b² + 1 = (a + b/2)² + 3/4·b² + 1.
+    """
+    expr = sp.expand(to_exact(poly))
+    syms = sorted(expr.free_symbols, key=lambda x: x.name)
+    if not syms or not all(isinstance(x, sp.Symbol) and x.is_real is True for x in syms):
+        return None
+    try:
+        P = sp.Poly(expr, *syms)
+    except sp.PolynomialError:
+        return None
+    if P.total_degree() != 2 or not all(c.is_Rational for c in P.coeffs()):
+        return None
+    squares: list[tuple[sp.Expr, sp.Expr]] = []
+    rest = expr
+    for x in syms:
+        q = sp.Poly(rest, x)
+        if q.degree() <= 0:
+            continue
+        if q.degree() == 1:
+            return None
+        c2 = q.coeff_monomial(x**2)
+        c1 = q.coeff_monomial(x)
+        if not (c2.is_Rational and c2 > 0):
+            return None
+        lin = sp.expand(x + c1 / (2 * c2))
+        squares.append((c2, lin))
+        rest = sp.expand(rest - c2 * lin**2)
+    if rest.free_symbols:
+        return None
+    return tuple(squares), rest
+
+
+def strict_sign(poly: Any) -> tuple[int, str] | None:
+    """Signe strict et constant sur R^k d'un polynôme de degré 2 en plusieurs paramètres, avec son certificat.
+
+    Renvoie ``(1, "(a + b/2)² + 3/4·b² + 1")`` si le polynôme est > 0 partout,
+    ``(-1, …)`` s'il est < 0 partout (certificat de son opposé), ``None`` sinon : il
+    s'annule alors en un point réel, ou la méthode ne s'applique pas.
+    """
+    for sign in (1, -1):
+        dec = sum_of_squares(sign * sp.expand(to_exact(poly)))
+        if dec is None:
+            continue
+        squares, rest = dec
+        if rest.is_Rational and rest > 0:
+            parts = []
+            for c, lin in squares:
+                carre = pretty_expr(lin**2) if lin.is_Symbol else f"({pretty_expr(lin)})²"
+                parts.append(carre if c == 1 else f"{pretty_expr(c)}·{carre}")
+            parts.append(pretty_expr(rest))
+            return sign, " + ".join(parts)
+    return None
+
+
+def _never_zero(fac: sp.Expr) -> bool:
+    """Facteur à plusieurs paramètres de signe strict constant sur R (somme de carrés et d'une constante)."""
+    return len(fac.free_symbols) >= 2 and strict_sign(fac) is not None
+
+
 def _denominator_factors(expr: sp.Expr) -> list[sp.Expr]:
     """Facteurs non constants du dénominateur, relevés avant toute simplification.
 
@@ -143,7 +210,7 @@ def _denominator_factors(expr: sp.Expr) -> list[sp.Expr]:
     return [
         f
         for f, _exp in factors_list
-        if f.free_symbols and not (f.is_positive is True or f.is_negative is True)
+        if f.free_symbols and not (f.is_positive is True or f.is_negative is True or _never_zero(f))
     ]
 
 
@@ -290,6 +357,19 @@ class ZeroOracle:
                         or fac.is_negative is True
                     ):
                         continue
+                    if len(fac.free_symbols) >= 2:
+                        certificate = strict_sign(fac)
+                        if certificate is not None:
+                            if trace_level3:
+                                emit_core_event(
+                                    "CHECK",
+                                    "zero.sign_definite",
+                                    3,
+                                    expr=fac,
+                                    certificate=certificate[1] if certificate[0] > 0 else f"−({certificate[1]})",
+                                    sign=">" if certificate[0] > 0 else "<",
+                                )
+                            continue
                     status = cond.implies_zero(fac)
                     if status is True:
                         if is_rat:

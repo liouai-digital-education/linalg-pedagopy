@@ -127,6 +127,13 @@
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
+    "title": "3.4 Facteurs de signe constant à plusieurs paramètres",
+    "url": "01_core_and_formal_computation.html#34-facteurs-de-signe-constant-a-plusieurs-parametres",
+    "snippet": "Un facteur qui ne s'annule pour aucune valeur réelle des paramètres ne doit pas ouvrir de branche. En un seul paramètre, l'oracle cherche ses racines réelles ($...",
+    "content": "3.4 Facteurs de signe constant à plusieurs paramètres Un facteur qui ne s'annule pour aucune valeur réelle des paramètres ne doit pas ouvrir de branche. En un seul paramètre, l'oracle cherche ses racines réelles ($..."
+  },
+  {
+    "pageTitle": "01. Noyau formel & calcul exact",
     "title": "4. Disjonction de cas paramétriques (CaseSplit)",
     "url": "01_core_and_formal_computation.html#4-disjonction-de-cas-parametriques-casesplit",
     "snippet": "Une Condition modélise l'ensemble des contraintes algébriques valables sur une branche de calcul :\n- Des égalités formelles : $a = 1$, $b = 0$.\n- Des inégalités...",
