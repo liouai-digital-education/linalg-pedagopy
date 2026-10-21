@@ -219,7 +219,7 @@ L'algorithme de Gram-Schmidt dépend-il de l'ordre des vecteurs d'entrée ? Donn
 
 *Identifiant* `independance-gram-schmidt` · *type* calcul · *niveau* ★★★ · *réponse attendue* : une valeur exacte (ou un dictionnaire de valeurs)
 
-On donne les vecteurs $a_1 = (1, 2, -1)$, $a_2 = (2, 0, 1)$ et $a_3 = (0, 4, -3)$ de $\mathbb{R}^3$. En appliquant Gram-Schmidt, déterminer le résidu orthogonal $\tilde{q}_3$ obtenu à la 3ᵉ étape (ou indiquer son carré de norme \|\tilde{q}_3\|^2 pour tester l'indépendance).
+On donne les vecteurs $a_1 = (1, 2, -1)$, $a_2 = (2, 0, 1)$ et $a_3 = (0, 4, -3)$ de $\mathbb{R}^3$. En appliquant Gram-Schmidt, déterminer le résidu orthogonal $\tilde{q}_3$ obtenu à la 3ᵉ étape (ou indiquer son carré de norme $\|\tilde{q}_3\|^2$ pour tester l'indépendance).
 
 **Notions** : test d'indépendance linéaire par Gram-Schmidt
 
@@ -419,7 +419,7 @@ L'inverse d'une matrice carrée inversible à coefficients strictement positifs 
 
 *Identifiant* `sommes-de-paires` · *type* modélisation · *niveau* ★★☆ · *réponse attendue* : une matrice
 
-On cherche à estimer $x \in \mathbb{R}^3$ à partir des 6 mesures bruitées de toutes les paires : $y_1 \approx x_1 + x_2$, $y_2 \approx x_1 + x_3$, $y_3 \approx x_2 + x_3$, et des 3 mesures individuelles $y_4 \approx x_1$, $y_5 \approx x_2$, $y_6 \approx x_3$. Donner la matrice de conception $A$ de taille $6 \times 3$ telle que le problème s'écrive $\min_x \|A x - y\|^2$.
+On cherche à estimer $x \in \mathbb{R}^3$ à partir de 6 mesures bruitées : les 3 sommes de paires $y_1 \approx x_1 + x_2$, $y_2 \approx x_1 + x_3$, $y_3 \approx x_2 + x_3$, et les 3 mesures individuelles $y_4 \approx x_1$, $y_5 \approx x_2$, $y_6 \approx x_3$. Donner la matrice du modèle $A$ de taille $6 \times 3$ telle que le problème s'écrive $\min_x \|A x - y\|^2$.
 
 **Notions** : formulation des moindres carrés ||A x - b||^2, mesures de sommes de paires
 

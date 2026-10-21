@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>08. Catalogue des exercices — linalg_pedagopy</title>
-  <meta name="description" content="Les 35 exercices du tuteur par thème et par niveau">
+  <meta name="description" content="Les 39 exercices du tuteur par thème et par niveau">
 
   <!-- Typographie Web Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -157,7 +157,7 @@
       <header class="article-header">
         <span class="article-badge">Chapitre 08 • Exercices</span>
         <h1 class="article-title">08. Catalogue des exercices</h1>
-        <p class="article-subtitle">Les 35 exercices du tuteur par thème et par niveau</p>
+        <p class="article-subtitle">Les 39 exercices du tuteur par thème et par niveau</p>
       </header>
 
       <article class="markdown-body">
@@ -597,7 +597,7 @@ ex.enonce()
 <p><a id="independance-gram-schmidt"></a></p>
 <h4 id="15-tester-lindependance-avec-gram-schmidt">15. Tester l'indépendance avec Gram-Schmidt</h4>
 <p><em>Identifiant</em> <code>independance-gram-schmidt</code> · <em>type</em> calcul · <em>niveau</em> ★★★ · <em>réponse attendue</em> : une valeur exacte (ou un dictionnaire de valeurs)</p>
-<p>On donne les vecteurs $a_1 = (1, 2, -1)$, $a_2 = (2, 0, 1)$ et $a_3 = (0, 4, -3)$ de $\mathbb{R}^3$. En appliquant Gram-Schmidt, déterminer le résidu orthogonal $\tilde{q}_3$ obtenu à la 3ᵉ étape (ou indiquer son carré de norme |\tilde{q}_3|^2 pour tester l'indépendance).</p>
+<p>On donne les vecteurs $a_1 = (1, 2, -1)$, $a_2 = (2, 0, 1)$ et $a_3 = (0, 4, -3)$ de $\mathbb{R}^3$. En appliquant Gram-Schmidt, déterminer le résidu orthogonal $\tilde{q}_3$ obtenu à la 3ᵉ étape (ou indiquer son carré de norme $\|\tilde{q}_3\|^2$ pour tester l'indépendance).</p>
 <p><strong>Notions</strong> : test d'indépendance linéaire par Gram-Schmidt</p>
 <h3 id="matrices-et-applications-lineaires">Matrices et applications linéaires</h3>
 <p><a id="moyenne-glissante"></a></p>
@@ -697,7 +697,7 @@ ex.enonce()
 <p><a id="sommes-de-paires"></a></p>
 <h4 id="34-mesures-de-sommes-de-paires">34. Mesures de sommes de paires</h4>
 <p><em>Identifiant</em> <code>sommes-de-paires</code> · <em>type</em> modélisation · <em>niveau</em> ★★☆ · <em>réponse attendue</em> : une matrice</p>
-<p>On cherche à estimer $x \in \mathbb{R}^3$ à partir des 6 mesures bruitées de toutes les paires : $y_1 \approx x_1 + x_2$, $y_2 \approx x_1 + x_3$, $y_3 \approx x_2 + x_3$, et des 3 mesures individuelles $y_4 \approx x_1$, $y_5 \approx x_2$, $y_6 \approx x_3$. Donner la matrice de conception $A$ de taille $6 \times 3$ telle que le problème s'écrive $\min_x \|A x - y\|^2$.</p>
+<p>On cherche à estimer $x \in \mathbb{R}^3$ à partir de 6 mesures bruitées : les 3 sommes de paires $y_1 \approx x_1 + x_2$, $y_2 \approx x_1 + x_3$, $y_3 \approx x_2 + x_3$, et les 3 mesures individuelles $y_4 \approx x_1$, $y_5 \approx x_2$, $y_6 \approx x_3$. Donner la matrice du modèle $A$ de taille $6 \times 3$ telle que le problème s'écrive $\min_x \|A x - y\|^2$.</p>
 <p><strong>Notions</strong> : formulation des moindres carrés ||A x - b||^2, mesures de sommes de paires</p>
 <p><a id="norme-minimale"></a></p>
 <h4 id="35-solution-de-norme-minimale">35. Solution de norme minimale</h4>

@@ -18,7 +18,7 @@ L'intégration continue (`.github/workflows/tests.yml`) exécute les mêmes éta
 |:---|:---|
 | `tests/test_*.py` (hors caractérisation) | Tests unitaires : propriétés mathématiques, API, cas limites. |
 | `tests/test_caracterisation_algorithmes.py` | Fige les traces (`explain` niveaux 0 à 3, Markdown, LaTeX, HTML), les discussions de cas et les décisions de l'oracle pour une trentaine de calculs représentatifs. |
-| `tests/test_caracterisation_tuteur.py` | Fige, pour chacune des 35 fiches, l'énoncé, les paliers d'indices, le jumeau, les diagnostics de réponses fausses génériques et la fiche enseignant ; ainsi que le laboratoire, le catalogue, le glossaire et les 40 générateurs de jumeaux. |
+| `tests/test_caracterisation_tuteur.py` | Fige, pour chacune des 39 fiches, l'énoncé, les paliers d'indices, le jumeau, les diagnostics de réponses fausses génériques et la fiche enseignant ; ainsi que le laboratoire, le catalogue, le glossaire et les 24 générateurs de jumeaux. |
 | `tests/test_caracterisation_campagnes.py` | Fige les 21 cas des campagnes du bac à sable (`tests/campagnes.py`) : tests limites, grosses matrices pleines et creuses, plafonds de branches ; voir [campagnes.md](campagnes.md). Les 5 cas de plus de 5 s portent la marque `lent`. |
 | `tests/run_notebooks.py` | Exécute les carnets maintenus (tutoriel, problèmes, projet, cahier d'exercices et corrigé). |
 

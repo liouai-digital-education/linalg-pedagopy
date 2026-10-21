@@ -241,7 +241,7 @@ with using_config(locale="en"):
 <hr/>
 <h2 id="2-visualisation-geometrique-2d-et-3d-linalg_pedagopyplot">2. Visualisation géométrique 2D et 3D (<code>linalg_pedagopy.plot</code>)</h2>
 <p>Le sous-module <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/plot/geometry.py"><code>linalg_pedagopy.plot</code></a> fournit des représentations géométriques directes des concepts vectoriels via Matplotlib.</p>
-<p><div class="callout callout-note"><div class="callout-title">Note informative</div><p>&gt; Ce module nécessite l'installation de la dépendance facultative : `pip install linalg_pedagopy[plot]`.</p></div></p>
+<p><div class="callout callout-note"><div class="callout-title">Note informative</div><p>&gt; Ce module nécessite la dépendance facultative Matplotlib : `pip install -e ".[plot]"` depuis le dépôt.</p></div></p>
 <h3 id="21-fonctions-graphiques-disponibles">2.1 Fonctions graphiques disponibles</h3>
 <table>
 <thead>
@@ -301,6 +301,7 @@ plt.show()
 <hr/>
 <h2 id="3-comparaison-exact-vs-virgule-flottante-linalg_pedagopycompare">3. Comparaison Exact vs Virgule Flottante (<code>linalg_pedagopy.compare</code>)</h2>
 <p>Le module <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/compare/numeric.py"><code>linalg_pedagopy.compare</code></a> permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 <code>float64</code> sous NumPy).</p>
+<p><div class="callout callout-note"><div class="callout-title">Note informative</div><p>&gt; Ce module nécessite la dépendance facultative NumPy : `pip install -e ".[compare]"` depuis le dépôt. Sans NumPy, le reste du paquet fonctionne, et les fonctions de comparaison lèvent une `ImportError` qui indique cette commande.</p></div></p>
 <h3 id="31-la-fonction-universelle-compare">3.1 La fonction universelle <code>compare</code></h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, GaussJordan, compare
 
@@ -316,7 +317,7 @@ print("Résumé :", rapport.summary)
 <h3 id="32-cas-decole-1-la-matrice-de-lauchli-et-la-perte-dorthogonalite">3.2 Cas d'école 1 : La matrice de Läuchli et la perte d'orthogonalité</h3>
 <p>La matrice de Läuchli $L(\epsilon) \in \mathbb{R}^{(n+1) \times n}$ est définie par :
 <div class="math-display">$$L(\epsilon) = \begin{bmatrix} 1 &amp; 1 &amp; \dots &amp; 1 \\ \epsilon &amp; 0 &amp; \dots &amp; 0 \\ 0 &amp; \epsilon &amp; \dots &amp; 0 \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 0 &amp; 0 &amp; \dots &amp; \epsilon \end{bmatrix}$$</div></p>
-<p>Pour $\epsilon$ très petit (par exemple $\epsilon = 10^{-8}$), l'algorithme de Gram-Schmidt classique en virgule flottante perd totalement l'orthogonalité des vecteurs générés ($\|Q^T Q - I\| \approx 1$).</p>
+<p>Pour $\epsilon$ très petit (par exemple $\epsilon = 10^{-8}$), l'algorithme de Gram-Schmidt classique en virgule flottante perd l'orthogonalité des vecteurs générés : $\|Q^T Q - I\| \approx 1/2$, car $q_2$ et $q_3$ font un angle de 60° au lieu de 90°.</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.compare import build_lauchli_matrix, compare
 from linalg_pedagopy import GramSchmidt
 

@@ -169,43 +169,56 @@ A_cubed = A @ A @ A
 
 ## 3. Les 4 vues du produit matriciel
 
-Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. `linalg_pedagopy` les rend explicites via `A.matmul(B, view=...)` : le résultat est identique quelle que soit la vue, mais la trace enregistrée (section `matrix.matmul.<vue>`) détaille le calcul selon la vue choisie :
+Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. `linalg_pedagopy` les rend explicites avec `A.matmul(B, view=...)` : le résultat est le même quelle que soit la vue, mais la trace détaille le calcul selon la vue choisie.
 
 ```mermaid
 flowchart TD
-    AB["Produit Matriciel C = AB"]
-    AB --> V1["1. Combinaison linéaire des colonnes de A"]
-    AB --> V2["2. Produits scalaires ligne-colonne"]
-    AB --> V3["3. Somme de produits externes (Outer Products)"]
-    AB --> V4["4. Coefficients un par un (vue par défaut)"]
+    AB["Produit matriciel C = AB"]
+    AB --> V1["entries (défaut) : produits scalaires ligne · colonne"]
+    AB --> V2["rows : combinaisons des lignes de B"]
+    AB --> V3["columns : combinaisons des colonnes de A"]
+    AB --> V4["outer : somme de produits extérieurs"]
 ```
 
-### 3.1 Vue 1 (`view='columns'`) : Combinaisons linéaires des colonnes de $A$
+### 3.1 Vue `entries` (par défaut) : produits scalaires ligne · colonne
 
-Chaque colonne $c_j$ de $C$ est une combinaison linéaire des colonnes $a_1, \dots, a_n$ de $A$, avec pour coefficients les composantes de la $j$-ième colonne de $B$ :
-$$c_j = A b_j = \sum_{i=1}^n b_{ij} a_i$$
+Chaque coefficient $c_{ij}$ est le produit scalaire de la $i$-ième ligne de $A$ et de la $j$-ième colonne de $B$ :
+$$c_{ij} = \sum_{k=1}^n a_{ik} b_{kj}$$
 
-### 3.2 Vue 2 (`view='rows'` / `view='entries'`) : Produits scalaires ligne-colonne
+### 3.2 Vue `rows` : combinaisons linéaires des lignes de $B$
 
-Chaque coefficient $c_{ij}$ est le produit scalaire standard entre la $i$-ième ligne de $A$ et la $j$-ième colonne de $B$ :
-$$c_{ij} = \text{row}_i(A) \cdot \text{col}_j(B) = \sum_{k=1}^n a_{ik} b_{kj}$$
+La $i$-ième ligne de $C$ est une combinaison des lignes $b_1^T, \dots, b_n^T$ de $B$, avec pour coefficients la $i$-ième ligne de $A$ :
+$$\text{ligne}_i(C) = \sum_{k=1}^n a_{ik}\, b_k^T$$
 
-### 3.3 Vue 3 (`view='outer'`) : Somme de produits externes (*Outer Products*)
+### 3.3 Vue `columns` : combinaisons linéaires des colonnes de $A$
 
-Le produit $A B$ est la somme de $n$ matrices de rang 1 formées par les produits externes des colonnes de $A$ et des lignes de $B$ :
+La $j$-ième colonne de $C$ est une combinaison des colonnes $a_1, \dots, a_n$ de $A$, avec pour coefficients la $j$-ième colonne de $B$ :
+$$c_j = A b_j = \sum_{k=1}^n b_{kj}\, a_k$$
+
+### 3.4 Vue `outer` : somme de produits extérieurs
+
+Le produit $A B$ est la somme de $n$ matrices de rang au plus 1, produits d'une colonne de $A$ par une ligne de $B$ :
 $$A B = \sum_{k=1}^n a_k b_k^T$$
 
+Pour voir la trace d'une vue, on enregistre le calcul avec `tracing` puis on l'affiche :
+
 ```python
-from linalg_pedagopy import tracing
+from linalg_pedagopy import Matrix, tracing
+from linalg_pedagopy.render.explanation import Explanation
 
 A = Matrix([[1, 2], [3, 4]])
 B = Matrix([[2, 0], [1, 2]])
-with tracing(level=2):
-    C = A.matmul(B, view="outer")
+with tracing(level=2) as tr:
+    C = A.matmul(B, view="rows")
+print(Explanation(tr.tree).to_text(level=2))
+# Produit matriciel (2×2) @ (2×2) — vue par lignes (combinaisons linéaires des lignes de B).
+# ├─ Ligne 1 du produit : combinaison des lignes de B avec les coefficients (1, 2) -> ( 4, 4 ).
+# ├─ Ligne 2 du produit : combinaison des lignes de B avec les coefficients (3, 4) -> ( 10, 8 ).
+# └─ Résultat du produit matriciel : [(4 4); (10 8)].
 print(C == A @ B)   # True
 ```
 
-### 3.4 Matrices par blocs
+### 3.5 Matrices par blocs
 
 La méthode de classe [`Matrix.block`](../src/linalg_pedagopy/objects/matrix.py) assemble une matrice à partir d'une grille de blocs sous-matriciels :
 
@@ -219,10 +232,7 @@ M_bloc = Matrix.block([
     [A11, A12],
     [A21, A22]
 ])
-print(M_bloc)
-# [1, 2, 0]
-# [3, 4, 0]
-# [5, 6, 7]
+print(repr(M_bloc))   # Matrix([[1, 2, 0], [3, 4, 0], [5, 6, 7]])
 ```
 
 ---
@@ -253,21 +263,36 @@ from linalg_pedagopy import Matrix, symbols
 
 a, = symbols("a")
 A = Matrix([[1, a], [0, 1]])
-print(A.inv()) # Matrix([[1, -a], [0, 1]])  (déterminant 1 : aucun cas particulier)
+print(repr(A.inv()))   # Matrix([[1, -a], [0, 1]])  (déterminant 1 : aucun cas particulier)
 
 B = Matrix([[1, a], [a, 1]])
 inv_B = B.inv(strict=False)    # CaseSplit : inversible si a ≠ ±1
 print(type(inv_B).__name__)    # CaseSplit
 for br in inv_B.branches:
     print(br.condition, "->", "singulière" if br.result is None else "inversible")
-# a ≠ 1 et a ≠ -1 -> inversible
+# a ≠ 1 et a ≠ −1 -> inversible
 # a = 1 -> singulière
-# a = -1 -> singulière
+# a = −1 -> singulière
 ```
 
 ### 4.3 Réduction échelonnée, rang et sous-espaces fondamentaux
 
-Les méthodes [`rref`](../src/linalg_pedagopy/objects/matrix.py), [`rank`](../src/linalg_pedagopy/objects/matrix.py) et [`nullspace`](../src/linalg_pedagopy/objects/matrix.py) acceptent un paramètre `assumptions` pour spécifier des contraintes de branche :
+Les méthodes [`rref`](../src/linalg_pedagopy/objects/matrix.py), [`rank`](../src/linalg_pedagopy/objects/matrix.py) et [`nullspace`](../src/linalg_pedagopy/objects/matrix.py) acceptent un paramètre `assumptions` pour spécifier des contraintes de branche. Avec des paramètres, elles renvoient une discussion par cas (`CaseSplit`) :
+
+```python
+a, = symbols("a")
+P = Matrix([[1, a], [a, 1]])
+print(P.rank())
+# Discussion selon a
+# ├─ Cas a ≠ 1 et a ≠ −1 (générique) : 2
+# └─ Cas a = 1 ou a = −1 : 1
+print(P.rank(assumptions="a != 1"))
+# Discussion selon a
+# ├─ Cas a ≠ 1 et a ≠ −1 (générique) : 2
+# └─ Cas a = −1 : 1
+```
+
+Sans paramètre, le résultat est direct :
 
 ```python
 A = Matrix([
@@ -278,7 +303,7 @@ A = Matrix([
 
 print(A.rank())        # 2
 R = A.rref()           # Matrix (et non un tuple)
-print(R)               # [[1, 0, -2, 1], [0, 1, 1, 0], [0, 0, 0, 0]]
+print(repr(R))         # Matrix([[1, 0, -2, 1], [0, 1, 1, 0], [0, 0, 0, 0]])
 
 # Base du noyau (Ker A) : tuple de vecteurs
 ker = A.nullspace()
@@ -287,7 +312,7 @@ print(ker)             # (Vector([2, -1, 1, 0]), Vector([-1, 0, 0, 1]))
 # Colonnes pivots et base de l'image (Col A) via GaussJordan
 from linalg_pedagopy import GaussJordan
 gj = GaussJordan(A).run()
-print(gj.pivots)                          # (0, 1)
+print(gj.pivots)                          # (0, 1) : indices à partir de 0 (la trace écrit « colonnes pivots = (1, 2) »)
 im = [A.col(j) for j in gj.pivots]
 print(im)                                 # colonnes pivots de A
 ```

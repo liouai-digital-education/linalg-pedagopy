@@ -24,15 +24,15 @@
     "pageTitle": "Accueil & démarrage",
     "title": "Premier calcul : un système avec paramètre",
     "url": "index.html#premier-calcul-un-systeme-avec-parametre",
-    "snippet": "Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :...",
-    "content": "Premier calcul : un système avec paramètre Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :..."
+    "snippet": "La progression est enregistrée dans un journal, .linalg_pedagopy_journal.json, créé dans le répertoire courant : en relançant l'exemple, ex.indice() donne le pa...",
+    "content": "Premier calcul : un système avec paramètre La progression est enregistrée dans un journal, .linalg_pedagopy_journal.json, créé dans le répertoire courant : en relançant l'exemple, ex.indice() donne le pa..."
   },
   {
     "pageTitle": "Accueil & démarrage",
     "title": "Première séance avec le tuteur",
     "url": "index.html#premiere-seance-avec-le-tuteur",
-    "snippet": "Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :...",
-    "content": "Première séance avec le tuteur Le tuteur s'utilise avec des noms français ; les noms anglais restent disponibles jusqu'à la version 0.4.0.0 (avertissement à partir de 0.3.2.0) :..."
+    "snippet": "La progression est enregistrée dans un journal, .linalg_pedagopy_journal.json, créé dans le répertoire courant : en relançant l'exemple, ex.indice() donne le pa...",
+    "content": "Première séance avec le tuteur La progression est enregistrée dans un journal, .linalg_pedagopy_journal.json, créé dans le répertoire courant : en relançant l'exemple, ex.indice() donne le pa..."
   },
   {
     "pageTitle": "Accueil & démarrage",
@@ -227,50 +227,57 @@
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "2.1 Initialisation et constructeurs d'usine",
     "url": "02_vectors_and_matrices.html#21-initialisation-et-constructeurs-dusine",
-    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. linalg_pe...",
-    "content": "2.1 Initialisation et constructeurs d'usine Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. linalg_pe..."
+    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A...",
+    "content": "2.1 Initialisation et constructeurs d'usine Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "2.2 Opérations matricielles usuelles",
     "url": "02_vectors_and_matrices.html#22-operations-matricielles-usuelles",
-    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. linalg_pe...",
-    "content": "2.2 Opérations matricielles usuelles Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. linalg_pe..."
+    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A...",
+    "content": "2.2 Opérations matricielles usuelles Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "3. Les 4 vues du produit matriciel",
     "url": "02_vectors_and_matrices.html#3-les-4-vues-du-produit-matriciel",
-    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. linalg_pe...",
-    "content": "3. Les 4 vues du produit matriciel Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes mais conceptuellement distinctes du produit matriciel $C = A B$. linalg_pe..."
+    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A...",
+    "content": "3. Les 4 vues du produit matriciel Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
-    "title": "3.1 Vue 1 (view='columns') : Combinaisons linéaires des colonnes de $A$",
-    "url": "02_vectors_and_matrices.html#31-vue-1-viewcolumns-combinaisons-lineaires-des-colonnes-de",
-    "snippet": "Chaque colonne $c_j$ de $C$ est une combinaison linéaire des colonnes $a_1, \\dots, a_n$ de $A$, avec pour coefficients les composantes de la $j$-ième colonne de...",
-    "content": "3.1 Vue 1 (view='columns') : Combinaisons linéaires des colonnes de $A$ Chaque colonne $c_j$ de $C$ est une combinaison linéaire des colonnes $a_1, \\dots, a_n$ de $A$, avec pour coefficients les composantes de la $j$-ième colonne de..."
+    "title": "3.1 Vue entries (par défaut) : produits scalaires ligne · colonne",
+    "url": "02_vectors_and_matrices.html#31-vue-entries-par-defaut-produits-scalaires-ligne-colonne",
+    "snippet": "Chaque coefficient $c_{ij}$ est le produit scalaire de la $i$-ième ligne de $A$ et de la $j$-ième colonne de $B$ :\n$$c_{ij} = \\sum_{k=1}^n a_{ik} b_{kj}$$...",
+    "content": "3.1 Vue entries (par défaut) : produits scalaires ligne · colonne Chaque coefficient $c_{ij}$ est le produit scalaire de la $i$-ième ligne de $A$ et de la $j$-ième colonne de $B$ :\n$$c_{ij} = \\sum_{k=1}^n a_{ik} b_{kj}$$..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
-    "title": "3.2 Vue 2 (view='rows' / view='entries') : Produits scalaires ligne-colonne",
-    "url": "02_vectors_and_matrices.html#32-vue-2-viewrows-viewentries-produits-scalaires-ligne-colonne",
-    "snippet": "Chaque coefficient $c_{ij}$ est le produit scalaire standard entre la $i$-ième ligne de $A$ et la $j$-ième colonne de $B$ :\n$$c_{ij} = \\text{row}_i(A) \\cdot \\te...",
-    "content": "3.2 Vue 2 (view='rows' / view='entries') : Produits scalaires ligne-colonne Chaque coefficient $c_{ij}$ est le produit scalaire standard entre la $i$-ième ligne de $A$ et la $j$-ième colonne de $B$ :\n$$c_{ij} = \\text{row}_i(A) \\cdot \\te..."
+    "title": "3.2 Vue rows : combinaisons linéaires des lignes de $B$",
+    "url": "02_vectors_and_matrices.html#32-vue-rows-combinaisons-lineaires-des-lignes-de",
+    "snippet": "La $i$-ième ligne de $C$ est une combinaison des lignes $b_1^T, \\dots, b_n^T$ de $B$, avec pour coefficients la $i$-ième ligne de $A$ :\n$$\\text{ligne}_i(C) = \\s...",
+    "content": "3.2 Vue rows : combinaisons linéaires des lignes de $B$ La $i$-ième ligne de $C$ est une combinaison des lignes $b_1^T, \\dots, b_n^T$ de $B$, avec pour coefficients la $i$-ième ligne de $A$ :\n$$\\text{ligne}_i(C) = \\s..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
-    "title": "3.3 Vue 3 (view='outer') : Somme de produits externes (Outer Products)",
-    "url": "02_vectors_and_matrices.html#33-vue-3-viewouter-somme-de-produits-externes-outer-products",
-    "snippet": "Le produit $A B$ est la somme de $n$ matrices de rang 1 formées par les produits externes des colonnes de $A$ et des lignes de $B$ :\n$$A B = \\sum_{k=1}^n a_k b_...",
-    "content": "3.3 Vue 3 (view='outer') : Somme de produits externes (Outer Products) Le produit $A B$ est la somme de $n$ matrices de rang 1 formées par les produits externes des colonnes de $A$ et des lignes de $B$ :\n$$A B = \\sum_{k=1}^n a_k b_..."
+    "title": "3.3 Vue columns : combinaisons linéaires des colonnes de $A$",
+    "url": "02_vectors_and_matrices.html#33-vue-columns-combinaisons-lineaires-des-colonnes-de",
+    "snippet": "La $j$-ième colonne de $C$ est une combinaison des colonnes $a_1, \\dots, a_n$ de $A$, avec pour coefficients la $j$-ième colonne de $B$ :\n$$c_j = A b_j = \\sum_{...",
+    "content": "3.3 Vue columns : combinaisons linéaires des colonnes de $A$ La $j$-ième colonne de $C$ est une combinaison des colonnes $a_1, \\dots, a_n$ de $A$, avec pour coefficients la $j$-ième colonne de $B$ :\n$$c_j = A b_j = \\sum_{..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
-    "title": "3.4 Matrices par blocs",
-    "url": "02_vectors_and_matrices.html#34-matrices-par-blocs",
+    "title": "3.4 Vue outer : somme de produits extérieurs",
+    "url": "02_vectors_and_matrices.html#34-vue-outer-somme-de-produits-exterieurs",
+    "snippet": "Le produit $A B$ est la somme de $n$ matrices de rang au plus 1, produits d'une colonne de $A$ par une ligne de $B$ :\n$$A B = \\sum_{k=1}^n a_k b_k^T$$...",
+    "content": "3.4 Vue outer : somme de produits extérieurs Le produit $A B$ est la somme de $n$ matrices de rang au plus 1, produits d'une colonne de $A$ par une ligne de $B$ :\n$$A B = \\sum_{k=1}^n a_k b_k^T$$..."
+  },
+  {
+    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "title": "3.5 Matrices par blocs",
+    "url": "02_vectors_and_matrices.html#35-matrices-par-blocs",
     "snippet": "La méthode de classe Matrix.block assemble une matrice à partir d'une grille de blocs sous-matriciels :...",
-    "content": "3.4 Matrices par blocs La méthode de classe Matrix.block assemble une matrice à partir d'une grille de blocs sous-matriciels :..."
+    "content": "3.5 Matrices par blocs La méthode de classe Matrix.block assemble une matrice à partir d'une grille de blocs sous-matriciels :..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
@@ -297,8 +304,8 @@
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "4.3 Réduction échelonnée, rang et sous-espaces fondamentaux",
     "url": "02_vectors_and_matrices.html#43-reduction-echelonnee-rang-et-sous-espaces-fondamentaux",
-    "snippet": "Les méthodes rref, rank et nullspace acceptent un paramètre assumptions pour spécifier des contraintes de branche :...",
-    "content": "4.3 Réduction échelonnée, rang et sous-espaces fondamentaux Les méthodes rref, rank et nullspace acceptent un paramètre assumptions pour spécifier des contraintes de branche :..."
+    "snippet": "Les méthodes rref, rank et nullspace acceptent un paramètre assumptions pour spécifier des contraintes de branche. Avec des paramètres, elles renvoient une disc...",
+    "content": "4.3 Réduction échelonnée, rang et sous-espaces fondamentaux Les méthodes rref, rank et nullspace acceptent un paramètre assumptions pour spécifier des contraintes de branche. Avec des paramètres, elles renvoient une disc..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
@@ -360,8 +367,8 @@
     "pageTitle": "03. Algorithmes & traçabilité",
     "title": "2.2 Typologie des ensembles de solutions",
     "url": "03_algorithms_and_step_tracing.html#22-typologie-des-ensembles-de-solutions",
-    "snippet": "Le résultat renvoyé par GaussJordan.run() est un GJResult dont la propriété solution appartient à l'une des 3 catégories de SolutionSet :...",
-    "content": "2.2 Typologie des ensembles de solutions Le résultat renvoyé par GaussJordan.run() est un GJResult dont la propriété solution appartient à l'une des 3 catégories de SolutionSet :..."
+    "snippet": "Le résultat renvoyé par GaussJordan.run() est un GJResult, ou, si la matrice contient des paramètres, une discussion par cas (CaseSplit) dont chaque branche por...",
+    "content": "2.2 Typologie des ensembles de solutions Le résultat renvoyé par GaussJordan.run() est un GJResult, ou, si la matrice contient des paramètres, une discussion par cas (CaseSplit) dont chaque branche por..."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",
@@ -386,10 +393,10 @@
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",
-    "title": "3. Substitutions Triangulaires",
+    "title": "3. Substitutions triangulaires",
     "url": "03_algorithms_and_step_tracing.html#3-substitutions-triangulaires",
-    "snippet": "Pour les systèmes dont la matrice est déjà échelonnée, les algorithmes de substitution évitent le coût complet d'un pivot de Gauss :...",
-    "content": "3. Substitutions Triangulaires Pour les systèmes dont la matrice est déjà échelonnée, les algorithmes de substitution évitent le coût complet d'un pivot de Gauss :..."
+    "snippet": "Pour un système dont la matrice est triangulaire et carrée, les algorithmes de substitution évitent le coût complet d'un pivot de Gauss. Une matrice non carrée ...",
+    "content": "3. Substitutions triangulaires Pour un système dont la matrice est triangulaire et carrée, les algorithmes de substitution évitent le coût complet d'un pivot de Gauss. Une matrice non carrée ..."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",
@@ -493,8 +500,8 @@
     "pageTitle": "04. Le tuteur interactif",
     "title": "3.3 L'exercice jumeau",
     "url": "04_tuteur.html#33-lexercice-jumeau",
-    "snippet": "twin() renvoie un TwinExercise (title, statement, solution_summary, explanation) et débloque le palier 4....",
-    "content": "3.3 L'exercice jumeau twin() renvoie un TwinExercise (title, statement, solution_summary, explanation) et débloque le palier 4...."
+    "snippet": "jumeau() renvoie un TwinExercise (title, statement, solution_summary, explanation) et débloque le palier 4....",
+    "content": "3.3 L'exercice jumeau jumeau() renvoie un TwinExercise (title, statement, solution_summary, explanation) et débloque le palier 4...."
   },
   {
     "pageTitle": "04. Le tuteur interactif",
@@ -507,8 +514,8 @@
     "pageTitle": "04. Le tuteur interactif",
     "title": "3.5 Vrai ou faux : prédiction puis laboratoire",
     "url": "04_tuteur.html#35-vrai-ou-faux-prediction-puis-laboratoire",
-    "snippet": "lab.test(**instances) renvoie un LabReport : hypotheses_satisfied, results_by_part, found_counterexample, message....",
-    "content": "3.5 Vrai ou faux : prédiction puis laboratoire lab.test(**instances) renvoie un LabReport : hypotheses_satisfied, results_by_part, found_counterexample, message...."
+    "snippet": "lab.tester(**instances) renvoie un LabReport : hypotheses_satisfied, results_by_part, found_counterexample, message....",
+    "content": "3.5 Vrai ou faux : prédiction puis laboratoire lab.tester(**instances) renvoie un LabReport : hypotheses_satisfied, results_by_part, found_counterexample, message...."
   },
   {
     "pageTitle": "04. Le tuteur interactif",
@@ -528,15 +535,15 @@
     "pageTitle": "04. Le tuteur interactif",
     "title": "5. Le glossaire",
     "url": "04_tuteur.html#5-le-glossaire",
-    "snippet": "En mode étudiant, teacher_sheet() lève PermissionError. En mode enseignant, les données des exercices sont déverrouillées....",
-    "content": "5. Le glossaire En mode étudiant, teacher_sheet() lève PermissionError. En mode enseignant, les données des exercices sont déverrouillées...."
+    "snippet": "En mode étudiant, fiche_enseignant() lève PermissionError. En mode enseignant, les données des exercices sont déverrouillées....",
+    "content": "5. Le glossaire En mode étudiant, fiche_enseignant() lève PermissionError. En mode enseignant, les données des exercices sont déverrouillées...."
   },
   {
     "pageTitle": "04. Le tuteur interactif",
     "title": "6. Mode enseignant",
     "url": "04_tuteur.html#6-mode-enseignant",
-    "snippet": "En mode étudiant, teacher_sheet() lève PermissionError. En mode enseignant, les données des exercices sont déverrouillées....",
-    "content": "6. Mode enseignant En mode étudiant, teacher_sheet() lève PermissionError. En mode enseignant, les données des exercices sont déverrouillées...."
+    "snippet": "En mode étudiant, fiche_enseignant() lève PermissionError. En mode enseignant, les données des exercices sont déverrouillées....",
+    "content": "6. Mode enseignant En mode étudiant, fiche_enseignant() lève PermissionError. En mode enseignant, les données des exercices sont déverrouillées...."
   },
   {
     "pageTitle": "04. Le tuteur interactif",
@@ -556,8 +563,8 @@
     "pageTitle": "04. Le tuteur interactif",
     "title": "Valider une fiche",
     "url": "04_tuteur.html#valider-une-fiche",
-    "snippet": "validate_sheet (alias valider_fiche) contrôle une fiche : champs et métadonnées présents, numéro unique, type de vérificateur valide, jumeau exécutable, absence...",
-    "content": "Valider une fiche validate_sheet (alias valider_fiche) contrôle une fiche : champs et métadonnées présents, numéro unique, type de vérificateur valide, jumeau exécutable, absence..."
+    "snippet": "valider_fiche contrôle une fiche : champs et métadonnées présents, numéro unique, type de vérificateur valide, jumeau exécutable, absence de fuite dans les indi...",
+    "content": "Valider une fiche valider_fiche contrôle une fiche : champs et métadonnées présents, numéro unique, type de vérificateur valide, jumeau exécutable, absence de fuite dans les indi..."
   },
   {
     "pageTitle": "05. Exercices & sessions guidées",
@@ -582,10 +589,10 @@
   },
   {
     "pageTitle": "05. Exercices & sessions guidées",
-    "title": "1.3 Générateurs d'exercices jumeaux (generators / generateurs)",
-    "url": "05_pedagogical_exercises_and_sessions.html#13-generateurs-dexercices-jumeaux-generators-generateurs",
-    "snippet": "L'espace de noms generators (alias generateurs) regroupe les générateurs d'exercices jumeaux résolus appelés par les fiches du tuteur (champ jumeau). Chacun ren...",
-    "content": "1.3 Générateurs d'exercices jumeaux (generators / generateurs) L'espace de noms generators (alias generateurs) regroupe les générateurs d'exercices jumeaux résolus appelés par les fiches du tuteur (champ jumeau). Chacun ren..."
+    "title": "1.3 Générateurs d'exercices jumeaux (generateurs)",
+    "url": "05_pedagogical_exercises_and_sessions.html#13-generateurs-dexercices-jumeaux-generateurs",
+    "snippet": "L'espace de noms generateurs (nom anglais generators) regroupe les 24 générateurs d'exercices jumeaux résolus appelés par les fiches du tuteur (champ jumeau, pa...",
+    "content": "1.3 Générateurs d'exercices jumeaux (generateurs) L'espace de noms generateurs (nom anglais generators) regroupe les 24 générateurs d'exercices jumeaux résolus appelés par les fiches du tuteur (champ jumeau, pa..."
   },
   {
     "pageTitle": "05. Exercices & sessions guidées",
@@ -701,10 +708,10 @@
   },
   {
     "pageTitle": "07. Référence de l'API",
-    "title": "1. Table de correspondance bilingue (Anglais / Français)",
-    "url": "07_api_reference.html#1-table-de-correspondance-bilingue-anglais-francais",
-    "snippet": "Le package privilégie une nomenclature primaire anglaise tout en garantissant des alias français. Exception : le tuteur s'utilise en français (linalg_pedagopy.t...",
-    "content": "1. Table de correspondance bilingue (Anglais / Français) Le package privilégie une nomenclature primaire anglaise tout en garantissant des alias français. Exception : le tuteur s'utilise en français (linalg_pedagopy.t..."
+    "title": "1. Noms français et anglais",
+    "url": "07_api_reference.html#1-noms-francais-et-anglais",
+    "snippet": "Le paquet emploie des noms anglais avec des alias français, sauf le tuteur (linalg_pedagopy.tuteur), qui s'utilise en français. Les noms anglais du tuteur (lina...",
+    "content": "1. Noms français et anglais Le paquet emploie des noms anglais avec des alias français, sauf le tuteur (linalg_pedagopy.tuteur), qui s'utilise en français. Les noms anglais du tuteur (lina..."
   },
   {
     "pageTitle": "07. Référence de l'API",
@@ -787,50 +794,50 @@
     "pageTitle": "07. Référence de l'API",
     "title": "4.2 ForwardSubstitution & BackSubstitution",
     "url": "07_api_reference.html#42-forwardsubstitution-backsubstitution",
-    "snippet": "Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific...",
-    "content": "4.2 ForwardSubstitution & BackSubstitution Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific..."
+    "snippet": "Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0....",
+    "content": "4.2 ForwardSubstitution & BackSubstitution Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0...."
   },
   {
     "pageTitle": "07. Référence de l'API",
     "title": "4.3 GramSchmidt",
     "url": "07_api_reference.html#43-gramschmidt",
-    "snippet": "Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific...",
-    "content": "4.3 GramSchmidt Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific..."
+    "snippet": "Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0....",
+    "content": "4.3 GramSchmidt Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0...."
   },
   {
     "pageTitle": "07. Référence de l'API",
     "title": "4.4 QR",
     "url": "07_api_reference.html#44-qr",
-    "snippet": "Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific...",
-    "content": "4.4 QR Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific..."
+    "snippet": "Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0....",
+    "content": "4.4 QR Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0...."
   },
   {
     "pageTitle": "07. Référence de l'API",
     "title": "4.5 LeastSquares",
     "url": "07_api_reference.html#45-leastsquares",
-    "snippet": "Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific...",
-    "content": "4.5 LeastSquares Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific..."
+    "snippet": "Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0....",
+    "content": "4.5 LeastSquares Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0...."
   },
   {
     "pageTitle": "07. Référence de l'API",
     "title": "4.6 Determinant",
     "url": "07_api_reference.html#46-determinant",
-    "snippet": "Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific...",
-    "content": "4.6 Determinant Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific..."
+    "snippet": "Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0....",
+    "content": "4.6 Determinant Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0...."
   },
   {
     "pageTitle": "07. Référence de l'API",
     "title": "5. Traçabilité et rendu",
     "url": "07_api_reference.html#5-tracabilite-et-rendu",
-    "snippet": "Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific...",
-    "content": "5. Traçabilité et rendu Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific..."
+    "snippet": "Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0....",
+    "content": "5. Traçabilité et rendu Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0...."
   },
   {
     "pageTitle": "07. Référence de l'API",
     "title": "6. Module linalg_pedagopy.tuteur (noms anglais : tutor)",
     "url": "07_api_reference.html#6-module-linalg_pedagopytuteur-noms-anglais-tutor",
-    "snippet": "Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific...",
-    "content": "6. Module linalg_pedagopy.tuteur (noms anglais : tutor) Sous-modules : catalogue (fiches, thèmes, glossaire, mode), seance (ExerciseSession), validation (validate_sheet), verificateurs/ (un module par type de vérific..."
+    "snippet": "Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0....",
+    "content": "6. Module linalg_pedagopy.tuteur (noms anglais : tutor) Les fonctions et méthodes sont données sous leur nom français ; le nom anglais, entre parenthèses, reste disponible jusqu'à 0.4.0.0...."
   },
   {
     "pageTitle": "07. Référence de l'API",
@@ -841,10 +848,10 @@
   },
   {
     "pageTitle": "07. Référence de l'API",
-    "title": "6.2 Classe ExerciseSession (alias ExerciceSession)",
-    "url": "07_api_reference.html#62-classe-exercisesession-alias-exercicesession",
+    "title": "6.2 Classe ExerciceSession (anglais : ExerciseSession)",
+    "url": "07_api_reference.html#62-classe-exercicesession-anglais-exercisesession",
     "snippet": "config est un objet global (par contexte) dont les attributs sont :...",
-    "content": "6.2 Classe ExerciseSession (alias ExerciceSession) config est un objet global (par contexte) dont les attributs sont :..."
+    "content": "6.2 Classe ExerciceSession (anglais : ExerciseSession) config est un objet global (par contexte) dont les attributs sont :..."
   },
   {
     "pageTitle": "07. Référence de l'API",

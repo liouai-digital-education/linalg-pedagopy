@@ -126,7 +126,9 @@ stateDiagram-v2
 1. **`Verdict.ZERO`** : L'expression se simplifie formellement en 0 de manière inconditionnelle.
 2. **`Verdict.NONZERO`** : L'expression est inconditionnellement non nulle sur $\mathbb{R}$ (ex: $a^2 + 1$, $e^x$, ou constante non nulle).
 3. **`Verdict.CONDITIONAL`** : L'expression peut s'annuler pour des valeurs réelles particulières des paramètres. L'oracle extrait les facteurs d'annulation (`dec.factors`).
-4. **`Verdict.UNKNOWN`** : L'expression ne peut être décidée sans hypothèse explicite. L'appel à `oracle.is_zero(expr)` (qui renvoie `True`/`False` quand la réponse est inconditionnelle) lève alors une [`UndecidableZeroError`](../src/linalg_pedagopy/core/exceptions.py).
+4. **`Verdict.UNKNOWN`** : L'expression ne peut être décidée sans hypothèse explicite.
+
+`oracle.is_zero(expr)` renvoie `True` ou `False` quand la réponse est inconditionnelle (verdict `ZERO` ou `NONZERO`) ; pour les verdicts `CONDITIONAL` et `UNKNOWN`, il lève une [`UndecidableZeroError`](../src/linalg_pedagopy/core/exceptions.py). `oracle.decide(expr)` ne lève jamais : il renvoie le verdict et, s'il y a lieu, les facteurs d'annulation.
 
 ### 3.3 Traitement des radicaux paramétriques (`unrad`)
 
@@ -209,9 +211,9 @@ Un [`CaseSplit[T]`](../src/linalg_pedagopy/core/cases.py) regroupe un ensemble f
 ```mermaid
 flowchart TD
     CS["CaseSplit (système [[1, a], [a, 1]] x = (1, 1))"]
-    CS --> B1["Branche générique : a ≠ 1 ∧ a ≠ -1<br/>Solution unique"]
+    CS --> B1["Branche générique : a ≠ 1 ∧ a ≠ −1<br/>Solution unique"]
     CS --> B2["Branche particulière : a = 1<br/>Infinité de solutions (droite affine)"]
-    CS --> B3["Branche particulière : a = -1<br/>Système incompatible (ensemble vide)"]
+    CS --> B3["Branche particulière : a = −1<br/>Système incompatible (ensemble vide)"]
 ```
 
 ### 4.5 Partitionnement disjoint par préfixes d'inégalités
@@ -240,7 +242,7 @@ b = Vector([1, 1])
 
 res = GaussJordan(A, b).run()      # CaseSplit à 3 branches
 for br in res.branches:
-    print(br.condition)            # a ≠ 1 et a ≠ -1 / a = 1 / a = -1
+    print(br.condition)            # a ≠ 1 et a ≠ −1 / a = 1 / a = −1
 
 # at(...) renvoie le GJResult de la branche concernée, spécialisé
 spec_1 = res.at(a=1)

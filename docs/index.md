@@ -80,12 +80,14 @@ print(tuteur.catalogue())                     # les 39 exercices, par thème
 
 ex = tuteur.exercice("moyenne-glissante")   # ou tuteur.exercice(16)
 print(ex.enonce())                      # dans JupyterLab : ex.enonce() suffit
-print(ex.indice())                           # palier 1 : orientation
+print(ex.indice())                           # palier 1 au premier lancement (voir ci-dessous)
 
 rapport = ex.verifier(Matrix.zeros(3, 6))    # une réponse fausse
 print(rapport.valide)                       # False
 print(rapport.diagnostic)                  # ce que calcule la réponse, et une question
 ```
+
+La progression est enregistrée dans un journal, `.linalg_pedagopy_journal.json`, créé dans le répertoire courant : en relançant l'exemple, `ex.indice()` donne le palier suivant. `ex.recommencer()` repart de zéro.
 
 ---
 

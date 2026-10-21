@@ -62,39 +62,43 @@ Q = cayley_orthogonal(Matrix([[0, 1], [-1, 0]]))
 print(Q.has_orthonormal_columns())      # True
 ```
 
-### 1.3 Générateurs d'exercices jumeaux (`generators` / `generateurs`)
+### 1.3 Générateurs d'exercices jumeaux (`generateurs`)
 
-L'espace de noms `generators` (alias `generateurs`) regroupe les générateurs d'**exercices jumeaux résolus** appelés par les fiches du tuteur (champ `jumeau`). Chacun renvoie un `TwinExercise` (`title`, `statement`, `solution_summary`, `explanation`) :
+L'espace de noms `generateurs` (nom anglais `generators`) regroupe les **24 générateurs d'exercices jumeaux résolus** appelés par les fiches du tuteur (champ `jumeau`, par exemple `jumeau: generateurs.moyenne_glissante(fenetre=3, n=6)`). Chacun renvoie un `TwinExercise` (`title`, `statement`, `solution_summary`, `explanation`). Les noms des paramètres sont ceux de la signature : `statistiques_vecteur(values=...)` garde un nom anglais.
 
-| Nom anglais | Alias français |
+| Nom français | Nom anglais |
 | :--- | :--- |
-| `moving_average(window=2, n=5)` | `moyenne_glissante(fenetre=2, n=5)` |
-| `inner_product_selection(n=5, indices=(1, 4))` | `produit_scalaire_selection(...)` |
-| `vector_statistics(values=(2, -1, 5, 2))` | `statistiques_vecteur(...)` |
-| `orthogonal_combination(c1=2, c2=-3)` | `combinaison_orthogonale(...)` |
-| `expression_dimensions()` | `dimensions_expressions()` |
-| `counterexample_guide(famille=...)` | `contre_exemple_guide(...)` |
-| `polynomial_convolution(a_vals=(1, 2), b_vals=(3, -1, 1))` | `convolution_polynomes(...)` |
-| `right_inverse_example()` | `inverse_droite_exemple()` |
-| `gram_schmidt_example()` | `gram_schmidt_exemple()` |
-| `least_squares_example()` | `moindres_carres_exemple()` |
-| `kkt_minimum_norm()` | `kkt_norme_minimale()` |
-| `matrix_from_action()` | `matrice_par_effet()` |
-| `polynomial_evaluation()` | `evaluation_polynome()` |
-| `matrix_power()` | `puissance_matrice()` |
-| `adjacency_matrix()` | `matrice_adjacence()` |
-| `diagonal_scaling()` | `mise_echelle_diagonale()` |
-| `product_inverse()` | `inverse_produit()` |
-| `system_solving()` | `resolution_systeme()` |
-| `block_product()` | `identite_blocs()` |
-| `triangle_inequality()` | `inegalite_triangulaire()` |
+| `moyenne_glissante(fenetre=2, n=5)` | `moving_average(window=2, n=5)` |
+| `produit_scalaire_selection(n=5, indices=(1, 4))` | `inner_product_selection(...)` |
+| `statistiques_vecteur(values=(2, -1, 5, 2))` | `vector_statistics(...)` |
+| `combinaison_orthogonale(c1=2, c2=-3)` | `orthogonal_combination(...)` |
+| `dimensions_expressions()` | `expression_dimensions()` |
+| `contre_exemple_guide(famille=...)` | `counterexample_guide(...)` |
+| `convolution_polynomes(a_vals=(1, 2), b_vals=(3, -1, 1))` | `polynomial_convolution(...)` |
+| `inverse_droite_exemple()` | `right_inverse_example()` |
+| `gram_schmidt_exemple()` | `gram_schmidt_example()` |
+| `moindres_carres_exemple()` | `least_squares_example()` |
+| `kkt_norme_minimale()` | `kkt_minimum_norm()` |
+| `matrice_par_effet()` | `matrix_from_action()` |
+| `evaluation_polynome()` | `polynomial_evaluation()` |
+| `puissance_matrice()` | `matrix_power()` |
+| `matrice_adjacence()` | `adjacency_matrix()` |
+| `mise_echelle_diagonale()` | `diagonal_scaling()` |
+| `inverse_produit()` | `product_inverse()` |
+| `resolution_systeme()` | `system_solving()` |
+| `identite_blocs()` | `block_product()` |
+| `inegalite_triangulaire()` | `triangle_inequality()` |
+| `determinant_sarrus()` | `sarrus_determinant()` |
+| `determinant_blocs()` | `block_determinant()` |
+| `parametre_singulier()` | `singular_parameter()` |
+| `determinant_operations()` | `determinant_row_operations()` |
 
 Chaque fiche du tuteur appelle un générateur adapté à son sujet : la fiche « Un réseau d'amitié » propose ainsi, au palier 4, la matrice d'adjacence d'un réseau de trois personnes, et la fiche « Inverse d'un carré » l'inverse d'un produit sur un autre exemple.
 
 ```python
-from linalg_pedagopy import generators
+from linalg_pedagopy import generateurs
 
-tw = generators.moving_average(window=3, n=6)
+tw = generateurs.moyenne_glissante(fenetre=3, n=6)
 print(tw.title)          # Écart à la moyenne glissante (fenêtre $k=3$, $n=6$)
 print(tw.statement)
 ```

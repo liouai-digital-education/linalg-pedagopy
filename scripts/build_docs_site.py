@@ -63,7 +63,7 @@ PAGES = [
      "subtitle": "Signatures, exceptions et alias français", "badge": "Référence", "number": "07"},
     {"id": "08_catalogue", "src": "08_catalogue_exercices.md", "dst": "08_catalogue_exercices.html",
      "title": "08. Catalogue des exercices",
-     "subtitle": "Les 35 exercices du tuteur par thème et par niveau", "badge": "Exercices", "number": "08"},
+     "subtitle": "Les 39 exercices du tuteur par thème et par niveau", "badge": "Exercices", "number": "08"},
     {"id": "09_jupyterlab", "src": "09_guide_jupyterlab.md", "dst": "09_guide_jupyterlab.html",
      "title": "09. Guide JupyterLab",
      "subtitle": "Installation pas à pas, premières cellules et dépannage", "badge": "Pratique", "number": "09"},

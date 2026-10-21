@@ -51,7 +51,7 @@ except Exception as err:
     print(err)   # Exercice 'moyene-glissante' introuvable. Vouliez-vous dire : moyenne-glissante ? ...
 ```
 
-Les attributs `ex.id`, `ex.number` (alias `numero`), `ex.title` (alias `titre`), `ex.theme`, `ex.level` (alias `niveau`), `ex.type` et `ex.notions` décrivent l'exercice.
+Les attributs `ex.id`, `ex.numero`, `ex.titre`, `ex.theme`, `ex.niveau`, `ex.type` et `ex.notions` décrivent l'exercice.
 
 ---
 
@@ -102,7 +102,7 @@ print(jumeau.title)       # Écart à la moyenne glissante (fenêtre $k=2$, $n=5
 jumeau                    # dans JupyterLab : énoncé analogue + résolution pas à pas
 ```
 
-`twin()` renvoie un `TwinExercise` (`title`, `statement`, `solution_summary`, `explanation`) et débloque le palier 4.
+`jumeau()` renvoie un `TwinExercise` (`title`, `statement`, `solution_summary`, `explanation`) et débloque le palier 4.
 
 ### 3.4 Soumettre une réponse
 
@@ -135,12 +135,12 @@ ex12 = tuteur.exercice("orthogonalite-vrai-faux")
 print(ex12.predire(a="peut être faux", b="toujours vrai", c="peut être faux"))
 
 lab = ex12.labo()         # impossible avant predire(...)
-rapport = lab.test(a=Vector([1, 0, 0]), b=Vector([1, 1, 0]), c=Vector([0, 0, 1]))
+rapport = lab.tester(a=Vector([1, 0, 0]), b=Vector([1, 1, 0]), c=Vector([0, 0, 1]))
 print(rapport.found_counterexample)   # True
 print(rapport.message)
 ```
 
-`lab.test(**instances)` renvoie un `LabReport` : `hypotheses_satisfied`, `results_by_part`, `found_counterexample`, `message`.
+`lab.tester(**instances)` renvoie un `LabReport` : `hypotheses_satisfied`, `results_by_part`, `found_counterexample`, `message`.
 
 ### 3.6 Bilan et reprise
 
@@ -153,14 +153,14 @@ print(ex.bilan())         # nom anglais : ex.summary()
 
 - Statut : en cours
 - Tentatives soumises : 1
-- Paliers d'indices consultés : 1, 2
-- Exercice jumeau consulté : non
+- Paliers d'indices consultés : 1, 2, 4
+- Exercice jumeau consulté : oui
 - Essais au laboratoire : 0
 - Temps passé : 95 s
 - Dernier diagnostic : …
 ```
 
-La progression est enregistrée dans un journal JSON (`config.journal_path`, par défaut `.linalg_pedagopy_journal.json` dans le dossier du carnet). En rouvrant l'exercice plus tard, on retrouve ses indices et ses tentatives. Pour repartir de zéro sur un exercice :
+La progression est enregistrée dans un journal JSON (`config.journal_path`, par défaut `.linalg_pedagopy_journal.json` dans le dossier du carnet). En rouvrant l'exercice plus tard, on retrouve ses indices et ses tentatives : un second lancement des exemples de cette page commence donc au palier suivant. Pour un TP ou un test, `tuteur.exercice(..., journal_path=...)` choisit un autre fichier. Pour repartir de zéro sur un exercice :
 
 ```python
 ex.recommencer()          # nom anglais : ex.reset()
@@ -180,7 +180,7 @@ Avec `ipywidgets` installé (extra `tuteur`), le panneau affiche :
 - une zone de réponse (par exemple `Matrix([[1, 0], [0, 1]])` ou `Vector([1, 2])`) et un bouton **Vérifier** ;
 - une zone de retour où s'affichent indices, jumeau, diagnostic et bilan.
 
-La zone de réponse n'accepte que `Vector`, `Matrix`, `sqrt`, `Rational`, `pi`, des nombres, listes, tuples, dictionnaires et chaînes. Sans `ipywidgets`, `panel()` affiche l'énoncé et le bilan en Markdown.
+La zone de réponse n'accepte que `Vector`, `Matrix`, `sqrt`, `Rational`, `pi`, des nombres, listes, tuples, dictionnaires et chaînes. Sans `ipywidgets`, `panneau()` affiche l'énoncé et le bilan en Markdown.
 
 ---
 
@@ -205,7 +205,7 @@ fiche                            # dans JupyterLab : rendu Markdown de la fiche
 tuteur.mode("etudiant")          # ou "student"
 ```
 
-En mode étudiant, `teacher_sheet()` lève `PermissionError`. En mode enseignant, les données des exercices sont déverrouillées.
+En mode étudiant, `fiche_enseignant()` lève `PermissionError`. En mode enseignant, les données des exercices sont déverrouillées.
 
 ---
 
@@ -263,11 +263,11 @@ jumeau: generateurs.moyenne_glissante(fenetre=2, n=5)
 
 ### Valider une fiche
 
-`validate_sheet` (alias `valider_fiche`) contrôle une fiche : champs et métadonnées présents, numéro unique, type de vérificateur valide, jumeau exécutable, **absence de fuite** dans les indices (aucun indice ne contient la cible, ni n'est accepté comme réponse) et contrôle croisé du vérificateur avec le solveur. Elle n'écrit rien dans le journal.
+`valider_fiche` contrôle une fiche : champs et métadonnées présents, numéro unique, type de vérificateur valide, jumeau exécutable, **absence de fuite** dans les indices (aucun indice ne contient la cible, ni n'est accepté comme réponse) et contrôle croisé du vérificateur avec le solveur. Elle n'écrit rien dans le journal.
 
 ```python
 rapport = tuteur.valider_fiche("moyenne-glissante")
-print(rapport.valide, rapport.errors)       # True ()
+print(rapport.valide, rapport.erreurs)      # True ()
 
 assert all(tuteur.valider_fiche(i).valide for i in tuteur.lister_exercices())
 ```

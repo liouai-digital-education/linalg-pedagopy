@@ -276,8 +276,9 @@ print(oracle.decide(a**2 + 1).verdict)  # Verdict.NONZERO
 <li><strong><code>Verdict.ZERO</code></strong> : L'expression se simplifie formellement en 0 de manière inconditionnelle.</li>
 <li><strong><code>Verdict.NONZERO</code></strong> : L'expression est inconditionnellement non nulle sur $\mathbb{R}$ (ex: $a^2 + 1$, $e^x$, ou constante non nulle).</li>
 <li><strong><code>Verdict.CONDITIONAL</code></strong> : L'expression peut s'annuler pour des valeurs réelles particulières des paramètres. L'oracle extrait les facteurs d'annulation (<code>dec.factors</code>).</li>
-<li><strong><code>Verdict.UNKNOWN</code></strong> : L'expression ne peut être décidée sans hypothèse explicite. L'appel à <code>oracle.is_zero(expr)</code> (qui renvoie <code>True</code>/<code>False</code> quand la réponse est inconditionnelle) lève alors une <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/exceptions.py"><code>UndecidableZeroError</code></a>.</li>
+<li><strong><code>Verdict.UNKNOWN</code></strong> : L'expression ne peut être décidée sans hypothèse explicite.</li>
 </ol>
+<p><code>oracle.is_zero(expr)</code> renvoie <code>True</code> ou <code>False</code> quand la réponse est inconditionnelle (verdict <code>ZERO</code> ou <code>NONZERO</code>) ; pour les verdicts <code>CONDITIONAL</code> et <code>UNKNOWN</code>, il lève une <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/exceptions.py"><code>UndecidableZeroError</code></a>. <code>oracle.decide(expr)</code> ne lève jamais : il renvoie le verdict et, s'il y a lieu, les facteurs d'annulation.</p>
 <h3 id="33-traitement-des-radicaux-parametriques-unrad">3.3 Traitement des radicaux paramétriques (<code>unrad</code>)</h3>
 <p>Les expressions contenant des racines carrées paramétriques (comme $\sqrt{1 - m^2}$ ou $\sqrt{a^2 + b^2}$) sont traitées via <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/zero.py"><code>_extract_factors</code></a> :
 1. L'oracle fait appel à <code>sympy.solvers.solvers.unrad</code> pour éliminer les radicaux de l'équation $f(m) = 0$.
@@ -334,9 +335,9 @@ print(Condition.eq(a, b**2).format_latex())   # a = b^{2}
 <p>Un <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/cases.py"><code>CaseSplit[T]</code></a> regroupe un ensemble fini de branches disjointes <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/cases.py"><code>Branch[T]</code></a> couvrant la totalité de l'espace des paramètres :</p>
 <p><div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
     CS["CaseSplit (système [[1, a], [a, 1]] x = (1, 1))"]
-    CS --&gt; B1["Branche générique : a ≠ 1 ∧ a ≠ -1<br/>Solution unique"]
+    CS --&gt; B1["Branche générique : a ≠ 1 ∧ a ≠ −1<br/>Solution unique"]
     CS --&gt; B2["Branche particulière : a = 1<br/>Infinité de solutions (droite affine)"]
-    CS --&gt; B3["Branche particulière : a = -1<br/>Système incompatible (ensemble vide)"]</pre></div></p>
+    CS --&gt; B3["Branche particulière : a = −1<br/>Système incompatible (ensemble vide)"]</pre></div></p>
 <h3 id="45-partitionnement-disjoint-par-prefixes-dinegalites">4.5 Partitionnement disjoint par préfixes d'inégalités</h3>
 <p>Lorsqu'un pivot présente plusieurs facteurs d'annulation $(f_1, f_2, \dots, f_k)$, l'algorithme génère des branches mutuellement disjointes selon la méthode des préfixes d'inégalités :
 - Branche 1 : $f_1 = 0$
@@ -356,7 +357,7 @@ b = Vector([1, 1])
 
 res = GaussJordan(A, b).run()      # CaseSplit à 3 branches
 for br in res.branches:
-    print(br.condition)            # a ≠ 1 et a ≠ -1 / a = 1 / a = -1
+    print(br.condition)            # a ≠ 1 et a ≠ −1 / a = 1 / a = −1
 
 # at(...) renvoie le GJResult de la branche concernée, spécialisé
 spec_1 = res.at(a=1)

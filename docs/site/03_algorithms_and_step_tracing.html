@@ -168,9 +168,9 @@
 <h2 id="1-moteur-de-tracabilite-contextuelle-tracer">1. Moteur de traçabilité contextuelle (<code>Tracer</code>)</h2>
 <h3 id="11-pourquoi-une-tracabilite-hierarchique-decision-d6">1.1 Pourquoi une traçabilité hiérarchique ? (Décision D6)</h3>
 <p>L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une réponse numérique brute, mais à comprendre la succession d'étapes de calcul. Cependant, un niveau d'explication unique ne convient pas à tous les publics :
-- Un étudiant débutant a besoin de voir la réduction au même dénominateur lors d'une opération de ligne.
-- Un étudiant avancé ne souhaite voir que la matrice résultante à chaque pivot.
-- Un enseignant souhaite projeter les grandes étapes au tableau.</p>
+- Un enseignant qui projette au tableau veut les opérations de lignes et les matrices obtenues.
+- Un étudiant en TD a besoin, en plus, du découpage colonne par colonne et du choix de chaque pivot.
+- Pour comprendre une discussion par cas, il faut voir les tests de nullité qui l'ont déclenchée.</p>
 <p><code>linalg_pedagopy</code> résout ce dilemme par un <strong>traceur arborescent</strong> : chaque appel à <code>run()</code> enregistre la trace <strong>complète</strong> (jusqu'au niveau 3) dans <code>result.trace</code>, et c'est au moment de l'affichage que l'on choisit le niveau de détail avec <code>result.explain(level=...)</code> (par défaut <code>config.default_trace_level</code>, qui vaut 1) :</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, GaussJordan, tracing
 
@@ -218,12 +218,12 @@ print(len(arbre.children))
 <tr>
 <td style="text-align: center;"><strong>2</strong></td>
 <td style="text-align: left;"><strong>Micro-étapes</strong> <em>(recommandé en TD)</em></td>
-<td style="text-align: left;">Ajoute le traitement colonne par colonne, le choix et la stratégie de pivot, les projections et normalisations.</td>
+<td style="text-align: left;">Ajoute le traitement colonne par colonne, le choix et la stratégie de pivot, la base du noyau, les projections et normalisations.</td>
 </tr>
 <tr>
 <td style="text-align: center;"><strong>3</strong></td>
 <td style="text-align: left;"><strong>Contrôles élémentaires</strong></td>
-<td style="text-align: left;">Ajoute les vérifications de nullité de l'oracle (<code>CHECK</code>) et les détails arithmétiques.</td>
+<td style="text-align: left;">Ajoute les tests de nullité de l'oracle (« Ce coefficient est nul dans le domaine exact »), qui expliquent pourquoi une case est sautée ou une discussion ouverte.</td>
 </tr>
 </tbody>
 </table>
@@ -245,7 +245,7 @@ print(len(arbre.children))
     strict: bool = False,
     max_depth: int | None = None,
     max_cases: int | None = None,
-    assumptions: Condition | dict | None = None,
+    assumptions: Condition | dict | str | list | None = None,
     compute_inverse: bool = False,
 )
 </code></pre></div>
@@ -264,11 +264,11 @@ print(len(arbre.children))
   Pour poursuivre : précisez des hypothèses sur les paramètres, par exemple assumptions="a != 1", ou relevez le plafond (max_cases=16, ou config.max_cases = 16).</code></p>
 <p>Les mêmes informations sont des attributs de l'exception : <code>limit</code>, <code>value</code>, <code>reached</code>, <code>factors</code>, <code>condition</code>, <code>suggested_assumption</code>.
 - <strong>Grandes matrices à paramètres</strong> : au-delà de <code>config.max_generic_dim</code> (4 par défaut), Gauss-Jordan sur une matrice qui contient des paramètres émet un <code>PedagogicalWarning</code>. Le calcul est mené à terme, mais l'avertissement rappelle qu'une discussion par cas sur une matrice symbolique 5 × 5 est rarement lisible et qu'il vaut mieux chercher d'abord une structure remarquable (triangulaire par blocs, tridiagonale, $aI + bJ$, Vandermonde…). <code>config.max_generic_dim = None</code> le supprime ; <code>warnings.simplefilter("error", PedagogicalWarning)</code> le transforme en erreur.
-- <code>assumptions</code> : hypothèses initiales sur les paramètres de la branche.
+- <code>assumptions</code> : hypothèses sur les paramètres, sous forme de <code>Condition</code>, de chaîne (<code>"a != 1"</code>, <code>"a = 2"</code>), de liste de chaînes ou de dictionnaire (<code>{"a": 2}</code>, <code>{"a": "!= 1"}</code>). Seules les égalités et les différences sont prises en compte : une inégalité d'ordre (<code>"a &gt; 0"</code>) ou une forme inconnue lève <code>InvalidAssumptionError</code>.
 - <code>compute_inverse</code> : si <code>True</code>, calcule l'inverse via l'échelonnement simultané de $[A \mid I_n]$ (champ <code>inverse</code> du résultat).</p>
-<p>Le résultat <code>GJResult</code> expose <code>A</code>, <code>b</code>, <code>rref</code>, <code>augmented_rref</code>, <code>pivots</code>, <code>rank</code>, <code>free_vars</code>, <code>nullspace_basis</code>, <code>solution</code> et <code>inverse</code>.</p>
+<p>Le résultat <code>GJResult</code> expose <code>A</code>, <code>b</code>, <code>rref</code>, <code>augmented_rref</code>, <code>pivots</code>, <code>rank</code>, <code>free_vars</code>, <code>nullspace_basis</code>, <code>solution</code> et <code>inverse</code>. <code>pivots</code> et <code>free_vars</code> sont des indices à partir de 0, alors que la trace numérote colonnes et variables à partir de 1 (« colonnes pivots = (1, 2) », « x2 libre »).</p>
 <h3 id="22-typologie-des-ensembles-de-solutions">2.2 Typologie des ensembles de solutions</h3>
-<p>Le résultat renvoyé par <code>GaussJordan.run()</code> est un <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/gauss_jordan.py"><code>GJResult</code></a> dont la propriété <code>solution</code> appartient à l'une des 3 catégories de <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/base.py"><code>SolutionSet</code></a> :</p>
+<p>Le résultat renvoyé par <code>GaussJordan.run()</code> est un <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/gauss_jordan.py"><code>GJResult</code></a>, ou, si la matrice contient des paramètres, une discussion par cas (<code>CaseSplit</code>) dont chaque branche porte un <code>GJResult</code>. La propriété <code>solution</code> d'un <code>GJResult</code> la propriété <code>solution</code> appartient à l'une des 3 catégories de <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/base.py"><code>SolutionSet</code></a> :</p>
 <p><div class="mermaid-wrapper"><pre class="mermaid">classDiagram
     class SolutionSet
     class UniqueSolution {
@@ -312,8 +312,8 @@ print(res.explain())
 
 for br in res.branches:
     print(br.condition, "-&gt;", br.result.solution)
-# m ≠ 1 et m ≠ -2 -&gt; UniqueSolution(x=(1/(m + 2), 1/(m + 2), 1/(m + 2)))
-# m = -2 -&gt; EmptySolution(ligne L3 : 0 = 3)
+# m ≠ 1 et m ≠ −2 -&gt; UniqueSolution(x=(1/(m + 2), 1/(m + 2), 1/(m + 2)))
+# m = −2 -&gt; EmptySolution(ligne L3 : 0 = 3)
 # m = 1 -&gt; (1, 0, 0) + t_1·(-1, 1, 0) + t_2·(-1, 0, 1)
 </code></pre></div>
 <p>Ce code produit automatiquement un <code>CaseSplit</code> distinguant :
@@ -343,8 +343,8 @@ print(res)
 <p>Seuls les facteurs irréductibles sur $\mathbb{Q}$ sont décomposés, et seulement avec les radicaux qui figurent dans la condition de la branche : $1 - 2a$ garde son écriture. L'option <code>config.factor_policy = "rational"</code> (ou <code>using_config(factor_policy="rational")</code>) rétablit la factorisation sur $\mathbb{Q}$ seul.</p>
 <p>Dans une branche définie par une égalité non linéaire, par exemple $a^2 - 3 = 0$, les coefficients de la forme réduite sont remplacés par leur reste dans la division par $a^2 - 3$ ; une étape de niveau 2 l'annonce. Un témoin d'incompatibilité s'écrit alors $0 = 2$ plutôt que $0 = a^4 - 3a^2 + 2$.</p>
 <hr/>
-<h2 id="3-substitutions-triangulaires">3. Substitutions Triangulaires</h2>
-<p>Pour les systèmes dont la matrice est déjà échelonnée, les algorithmes de substitution évitent le coût complet d'un pivot de Gauss :</p>
+<h2 id="3-substitutions-triangulaires">3. Substitutions triangulaires</h2>
+<p>Pour un système dont la matrice est <strong>triangulaire et carrée</strong>, les algorithmes de substitution évitent le coût complet d'un pivot de Gauss. Une matrice non carrée lève <code>DimensionMismatchError</code>, un coefficient diagonal nul <code>SingularMatrixError</code>.</p>
 <ul>
 <li><a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/triangular.py"><code>ForwardSubstitution</code></a> : Résout $L y = b$ pour une matrice triangulaire inférieure $L$ (descente).</li>
 <li><a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/triangular.py"><code>BackSubstitution</code></a> : Résout $U x = y$ pour une matrice triangulaire supérieure $U$ (remontée).</li>
@@ -360,6 +360,15 @@ y = Vector([3, 8, 4])
 
 res = BackSubstitution(U, y).run()   # TriangularResult(x, A, c)
 print(res.x)  # (1, 2, 1)
+</code></pre></div>
+<p>Si un coefficient diagonal dépend d'un paramètre, la discussion couvre tous les cas : la branche générique donne la solution, et chaque branche où un coefficient diagonal s'annule le signale (<code>singular</code>, <code>singular_index</code>) au lieu de la solution, car la substitution ne s'y applique pas ; <code>GaussJordan</code> discute alors les solutions.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import symbols
+
+a, = symbols("a")
+print(BackSubstitution(Matrix([[1, 2], [0, a]]), Vector([1, 1])).run())
+# Discussion selon a
+# ├─ Cas a ≠ 0 (générique) : x = ((a - 2)/a, 1/a)
+# └─ Cas a = 0 : coefficient diagonal (2,2) nul : système singulier, substitution impossible
 </code></pre></div>
 <hr/>
 <h2 id="4-orthogonalisation-de-gram-schmidt-gramschmidt">4. Orthogonalisation de Gram-Schmidt (<code>GramSchmidt</code>)</h2>
@@ -500,18 +509,22 @@ print(res.explain(level=1))
 print(res.zeros(split=True))
 # Discussion selon a
 # ├─ Cas a ≠ −2 et a ≠ 1 (générique) : True
-# ├─ Cas a = −2 : False
-# └─ Cas a = 1 : False
+# └─ Cas a = −2 ou a = 1 : False
 </code></pre></div>
+<p>Les branches qui ont le même résultat sont regroupées à l'affichage (voir le guide 01, § 4.2) ; <code>res.zeros(split=True).branches</code> les garde séparées.</p>
 <p>Un déterminant qui ne s'annule jamais donne <code>()</code> ; un déterminant identiquement nul donne une seule condition, toujours vraie.</p>
 <h3 id="73-elimination-cofacteurs-et-sarrus">7.3 Élimination, cofacteurs et Sarrus</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">B = Matrix([[2, 4, 1], [1, 3, 2], [0, 1, 5]])
 print(Determinant(B, method="elimination").run().explain(level=1))
 # ├─ On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
 # ├─ On annule le coefficient (2,1) : L2 ← L2 − (2)·L1 (une transvection ne change pas le déterminant).
-# ├─ ...
+# ├─ On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+# ├─ On annule le coefficient (3,2) : L3 ← L3 − (−2)·L2 (une transvection ne change pas le déterminant).
 # ├─ Matrice triangulaire : det A = (+1) × produit des pivots (1, 1, 7) (2 échange(s) de lignes).
 # └─ det A = 7.
+
+# Le premier échange vient de la stratégie de pivot « simplest » : le pivot 1 (ligne 2) est
+# préféré au pivot 2 (ligne 1), bien que celui-ci soit non nul.
 
 C = Matrix([[1, 0, 2], [3, 0, 4], [5, 6, 7]])
 print(Determinant(C, method="cofactors").run().explain(level=2))
@@ -531,8 +544,7 @@ print(Determinant(D, method="sarrus").run().explain(level=1))
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(Determinant(A, method="elimination").run())
 # Discussion selon a
 # ├─ Cas a ≠ 1 et a ≠ −2 (générique) : det A = (a - 1)**2*(a + 2) (méthode : élimination)
-# ├─ Cas a = −2 : det A = 0 (méthode : élimination)
-# └─ Cas a = 1 : det A = 0 (méthode : élimination)
+# └─ Cas a = −2 ou a = 1 : det A = 0 (méthode : élimination)
 Determinant(A, method="elimination", assumptions={"a": 3}).run().value   # 20
 A.det(method="elimination")                                              # CaseSplit des valeurs
 </code></pre></div>
@@ -608,7 +620,7 @@ A.det(method="elimination")                                              # CaseS
         </li>
         
         <li class="toc-item ">
-          <a href="#3-substitutions-triangulaires">3. Substitutions Triangulaires</a>
+          <a href="#3-substitutions-triangulaires">3. Substitutions triangulaires</a>
         </li>
         
         <li class="toc-item ">
