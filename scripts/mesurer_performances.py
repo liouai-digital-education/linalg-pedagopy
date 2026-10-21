@@ -23,6 +23,7 @@ import platform
 import statistics
 import sys
 import time
+import warnings
 from pathlib import Path
 
 RACINE = Path(__file__).resolve().parent.parent
@@ -31,7 +32,7 @@ sys.path.insert(0, str(RACINE))
 
 import sympy as sp  # noqa: E402
 
-from linalg_pedagopy import CaseSplit, PedagopyError, __version__  # noqa: E402
+from linalg_pedagopy import CaseSplit, PedagogicalWarning, PedagopyError, __version__  # noqa: E402
 from tests.campagnes import CAS_CAMPAGNES, taille  # noqa: E402
 
 
@@ -75,6 +76,7 @@ def main() -> int:
     if inconnus:
         print(f"Cas inconnus : {', '.join(inconnus)}. Cas disponibles : {', '.join(sorted(CAS_CAMPAGNES))}")
         return 2
+    warnings.simplefilter("ignore", PedagogicalWarning)  # l'avertissement de taille brouillerait le tableau
     noms = args.cas or sorted(CAS_CAMPAGNES)
     if args.rapide:
         noms = [n for n in noms if not CAS_CAMPAGNES[n].lent]
