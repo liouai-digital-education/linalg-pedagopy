@@ -32,13 +32,13 @@ Discussion selon m
 │    │  ├─ Choix du pivot en (1,1) de valeur m (stratégie : simplest).
 │    │  ├─ On normalise le pivot de la ligne 1 : L1 ← (1/m)·L1.
 │    │  │  [(1 sqrt(1 - m**2)/m | 1/m); (sqrt(1 - m**2) -m | 1)]
-│    │  └─ On annule le coefficient (2,1) : L2 ← L2 - √(1 − m²)·L1.
+│    │  └─ On annule le coefficient (2,1) : L2 ← L2 − √(1 − m²)·L1.
 │    │     [(1 sqrt(1 - m**2)/m | 1/m); (0 -1/m | (m - sqrt(1 - m**2))/m)]
 │    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
 │    │  ├─ Choix du pivot en (2,2) de valeur −1/m (stratégie : simplest).
 │    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−m)·L2.
 │    │  │  [(1 sqrt(1 - m**2)/m | 1/m); (0 1 | -m + sqrt(1 - m**2))]
-│    │  └─ On annule le coefficient (1,2) : L1 ← L1 - √(1 − m²)/m·L2.
+│    │  └─ On annule le coefficient (1,2) : L1 ← L1 − √(1 − m²)/m·L2.
 │    │     [(1 0 | m + sqrt(1 - m**2)); (0 1 | -m + sqrt(1 - m**2))]
 │    ├─ Pivots non nuls, rang 2, solution unique : x = ( m + √(1 − m²), −m + √(1 − m²) ).
 │    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
@@ -67,13 +67,13 @@ Discussion selon m
 │    │  ├─ Choix du pivot en (1,1) de valeur m (stratégie : simplest).
 │    │  ├─ On normalise le pivot de la ligne 1 : L1 ← (1/m)·L1.
 │    │  │  [(1 sqrt(1 - m**2)/m | 1/m); (sqrt(1 - m**2) -m | 1)]
-│    │  └─ On annule le coefficient (2,1) : L2 ← L2 - √(1 − m²)·L1.
+│    │  └─ On annule le coefficient (2,1) : L2 ← L2 − √(1 − m²)·L1.
 │    │     [(1 sqrt(1 - m**2)/m | 1/m); (0 -1/m | (m - sqrt(1 - m**2))/m)]
 │    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
 │    │  ├─ Choix du pivot en (2,2) de valeur −1/m (stratégie : simplest).
 │    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−m)·L2.
 │    │  │  [(1 sqrt(1 - m**2)/m | 1/m); (0 1 | -m + sqrt(1 - m**2))]
-│    │  └─ On annule le coefficient (1,2) : L1 ← L1 - √(1 − m²)/m·L2.
+│    │  └─ On annule le coefficient (1,2) : L1 ← L1 − √(1 − m²)/m·L2.
 │    │     [(1 0 | m + sqrt(1 - m**2)); (0 1 | -m + sqrt(1 - m**2))]
 │    ├─ Pivots non nuls, rang 2, solution unique : x = ( m + √(1 − m²), −m + √(1 − m²) ).
 │    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
@@ -108,13 +108,13 @@ Discussion selon m
       - Choix du pivot en (1,1) de valeur m (stratégie : simplest).
       - On normalise le pivot de la ligne 1 : L1 ← (1/m)·L1.
         $$\xrightarrow{L_{1} \leftarrow \left(\frac{1}{m}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \color{blue}{\frac{\sqrt{1 - m^{2}}}{m}} & \color{blue}{\frac{1}{m}} \\ \sqrt{1 - m^{2}} & - m & 1 \end{array}\right]$$
-      - On annule le coefficient (2,1) : L2 ← L2 - √(1 − m²)·L1.
+      - On annule le coefficient (2,1) : L2 ← L2 − √(1 − m²)·L1.
         $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(\sqrt{1 - m^{2}}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \frac{\sqrt{1 - m^{2}}}{m} & \frac{1}{m} \\ \color{blue}{0} & \color{blue}{- \frac{1}{m}} & \color{blue}{\frac{m - \sqrt{1 - m^{2}}}{m}} \end{array}\right]$$
     - Traitement de la colonne 2 (ligne pivot courante : 2).
       - Choix du pivot en (2,2) de valeur −1/m (stratégie : simplest).
       - On normalise le pivot de la ligne 2 : L2 ← (−m)·L2.
         $$\xrightarrow{L_{2} \leftarrow \left(- m\right) L_{2}} \left[\begin{array}{cc|c} 1 & \frac{\sqrt{1 - m^{2}}}{m} & \frac{1}{m} \\ \color{blue}{0} & \boxed{1} & \color{blue}{- m + \sqrt{1 - m^{2}}} \end{array}\right]$$
-      - On annule le coefficient (1,2) : L1 ← L1 - √(1 − m²)/m·L2.
+      - On annule le coefficient (1,2) : L1 ← L1 − √(1 − m²)/m·L2.
         $$\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{\sqrt{1 - m^{2}}}{m}\right) L_{2}} \left[\begin{array}{cc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{m + \sqrt{1 - m^{2}}} \\ 0 & \boxed{1} & - m + \sqrt{1 - m^{2}} \end{array}\right]$$
     - Pivots non nuls, rang 2, solution unique : x = ( m + √(1 − m²), −m + √(1 − m²) ).
       $$\left[\begin{array}{c} m + \sqrt{1 - m^{2}} \\ - m + \sqrt{1 - m^{2}} \end{array}\right]$$
@@ -148,7 +148,7 @@ Discussion selon m
       \item Choix du pivot en (1,1) de valeur m (stratégie : simplest).
       \item On normalise le pivot de la ligne 1 : L1 ← (1/m)·L1.
       \[\xrightarrow{L_{1} \leftarrow \left(\frac{1}{m}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \color{blue}{\frac{\sqrt{1 - m^{2}}}{m}} & \color{blue}{\frac{1}{m}} \\ \sqrt{1 - m^{2}} & - m & 1 \end{array}\right]\]
-      \item On annule le coefficient (2,1) : L2 ← L2 - √(1 − m²)·L1.
+      \item On annule le coefficient (2,1) : L2 ← L2 − √(1 − m²)·L1.
       \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(\sqrt{1 - m^{2}}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \frac{\sqrt{1 - m^{2}}}{m} & \frac{1}{m} \\ \color{blue}{0} & \color{blue}{- \frac{1}{m}} & \color{blue}{\frac{m - \sqrt{1 - m^{2}}}{m}} \end{array}\right]\]
     \end{itemize}
     \item Traitement de la colonne 2 (ligne pivot courante : 2).
@@ -156,7 +156,7 @@ Discussion selon m
       \item Choix du pivot en (2,2) de valeur −1/m (stratégie : simplest).
       \item On normalise le pivot de la ligne 2 : L2 ← (−m)·L2.
       \[\xrightarrow{L_{2} \leftarrow \left(- m\right) L_{2}} \left[\begin{array}{cc|c} 1 & \frac{\sqrt{1 - m^{2}}}{m} & \frac{1}{m} \\ \color{blue}{0} & \boxed{1} & \color{blue}{- m + \sqrt{1 - m^{2}}} \end{array}\right]\]
-      \item On annule le coefficient (1,2) : L1 ← L1 - √(1 − m²)/m·L2.
+      \item On annule le coefficient (1,2) : L1 ← L1 − √(1 − m²)/m·L2.
       \[\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{\sqrt{1 - m^{2}}}{m}\right) L_{2}} \left[\begin{array}{cc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{m + \sqrt{1 - m^{2}}} \\ 0 & \boxed{1} & - m + \sqrt{1 - m^{2}} \end{array}\right]\]
     \end{itemize}
     \item Pivots non nuls, rang 2, solution unique : x = ( m + √(1 − m²), −m + √(1 − m²) ).
@@ -201,14 +201,14 @@ Discussion selon m
   
   <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur m (stratégie : simplest).</div>
 <div class='pedagopy-step'>On normalise le pivot de la ligne 1 : L1 ← (1/m)·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow \left(\frac{1}{m}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \color{blue}{\frac{\sqrt{1 - m^{2}}}{m}} & \color{blue}{\frac{1}{m}} \\ \sqrt{1 - m^{2}} & - m & 1 \end{array}\right]\]</div></div>
-<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 - √(1 − m²)·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(\sqrt{1 - m^{2}}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \frac{\sqrt{1 - m^{2}}}{m} & \frac{1}{m} \\ \color{blue}{0} & \color{blue}{- \frac{1}{m}} & \color{blue}{\frac{m - \sqrt{1 - m^{2}}}{m}} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 − √(1 − m²)·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(\sqrt{1 - m^{2}}\right) L_{1}} \left[\begin{array}{cc|c} \boxed{1} & \frac{\sqrt{1 - m^{2}}}{m} & \frac{1}{m} \\ \color{blue}{0} & \color{blue}{- \frac{1}{m}} & \color{blue}{\frac{m - \sqrt{1 - m^{2}}}{m}} \end{array}\right]\]</div></div>
 </details>
 <details open>
   <summary>Traitement de la colonne 2 (ligne pivot courante : 2).</summary>
   
   <div class='pedagopy-step'>Choix du pivot en (2,2) de valeur −1/m (stratégie : simplest).</div>
 <div class='pedagopy-step'>On normalise le pivot de la ligne 2 : L2 ← (−m)·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow \left(- m\right) L_{2}} \left[\begin{array}{cc|c} 1 & \frac{\sqrt{1 - m^{2}}}{m} & \frac{1}{m} \\ \color{blue}{0} & \boxed{1} & \color{blue}{- m + \sqrt{1 - m^{2}}} \end{array}\right]\]</div></div>
-<div class='pedagopy-step'>On annule le coefficient (1,2) : L1 ← L1 - √(1 − m²)/m·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{\sqrt{1 - m^{2}}}{m}\right) L_{2}} \left[\begin{array}{cc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{m + \sqrt{1 - m^{2}}} \\ 0 & \boxed{1} & - m + \sqrt{1 - m^{2}} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (1,2) : L1 ← L1 − √(1 − m²)/m·L2.<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftarrow L_{1} - \left(\frac{\sqrt{1 - m^{2}}}{m}\right) L_{2}} \left[\begin{array}{cc|c} \color{blue}{1} & \color{blue}{0} & \color{blue}{m + \sqrt{1 - m^{2}}} \\ 0 & \boxed{1} & - m + \sqrt{1 - m^{2}} \end{array}\right]\]</div></div>
 </details>
 <div class='pedagopy-step'>Pivots non nuls, rang 2, solution unique : x = ( m + √(1 − m²), −m + √(1 − m²) ).<div class='pedagopy-math'>\[\left[\begin{array}{c} m + \sqrt{1 - m^{2}} \\ - m + \sqrt{1 - m^{2}} \end{array}\right]\]</div></div>
 <div class='pedagopy-step'>Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).<div class='pedagopy-math'>\[\left[\begin{array}{cc|c} 1 & 0 & m + \sqrt{1 - m^{2}} \\ 0 & 1 & - m + \sqrt{1 - m^{2}} \end{array}\right]\]</div></div>

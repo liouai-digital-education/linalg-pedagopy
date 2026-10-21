@@ -479,6 +479,10 @@ class GaussJordan(Procedure[GJResult]):
                         grid[r][col] = sp.Integer(0)
                         sign_str = "-" if not str(factor).startswith("-") else "+"
                         lam_abs = -factor if str(factor).startswith("-") else factor
+                        # Un multiplicateur somme est parenthésé : L2 ← L2 − (a − 1)·L1
+                        lam_txt = format_value_text(lam_abs)
+                        if isinstance(lam_abs, sp.Add):
+                            lam_txt = f"({lam_txt})"
                         snap_mat = Matrix._from_exact_rows(grid)
                         record(
                             StepKind.ROW_ADD,
@@ -494,8 +498,9 @@ class GaussJordan(Procedure[GJResult]):
                             i=r + 1,
                             j=pivot_row + 1,
                             col=col + 1,
-                            sign=sign_str,
+                            sign="−" if sign_str == "-" else "+",
                             lam=lam_abs,
+                            lam_txt=lam_txt,
                         )
 
                 pivots.append(col)

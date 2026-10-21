@@ -16,7 +16,7 @@ Réduction de Gauss-Jordan d'une matrice 2×2.
    [(1 2 | 1 0); (2 4 | 0 1)]
 ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
 │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
-│  └─ On annule le coefficient (2,1) : L2 ← L2 - 2·L1.
+│  └─ On annule le coefficient (2,1) : L2 ← L2 − 2·L1.
 │     [(1 2 | 1 0); (0 0 | -2 1)]
 ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
 ├─ La matrice est singulière (rang 1 < 2) : elle n'est pas inversible.
@@ -29,7 +29,7 @@ Réduction de Gauss-Jordan d'une matrice 2×2.
 ├─ Traitement de la colonne 1 (ligne pivot courante : 1).
 │  ├─ Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
 │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
-│  └─ On annule le coefficient (2,1) : L2 ← L2 - 2·L1.
+│  └─ On annule le coefficient (2,1) : L2 ← L2 − 2·L1.
 │     [(1 2 | 1 0); (0 0 | -2 1)]
 ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
 ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
@@ -42,7 +42,7 @@ Réduction de Gauss-Jordan d'une matrice 2×2.
   $$\left[\begin{array}{cc|cc} 1 & 2 & 1 & 0 \\ 2 & 4 & 0 & 1 \end{array}\right]$$
   - Traitement de la colonne 1 (ligne pivot courante : 1).
     - Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
-    - On annule le coefficient (2,1) : L2 ← L2 - 2·L1.
+    - On annule le coefficient (2,1) : L2 ← L2 − 2·L1.
       $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(2\right) L_{1}} \left[\begin{array}{cc|cc} \boxed{1} & 2 & 1 & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{-2} & \color{blue}{1} \end{array}\right]$$
   - Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
   - La matrice est singulière (rang 1 < 2) : elle n'est pas inversible.
@@ -57,7 +57,7 @@ Réduction de Gauss-Jordan d'une matrice 2×2.
     \item Traitement de la colonne 1 (ligne pivot courante : 1).
     \begin{itemize}
       \item Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).
-      \item On annule le coefficient (2,1) : L2 ← L2 - 2·L1.
+      \item On annule le coefficient (2,1) : L2 ← L2 − 2·L1.
       \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(2\right) L_{1}} \left[\begin{array}{cc|cc} \boxed{1} & 2 & 1 & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{-2} & \color{blue}{1} \end{array}\right]\]
     \end{itemize}
     \item Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
@@ -76,7 +76,7 @@ Réduction de Gauss-Jordan d'une matrice 2×2.
   <summary>Traitement de la colonne 1 (ligne pivot courante : 1).</summary>
   
   <div class='pedagopy-step'>Choix du pivot en (1,1) de valeur 1 (stratégie : simplest).</div>
-<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 - 2·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(2\right) L_{1}} \left[\begin{array}{cc|cc} \boxed{1} & 2 & 1 & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{-2} & \color{blue}{1} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 − 2·L1.<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(2\right) L_{1}} \left[\begin{array}{cc|cc} \boxed{1} & 2 & 1 & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{-2} & \color{blue}{1} \end{array}\right]\]</div></div>
 </details>
 <div class='pedagopy-step'>Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.</div>
 <div class='pedagopy-step'>La matrice est singulière (rang 1 &lt; 2) : elle n&#x27;est pas inversible.</div>

@@ -45,7 +45,7 @@ Discussion selon a
 │    │  ├─ Choix du pivot en (2,2) de valeur a − 1 (stratégie : simplest).
 │    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/(a − 1))·L2.
 │    │  │  [(1 1/(a**2 - 2) | 1/(a**2 - 2)); (0 1 | 1/(a - 1))]
-│    │  └─ On annule le coefficient (1,2) : L1 ← L1 - 1/(a² − 2)·L2.
+│    │  └─ On annule le coefficient (1,2) : L1 ← L1 − 1/(a² − 2)·L2.
 │    │     [(1 0 | (a - 2)/((a - 1)*(a**2 - 2))); (0 1 | 1/(a - 1))]
 │    ├─ Pivots non nuls, rang 2, solution unique : x = ( (a − 2)/((a − 1)·(a − √(2))·(a + √(2))), 1/(a − 1) ).
 │    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
@@ -59,7 +59,7 @@ Discussion selon a
 │    │  └─ On normalise le pivot de la ligne 1 : L1 ← (−1)·L1.
 │    │     [(1 -1 | -1); (0 0 | 1)]
 │    ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
-│    ├─ Système incompatible : la ligne L2 donne 0 = 1 (témoin : 0 = 1).
+│    ├─ Système incompatible : la ligne L2 donne 0 = 1.
 │    └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
 │       [(1 -1 | -1); (0 0 | 1)]
 └─ Cas a² − 2 = 0 : L2 devient (0 0 | 2 - a)
@@ -69,11 +69,11 @@ Discussion selon a
      ├─ Aucun pivot non nul disponible dans la colonne 1 : variable x_1 libre.
      ├─ Traitement de la colonne 2 (ligne pivot courante : 1).
      │  ├─ Choix du pivot en (1,2) de valeur 1 (stratégie : simplest).
-     │  └─ On annule le coefficient (2,2) : L2 ← L2 - a − 1·L1.
+     │  └─ On annule le coefficient (2,2) : L2 ← L2 − (a − 1)·L1.
      │     [(a**2 - 2 1 | 1); (-a**3 + a**2 + 2*a - 2 0 | 2 - a)]
      ├─ Dans cette branche, a² − 2 = 0 : chaque coefficient est remplacé par son reste dans la division par ce polynôme, ce qui fait disparaître les puissances de degré trop élevé.
      │  [(0 1 | 1); (0 0 | 2 - a)]
-     ├─ Système incompatible : la ligne L2 donne 0 = 2 − a (témoin : 0 = 1).
+     ├─ Système incompatible : la ligne L2 donne 0 = 2 − a.
      └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (2).
         [(0 1 | 1); (0 0 | 2 - a)]
 
@@ -93,7 +93,7 @@ Discussion selon a
 │    │  ├─ Choix du pivot en (2,2) de valeur a − 1 (stratégie : simplest).
 │    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/(a − 1))·L2.
 │    │  │  [(1 1/(a**2 - 2) | 1/(a**2 - 2)); (0 1 | 1/(a - 1))]
-│    │  └─ On annule le coefficient (1,2) : L1 ← L1 - 1/(a² − 2)·L2.
+│    │  └─ On annule le coefficient (1,2) : L1 ← L1 − 1/(a² − 2)·L2.
 │    │     [(1 0 | (a - 2)/((a - 1)*(a**2 - 2))); (0 1 | 1/(a - 1))]
 │    ├─ Pivots non nuls, rang 2, solution unique : x = ( (a − 2)/((a − 1)·(a − √(2))·(a + √(2))), 1/(a − 1) ).
 │    └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
@@ -110,7 +110,7 @@ Discussion selon a
 │    │  └─ Ce coefficient est nul dans le domaine exact (0 = 0).
 │    ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
 │    ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
-│    ├─ Système incompatible : la ligne L2 donne 0 = 1 (témoin : 0 = 1).
+│    ├─ Système incompatible : la ligne L2 donne 0 = 1.
 │    └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (1).
 │       [(1 -1 | -1); (0 0 | 1)]
 └─ Cas a² − 2 = 0 : L2 devient (0 0 | 2 - a)
@@ -123,10 +123,10 @@ Discussion selon a
      ├─ Traitement de la colonne 2 (ligne pivot courante : 1).
      │  ├─ Choix du pivot en (1,2) de valeur 1 (stratégie : simplest).
      │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
-     │  └─ On annule le coefficient (2,2) : L2 ← L2 - a − 1·L1.
+     │  └─ On annule le coefficient (2,2) : L2 ← L2 − (a − 1)·L1.
      │     [(a**2 - 2 1 | 1); (-a**3 + a**2 + 2*a - 2 0 | 2 - a)]
      ├─ Dans cette branche, a² − 2 = 0 : chaque coefficient est remplacé par son reste dans la division par ce polynôme, ce qui fait disparaître les puissances de degré trop élevé.
      │  [(0 1 | 1); (0 0 | 2 - a)]
-     ├─ Système incompatible : la ligne L2 donne 0 = 2 − a (témoin : 0 = 1).
+     ├─ Système incompatible : la ligne L2 donne 0 = 2 − a.
      └─ Forme échelonnée réduite atteinte : rang = 1, colonnes pivots = (2).
         [(0 1 | 1); (0 0 | 2 - a)]

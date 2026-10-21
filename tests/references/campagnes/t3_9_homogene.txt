@@ -41,17 +41,17 @@ Discussion selon a
 │    │  ├─ Choix du pivot en (3,1) de valeur 1 (stratégie : simplest).
 │    │  ├─ On échange les lignes L1 et L3 : L1 ↔ L3.
 │    │  │  [(1 1 1 | 0); (a 2 1 | 0); (2 a 1 | 0)]
-│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - a·L1.
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 − a·L1.
 │    │  │  [(1 1 1 | 0); (0 2 - a 1 - a | 0); (2 a 1 | 0)]
-│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 2·L1.
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 − 2·L1.
 │    │     [(1 1 1 | 0); (0 2 - a 1 - a | 0); (0 a - 2 -1 | 0)]
 │    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
 │    │  ├─ Choix du pivot en (2,2) de valeur 2 − a (stratégie : simplest).
 │    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1/(a − 2))·L2.
 │    │  │  [(1 1 1 | 0); (0 1 (a - 1)/(a - 2) | 0); (0 a - 2 -1 | 0)]
-│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 − 1·L2.
 │    │  │  [(1 0 -1/(a - 2) | 0); (0 1 (a - 1)/(a - 2) | 0); (0 a - 2 -1 | 0)]
-│    │  └─ On annule le coefficient (3,2) : L3 ← L3 - a − 2·L2.
+│    │  └─ On annule le coefficient (3,2) : L3 ← L3 − (a − 2)·L2.
 │    │     [(1 0 -1/(a - 2) | 0); (0 1 (a - 1)/(a - 2) | 0); (0 0 -a | 0)]
 │    ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
 │    │  ├─ Choix du pivot en (3,3) de valeur −a (stratégie : simplest).
@@ -59,7 +59,7 @@ Discussion selon a
 │    │  │  [(1 0 -1/(a - 2) | 0); (0 1 (a - 1)/(a - 2) | 0); (0 0 1 | 0)]
 │    │  ├─ On annule le coefficient (1,3) : L1 ← L1 + 1/(a − 2)·L3.
 │    │  │  [(1 0 0 | 0); (0 1 (a - 1)/(a - 2) | 0); (0 0 1 | 0)]
-│    │  └─ On annule le coefficient (2,3) : L2 ← L2 - (a − 1)/(a − 2)·L3.
+│    │  └─ On annule le coefficient (2,3) : L2 ← L2 − (a − 1)/(a − 2)·L3.
 │    │     [(1 0 0 | 0); (0 1 0 | 0); (0 0 1 | 0)]
 │    ├─ Pivots non nuls, rang 3, solution unique : x = ( 0, 0, 0 ).
 │    └─ Forme échelonnée réduite atteinte : rang = 3, colonnes pivots = (1, 2, 3).
@@ -72,13 +72,13 @@ Discussion selon a
 │    │  ├─ Choix du pivot en (3,1) de valeur 1 (stratégie : simplest).
 │    │  ├─ On échange les lignes L1 et L3 : L1 ↔ L3.
 │    │  │  [(1 1 1 | 0); (0 2 1 | 0); (2 0 1 | 0)]
-│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 2·L1.
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 − 2·L1.
 │    │     [(1 1 1 | 0); (0 2 1 | 0); (0 -2 -1 | 0)]
 │    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
 │    │  ├─ Choix du pivot en (2,2) de valeur 2 (stratégie : simplest).
 │    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/2)·L2.
 │    │  │  [(1 1 1 | 0); (0 1 1/2 | 0); (0 -2 -1 | 0)]
-│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 − 1·L2.
 │    │  │  [(1 0 1/2 | 0); (0 1 1/2 | 0); (0 -2 -1 | 0)]
 │    │  └─ On annule le coefficient (3,2) : L3 ← L3 + 2·L2.
 │    │     [(1 0 1/2 | 0); (0 1 1/2 | 0); (0 0 0 | 0)]
@@ -94,16 +94,16 @@ Discussion selon a
      │  ├─ Choix du pivot en (3,1) de valeur 1 (stratégie : simplest).
      │  ├─ On échange les lignes L1 et L3 : L1 ↔ L3.
      │  │  [(1 1 1 | 0); (2 2 1 | 0); (2 2 1 | 0)]
-     │  ├─ On annule le coefficient (2,1) : L2 ← L2 - 2·L1.
+     │  ├─ On annule le coefficient (2,1) : L2 ← L2 − 2·L1.
      │  │  [(1 1 1 | 0); (0 0 -1 | 0); (2 2 1 | 0)]
-     │  └─ On annule le coefficient (3,1) : L3 ← L3 - 2·L1.
+     │  └─ On annule le coefficient (3,1) : L3 ← L3 − 2·L1.
      │     [(1 1 1 | 0); (0 0 -1 | 0); (0 0 -1 | 0)]
      ├─ Aucun pivot non nul disponible dans la colonne 2 : variable x_2 libre.
      ├─ Traitement de la colonne 3 (ligne pivot courante : 2).
      │  ├─ Choix du pivot en (2,3) de valeur −1 (stratégie : simplest).
      │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1)·L2.
      │  │  [(1 1 1 | 0); (0 0 1 | 0); (0 0 -1 | 0)]
-     │  ├─ On annule le coefficient (1,3) : L1 ← L1 - 1·L2.
+     │  ├─ On annule le coefficient (1,3) : L1 ← L1 − 1·L2.
      │  │  [(1 1 0 | 0); (0 0 1 | 0); (0 0 -1 | 0)]
      │  └─ On annule le coefficient (3,3) : L3 ← L3 + 1·L2.
      │     [(1 1 0 | 0); (0 0 1 | 0); (0 0 0 | 0)]
@@ -122,17 +122,17 @@ Discussion selon a
 │    │  ├─ On échange les lignes L1 et L3 : L1 ↔ L3.
 │    │  │  [(1 1 1 | 0); (a 2 1 | 0); (2 a 1 | 0)]
 │    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
-│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 - a·L1.
+│    │  ├─ On annule le coefficient (2,1) : L2 ← L2 − a·L1.
 │    │  │  [(1 1 1 | 0); (0 2 - a 1 - a | 0); (2 a 1 | 0)]
-│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 2·L1.
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 − 2·L1.
 │    │     [(1 1 1 | 0); (0 2 - a 1 - a | 0); (0 a - 2 -1 | 0)]
 │    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
 │    │  ├─ Choix du pivot en (2,2) de valeur 2 − a (stratégie : simplest).
 │    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1/(a − 2))·L2.
 │    │  │  [(1 1 1 | 0); (0 1 (a - 1)/(a - 2) | 0); (0 a - 2 -1 | 0)]
-│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 − 1·L2.
 │    │  │  [(1 0 -1/(a - 2) | 0); (0 1 (a - 1)/(a - 2) | 0); (0 a - 2 -1 | 0)]
-│    │  └─ On annule le coefficient (3,2) : L3 ← L3 - a − 2·L2.
+│    │  └─ On annule le coefficient (3,2) : L3 ← L3 − (a − 2)·L2.
 │    │     [(1 0 -1/(a - 2) | 0); (0 1 (a - 1)/(a - 2) | 0); (0 0 -a | 0)]
 │    ├─ Traitement de la colonne 3 (ligne pivot courante : 3).
 │    │  ├─ Choix du pivot en (3,3) de valeur −a (stratégie : simplest).
@@ -140,7 +140,7 @@ Discussion selon a
 │    │  │  [(1 0 -1/(a - 2) | 0); (0 1 (a - 1)/(a - 2) | 0); (0 0 1 | 0)]
 │    │  ├─ On annule le coefficient (1,3) : L1 ← L1 + 1/(a − 2)·L3.
 │    │  │  [(1 0 0 | 0); (0 1 (a - 1)/(a - 2) | 0); (0 0 1 | 0)]
-│    │  └─ On annule le coefficient (2,3) : L2 ← L2 - (a − 1)/(a − 2)·L3.
+│    │  └─ On annule le coefficient (2,3) : L2 ← L2 − (a − 1)/(a − 2)·L3.
 │    │     [(1 0 0 | 0); (0 1 0 | 0); (0 0 1 | 0)]
 │    ├─ Pivots non nuls, rang 3, solution unique : x = ( 0, 0, 0 ).
 │    └─ Forme échelonnée réduite atteinte : rang = 3, colonnes pivots = (1, 2, 3).
@@ -156,13 +156,13 @@ Discussion selon a
 │    │  │  [(1 1 1 | 0); (0 2 1 | 0); (2 0 1 | 0)]
 │    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
 │    │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
-│    │  └─ On annule le coefficient (3,1) : L3 ← L3 - 2·L1.
+│    │  └─ On annule le coefficient (3,1) : L3 ← L3 − 2·L1.
 │    │     [(1 1 1 | 0); (0 2 1 | 0); (0 -2 -1 | 0)]
 │    ├─ Traitement de la colonne 2 (ligne pivot courante : 2).
 │    │  ├─ Choix du pivot en (2,2) de valeur 2 (stratégie : simplest).
 │    │  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/2)·L2.
 │    │  │  [(1 1 1 | 0); (0 1 1/2 | 0); (0 -2 -1 | 0)]
-│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 - 1·L2.
+│    │  ├─ On annule le coefficient (1,2) : L1 ← L1 − 1·L2.
 │    │  │  [(1 0 1/2 | 0); (0 1 1/2 | 0); (0 -2 -1 | 0)]
 │    │  └─ On annule le coefficient (3,2) : L3 ← L3 + 2·L2.
 │    │     [(1 0 1/2 | 0); (0 1 1/2 | 0); (0 0 0 | 0)]
@@ -183,9 +183,9 @@ Discussion selon a
      │  ├─ On échange les lignes L1 et L3 : L1 ↔ L3.
      │  │  [(1 1 1 | 0); (2 2 1 | 0); (2 2 1 | 0)]
      │  ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
-     │  ├─ On annule le coefficient (2,1) : L2 ← L2 - 2·L1.
+     │  ├─ On annule le coefficient (2,1) : L2 ← L2 − 2·L1.
      │  │  [(1 1 1 | 0); (0 0 -1 | 0); (2 2 1 | 0)]
-     │  └─ On annule le coefficient (3,1) : L3 ← L3 - 2·L1.
+     │  └─ On annule le coefficient (3,1) : L3 ← L3 − 2·L1.
      │     [(1 1 1 | 0); (0 0 -1 | 0); (0 0 -1 | 0)]
      ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
      ├─ Ce coefficient est nul dans le domaine exact (0 = 0).
@@ -194,7 +194,7 @@ Discussion selon a
      │  ├─ Choix du pivot en (2,3) de valeur −1 (stratégie : simplest).
      │  ├─ On normalise le pivot de la ligne 2 : L2 ← (−1)·L2.
      │  │  [(1 1 1 | 0); (0 0 1 | 0); (0 0 -1 | 0)]
-     │  ├─ On annule le coefficient (1,3) : L1 ← L1 - 1·L2.
+     │  ├─ On annule le coefficient (1,3) : L1 ← L1 − 1·L2.
      │  │  [(1 1 0 | 0); (0 0 1 | 0); (0 0 -1 | 0)]
      │  └─ On annule le coefficient (3,3) : L3 ← L3 + 1·L2.
      │     [(1 1 0 | 0); (0 0 1 | 0); (0 0 0 | 0)]

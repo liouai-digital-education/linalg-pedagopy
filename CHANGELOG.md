@@ -2,6 +2,11 @@
 
 ## [Non publié] — branche `development`
 
+### Corrections — traces de Gauss-Jordan
+- Transvections (`gj.row_add`) : un multiplicateur somme est parenthésé et le signe est le « − » typographique, en texte, LaTeX, Markdown et HTML. La trace affichait « L2 ← L2 - a − 1·L1 », qui change le sens de l'opération, au lieu de « L2 ← L2 − (a − 1)·L1 ».
+- Système incompatible (`gj.inconsistent`, `EmptySolution._repr_markdown_`) : la parenthèse « (témoin : 0 = 1) », ajoutée même quand la ligne donne 0 = 2 ou 0 = 2 − a, est retirée ; le message annonce seulement « la ligne L3 donne 0 = 2 ».
+- Références de caractérisation régénérées ; exemple du guide 05 mis à jour.
+
 ## [0.3.1.1] — 2026-10-21
 
 Numéro de version : `0.3.1.1` (étiquette `v0.3.1.1`), au lieu de `3.1.1` prévu par le plan v6. Le préfixe « v » est réservé à l'étiquette git : la norme PEP 440 le retire de la version du paquet. Attention, `0.3.1.1` est inférieur, pour pip, aux versions déjà étiquetées `3.0.1` et `3.1.0`.
