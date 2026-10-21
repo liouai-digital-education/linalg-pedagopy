@@ -8,6 +8,8 @@ x = (1, 0, 0) + t_1·(-3, -1, 1)
 ===== texte niveau 1 =====
 Réduction de Gauss-Jordan d'une matrice 2×3.
    [(1 -1 2 | 1); (0 1 1 | 0)]
+├─ On annule le coefficient (1,2) : L1 ← L1 + 1·L2.
+│  [(1 0 3 | 1); (0 1 1 | 0)]
 ├─ Rang 2 < 3 : ensemble affine de solutions avec 1 variable(s) libre(s).
 └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
    [(1 0 3 | 1); (0 1 1 | 0)]

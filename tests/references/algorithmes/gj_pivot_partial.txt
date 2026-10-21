@@ -8,6 +8,18 @@ système incompatible (témoin : 0 = 2)
 ===== texte niveau 1 =====
 Réduction de Gauss-Jordan d'une matrice 3×3.
    [(0 2 1 | 1); (3 1 2 | 2); (1 1 1 | 3)]
+├─ On échange les lignes L1 et L2 : L1 ↔ L2.
+│  [(3 1 2 | 2); (0 2 1 | 1); (1 1 1 | 3)]
+├─ On normalise le pivot de la ligne 1 : L1 ← (1/3)·L1.
+│  [(1 1/3 2/3 | 2/3); (0 2 1 | 1); (1 1 1 | 3)]
+├─ On annule le coefficient (3,1) : L3 ← L3 − 1·L1.
+│  [(1 1/3 2/3 | 2/3); (0 2 1 | 1); (0 2/3 1/3 | 7/3)]
+├─ On normalise le pivot de la ligne 2 : L2 ← (1/2)·L2.
+│  [(1 1/3 2/3 | 2/3); (0 1 1/2 | 1/2); (0 2/3 1/3 | 7/3)]
+├─ On annule le coefficient (1,2) : L1 ← L1 − 1/3·L2.
+│  [(1 0 1/2 | 1/2); (0 1 1/2 | 1/2); (0 2/3 1/3 | 7/3)]
+├─ On annule le coefficient (3,2) : L3 ← L3 − 2/3·L2.
+│  [(1 0 1/2 | 1/2); (0 1 1/2 | 1/2); (0 0 0 | 2)]
 ├─ Système incompatible : la ligne L3 donne 0 = 2.
 └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
    [(1 0 1/2 | 1/2); (0 1 1/2 | 1/2); (0 0 0 | 2)]

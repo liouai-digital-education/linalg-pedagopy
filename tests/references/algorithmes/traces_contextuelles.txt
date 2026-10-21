@@ -102,11 +102,23 @@ Calcul de la distance euclidienne ||u - v||.
 ===== deux calculs regroupés (niveau 1) =====
 Réduction de Gauss-Jordan d'une matrice 2×2.
    [(2 1 | 5); (4 3 | 11)]
+├─ On normalise le pivot de la ligne 1 : L1 ← (1/2)·L1.
+│  [(1 1/2 | 5/2); (4 3 | 11)]
+├─ On annule le coefficient (2,1) : L2 ← L2 − 4·L1.
+│  [(1 1/2 | 5/2); (0 1 | 1)]
+├─ On annule le coefficient (1,2) : L1 ← L1 − 1/2·L2.
+│  [(1 0 | 2); (0 1 | 1)]
 ├─ Pivots non nuls, rang 2, solution unique : x = ( 2, 1 ).
 └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
    [(1 0 | 2); (0 1 | 1)]
 Réduction de Gauss-Jordan d'une matrice 2×2.
    [(1 1 | 2); (1 -1 | 0)]
+├─ On annule le coefficient (2,1) : L2 ← L2 − 1·L1.
+│  [(1 1 | 2); (0 -2 | -2)]
+├─ On normalise le pivot de la ligne 2 : L2 ← (−1/2)·L2.
+│  [(1 1 | 2); (0 1 | 1)]
+├─ On annule le coefficient (1,2) : L1 ← L1 − 1·L2.
+│  [(1 0 | 1); (0 1 | 1)]
 ├─ Pivots non nuls, rang 2, solution unique : x = ( 1, 1 ).
 └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
    [(1 0 | 1); (0 1 | 1)]

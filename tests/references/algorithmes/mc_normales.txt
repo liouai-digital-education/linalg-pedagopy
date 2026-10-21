@@ -15,6 +15,14 @@ Résolution au sens des moindres carrés min ||A x - b|| (A de taille 4×2, mét
 ├─ Formation des équations normales : (A^T A) x_hat = A^T b.
 ├─ Réduction de Gauss-Jordan d'une matrice 2×2.
 │  [(4 6 | 9); (6 14 | 18)]
+│  ├─ On normalise le pivot de la ligne 1 : L1 ← (1/4)·L1.
+│  │  [(1 3/2 | 9/4); (6 14 | 18)]
+│  ├─ On annule le coefficient (2,1) : L2 ← L2 − 6·L1.
+│  │  [(1 3/2 | 9/4); (0 5 | 9/2)]
+│  ├─ On normalise le pivot de la ligne 2 : L2 ← (1/5)·L2.
+│  │  [(1 3/2 | 9/4); (0 1 | 9/10)]
+│  ├─ On annule le coefficient (1,2) : L1 ← L1 − 3/2·L2.
+│  │  [(1 0 | 9/10); (0 1 | 9/10)]
 │  ├─ Pivots non nuls, rang 2, solution unique : x = ( 9/10, 9/10 ).
 │  └─ Forme échelonnée réduite atteinte : rang = 2, colonnes pivots = (1, 2).
 │     [(1 0 | 9/10); (0 1 | 9/10)]
