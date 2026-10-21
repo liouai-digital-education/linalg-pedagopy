@@ -1,6 +1,6 @@
 # Tests et vérifications
 
-Guide pour les contributeurs : comment vérifier qu'une modification ne casse rien.
+Guide pour les contributeurs : comment vérifier qu'une modification ne casse rien. Les règles générales (branches, commits, langue) sont dans [CONTRIBUTING.md](../../CONTRIBUTING.md).
 
 ## En une commande
 

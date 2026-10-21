@@ -6,6 +6,9 @@ date: "20 octobre 2026"
 lang: fr
 ---
 
+> **Document historique.** Remplacé par le [plan de développement v6](plan_developpement_v6.md) à partir de la version 3.1.0 ; il n'est plus tenu à jour.
+
+
 # 1. Objet et résumé
 
 Ce plan organise la suite du développement de `linalg_pedagopy` sur la branche `development`. La première version (19 octobre 2026) plaçait toute la consolidation de l'architecture avant les nouvelles fonctionnalités. Cette révision (20 octobre 2026) tient compte de la phase 0 achevée et de trois décisions :

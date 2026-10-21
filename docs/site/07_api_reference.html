@@ -76,28 +76,28 @@
         
         <li class="nav-item ">
           <a href="index.html">
-            <span>Accueil & démarrage</span>
+            <span>Accueil</span>
             <span class="nav-badge">Portail</span>
           </a>
         </li>
         
         <li class="nav-item ">
-          <a href="01_core_and_formal_computation.html">
-            <span>01. Noyau formel & calcul exact</span>
+          <a href="01_noyau_calcul_formel.html">
+            <span>01. Noyau formel et calcul exact</span>
             <span class="nav-badge">Fondement</span>
           </a>
         </li>
         
         <li class="nav-item ">
-          <a href="02_vectors_and_matrices.html">
-            <span>02. Vecteurs, matrices & métriques</span>
+          <a href="02_vecteurs_matrices.html">
+            <span>02. Vecteurs, matrices et métriques</span>
             <span class="nav-badge">Objets</span>
           </a>
         </li>
         
         <li class="nav-item ">
-          <a href="03_algorithms_and_step_tracing.html">
-            <span>03. Algorithmes & traçabilité</span>
+          <a href="03_algorithmes_traces.html">
+            <span>03. Algorithmes et traçabilité</span>
             <span class="nav-badge">Algèbre</span>
           </a>
         </li>
@@ -110,15 +110,15 @@
         </li>
         
         <li class="nav-item ">
-          <a href="05_pedagogical_exercises_and_sessions.html">
-            <span>05. Exercices & sessions guidées</span>
+          <a href="05_exercices_sessions.html">
+            <span>05. Exercices et sessions guidées</span>
             <span class="nav-badge">Didactique</span>
           </a>
         </li>
         
         <li class="nav-item ">
-          <a href="06_rendering_visualization_and_numerics.html">
-            <span>06. Rendu, géométrie & numérique</span>
+          <a href="06_rendu_visualisation_numerique.html">
+            <span>06. Rendu, visualisation et comparaison numérique</span>
             <span class="nav-badge">Visuel</span>
           </a>
         </li>
@@ -139,7 +139,7 @@
         
         <li class="nav-item ">
           <a href="09_guide_jupyterlab.html">
-            <span>09. Guide JupyterLab</span>
+            <span>09. Utiliser le package dans JupyterLab</span>
             <span class="nav-badge">Pratique</span>
           </a>
         </li>
@@ -161,8 +161,7 @@
       </header>
 
       <article class="markdown-body">
-        <h1 id="07-reference-complete-de-lapi">07. Référence complète de l'API</h1>
-<p>Ce document constitue la référence des modules, classes, fonctions et exceptions publics du package <code>linalg_pedagopy</code>. Les signatures sont celles du code source (<code>src/linalg_pedagopy</code>).</p>
+        <p>Ce document constitue la référence des modules, classes, fonctions et exceptions publics du package <code>linalg_pedagopy</code>. Les signatures sont celles du code source (<code>src/linalg_pedagopy</code>).</p>
 <p>Tous les noms ci-dessous sont importables depuis <code>linalg_pedagopy</code> (sauf mention d'un sous-module).</p>
 <hr/>
 <h2 id="1-noms-francais-et-anglais">1. Noms français et anglais</h2>
@@ -336,7 +335,7 @@
 </tr>
 </tbody>
 </table>
-<p>La liste complète des générateurs d'exercices jumeaux figure dans le <a href="05_pedagogical_exercises_and_sessions.html">guide 05</a>.</p>
+<p>La liste complète des générateurs d'exercices jumeaux figure dans le <a href="05_exercices_sessions.html">guide 05</a>.</p>
 <hr/>
 <h2 id="2-module-linalg_pedagopycore">2. Module <code>linalg_pedagopy.core</code></h2>
 <h3 id="21-fonctions-scalaires-et-symboliques">2.1 Fonctions scalaires et symboliques</h3>
@@ -597,8 +596,8 @@ BackSubstitution(R, c, *, assumptions=None)
 <hr/>
 <h2 id="7-modules-exercises-compare-et-plot">7. Modules <code>exercises</code>, <code>compare</code> et <code>plot</code></h2>
 <ul>
-<li><code>linalg_pedagopy.exercises</code> : <code>generate_unimodular_matrix</code>, <code>generate_integer_rref_matrix</code>, <code>generate_rational_qr_matrix</code>, <code>generate_clean_least_squares</code>, <code>generate_parametric_system</code>, <code>cayley_orthogonal</code>, <code>generators</code> / <code>generateurs</code>, <code>TwinExercise</code> (24 générateurs, voir le guide 05), <code>InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)</code>, <code>check_row_operation</code>, <code>check_gram_schmidt_step</code>, <code>OperationFeedback</code> (voir <a href="05_pedagogical_exercises_and_sessions.html">guide 05</a>).</li>
-<li><code>linalg_pedagopy.compare</code> (extra <code>compare</code>, NumPy ; importer avec <code>from linalg_pedagopy.compare import …</code>, car <code>linalg_pedagopy.compare</code> désigne aussi la fonction <code>compare</code>) : <code>compare(procedure, inputs=None) -&gt; ComparisonReport</code>, <code>build_lauchli_matrix(n=3, epsilon=1/10**8)</code>, <code>build_hilbert_matrix(n)</code>, <code>lauchli_gram_schmidt_experiment</code>, <code>lauchli_least_squares_experiment</code>, <code>hilbert_conditioning_experiment</code>, <code>explicit_inverse_vs_solve_experiment</code> (voir <a href="06_rendering_visualization_and_numerics.html">guide 06</a>).</li>
+<li><code>linalg_pedagopy.exercises</code> : <code>generate_unimodular_matrix</code>, <code>generate_integer_rref_matrix</code>, <code>generate_rational_qr_matrix</code>, <code>generate_clean_least_squares</code>, <code>generate_parametric_system</code>, <code>cayley_orthogonal</code>, <code>generators</code> / <code>generateurs</code>, <code>TwinExercise</code> (24 générateurs, voir le guide 05), <code>InteractiveSession(procedure, *, mode="autonomous", mask_ratio=0.5)</code>, <code>check_row_operation</code>, <code>check_gram_schmidt_step</code>, <code>OperationFeedback</code> (voir <a href="05_exercices_sessions.html">guide 05</a>).</li>
+<li><code>linalg_pedagopy.compare</code> (extra <code>compare</code>, NumPy ; importer avec <code>from linalg_pedagopy.compare import …</code>, car <code>linalg_pedagopy.compare</code> désigne aussi la fonction <code>compare</code>) : <code>compare(procedure, inputs=None) -&gt; ComparisonReport</code>, <code>build_lauchli_matrix(n=3, epsilon=1/10**8)</code>, <code>build_hilbert_matrix(n)</code>, <code>lauchli_gram_schmidt_experiment</code>, <code>lauchli_least_squares_experiment</code>, <code>hilbert_conditioning_experiment</code>, <code>explicit_inverse_vs_solve_experiment</code> (voir <a href="06_rendu_visualisation_numerique.html">guide 06</a>).</li>
 <li><code>linalg_pedagopy.plot</code> (extra <code>plot</code>, Matplotlib) : <code>plot_linear_combination_2d</code>, <code>plot_orthogonal_projection_2d</code>, <code>plot_gram_schmidt_2d</code>, <code>plot_least_squares_fit</code>, <code>plot_least_squares_geometry_3d</code>.</li>
 </ul>
 <hr/>
@@ -679,9 +678,9 @@ BackSubstitution(R, c, *, assumptions=None)
       <!-- Navigation entre chapitres -->
       <nav class="chapter-nav">
         
-        <a href="06_rendering_visualization_and_numerics.html" class="chapter-nav-btn">
+        <a href="06_rendu_visualisation_numerique.html" class="chapter-nav-btn">
           <span class="nav-direction">&larr; Chapitre précédent</span>
-          <span class="nav-target">06. Rendu, géométrie & numérique</span>
+          <span class="nav-target">06. Rendu, visualisation et comparaison numérique</span>
         </a>
         
 

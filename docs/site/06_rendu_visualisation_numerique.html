@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>06. Rendu, visualisation et comparaison numérique — linalg_pedagopy</title>
+  <meta name="description" content="Formats d'explication, figures 2D/3D, Läuchli et Hilbert">
+
+  <!-- Typographie Web Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="assets/css/academic.css">
+
+  <!-- MathJax pour les formules mathématiques exactes -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Moteur de diagrammes Mermaid.js -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+  </script>
+</head>
+<body>
+
+  <!-- En-tête institutionnel -->
+  <header class="site-header">
+    <a href="index.html" class="header-brand">
+      <div class="brand-crest">LP</div>
+      <div>
+        <div class="brand-title">linalg_pedagopy</div>
+        <div class="brand-subtitle">Algèbre linéaire formelle et pédagogique</div>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Rechercher... (Ctrl+K)" readonly>
+      </div>
+      <button id="themeToggle" class="theme-toggle-btn" title="Changer de thème">🌓</button>
+    </div>
+  </header>
+
+  <!-- Modal de recherche plein texte -->
+  <div id="searchModal" class="search-results-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <input type="text" id="modalSearchInput" class="modal-search-input" placeholder="Rechercher une fonction, un théorème, un symbole...">
+      </div>
+      <div id="modalSearchResults" class="search-modal-body">
+        <p style="color:var(--text-muted);font-size:0.875rem;">Saisissez un mot-clé...</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-container">
+    <!-- Barre latérale gauche de navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Sommaire de l'ouvrage</div>
+      <ul class="nav-list">
+        
+        <li class="nav-item ">
+          <a href="index.html">
+            <span>Accueil</span>
+            <span class="nav-badge">Portail</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="01_noyau_calcul_formel.html">
+            <span>01. Noyau formel et calcul exact</span>
+            <span class="nav-badge">Fondement</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="02_vecteurs_matrices.html">
+            <span>02. Vecteurs, matrices et métriques</span>
+            <span class="nav-badge">Objets</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="03_algorithmes_traces.html">
+            <span>03. Algorithmes et traçabilité</span>
+            <span class="nav-badge">Algèbre</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="04_tuteur.html">
+            <span>04. Le tuteur interactif</span>
+            <span class="nav-badge">Pédagogie</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="05_exercices_sessions.html">
+            <span>05. Exercices et sessions guidées</span>
+            <span class="nav-badge">Didactique</span>
+          </a>
+        </li>
+        
+        <li class="nav-item active">
+          <a href="06_rendu_visualisation_numerique.html">
+            <span>06. Rendu, visualisation et comparaison numérique</span>
+            <span class="nav-badge">Visuel</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="07_api_reference.html">
+            <span>07. Référence de l'API</span>
+            <span class="nav-badge">Référence</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="08_catalogue_exercices.html">
+            <span>08. Catalogue des exercices</span>
+            <span class="nav-badge">Exercices</span>
+          </a>
+        </li>
+        
+        <li class="nav-item ">
+          <a href="09_guide_jupyterlab.html">
+            <span>09. Utiliser le package dans JupyterLab</span>
+            <span class="nav-badge">Pratique</span>
+          </a>
+        </li>
+        
+      </ul>
+
+      <div style="margin-top:auto; padding-top:1.5rem; border-top:1px solid var(--border-subtle); font-size:0.75rem; color:var(--text-muted);">
+        <strong>Version 0.3.1.2</strong><br>
+        Calcul exact · tuteur interactif
+      </div>
+    </aside>
+
+    <!-- Corps de texte de l'article -->
+    <main class="main-content">
+      <header class="article-header">
+        <span class="article-badge">Chapitre 06 • Visuel</span>
+        <h1 class="article-title">06. Rendu, visualisation et comparaison numérique</h1>
+        <p class="article-subtitle">Formats d'explication, figures 2D/3D, Läuchli et Hilbert</p>
+      </header>
+
+      <article class="markdown-body">
+        <p>Le package <code>linalg_pedagopy</code> offre des moteurs d'affichage polyvalents, un module graphique géométrique basé sur Matplotlib, ainsi qu'un banc de comparaison formel/numérique pour illustrer les limites du calcul flottant.</p>
+<hr/>
+<h2 id="1-moteurs-de-rendu-multi-formats-explanation">1. Moteurs de rendu multi-formats (<code>Explanation</code>)</h2>
+<p>Toutes les procédures algorithmiques renvoient un résultat muni d'une méthode <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/base.py"><code>explain(level=...)</code></a> produisant une instance immuable d'<a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/render/explanation.py"><code>Explanation</code></a>.</p>
+<p><div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
+    Exp["Explanation (Arbre de trace filtré)"]
+    Exp --&gt; Txt["Texte Unicode (Console, logs)"]
+    Exp --&gt; Md["Markdown / MathJax (JupyterLab natif)"]
+    Exp --&gt; Ltx["LaTeX (Documents, examens Beamer)"]
+    Exp --&gt; Htm["HTML / CSS (Widgets interactifs)"]</pre></div></p>
+<h3 id="11-formats-de-sortie-disponibles">1.1 Formats de sortie disponibles</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, GaussJordan
+
+A = Matrix([[1, 2], [3, 4]])
+b = Vector([5, 11])
+res = GaussJordan(A, b).run()
+exp = res.explain(level=2)
+
+# 1. Rendu console Unicode enrichi
+print(exp.to_text())
+
+# 2. Rendu LaTeX complet pour documents et polycopiés
+print(exp.to_latex())
+
+# 3. Rendu Markdown avec formules mathématiques
+print(exp.to_markdown())
+
+# 4. Rendu HTML avec classes CSS
+html_code = exp.to_html()
+
+# 5. Enregistrement dans un fichier (format déduit de l'extension)
+# exp.save("gauss_jordan.tex")
+</code></pre></div>
+<p>Le paramètre <code>fmt</code> de <code>explain(level=..., fmt="auto")</code> fixe le format utilisé pour l'affichage automatique ; les méthodes <code>to_text()</code>, <code>to_latex()</code>, <code>to_markdown()</code> et <code>to_html()</code> acceptent aussi un argument <code>level</code> pour filtrer à nouveau la trace.</p>
+<p>Dans un environnement JupyterLab ou Jupyter Notebook, l'objet <code>Explanation</code> implémente <code>_repr_markdown_()</code> : il s'affiche automatiquement avec un rendu typographique soigné grâce au moteur KaTeX/MathJax sans qu'aucun appel à <code>print()</code> ne soit nécessaire.</p>
+<h3 id="12-trace-en-tableau-to_table">1.2 Trace en tableau (<code>to_table()</code>)</h3>
+<p><code>explain().to_table()</code> présente la trace en tableau : une ligne par opération, dont les colonnes dépendent de l'algorithme. Pour l'élimination (Gauss-Jordan, inverse, déterminant), une ligne par opération élémentaire, avec les colonnes <strong>N°</strong>, <strong>Colonne</strong>, <strong>Pivot</strong>, <strong>Opération</strong>, <strong>But</strong> et <strong>Matrice obtenue</strong> (pivot encadré, lignes modifiées en couleur, barre de la matrice augmentée).</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">res = GaussJordan(Matrix([[2, 1, -1], [-3, -1, 2], [-2, 1, 2]]), Vector([8, -11, -3])).run()
+table = res.explain().to_table()
+table                      # affichage HTML automatique dans JupyterLab
+print(table.to_markdown())
+# | N° | Colonne | Pivot | Opération | But | Matrice obtenue |
+# |---:|:---:|:---:|:---|:---|:---:|
+# |  |  |  | *Matrice de départ* |  | $\left[ … \right]$ |
+# | 1 | 1 | $2$ en (1,1) | $L_{1} \leftarrow \left(\frac{1}{2}\right) L_{1}$ | ramener le pivot à 1 | $\left[ … \right]$ |
+# | 2 | 1 | $2$ en (1,1) | $L_{2} \leftarrow L_{2} + \left(3\right) L_{1}$ | annuler le coefficient (2,1) | $\left[ … \right]$ |
+# …
+</code></pre></div>
+<ul>
+<li><strong>Rendus</strong> : <code>to_html(standalone=False)</code> (JupyterLab, MathJax), <code>to_markdown()</code> (carnets et documentation ; formules entre <code>$…$</code>, sans le caractère « | », réservé aux séparateurs de cellules), <code>to_latex(standalone=False)</code> (<code>longtable</code>, paquets <code>longtable</code>, <code>array</code>, <code>amsmath</code>, <code>xcolor</code> ; compiler avec LuaLaTeX ou XeLaTeX pour les caractères Unicode des commentaires).</li>
+<li><strong>Niveau</strong> : le niveau de l'explication ajoute des lignes de commentaire (niveau 2 : colonnes sans pivot, construction du noyau ; niveau 3 : contrôles de l'oracle) ; les lignes d'opérations sont les mêmes à tous les niveaux.</li>
+<li><strong>Discussion par cas</strong> : un tableau par branche, sous l'intitulé de son cas.</li>
+<li><strong>Déterminant</strong> : les buts rappellent l'effet de chaque opération sur le déterminant (un échange change son signe, une transvection ne le change pas) ; une étape de Bareiss s'écrit $L_i \leftarrow \frac{p\,L_i - m_{ik}\,L_k}{q}$ pour les lignes sous le pivot.</li>
+<li><strong>Gram-Schmidt et QR</strong> : colonnes <strong>N°</strong>, <strong>Vecteur traité</strong>, <strong>Coefficients</strong>, <strong>Opération</strong>, <strong>But</strong>, <strong>Vecteur obtenu</strong> ; une ligne par orthogonalisation ($\tilde q_i = a_i - \sum_j r_{j,i}\,\tilde q_j$, avec les coefficients $r_{j,i}$) et une par normalisation ($q_i = \tilde q_i / \lVert \tilde q_i \rVert$, avec la norme), dans l'ordre de la variante choisie (<code>normalize="end"</code> ou <code>"each"</code>). Une famille liée se termine par le vecteur nul et le témoin de dépendance.</li>
+<li><strong>Systèmes triangulaires</strong> (<code>BackSubstitution</code>, <code>ForwardSubstitution</code>) : colonnes <strong>N°</strong>, <strong>Inconnue</strong>, <strong>Calcul</strong>, <strong>But</strong>, <strong>Valeur</strong> ; le calcul écrit la formule avec les coefficients de la ligne puis les valeurs déjà connues, par exemple $x_2 = \frac{2 - (-1)\,x_3}{3} = \frac{2 - (-2)}{3}$.</li>
+<li><strong>Plusieurs algorithmes</strong> : une trace qui en enchaîne plusieurs donne un tableau par algorithme (moindres carrés : substitution pour <code>method="qr"</code>, élimination pour <code>method="normal"</code>).</li>
+</ul>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.algorithms.gram_schmidt import GramSchmidt
+print(GramSchmidt([Vector([1, 1, 0]), Vector([1, 0, 1]), Vector([0, 1, 1])]).run().explain().to_table())
+# | N° | Vecteur traité | Coefficients | Opération | But | Vecteur obtenu |
+# …
+# | 3 | $a_{3} = …$ | $r_{1,3} = \frac{1}{2}, r_{2,3} = \frac{1}{3}$ | $\tilde q_{3} = a_{3} - r_{1,3}\,\tilde q_{1} - r_{2,3}\,\tilde q_{2}$ | retirer de a3 ses composantes selon les vecteurs déjà obtenus | $…$ |
+# | 4 | $\tilde q_{1}$ | $\lVert \tilde q_{1} \rVert = \sqrt{2}$ | $q_{1} = \frac{\tilde q_{1}}{\lVert \tilde q_{1} \rVert}$ | rendre le vecteur unitaire | $…$ |
+</code></pre></div>
+<h3 id="13-localisation-et-multilinguisme-locales">1.3 Localisation et multilinguisme (<code>locales</code>)</h3>
+<p>Tous les messages explicatifs et libellés d'étapes proviennent de dictionnaires YAML situés dans <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/render/locales/"><code>src/linalg_pedagopy/render/locales/</code></a>. <strong>Seule la locale française (<code>fr.yaml</code>) est fournie actuellement.</strong></p>
+<p>La locale active est lue dans <code>config.locale</code> (par défaut <code>"fr"</code>) et peut être changée globalement ou localement ; une locale sans fichier YAML (par exemple <code>"en"</code>) retombe sur les messages français :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.config import config, using_config
+
+print(config.locale)          # fr
+
+# Changement temporaire de locale (ici sans effet visible : en.yaml n'existe pas encore)
+with using_config(locale="en"):
+    print(res.explain())
+</code></pre></div>
+<p>Pour ajouter une langue, il suffit de créer <code>locales/&lt;code&gt;.yaml</code> avec les mêmes clés que <code>fr.yaml</code>.</p>
+<hr/>
+<h2 id="2-visualisation-geometrique-2d-et-3d-linalg_pedagopyplot">2. Visualisation géométrique 2D et 3D (<code>linalg_pedagopy.plot</code>)</h2>
+<p>Le sous-module <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/plot/geometry.py"><code>linalg_pedagopy.plot</code></a> fournit des représentations géométriques directes des concepts vectoriels via Matplotlib.</p>
+<p><div class="callout callout-note"><div class="callout-title">Note informative</div><p>&gt; Ce module nécessite la dépendance facultative Matplotlib : `pip install -e ".[plot]"` depuis le dépôt.</p></div></p>
+<h3 id="21-fonctions-graphiques-disponibles">2.1 Fonctions graphiques disponibles</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Fonction</th>
+<th style="text-align: left;">Description géométrique</th>
+<th style="text-align: center;">Dimension</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>plot_linear_combination_2d(u, v, c1=1, c2=1, *, ax=None)</code></td>
+<td style="text-align: left;">Règle du parallélogramme pour la combinaison linéaire $w = c_1 u + c_2 v$.</td>
+<td style="text-align: center;">$\mathbb{R}^2$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>plot_orthogonal_projection_2d(a, q, *, ax=None)</code></td>
+<td style="text-align: left;">Projection orthogonale de $a$ sur la droite $\text{Vect}(q)$ et vecteur résidu.</td>
+<td style="text-align: center;">$\mathbb{R}^2$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>plot_gram_schmidt_2d(vectors, *, ax=None)</code></td>
+<td style="text-align: left;">Tracé simultané des vecteurs initiaux et de la base orthonormée $(q_1, q_2)$.</td>
+<td style="text-align: center;">$\mathbb{R}^2$</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>plot_least_squares_fit(x_data, y_data, ls_result, *, ax=None)</code></td>
+<td style="text-align: left;">Nuage de points, droite/modèle ajusté $\hat{y} = A \hat{x}$ et résidus verticaux.</td>
+<td style="text-align: center;">Plan</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>plot_least_squares_geometry_3d(ls_result)</code></td>
+<td style="text-align: left;">Vue spatiale du vecteur $b$, de sa projection orthogonale $\hat{y}$ sur $\text{Col}(A)$ et du vecteur résidu $\hat{r}$ ($A^T \hat{r} = 0$).</td>
+<td style="text-align: center;">$\mathbb{R}^3$</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-exemple-geometrie-3d-des-moindres-carres">2.2 Exemple : Géométrie 3D des Moindres Carrés</h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, LeastSquares
+from linalg_pedagopy.plot import plot_least_squares_geometry_3d
+import matplotlib.pyplot as plt
+
+# Matrice A de taille 3x2 (plan vectoriel dans R^3)
+A = Matrix([
+    [1, 0],
+    [0, 1],
+    [1, 1]
+])
+b = Vector([1, 2, 4])
+
+ls = LeastSquares(A, b).run()
+
+# Génération de la figure 3D
+fig = plot_least_squares_geometry_3d(ls)
+plt.show()
+</code></pre></div>
+<hr/>
+<h2 id="3-comparaison-exact-vs-virgule-flottante-linalg_pedagopycompare">3. Comparaison Exact vs Virgule Flottante (<code>linalg_pedagopy.compare</code>)</h2>
+<p>Le module <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/compare/numeric.py"><code>linalg_pedagopy.compare</code></a> permet de confronter le calcul symbolique exact aux calculs numériques en virgule flottante standard (IEEE-754 <code>float64</code> sous NumPy).</p>
+<p><div class="callout callout-note"><div class="callout-title">Note informative</div><p>&gt; Ce module nécessite la dépendance facultative NumPy : `pip install -e ".[compare]"` depuis le dépôt. Sans NumPy, le reste du paquet fonctionne, et les fonctions de comparaison lèvent une `ImportError` qui indique cette commande.</p></div></p>
+<h3 id="31-la-fonction-universelle-compare">3.1 La fonction universelle <code>compare</code></h3>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, Vector, GaussJordan, compare
+
+A = Matrix([[1, 2], [3, 4]])
+b = Vector([5, 11])
+proc = GaussJordan(A, b)
+
+rapport = compare(proc)        # ou compare(GaussJordan, (A, b))
+print("Écart absolu maximal :", rapport.max_abs_error)   # 0.0
+print("Résumé :", rapport.summary)
+</code></pre></div>
+<p>Le rapport <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/compare/numeric.py"><code>ComparisonReport</code></a> contient <code>procedure_name</code>, <code>exact_result</code>, <code>float_result</code>, <code>max_abs_error</code>, <code>orthogonality_defect_float</code> (pour <code>GramSchmidt</code> et <code>QR</code>) et <code>summary</code>.</p>
+<h3 id="32-cas-decole-1-la-matrice-de-lauchli-et-la-perte-dorthogonalite">3.2 Cas d'école 1 : La matrice de Läuchli et la perte d'orthogonalité</h3>
+<p>La matrice de Läuchli $L(\epsilon) \in \mathbb{R}^{(n+1) \times n}$ est définie par :
+<div class="math-display">$$L(\epsilon) = \begin{bmatrix} 1 &amp; 1 &amp; \dots &amp; 1 \\ \epsilon &amp; 0 &amp; \dots &amp; 0 \\ 0 &amp; \epsilon &amp; \dots &amp; 0 \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 0 &amp; 0 &amp; \dots &amp; \epsilon \end{bmatrix}$$</div></p>
+<p>Pour $\epsilon$ très petit (par exemple $\epsilon = 10^{-8}$), l'algorithme de Gram-Schmidt classique en virgule flottante perd l'orthogonalité des vecteurs générés : $\|Q^T Q - I\| \approx 1/2$, car $q_2$ et $q_3$ font un angle de 60° au lieu de 90°.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.compare import build_lauchli_matrix, compare
+from linalg_pedagopy import GramSchmidt
+
+# Matrice de Läuchli avec epsilon = 10^-8
+L = build_lauchli_matrix(n=3, epsilon="1/100000000")
+proc = GramSchmidt(L)          # une Matrix est acceptée (ses colonnes)
+
+rapport = compare(proc)
+print("Défaut d'orthogonalité en float64 :", rapport.orthogonality_defect_float)  # ≈ 0.5
+# En virgule flottante, les vecteurs q2 et q3 ne sont plus du tout orthogonaux !
+# En calcul formel linalg_pedagopy, l'orthogonalité est rigoureusement exacte.
+</code></pre></div>
+<p>Des expériences prêtes à l'emploi comparent aussi Gram-Schmidt classique, modifié et exact, ainsi que les équations normales et QR :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.compare import (
+    lauchli_gram_schmidt_experiment,
+    lauchli_least_squares_experiment,
+    hilbert_conditioning_experiment,
+    explicit_inverse_vs_solve_experiment,
+)
+
+print(lauchli_gram_schmidt_experiment())
+#&gt; Matrice de Läuchli (4x3, ε = 1.0e-08) :
+#&gt; - Exact (SymPy)              : max |q_i^T q_j - δ_ij| = 0
+#&gt; - Gram-Schmidt classique     : max |q_i^T q_j - δ_ij| = 0.5000 (perte totale d'orthogonalité)
+#&gt; - Gram-Schmidt modifié (MGS) : max |q_i^T q_j - δ_ij| = 7.07e-09
+</code></pre></div>
+<h3 id="33-cas-decole-2-la-matrice-de-hilbert-et-le-mauvais-conditionnement">3.3 Cas d'école 2 : La matrice de Hilbert et le mauvais conditionnement</h3>
+<p>La matrice de Hilbert d'ordre $n$, $H_{ij} = \frac{1}{i + j + 1}$ (indices à partir de 0), est célèbre pour son conditionnement qui croît exponentiellement ($\text{cond}(H_n) \approx e^{3.5 n}$).</p>
+<p>L'erreur relative d'un solveur flottant croît avec ce conditionnement, alors qu'avec <code>linalg_pedagopy</code> les coefficients restent des fractions exactes, quelle que soit la dimension :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">print(hilbert_conditioning_experiment())
+#&gt; Matrices de Hilbert H_n :
+#&gt; …
+# - n =  3 : cond(H_n) ≈ 5.24e+02, erreur relative flottante ≈ 8.36e-15 (exact : 0)
+# - n =  5 : cond(H_n) ≈ 4.77e+05, erreur relative flottante ≈ 1.68e-12 (exact : 0)
+# - n =  7 : cond(H_n) ≈ 4.75e+08, erreur relative flottante ≈ 1.01e-09 (exact : 0)
+# - n =  9 : cond(H_n) ≈ 4.93e+11, erreur relative flottante ≈ 1.18e-06 (exact : 0)
+# (erreurs flottantes indicatives : leurs derniers chiffres varient selon la version de NumPy)
+</code></pre></div>
+<p>(les erreurs flottantes exactes peuvent varier légèrement selon la plateforme).</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy.compare import build_hilbert_matrix
+from linalg_pedagopy import Vector, GaussJordan
+
+# Matrice de Hilbert d'ordre 8
+H = build_hilbert_matrix(8)
+b = Vector([1] * 8)
+
+res = GaussJordan(H, b).run()
+print("Solution exacte rationnelle :")
+print(res.solution.x)   # (-8, 504, -7560, 46200, -138600, 216216, -168168, 51480)
+</code></pre></div>
+      </article>
+
+      <!-- Navigation entre chapitres -->
+      <nav class="chapter-nav">
+        
+        <a href="05_exercices_sessions.html" class="chapter-nav-btn">
+          <span class="nav-direction">&larr; Chapitre précédent</span>
+          <span class="nav-target">05. Exercices et sessions guidées</span>
+        </a>
+        
+
+        
+        <a href="07_api_reference.html" class="chapter-nav-btn" style="text-align:right;">
+          <span class="nav-direction">Chapitre suivant &rarr;</span>
+          <span class="nav-target">07. Référence de l'API</span>
+        </a>
+        
+      </nav>
+    </main>
+
+    <!-- Barre latérale droite : Sommaire de la page (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-heading">Sur cette page</div>
+      <ul class="toc-list">
+        
+        <li class="toc-item ">
+          <a href="#1-moteurs-de-rendu-multi-formats-explanation">1. Moteurs de rendu multi-formats (Explanation)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#11-formats-de-sortie-disponibles">1.1 Formats de sortie disponibles</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#12-trace-en-tableau-to_table">1.2 Trace en tableau (to_table())</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#13-localisation-et-multilinguisme-locales">1.3 Localisation et multilinguisme (locales)</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#2-visualisation-geometrique-2d-et-3d-linalg_pedagopyplot">2. Visualisation géométrique 2D et 3D (linalg_pedagopy.plot)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#21-fonctions-graphiques-disponibles">2.1 Fonctions graphiques disponibles</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#22-exemple-geometrie-3d-des-moindres-carres">2.2 Exemple : Géométrie 3D des Moindres Carrés</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#3-comparaison-exact-vs-virgule-flottante-linalg_pedagopycompare">3. Comparaison Exact vs Virgule Flottante (linalg_pedagopy.compare)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#31-la-fonction-universelle-compare">3.1 La fonction universelle compare</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#32-cas-decole-1-la-matrice-de-lauchli-et-la-perte-dorthogonalite">3.2 Cas d'école 1 : La matrice de Läuchli et la perte d'orthogonalité</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#33-cas-decole-2-la-matrice-de-hilbert-et-le-mauvais-conditionnement">3.3 Cas d'école 2 : La matrice de Hilbert et le mauvais conditionnement</a>
+        </li>
+        
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <p>
+      <strong>linalg_pedagopy</strong> — Algèbre Linéaire Formelle &amp; Pédagogique.<br>
+      Conçu pour l'enseignement de l'algèbre linéaire en L1–L2.<br>
+      Documentation sous licence MIT. Code source ouvert.
+    </p>
+  </footer>
+
+  <script src="assets/js/academic.js"></script>
+</body>
+</html>

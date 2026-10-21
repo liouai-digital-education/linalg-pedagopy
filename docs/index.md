@@ -1,4 +1,4 @@
-# Documentation de `linalg_pedagopy`
+# Accueil de la documentation
 
 **`linalg_pedagopy`** est un package Python d'**algèbre linéaire formelle et pédagogique** pour l'enseignement en L1–L2 (licence, classes préparatoires, écoles d'ingénieurs). Il calcule en **arithmétique exacte**, **discute automatiquement les cas** quand un calcul dépend d'un paramètre, **explique chaque étape** au niveau de détail voulu, et propose un **tuteur** qui guide l'étudiant sur 39 exercices sans jamais donner la solution.
 
@@ -6,22 +6,22 @@
 
 ## Plan de la documentation
 
-1. [**01. Noyau formel et calcul exact**](01_core_and_formal_computation.md)  
+1. [**01. Noyau formel et calcul exact**](01_noyau_calcul_formel.md)  
    Conversion exacte des scalaires (`to_exact`, `float_policy`), symboles réels (`symbols`), oracle de nullité à 4 verdicts (`ZeroOracle`), conditions et discussion de cas (`Condition`, `CaseSplit`, `Branch`).
 
-2. [**02. Vecteurs, matrices et métriques**](02_vectors_and_matrices.md)  
+2. [**02. Vecteurs, matrices et métriques**](02_vecteurs_matrices.md)  
    Objets immuables `Vector` et `Matrix`, métriques (norme, rms, moyenne, écart type, distance, angle, corrélation), les 4 vues du produit matriciel, matrices par blocs, `rref`, `rank`, `nullspace`, `inv`, `solve`, et matrices structurées (différences, sommes cumulées, moyenne glissante, Vandermonde, convolution).
 
-3. [**03. Algorithmes et traçabilité**](03_algorithms_and_step_tracing.md)  
+3. [**03. Algorithmes et traçabilité**](03_algorithmes_traces.md)  
    Trace hiérarchique (`explain(level=0..3)`, `tracing`), `GaussJordan`, substitutions triangulaires, `GramSchmidt`, `QR` exacte et rationnelle, `LeastSquares`, déterminant (`Determinant` : Bareiss, élimination, cofacteurs, Sarrus).
 
 4. [**04. Le tuteur interactif**](04_tuteur.md)  
    Catalogue nommé, séance pas à pas (énoncé, indices, exercice jumeau, vérification, laboratoire, bilan), panneau JupyterLab, mode enseignant, format des fiches et validation.
 
-5. [**05. Exercices et sessions guidées**](05_pedagogical_exercises_and_sessions.md)  
+5. [**05. Exercices et sessions guidées**](05_exercices_sessions.md)  
    Générateurs à résultats propres, générateurs d'exercices jumeaux, sessions interactives (`InteractiveSession`) et diagnostic des erreurs d'opérations de lignes.
 
-6. [**06. Rendu, visualisation et comparaison numérique**](06_rendering_visualization_and_numerics.md)  
+6. [**06. Rendu, visualisation et comparaison numérique**](06_rendu_visualisation_numerique.md)  
    Formats texte, LaTeX, Markdown et HTML (`Explanation`), figures 2D/3D, comparaison exact / flottant (Läuchli, Hilbert).
 
 7. [**07. Référence de l'API**](07_api_reference.md)  
@@ -40,11 +40,12 @@
 ### Installation
 
 ```bash
-pip install -e .                               # installation de base
+pip install -e .                               # base
 pip install -e ".[tuteur]"                     # + JupyterLab et panneau interactif
 pip install -e ".[plot]"                       # + figures Matplotlib
 pip install -e ".[compare]"                    # + comparaison avec NumPy
-pip install -e ".[dev,tuteur,plot,compare]"    # installation complète (avec les tests)
+pip install -e ".[docs]"                       # + génération du site et du catalogue (contributeurs)
+pip install -e ".[dev,tuteur,plot,compare]"    # tout, avec les outils de test
 ```
 
 Le pas-à-pas complet pour JupyterLab est dans le [guide 09](09_guide_jupyterlab.md).
@@ -68,7 +69,8 @@ print(result)
 #> └─ Cas a = 1 : L2 et L3 deviennent (0 0 0 | 1) et (0 0 0 | 2)
 #>      système incompatible (témoin : 0 = 1)
 
-print(result.at(a=0).solution)   # UniqueSolution(x=(4, -1, -2))
+print(result.at(a=0).solution)
+#> UniqueSolution(x=(4, -1, -2))
 ```
 
 ### Première séance avec le tuteur
@@ -86,6 +88,8 @@ rapport = ex.verifier(Matrix.zeros(3, 6))    # une réponse fausse
 print(rapport.valide)                       # False
 print(rapport.diagnostic)                  # ce que calcule la réponse, et une question
 ```
+
+Dans JupyterLab, `ex.panneau()` ouvre un panneau avec les indices, l'exercice jumeau, une zone de réponse et le bilan.
 
 La progression est enregistrée dans un journal, `.linalg_pedagopy_journal.json`, créé dans le répertoire courant : en relançant l'exemple, `ex.indice()` donne le palier suivant. `ex.recommencer()` repart de zéro.
 
@@ -133,6 +137,6 @@ Le reste du package garde ses noms anglais, avec des alias français durables : 
 
 ## Sources et remerciements
 
-Les exercices 1 à 35 du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil *Additional Exercises for Vectors, Matrices, and Least Squares* de Stephen Boyd et Lieven Vandenberghe, compagnon de leur livre *Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares* (Cambridge University Press, 2018), disponibles sur [le site des auteurs](https://web.stanford.edu/~boyd/vmls/). Plusieurs conventions du package en viennent aussi (résidu des moindres carrés r̂ = A x̂ − b, variantes de Gram-Schmidt). Les exercices du thème « Déterminants » (numéros 36 à 39) sont originaux.
+Les exercices 1 à 35 du tuteur sont adaptés, traduits et reformulés en français, d'exercices du recueil *Additional Exercises for Vectors, Matrices, and Least Squares* de Stephen Boyd et Lieven Vandenberghe, compagnon de leur livre *Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares* (Cambridge University Press, 2018). Le livre et le recueil sont disponibles sur [le site des auteurs](https://web.stanford.edu/~boyd/vmls/). Plusieurs conventions du package en viennent aussi, par exemple le résidu des moindres carrés r̂ = A x̂ − b et les deux variantes de Gram-Schmidt. Les exercices du thème « Déterminants » (numéros 36 à 39) sont originaux.
 
-Les droits sur les exercices originaux appartiennent à leurs auteurs ; `linalg_pedagopy` est un projet indépendant, sans lien avec les auteurs ni avec l'éditeur. Les énoncés des fiches ne citent pas leur source, pour que l'étudiant ne puisse pas aller chercher la solution à l'extérieur : cette page et le `README.md` en tiennent lieu.
+Les droits sur les exercices originaux appartiennent à leurs auteurs. `linalg_pedagopy` est un projet indépendant, sans lien avec les auteurs ni avec l'éditeur, qui ne l'approuvent pas formellement. Les énoncés des fiches ne citent pas leur source, pour que l'étudiant ne puisse pas aller chercher la solution à l'extérieur, d'où cette mention groupée.

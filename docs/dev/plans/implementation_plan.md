@@ -1,5 +1,8 @@
 # Plan d'implémentation — `linalg_pedagopy` v3.0
 
+> **Document historique.** Plan de la refonte en version 3.0, réalisé ; il n'est plus tenu à jour. Il reste la référence pour la liste des décisions de conception D1 à D11. Le plan en cours est le [plan de développement v6](plan_developpement_v6.md).
+
+
 ## Objectif et contexte
 
 Ce plan décrit la refonte complète du package `linalg_pedagopy` directement vers la **version 3.0 (`3.0.0`)**, conformément aux spécifications de `linalg_pedagopy_plan_v3.pdf` (document de travail non publié).

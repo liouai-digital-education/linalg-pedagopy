@@ -169,7 +169,7 @@ A_cubed = A @ A @ A
 
 ### 2.3 Accès aux coefficients, aux lignes et aux colonnes
 
-Les indices commencent à 0 (voir le [guide 01, § 5.3](01_core_and_formal_computation.md#53-indices-a-partir-de-0-dans-lapi-a-partir-de-1-dans-les-traces)). Une `Matrix` est immuable : les accesseurs renvoient des copies.
+Les indices commencent à 0 (voir le [guide 01, § 5.3](01_noyau_calcul_formel.md#53-indices-a-partir-de-0-dans-lapi-a-partir-de-1-dans-les-traces)). Une `Matrix` est immuable : les accesseurs renvoient des copies.
 
 ```python
 A = Matrix([[1, 2, 3], [4, 5, 6]])
@@ -190,7 +190,7 @@ print(A.entries_grid, A.flat_entries)    # coefficients SymPy, par lignes ou à 
 
 `A[i]` renvoie la ligne `i` en tuple de coefficients, et `A.row(i)` la même ligne en `Vector`. Un indice hors bornes lève `IndexError`.
 
-Pour les matrices à paramètres, `subs` remplace des paramètres par des valeurs ; les clés peuvent être des symboles ou des noms (voir le [guide 01, § 2.2](01_core_and_formal_computation.md#22-parametres-designes-par-leur-nom)). `to_sympy()` convertit en `sympy.Matrix`, et `to_domain_matrix()` en `DomainMatrix` sur le plus petit domaine exact (pour les calculs internes rapides) :
+Pour les matrices à paramètres, `subs` remplace des paramètres par des valeurs ; les clés peuvent être des symboles ou des noms (voir le [guide 01, § 2.2](01_noyau_calcul_formel.md#22-parametres-designes-par-leur-nom)). `to_sympy()` convertit en `sympy.Matrix`, et `to_domain_matrix()` en `DomainMatrix` sur le plus petit domaine exact (pour les calculs internes rapides) :
 
 ```python
 from linalg_pedagopy import symbols
@@ -355,7 +355,7 @@ print(im)                                 # colonnes pivots de A
 
 ### 4.4 Résolution directe (`solve`)
 
-`A.solve(b, *, assumptions=None, strict=False)` résout $A x = b$ par Gauss-Jordan et renvoie seulement l'ensemble des solutions (`UniqueSolution`, `AffineSolution` ou `EmptySolution`, décrits dans le [guide 03, § 2.2](03_algorithms_and_step_tracing.md)), ou une discussion par cas. Pour la trace et les autres résultats (rang, pivots, forme échelonnée), utilisez `GaussJordan(A, b).run()`.
+`A.solve(b, *, assumptions=None, strict=False)` résout $A x = b$ par Gauss-Jordan et renvoie seulement l'ensemble des solutions (`UniqueSolution`, `AffineSolution` ou `EmptySolution`, décrits dans le [guide 03, § 2.2](03_algorithmes_traces.md)), ou une discussion par cas. Pour la trace et les autres résultats (rang, pivots, forme échelonnée), utilisez `GaussJordan(A, b).run()`.
 
 ```python
 M = Matrix([[1, a], [a, 1]])
@@ -374,7 +374,7 @@ Le second membre peut aussi être une matrice $B$ (plusieurs seconds membres) : 
 
 ### 4.5 Déterminant (`det`)
 
-La méthode [`det(*, method="auto", assumptions=None)`](../src/linalg_pedagopy/objects/matrix.py) renvoie le déterminant exact, factorisé. Elle délègue à la procédure [`Determinant`](../src/linalg_pedagopy/algorithms/determinant.py), décrite dans le [guide 03](03_algorithms_and_step_tracing.md) (méthodes de Bareiss, élimination, cofacteurs, Sarrus ; trace pas à pas ; valeurs singulières du paramètre).
+La méthode [`det(*, method="auto", assumptions=None)`](../src/linalg_pedagopy/objects/matrix.py) renvoie le déterminant exact, factorisé. Elle délègue à la procédure [`Determinant`](../src/linalg_pedagopy/algorithms/determinant.py), décrite dans le [guide 03](03_algorithmes_traces.md) (méthodes de Bareiss, élimination, cofacteurs, Sarrus ; trace pas à pas ; valeurs singulières du paramètre).
 
 ```python
 from linalg_pedagopy import Matrix, symbols
