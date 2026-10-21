@@ -17,15 +17,16 @@ from linalg_pedagopy.algorithms.base import (
     UniqueSolution,
 )
 from linalg_pedagopy.algorithms.elimination import (
+    EliminationEngine,
+    EliminationSetup,
+    EliminationState,
     PivotStrategy,
-    RowOps,
-    _choose_pivot,
-    _pivot_complexity_key,
+    SplitRequest,
     _result_entry,
     _simplify_entry,
 )
 from linalg_pedagopy.config import config
-from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
+from linalg_pedagopy.core.cases import CaseSplit, Condition
 from linalg_pedagopy.core.field import pretty_expr
 from linalg_pedagopy.core.exceptions import (
     DimensionMismatchError,
@@ -37,7 +38,6 @@ from linalg_pedagopy.core.zero import (
     AssumptionsType,
     Verdict,
     _normalize_assumptions,
-    case_limit_error,
     domain_of,
     oracle,
 )
@@ -45,7 +45,7 @@ from linalg_pedagopy.objects.matrix import Matrix, register_gauss_jordan_hook
 from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.render.text import format_value_text
 from linalg_pedagopy.trace.step import Highlight, StepKind
-from linalg_pedagopy.trace.tracer import record, section, suspend_tracing, tracing
+from linalg_pedagopy.trace.tracer import record, section, suspend_tracing
 
 @dataclass(frozen=True)
 class GJResult(Result):
@@ -223,7 +223,6 @@ class GaussJordan(Procedure[GJResult]):
 
     def _execute(self) -> GJResult | CaseSplit[GJResult]:
         self._warn_if_large_symbolic()
-        state: dict[str, Any] = {"cases_count": 1}
         # Valeurs interdites par les dénominateurs des coefficients : elles restreignent toutes les branches
         entries = list(self.A.flat_entries)
         if isinstance(self.b, Matrix):
@@ -240,333 +239,147 @@ class GaussJordan(Procedure[GJResult]):
                     f"ils exigent {domain}."
                 )
             record(StepKind.INFO, "gj.domain", level=1, domain=domain)
-        return self._solve_under_condition(self.A, self.b, cond, depth=0, state=state)
+        engine: EliminationEngine[GJResult] = EliminationEngine(
+            prefix="gj",
+            setup=self._setup,
+            on_complete=self._complete,
+            pivot_strategy=self.pivot_strategy,
+            max_depth=self.max_depth,
+            max_cases=self.max_cases,
+        )
+        return engine.run(cond)
 
-    def _solve_under_condition(
-        self,
-        A_in: Matrix,
-        b_in: Vector | Matrix | None,
-        cond: Condition,
-        *,
-        depth: int,
-        state: dict[str, Any],
-    ) -> GJResult | CaseSplit[GJResult]:
+    def _setup(self, cond: Condition) -> EliminationSetup:
+        """Grille de travail d'une branche : [A | b] sous les substitutions de la condition."""
         subs_map = cond.substitutions()
-        A_cur = A_in.subs(subs_map) if subs_map else A_in
-        b_cur = b_in.subs(subs_map) if (b_in is not None and subs_map) else b_in
+        A_cur = self.A.subs(subs_map) if subs_map else self.A
+        b_cur = self.b.subs(subs_map) if (self.b is not None and subs_map) else self.b
 
         m, n = A_cur.shape
         aug = A_cur.augment(b_cur) if b_cur is not None else A_cur
-        total_cols = aug.cols
-        split_col = n if b_cur is not None else None
-
         grid: list[list[sp.Expr]] = [
-            [_simplify_entry(aug[i, j]) for j in range(total_cols)] for i in range(m)
+            [_simplify_entry(aug[i, j]) for j in range(aug.cols)] for i in range(m)
         ]
+        return EliminationSetup(
+            grid=grid,
+            n_cols=n,
+            split_col=n if b_cur is not None else None,
+            start_params={"m": m, "n": n},
+            context=(A_cur, b_cur),
+        )
 
-        pivots: list[int] = []
-        pivot_row = 0
-        ops = RowOps("gj", split_col=split_col)
-
-        with section(
-            "gj.start",
-            level=1,
-            snapshot={"augmented_matrix": Matrix._from_exact_rows(grid)},
-            highlight=Highlight(augmented_split=split_col),
-            m=m,
-            n=n,
-        ):
-            for col in range(n):
-                if pivot_row >= m:
-                    break
-
-                # Analyse des candidats dans la colonne `col` pour r >= pivot_row
-                nonzero_cands: list[tuple[int, sp.Expr]] = []
-                cond_cands: list[tuple[int, sp.Expr, tuple[sp.Expr, ...]]] = []
-                unknown_cands: list[tuple[int, sp.Expr]] = []
-
-                for r in range(pivot_row, m):
-                    val = _simplify_entry(grid[r][col])
-                    grid[r][col] = val
-                    dec = oracle.decide(val, assumptions=cond)
-                    if dec.verdict == Verdict.NONZERO:
-                        nonzero_cands.append((r, val))
-                    elif dec.verdict == Verdict.CONDITIONAL:
-                        cond_cands.append((r, val, dec.factors))
-                    elif dec.verdict == Verdict.UNKNOWN:
-                        unknown_cands.append((r, val))
-
-                # S'il n'y a aucun candidat inconditionnellement non nul mais un candidat conditionnel -> CaseSplit
-                if not nonzero_cands and cond_cands:
-                    cand_r, cand_val, cand_factors = min(
-                        cond_cands, key=lambda item: _pivot_complexity_key(item[1])
-                    )
-                    return self._split_on_factors(
-                        A_in,
-                        b_in,
-                        cond,
-                        factors=cand_factors,
-                        row=cand_r,
-                        col=col,
-                        expr=cand_val,
-                        depth=depth,
-                        state=state,
-                    )
-
-                if not nonzero_cands and not cond_cands and unknown_cands:
-                    oracle.is_zero(unknown_cands[0][1], assumptions=cond)
-
-                if not nonzero_cands:
-                    record(
-                        StepKind.INFO,
-                        "gj.col_zero",
-                        level=2,
-                        col=col + 1,
-                    )
-                    continue
-
-                chosen_r, chosen_val = _choose_pivot(nonzero_cands, self.pivot_strategy)
-
-                with section(
-                    "gj.column_step",
-                    level=2,
-                    col=col + 1,
-                    row=pivot_row + 1,
-                ):
-                    record(
-                        StepKind.INFO,
-                        "gj.pivot_chosen",
-                        level=2,
-                        row=chosen_r + 1,
-                        col=col + 1,
-                        pivot=chosen_val,
-                        strategy=self.pivot_strategy,
-                    )
-
-                    # Échange de lignes éventuel
-                    if chosen_r != pivot_row:
-                        ops.swap(grid, pivot_row, chosen_r, col=col)
-
-                    # Normalisation de la ligne pivot si le pivot != 1
-                    pivot_val = grid[pivot_row][col]
-                    if oracle.decide(pivot_val - 1, assumptions=cond).verdict != Verdict.ZERO:
-                        ops.scale(grid, pivot_row, col=col)
-
-                    # Élimination dans toutes les autres lignes (au-dessus et en-dessous)
-                    for r in range(m):
-                        if r == pivot_row:
-                            continue
-                        factor = _simplify_entry(grid[r][col])
-                        dec_f = oracle.decide(factor, assumptions=cond)
-                        if dec_f.verdict == Verdict.ZERO:
-                            grid[r][col] = sp.Integer(0)
-                            continue
-                        # Transvection L_r <- L_r - factor * L_pivot
-                        ops.add_multiple(grid, r, pivot_row, factor, col=col)
-
-                pivots.append(col)
-                pivot_row += 1
-
-            # Vérification de compatibilité sur les lignes nulles si un second membre est présent
-            rank = len(pivots)
-            if b_cur is not None and not self.compute_inverse:
-                has_unconditional_inconsistency = False
+    def _complete(self, st: EliminationState) -> GJResult | SplitRequest:
+        """Fin d'une branche : compatibilité, réduction par la condition, solution, inverse, résumé."""
+        grid, cond, pivots = st.grid, st.cond, st.pivots
+        A_cur, b_cur = st.setup.context
+        m, n = len(grid), st.setup.n_cols
+        total_cols = len(grid[0]) if grid else n
+        split_col = st.setup.split_col
+        # Vérification de compatibilité sur les lignes nulles si un second membre est présent
+        rank = len(pivots)
+        if b_cur is not None and not self.compute_inverse:
+            has_unconditional_inconsistency = False
+            for r in range(rank, m):
+                for rhs_c in range(n, total_cols):
+                    rhs_val = _simplify_entry(grid[r][rhs_c])
+                    grid[r][rhs_c] = rhs_val
+                    if oracle.decide(rhs_val, assumptions=cond).verdict == Verdict.NONZERO:
+                        has_unconditional_inconsistency = True
+            if not has_unconditional_inconsistency:
                 for r in range(rank, m):
                     for rhs_c in range(n, total_cols):
-                        rhs_val = _simplify_entry(grid[r][rhs_c])
-                        grid[r][rhs_c] = rhs_val
-                        if oracle.decide(rhs_val, assumptions=cond).verdict == Verdict.NONZERO:
-                            has_unconditional_inconsistency = True
-                if not has_unconditional_inconsistency:
-                    for r in range(rank, m):
-                        for rhs_c in range(n, total_cols):
-                            rhs_val = grid[r][rhs_c]
-                            dec_rhs = oracle.decide(rhs_val, assumptions=cond)
-                            if dec_rhs.verdict == Verdict.CONDITIONAL:
-                                return self._split_on_factors(
-                                    A_in,
-                                    b_in,
-                                    cond,
-                                    factors=dec_rhs.factors,
-                                    row=r,
-                                    col=rhs_c,
-                                    expr=rhs_val,
-                                    depth=depth,
-                                    state=state,
-                                )
+                        rhs_val = grid[r][rhs_c]
+                        dec_rhs = oracle.decide(rhs_val, assumptions=cond)
+                        if dec_rhs.verdict == Verdict.CONDITIONAL:
+                            return SplitRequest(factors=dec_rhs.factors, row=r, col=rhs_c, expr=rhs_val)
 
-            # Branche à égalité non linéaire (a² − 3 = 0) : coefficients réduits modulo cette égalité
-            nonlinear = cond.nonlinear_equations()
-            if nonlinear:
-                reduced = [[_simplify_entry(cond.reduce(x)) for x in row] for row in grid]
-                if reduced != grid:
-                    grid = reduced
-                    record(
-                        StepKind.INFO,
-                        "gj.reduce_by_condition",
-                        level=2,
-                        snapshot={"augmented_matrix": Matrix._from_exact_rows(grid)},
-                        highlight=Highlight(augmented_split=split_col),
-                        equations=" et ".join(f"{pretty_expr(p)} = 0" for p, _ in nonlinear),
-                    )
+        # Branche à égalité non linéaire (a² − 3 = 0) : coefficients réduits modulo cette égalité
+        nonlinear = cond.nonlinear_equations()
+        if nonlinear:
+            reduced = [[_simplify_entry(cond.reduce(x)) for x in row] for row in grid]
+            if reduced != grid:
+                grid = reduced
+                record(
+                    StepKind.INFO,
+                    "gj.reduce_by_condition",
+                    level=2,
+                    snapshot={"augmented_matrix": Matrix._from_exact_rows(grid)},
+                    highlight=Highlight(augmented_split=split_col),
+                    equations=" et ".join(f"{pretty_expr(p)} = 0" for p, _ in nonlinear),
+                )
 
-            finish = _result_entry(cond)
-            aug_rref = Matrix._from_exact_rows(grid)
-            rref_a = aug_rref[:, :n] if n > 0 else Matrix.zeros(m, 0)
-            free_vars = tuple(j for j in range(n) if j not in pivots)
-            null_basis = self._extract_nullspace(rref_a, pivots, free_vars, finish=finish)
+        finish = _result_entry(cond)
+        aug_rref = Matrix._from_exact_rows(grid)
+        rref_a = aug_rref[:, :n] if n > 0 else Matrix.zeros(m, 0)
+        free_vars = tuple(j for j in range(n) if j not in pivots)
+        null_basis = self._extract_nullspace(rref_a, pivots, free_vars, finish=finish)
 
-            solution: SolutionSet | None = None
-            inverse_mat: Matrix | None = None
+        solution: SolutionSet | None = None
+        inverse_mat: Matrix | None = None
 
-            if self.compute_inverse and m == n:
-                if rank < n:
-                    record(
-                        StepKind.INFO,
-                        "gj.singular_inverse",
-                        level=1,
-                        rank=rank,
-                        n=n,
-                    )
-                    if self.strict:
-                        raise SingularMatrixError(
-                            f"La matrice {n}x{n} est singulière (rang {rank} < {n}).",
-                            rank=rank,
-                        )
-                    inverse_mat = None
-                else:
-                    inverse_mat = Matrix._from_exact_rows(
-                        [[finish(x) for x in row] for row in aug_rref[:, n:].entries_grid]
-                    )
-                    record(
-                        StepKind.RESULT,
-                        "gj.inverse_found",
-                        level=1,
-                        snapshot={"result": inverse_mat},
-                        n=n,
-                    )
-
-            if b_cur is not None and not self.compute_inverse:
-                solution = self._build_solution_set(
-                    aug_rref,
-                    m=m,
+        if self.compute_inverse and m == n:
+            if rank < n:
+                record(
+                    StepKind.INFO,
+                    "gj.singular_inverse",
+                    level=1,
+                    rank=rank,
                     n=n,
-                    total_cols=total_cols,
-                    pivots=tuple(pivots),
-                    free_vars=free_vars,
-                    null_basis=null_basis,
-                    is_vector_rhs=isinstance(b_cur, Vector),
-                    cond=cond,
+                )
+                if self.strict:
+                    raise SingularMatrixError(
+                        f"La matrice {n}x{n} est singulière (rang {rank} < {n}).",
+                        rank=rank,
+                    )
+                inverse_mat = None
+            else:
+                inverse_mat = Matrix._from_exact_rows(
+                    [[finish(x) for x in row] for row in aug_rref[:, n:].entries_grid]
+                )
+                record(
+                    StepKind.RESULT,
+                    "gj.inverse_found",
+                    level=1,
+                    snapshot={"result": inverse_mat},
+                    n=n,
                 )
 
-            record(
-                StepKind.RESULT,
-                "gj.summary",
-                level=1,
-                snapshot={"augmented_matrix": aug_rref},
-                highlight=Highlight(augmented_split=split_col),
-                rank=rank,
-                pivots=[p + 1 for p in pivots],
-            )
-
-            return GJResult(
-                A=A_cur,
-                b=b_cur,
-                rref=rref_a,
-                augmented_rref=aug_rref,
+        if b_cur is not None and not self.compute_inverse:
+            solution = self._build_solution_set(
+                aug_rref,
+                m=m,
+                n=n,
+                total_cols=total_cols,
                 pivots=tuple(pivots),
-                rank=rank,
                 free_vars=free_vars,
-                nullspace_basis=null_basis,
-                solution=solution,
-                inverse=inverse_mat,
+                null_basis=null_basis,
+                is_vector_rhs=isinstance(b_cur, Vector),
+                cond=cond,
             )
 
-    def _split_on_factors(
-        self,
-        A_in: Matrix,
-        b_in: Vector | Matrix | None,
-        cond: Condition,
-        *,
-        factors: tuple[sp.Expr, ...],
-        row: int,
-        col: int,
-        expr: sp.Expr,
-        depth: int,
-        state: dict[str, Any],
-    ) -> CaseSplit[GJResult]:
-        seen: list[sp.Expr] = state.setdefault("factors", [])
-        seen.extend(f for f in factors if f not in seen)
-        if depth >= self.max_depth:
-            raise case_limit_error(
-                limit="max_depth",
-                value=self.max_depth,
-                reached=depth + 1,
-                factors=seen,
-                condition=cond,
-                argument="max_depth",
-            )
-        if state["cases_count"] + len(factors) > self.max_cases:
-            raise case_limit_error(
-                limit="max_cases",
-                value=self.max_cases,
-                reached=state["cases_count"] + len(factors),
-                factors=seen,
-                condition=cond,
-                argument="max_cases",
-            )
-
-        state["cases_count"] += len(factors)
-
-        # 1. Branche générique : tous les facteurs sont non nuls
-        gen_cond = cond
-        for fac in factors:
-            gen_cond = gen_cond & Condition.from_zero_expr(fac, is_zero=False)
-
-        branches: list[Branch[GJResult]] = []
-
-        if not gen_cond.is_contradictory:
-            with tracing(level=3) as t_gen:
-                gen_res = self._solve_under_condition(
-                    A_in, b_in, gen_cond, depth=depth + 1, state=state
-                )
-            if isinstance(gen_res, CaseSplit):
-                for b_sub in gen_res.branches:
-                    branches.append(b_sub)
-            else:
-                object.__setattr__(gen_res, "trace", t_gen.tree)
-                branches.append(Branch(condition=gen_cond, result=gen_res, trace=t_gen.tree))
-
-        # 2. Branches particulières disjointes : le facteur i s'annule et les précédents (< i) sont non nuls
-        prefix_neq = cond
-        for fac in factors:
-            part_cond = prefix_neq & Condition.from_zero_expr(fac, is_zero=True)
-            prefix_neq = prefix_neq & Condition.from_zero_expr(fac, is_zero=False)
-            if part_cond.is_contradictory:
-                continue
-            with tracing(level=3) as t_part:
-                part_res = self._solve_under_condition(
-                    A_in, b_in, part_cond, depth=depth + 1, state=state
-                )
-            if isinstance(part_res, CaseSplit):
-                for b_sub in part_res.branches:
-                    branches.append(b_sub)
-            else:
-                object.__setattr__(part_res, "trace", t_part.tree)
-                branches.append(Branch(condition=part_cond, result=part_res, trace=t_part.tree))
-
-        # Enregistrement dans la trace courante
-        params_names = ", ".join(sorted(s.name for s in expr.free_symbols))
         record(
-            StepKind.CASE_SPLIT,
-            "gj.case_split",
+            StepKind.RESULT,
+            "gj.summary",
             level=1,
-            param=params_names,
-            row=row + 1,
-            col=col + 1,
-            expr=expr,
+            snapshot={"augmented_matrix": aug_rref},
+            highlight=Highlight(augmented_split=split_col),
+            rank=rank,
+            pivots=[p + 1 for p in pivots],
         )
-        return CaseSplit(branches=tuple(branches))
+
+        return GJResult(
+            A=A_cur,
+            b=b_cur,
+            rref=rref_a,
+            augmented_rref=aug_rref,
+            pivots=tuple(pivots),
+            rank=rank,
+            free_vars=free_vars,
+            nullspace_basis=null_basis,
+            solution=solution,
+            inverse=inverse_mat,
+        )
+
 
     @staticmethod
     def _extract_nullspace(

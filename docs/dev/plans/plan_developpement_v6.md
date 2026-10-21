@@ -405,7 +405,8 @@ Aucune à ce jour.
 5. Tâche 3.5 **faite** : `PedagogicalWarning` et `config.max_generic_dim` ; tests dans `tests/test_avertissement_taille.py`. **Phase 3 terminée : version 0.3.1.1** (étiquette `v0.3.1.1`).
 6. Phase 4, tâche 4.1 **faite** : `algorithms/elimination.py` (fonctions pures et `_choose_pivot`), aucune sortie modifiée.
 7. Tâche 4.2 **faite** : `RowOps` dans `elimination.py` ; traces du déterminant ajoutées aux tests de caractérisation.
-8. Tâche 4.3 : extraire la boucle d'élimination et `_split_on_factors` dans `EliminationEngine` ; traces et `CaseSplit` identiques.
+8. Tâches 4.3 et 4.4 **faites** : `EliminationEngine`, `SplitRequest` ; `GaussJordan` réécrit sur le moteur (`_setup`, `_complete`), 496 lignes (objectif < 400 à reprendre avec l'extraction du noyau, étape 4.7).
+9. Tâche 4.5 : reconstruire `Determinant` (élimination et Bareiss) sur le moteur ; ajouter le `CaseSplit` du mode élimination paramétré.
 
 # Annexe B — Esquisse de l'API cible (version 0.3.4)
 

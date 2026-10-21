@@ -4,25 +4,27 @@
   du pivot, mise en forme des résultats d'une branche).
 - Étape 4.2 : opérations élémentaires tracées (``RowOps`` : échange, dilatation,
   transvection, étape de Bareiss).
-
-L'étape 4.3 y ajoute le moteur d'élimination lui-même.
+- Étape 4.3 : moteur d'élimination (``EliminationEngine``) : parcours des colonnes, choix
+  du pivot, discussion par cas quand aucun pivot n'est inconditionnellement non nul.
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Any, Callable, Literal, Mapping
+from dataclasses import dataclass, field
+from typing import Any, Callable, Generic, Literal, Mapping, TypeVar
 
 import sympy as sp
 
 from linalg_pedagopy.config import config
-from linalg_pedagopy.core.cases import Condition
+from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
+from linalg_pedagopy.core.zero import Verdict, case_limit_error, oracle
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.render.text import format_value_text
 from linalg_pedagopy.trace.step import Highlight, StepKind
-from linalg_pedagopy.trace.tracer import record
+from linalg_pedagopy.trace.tracer import record, section, tracing
 
 PivotStrategy = Literal["simplest", "first", "partial"]
+R = TypeVar("R")
 
 
 def _simplify_entry(expr: sp.Expr) -> sp.Expr:
@@ -249,3 +251,255 @@ class RowOps:
             pivot=pivot,
             previous=previous,
         )
+
+
+@dataclass
+class EliminationSetup:
+    """Grille de travail d'une branche, fournie au moteur par la procédure.
+
+    ``n_cols`` : nombre de colonnes à éliminer (celles de A, sans le second membre) ;
+    ``split_col`` : position de la barre de la matrice augmentée ; ``start_params`` :
+    paramètres de l'étape de trace ``{prefix}.start`` ; ``context`` : données propres à
+    la procédure, rendues telles quelles à ``on_complete``.
+    """
+
+    grid: list[list[sp.Expr]]
+    n_cols: int
+    split_col: int | None = None
+    start_params: dict[str, Any] = field(default_factory=dict)
+    context: Any = None
+
+
+@dataclass
+class EliminationState:
+    """État d'une branche en fin d'élimination, transmis à ``on_complete``."""
+
+    grid: list[list[sp.Expr]]
+    cond: Condition
+    pivots: list[int]
+    setup: EliminationSetup
+    ops: RowOps
+
+
+@dataclass(frozen=True)
+class SplitRequest:
+    """Demande de discussion par cas renvoyée par ``on_complete`` (ex. compatibilité du second membre)."""
+
+    factors: tuple[sp.Expr, ...]
+    row: int
+    col: int
+    expr: sp.Expr
+
+
+class EliminationEngine(Generic[R]):
+    """Élimination tracée avec discussion par cas, commune aux procédures qui échelonnent.
+
+    Pour chaque condition (branche), ``setup`` construit la grille ; le moteur parcourt les
+    colonnes, choisit les pivots inconditionnellement non nuls, et sépare en cas quand un
+    pivot ne l'est que sous condition : branche générique (tous les facteurs non nuls),
+    puis une branche par facteur nul, les précédents non nuls. ``on_complete`` fabrique le
+    résultat d'une branche, ou renvoie un ``SplitRequest`` pour une discussion supplémentaire.
+
+    ``reduce_above`` : annuler aussi les coefficients au-dessus du pivot (forme réduite) ;
+    ``normalize_pivots`` : ramener chaque pivot à 1 (sinon, le multiplicateur d'une
+    transvection est le coefficient divisé par le pivot).
+    """
+
+    def __init__(
+        self,
+        *,
+        prefix: str,
+        setup: Callable[[Condition], EliminationSetup],
+        on_complete: Callable[[EliminationState], R | SplitRequest],
+        max_depth: int,
+        max_cases: int,
+        pivot_strategy: PivotStrategy = "simplest",
+        reduce_above: bool = True,
+        normalize_pivots: bool = True,
+        snapshot_key: str = "augmented_matrix",
+    ) -> None:
+        self.prefix = prefix
+        self.setup = setup
+        self.on_complete = on_complete
+        self.max_depth = max_depth
+        self.max_cases = max_cases
+        self.pivot_strategy: PivotStrategy = pivot_strategy
+        self.reduce_above = reduce_above
+        self.normalize_pivots = normalize_pivots
+        self.snapshot_key = snapshot_key
+
+    def run(self, cond: Condition) -> R | CaseSplit[R]:
+        """Élimination sous la condition initiale (hypothèses et domaine de définition)."""
+        return self._solve(cond, depth=0, state={"cases_count": 1})
+
+    def _solve(self, cond: Condition, *, depth: int, state: dict[str, Any]) -> R | CaseSplit[R]:
+        setup = self.setup(cond)
+        grid = setup.grid
+        m, n = len(grid), setup.n_cols
+        ops = RowOps(self.prefix, snapshot_key=self.snapshot_key, split_col=setup.split_col)
+        pivots: list[int] = []
+        pivot_row = 0
+
+        with section(
+            f"{self.prefix}.start",
+            level=1,
+            snapshot=ops._snapshot(grid),
+            highlight=Highlight(augmented_split=setup.split_col),
+            **setup.start_params,
+        ):
+            for col in range(n):
+                if pivot_row >= m:
+                    break
+
+                # Analyse des candidats dans la colonne `col` pour r >= pivot_row
+                nonzero_cands: list[tuple[int, sp.Expr]] = []
+                cond_cands: list[tuple[int, sp.Expr, tuple[sp.Expr, ...]]] = []
+                unknown_cands: list[tuple[int, sp.Expr]] = []
+
+                for r in range(pivot_row, m):
+                    val = _simplify_entry(grid[r][col])
+                    grid[r][col] = val
+                    dec = oracle.decide(val, assumptions=cond)
+                    if dec.verdict == Verdict.NONZERO:
+                        nonzero_cands.append((r, val))
+                    elif dec.verdict == Verdict.CONDITIONAL:
+                        cond_cands.append((r, val, dec.factors))
+                    elif dec.verdict == Verdict.UNKNOWN:
+                        unknown_cands.append((r, val))
+
+                # Aucun candidat inconditionnellement non nul mais un candidat conditionnel : discussion par cas
+                if not nonzero_cands and cond_cands:
+                    cand_r, cand_val, cand_factors = min(
+                        cond_cands, key=lambda item: _pivot_complexity_key(item[1])
+                    )
+                    return self._split(
+                        cond, SplitRequest(cand_factors, cand_r, col, cand_val), depth=depth, state=state
+                    )
+
+                if not nonzero_cands and not cond_cands and unknown_cands:
+                    oracle.is_zero(unknown_cands[0][1], assumptions=cond)
+
+                if not nonzero_cands:
+                    record(
+                        StepKind.INFO,
+                        f"{self.prefix}.col_zero",
+                        level=2,
+                        col=col + 1,
+                    )
+                    continue
+
+                chosen_r, chosen_val = _choose_pivot(nonzero_cands, self.pivot_strategy)
+
+                with section(
+                    f"{self.prefix}.column_step",
+                    level=2,
+                    col=col + 1,
+                    row=pivot_row + 1,
+                ):
+                    record(
+                        StepKind.INFO,
+                        f"{self.prefix}.pivot_chosen",
+                        level=2,
+                        row=chosen_r + 1,
+                        col=col + 1,
+                        pivot=chosen_val,
+                        strategy=self.pivot_strategy,
+                    )
+
+                    # Échange de lignes éventuel
+                    if chosen_r != pivot_row:
+                        ops.swap(grid, pivot_row, chosen_r, col=col)
+
+                    # Normalisation de la ligne pivot si le pivot != 1
+                    if (
+                        self.normalize_pivots
+                        and oracle.decide(grid[pivot_row][col] - 1, assumptions=cond).verdict != Verdict.ZERO
+                    ):
+                        ops.scale(grid, pivot_row, col=col)
+
+                    # Élimination dans les autres lignes (toutes, ou seulement sous le pivot)
+                    pivot_val = grid[pivot_row][col]
+                    for r in range(m) if self.reduce_above else range(pivot_row + 1, m):
+                        if r == pivot_row:
+                            continue
+                        factor = _simplify_entry(grid[r][col])
+                        dec_f = oracle.decide(factor, assumptions=cond)
+                        if dec_f.verdict == Verdict.ZERO:
+                            grid[r][col] = sp.Integer(0)
+                            continue
+                        if not self.normalize_pivots:
+                            factor = _simplify_entry(factor / pivot_val)
+                        # Transvection L_r <- L_r - factor * L_pivot
+                        ops.add_multiple(grid, r, pivot_row, factor, col=col)
+
+                pivots.append(col)
+                pivot_row += 1
+
+            outcome = self.on_complete(EliminationState(grid, cond, pivots, setup, ops))
+            if isinstance(outcome, SplitRequest):
+                return self._split(cond, outcome, depth=depth, state=state)
+            return outcome
+
+    def _split(
+        self, cond: Condition, request: SplitRequest, *, depth: int, state: dict[str, Any]
+    ) -> CaseSplit[R]:
+        factors = request.factors
+        seen: list[sp.Expr] = state.setdefault("factors", [])
+        seen.extend(f for f in factors if f not in seen)
+        if depth >= self.max_depth:
+            raise case_limit_error(
+                limit="max_depth",
+                value=self.max_depth,
+                reached=depth + 1,
+                factors=seen,
+                condition=cond,
+                argument="max_depth",
+            )
+        if state["cases_count"] + len(factors) > self.max_cases:
+            raise case_limit_error(
+                limit="max_cases",
+                value=self.max_cases,
+                reached=state["cases_count"] + len(factors),
+                factors=seen,
+                condition=cond,
+                argument="max_cases",
+            )
+
+        state["cases_count"] += len(factors)
+
+        # 1. Branche générique : tous les facteurs sont non nuls
+        gen_cond = cond
+        for fac in factors:
+            gen_cond = gen_cond & Condition.from_zero_expr(fac, is_zero=False)
+        sub_conds = [gen_cond]
+
+        # 2. Branches particulières disjointes : le facteur i s'annule et les précédents (< i) sont non nuls
+        prefix_neq = cond
+        for fac in factors:
+            sub_conds.append(prefix_neq & Condition.from_zero_expr(fac, is_zero=True))
+            prefix_neq = prefix_neq & Condition.from_zero_expr(fac, is_zero=False)
+
+        branches: list[Branch[R]] = []
+        for sub in sub_conds:
+            if sub.is_contradictory:
+                continue
+            with tracing(level=3) as t_sub:
+                res = self._solve(sub, depth=depth + 1, state=state)
+            if isinstance(res, CaseSplit):
+                branches.extend(res.branches)
+            else:
+                object.__setattr__(res, "trace", t_sub.tree)
+                branches.append(Branch(condition=sub, result=res, trace=t_sub.tree))
+
+        # Enregistrement dans la trace courante
+        params_names = ", ".join(sorted(s.name for s in request.expr.free_symbols))
+        record(
+            StepKind.CASE_SPLIT,
+            f"{self.prefix}.case_split",
+            level=1,
+            param=params_names,
+            row=request.row + 1,
+            col=request.col + 1,
+            expr=request.expr,
+        )
+        return CaseSplit(branches=tuple(branches))
