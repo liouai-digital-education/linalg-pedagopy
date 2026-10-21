@@ -437,8 +437,8 @@
     "pageTitle": "03. Algorithmes & traçabilité",
     "title": "7.3 Élimination, cofacteurs et Sarrus",
     "url": "03_algorithms_and_step_tracing.html#73-elimination-cofacteurs-et-sarrus",
-    "snippet": "L'élimination refuse de diviser par un pivot qui dépend d'un paramètre et peut s'annuler : elle s'arrête avec une explication (PedagopyError) qui renvoie vers B...",
-    "content": "7.3 Élimination, cofacteurs et Sarrus L'élimination refuse de diviser par un pivot qui dépend d'un paramètre et peut s'annuler : elle s'arrête avec une explication (PedagopyError) qui renvoie vers B..."
+    "snippet": "L'élimination ne divise jamais par un pivot qui dépend d'un paramètre et peut s'annuler : comme Gauss-Jordan, elle ouvre alors une discussion par cas (CaseSplit...",
+    "content": "7.3 Élimination, cofacteurs et Sarrus L'élimination ne divise jamais par un pivot qui dépend d'un paramètre et peut s'annuler : comme Gauss-Jordan, elle ouvre alors une discussion par cas (CaseSplit..."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",

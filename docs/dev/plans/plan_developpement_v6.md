@@ -406,7 +406,8 @@ Aucune à ce jour.
 6. Phase 4, tâche 4.1 **faite** : `algorithms/elimination.py` (fonctions pures et `_choose_pivot`), aucune sortie modifiée.
 7. Tâche 4.2 **faite** : `RowOps` dans `elimination.py` ; traces du déterminant ajoutées aux tests de caractérisation.
 8. Tâches 4.3 et 4.4 **faites** : `EliminationEngine`, `SplitRequest` ; `GaussJordan` réécrit sur le moteur (`_setup`, `_complete`), 496 lignes (objectif < 400 à reprendre avec l'extraction du noyau, étape 4.7).
-9. Tâche 4.5 : reconstruire `Determinant` (élimination et Bareiss) sur le moteur ; ajouter le `CaseSplit` du mode élimination paramétré.
+9. Tâche 4.5 **faite** : élimination du déterminant sur le moteur, avec discussion par cas ; Bareiss garde sa boucle (il n'ouvre jamais de discussion) et partage `RowOps`.
+10. Tâche 4.6 : tests propres au moteur (mode triangulaire, comptage des échanges, arrêt sur colonne nulle, options de présentation, `SplitRequest`).
 
 # Annexe B — Esquisse de l'API cible (version 0.3.4)
 

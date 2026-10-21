@@ -10,6 +10,7 @@
 
 from __future__ import annotations
 
+from contextlib import nullcontext
 from dataclasses import dataclass, field
 from typing import Any, Callable, Generic, Literal, Mapping, TypeVar
 
@@ -279,6 +280,7 @@ class EliminationState:
     pivots: list[int]
     setup: EliminationSetup
     ops: RowOps
+    swaps: int = 0
 
 
 @dataclass(frozen=True)
@@ -303,6 +305,14 @@ class EliminationEngine(Generic[R]):
     ``reduce_above`` : annuler aussi les coefficients au-dessus du pivot (forme réduite) ;
     ``normalize_pivots`` : ramener chaque pivot à 1 (sinon, le multiplicateur d'une
     transvection est le coefficient divisé par le pivot).
+
+    Présentation de la trace : ``start_section`` ouvre une section ``{prefix}.start`` par
+    branche ; ``column_sections`` regroupe chaque colonne dans ``{prefix}.column_step``
+    avec ``{prefix}.pivot_chosen`` (sinon, ``{prefix}.pivot`` est annoncé après l'échange
+    éventuel) ; ``stop_on_zero_column`` arrête l'élimination à la première colonne sans
+    pivot (``{prefix}.zero_column``) au lieu de passer à la suivante ; ``signed_add`` :
+    voir ``RowOps``. ``limit_arguments`` : les messages de plafond citent les arguments
+    ``max_cases`` et ``max_depth`` de la procédure (sinon, la seule configuration).
     """
 
     def __init__(
@@ -317,6 +327,11 @@ class EliminationEngine(Generic[R]):
         reduce_above: bool = True,
         normalize_pivots: bool = True,
         snapshot_key: str = "augmented_matrix",
+        signed_add: bool = True,
+        start_section: bool = True,
+        column_sections: bool = True,
+        stop_on_zero_column: bool = False,
+        limit_arguments: bool = True,
     ) -> None:
         self.prefix = prefix
         self.setup = setup
@@ -327,6 +342,11 @@ class EliminationEngine(Generic[R]):
         self.reduce_above = reduce_above
         self.normalize_pivots = normalize_pivots
         self.snapshot_key = snapshot_key
+        self.signed_add = signed_add
+        self.start_section = start_section
+        self.column_sections = column_sections
+        self.stop_on_zero_column = stop_on_zero_column
+        self.limit_arguments = limit_arguments
 
     def run(self, cond: Condition) -> R | CaseSplit[R]:
         """Élimination sous la condition initiale (hypothèses et domaine de définition)."""
@@ -336,17 +356,25 @@ class EliminationEngine(Generic[R]):
         setup = self.setup(cond)
         grid = setup.grid
         m, n = len(grid), setup.n_cols
-        ops = RowOps(self.prefix, snapshot_key=self.snapshot_key, split_col=setup.split_col)
+        ops = RowOps(
+            self.prefix, snapshot_key=self.snapshot_key, split_col=setup.split_col, signed_add=self.signed_add
+        )
         pivots: list[int] = []
         pivot_row = 0
+        swaps = 0
 
-        with section(
-            f"{self.prefix}.start",
-            level=1,
-            snapshot=ops._snapshot(grid),
-            highlight=Highlight(augmented_split=setup.split_col),
-            **setup.start_params,
-        ):
+        start = (
+            section(
+                f"{self.prefix}.start",
+                level=1,
+                snapshot=ops._snapshot(grid),
+                highlight=Highlight(augmented_split=setup.split_col),
+                **setup.start_params,
+            )
+            if self.start_section
+            else nullcontext()
+        )
+        with start:
             for col in range(n):
                 if pivot_row >= m:
                     break
@@ -380,6 +408,9 @@ class EliminationEngine(Generic[R]):
                     oracle.is_zero(unknown_cands[0][1], assumptions=cond)
 
                 if not nonzero_cands:
+                    if self.stop_on_zero_column:
+                        record(StepKind.INFO, f"{self.prefix}.zero_column", level=1, col=col + 1)
+                        break
                     record(
                         StepKind.INFO,
                         f"{self.prefix}.col_zero",
@@ -390,25 +421,34 @@ class EliminationEngine(Generic[R]):
 
                 chosen_r, chosen_val = _choose_pivot(nonzero_cands, self.pivot_strategy)
 
-                with section(
-                    f"{self.prefix}.column_step",
-                    level=2,
-                    col=col + 1,
-                    row=pivot_row + 1,
-                ):
-                    record(
-                        StepKind.INFO,
-                        f"{self.prefix}.pivot_chosen",
+                column = (
+                    section(
+                        f"{self.prefix}.column_step",
                         level=2,
-                        row=chosen_r + 1,
                         col=col + 1,
-                        pivot=chosen_val,
-                        strategy=self.pivot_strategy,
+                        row=pivot_row + 1,
                     )
+                    if self.column_sections
+                    else nullcontext()
+                )
+                with column:
+                    if self.column_sections:
+                        record(
+                            StepKind.INFO,
+                            f"{self.prefix}.pivot_chosen",
+                            level=2,
+                            row=chosen_r + 1,
+                            col=col + 1,
+                            pivot=chosen_val,
+                            strategy=self.pivot_strategy,
+                        )
 
                     # Échange de lignes éventuel
                     if chosen_r != pivot_row:
                         ops.swap(grid, pivot_row, chosen_r, col=col)
+                        swaps += 1
+                    if not self.column_sections:
+                        record(StepKind.INFO, f"{self.prefix}.pivot", level=2, col=col + 1, pivot=chosen_val)
 
                     # Normalisation de la ligne pivot si le pivot != 1
                     if (
@@ -435,7 +475,7 @@ class EliminationEngine(Generic[R]):
                 pivots.append(col)
                 pivot_row += 1
 
-            outcome = self.on_complete(EliminationState(grid, cond, pivots, setup, ops))
+            outcome = self.on_complete(EliminationState(grid, cond, pivots, setup, ops, swaps))
             if isinstance(outcome, SplitRequest):
                 return self._split(cond, outcome, depth=depth, state=state)
             return outcome
@@ -453,7 +493,7 @@ class EliminationEngine(Generic[R]):
                 reached=depth + 1,
                 factors=seen,
                 condition=cond,
-                argument="max_depth",
+                argument="max_depth" if self.limit_arguments else None,
             )
         if state["cases_count"] + len(factors) > self.max_cases:
             raise case_limit_error(
@@ -462,7 +502,7 @@ class EliminationEngine(Generic[R]):
                 reached=state["cases_count"] + len(factors),
                 factors=seen,
                 condition=cond,
-                argument="max_cases",
+                argument="max_cases" if self.limit_arguments else None,
             )
 
         state["cases_count"] += len(factors)

@@ -755,11 +755,29 @@ class Matrix:
             "pour obtenir l'inverse avec la discussion de cas, ou précisez des hypothèses (assumptions=...)."
         )
 
-    def det(self, *, method: str = "auto", assumptions: Any = None) -> sp.Expr:
-        """Déterminant exact, factorisé (méthodes : auto, bareiss, elimination, cofactors, sarrus)."""
+    @overload
+    def det(
+        self, *, method: Literal["auto", "bareiss", "cofactors", "sarrus"] = ..., assumptions: Any = None
+    ) -> sp.Expr: ...
+
+    @overload
+    def det(self, *, method: str, assumptions: Any = None) -> sp.Expr | CaseSplit[sp.Expr]: ...
+
+    def det(self, *, method: str = "auto", assumptions: Any = None) -> sp.Expr | CaseSplit[sp.Expr]:
+        """Déterminant exact, factorisé (méthodes : auto, bareiss, elimination, cofactors, sarrus).
+
+        Avec ``method="elimination"`` et des paramètres, un pivot qui peut s'annuler donne
+        une discussion par cas (``CaseSplit`` des valeurs).
+        """
         if _determinant_factory is None:
             raise RuntimeError("Le module algorithms.determinant n'est pas initialisé.")
-        valeur: sp.Expr = _determinant_factory(self, method=method, assumptions=assumptions).run().value
+        res = _determinant_factory(self, method=method, assumptions=assumptions).run()
+        if isinstance(res, CaseSplit):
+            return CaseSplit(
+                branches=tuple(Branch(b.condition, b.result.value, b.trace) for b in res.branches),
+                parameters=res.parameters,
+            )
+        valeur: sp.Expr = res.value
         return valeur
 
     def solve(

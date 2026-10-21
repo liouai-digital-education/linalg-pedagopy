@@ -1,0 +1,213 @@
+===== repr =====
+<CaseSplit selon a : 3 cas — a ≠ 1 et a ≠ −2 | a = −2 | a = 1>
+
+===== str =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −2 (générique) : det A = (a - 1)**2*(a + 2) (méthode : élimination)
+├─ Cas a = −2 : det A = 0 (méthode : élimination)
+└─ Cas a = 1 : det A = 0 (méthode : élimination)
+
+===== texte niveau 0 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −2 (générique) : det A = (a - 1)**2*(a + 2) (méthode : élimination)
+├─ Cas a = −2 : det A = 0 (méthode : élimination)
+└─ Cas a = 1 : det A = 0 (méthode : élimination)
+
+===== texte niveau 1 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −2 (générique) : det A = (a - 1)**2*(a + 2) (méthode : élimination)
+├─ Cas a = −2 : det A = 0 (méthode : élimination)
+└─ Cas a = 1 : det A = 0 (méthode : élimination)
+
+===== texte niveau 2 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −2 (générique) : det A = (a - 1)**2*(a + 2) (méthode : élimination)
+│    On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+│    Colonne 1 : pivot 1.
+│    On annule le coefficient (2,1) : L2 ← L2 − (a)·L1 (une transvection ne change pas le déterminant).
+│    On annule le coefficient (3,1) : L3 ← L3 − (1)·L1 (une transvection ne change pas le déterminant).
+│    On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+│    Colonne 2 : pivot 1 − a.
+│    On annule le coefficient (3,2) : L3 ← L3 − (a + 1)·L2 (une transvection ne change pas le déterminant).
+│    Colonne 3 : pivot −a² − a + 2.
+│    Matrice triangulaire : det A = (+1) × produit des pivots (1, 1 − a, −a² − a + 2) (2 échange(s) de lignes).
+│    det A = (a − 1)²·(a + 2).
+├─ Cas a = −2 : det A = 0 (méthode : élimination)
+│    On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+│    Colonne 1 : pivot 1.
+│    On annule le coefficient (2,1) : L2 ← L2 − (−2)·L1 (une transvection ne change pas le déterminant).
+│    On annule le coefficient (3,1) : L3 ← L3 − (1)·L1 (une transvection ne change pas le déterminant).
+│    On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+│    Colonne 2 : pivot 3.
+│    On annule le coefficient (3,2) : L3 ← L3 − (−1)·L2 (une transvection ne change pas le déterminant).
+│    Colonne 3 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+│    det A = 0.
+└─ Cas a = 1 : det A = 0 (méthode : élimination)
+     Colonne 1 : pivot 1.
+     On annule le coefficient (2,1) : L2 ← L2 − (1)·L1 (une transvection ne change pas le déterminant).
+     On annule le coefficient (3,1) : L3 ← L3 − (1)·L1 (une transvection ne change pas le déterminant).
+     Colonne 2 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+     det A = 0.
+
+===== texte niveau 3 =====
+Discussion selon a
+├─ Cas a ≠ 1 et a ≠ −2 (générique) : det A = (a - 1)**2*(a + 2) (méthode : élimination)
+│    On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+│    Colonne 1 : pivot 1.
+│    On annule le coefficient (2,1) : L2 ← L2 − (a)·L1 (une transvection ne change pas le déterminant).
+│    On annule le coefficient (3,1) : L3 ← L3 − (1)·L1 (une transvection ne change pas le déterminant).
+│    On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+│    Colonne 2 : pivot 1 − a.
+│    On annule le coefficient (3,2) : L3 ← L3 − (a + 1)·L2 (une transvection ne change pas le déterminant).
+│    Colonne 3 : pivot −a² − a + 2.
+│    Matrice triangulaire : det A = (+1) × produit des pivots (1, 1 − a, −a² − a + 2) (2 échange(s) de lignes).
+│    det A = (a − 1)²·(a + 2).
+├─ Cas a = −2 : det A = 0 (méthode : élimination)
+│    On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+│    Colonne 1 : pivot 1.
+│    On annule le coefficient (2,1) : L2 ← L2 − (−2)·L1 (une transvection ne change pas le déterminant).
+│    On annule le coefficient (3,1) : L3 ← L3 − (1)·L1 (une transvection ne change pas le déterminant).
+│    On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+│    Colonne 2 : pivot 3.
+│    On annule le coefficient (3,2) : L3 ← L3 − (−1)·L2 (une transvection ne change pas le déterminant).
+│    Ce coefficient est nul dans le domaine exact (0 = 0).
+│    Colonne 3 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+│    det A = 0.
+└─ Cas a = 1 : det A = 0 (méthode : élimination)
+     Colonne 1 : pivot 1.
+     On annule le coefficient (2,1) : L2 ← L2 − (1)·L1 (une transvection ne change pas le déterminant).
+     On annule le coefficient (3,1) : L3 ← L3 − (1)·L1 (une transvection ne change pas le déterminant).
+     Ce coefficient est nul dans le domaine exact (0 = 0).
+     Ce coefficient est nul dans le domaine exact (0 = 0).
+     Colonne 2 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+     det A = 0.
+
+===== markdown niveau 2 =====
+### Discussion selon $a$
+
+- **Cas $a \neq 1 \text{ et } a \neq -2$ (générique)** : det A = (a - 1)**2*(a + 2) (méthode : élimination)
+  - On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+    $$\xrightarrow{L_{1} \leftrightarrow L_{2}} \left[\begin{array}{ccc} \boxed{1} & \color{blue}{a} & \color{blue}{1} \\ \color{blue}{a} & \color{blue}{1} & \color{blue}{1} \\ 1 & 1 & a \end{array}\right]$$
+  - Colonne 1 : pivot 1.
+  - On annule le coefficient (2,1) : L2 ← L2 − (a)·L1 (une transvection ne change pas le déterminant).
+    $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(a\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & a & 1 \\ \color{blue}{0} & \color{blue}{1 - a^{2}} & \color{blue}{1 - a} \\ 1 & 1 & a \end{array}\right]$$
+  - On annule le coefficient (3,1) : L3 ← L3 − (1)·L1 (une transvection ne change pas le déterminant).
+    $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & a & 1 \\ 0 & 1 - a^{2} & 1 - a \\ \color{blue}{0} & \color{blue}{1 - a} & \color{blue}{a - 1} \end{array}\right]$$
+  - On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+    $$\xrightarrow{L_{2} \leftrightarrow L_{3}} \left[\begin{array}{ccc} 1 & a & 1 \\ \color{blue}{0} & \boxed{1 - a} & \color{blue}{a - 1} \\ \color{blue}{0} & \color{blue}{1 - a^{2}} & \color{blue}{1 - a} \end{array}\right]$$
+  - Colonne 2 : pivot 1 − a.
+  - On annule le coefficient (3,2) : L3 ← L3 − (a + 1)·L2 (une transvection ne change pas le déterminant).
+    $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(a + 1\right) L_{2}} \left[\begin{array}{ccc} 1 & a & 1 \\ 0 & \boxed{1 - a} & a - 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{- a^{2} - a + 2} \end{array}\right]$$
+  - Colonne 3 : pivot −a² − a + 2.
+  - Matrice triangulaire : det A = (+1) × produit des pivots (1, 1 − a, −a² − a + 2) (2 échange(s) de lignes).
+  - det A = (a − 1)²·(a + 2).
+- **Cas $a = -2$** : det A = 0 (méthode : élimination)
+  - On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+    $$\xrightarrow{L_{1} \leftrightarrow L_{2}} \left[\begin{array}{ccc} \boxed{1} & \color{blue}{-2} & \color{blue}{1} \\ \color{blue}{-2} & \color{blue}{1} & \color{blue}{1} \\ 1 & 1 & -2 \end{array}\right]$$
+  - Colonne 1 : pivot 1.
+  - On annule le coefficient (2,1) : L2 ← L2 − (−2)·L1 (une transvection ne change pas le déterminant).
+    $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(-2\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & -2 & 1 \\ \color{blue}{0} & \color{blue}{-3} & \color{blue}{3} \\ 1 & 1 & -2 \end{array}\right]$$
+  - On annule le coefficient (3,1) : L3 ← L3 − (1)·L1 (une transvection ne change pas le déterminant).
+    $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & -2 & 1 \\ 0 & -3 & 3 \\ \color{blue}{0} & \color{blue}{3} & \color{blue}{-3} \end{array}\right]$$
+  - On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+    $$\xrightarrow{L_{2} \leftrightarrow L_{3}} \left[\begin{array}{ccc} 1 & -2 & 1 \\ \color{blue}{0} & \boxed{3} & \color{blue}{-3} \\ \color{blue}{0} & \color{blue}{-3} & \color{blue}{3} \end{array}\right]$$
+  - Colonne 2 : pivot 3.
+  - On annule le coefficient (3,2) : L3 ← L3 − (−1)·L2 (une transvection ne change pas le déterminant).
+    $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(-1\right) L_{2}} \left[\begin{array}{ccc} 1 & -2 & 1 \\ 0 & \boxed{3} & -3 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]$$
+  - Colonne 3 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+  - det A = 0.
+- **Cas $a = 1$** : det A = 0 (méthode : élimination)
+  - Colonne 1 : pivot 1.
+  - On annule le coefficient (2,1) : L2 ← L2 − (1)·L1 (une transvection ne change pas le déterminant).
+    $$\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \\ 1 & 1 & 1 \end{array}\right]$$
+  - On annule le coefficient (3,1) : L3 ← L3 − (1)·L1 (une transvection ne change pas le déterminant).
+    $$\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & 1 & 1 \\ 0 & 0 & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]$$
+  - Colonne 2 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+  - det A = 0.
+
+===== latex niveau 2 =====
+\textbf{Discussion selon $a$}
+\begin{itemize}
+  \item \textbf{Cas $a \neq 1 \text{ et } a \neq -2 \text{ (générique)}$} : det A = (a - 1)**2*(a + 2) (méthode : élimination)
+\begin{itemize}
+  \item On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+  \[\xrightarrow{L_{1} \leftrightarrow L_{2}} \left[\begin{array}{ccc} \boxed{1} & \color{blue}{a} & \color{blue}{1} \\ \color{blue}{a} & \color{blue}{1} & \color{blue}{1} \\ 1 & 1 & a \end{array}\right]\]
+  \item Colonne 1 : pivot 1.
+  \item On annule le coefficient (2,1) : L2 ← L2 − (a)·L1 (une transvection ne change pas le déterminant).
+  \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(a\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & a & 1 \\ \color{blue}{0} & \color{blue}{1 - a^{2}} & \color{blue}{1 - a} \\ 1 & 1 & a \end{array}\right]\]
+  \item On annule le coefficient (3,1) : L3 ← L3 − (1)·L1 (une transvection ne change pas le déterminant).
+  \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & a & 1 \\ 0 & 1 - a^{2} & 1 - a \\ \color{blue}{0} & \color{blue}{1 - a} & \color{blue}{a - 1} \end{array}\right]\]
+  \item On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+  \[\xrightarrow{L_{2} \leftrightarrow L_{3}} \left[\begin{array}{ccc} 1 & a & 1 \\ \color{blue}{0} & \boxed{1 - a} & \color{blue}{a - 1} \\ \color{blue}{0} & \color{blue}{1 - a^{2}} & \color{blue}{1 - a} \end{array}\right]\]
+  \item Colonne 2 : pivot 1 − a.
+  \item On annule le coefficient (3,2) : L3 ← L3 − (a + 1)·L2 (une transvection ne change pas le déterminant).
+  \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(a + 1\right) L_{2}} \left[\begin{array}{ccc} 1 & a & 1 \\ 0 & \boxed{1 - a} & a - 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{- a^{2} - a + 2} \end{array}\right]\]
+  \item Colonne 3 : pivot −a² − a + 2.
+  \item Matrice triangulaire : det A = (+1) × produit des pivots (1, 1 − a, −a² − a + 2) (2 échange(s) de lignes).
+  \item det A = (a − 1)²·(a + 2).
+\end{itemize}
+  \item \textbf{Cas $a = -2$} : det A = 0 (méthode : élimination)
+\begin{itemize}
+  \item On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).
+  \[\xrightarrow{L_{1} \leftrightarrow L_{2}} \left[\begin{array}{ccc} \boxed{1} & \color{blue}{-2} & \color{blue}{1} \\ \color{blue}{-2} & \color{blue}{1} & \color{blue}{1} \\ 1 & 1 & -2 \end{array}\right]\]
+  \item Colonne 1 : pivot 1.
+  \item On annule le coefficient (2,1) : L2 ← L2 − (−2)·L1 (une transvection ne change pas le déterminant).
+  \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(-2\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & -2 & 1 \\ \color{blue}{0} & \color{blue}{-3} & \color{blue}{3} \\ 1 & 1 & -2 \end{array}\right]\]
+  \item On annule le coefficient (3,1) : L3 ← L3 − (1)·L1 (une transvection ne change pas le déterminant).
+  \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & -2 & 1 \\ 0 & -3 & 3 \\ \color{blue}{0} & \color{blue}{3} & \color{blue}{-3} \end{array}\right]\]
+  \item On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).
+  \[\xrightarrow{L_{2} \leftrightarrow L_{3}} \left[\begin{array}{ccc} 1 & -2 & 1 \\ \color{blue}{0} & \boxed{3} & \color{blue}{-3} \\ \color{blue}{0} & \color{blue}{-3} & \color{blue}{3} \end{array}\right]\]
+  \item Colonne 2 : pivot 3.
+  \item On annule le coefficient (3,2) : L3 ← L3 − (−1)·L2 (une transvection ne change pas le déterminant).
+  \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(-1\right) L_{2}} \left[\begin{array}{ccc} 1 & -2 & 1 \\ 0 & \boxed{3} & -3 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]
+  \item Colonne 3 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+  \item det A = 0.
+\end{itemize}
+  \item \textbf{Cas $a = 1$} : det A = 0 (méthode : élimination)
+\begin{itemize}
+  \item Colonne 1 : pivot 1.
+  \item On annule le coefficient (2,1) : L2 ← L2 − (1)·L1 (une transvection ne change pas le déterminant).
+  \[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \\ 1 & 1 & 1 \end{array}\right]\]
+  \item On annule le coefficient (3,1) : L3 ← L3 − (1)·L1 (une transvection ne change pas le déterminant).
+  \[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & 1 & 1 \\ 0 & 0 & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]
+  \item Colonne 2 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.
+  \item det A = 0.
+\end{itemize}
+\end{itemize}
+
+===== html niveau 2 (corps) =====
+<div class='pedagopy-casesplit'>
+<h3>Discussion selon \(a\)</h3>
+<ul>
+<li><strong>Cas \(a \neq 1 \text{ et } a \neq -2\) (générique)</strong> : det A = (a - 1)**2*(a + 2) (méthode : élimination)<div class='pedagopy-explanation'>
+<div class='pedagopy-step'>On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftrightarrow L_{2}} \left[\begin{array}{ccc} \boxed{1} & \color{blue}{a} & \color{blue}{1} \\ \color{blue}{a} & \color{blue}{1} & \color{blue}{1} \\ 1 & 1 & a \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Colonne 1 : pivot 1.</div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 − (a)·L1 (une transvection ne change pas le déterminant).<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(a\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & a & 1 \\ \color{blue}{0} & \color{blue}{1 - a^{2}} & \color{blue}{1 - a} \\ 1 & 1 & a \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (3,1) : L3 ← L3 − (1)·L1 (une transvection ne change pas le déterminant).<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & a & 1 \\ 0 & 1 - a^{2} & 1 - a \\ \color{blue}{0} & \color{blue}{1 - a} & \color{blue}{a - 1} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftrightarrow L_{3}} \left[\begin{array}{ccc} 1 & a & 1 \\ \color{blue}{0} & \boxed{1 - a} & \color{blue}{a - 1} \\ \color{blue}{0} & \color{blue}{1 - a^{2}} & \color{blue}{1 - a} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Colonne 2 : pivot 1 − a.</div>
+<div class='pedagopy-step'>On annule le coefficient (3,2) : L3 ← L3 − (a + 1)·L2 (une transvection ne change pas le déterminant).<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(a + 1\right) L_{2}} \left[\begin{array}{ccc} 1 & a & 1 \\ 0 & \boxed{1 - a} & a - 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{- a^{2} - a + 2} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Colonne 3 : pivot −a² − a + 2.</div>
+<div class='pedagopy-step'>Matrice triangulaire : det A = (+1) × produit des pivots (1, 1 − a, −a² − a + 2) (2 échange(s) de lignes).</div>
+<div class='pedagopy-step'>det A = (a − 1)²·(a + 2).</div>
+</div></li>
+<li><strong>Cas \(a = -2\)</strong> : det A = 0 (méthode : élimination)<div class='pedagopy-explanation'>
+<div class='pedagopy-step'>On échange les lignes L1 et L2 : L1 ↔ L2 (le déterminant change de signe).<div class='pedagopy-math'>\[\xrightarrow{L_{1} \leftrightarrow L_{2}} \left[\begin{array}{ccc} \boxed{1} & \color{blue}{-2} & \color{blue}{1} \\ \color{blue}{-2} & \color{blue}{1} & \color{blue}{1} \\ 1 & 1 & -2 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Colonne 1 : pivot 1.</div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 − (−2)·L1 (une transvection ne change pas le déterminant).<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(-2\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & -2 & 1 \\ \color{blue}{0} & \color{blue}{-3} & \color{blue}{3} \\ 1 & 1 & -2 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (3,1) : L3 ← L3 − (1)·L1 (une transvection ne change pas le déterminant).<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & -2 & 1 \\ 0 & -3 & 3 \\ \color{blue}{0} & \color{blue}{3} & \color{blue}{-3} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On échange les lignes L2 et L3 : L2 ↔ L3 (le déterminant change de signe).<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftrightarrow L_{3}} \left[\begin{array}{ccc} 1 & -2 & 1 \\ \color{blue}{0} & \boxed{3} & \color{blue}{-3} \\ \color{blue}{0} & \color{blue}{-3} & \color{blue}{3} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Colonne 2 : pivot 3.</div>
+<div class='pedagopy-step'>On annule le coefficient (3,2) : L3 ← L3 − (−1)·L2 (une transvection ne change pas le déterminant).<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(-1\right) L_{2}} \left[\begin{array}{ccc} 1 & -2 & 1 \\ 0 & \boxed{3} & -3 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Colonne 3 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.</div>
+<div class='pedagopy-step'>det A = 0.</div>
+</div></li>
+<li><strong>Cas \(a = 1\)</strong> : det A = 0 (méthode : élimination)<div class='pedagopy-explanation'>
+<div class='pedagopy-step'>Colonne 1 : pivot 1.</div>
+<div class='pedagopy-step'>On annule le coefficient (2,1) : L2 ← L2 − (1)·L1 (une transvection ne change pas le déterminant).<div class='pedagopy-math'>\[\xrightarrow{L_{2} \leftarrow L_{2} - \left(1\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & 1 & 1 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \\ 1 & 1 & 1 \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>On annule le coefficient (3,1) : L3 ← L3 − (1)·L1 (une transvection ne change pas le déterminant).<div class='pedagopy-math'>\[\xrightarrow{L_{3} \leftarrow L_{3} - \left(1\right) L_{1}} \left[\begin{array}{ccc} \boxed{1} & 1 & 1 \\ 0 & 0 & 0 \\ \color{blue}{0} & \color{blue}{0} & \color{blue}{0} \end{array}\right]\]</div></div>
+<div class='pedagopy-step'>Colonne 2 : aucun pivot non nul sur ou sous la diagonale, le déterminant est nul.</div>
+<div class='pedagopy-step'>det A = 0.</div>
+</div></li>
+</ul>
+</div>
