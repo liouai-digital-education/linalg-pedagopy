@@ -44,3 +44,23 @@ def test_triangular_validation_and_singular() -> None:
     singular_upper = Matrix([[1, 2], [0, 0]])
     with pytest.raises(SingularMatrixError):
         BackSubstitution(singular_upper, Vector([1, 0])).run()
+
+
+def test_discussion_couvre_le_cas_singulier() -> None:
+    """Un coefficient diagonal qui peut s'annuler donne aussi la branche singulière."""
+    import sympy as sp
+
+    from linalg_pedagopy import CaseSplit, symbols
+
+    (a,) = symbols("a")
+    res = BackSubstitution(Matrix([[1, 2], [0, a]]), Vector([1, 1])).run()
+    assert isinstance(res, CaseSplit) and len(res.branches) == 2
+    assert res.at(a=2).x == Vector([0, sp.Rational(1, 2)])
+    singulier = res.at(a=0)
+    assert singulier.singular and singulier.singular_index == 2 and len(singulier.x) == 0
+    assert "substitution impossible" in str(res)
+
+    avant = ForwardSubstitution(Matrix([[a, 0], [1, a - 1]]), Vector([1, 1])).run()
+    assert isinstance(avant, CaseSplit)
+    assert {b.result.singular_index for b in avant.branches} == {None, 1, 2}
+    assert avant.at(a=0).singular_index == 1 and avant.at(a=1).singular_index == 2

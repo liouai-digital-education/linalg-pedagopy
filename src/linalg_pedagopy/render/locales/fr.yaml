@@ -154,6 +154,7 @@ triangular:
   forward_start: "Résolution par substitution avant de L x = c (taille {n}×{n})."
   step: "Calcul de x_{i} : x_{i} = ({ci} - ({sum_terms})) / ({diag}) = {xi}."
   result: "Solution du système triangulaire : x = {x}."
+  singular: "Dans ce cas, le coefficient diagonal {name}[{i},{i}] est nul : système singulier, la substitution ne s'applique pas (GaussJordan discute alors les solutions)."
   verify: "Vérification du système triangulaire : résidu nul confirmé par l'oracle."
 
 gs:
