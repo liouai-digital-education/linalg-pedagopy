@@ -2,6 +2,11 @@
 
 ## [Non publié] — branche `development`
 
+### Phase 6 du plan v6 — tuteur
+- 6.0 : tests du tuteur valables avec et sans ipywidgets :
+  - Tests du tuteur : `test_seance_type_6_4_from_section_7_8` et `test_phase0_english_nomenclature_api` échouaient quand l'option `tuteur` (ipywidgets) était installée, car `str()` d'un vrai `VBox` ne contient pas l'énoncé. Ces deux tests vérifient désormais le panneau de repli en simulant l'absence d'ipywidgets ; le nouveau test `test_panneau_ipywidgets_affiche_enonce` (ignoré sans ipywidgets) vérifie que le panneau graphique affiche l'énoncé et ses boutons.
+  - CI : nouveau job « Tuteur avec ipywidgets », qui exécute `pytest tests/test_tuteur.py` avec l'option `tuteur` installée.
+
 ### Nouveautés — traces en tableau
 - **`explain().to_table()`** pour Gauss-Jordan et le déterminant : une ligne par opération élémentaire (échange, dilatation, transvection, étape de Bareiss) avec les colonnes N°, Colonne, Pivot, Opération, But et Matrice obtenue (pivot encadré, lignes modifiées en couleur, barre de la matrice augmentée) ; lignes de commentaire pour les autres étapes visibles au niveau demandé ; un tableau par branche d'une discussion par cas. Rendus `to_html()` (affichage automatique dans JupyterLab), `to_markdown()` (sans « | » dans les cellules) et `to_latex()` (`longtable`) ; option `standalone` pour une page HTML ou un document LaTeX complets. Nouveau module `render/table.py` (`TraceTable`, `build_table`) ; clés de locale `table.*`. Les algorithmes ne changent pas : le tableau est tiré de la trace existante.
 - Extension aux autres algorithmes, avec des colonnes propres à chacun (dispositions) : inverse (comme Gauss-Jordan) ; **Gram-Schmidt et QR** (N°, Vecteur traité, Coefficients, Opération, But, Vecteur obtenu : une ligne par orthogonalisation, une par normalisation, variantes `end` et `each`, famille liée) ; **systèmes triangulaires** (N°, Inconnue, Calcul, But, Valeur : formule avec les coefficients de la ligne, puis valeurs connues). Une trace qui enchaîne plusieurs algorithmes donne un tableau par algorithme (moindres carrés).
