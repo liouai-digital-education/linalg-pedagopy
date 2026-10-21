@@ -9,7 +9,6 @@ import re
 from typing import Any, Mapping
 from weakref import WeakKeyDictionary
 
-import sympy as sp
 import yaml
 
 from linalg_pedagopy.config import TutorMode, config
@@ -20,25 +19,12 @@ from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.trace.tracer import suspend_tracing
 from linalg_pedagopy.tutor.hints import HintLadder, evaluate_twin_spec
 from linalg_pedagopy.tutor.journal import ExerciseJournal
-from linalg_pedagopy.tutor.lab import CounterexampleLab, _eval_math_predicate, _structured_vector_candidates
+from linalg_pedagopy.tutor.lab import CounterexampleLab
 from linalg_pedagopy.tutor.lock import LockedNamespace, _get_namespace_raw_dict
 from linalg_pedagopy.tutor.panel import build_panel
-from linalg_pedagopy.tutor.verifiers import (
-    VerificationResult,
-    _eval_data_expr,
-    _parse_indexed_expr,
-    racines_reelles,
-    verify_counterexample,
-    verify_dimensions,
-    verify_equalities,
-    verify_formula,
-    verify_inner_product,
-    verify_matrix,
-    verify_property,
-    verify_value,
-    verify_value_set,
-)
-from linalg_pedagopy.core.field import symbols
+from linalg_pedagopy.tutor.registry import verifier_type
+from linalg_pedagopy.tutor.verifiers import VerificationResult
+import linalg_pedagopy.tutor.verifier_types  # noqa: F401  (enregistre les types de vérificateurs)
 
 _PACKAGE_DIR = Path(__file__).resolve().parent.parent
 _FICHES_DIR = _PACKAGE_DIR / "tuteur" / "fiches"
@@ -472,44 +458,18 @@ class ExerciseSession:
         v_type = str(spec.get("type", "valeur"))
         raw_data = _get_namespace_raw_dict(st["data"])
 
+        vtype = verifier_type(v_type)
         try:
-            if v_type in ("produit_scalaire", "inner_product"):
-                res = verify_inner_product(response, spec, raw_data)
-            elif v_type in ("matrice", "matrix"):
-                res = verify_matrix(response, spec, raw_data)
-            elif v_type in ("formule", "formula"):
-                res = verify_formula(response, spec, raw_data)
-            elif v_type in ("valeur", "value"):
-                res = verify_value(response, spec, raw_data)
-            elif v_type in ("ensemble_valeurs", "value_set"):
-                res = verify_value_set(response, spec, raw_data)
-            elif v_type in ("propriete", "property"):
-                res = verify_property(response, spec, raw_data)
-            elif v_type in ("contre_exemple", "counterexample"):
-                res = verify_counterexample(response, spec, raw_data)
-            elif v_type in ("egalites", "equalities"):
-                res = verify_equalities(response, spec, raw_data)
-            elif v_type == "dimensions":
-                res = verify_dimensions(response, spec, raw_data)
-            elif v_type in ("labo", "lab"):
-                if isinstance(response, Mapping):
-                    lab_inst = self.lab()
-                    rep = lab_inst.test(**response)
-                    res = VerificationResult(rep.found_counterexample, rep.message)
-                else:
-                    res = VerificationResult(
-                        False,
-                        "Pour cet exercice vrai/faux, enregistrez votre prédiction avec ex.predict(...) / ex.predire(...) "
-                        "puis explorez avec lab = ex.lab() ; lab.test(...).",
-                    )
-            else:
+            if vtype is None:
                 raise ValueError(f"Type de vérificateur inconnu : {v_type!r}")
+            res = vtype.verify(self, response, spec, raw_data)
         except PedagopyError as exc:
             res = VerificationResult(False, str(exc))
         except Exception:
             res = VerificationResult(
                 False,
-                "Votre réponse n'a pas la forme attendue : " + _EXPECTED_FORMS.get(v_type, "relisez l'énoncé."),
+                "Votre réponse n'a pas la forme attendue : "
+                + (vtype.expected_form if vtype is not None else "relisez l'énoncé."),
             )
 
         st["journal"].record_attempt(correct=res.valid, diagnostic=res.diagnostic)
@@ -618,196 +578,20 @@ class ValidationReport:
         return self.valid
 
 
-_EXPECTED_FORMS: dict[str, str] = {
-    "produit_scalaire": "un vecteur, par exemple Vector([0, 1, 0]).",
-    "inner_product": "un vecteur, par exemple Vector([0, 1, 0]).",
-    "matrice": "une matrice, par exemple Matrix([[1, 0], [0, 1]]).",
-    "matrix": "une matrice, par exemple Matrix([[1, 0], [0, 1]]).",
-    "formule": "une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.",
-    "formula": "une formule sous forme de chaîne, par exemple 'norm_u**2 + norm_v**2'.",
-    "valeur": "une valeur exacte (entier, fraction, expression comme sqrt(2)) ou un dictionnaire de valeurs.",
-    "value": "une valeur exacte (entier, fraction, expression comme sqrt(2)) ou un dictionnaire de valeurs.",
-    "ensemble_valeurs": "une liste de valeurs exactes, par exemple [1, -2] (liste vide [] s'il n'y en a aucune).",
-    "value_set": "une liste de valeurs exactes, par exemple [1, -2] (liste vide [] s'il n'y en a aucune).",
-    "propriete": "l'objet demandé par l'énoncé (vecteur, matrice ou couple de matrices).",
-    "property": "l'objet demandé par l'énoncé (vecteur, matrice ou couple de matrices).",
-    "contre_exemple": "le contre-exemple sous la forme indiquée dans l'énoncé.",
-    "counterexample": "le contre-exemple sous la forme indiquée dans l'énoncé.",
-    "egalites": "une liste de chaînes, une par maillon de la chaîne d'égalités.",
-    "equalities": "une liste de chaînes, une par maillon de la chaîne d'égalités.",
-    "dimensions": "un dictionnaire, par exemple {'a': (3, 2), 'b': 'invalide'}.",
-    "labo": "un dictionnaire d'instances à tester au laboratoire, après ex.predict(...).",
-    "lab": "un dictionnaire d'instances à tester au laboratoire, après ex.predict(...).",
-}
-
-
-_VALID_VERIFIER_TYPES = {
-    "produit_scalaire",
-    "inner_product",
-    "matrice",
-    "matrix",
-    "formule",
-    "formula",
-    "valeur",
-    "value",
-    "ensemble_valeurs",
-    "value_set",
-    "propriete",
-    "property",
-    "contre_exemple",
-    "counterexample",
-    "labo",
-    "lab",
-    "egalites",
-    "equalities",
-    "dimensions",
-}
-
-
 def _cross_check_verifier(
     session: ExerciseSession,
     verif: Mapping[str, Any],
     raw_data: Mapping[str, Any],
 ) -> tuple[bool, list[str]]:
     """Cross-checks the sheet's verifier by constructing a mathematical solution and testing acceptance/rejection."""
-    errs: list[str] = []
-    v_type = str(verif.get("type", ""))
+    vtype = verifier_type(str(verif.get("type", "")))
+    if vtype is None:
+        return True, []
     with suspend_tracing():
         try:
-            if v_type in ("produit_scalaire", "inner_product"):
-                var_name = str(verif.get("inconnue", verif.get("unknown", "x")))
-                n = int(verif.get("taille", verif.get("size", raw_data.get("n", 4))))
-                cible_str = str(verif.get("cible", verif.get("target")))
-                target_expr, vec_syms = _parse_indexed_expr(cible_str, var_name, n, raw_data)
-                coeffs = [sp.diff(target_expr, s) for s in vec_syms]
-                sol_vec = Vector(coeffs)
-                if not session.verify(sol_vec).valid:
-                    errs.append("Cross-check échoué : le vecteur reconstruit par dérivation formelle est rejeté.")
-                wrong_vec = Vector.ones(n) if sol_vec != Vector.ones(n) else Vector.zeros(n)
-                if session.verify(wrong_vec).valid:
-                    errs.append("Cross-check échoué : un vecteur erroné est accepté.")
-
-            elif v_type in ("matrice", "matrix"):
-                var_name = str(verif.get("inconnue", verif.get("unknown", "x")))
-                n = int(verif.get("taille_entree", verif.get("input_size", raw_data.get("n", 6))))
-                rows_list: list[list[sp.Expr]] = []
-                if "lignes_cibles" in verif:
-                    for line_s in verif["lignes_cibles"]:
-                        rhs_part = line_s.split("=", 1)[1].strip() if "=" in line_s else line_s
-                        ex_i, vec_syms = _parse_indexed_expr(rhs_part, var_name, n, raw_data)
-                        rows_list.append([sp.diff(ex_i, s) for s in vec_syms])
-                else:
-                    cible_str = str(verif.get("cible", verif.get("target")))
-                    rhs_part = cible_str.split("=", 1)[1].strip() if "=" in cible_str else cible_str
-                    m = int(verif.get("taille_sortie", verif.get("output_size", raw_data.get("m", 3))))
-                    for i_val in range(1, m + 1):
-                        local_d = dict(raw_data)
-                        local_d["i"] = i_val
-                        ex_i, vec_syms = _parse_indexed_expr(rhs_part, var_name, n, local_d)
-                        rows_list.append([sp.diff(ex_i, s) for s in vec_syms])
-                sol_mat = Matrix(rows_list)
-                if not session.verify(sol_mat).valid:
-                    errs.append("Cross-check échoué : la matrice reconstruite formellement est rejetée.")
-
-            elif v_type in ("formule", "formula"):
-                cible = verif.get("cible", verif.get("target"))
-                if not session.verify(cible).valid:
-                    errs.append("Cross-check échoué : la formule cible est rejetée.")
-
-            elif v_type in ("valeur", "value"):
-                calcul = verif.get("calcul", verif.get("compute"))
-                if isinstance(calcul, Mapping):
-                    sol_dict = {k: _eval_data_expr(str(v), raw_data) for k, v in calcul.items()}
-                    if not session.verify(sol_dict).valid:
-                        errs.append("Cross-check échoué : le dictionnaire de valeurs exactes est rejeté.")
-                else:
-                    sol_val = _eval_data_expr(str(calcul), raw_data)
-                    if not session.verify(sol_val).valid:
-                        errs.append("Cross-check échoué : la valeur calculée est rejetée.")
-                # Une erreur typique déclarée ne doit jamais coïncider avec la bonne réponse
-                for idx, erreur in enumerate(verif.get("erreurs", ()) or (), start=1):
-                    fausse = _eval_data_expr(str(erreur["valeur"]), raw_data)
-                    if session.verify(fausse).valid:
-                        errs.append(f"Cross-check échoué : l'erreur typique {idx} est acceptée comme bonne réponse.")
-
-            elif v_type in ("ensemble_valeurs", "value_set"):
-                param = symbols(str(verif["inconnue"]))[0]
-                expr = sp.sympify(_eval_data_expr(str(verif["calcul"]), raw_data))
-                attendues = racines_reelles(expr, param)
-                if attendues is None:
-                    errs.append("Cross-check échoué : l'expression ne s'annule pas en un nombre fini de valeurs.")
-                else:
-                    if not session.verify(list(attendues)).valid:
-                        errs.append("Cross-check échoué : l'ensemble exact des valeurs est rejeté.")
-                    if attendues and session.verify(list(attendues)[:-1]).valid:
-                        errs.append("Cross-check échoué : un ensemble incomplet est accepté.")
-                    intrus = max(attendues, default=sp.Integer(0)) + 1
-                    if session.verify([*attendues, intrus]).valid:
-                        errs.append("Cross-check échoué : une valeur qui n'annule pas l'expression est acceptée.")
-
-            elif v_type == "dimensions":
-                if not session.verify(verif["attendu"]).valid:
-                    errs.append("Cross-check échoué : les dimensions attendues sont rejetées.")
-
-            elif v_type in ("propriete", "property"):
-                prop = str(verif.get("propriete", ""))
-                if prop == "left_right_inverse_row":
-                    A = raw_data["A"]
-                    # Construct a right inverse via A^T (A A^T)^{-1}
-                    aat_inv = (A @ A.T).inv(strict=True)
-                    assert isinstance(aat_inv, Matrix)
-                    B_right = A.T @ aat_inv
-                    if not session.verify(B_right).valid:
-                        errs.append("Cross-check échoué : la pseudo-inverse à droite A^T(AA^T)^-1 est rejetée.")
-                elif prop == "square_inverse":
-                    A = raw_data["A"]
-                    A_inv = A.inv(strict=True)
-                    assert isinstance(A_inv, Matrix)
-                    if not session.verify(A_inv @ A_inv).valid:
-                        errs.append("Cross-check échoué : (A^-1)^2 est rejetée.")
-                elif prop == "linear_system_solution":
-                    A = raw_data["A"]
-                    b = raw_data["b"]
-                    sol = A.solve(b)
-                    if not session.verify(sol.x).valid:
-                        errs.append("Cross-check échoué : la solution de A.solve(b) est rejetée.")
-                elif prop == "two_right_inverses":
-                    B1 = Matrix([[1, 1], [0, 1], [0, 0]])
-                    B2 = Matrix([[-2, -2], [-1, 0], [1, 1]])
-                    if not session.verify((B1, B2)).valid:
-                        errs.append("Cross-check échoué : deux inverses à droite valides sont rejetées.")
-                elif prop == "kkt_minimum_norm":
-                    C = raw_data["C"]
-                    d = raw_data["d"]
-                    cct_inv = (C @ C.T).inv(strict=True)
-                    assert isinstance(cct_inv, Matrix)
-                    x_opt = C.T @ (cct_inv @ d)
-                    if not session.verify(x_opt).valid:
-                        errs.append("Cross-check échoué : la solution KKT est rejetée.")
-
-            elif v_type in ("contre_exemple", "counterexample"):
-                cas = str(verif.get("cas", ""))
-                if cas == "non_linearite_etendue":
-                    if not session.verify({"x": Vector([1, 0]), "y": Vector([0, 1]), "alpha": 1, "beta": 1}).valid:
-                        errs.append("Cross-check échoué sur non_linearite_etendue.")
-                elif cas == "ordre_gram_schmidt":
-                    if not session.verify((Vector([1, 0]), Vector([1, 1]))).valid:
-                        errs.append("Cross-check échoué sur ordre_gram_schmidt.")
-                elif cas == "inverse_matrice_positive":
-                    if not session.verify(Matrix([[2, 1], [1, 2]])).valid:
-                        errs.append("Cross-check échoué sur inverse_matrice_positive.")
-
-            elif v_type in ("egalites", "equalities"):
-                if session.verify(["0", "0"]).valid:
-                    errs.append("Cross-check échoué : la chaîne triviale ['0', '0'] est acceptée.")
-
-            elif v_type in ("labo", "lab"):
-                cands = _structured_vector_candidates()
-                for h in verif.get("hypotheses", []):
-                    _eval_math_predicate(str(h), cands[0])
+            errs = vtype.cross_check(session, verif, raw_data)
         except Exception as exc:
-            errs.append(f"Exception lors du cross-check : {exc}")
-
+            errs = [f"Exception lors du cross-check : {exc}"]
     return (len(errs) == 0), errs
 
 
@@ -839,35 +623,16 @@ def validate_sheet(ex_id: str | int) -> ValidationReport:
 
     verif = dict(fiche.get("verification", {}))
     v_type = str(verif.get("type", ""))
-    if v_type not in _VALID_VERIFIER_TYPES:
+    vtype = verifier_type(v_type)
+    if vtype is None:
         erreurs.append(f"Type de vérificateur invalide : {v_type!r}")
 
     # 1. Target / verifier specification check
     cible_ok = True
-    if v_type in ("produit_scalaire", "inner_product", "formule", "formula") and "cible" not in verif:
+    manque = vtype.missing_fields(v_type, verif) if vtype is not None else None
+    if manque:
         cible_ok = False
-        erreurs.append(f"Le vérificateur {v_type!r} requiert un champ 'cible'.")
-    elif v_type in ("matrice", "matrix") and "cible" not in verif and "lignes_cibles" not in verif:
-        cible_ok = False
-        erreurs.append("Le vérificateur 'matrice' requiert 'cible' ou 'lignes_cibles'.")
-    elif v_type in ("valeur", "value") and "calcul" not in verif:
-        cible_ok = False
-        erreurs.append("Le vérificateur 'valeur' requiert un champ 'calcul'.")
-    elif v_type in ("ensemble_valeurs", "value_set") and ("calcul" not in verif or "inconnue" not in verif):
-        cible_ok = False
-        erreurs.append("Le vérificateur 'ensemble_valeurs' requiert les champs 'calcul' et 'inconnue'.")
-    elif v_type in ("propriete", "property") and "propriete" not in verif:
-        cible_ok = False
-        erreurs.append("Le vérificateur 'propriete' requiert un champ 'propriete'.")
-    elif v_type in ("contre_exemple", "counterexample") and "cas" not in verif:
-        cible_ok = False
-        erreurs.append("Le vérificateur 'contre_exemple' requiert un champ 'cas'.")
-    elif v_type == "dimensions" and "attendu" not in verif:
-        cible_ok = False
-        erreurs.append("Le vérificateur 'dimensions' requiert un champ 'attendu'.")
-    elif v_type in ("labo", "lab") and "enonce" not in verif and "affirmations" not in verif:
-        cible_ok = False
-        erreurs.append("Le vérificateur 'labo' requiert 'enonce' ou 'affirmations'.")
+        erreurs.append(manque)
 
     # 2. Twin generator check
     jumeau_ok = True
@@ -877,7 +642,7 @@ def validate_sheet(ex_id: str | int) -> ValidationReport:
         if not isinstance(twin_res, TwinExercise) and "Erreur" in str(twin_res):
             jumeau_ok = False
             erreurs.append(f"Échec du générateur jumeau : {twin_res}")
-    elif v_type not in ("labo", "lab"):
+    elif vtype is None or vtype.requires_twin:
         jumeau_ok = False
         erreurs.append("Champ 'jumeau' manquant.")
 
@@ -894,7 +659,7 @@ def validate_sheet(ex_id: str | int) -> ValidationReport:
         if raw_cible_str and len(raw_cible_str) > 4 and raw_cible_str in h_text:
             indices_sans_fuite = False
             erreurs.append(f"L'indice {idx} contient littéralement la cible {raw_cible_str!r}.")
-        if v_type not in ("labo", "lab"):
+        if vtype is None or vtype.checks_hint_leak:
             try:
                 check_h = session.verify(h_text)
                 if check_h.valid:

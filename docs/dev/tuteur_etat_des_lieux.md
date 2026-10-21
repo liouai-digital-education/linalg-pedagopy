@@ -42,7 +42,7 @@ Une saisie de l'élève s'exécute dans son propre noyau, où il peut déjà tou
 
 | Étape | Effet sur les modules |
 |:---:|:---|
-| 6.1 | Registre `{type: fonction}` dans `verifiers.py`. |
+| 6.1 | Fait : registre `tutor/registry.py`, types enregistrés dans `tutor/verifier_types.py` avec leurs contrôles croisés ; `catalog.py` passe de 951 à 716 lignes. |
 | 6.2 | Un module par vérificateur (`tuteur/verificateurs/`). |
 | 6.3 | `catalog.py` découpé en `catalogue.py`, `seance.py`, `validation.py`. |
 | 6.4, 6.5, 6.7 | `evaluation_sure.py` remplace les douze `eval` ; champ `jumeau` analysé par l'interpréteur ; tests d'évasion. |

@@ -59,6 +59,16 @@ Pour ajouter une méthode de commodité (par exemple `eigenvalues()` en phase 8)
 
 `GaussJordan` et l'élimination du déterminant sont construits sur ce moteur. Bareiss garde sa boucle, car il n'ouvre jamais de discussion, et partage `RowOps`.
 
+## Registre des vérificateurs du tuteur
+
+Chaque type de vérificateur d'une fiche (`valeur`, `matrice`, `labo`…) est décrit une fois par un `VerifierType` (`tutor/registry.py`) : nom français et alias anglais, fonction de vérification, forme de réponse attendue (message quand la réponse est illisible), champs obligatoires de la fiche, contrôle croisé de la validation, et deux drapeaux (`requires_twin`, `checks_hint_leak`, faux pour le laboratoire). La séance (`ExerciseSession.verify`) et la validation des fiches (`validate_sheet`) lisent ce registre.
+
+Pour ajouter un type (par exemple pour le thème 10 de la phase 7) :
+
+1. écrire la fonction de vérification `f(réponse, spécification, données)` ;
+2. écrire son contrôle croisé `g(séance, spécification, données) -> list[str]` ;
+3. l'enregistrer dans `tutor/verifier_types.py` : `register_verifier(VerifierType("nom", ("alias",), _sans_seance(f), "forme attendue", requires("champ", message=...), g))`.
+
 ## Traces et locales
 
 Chaque étape de trace a une clé (`gj.row_add`, `det.bareiss_step`, `ker.vector`…) et des paramètres. Le texte de chaque clé est dans `render/locales/fr.yaml`, et `str.format` y insère les paramètres (accolades littérales doublées : `{{0}}`). Une nouvelle clé s'ajoute dans la section de son préfixe. Les messages d'exception restent écrits dans le code, `core` ne pouvant pas lire les locales de `render`.
