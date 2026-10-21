@@ -2,6 +2,10 @@
 
 ## [Non publié] — branche `development`
 
+### Corrections
+- Tests du tuteur : `test_seance_type_6_4_from_section_7_8` et `test_phase0_english_nomenclature_api` échouaient quand l'option `tuteur` (ipywidgets) était installée, car `str()` d'un vrai `VBox` ne contient pas l'énoncé. Ces deux tests vérifient désormais le panneau de repli en simulant l'absence d'ipywidgets ; le nouveau test `test_panneau_ipywidgets_affiche_enonce` (ignoré sans ipywidgets) vérifie que le panneau graphique affiche l'énoncé et ses boutons.
+- CI : nouveau job « Tuteur avec ipywidgets », qui exécute `pytest tests/test_tuteur.py` avec l'option `tuteur` installée.
+
 ## [3.1.0] — 2026-10-21
 
 Phase 2 du plan v5 : déterminant exact tracé, thème « Déterminants » du tuteur, annonce des cas singuliers dans `Matrix.inv()`.
