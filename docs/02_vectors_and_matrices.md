@@ -135,11 +135,13 @@ print(A.cols)    # 3 (nombre de colonnes)
 I3 = Matrix.identity(3)        # Matrice identité 3x3
 Z = Matrix.zeros(2, 4)         # Matrice nulle 2x4
 D = Matrix.diag([2, -1, 5])    # Matrice diagonale diag(2, -1, 5)
+U = Matrix.ones(2, 3)          # Matrice 2x3 dont tous les coefficients valent 1
 
 # Construction à partir de colonnes ou de lignes
 col1 = Vector([1, 0])
 col2 = Vector([2, 3])
-M = Matrix.from_columns([col1, col2])
+M = Matrix.from_columns([col1, col2])   # colonnes (1, 0) et (2, 3)
+N = Matrix.from_rows([col1, col2])      # lignes (1, 0) et (2, 3), soit la transposée de M
 ```
 
 ### 2.2 Opérations matricielles usuelles
@@ -163,6 +165,40 @@ G = A.gram()               # AᵀA = Matrix([[10, 14], [14, 20]])
 
 # Pas d'opérateur ** : les puissances s'écrivent par produits successifs
 A_cubed = A @ A @ A
+```
+
+### 2.3 Accès aux coefficients, aux lignes et aux colonnes
+
+Les indices commencent à 0 (voir le [guide 01, § 5.3](01_core_and_formal_computation.md#53-indices-a-partir-de-0-dans-lapi-a-partir-de-1-dans-les-traces)). Une `Matrix` est immuable : les accesseurs renvoient des copies.
+
+```python
+A = Matrix([[1, 2, 3], [4, 5, 6]])
+
+print(A[0, 1])                 # coefficient de la ligne 0 et de la colonne 1
+#> 2
+print(repr(A[:, 1:]))          # tranches : sous-matrice
+#> Matrix([[2, 3], [5, 6]])
+print(A.row(1), A.col(2))      # une ligne ou une colonne, en Vector
+#> (4, 5, 6) (3, 6)
+print(A.columns())             # toutes les colonnes ; rows_as_vectors() pour les lignes
+#> (Vector([1, 4]), Vector([2, 5]), Vector([3, 6]))
+print(repr(A.augment(Vector([7, 8]))))   # matrice augmentée [A | b]
+#> Matrix([[1, 2, 3, 7], [4, 5, 6, 8]])
+print(A.entries_grid, A.flat_entries)    # coefficients SymPy, par lignes ou à plat
+#> ((1, 2, 3), (4, 5, 6)) (1, 2, 3, 4, 5, 6)
+```
+
+`A[i]` renvoie la ligne `i` en tuple de coefficients, et `A.row(i)` la même ligne en `Vector`. Un indice hors bornes lève `IndexError`.
+
+Pour les matrices à paramètres, `subs` remplace des paramètres par des valeurs ; les clés peuvent être des symboles ou des noms (voir le [guide 01, § 2.2](01_core_and_formal_computation.md#22-parametres-designes-par-leur-nom)). `to_sympy()` convertit en `sympy.Matrix`, et `to_domain_matrix()` en `DomainMatrix` sur le plus petit domaine exact (pour les calculs internes rapides) :
+
+```python
+from linalg_pedagopy import symbols
+
+a, = symbols("a")
+M = Matrix([[1, a], [a, 1]])
+print(repr(M.subs({a: 2})), repr(M.subs({"a": 0})))
+#> Matrix([[1, 2], [2, 1]]) Matrix([[1, 0], [0, 1]])
 ```
 
 ---
@@ -256,7 +292,7 @@ print(M.rank() == M.rows)                # True  (inversible)
 La méthode [`inv(*, assumptions=None, strict=True)`](../src/linalg_pedagopy/objects/matrix.py) calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :
 - Si la matrice est numérique et singulière, elle lève (avec `strict=True`, par défaut) une [`SingularMatrixError`](../src/linalg_pedagopy/core/exceptions.py).
 - Si la matrice contient des paramètres et reste inversible pour toute valeur, l'inverse est renvoyée directement.
-- Si certaines valeurs des paramètres la rendent singulière, `strict=True` lève aussi `SingularMatrixError`, dont le message donne le déterminant et ces valeurs (calculés par la méthode de Bareiss, voir § 4.4) : « det A = -(a - 1)*(a + 1) s'annule pour a = 1 ou a = −1 ». Avec `strict=False`, on obtient un [`CaseSplit`](../src/linalg_pedagopy/core/cases.py) dont les branches singulières ont pour résultat `None`.
+- Si certaines valeurs des paramètres la rendent singulière, `strict=True` lève aussi `SingularMatrixError`, dont le message donne le déterminant et ces valeurs (calculés par la méthode de Bareiss, voir § 4.5) : « det A = -(a - 1)*(a + 1) s'annule pour a = 1 ou a = −1 ». Avec `strict=False`, on obtient un [`CaseSplit`](../src/linalg_pedagopy/core/cases.py) dont les branches singulières ont pour résultat `None`.
 
 ```python
 from linalg_pedagopy import Matrix, symbols
@@ -317,7 +353,26 @@ im = [A.col(j) for j in gj.pivots]
 print(im)                                 # colonnes pivots de A
 ```
 
-### 4.4 Déterminant (`det`)
+### 4.4 Résolution directe (`solve`)
+
+`A.solve(b, *, assumptions=None, strict=False)` résout $A x = b$ par Gauss-Jordan et renvoie seulement l'ensemble des solutions (`UniqueSolution`, `AffineSolution` ou `EmptySolution`, décrits dans le [guide 03, § 2.2](03_algorithms_and_step_tracing.md)), ou une discussion par cas. Pour la trace et les autres résultats (rang, pivots, forme échelonnée), utilisez `GaussJordan(A, b).run()`.
+
+```python
+M = Matrix([[1, a], [a, 1]])
+print(M.solve(Vector([1, 1])))
+#> Discussion selon a
+#> ├─ Cas a ≠ 1 et a ≠ −1 (générique) : UniqueSolution(x=(1/(a + 1), 1/(a + 1)))
+#> ├─ Cas a = 1 : (1, 0) + t_1·(-1, 1)
+#> └─ Cas a = −1 : EmptySolution(ligne L2 : 0 = 2)
+print(M.solve(Vector([1, 1]), assumptions={"a": 3}))
+#> UniqueSolution(x=(1/4, 1/4))
+print(Matrix([[1, 1], [2, 2]]).solve(Vector([1, 3])))
+#> EmptySolution(ligne L2 : 0 = 1)
+```
+
+Le second membre peut aussi être une matrice $B$ (plusieurs seconds membres) : la solution $X$ de $A X = B$ est alors une matrice.
+
+### 4.5 Déterminant (`det`)
 
 La méthode [`det(*, method="auto", assumptions=None)`](../src/linalg_pedagopy/objects/matrix.py) renvoie le déterminant exact, factorisé. Elle délègue à la procédure [`Determinant`](../src/linalg_pedagopy/algorithms/determinant.py), décrite dans le [guide 03](03_algorithms_and_step_tracing.md) (méthodes de Bareiss, élimination, cofacteurs, Sarrus ; trace pas à pas ; valeurs singulières du paramètre).
 

@@ -326,11 +326,13 @@ print(A.cols)    # 3 (nombre de colonnes)
 I3 = Matrix.identity(3)        # Matrice identité 3x3
 Z = Matrix.zeros(2, 4)         # Matrice nulle 2x4
 D = Matrix.diag([2, -1, 5])    # Matrice diagonale diag(2, -1, 5)
+U = Matrix.ones(2, 3)          # Matrice 2x3 dont tous les coefficients valent 1
 
 # Construction à partir de colonnes ou de lignes
 col1 = Vector([1, 0])
 col2 = Vector([2, 3])
-M = Matrix.from_columns([col1, col2])
+M = Matrix.from_columns([col1, col2])   # colonnes (1, 0) et (2, 3)
+N = Matrix.from_rows([col1, col2])      # lignes (1, 0) et (2, 3), soit la transposée de M
 </code></pre></div>
 <h3 id="22-operations-matricielles-usuelles">2.2 Opérations matricielles usuelles</h3>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">A = Matrix([[1, 2], [3, 4]])
@@ -351,6 +353,32 @@ G = A.gram()               # AᵀA = Matrix([[10, 14], [14, 20]])
 
 # Pas d'opérateur ** : les puissances s'écrivent par produits successifs
 A_cubed = A @ A @ A
+</code></pre></div>
+<h3 id="23-acces-aux-coefficients-aux-lignes-et-aux-colonnes">2.3 Accès aux coefficients, aux lignes et aux colonnes</h3>
+<p>Les indices commencent à 0 (voir le <a href="01_core_and_formal_computation.html#53-indices-a-partir-de-0-dans-lapi-a-partir-de-1-dans-les-traces">guide 01, § 5.3</a>). Une <code>Matrix</code> est immuable : les accesseurs renvoient des copies.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">A = Matrix([[1, 2, 3], [4, 5, 6]])
+
+print(A[0, 1])                 # coefficient de la ligne 0 et de la colonne 1
+#&gt; 2
+print(repr(A[:, 1:]))          # tranches : sous-matrice
+#&gt; Matrix([[2, 3], [5, 6]])
+print(A.row(1), A.col(2))      # une ligne ou une colonne, en Vector
+#&gt; (4, 5, 6) (3, 6)
+print(A.columns())             # toutes les colonnes ; rows_as_vectors() pour les lignes
+#&gt; (Vector([1, 4]), Vector([2, 5]), Vector([3, 6]))
+print(repr(A.augment(Vector([7, 8]))))   # matrice augmentée [A | b]
+#&gt; Matrix([[1, 2, 3, 7], [4, 5, 6, 8]])
+print(A.entries_grid, A.flat_entries)    # coefficients SymPy, par lignes ou à plat
+#&gt; ((1, 2, 3), (4, 5, 6)) (1, 2, 3, 4, 5, 6)
+</code></pre></div>
+<p><code>A[i]</code> renvoie la ligne <code>i</code> en tuple de coefficients, et <code>A.row(i)</code> la même ligne en <code>Vector</code>. Un indice hors bornes lève <code>IndexError</code>.</p>
+<p>Pour les matrices à paramètres, <code>subs</code> remplace des paramètres par des valeurs ; les clés peuvent être des symboles ou des noms (voir le <a href="01_core_and_formal_computation.html#22-parametres-designes-par-leur-nom">guide 01, § 2.2</a>). <code>to_sympy()</code> convertit en <code>sympy.Matrix</code>, et <code>to_domain_matrix()</code> en <code>DomainMatrix</code> sur le plus petit domaine exact (pour les calculs internes rapides) :</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import symbols
+
+a, = symbols("a")
+M = Matrix([[1, a], [a, 1]])
+print(repr(M.subs({a: 2})), repr(M.subs({"a": 0})))
+#&gt; Matrix([[1, 2], [2, 1]]) Matrix([[1, 0], [0, 1]])
 </code></pre></div>
 <hr/>
 <h2 id="3-les-4-vues-du-produit-matriciel">3. Les 4 vues du produit matriciel</h2>
@@ -415,7 +443,7 @@ print(M.rank() == M.rows)                # True  (inversible)
 <p>La méthode <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>inv(*, assumptions=None, strict=True)</code></a> calcule l'inverse symbolique exacte via la réduction de Gauss-Jordan augmentée :
 - Si la matrice est numérique et singulière, elle lève (avec <code>strict=True</code>, par défaut) une <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/exceptions.py"><code>SingularMatrixError</code></a>.
 - Si la matrice contient des paramètres et reste inversible pour toute valeur, l'inverse est renvoyée directement.
-- Si certaines valeurs des paramètres la rendent singulière, <code>strict=True</code> lève aussi <code>SingularMatrixError</code>, dont le message donne le déterminant et ces valeurs (calculés par la méthode de Bareiss, voir § 4.4) : « det A = -(a - 1)*(a + 1) s'annule pour a = 1 ou a = −1 ». Avec <code>strict=False</code>, on obtient un <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/cases.py"><code>CaseSplit</code></a> dont les branches singulières ont pour résultat <code>None</code>.</p>
+- Si certaines valeurs des paramètres la rendent singulière, <code>strict=True</code> lève aussi <code>SingularMatrixError</code>, dont le message donne le déterminant et ces valeurs (calculés par la méthode de Bareiss, voir § 4.5) : « det A = -(a - 1)*(a + 1) s'annule pour a = 1 ou a = −1 ». Avec <code>strict=False</code>, on obtient un <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/core/cases.py"><code>CaseSplit</code></a> dont les branches singulières ont pour résultat <code>None</code>.</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, symbols
 
 a, = symbols("a")
@@ -466,7 +494,21 @@ print(gj.pivots)                          # (0, 1) : indices à partir de 0 (la 
 im = [A.col(j) for j in gj.pivots]
 print(im)                                 # colonnes pivots de A
 </code></pre></div>
-<h3 id="44-determinant-det">4.4 Déterminant (<code>det</code>)</h3>
+<h3 id="44-resolution-directe-solve">4.4 Résolution directe (<code>solve</code>)</h3>
+<p><code>A.solve(b, *, assumptions=None, strict=False)</code> résout $A x = b$ par Gauss-Jordan et renvoie seulement l'ensemble des solutions (<code>UniqueSolution</code>, <code>AffineSolution</code> ou <code>EmptySolution</code>, décrits dans le <a href="03_algorithms_and_step_tracing.html">guide 03, § 2.2</a>), ou une discussion par cas. Pour la trace et les autres résultats (rang, pivots, forme échelonnée), utilisez <code>GaussJordan(A, b).run()</code>.</p>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">M = Matrix([[1, a], [a, 1]])
+print(M.solve(Vector([1, 1])))
+#&gt; Discussion selon a
+#&gt; ├─ Cas a ≠ 1 et a ≠ −1 (générique) : UniqueSolution(x=(1/(a + 1), 1/(a + 1)))
+#&gt; ├─ Cas a = 1 : (1, 0) + t_1·(-1, 1)
+#&gt; └─ Cas a = −1 : EmptySolution(ligne L2 : 0 = 2)
+print(M.solve(Vector([1, 1]), assumptions={"a": 3}))
+#&gt; UniqueSolution(x=(1/4, 1/4))
+print(Matrix([[1, 1], [2, 2]]).solve(Vector([1, 3])))
+#&gt; EmptySolution(ligne L2 : 0 = 1)
+</code></pre></div>
+<p>Le second membre peut aussi être une matrice $B$ (plusieurs seconds membres) : la solution $X$ de $A X = B$ est alors une matrice.</p>
+<h3 id="45-determinant-det">4.5 Déterminant (<code>det</code>)</h3>
 <p>La méthode <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/objects/matrix.py"><code>det(*, method="auto", assumptions=None)</code></a> renvoie le déterminant exact, factorisé. Elle délègue à la procédure <a href="https://github.com/liouai-digital-education/linalg-pedagopy/blob/main/src/linalg_pedagopy/algorithms/determinant.py"><code>Determinant</code></a>, décrite dans le <a href="03_algorithms_and_step_tracing.html">guide 03</a> (méthodes de Bareiss, élimination, cofacteurs, Sarrus ; trace pas à pas ; valeurs singulières du paramètre).</p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import Matrix, symbols
 
@@ -609,6 +651,10 @@ print(reversal_matrix(3) @ Vector([1, 2, 3]))                       # (3, 2, 1)
           <a href="#22-operations-matricielles-usuelles">2.2 Opérations matricielles usuelles</a>
         </li>
         
+        <li class="toc-item toc-h3">
+          <a href="#23-acces-aux-coefficients-aux-lignes-et-aux-colonnes">2.3 Accès aux coefficients, aux lignes et aux colonnes</a>
+        </li>
+        
         <li class="toc-item ">
           <a href="#3-les-4-vues-du-produit-matriciel">3. Les 4 vues du produit matriciel</a>
         </li>
@@ -650,7 +696,11 @@ print(reversal_matrix(3) @ Vector([1, 2, 3]))                       # (3, 2, 1)
         </li>
         
         <li class="toc-item toc-h3">
-          <a href="#44-determinant-det">4.4 Déterminant (det)</a>
+          <a href="#44-resolution-directe-solve">4.4 Résolution directe (solve)</a>
+        </li>
+        
+        <li class="toc-item toc-h3">
+          <a href="#45-determinant-det">4.5 Déterminant (det)</a>
         </li>
         
         <li class="toc-item ">

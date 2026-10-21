@@ -85,17 +85,17 @@
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
-    "title": "2.1 Hypothèse real=True par défaut (Décision D1)",
-    "url": "01_core_and_formal_computation.html#21-hypothese-realtrue-par-defaut-decision-d1",
+    "title": "2.1 Hypothèse real=True par défaut",
+    "url": "01_core_and_formal_computation.html#21-hypothese-realtrue-par-defaut",
     "snippet": "Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \\in \\mathbb{C}$), ce qui empêche de nombreuses simplificat...",
-    "content": "2.1 Hypothèse real=True par défaut (Décision D1) Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \\in \\mathbb{C}$), ce qui empêche de nombreuses simplificat..."
+    "content": "2.1 Hypothèse real=True par défaut Dans les systèmes de calcul formel généralistes, un symbole non qualifié $a$ est supposé complexe ($a \\in \\mathbb{C}$), ce qui empêche de nombreuses simplificat..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
-    "title": "2.2 Préservation et correspondance des symboles",
-    "url": "01_core_and_formal_computation.html#22-preservation-et-correspondance-des-symboles",
-    "snippet": "Lors des substitutions partielles ou complètes, la fonction match_symbol_substitutions fait correspondre les variables par leur nom textuel si nécessaire, évita...",
-    "content": "2.2 Préservation et correspondance des symboles Lors des substitutions partielles ou complètes, la fonction match_symbol_substitutions fait correspondre les variables par leur nom textuel si nécessaire, évita..."
+    "title": "2.2 Paramètres désignés par leur nom",
+    "url": "01_core_and_formal_computation.html#22-parametres-designes-par-leur-nom",
+    "snippet": "Pour SymPy, deux symboles de même nom mais d'hypothèses différentes (sympy.Symbol(\"a\") et le a réel de symbols(\"a\")) sont deux objets distincts. CaseSplit.at(a=...",
+    "content": "2.2 Paramètres désignés par leur nom Pour SymPy, deux symboles de même nom mais d'hypothèses différentes (sympy.Symbol(\"a\") et le a réel de symbols(\"a\")) sont deux objets distincts. CaseSplit.at(a=..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
@@ -106,10 +106,10 @@
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
-    "title": "3.1 Pourquoi un oracle dédié ? (Décision D3)",
-    "url": "01_core_and_formal_computation.html#31-pourquoi-un-oracle-dedie-decision-d3",
+    "title": "3.1 Pourquoi un oracle dédié ?",
+    "url": "01_core_and_formal_computation.html#31-pourquoi-un-oracle-dedie",
     "snippet": "En présence de paramètres symboliques, tester si un scalaire $v$ est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si $v = a - 1$, la réponse...",
-    "content": "3.1 Pourquoi un oracle dédié ? (Décision D3) En présence de paramètres symboliques, tester si un scalaire $v$ est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si $v = a - 1$, la réponse..."
+    "content": "3.1 Pourquoi un oracle dédié ? En présence de paramètres symboliques, tester si un scalaire $v$ est nul (v == 0) ne peut pas être une simple opération booléenne :\n- Si $v = a - 1$, la réponse..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
@@ -122,8 +122,8 @@
     "pageTitle": "01. Noyau formel & calcul exact",
     "title": "3.3 Traitement des radicaux paramétriques (unrad)",
     "url": "01_core_and_formal_computation.html#33-traitement-des-radicaux-parametriques-unrad",
-    "snippet": "Les expressions contenant des racines carrées paramétriques (comme $\\sqrt{1 - m^2}$ ou $\\sqrt{a^2 + b^2}$) sont traitées via _extract_factors :\n1. L'oracle fait...",
-    "content": "3.3 Traitement des radicaux paramétriques (unrad) Les expressions contenant des racines carrées paramétriques (comme $\\sqrt{1 - m^2}$ ou $\\sqrt{a^2 + b^2}$) sont traitées via _extract_factors :\n1. L'oracle fait..."
+    "snippet": "Les expressions contenant des racines carrées paramétriques (comme $\\sqrt{1 - m^2}$ ou $\\sqrt{a^2 + b^2}$) sont traitées en trois temps :\n1. L'oracle fait appel...",
+    "content": "3.3 Traitement des radicaux paramétriques (unrad) Les expressions contenant des racines carrées paramétriques (comme $\\sqrt{1 - m^2}$ ou $\\sqrt{a^2 + b^2}$) sont traitées en trois temps :\n1. L'oracle fait appel..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
@@ -157,8 +157,8 @@
     "pageTitle": "01. Noyau formel & calcul exact",
     "title": "4.3 Clôture transitive et détection de contradictions",
     "url": "01_core_and_formal_computation.html#43-cloture-transitive-et-detection-de-contradictions",
-    "snippet": "La classe Condition implémente deux propriétés critiques :\n1. Clôture transitive des substitutions (_compute_transitive_substitutions) :\n   Si la condition cont...",
-    "content": "4.3 Clôture transitive et détection de contradictions La classe Condition implémente deux propriétés critiques :\n1. Clôture transitive des substitutions (_compute_transitive_substitutions) :\n   Si la condition cont..."
+    "snippet": "La classe Condition implémente deux propriétés critiques :\n1. Clôture transitive des substitutions :\n   Si la condition contient $a = b$ et $b = 3$, la substitu...",
+    "content": "4.3 Clôture transitive et détection de contradictions La classe Condition implémente deux propriétés critiques :\n1. Clôture transitive des substitutions :\n   Si la condition contient $a = b$ et $b = 3$, la substitu..."
   },
   {
     "pageTitle": "01. Noyau formel & calcul exact",
@@ -180,6 +180,34 @@
     "url": "01_core_and_formal_computation.html#46-commutation-de-la-specialisation-at",
     "snippet": "Un résultat CaseSplit respecte le principe de commutation fondamentale :\n$$\\left( \\text{Algorithme}(A(p), b(p)) \\right) \\Big|_{p = p_0} = \\text{Algorithme}\\left...",
     "content": "4.6 Commutation de la spécialisation (at) Un résultat CaseSplit respecte le principe de commutation fondamentale :\n$$\\left( \\text{Algorithme}(A(p), b(p)) \\right) \\Big|_{p = p_0} = \\text{Algorithme}\\left..."
+  },
+  {
+    "pageTitle": "01. Noyau formel & calcul exact",
+    "title": "5. Concepts transversaux",
+    "url": "01_core_and_formal_computation.html#5-concepts-transversaux",
+    "snippet": "Les procédures (GaussJordan, BackSubstitution, ForwardSubstitution, GramSchmidt, QR, LeastSquares, Determinant) et les méthodes rref, rank, nullspace, inv et de...",
+    "content": "5. Concepts transversaux Les procédures (GaussJordan, BackSubstitution, ForwardSubstitution, GramSchmidt, QR, LeastSquares, Determinant) et les méthodes rref, rank, nullspace, inv et de..."
+  },
+  {
+    "pageTitle": "01. Noyau formel & calcul exact",
+    "title": "5.1 Hypothèses sur les paramètres (assumptions)",
+    "url": "01_core_and_formal_computation.html#51-hypotheses-sur-les-parametres-assumptions",
+    "snippet": "Les procédures (GaussJordan, BackSubstitution, ForwardSubstitution, GramSchmidt, QR, LeastSquares, Determinant) et les méthodes rref, rank, nullspace, inv et de...",
+    "content": "5.1 Hypothèses sur les paramètres (assumptions) Les procédures (GaussJordan, BackSubstitution, ForwardSubstitution, GramSchmidt, QR, LeastSquares, Determinant) et les méthodes rref, rank, nullspace, inv et de..."
+  },
+  {
+    "pageTitle": "01. Noyau formel & calcul exact",
+    "title": "5.2 Configuration (config et using_config)",
+    "url": "01_core_and_formal_computation.html#52-configuration-config-et-using_config",
+    "snippet": "L'objet config réunit les réglages globaux. On le modifie par affectation (config.max_cases = 16), pour toute la suite de la session, ou temporairement dans un ...",
+    "content": "5.2 Configuration (config et using_config) L'objet config réunit les réglages globaux. On le modifie par affectation (config.max_cases = 16), pour toute la suite de la session, ou temporairement dans un ..."
+  },
+  {
+    "pageTitle": "01. Noyau formel & calcul exact",
+    "title": "5.3 Indices : à partir de 0 dans l'API, à partir de 1 dans les traces",
+    "url": "01_core_and_formal_computation.html#53-indices-a-partir-de-0-dans-lapi-a-partir-de-1-dans-les-traces",
+    "snippet": "Les attributs et arguments Python suivent la convention de Python : les indices commencent à 0. Les traces, écrites pour l'étudiant, suivent la convention mathé...",
+    "content": "5.3 Indices : à partir de 0 dans l'API, à partir de 1 dans les traces Les attributs et arguments Python suivent la convention de Python : les indices commencent à 0. Les traces, écrites pour l'étudiant, suivent la convention mathé..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
@@ -227,15 +255,22 @@
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "2.1 Initialisation et constructeurs d'usine",
     "url": "02_vectors_and_matrices.html#21-initialisation-et-constructeurs-dusine",
-    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A...",
-    "content": "2.1 Initialisation et constructeurs d'usine Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A..."
+    "snippet": "Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies....",
+    "content": "2.1 Initialisation et constructeurs d'usine Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies...."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
     "title": "2.2 Opérations matricielles usuelles",
     "url": "02_vectors_and_matrices.html#22-operations-matricielles-usuelles",
-    "snippet": "Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A...",
-    "content": "2.2 Opérations matricielles usuelles Un cours d'algèbre linéaire appliquée insiste sur quatre interprétations équivalentes du produit matriciel $C = A B$. linalg_pedagopy les rend explicites avec A..."
+    "snippet": "Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies....",
+    "content": "2.2 Opérations matricielles usuelles Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies...."
+  },
+  {
+    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "title": "2.3 Accès aux coefficients, aux lignes et aux colonnes",
+    "url": "02_vectors_and_matrices.html#23-acces-aux-coefficients-aux-lignes-et-aux-colonnes",
+    "snippet": "Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies....",
+    "content": "2.3 Accès aux coefficients, aux lignes et aux colonnes Les indices commencent à 0 (voir le guide 01, § 5.3). Une Matrix est immuable : les accesseurs renvoient des copies...."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
@@ -309,10 +344,17 @@
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
-    "title": "4.4 Déterminant (det)",
-    "url": "02_vectors_and_matrices.html#44-determinant-det",
+    "title": "4.4 Résolution directe (solve)",
+    "url": "02_vectors_and_matrices.html#44-resolution-directe-solve",
+    "snippet": "A.solve(b, *, assumptions=None, strict=False) résout $A x = b$ par Gauss-Jordan et renvoie seulement l'ensemble des solutions (UniqueSolution, AffineSolution ou...",
+    "content": "4.4 Résolution directe (solve) A.solve(b, *, assumptions=None, strict=False) résout $A x = b$ par Gauss-Jordan et renvoie seulement l'ensemble des solutions (UniqueSolution, AffineSolution ou..."
+  },
+  {
+    "pageTitle": "02. Vecteurs, matrices & métriques",
+    "title": "4.5 Déterminant (det)",
+    "url": "02_vectors_and_matrices.html#45-determinant-det",
     "snippet": "La méthode det(*, method=\"auto\", assumptions=None) renvoie le déterminant exact, factorisé. Elle délègue à la procédure Determinant, décrite dans le guide 03 (m...",
-    "content": "4.4 Déterminant (det) La méthode det(*, method=\"auto\", assumptions=None) renvoie le déterminant exact, factorisé. Elle délègue à la procédure Determinant, décrite dans le guide 03 (m..."
+    "content": "4.5 Déterminant (det) La méthode det(*, method=\"auto\", assumptions=None) renvoie le déterminant exact, factorisé. Elle délègue à la procédure Determinant, décrite dans le guide 03 (m..."
   },
   {
     "pageTitle": "02. Vecteurs, matrices & métriques",
@@ -330,17 +372,17 @@
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",
-    "title": "1.1 Pourquoi une traçabilité hiérarchique ? (Décision D6)",
-    "url": "03_algorithms_and_step_tracing.html#11-pourquoi-une-tracabilite-hierarchique-decision-d6",
+    "title": "1.1 Pourquoi une traçabilité hiérarchique ?",
+    "url": "03_algorithms_and_step_tracing.html#11-pourquoi-une-tracabilite-hierarchique",
     "snippet": "L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une réponse numérique brute, mais à comprendre la succession d'étapes de calcul. Cepen...",
-    "content": "1.1 Pourquoi une traçabilité hiérarchique ? (Décision D6) L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une réponse numérique brute, mais à comprendre la succession d'étapes de calcul. Cepen..."
+    "content": "1.1 Pourquoi une traçabilité hiérarchique ? L'apprentissage de l'algèbre linéaire ne consiste pas seulement à obtenir une réponse numérique brute, mais à comprendre la succession d'étapes de calcul. Cepen..."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",
     "title": "1.2 Les 4 niveaux de zoom didactiques",
     "url": "03_algorithms_and_step_tracing.html#12-les-4-niveaux-de-zoom-didactiques",
-    "snippet": "L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (SECTION, INFO, WARNING, ROW_SWAP, ROW_SCALE, ROW_ADD, ...",
-    "content": "1.2 Les 4 niveaux de zoom didactiques L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (SECTION, INFO, WARNING, ROW_SWAP, ROW_SCALE, ROW_ADD, ..."
+    "snippet": "La même trace s'affiche aussi en tableau, avec une ligne par opération : res.explain().to_table() renvoie un TraceTable qui s'affiche en HTML dans JupyterLab et...",
+    "content": "1.2 Les 4 niveaux de zoom didactiques La même trace s'affiche aussi en tableau, avec une ligne par opération : res.explain().to_table() renvoie un TraceTable qui s'affiche en HTML dans JupyterLab et..."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",
@@ -348,6 +390,13 @@
     "url": "03_algorithms_and_step_tracing.html#13-nuds-de-larbre-step-stepkind-et-highlight",
     "snippet": "L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (SECTION, INFO, WARNING, ROW_SWAP, ROW_SCALE, ROW_ADD, ...",
     "content": "1.3 Nœuds de l'arbre : Step, StepKind et Highlight L'arbre de trace est composé de nœuds immuables Step. Chaque étape possède :\n- Un type d'action StepKind (SECTION, INFO, WARNING, ROW_SWAP, ROW_SCALE, ROW_ADD, ..."
+  },
+  {
+    "pageTitle": "03. Algorithmes & traçabilité",
+    "title": "1.4 Ce que renvoie run() : le contrat commun des résultats",
+    "url": "03_algorithms_and_step_tracing.html#14-ce-que-renvoie-run-le-contrat-commun-des-resultats",
+    "snippet": "Chaque procédure s'utilise de la même façon : on la construit avec ses données et ses options, puis run() renvoie un résultat typé (GJResult, TriangularResult, ...",
+    "content": "1.4 Ce que renvoie run() : le contrat commun des résultats Chaque procédure s'utilise de la même façon : on la construit avec ses données et ses options, puis run() renvoie un résultat typé (GJResult, TriangularResult, ..."
   },
   {
     "pageTitle": "03. Algorithmes & traçabilité",

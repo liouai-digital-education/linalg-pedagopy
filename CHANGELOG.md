@@ -25,6 +25,16 @@
 - **Option `docs`** (`pip install -e ".[docs]"`) : `markdown`, `jinja2` et `beautifulsoup4`, nécessaires pour régénérer le site ; citée dans le README et dans `docs/dev/tests_et_verifications.md`.
 - **mypy figé** à la version 2.4.0 dans l'option `dev`. Le périmètre strict reste sans erreur ; le paquet complet compte 63 erreurs (informatif, en CI comme en local, et non zéro comme on le pensait : l'étape échoue sans faire échouer le job). `pyproject.toml` et `docs/dev/tests_et_verifications.md` le disent désormais.
 
+### Documentation — lot 3a de la revue (contenu des guides)
+- **Guide 01, § 5 « Concepts transversaux »** : les quatre formes d'hypothèses (`Condition`, chaîne, liste, dictionnaire) et le refus des inégalités d'ordre (`InvalidAssumptionError`) ; le tableau des réglages de `config` (défauts, valeurs admises, validation, portée de `using_config`) ; les indices à partir de 0 dans l'API et à partir de 1 dans les traces. Exemples vérifiés par `#>`.
+- **Guide 01 allégé** : les mentions « Décision D1/D3 » et les fonctions privées (`_extract_factors`, `_compute_transitive_substitutions`, `match_symbol_substitutions`) passent dans `docs/dev/architecture.md` (§ « Noyau formel : décisions et fonctions internes ») ; le guide décrit le comportement (paramètres désignés par leur nom, radicaux, clôture transitive).
+- **Trace en tableau** : `explain().to_table()` est présenté dans le guide 03 (§ 1.2, exemple vérifié), le guide 09 (cellule JupyterLab) et le tutoriel (§ 5.1 et synthèse des commandes), avec renvoi au guide 06 pour le détail des colonnes.
+- **Carnet du tutoriel** régénéré depuis `TUTORIAL.md` : il n'avait pas reçu les sorties `#>` du lot 2. Le job « Documentation à jour » le régénère désormais lui aussi et échoue sur tout écart. `scripts/convert_tutorial_to_ipynb.py` termine le fichier par un saut de ligne, comme `scripts/nettoyer_carnets.py` : sa sortie ne dépend plus du filtre git `carnets`, absent en CI.
+- **Guide 02** : `Matrix.from_rows` et `Matrix.ones` ; nouveau § 2.3 sur l'accès aux coefficients (indexation et tranches, `row`, `col`, `columns`, `rows_as_vectors`, `augment`, `entries_grid`, `flat_entries`, `subs`, `to_sympy`, `to_domain_matrix`) ; nouveau § 4.4 sur `Matrix.solve` (ensemble des solutions, discussion par cas, `assumptions`, second membre matriciel). Le déterminant passe au § 4.5.
+- **Guide 03** : nouveau § 1.4 sur le contrat commun des résultats (`trace`, `explain`, `verify()` et ce que vérifie chaque résultat) ; au § 6, `LSResult.residual`, `pseudoinverse` et `RankDeficientError` (cas levés, attributs `rank` et `ncols`, `QR(strict=True)`) ; « (Décision D6) » retiré du titre du § 1.1, la décision est citée dans `docs/dev/architecture.md`.
+- **Guide 06, matrices de Hilbert** : seul l'en-tête de la sortie est comparé (`#> …`). Les erreurs relatives flottantes changent selon la version de NumPy et faisaient échouer les tests sous Python 3.11 et 3.13 après la fusion du lot 2.
+- **Site** : les liens entre pages avec une ancre (`page.md#section`) sont convertis en `page.html#section` ; ils restaient en `.md`, donc cassés.
+
 ## [0.3.1.2] — 2026-10-21
 
 Phases 4, 5 et 6 du plan v6, et traces en tableau. Pas de publication sur PyPI pour cette version (reportée à une version ultérieure).

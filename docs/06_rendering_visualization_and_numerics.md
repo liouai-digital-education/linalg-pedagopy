@@ -212,10 +212,12 @@ L'erreur relative d'un solveur flottant croît avec ce conditionnement, alors qu
 ```python
 print(hilbert_conditioning_experiment())
 #> Matrices de Hilbert H_n :
-#> - n =  3 : cond(H_n) ≈ 5.24e+02, erreur relative flottante ≈ 8.36e-15 (exact : 0)
-#> - n =  5 : cond(H_n) ≈ 4.77e+05, erreur relative flottante ≈ 1.68e-12 (exact : 0)
-#> - n =  7 : cond(H_n) ≈ 4.75e+08, erreur relative flottante ≈ 1.01e-09 (exact : 0)
-#> - n =  9 : cond(H_n) ≈ 4.93e+11, erreur relative flottante ≈ 1.18e-06 (exact : 0)
+#> …
+# - n =  3 : cond(H_n) ≈ 5.24e+02, erreur relative flottante ≈ 8.36e-15 (exact : 0)
+# - n =  5 : cond(H_n) ≈ 4.77e+05, erreur relative flottante ≈ 1.68e-12 (exact : 0)
+# - n =  7 : cond(H_n) ≈ 4.75e+08, erreur relative flottante ≈ 1.01e-09 (exact : 0)
+# - n =  9 : cond(H_n) ≈ 4.93e+11, erreur relative flottante ≈ 1.18e-06 (exact : 0)
+# (erreurs flottantes indicatives : leurs derniers chiffres varient selon la version de NumPy)
 ```
 
 (les erreurs flottantes exactes peuvent varier légèrement selon la plateforme).

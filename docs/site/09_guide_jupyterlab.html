@@ -236,6 +236,8 @@ res                         # discussion selon a, solutions en LaTeX
 </code></pre></div>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">res.explain(level=2)        # avec le détail des opérations de lignes
 </code></pre></div>
+<div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">res.explain().to_table()    # la même trace en tableau : une ligne par opération, une section par cas
+</code></pre></div>
 <p><strong>Le tuteur</strong></p>
 <div class="code-container"><div class="code-header"><span>Python</span><button class="copy-btn" title="Copier dans le presse-papiers">📋 Copier</button></div><pre><code class="language-python">from linalg_pedagopy import tuteur
 tuteur.catalogue()             # les 39 exercices

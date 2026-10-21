@@ -1173,8 +1173,8 @@ def preprocess_markdown(text: str) -> tuple[str, list[str]]:
         text,
     )
 
-    # 5. Réajuster les liens .md en .html
-    text = re.sub(r"\(([\w_-]+)\.md\)", r"(\1.html)", text)
+    # 5. Réajuster les liens .md en .html (avec ou sans ancre)
+    text = re.sub(r"\(([\w_-]+)\.md(#[\w-]*)?\)", r"(\1.html\2)", text)
 
     # 6. Les liens relatifs vers le code source (../src/...) sont écrits depuis docs/.
     #    Site publié (URL « Source » dans pyproject.toml) : lien vers le fichier sur GitHub ;

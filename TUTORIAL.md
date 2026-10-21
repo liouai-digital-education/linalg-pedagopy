@@ -249,6 +249,15 @@ print("Solution unique :", res.solution.x) # (2, 3, -1)
 print(res.verify())
 ```
 
+La trace se lit en arbre (`res.explain()`) ou en tableau, avec une ligne par opération élémentaire : numéro, colonne, pivot, opération, but et matrice obtenue (pivot encadré, lignes modifiées en couleur). Dans JupyterLab, le tableau s'affiche directement ; ailleurs, on l'exporte en Markdown, en LaTeX ou en HTML :
+
+```python
+table = res.explain().to_table()
+print(table.sections[0].layout)
+#> elimination
+table.to_markdown()                      # tableau Markdown, matrices en LaTeX
+```
+
 ### 5.2 Système indéterminé (Ensemble affine de solutions)
 
 ```python
@@ -837,6 +846,7 @@ print(ex.verifier(x_opt))
 | Factorisation QR | `res = QR(A).run()` |
 | Moindres carrés rationnels | `res = LeastSquares(A, b).run()` |
 | Trace et explication multi-format | `exp = res.explain() ; exp.save("trace.html")` |
+| Trace en tableau (une ligne par opération) | `res.explain().to_table()` |
 | Expérience numérique de Läuchli | `lauchli_least_squares_experiment()` (module `linalg_pedagopy.compare`) |
 | Catalogue des exercices | `tuteur.catalogue()` |
 | Séance de tuteur | `ex = exercice("moyenne-glissante") ; ex.enonce() ; ex.indice() ; ex.verifier(...)` |

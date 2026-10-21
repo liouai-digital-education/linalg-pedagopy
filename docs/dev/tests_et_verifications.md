@@ -74,7 +74,9 @@ python docs/generer_catalogue.py
 python scripts/build_docs_site.py
 ```
 
-Le job « Documentation à jour » de l'intégration continue refait ces deux générations et échoue si `git diff` montre un écart, ou si un fichier du site n'est pas versionné.
+Le carnet `carnets/tutoriel_linalg_pedagopy.ipynb` est lui aussi généré, à partir de `TUTORIAL.md` : après une modification du tutoriel, lancez `python scripts/convert_tutorial_to_ipynb.py` (bibliothèque standard seulement).
+
+Le job « Documentation à jour » de l'intégration continue refait ces trois générations et échoue si `git diff` montre un écart, ou si un fichier du site n'est pas versionné.
 
 ## Carnets
 
