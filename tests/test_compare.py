@@ -40,3 +40,23 @@ def test_hilbert_and_inverse_vs_solve_experiments() -> None:
     c_rep = compare(QR(A))
     assert c_rep.orthogonality_defect_float is not None
     assert c_rep.orthogonality_defect_float > 0.1
+
+
+def test_import_sans_numpy() -> None:
+    """numpy est optionnel : le paquet s'importe sans lui, seules les comparaisons l'exigent."""
+    import subprocess
+    import sys
+
+    code = (
+        "import sys; sys.modules['numpy'] = None\n"
+        "import linalg_pedagopy\n"
+        "from linalg_pedagopy import tuteur, compare, Matrix\n"
+        "assert tuteur.exercice('moyenne-glissante').verifier(Matrix.zeros(3, 6)).valide is False\n"
+        "try:\n"
+        "    compare('gram_schmidt', Matrix([[1, 0], [0, 1]]))\n"
+        "except ImportError as e:\n"
+        "    assert 'linalg_pedagopy[compare]' in str(e)\n"
+        "else:\n"
+        "    raise AssertionError('ImportError attendue')\n"
+    )
+    subprocess.run([sys.executable, "-c", code], check=True)
