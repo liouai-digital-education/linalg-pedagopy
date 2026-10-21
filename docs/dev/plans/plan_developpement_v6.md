@@ -28,7 +28,7 @@ Quatre décisions structurent la révision :
 | 3 | Correctifs issus des campagnes de tests | correctifs | 1 à 2 séances | 0.3.1.1 |
 | 4 | **Moteur d'élimination** réutilisable, noyau tracé, regroupement des branches | refactorisation + fonctionnalité | 3 à 4 séances | 0.3.1.2 |
 | 5 | Allègement de `Matrix` (règle de délégation, registre de procédures) | refactorisation | 1 séance | 0.3.1.2 |
-| 6 | Tuteur : registre des vérificateurs, suppression des `eval`, API française | refactorisation + sécurité | 2 séances | 0.3.1.2 + PyPI |
+| 6 | Tuteur : registre des vérificateurs, suppression des `eval`, API française | refactorisation + sécurité | 2 séances | 0.3.1.2 (PyPI reporté) |
 | 7 | **Bases et sous-espaces** (`Basis`, `Subspace`, Zassenhaus, thème 10) | fonctionnalité | 4 à 5 séances | 0.3.2.0 |
 | 8 | **Valeurs propres, espaces propres, diagonalisation** | fonctionnalité | 3 à 4 séances | 0.3.3.0 |
 | 9 | **Familles structurées** (« régime 2 ») | fonctionnalité | 3 à 4 séances | 0.3.4.0 |
@@ -222,7 +222,7 @@ Contenu du plan v5 (§ 9), inchangé sur le fond ; menée en parallèle des phas
 | 6.6 | Code déplacé de `tutor/` vers `tuteur/` ; `tutor/` réexporte les noms anglais (silencieux en 0.3.1.2, `DeprecationWarning` dès 0.3.2.0, suppression en 0.4.0.0 : décision 15.1.13) ; documentation et carnets en noms français. |
 | 6.7 | Tests de l'interpréteur (attributs privés, `__import__`, lambda, compréhensions, appels hors liste blanche refusés). |
 
-Critère de fin : aucun fichier du tuteur au-delà d'environ 350 lignes, plus aucun `eval`, diagnostics identiques. Avec les phases 4 et 5 : version **0.3.1.2**, **première publication sur PyPI**.
+Critère de fin : aucun fichier du tuteur au-delà d'environ 350 lignes, plus aucun `eval`, diagnostics identiques. Avec les phases 4 et 5 : version **0.3.1.2** ; la première publication sur PyPI, d'abord prévue ici, est reportée (décision du 21 octobre 2026).
 
 # 9. Phase 7 — Bases et sous-espaces
 
@@ -338,7 +338,7 @@ Phase 3 ──► Phase 4 ──► Phase 5 ──► Phase 7 ──► Phase 8 
 | 1 | Phase 3 | 1–2 | campagnes figées, factorisation cohérente, messages de plafond | 0.3.1.1 |
 | 2 | Phase 4 | 3–4 | moteur commun, noyau tracé, regroupement des branches | — |
 | 3 | Phase 5 | 1 | `Matrix` < 600 lignes, registre de procédures | — |
-| 4 | Phase 6 | 2 | tuteur découpé, plus d'`eval`, API française | 0.3.1.2 + PyPI |
+| 4 | Phase 6 | 2 | tuteur découpé, plus d'`eval`, API française | 0.3.1.2 (PyPI reporté) |
 | 5 | Phase 7 | 4–5 | `Subspace`, Zassenhaus, changement de base, thème 10 | 0.3.2.0 |
 | 6 | Phase 8 | 3–4 | `Eigen`, `diagonalize()`, 5 fiches | 0.3.3.0 |
 | 7 | Phase 9 | 3–4 | détecteurs, méthodes dédiées 1 à 5, thème « structures » | 0.3.4.0 |
@@ -379,7 +379,7 @@ Réponses aux questions laissées ouvertes par la première rédaction du plan v
 10. **`factor_policy`** : `"real_radicals"` par défaut **dès 0.3.1.1** ; la factorisation sur $\mathbb{Q}(\sqrt d)$ ne s'applique que lorsque la condition de la branche contient $\sqrt d$. `"rational"` reste disponible.
 11. **Fusion des branches** : `merge_branches=True` par défaut, désactivable ; les traces des branches fusionnées restent consultables. *Révisée le 21 octobre 2026 après mesure* : regroupement à l'affichage seulement (étape 4.8) ; le plafond de la bloc-triangulaire 6 × 6 relève de la méthode par blocs (étape 9.3).
 12. **Format des bases** : `basis_format="canonical"` par défaut (fidèle à la méthode enseignée et à la trace) ; `"integer"` et `"orthonormal"` sur demande ; le tuteur accepte toute base correcte.
-13. **Alias anglais du tuteur** (`tutor`, `verify_*`…) : silencieux en 0.3.1.2 (première publication sur PyPI), `DeprecationWarning` à partir de 0.3.2.0, suppression en 0.4.0.0.
+13. **Alias anglais du tuteur** (`tutor`, `verify_*`…) : silencieux en 0.3.1.2, `DeprecationWarning` à partir de 0.3.2.0, suppression en 0.4.0.0.
 
 ## 15.2 Questions encore ouvertes
 
@@ -412,7 +412,9 @@ Aucune à ce jour.
 12. Tâche 4.8 **faite** (révisée) : regroupement à l'affichage (`group_branches`, `format_conditions_text` dans `render/text.py`).
 13. Tâche 4.9 **faite** : `pivot_strategy="sparse"`, `reduction="back_substitution"`, mesures dans `docs/dev/campagnes.md` ; réglages par défaut conservés. **Phase 4 terminée.**
 14. Phase 5 **faite** : registre `_procedures`, `algorithms/products.py`, `matrix.py` à 599 lignes, `docs/dev/architecture.md`.
-15. Phase 6, tâche 6.0 : faire le point sur `tuteur/` (réexportations) et compléter les tests de `verrou`, `indices` et `panneau` avant tout déplacement ; intégrer la correction des tests ipywidgets (branche `claude/clever-davinci-44o1y5`).
+15. Phase 6 **faite** (6.0 à 6.7) : registre des vérificateurs (`tuteur/registre.py`), un module par vérificateur (`tuteur/verificateurs/`), `catalogue.py` / `seance.py` / `validation.py`, interpréteur sûr `tuteur/evaluation_sure.py` à la place des `eval`, code dans `tuteur/` et `tutor/` en réexportation ; état des lieux dans `docs/dev/tuteur_etat_des_lieux.md`. Hors plan : traces en tableau (`explain().to_table()`).
+16. **Version 0.3.1.2** (étiquette `v0.3.1.2`) : phases 4, 5 et 6. **Publication sur PyPI reportée** (décision du 21 octobre 2026).
+17. Prochaine étape : phase 7 (bases et sous-espaces), tâche 7.1.
 
 # Annexe B — Esquisse de l'API cible (version 0.3.4)
 
