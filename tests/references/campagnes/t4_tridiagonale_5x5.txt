@@ -13,12 +13,10 @@ Discussion selon a
 │    x = ( (a² − 2)/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), 2/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), (a² − 2)/(a·(a − √(3))·(a + √(3))) )
 ├─ Cas a = 1 : rang 4, infinité de solutions (1 variable(s) libre(s))
 │    x = (1, 0, -1, 1, 0) + t_1·(-1, 1, 0, -1, 1)
-├─ Cas a = 0 : L5 devient (0 0 0 0 0 | 2)
+├─ Cas a = 0 ou (a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0) : L5 devient (0 0 0 0 0 | 2)
 │    système incompatible (témoin : 0 = 2)
-├─ Cas a = −1 : rang 4, infinité de solutions (1 variable(s) libre(s))
-│    x = (-1, 0, 1, 1, 0) + t_1·(-1, -1, 0, 1, 1)
-└─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0 : L5 devient (0 0 0 0 0 | 2)
-     système incompatible (témoin : 0 = 2)
+└─ Cas a = −1 : rang 4, infinité de solutions (1 variable(s) libre(s))
+     x = (-1, 0, 1, 1, 0) + t_1·(-1, -1, 0, 1, 1)
 
 ===== texte niveau 0 =====
 Discussion selon a
@@ -26,12 +24,10 @@ Discussion selon a
 │    x = ( (a² − 2)/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), 2/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), (a² − 2)/(a·(a − √(3))·(a + √(3))) )
 ├─ Cas a = 1 : rang 4, infinité de solutions (1 variable(s) libre(s))
 │    x = (1, 0, -1, 1, 0) + t_1·(-1, 1, 0, -1, 1)
-├─ Cas a = 0 : L5 devient (0 0 0 0 0 | 2)
+├─ Cas a = 0 ou (a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0) : L5 devient (0 0 0 0 0 | 2)
 │    système incompatible (témoin : 0 = 2)
-├─ Cas a = −1 : rang 4, infinité de solutions (1 variable(s) libre(s))
-│    x = (-1, 0, 1, 1, 0) + t_1·(-1, -1, 0, 1, 1)
-└─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0 : L5 devient (0 0 0 0 0 | 2)
-     système incompatible (témoin : 0 = 2)
+└─ Cas a = −1 : rang 4, infinité de solutions (1 variable(s) libre(s))
+     x = (-1, 0, 1, 1, 0) + t_1·(-1, -1, 0, 1, 1)
 
 ===== texte niveau 1 =====
 Discussion selon a
@@ -39,12 +35,10 @@ Discussion selon a
 │    x = ( (a² − 2)/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), 2/(a·(a − √(3))·(a + √(3))), −1/((a − √(3))·(a + √(3))), (a² − 2)/(a·(a − √(3))·(a + √(3))) )
 ├─ Cas a = 1 : rang 4, infinité de solutions (1 variable(s) libre(s))
 │    x = (1, 0, -1, 1, 0) + t_1·(-1, 1, 0, -1, 1)
-├─ Cas a = 0 : L5 devient (0 0 0 0 0 | 2)
+├─ Cas a = 0 ou (a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0) : L5 devient (0 0 0 0 0 | 2)
 │    système incompatible (témoin : 0 = 2)
-├─ Cas a = −1 : rang 4, infinité de solutions (1 variable(s) libre(s))
-│    x = (-1, 0, 1, 1, 0) + t_1·(-1, -1, 0, 1, 1)
-└─ Cas a ≠ 1 et a ≠ 0 et a ≠ −1 et a² − 3 = 0 : L5 devient (0 0 0 0 0 | 2)
-     système incompatible (témoin : 0 = 2)
+└─ Cas a = −1 : rang 4, infinité de solutions (1 variable(s) libre(s))
+     x = (-1, 0, 1, 1, 0) + t_1·(-1, -1, 0, 1, 1)
 
 ===== texte niveau 2 =====
 Discussion selon a

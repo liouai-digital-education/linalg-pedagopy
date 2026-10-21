@@ -9,7 +9,7 @@ import sympy as sp
 from linalg_pedagopy.core.cases import CaseSplit
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
-from linalg_pedagopy.render.text import translate
+from linalg_pedagopy.render.text import format_conditions_latex, group_branches, translate
 from linalg_pedagopy.trace.step import Highlight, Step
 
 
@@ -147,8 +147,9 @@ def render_casesplit_latex(
     """Rend une discussion par cas CaseSplit en LaTeX."""
     params_tex = ", ".join(sp.latex(s) for s in cs.parameters) if cs.parameters else "\\text{paramètres}"
     lines = [f"\\textbf{{Discussion selon ${params_tex}$}}", "\\begin{itemize}"]
-    for branch in cs.branches:
-        cond_tex = branch.condition.format_latex()
+    for group in group_branches(cs, max_level=max_level):
+        branch = group[0]
+        cond_tex = format_conditions_latex([b.condition for b in group])
         gen_tag = " \\text{ (générique)}" if branch.condition.is_generic else ""
         parts = branch_summary_parts(branch.result)
         summary_txt = " — ".join(

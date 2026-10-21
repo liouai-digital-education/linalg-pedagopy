@@ -2,6 +2,11 @@
 
 ## [Non publié] — branche `development`
 
+### Nouveautés — étape 4.8 du plan v6 (révisée)
+- **Branches identiques regroupées à l'affichage** : aux niveaux 0 et 1, les branches particulières d'une discussion dont le résumé est identique s'affichent ensemble (« Cas a = 3, a = 2 ou a = 1 : système incompatible » ; « Cas a = −2 ou a = 1 : det A = 0 »), en texte, LaTeX, Markdown et HTML. Le `CaseSplit` n'est pas modifié (`at()`, `branches`) ; à partir du niveau 2, chaque branche garde sa trace. Fonctions `group_branches`, `format_conditions_text` et `format_conditions_latex` (`render/text.py`).
+- Révision du plan : la fusion véritable des branches (conditions disjonctives) est abandonnée après mesure : 4 branches sur 73 dans les cas de référence, et aucune sur la bloc-triangulaire 6 × 6, dont les 10 résultats sont distincts. Ce plafond relève de la méthode par blocs (étape 9.3).
+- 7 références régénérées et relues (regroupements seuls). Tests dans `tests/test_regroupement.py` ; guide 01 (§ 4.2).
+
 ### Nouveautés — étape 4.7 du plan v6 (noyau tracé)
 - **Base du noyau expliquée** dans la trace de niveau 2 : variables libres et principales, théorème du rang (`dim ker A = n − rg A`), système homogène équivalent, chaque vecteur de base (« en posant x2 = 1 et les autres variables libres nulles »), puis la sous-matrice identité des composantes libres, qui prouve que la famille est libre. Sans variable libre, une réduction sans second membre annonce `ker A = {0}`, de dimension 0, et sa base vide. Affichée pour une réduction sans second membre (`rref()`, `rank()`, `nullspace()`) et pour une solution affine ; pas pour un système incompatible ni pour un calcul d'inverse.
 - `kernel_basis` et `trace_kernel` dans `algorithms/elimination.py` remplacent `GaussJordan._extract_nullspace` ; `Matrix.nullspace()` réduit `A` seule, sans colonne de zéros. Clés de locale `ker.*`.

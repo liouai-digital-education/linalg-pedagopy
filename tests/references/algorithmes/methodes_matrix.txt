@@ -32,8 +32,7 @@ Discussion selon a
 ===== inverse paramétrée (strict=False) =====
 Discussion selon a
 ├─ Cas a ≠ 1 et a ≠ −1 (générique) : [(-1/((a - 1)*(a + 1)) a/((a - 1)*(a + 1))); (a/((a - 1)*(a + 1)) -1/((a - 1)*(a + 1)))]
-├─ Cas a = 1 : None
-└─ Cas a = −1 : None
+└─ Cas a = 1 ou a = −1 : None
 
 ===== solve =====
 (1, 0, 1, 0) + t_1·(-2, 1, 0, 0) + t_2·(-1, 0, -1, 1)

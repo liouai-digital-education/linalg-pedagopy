@@ -18,7 +18,7 @@ Les deux documents ont été relus et leurs exemples recalculés ; ils sont trai
 Quatre décisions structurent la révision :
 
 - **Corriger avant de refactoriser.** Les défauts relevés par les tests (factorisation incohérente, messages de plafond, signe des facteurs) changent des sorties ; ils passent avant l'extraction du moteur, qui doit rester une refactorisation pure.
-- **Le moteur d'élimination reçoit les besoins des deux rapports** : extraction tracée du noyau, fusion des branches, pivots qui préservent les zéros, symboles non discutés (le $\lambda$ des valeurs propres, mais aussi les $x, y, z$ du passage générateurs → équations).
+- **Le moteur d'élimination reçoit les besoins des deux rapports** : extraction tracée du noyau, regroupement des branches identiques à l'affichage, pivots qui préservent les zéros, symboles non discutés (le $\lambda$ des valeurs propres, mais aussi les $x, y, z$ du passage générateurs → équations).
 - **Les sous-espaces passent avant les valeurs propres.** Un espace propre est un sous-espace : on évite de livrer `Eigen` avec des tuples de vecteurs pour les migrer ensuite.
 - **Les familles structurées viennent en dernier**, une fois les valeurs propres disponibles, car plusieurs raccourcis sont spectraux (compagnon, projecteur, rang 1 perturbé). La « règle des deux régimes » est adoptée sous forme d'un **avertissement réglable**, jamais d'un refus de calcul.
 
@@ -26,7 +26,7 @@ Quatre décisions structurent la révision :
 |:----:|:---------------------------|:---------------------------|:--------:|:------:|
 | 0–2 | Filet de sécurité, corrections et publication, déterminant (plan v5) | — | **fait** | 3.1.0 |
 | 3 | Correctifs issus des campagnes de tests | correctifs | 1 à 2 séances | 0.3.1.1 |
-| 4 | **Moteur d'élimination** réutilisable, noyau tracé, fusion des branches | refactorisation + fonctionnalité | 3 à 4 séances | 0.3.1.2 |
+| 4 | **Moteur d'élimination** réutilisable, noyau tracé, regroupement des branches | refactorisation + fonctionnalité | 3 à 4 séances | 0.3.1.2 |
 | 5 | Allègement de `Matrix` (règle de délégation, registre de procédures) | refactorisation | 1 séance | 0.3.1.2 |
 | 6 | Tuteur : registre des vérificateurs, suppression des `eval`, API française | refactorisation + sécurité | 2 séances | 0.3.1.2 + PyPI |
 | 7 | **Bases et sous-espaces** (`Basis`, `Subspace`, Zassenhaus, thème 10) | fonctionnalité | 4 à 5 séances | 0.3.2.0 |
@@ -71,8 +71,8 @@ Une *séance* désigne une demi-journée à une journée de travail. Les phases 
 
 | Constat | Origine | Traitement |
 |:------------------------------|:-------------------|:-----------:|
-| `max_cases=8` saturé par une matrice bloc-triangulaire 6 × 6 : les singularités de blocs indépendants se combinent (9 branches avec `max_cases=16`) | moteur : séparation pivot par pivot | 4.8, 9.3 |
-| Circulante 3 × 3 à trois paramètres : inversion impossible sous les plafonds par défaut | combinatoire $2^k$ | 3.4, 4.8 |
+| `max_cases=8` saturé par une matrice bloc-triangulaire 6 × 6 : les singularités de blocs indépendants se combinent (9 branches avec `max_cases=16`) | moteur : séparation pivot par pivot | 9.3 (la fusion de branches n'y change rien : 10 résultats distincts) |
+| Circulante 3 × 3 à trois paramètres : inversion impossible sous les plafonds par défaut | combinatoire $2^k$ | 3.4, phase 10 (circulantes) |
 | Solution factorisée sur $\mathbb{Q}$ (`a² − 2`) mais condition écrite sur $\mathbb{R}$ (`a ≠ ±√2`) | `_simplify_entry` (`sp.factor`) contre `_split_neq` (`sp.roots`) | 3.2 |
 | Tridiagonale 5 × 5 : la remontée remplit les zéros hors diagonale (pivots de Chebyshev) | Gauss-Jordan complet | 4.9, 9.3 |
 | Matrice flèche 6 × 6 : remplissage total si la première ligne sert de pivot ; évité par `simplest` | ordre des pivots | 4.9 |
@@ -183,13 +183,13 @@ Les `indeterminates` (symboles jamais discutés par l'oracle) servent à deux cl
 | 4.5 | Reconstruire `Determinant` (élimination et Bareiss) sur le moteur ; ajouter le `CaseSplit` du mode élimination paramétré | traces identiques ; nouveaux tests |
 | 4.6 | Tests propres au moteur (mode triangulaire, comptage des échanges, indéterminées non discutées) | nouveaux tests verts |
 | 4.7 | **Noyau tracé** : `EliminationEngine.kernel(A)` travaille sur $A$ sans colonne de zéros ; nouvelles étapes de trace `ker.free_vars` (variables libres), `ker.param_system` (variables principales en fonction des libres), `ker.vector` (vecteur obtenu en posant une variable libre à 1), `ker.identity_block` (sous-matrice identité qui prouve la liberté). `GaussJordan` et `Matrix.nullspace()` l'utilisent. | références relues (nouvelles étapes au niveau 2) |
-| 4.8 | **Fusion des branches** : deux branches sœurs dont les résultats sont égaux (après simplification sous l'union des conditions) sont fusionnées, la condition devenant leur disjonction. Option `merge_branches`, **activée par défaut** et désactivable (décision 15.1.11). Mesure sur la bloc-triangulaire 6 × 6 et la circulante 3 × 3 à trois paramètres. | références relues ; nombre de branches en baisse |
+| 4.8 | **Regroupement à l'affichage** (révisé, décision 15.1.11) : aux niveaux 0 et 1, les branches particulières dont le résumé est identique s'affichent ensemble (« Cas a = 3, a = 2 ou a = 1 : système incompatible ») ; le `CaseSplit` n'est pas modifié. La fusion véritable, prévue d'abord, demandait des conditions disjonctives pour retirer 4 branches sur 73 dans les cas de référence, et ne réglait pas la bloc-triangulaire 6 × 6 (10 résultats distincts). | références relues |
 | 4.9 | **Pivots qui préservent les zéros** : stratégie `sparse` (critère de Markowitz : minimiser $(r_i - 1)(c_j - 1)$ parmi les candidats inconditionnellement non nuls), et mode `back_substitution` (forme échelonnée puis remontée, au lieu de Gauss-Jordan complet) pour limiter la croissance des expressions. | temps et tailles d'expressions comparés à l'étape 3.1 (tridiagonale, flèche) |
 
 ## 6.3 Risques
 
 - **Régression dans l'ordre des branches ou des étapes** : couverte par les tests de caractérisation ; les étapes 4.7 à 4.9 viennent **après** que 4.1 à 4.6 ont été validées sans changement de sortie.
-- **Fusion abusive** : deux résultats égaux pour des raisons différentes peuvent mériter des explications distinctes. La fusion garde les deux traces sous la branche fusionnée (`explain()` les présente l'une après l'autre).
+- **Regroupement trompeur** : deux branches au même résumé peuvent différer dans le détail ; le regroupement ne vaut qu'aux niveaux 0 et 1, et chaque branche garde sa trace au niveau 2.
 - **Performance** : mesurée sur les cas de l'étape 3.1 avant et après.
 
 **Critère de fin** : Gauss-Jordan et déterminant sur le moteur, noyau tracé, version **0.3.1.2** (avec les phases 5 et 6).
@@ -336,7 +336,7 @@ Phase 3 ──► Phase 4 ──► Phase 5 ──► Phase 7 ──► Phase 8 
 | Ordre | Phase | Séances | Jalon | Version |
 |:-------:|:--------|:--------:|:-------------------------------------------|:------:|
 | 1 | Phase 3 | 1–2 | campagnes figées, factorisation cohérente, messages de plafond | 0.3.1.1 |
-| 2 | Phase 4 | 3–4 | moteur commun, noyau tracé, fusion des branches | — |
+| 2 | Phase 4 | 3–4 | moteur commun, noyau tracé, regroupement des branches | — |
 | 3 | Phase 5 | 1 | `Matrix` < 600 lignes, registre de procédures | — |
 | 4 | Phase 6 | 2 | tuteur découpé, plus d'`eval`, API française | 0.3.1.2 + PyPI |
 | 5 | Phase 7 | 4–5 | `Subspace`, Zassenhaus, changement de base, thème 10 | 0.3.2.0 |
@@ -350,7 +350,7 @@ Total indicatif : **17 à 22 séances** jusqu'à la version 0.3.4.0.
 | Risque | Probabilité | Impact | Parade |
 |:----------------------------|:-------:|:----:|:----------------------------|
 | Régression invisible pendant les refactorisations | moyenne | fort | Tests de caractérisation, campagnes du bac à sable figées (3.1), commits atomiques. |
-| Fusion de branches qui masque une différence didactique | moyenne | moyen | Option désactivable ; traces conservées sous la branche fusionnée. |
+| Regroupement qui masque une différence didactique | faible | faible | Regroupement limité aux niveaux 0 et 1 et aux résumés identiques ; traces distinctes au niveau 2. |
 | Objets de la phase 7 valables seulement dans le cas générique | forte | fort | Principe « tout objet accepte les paramètres » (§ 4) ; tests paramétrés systématiques ; aucune comparaison `== 0` hors oracle. |
 | Base entière fausse pour une valeur du paramètre | moyenne | fort | Tout facteur de mise à l'échelle rejoint la condition de la branche (7.2). |
 | Erreur reprise d'un document externe | moyenne | moyen | Exemples recalculés avant usage (§ 3.2, § 4). |
@@ -377,7 +377,7 @@ Réponses aux questions laissées ouvertes par la première rédaction du plan v
 
 9. **Langue du cœur de l'API** : noms anglais, cohérents avec `rref()`, `rank()`, `nullspace()`, `det()` (`kernel()`, `image()`, `rowspace()`, `Subspace.span()`…), avec des **alias français documentés** (`noyau()`, `espace_lignes()`, `Subspace.engendre()`…). Les valeurs des options de `ConfigState` restent en anglais. Le tuteur garde le français comme API principale.
 10. **`factor_policy`** : `"real_radicals"` par défaut **dès 0.3.1.1** ; la factorisation sur $\mathbb{Q}(\sqrt d)$ ne s'applique que lorsque la condition de la branche contient $\sqrt d$. `"rational"` reste disponible.
-11. **Fusion des branches** : `merge_branches=True` par défaut, désactivable ; les traces des branches fusionnées restent consultables.
+11. **Fusion des branches** : `merge_branches=True` par défaut, désactivable ; les traces des branches fusionnées restent consultables. *Révisée le 21 octobre 2026 après mesure* : regroupement à l'affichage seulement (étape 4.8) ; le plafond de la bloc-triangulaire 6 × 6 relève de la méthode par blocs (étape 9.3).
 12. **Format des bases** : `basis_format="canonical"` par défaut (fidèle à la méthode enseignée et à la trace) ; `"integer"` et `"orthonormal"` sur demande ; le tuteur accepte toute base correcte.
 13. **Alias anglais du tuteur** (`tutor`, `verify_*`…) : silencieux en 0.3.1.2 (première publication sur PyPI), `DeprecationWarning` à partir de 0.3.2.0, suppression en 0.4.0.0.
 
@@ -409,7 +409,8 @@ Aucune à ce jour.
 9. Tâche 4.5 **faite** : élimination du déterminant sur le moteur, avec discussion par cas ; Bareiss garde sa boucle (il n'ouvre jamais de discussion) et partage `RowOps`.
 10. Tâche 4.6 **faite** : `tests/test_elimination.py` (12 tests). Fin de la partie refactorisation de la phase 4.
 11. Tâche 4.7 **faite** : `kernel_basis`, `trace_kernel`, clés `ker.*` ; noyau affiché pour une réduction sans second membre et pour une solution affine.
-12. Tâche 4.8 : fusion des branches aux résultats identiques (`merge_branches=True` par défaut), mesurée sur `t4_bloc_triangulaire_6x6` et `t2_blocs_4x4_inverse`.
+12. Tâche 4.8 **faite** (révisée) : regroupement à l'affichage (`group_branches`, `format_conditions_text` dans `render/text.py`).
+13. Tâche 4.9 : stratégie de pivot `sparse` (critère de Markowitz) et mode échelonnée puis remontée ; mesures sur la tridiagonale et la flèche.
 
 # Annexe B — Esquisse de l'API cible (version 0.3.4)
 

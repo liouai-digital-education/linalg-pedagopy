@@ -8,33 +8,21 @@ test4 — V(1, 2, 3, a) : det 2(a − 1)(a − 2)(a − 3), puissances de a à s
 Discussion selon a
 ├─ Cas a ≠ 3 et a ≠ 2 et a ≠ 1 (générique) : pivots non nuls, rang 4, solution unique
 │    x = ( −6/((a − 3)·(a − 2)·(a − 1)), 11/((a − 3)·(a − 2)·(a − 1)), −6/((a − 3)·(a − 2)·(a − 1)), 1/((a − 3)·(a − 2)·(a − 1)) )
-├─ Cas a = 3 : L4 devient (0 0 0 0 | 1)
-│    système incompatible (témoin : 0 = 1)
-├─ Cas a = 2 : L4 devient (0 0 0 0 | 1)
-│    système incompatible (témoin : 0 = 1)
-└─ Cas a = 1 : L4 devient (0 0 0 0 | 1)
+└─ Cas a = 3, a = 2 ou a = 1 : L4 devient (0 0 0 0 | 1)
      système incompatible (témoin : 0 = 1)
 
 ===== texte niveau 0 =====
 Discussion selon a
 ├─ Cas a ≠ 3 et a ≠ 2 et a ≠ 1 (générique) : pivots non nuls, rang 4, solution unique
 │    x = ( −6/((a − 3)·(a − 2)·(a − 1)), 11/((a − 3)·(a − 2)·(a − 1)), −6/((a − 3)·(a − 2)·(a − 1)), 1/((a − 3)·(a − 2)·(a − 1)) )
-├─ Cas a = 3 : L4 devient (0 0 0 0 | 1)
-│    système incompatible (témoin : 0 = 1)
-├─ Cas a = 2 : L4 devient (0 0 0 0 | 1)
-│    système incompatible (témoin : 0 = 1)
-└─ Cas a = 1 : L4 devient (0 0 0 0 | 1)
+└─ Cas a = 3, a = 2 ou a = 1 : L4 devient (0 0 0 0 | 1)
      système incompatible (témoin : 0 = 1)
 
 ===== texte niveau 1 =====
 Discussion selon a
 ├─ Cas a ≠ 3 et a ≠ 2 et a ≠ 1 (générique) : pivots non nuls, rang 4, solution unique
 │    x = ( −6/((a − 3)·(a − 2)·(a − 1)), 11/((a − 3)·(a − 2)·(a − 1)), −6/((a − 3)·(a − 2)·(a − 1)), 1/((a − 3)·(a − 2)·(a − 1)) )
-├─ Cas a = 3 : L4 devient (0 0 0 0 | 1)
-│    système incompatible (témoin : 0 = 1)
-├─ Cas a = 2 : L4 devient (0 0 0 0 | 1)
-│    système incompatible (témoin : 0 = 1)
-└─ Cas a = 1 : L4 devient (0 0 0 0 | 1)
+└─ Cas a = 3, a = 2 ou a = 1 : L4 devient (0 0 0 0 | 1)
      système incompatible (témoin : 0 = 1)
 
 ===== texte niveau 2 =====

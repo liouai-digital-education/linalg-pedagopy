@@ -10,7 +10,7 @@ from linalg_pedagopy.core.cases import CaseSplit
 from linalg_pedagopy.objects.matrix import Matrix
 from linalg_pedagopy.objects.vector import Vector
 from linalg_pedagopy.render.latex import branch_summary_parts, format_matrix_latex, format_value_latex
-from linalg_pedagopy.render.text import translate
+from linalg_pedagopy.render.text import format_conditions_latex, group_branches, translate
 from linalg_pedagopy.trace.step import Step
 
 
@@ -61,8 +61,9 @@ def render_casesplit_markdown(
     """Rend un CaseSplit en Markdown avec LaTeX."""
     params_tex = ", ".join(sp.latex(s) for s in cs.parameters) if cs.parameters else "\\text{paramètres}"
     lines = [f"### Discussion selon ${params_tex}$", ""]
-    for branch in cs.branches:
-        cond_tex = branch.condition.format_latex()
+    for group in group_branches(cs, max_level=max_level):
+        branch = group[0]
+        cond_tex = format_conditions_latex([b.condition for b in group])
         gen_tag = " (générique)" if branch.condition.is_generic else ""
         summary_lines = [
             (f"${tex}$" if tex else txt) for txt, tex in branch_summary_parts(branch.result)
