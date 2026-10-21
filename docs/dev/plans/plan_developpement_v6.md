@@ -136,7 +136,7 @@ Ceux du plan v5 restent en vigueur, avec deux ajouts :
 | N° | Tâche | Détail |
 |:-----:|:---------------------------|:-----------------------------------|
 | 3.1 | Caractérisation des campagnes | Les 9 tests limites de `tests3` et les 6 familles de `test4` (tridiagonale 5 × 5, flèche 6 × 6, bloc-triangulaire 6 × 6, permutée cyclique 5 × 5, équicorrélation 4 × 4 et 5 × 5, Vandermonde 4 × 4) entrent dans `tests/test_caracterisation_algorithmes.py`, avec leurs références. Les cas lents (> 5 s) sont marqués `lent` et exclus de la CI rapide. Un script `scripts/mesurer_performances.py` enregistre leurs temps actuels : c'est la base de comparaison des phases 4 et 9. |
-| 3.2 | Factorisation cohérente | Option `ConfigState.factor_policy` : `"rational"` (comportement actuel) ou `"real_radicals"` (défaut). Avec `"real_radicals"`, les entrées d'une branche sont factorisées sur $\mathbb{Q}(\sqrt{d})$ dès que la condition de la branche fait apparaître $\sqrt{d}$ (`sp.factor(..., extension=...)`), de sorte que la solution du test 5 s'écrive avec $(a - \sqrt 2)(a + \sqrt 2)$ comme sa condition. Commit dédié, références relues. |
+| 3.2 | Factorisation cohérente | Option `ConfigState.factor_policy` : `"rational"` (comportement actuel) ou `"real_radicals"` (**défaut dès 3.1.1**, décision 15.1.10). Avec `"real_radicals"`, les entrées d'une branche sont factorisées sur $\mathbb{Q}(\sqrt{d})$ dès que la condition de la branche fait apparaître $\sqrt{d}$ (`sp.factor(..., extension=...)`), de sorte que la solution du test 5 s'écrive avec $(a - \sqrt 2)(a + \sqrt 2)$ comme sa condition. Commit dédié, références relues. |
 | 3.3 | Signe constant à plusieurs paramètres | L'oracle reconnaît les facteurs strictement positifs sur $\mathbb{R}^k$ : sommes de carrés plus une constante positive, formes quadratiques définies (critère des mineurs). Tests : $a^2 + b^2 + 1$, $a^2 + ab + b^2 + 1$ ; $P_5$ reste en non-régression. |
 | 3.4 | Messages de plafond didactiques | Quand `max_cases` ou `max_depth` est atteint, le message nomme les facteurs responsables, le nombre de branches qu'il aurait fallu, et propose `assumptions="..."` ou un plafond plus élevé. Message en français dans `fr.yaml`. |
 | 3.5 | Avertissement de taille | `ConfigState.max_generic_dim = 4` : au-delà, Gauss-Jordan sur une matrice contenant des paramètres émet un `PedagogicalWarning` (« l'élimination sur une matrice symbolique n × n produit une discussion peu lisible ; cherchez une structure remarquable »). Le calcul continue ; `max_generic_dim=None` désactive l'avertissement. |
@@ -181,7 +181,7 @@ Les `indeterminates` (symboles jamais discutés par l'oracle) servent à deux cl
 | 4.5 | Reconstruire `Determinant` (élimination et Bareiss) sur le moteur ; ajouter le `CaseSplit` du mode élimination paramétré | traces identiques ; nouveaux tests |
 | 4.6 | Tests propres au moteur (mode triangulaire, comptage des échanges, indéterminées non discutées) | nouveaux tests verts |
 | 4.7 | **Noyau tracé** : `EliminationEngine.kernel(A)` travaille sur $A$ sans colonne de zéros ; nouvelles étapes de trace `ker.free_vars` (variables libres), `ker.param_system` (variables principales en fonction des libres), `ker.vector` (vecteur obtenu en posant une variable libre à 1), `ker.identity_block` (sous-matrice identité qui prouve la liberté). `GaussJordan` et `Matrix.nullspace()` l'utilisent. | références relues (nouvelles étapes au niveau 2) |
-| 4.8 | **Fusion des branches** : deux branches sœurs dont les résultats sont égaux (après simplification sous l'union des conditions) sont fusionnées, la condition devenant leur disjonction. Option `merge_branches=True`. Mesure sur la bloc-triangulaire 6 × 6 et la circulante 3 × 3 à trois paramètres. | références relues ; nombre de branches en baisse |
+| 4.8 | **Fusion des branches** : deux branches sœurs dont les résultats sont égaux (après simplification sous l'union des conditions) sont fusionnées, la condition devenant leur disjonction. Option `merge_branches`, **activée par défaut** et désactivable (décision 15.1.11). Mesure sur la bloc-triangulaire 6 × 6 et la circulante 3 × 3 à trois paramètres. | références relues ; nombre de branches en baisse |
 | 4.9 | **Pivots qui préservent les zéros** : stratégie `sparse` (critère de Markowitz : minimiser $(r_i - 1)(c_j - 1)$ parmi les candidats inconditionnellement non nuls), et mode `back_substitution` (forme échelonnée puis remontée, au lieu de Gauss-Jordan complet) pour limiter la croissance des expressions. | temps et tailles d'expressions comparés à l'étape 3.1 (tridiagonale, flèche) |
 
 ## 6.3 Risques
@@ -194,7 +194,7 @@ Les `indeterminates` (symboles jamais discutés par l'oracle) servent à deux cl
 
 # 7. Phase 5 — Alléger `Matrix`
 
-Contenu du plan v5 (§ 8), qui devient urgent : `matrix.py` fait 819 lignes avant l'ajout de `noyau()`, `image()`, `espace_lignes()`, `structure()`, `eigenvalues()`…
+Contenu du plan v5 (§ 8), qui devient urgent : `matrix.py` fait 819 lignes avant l'ajout de `kernel()`, `image()`, `rowspace()`, `structure()`, `eigenvalues()`…
 
 | N° | Tâche |
 |:----------:|:-----------------------------------------------------------|
@@ -217,7 +217,7 @@ Contenu du plan v5 (§ 9), inchangé sur le fond ; menée en parallèle des phas
 | 6.3 | Découper `catalog.py` en `catalogue.py`, `seance.py`, `validation.py` ; contrôle croisé par vérificateur. |
 | 6.4 | `evaluation_sure.py` : interpréteur fondé sur `ast` (liste blanche), qui remplace les **douze** `eval`. |
 | 6.5 | Champ `jumeau` des fiches analysé par l'interpréteur, avec le seul espace de noms des générateurs. |
-| 6.6 | Code déplacé de `tutor/` vers `tuteur/` ; `tutor/` réexporte les noms anglais ; documentation et carnets en noms français. |
+| 6.6 | Code déplacé de `tutor/` vers `tuteur/` ; `tutor/` réexporte les noms anglais (silencieux en 3.1.2, `DeprecationWarning` dès 3.2.0, suppression en 4.0 : décision 15.1.13) ; documentation et carnets en noms français. |
 | 6.7 | Tests de l'interpréteur (attributs privés, `__import__`, lambda, compréhensions, appels hors liste blanche refusés). |
 
 Critère de fin : aucun fichier du tuteur au-delà d'environ 350 lignes, plus aucun `eval`, diagnostics identiques. Avec les phases 4 et 5 : version **3.1.2**, **première publication sur PyPI**.
@@ -231,7 +231,7 @@ Critère de fin : aucun fichier du tuteur au-delà d'environ 350 lignes, plus au
 | Élément | Description |
 |:-----------------------------------|:-----------------------------------|
 | `Basis` (`objects/subspace.py`) | Famille ordonnée **libre** de vecteurs de même taille, immuable. La base vide est admise (sous-espace $\{0\}$). La liberté est vérifiée par le moteur ; si elle dépend d'un paramètre, le constructeur `Basis.of(vecteurs, assumptions=...)` renvoie un `CaseSplit` (« libre si $a \ne 1$ ; liée si $a = 1$ »), et le constructeur direct exige une condition sous laquelle la liberté est inconditionnelle. Méthodes : `dim`, `ambient_dim`, `as_matrix()`, `coordinates(v)`, `reconstruct(coords)`, `to_integer()`, `orthonormalize()`. |
-| `Subspace` | Sous-espace de $\mathbb{R}^n$ décrit **à la fois** par une base et par des équations cartésiennes, calculées à la demande. Constructeurs `Subspace.engendre(vecteurs)`, `Subspace.noyau(A)`, `Subspace.image(A)`, `Subspace.equations(A)` ; chacun renvoie un `CaseSplit[Subspace]` quand la dimension dépend des paramètres. Opérations : `dim`, `codim`, `contains(v)` (oracle, éventuellement conditionnel), `+`, `&`, `is_direct_sum`, `is_supplementary`, `orthogonal()`, `decompose(v, G)`, `project(v)`. |
+| `Subspace` | Sous-espace de $\mathbb{R}^n$ décrit **à la fois** par une base et par des équations cartésiennes, calculées à la demande. Constructeurs `Subspace.span(vecteurs)`, `Subspace.kernel(A)`, `Subspace.image(A)`, `Subspace.from_equations(A)`, avec les alias français `engendre`, `noyau`, `depuis_equations` ; méthode `equations()` ; chacun renvoie un `CaseSplit[Subspace]` quand la dimension dépend des paramètres. Opérations : `dim`, `codim`, `contains(v)` (oracle, éventuellement conditionnel), `+`, `&`, `is_direct_sum`, `is_supplementary`, `orthogonal()`, `decompose(v, G)`, `project(v)`. |
 | `RankNullityReport` | Bilan $\operatorname{rg} A + \dim \ker A = n$ par branche, avec un tableau comparatif des branches (rang perdu = dimension gagnée par le noyau). |
 | `FourSubspacesReport` | Les quatre sous-espaces fondamentaux de Strang, avec la vérification tracée $\ker A \perp \operatorname{Row} A$ et $\ker A^T \perp \operatorname{Im} A$. |
 
@@ -241,13 +241,13 @@ Critère de fin : aucun fichier du tuteur au-delà d'environ 350 lignes, plus au
 |:-----:|:-----------------------------------|:-----------------------------------|
 | 7.1 | `Basis` et `Subspace` | Objets du § 9.1, sur le moteur de la phase 4 ; aucune comparaison structurelle `== 0`, toujours l'oracle. |
 | 7.2 | Bases entières | `to_integer()` : sur $\mathbb{Q}$, multiplication par le PPCM des dénominateurs puis division par le PGCD des numérateurs (vecteur primitif) ; sur $\mathbb{Q}(\text{paramètres})$, partie primitive sur l'anneau des polynômes, **chaque facteur multiplié étant ajouté à la condition de la branche** et annoncé dans la trace (« on multiplie par $a - 1$, non nul dans cette branche »). |
-| 7.3 | API de `Matrix` | `A.noyau()`, `A.image()` (alias `A.colspace()`), `A.espace_lignes()` (alias `A.rowspace()`) renvoient un `Subspace` (ou un `CaseSplit`). `A.nullspace()` **garde son tuple** et reçoit une option `format="canonique" \| "entiere" \| "orthonormee"`. `A.rank_nullity()` et `A.four_subspaces()`. Méthodes de commodité de quelques lignes (règle de la phase 5). |
+| 7.3 | API de `Matrix` | `A.kernel()`, `A.image()` (alias `A.colspace()`) et `A.rowspace()` renvoient un `Subspace` (ou un `CaseSplit`) ; alias français documentés à côté : `A.noyau()`, `A.espace_lignes()` (décision 15.1.9). `A.nullspace()` **garde son tuple** et reçoit une option `format="canonical" \| "integer" \| "orthonormal"`. `A.rank_nullity()` et `A.four_subspaces()`. Méthodes de commodité de quelques lignes (règle de la phase 5). |
 | 7.4 | Image et espace des lignes tracés | L'image est engendrée par les **colonnes de $A$ d'origine** aux indices des pivots, l'espace des lignes par les lignes non nulles de la forme réduite ; la trace rappelle ce que les opérations sur les lignes conservent (noyau, espace des lignes, relations entre colonnes) et ce qu'elles changent (espace des colonnes). |
 | 7.5 | Générateurs → équations | Matrice $[V \mid x]$ avec $x_1, \dots, x_n$ déclarés `indeterminates` du moteur ; les lignes nulles à gauche donnent les $n - r$ équations de compatibilité. Exemple de référence : $\operatorname{Vect}((1,2,1), (-1,0,3))$ a pour équation $3x - 2y + z = 0$. |
 | 7.6 | Zassenhaus | `algorithms/subspaces.py` : matrice $\begin{bmatrix} U & U \\ V & 0 \end{bmatrix}$, échelonnement tracé, lecture des bases de $F + G$ et de $F \cap G$, vérification de Grassmann affichée. Somme directe, supplémentaire, décomposition $x = x_F + x_G$ et projection sur $F$ parallèlement à $G$. Exemple de référence **refait** (intersection de dimension 1, § 3.2). |
 | 7.7 | Orthogonalité | `Subspace.orthogonal()` ; projection orthogonale (avec `GramSchmidt` existant) ; quatre sous-espaces fondamentaux. |
 | 7.8 | Changement de base | `Matrix.passage(B, B_prime)` : colonnes = coordonnées des vecteurs de $B'$ dans $B$ ; trace qui rappelle $X = P X'$, donc $X' = P^{-1} X$, et $M_{B'}(f) = P^{-1} M_B(f) P$. |
-| 7.9 | Configuration | `ConfigState.basis_format` (`"canonique"`, `"entiere"`, `"orthonormee"` ; défaut `"canonique"`) et `free_symbol` (`"t"` : $t_1, t_2, \dots$ pour les paramètres libres). Pas d'option redondante. |
+| 7.9 | Configuration | `ConfigState.basis_format` (`"canonical"`, `"integer"`, `"orthonormal"` ; **défaut `"canonical"`**, décision 15.1.12 ; valeurs en anglais comme les autres options de `ConfigState`) et `free_symbol` (`"t"` : $t_1, t_2, \dots$ pour les paramètres libres). Pas d'option redondante. |
 | 7.10 | Rendu et locales | Clés `ker.*`, `im.*`, `sub.*`, `zass.*`, `passage.*` dans `fr.yaml` ; rendu texte, LaTeX, Markdown, HTML ; $\ker A = \{0\}$, $\dim = 0$, base $= \varnothing$ affichés explicitement (obstacle 1). |
 | 7.11 | Tuteur : thème 10 « Bases, sous-espaces et dimension » | Huit fiches **au format du dépôt** : `base-noyau-canonique` (★), `noyau-sans-fraction` (★), `theoreme-rang-parametre` (★★), `image-vs-lignes` (★★), `intersection-zassenhaus` (★★), `passage-et-coordonnees` (★★), `somme-directe-suppl` (★★★), `generateurs-vers-equations` (★★★). Chacune avec trois paliers d'indices, un jumeau généré, des erreurs typiques diagnostiquées. |
 | 7.12 | Vérificateurs | `base_sous_espace` : accepte **toute** base du sous-espace attendu (nombre de vecteurs = dimension, appartenance, liberté), avec un diagnostic distinct pour chaque échec (vecteur nul dans une base, famille liée, vecteur hors du sous-espace, colonnes de la forme réduite données pour l'image). `equations_cartesiennes` : système équivalent (même noyau), quel que soit le choix des équations. `matrice_passage` : diagnostic dédié de la confusion $P$ / $P^{-1}$. |
@@ -367,17 +367,21 @@ Total indicatif : **17 à 22 séances** jusqu'à la version 3.4.0.
 3. Sous-espaces (3.2.0) **avant** valeurs propres (3.3.0) ; familles structurées ensuite (3.4.0).
 4. Règle des deux régimes : **avertissement réglable** au-delà de `max_generic_dim = 4`, jamais de refus de calcul.
 5. Priorité des familles structurées selon leur fréquence dans les cours (§ 11.2) ; circulantes reportées avec $\mathbb{C}$.
-6. `nullspace()` garde son type de retour ; les `Subspace` arrivent par de nouvelles méthodes (`noyau()`, `image()`, `espace_lignes()`).
+6. `nullspace()` garde son type de retour ; les `Subspace` arrivent par de nouvelles méthodes (`kernel()`, `image()`, `rowspace()`).
 7. Une seule option de format des bases (`basis_format`).
 8. Décisions du plan v5 maintenues : $\mathbb{R}$ seul jusqu'à la phase 10, Bareiss par défaut avec paramètres, français comme API documentée du tuteur, PyPI à partir de la fin des refactorisations.
 
+Réponses aux questions laissées ouvertes par la première rédaction du plan v6 :
+
+9. **Langue du cœur de l'API** : noms anglais, cohérents avec `rref()`, `rank()`, `nullspace()`, `det()` (`kernel()`, `image()`, `rowspace()`, `Subspace.span()`…), avec des **alias français documentés** (`noyau()`, `espace_lignes()`, `Subspace.engendre()`…). Les valeurs des options de `ConfigState` restent en anglais. Le tuteur garde le français comme API principale.
+10. **`factor_policy`** : `"real_radicals"` par défaut **dès 3.1.1** ; la factorisation sur $\mathbb{Q}(\sqrt d)$ ne s'applique que lorsque la condition de la branche contient $\sqrt d$. `"rational"` reste disponible.
+11. **Fusion des branches** : `merge_branches=True` par défaut, désactivable ; les traces des branches fusionnées restent consultables.
+12. **Format des bases** : `basis_format="canonical"` par défaut (fidèle à la méthode enseignée et à la trace) ; `"integer"` et `"orthonormal"` sur demande ; le tuteur accepte toute base correcte.
+13. **Alias anglais du tuteur** (`tutor`, `verify_*`…) : silencieux en 3.1.2 (première publication sur PyPI), `DeprecationWarning` à partir de 3.2.0, suppression en 4.0.
+
 ## 15.2 Questions encore ouvertes
 
-1. **Noms des nouvelles méthodes de `Matrix`** : `noyau()`, `image()`, `espace_lignes()` en français, ou `kernel()`, `image()`, `rowspace()` avec alias français ? (Question 14.2.1 du plan v5 : langue du cœur de l'API.)
-2. **Défaut de `factor_policy`** : `"real_radicals"` change des sorties existantes ; faut-il garder `"rational"` par défaut une version ?
-3. **Fusion des branches par défaut** (`merge_branches=True`) ou sur demande ?
-4. **Valeur par défaut de `basis_format`** : `"canonique"` (fidèle à la méthode enseignée) ou `"entiere"` (plus lisible) ?
-5. **Durée de conservation des alias anglais du tuteur** et `DeprecationWarning` (question 14.2.4 du plan v5).
+Aucune à ce jour.
 
 # 16. Définition de « terminé » (pour chaque étape)
 
@@ -394,7 +398,6 @@ Total indicatif : **17 à 22 séances** jusqu'à la version 3.4.0.
 
 1. Tâche 3.1 : récupérer les matrices des carnets `tests3` et `test4` du bac à sable, les figer en tests de caractérisation, marquer les cas lents, mesurer les temps.
 2. Tâche 3.2 : `factor_policy`, en partant de `_simplify_entry` (`algorithms/gauss_jordan.py`) et `_split_neq` (`core/cases.py`) ; test 5 de `tests3` comme cas de référence.
-3. Trancher les questions ouvertes 15.2.2 et 15.2.3 avant les étapes 3.2 et 4.8.
 
 # Annexe B — Esquisse de l'API cible (version 3.4)
 
@@ -403,23 +406,24 @@ from linalg_pedagopy import Matrix, Vector, Subspace, symbols
 
 m, = symbols("m")
 A = Matrix([[1, 1, m], [1, m, 1], [m, 1, 1]])
-A.noyau()                       # CaseSplit : {0} si m ∉ {1, −2} ; droite si m = −2 ; plan si m = 1
+A.kernel()                      # CaseSplit : {0} si m ∉ {1, −2} ; droite si m = −2 ; plan si m = 1
 A.rank_nullity()                # tableau : rang 3 / 2 / 1, noyau 0 / 1 / 2, somme 3 dans chaque branche
-A.nullspace(format="entiere")   # tuple de vecteurs, comme en 3.1 (compatibilité)
+A.nullspace(format="integer")   # tuple de vecteurs, comme en 3.1 (compatibilité)
 
 B = Matrix([[1, 2, 1], [2, 4, 2], [1, 1, 0]])
 B.image()                       # colonnes 1 et 2 de B d'origine (pas celles de la forme réduite)
-B.espace_lignes()               # lignes non nulles de la forme réduite
+B.rowspace()                    # lignes non nulles de la forme réduite
 
-F = Subspace.engendre([Vector([1, 2, 1]), Vector([-1, 0, 3])])
+F = Subspace.span([Vector([1, 2, 1]), Vector([-1, 0, 3])])
 F.equations()                   # 3x − 2y + z = 0
-G = Subspace.engendre([Vector([0, 0, 1])])
+G = Subspace.span([Vector([0, 0, 1])])
 F.is_supplementary(G)           # True
 F.decompose(Vector([1, 1, 1]), G)
 
-U = Subspace.engendre([Vector([1, 0, 1, 0]), Vector([0, 1, 1, 1])])
-W = Subspace.noyau(Matrix([[1, 0, 0, -1]]))
+U = Subspace.span([Vector([1, 0, 1, 0]), Vector([0, 1, 1, 1])])
+W = Subspace.kernel(Matrix([[1, 0, 0, -1]]))
 U + W, U & W                    # Zassenhaus tracé, Grassmann vérifiée
+A.noyau(), B.espace_lignes()    # alias français documentés
 
 C = Matrix([[2, 1], [1, 2]])
 P, D = C.diagonalize()          # espaces propres comme Subspace ; D = P⁻¹ C P tracé
