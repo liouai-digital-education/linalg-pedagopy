@@ -28,10 +28,12 @@ class OperationFeedback:
 
     @property
     def is_valid(self) -> bool:
+        """Vrai si l'opération proposée est une opération élémentaire valide (utile ou non)."""
         return self.status in ("valid_no_progress", "valid_useful")
 
     @property
     def is_useful(self) -> bool:
+        """Vrai si l'opération est valide et fait progresser vers la forme échelonnée."""
         return self.status == "valid_useful"
 
     def __str__(self) -> str:

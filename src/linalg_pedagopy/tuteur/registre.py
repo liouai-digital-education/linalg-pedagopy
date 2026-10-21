@@ -42,6 +42,7 @@ class VerifierType:
 
     @property
     def names(self) -> tuple[str, ...]:
+        """Nom du type de vérificateur suivi de ses alias."""
         return (self.name, *self.aliases)
 
 

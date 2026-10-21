@@ -332,6 +332,7 @@ git config filter.carnets.smudge cat
 </code></pre></div>
 <h2 id="qualite-du-code">Qualité du code</h2>
 <ul>
+<li><code>tests/test_docstrings.py</code> : chaque élément public du paquet (module, classe, fonction, méthode sans « _ » initial) a une docstring. <code>python scripts/mesurer_docstrings.py --liste</code> donne le bilan par sous-paquet et la liste des manques.</li>
 <li><code>ruff check src tests scripts</code> : règles <code>E4</code>, <code>E7</code>, <code>E9</code>, <code>F</code> (bloquant).</li>
 <li><code>mypy</code> (sans argument) : mode strict, <strong>bloquant</strong>, sur le périmètre <code>files</code> de <code>[tool.mypy]</code> dans <code>pyproject.toml</code> : <code>core</code>, <code>algorithms</code>, <code>objects</code>, <code>render</code>, <code>trace</code>, <code>plot</code>, <code>config.py</code>, <code>special.py</code>.</li>
 <li><code>mypy src/linalg_pedagopy</code> : tout le paquet, <strong>informatif</strong>. Il reste 63 erreurs (mypy 2.4.0), toutes hors du périmètre strict : <code>tuteur/</code>, <code>exercises/generators.py</code> et <code>compare/numeric.py</code>, surtout des attributs déclarés par <code>__slots__</code> sans annotation et des retours <code>Any</code>. En CI, cette étape échoue sans faire échouer le job (<code>continue-on-error</code>) : son résultat se lit dans le journal du job.</li>

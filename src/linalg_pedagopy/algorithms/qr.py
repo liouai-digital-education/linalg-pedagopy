@@ -33,6 +33,7 @@ class QRResult(Result):
     witness: DependenceWitness | None = None
 
     def subs(self, mapping: Mapping[Any, Any]) -> QRResult:
+        """Résultat spécialisé : paramètres remplacés par des valeurs (``mapping`` : symbole ou nom → valeur)."""
         sym_map = {
             (sp.Symbol(k, real=True) if isinstance(k, str) else k): v
             for k, v in mapping.items()

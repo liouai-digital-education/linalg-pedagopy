@@ -263,22 +263,27 @@ class Matrix:
 
     @property
     def rows(self) -> int:
+        """Nombre de lignes."""
         return self._nrows
 
     @property
     def cols(self) -> int:
+        """Nombre de colonnes."""
         return self._ncols
 
     @property
     def shape(self) -> tuple[int, int]:
+        """Forme ``(lignes, colonnes)``."""
         return (self._nrows, self._ncols)
 
     @property
     def entries_grid(self) -> tuple[tuple[sp.Expr, ...], ...]:
+        """Coefficients exacts, ligne par ligne (tuple de tuples d'expressions SymPy)."""
         return self._rows
 
     @property
     def flat_entries(self) -> tuple[sp.Expr, ...]:
+        """Coefficients exacts à plat, ligne après ligne."""
         return tuple(e for r in self._rows for e in r)
 
     def row(self, i: int) -> Vector:

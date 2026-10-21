@@ -39,10 +39,12 @@ class ExerciseJournal:
 
     @property
     def path(self) -> Path:
+        """Fichier du journal : celui donné à la création, sinon ``config.journal_path``."""
         return self._explicit_path if self._explicit_path is not None else config.journal_path
 
     @property
     def elapsed_seconds(self) -> float:
+        """Temps passé sur l'exercice, en secondes, séances précédentes comprises."""
         return round(self._prior_elapsed_seconds + (time.time() - self.started_at), 2)
 
     def _load_existing(self) -> None:
@@ -77,6 +79,7 @@ class ExerciseJournal:
             pass
 
     def record_attempt(self, *, correct: bool, diagnostic: str) -> None:
+        """Enregistre une tentative (réussie ou non) et son diagnostic, puis sauvegarde le journal."""
         self.attempts += 1
         if correct:
             self.solved = True
@@ -84,6 +87,7 @@ class ExerciseJournal:
         self._persist()
 
     def record_hint(self, level: int) -> None:
+        """Enregistre le déblocage du palier d'indice ``level`` (le palier 4 ouvre le jumeau), puis sauvegarde."""
         if level not in self.hints_unlocked:
             self.hints_unlocked.append(level)
         if level == 4:
@@ -91,16 +95,19 @@ class ExerciseJournal:
         self._persist()
 
     def record_twin(self) -> None:
+        """Enregistre l'ouverture de l'exercice jumeau (palier 4), puis sauvegarde le journal."""
         self.twin_opened = True
         if 4 not in self.hints_unlocked:
             self.hints_unlocked.append(4)
         self._persist()
 
     def record_prediction(self, prediction: Mapping[str, Any]) -> None:
+        """Enregistre une prédiction faite avant le laboratoire, puis sauvegarde le journal."""
         self.predictions.append(dict(prediction))
         self._persist()
 
     def record_lab_test(self) -> None:
+        """Compte un essai au laboratoire de contre-exemples, puis sauvegarde le journal."""
         self.lab_tests += 1
         self._persist()
 
@@ -118,6 +125,7 @@ class ExerciseJournal:
         self._persist()
 
     def to_dict(self) -> dict[str, Any]:
+        """Progression de l'exercice sous forme de dictionnaire (format du fichier journal)."""
         return {
             "exercise_id": self.exercise_id,
             "attempts": self.attempts,

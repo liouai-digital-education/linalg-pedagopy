@@ -75,6 +75,7 @@ class DetResult(Result):
     condition: Condition = field(default_factory=Condition.true)
 
     def subs(self, mapping: Mapping[Any, Any]) -> DetResult:
+        """Résultat spécialisé : paramètres remplacés par des valeurs (``mapping`` : symbole ou nom → valeur)."""
         valeur = _finaliser(self.value.subs(mapping))
         return DetResult(
             trace=self.trace,

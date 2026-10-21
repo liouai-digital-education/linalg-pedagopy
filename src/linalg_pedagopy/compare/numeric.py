@@ -110,6 +110,7 @@ class LauchliLSReport:
 
 @dataclass(frozen=True)
 class HilbertEntry:
+    """Une ligne de l'expérience de Hilbert : ordre ``n``, conditionnement et erreur relative du calcul flottant."""
     n: int
     condition_number: float
     relative_error: float

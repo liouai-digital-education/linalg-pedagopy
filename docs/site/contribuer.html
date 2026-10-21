@@ -272,6 +272,8 @@ python scripts/build_docs_site.py       # si un .md de docs/ ou docs/dev/, le CH
 <li>Une nouvelle fiche doit passer <code>tuteur.valider_fiche(id)</code> (aucune fuite de la cible dans les indices, contrôle croisé avec le solveur).</li>
 <li>Les exemples du tuteur écrivent leur journal, <code>.linalg_pedagopy_journal.json</code>, dans le répertoire courant ; ce fichier est ignoré par git.</li>
 </ul>
+<h2 id="docstrings">Docstrings</h2>
+<p>Chaque module, classe, fonction et méthode publics (sans « _ » initial) a une docstring en français ; une ligne suffit pour un accesseur. <code>tests/test_docstrings.py</code> le vérifie, et <code>python scripts/mesurer_docstrings.py --liste</code> montre ce qui manque.</p>
 <h2 id="ou-placer-un-nouveau-code">Où placer un nouveau code</h2>
 <p>Une couche n'importe jamais une couche plus haute (configuration → noyau → trace → objets → rendu → algorithmes → usages). Une nouvelle procédure tracée hérite de <code>Procedure</code> et renvoie un <code>Result</code> ; une nouvelle clé de trace va dans <code>render/locales/fr.yaml</code>. Voir <a href="dev_architecture.html">l'architecture</a>.</p>
       </article>
@@ -329,6 +331,10 @@ python scripts/build_docs_site.py       # si un .md de docs/ ou docs/dev/, le CH
         
         <li class="toc-item ">
           <a href="#tuteur">Tuteur</a>
+        </li>
+        
+        <li class="toc-item ">
+          <a href="#docstrings">Docstrings</a>
         </li>
         
         <li class="toc-item ">

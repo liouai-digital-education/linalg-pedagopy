@@ -128,10 +128,12 @@ class Vector:
 
     @property
     def entries(self) -> tuple[sp.Expr, ...]:
+        """Coefficients exacts du vecteur (tuple d'expressions SymPy)."""
         return self._entries
 
     @property
     def size(self) -> int:
+        """Nombre de coefficients."""
         return len(self._entries)
 
     @property
@@ -141,10 +143,12 @@ class Vector:
 
     @property
     def rows(self) -> int:
+        """Nombre de lignes du vecteur vu comme matrice colonne (sa taille)."""
         return len(self._entries)
 
     @property
     def cols(self) -> int:
+        """Nombre de colonnes du vecteur vu comme matrice colonne (toujours 1)."""
         return 1
 
     def __len__(self) -> int:

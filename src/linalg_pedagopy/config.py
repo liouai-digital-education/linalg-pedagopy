@@ -67,10 +67,12 @@ class ConfigProxy:
 
     @property
     def state(self) -> ConfigState:
+        """État de configuration actif (immuable), propre au contexte courant."""
         return _config_var.get()
 
     @property
     def float_policy(self) -> FloatPolicy:
+        """Traitement des flottants : ``rationalize`` (défaut), ``reject`` ou ``keep``."""
         return _config_var.get().float_policy
 
     @float_policy.setter
@@ -79,6 +81,7 @@ class ConfigProxy:
 
     @property
     def locale(self) -> str:
+        """Langue des messages de trace (``fr`` par défaut)."""
         return _config_var.get().locale
 
     @locale.setter
@@ -87,6 +90,7 @@ class ConfigProxy:
 
     @property
     def default_trace_level(self) -> int:
+        """Niveau de détail de ``explain()`` sans argument (0 à 3, 1 par défaut)."""
         return _config_var.get().default_trace_level
 
     @default_trace_level.setter
@@ -95,6 +99,7 @@ class ConfigProxy:
 
     @property
     def max_case_depth(self) -> int:
+        """Profondeur maximale des discussions par cas imbriquées."""
         return _config_var.get().max_case_depth
 
     @max_case_depth.setter
@@ -103,6 +108,7 @@ class ConfigProxy:
 
     @property
     def max_cases(self) -> int:
+        """Nombre maximal de branches d'une discussion par cas."""
         return _config_var.get().max_cases
 
     @max_cases.setter
@@ -129,6 +135,7 @@ class ConfigProxy:
 
     @property
     def tutor_mode(self) -> TutorMode:
+        """Mode du tuteur : ``etudiant`` ou ``enseignant`` (``student`` / ``teacher`` acceptés)."""
         return _config_var.get().tutor_mode
 
     @tutor_mode.setter
@@ -137,6 +144,7 @@ class ConfigProxy:
 
     @property
     def hint_min_attempts(self) -> int:
+        """Nombre de tentatives exigées avant de débloquer un nouvel indice."""
         return _config_var.get().hint_min_attempts
 
     @hint_min_attempts.setter
@@ -145,6 +153,7 @@ class ConfigProxy:
 
     @property
     def hint_min_delay_seconds(self) -> int:
+        """Délai minimal, en secondes, entre deux indices."""
         return _config_var.get().hint_min_delay_seconds
 
     @hint_min_delay_seconds.setter
@@ -153,6 +162,7 @@ class ConfigProxy:
 
     @property
     def journal_path(self) -> Path:
+        """Fichier du journal de progression du tuteur."""
         return _config_var.get().journal_path
 
     @journal_path.setter

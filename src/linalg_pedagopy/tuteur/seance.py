@@ -121,6 +121,7 @@ class ExerciseSession:
 
     @property
     def id(self) -> str:
+        """Identifiant lisible de l'exercice (par exemple ``moyenne-glissante``)."""
         return self._state()["id"]  # type: ignore[no-any-return]
 
     @property
@@ -151,6 +152,7 @@ class ExerciseSession:
 
     @property
     def type(self) -> str:
+        """Type de vérificateur de la réponse attendue."""
         return self._state()["type"]  # type: ignore[no-any-return]
 
     @property
@@ -162,23 +164,28 @@ class ExerciseSession:
 
     @property
     def notions(self) -> list[str]:
+        """Notions mobilisées par l'exercice (copie)."""
         return list(self._state()["notions"])
 
 
     @property
     def journal(self) -> ExerciseJournal:
+        """Journal de progression de l'exercice."""
         return self._state()["journal"]  # type: ignore[no-any-return]
 
     @property
     def data(self) -> LockedNamespace:
+        """Données de l'exercice, verrouillées jusqu'à la validation de la réponse."""
         return self._state()["data"]  # type: ignore[no-any-return]
 
     @property
     def donnees(self) -> LockedNamespace:
+        """Alias français de ``data`` : données de l'exercice, verrouillées jusqu'à la validation."""
         return self._state()["data"]  # type: ignore[no-any-return]
 
     @property
     def predictions(self) -> dict[str, str]:
+        """Prédictions enregistrées pour le laboratoire (copie)."""
         return dict(self._state()["predictions"])
 
     def statement(self) -> MarkdownText:

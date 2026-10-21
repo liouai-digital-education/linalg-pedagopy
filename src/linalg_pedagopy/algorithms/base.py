@@ -129,6 +129,7 @@ class SolutionSet:
     Empty: type[EmptySolution]
 
     def subs(self, mapping: Mapping[Any, Any]) -> SolutionSet:
+        """Ensemble des solutions après substitution des paramètres (``mapping`` : symbole ou nom → valeur)."""
         return self
 
 
@@ -140,13 +141,16 @@ class UniqueSolution(SolutionSet):
 
     @property
     def is_consistent(self) -> bool:
+        """Toujours vrai : le système admet au moins une solution."""
         return True
 
     @property
     def is_unique(self) -> bool:
+        """Toujours vrai : la solution est unique."""
         return True
 
     def subs(self, mapping: Mapping[Any, Any]) -> UniqueSolution:
+        """Solution unique après substitution des paramètres."""
         return UniqueSolution(x=self.x.subs(mapping))
 
     def __str__(self) -> str:
@@ -167,10 +171,12 @@ class AffineSolution(SolutionSet):
 
     @property
     def is_consistent(self) -> bool:
+        """Toujours vrai : le système admet au moins une solution."""
         return True
 
     @property
     def is_unique(self) -> bool:
+        """Toujours faux : les solutions forment un ensemble affine de dimension ≥ 1."""
         return False
 
     def at_params(self, *t_values: Any) -> Vector:
@@ -184,6 +190,7 @@ class AffineSolution(SolutionSet):
         return self.x0 + Vector.combination(self.basis, t_values)
 
     def subs(self, mapping: Mapping[Any, Any]) -> AffineSolution:
+        """Ensemble affine de solutions après substitution des paramètres."""
         return AffineSolution(
             x0=self.x0.subs(mapping),
             basis=tuple(v.subs(mapping) for v in self.basis),
@@ -217,13 +224,16 @@ class EmptySolution(SolutionSet):
 
     @property
     def is_consistent(self) -> bool:
+        """Toujours faux : le système est incompatible."""
         return False
 
     @property
     def is_unique(self) -> bool:
+        """Toujours faux : le système n'a aucune solution."""
         return False
 
     def subs(self, mapping: Mapping[Any, Any]) -> EmptySolution:
+        """Ensemble vide après substitution des paramètres (témoin et lignes spécialisés)."""
         sym_map = {
             (sp.Symbol(k, real=True) if isinstance(k, str) else k): v
             for k, v in mapping.items()

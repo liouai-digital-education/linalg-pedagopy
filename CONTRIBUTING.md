@@ -73,6 +73,10 @@ Les tests de caractérisation figent des sorties complètes (traces, discussions
 - Une nouvelle fiche doit passer `tuteur.valider_fiche(id)` (aucune fuite de la cible dans les indices, contrôle croisé avec le solveur).
 - Les exemples du tuteur écrivent leur journal, `.linalg_pedagopy_journal.json`, dans le répertoire courant ; ce fichier est ignoré par git.
 
+## Docstrings
+
+Chaque module, classe, fonction et méthode publics (sans « _ » initial) a une docstring en français ; une ligne suffit pour un accesseur. `tests/test_docstrings.py` le vérifie, et `python scripts/mesurer_docstrings.py --liste` montre ce qui manque.
+
 ## Où placer un nouveau code
 
 Une couche n'importe jamais une couche plus haute (configuration → noyau → trace → objets → rendu → algorithmes → usages). Une nouvelle procédure tracée hérite de `Procedure` et renvoie un `Result` ; une nouvelle clé de trace va dans `render/locales/fr.yaml`. Voir [l'architecture](docs/dev/architecture.md).

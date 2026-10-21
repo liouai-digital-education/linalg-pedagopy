@@ -1184,6 +1184,13 @@
   },
   {
     "pageTitle": "Contribuer à linalg_pedagopy",
+    "title": "Docstrings",
+    "url": "contribuer.html#docstrings",
+    "snippet": "Chaque module, classe, fonction et méthode publics (sans « _ » initial) a une docstring en français ; une ligne suffit pour un accesseur. tests/test_docstrings.…",
+    "content": "Chaque module, classe, fonction et méthode publics (sans « _ » initial) a une docstring en français ; une ligne suffit pour un accesseur. tests/test_docstrings.py le vérifie, et python scripts/mesurer_docstrings.py --liste montre ce qui manque."
+  },
+  {
+    "pageTitle": "Contribuer à linalg_pedagopy",
     "title": "Où placer un nouveau code",
     "url": "contribuer.html#ou-placer-un-nouveau-code",
     "snippet": "Une couche n'importe jamais une couche plus haute (configuration → noyau → trace → objets → rendu → algorithmes → usages). Une nouvelle procédure tracée hérite …",
@@ -1305,8 +1312,8 @@
     "pageTitle": "Tests et vérifications",
     "title": "Qualité du code",
     "url": "dev_tests.html#qualite-du-code",
-    "snippet": "ruff check src tests scripts : règles E4 , E7 , E9 , F (bloquant). mypy (sans argument) : mode strict, bloquant , sur le périmètre files de [tool.mypy] dans pyp…",
-    "content": "ruff check src tests scripts : règles E4 , E7 , E9 , F (bloquant). mypy (sans argument) : mode strict, bloquant , sur le périmètre files de [tool.mypy] dans pyproject.toml : core , algorithms , objects , render , trace , plot , config.py , special.py . mypy src/linalg_pedagopy : tout le paquet, informatif . Il reste 63 erreurs (mypy 2.4.0), toutes hors du périmètre strict : tuteur/ , exercises/generators.py et compare/numeric.py , surtout des attributs déclarés par __slots__ sans annotation et des retours Any . En CI, cette étape échoue sans faire échouer le job ( continue-on-error ) : son résultat se lit dans le journal du job. La version de mypy est figée dans l'option dev ( mypy==2.4.0 ) : d'une version à l'autre, le nombre d'erreurs hors périmètre change (58 avec 2.3, 63 avec 2.4.0). Pour monter de version, modifiez pyproject.toml , relancez les deux commandes ci-dessus et mettez à jour ce décompte."
+    "snippet": "tests/test_docstrings.py : chaque élément public du paquet (module, classe, fonction, méthode sans « _ » initial) a une docstring. python scripts/mesurer_docstr…",
+    "content": "tests/test_docstrings.py : chaque élément public du paquet (module, classe, fonction, méthode sans « _ » initial) a une docstring. python scripts/mesurer_docstrings.py --liste donne le bilan par sous-paquet et la liste des manques. ruff check src tests scripts : règles E4 , E7 , E9 , F (bloquant). mypy (sans argument) : mode strict, bloquant , sur le périmètre files de [tool.mypy] dans pyproject.toml : core , algorithms , objects , render , trace , plot , config.py , special.py . mypy src/linalg_pedagopy : tout le paquet, informatif . Il reste 63 erreurs (mypy 2.4.0), toutes hors du périmètre strict : tuteur/ , exercises/generators.py et compare/numeric.py , surtout des attributs déclarés par __slots__ sans annotation et des retours Any . En CI, cette étape échoue sans faire échouer le job ( continue-on-error ) : son résultat se lit dans le journal du job. La version de mypy est figée dans l'option dev ( mypy==2.4.0 ) : d'une version à l'autre, le nombre d'erreurs hors périmètre change (58 avec 2.3, 63 avec 2.4.0). Pour monter de version, modifiez pyproject.toml , relancez les deux commandes ci-dessus et mettez à jour ce décompte."
   },
   {
     "pageTitle": "Campagnes de tests du bac à sable",
@@ -1405,6 +1412,13 @@
     "url": "journal.html#site-lot-3c-de-la-revue",
     "snippet": "Recherche sans innerHTML : les résultats sont construits avec textContent . La saisie et le texte indexé ne sont plus interprétés comme du HTML (un extrait « a …",
     "content": "Recherche sans innerHTML : les résultats sont construits avec textContent . La saisie et le texte indexé ne sont plus interprétés comme du HTML (un extrait « a < b » cassait l'affichage ; une saisie <img onerror=…> était injectée dans la page). Le bouton « Copier » n'utilise plus innerHTML non plus. Recherche en texte intégral : l'index contient tout le texte de chaque section (h2 ou h3), code compris, et l'introduction de chaque page, au lieu du titre et des 160 premiers caractères du paragraphe suivant (200 Ko au lieu de 80). Les titres qui correspondent passent en premier ; l'extrait affiché entoure le terme trouvé ; la comparaison ignore casse et accents (« determinant » trouve « déterminant »). MathJax et Mermaid figés : mathjax@3.2.2 et mermaid@10.9.8 (au lieu de @3 et @10 , qui suivaient chaque nouvelle version), avec empreinte SRI ; Mermaid est chargé en script classique (le module ESM ne se prête pas au SRI) et passe en securityLevel: 'strict' . Rendu vérifié dans le navigateur (formules, diagrammes, sauts de ligne des libellés). Section « Développement » : le site publie CONTRIBUTING.md , l'architecture, les tests et vérifications, les campagnes de tests et ce journal (titre désormais en français), avec un renvoi depuis l'accueil. Les liens relatifs sont résolus depuis le dossier de chaque page : une page publiée devient son .html , tout autre fichier du dépôt un lien GitHub ( tree pour un dossier). Le test « un seul H1 » couvre toutes les pages publiées. Ces fichiers sources demandent désormais de régénérer le site."
+  },
+  {
+    "pageTitle": "Journal des modifications — linalg_pedagopy",
+    "title": "Documentation — lot 3d de la revue (docstrings)",
+    "url": "journal.html#documentation-lot-3d-de-la-revue-docstrings",
+    "snippet": "Docstrings complètes : 94 éléments publics sur 480 n'en avaient pas (19,6 % ; 35 % dans tuteur/ , surtout des propriétés, des alias français et les méthodes ver…",
+    "content": "Docstrings complètes : 94 éléments publics sur 480 n'en avaient pas (19,6 % ; 35 % dans tuteur/ , surtout des propriétés, des alias français et les méthodes verrouillées de LockedVector et LockedMatrix ). Tous en ont désormais une, en français. Garde-fou : scripts/mesurer_docstrings.py mesure la couverture par sous-paquet ( --liste pour les manques) ; tests/test_docstrings.py échoue si un élément public n'a pas de docstring."
   },
   {
     "pageTitle": "Journal des modifications — linalg_pedagopy",

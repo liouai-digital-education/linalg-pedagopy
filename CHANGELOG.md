@@ -146,6 +146,13 @@
   « un seul H1 » couvre toutes les pages publiées. Ces fichiers sources demandent désormais de
   régénérer le site.
 
+### Documentation — lot 3d de la revue (docstrings)
+- **Docstrings complètes** : 94 éléments publics sur 480 n'en avaient pas (19,6 % ; 35 % dans
+  `tuteur/`, surtout des propriétés, des alias français et les méthodes verrouillées de `LockedVector`
+  et `LockedMatrix`). Tous en ont désormais une, en français.
+- **Garde-fou** : `scripts/mesurer_docstrings.py` mesure la couverture par sous-paquet (`--liste` pour
+  les manques) ; `tests/test_docstrings.py` échoue si un élément public n'a pas de docstring.
+
 ## [0.3.1.2] — 2026-10-21
 
 Phases 4, 5 et 6 du plan v6, et traces en tableau. Pas de publication sur PyPI pour cette version
