@@ -8,7 +8,7 @@ from typing import Any, Literal, Mapping
 import sympy as sp
 
 from linalg_pedagopy.algorithms.base import Procedure, Result
-from linalg_pedagopy.algorithms.elimination import _pivot_complexity_key, _simplify_entry
+from linalg_pedagopy.algorithms.elimination import RowOps, _pivot_complexity_key, _simplify_entry
 from linalg_pedagopy.core.cases import Branch, CaseSplit, Condition
 from linalg_pedagopy.core.exceptions import DimensionMismatchError, PedagopyError
 from linalg_pedagopy.core.zero import (
@@ -20,7 +20,7 @@ from linalg_pedagopy.core.zero import (
     oracle,
 )
 from linalg_pedagopy.objects.matrix import Matrix, register_determinant_hook
-from linalg_pedagopy.trace.step import Highlight, StepKind
+from linalg_pedagopy.trace.step import StepKind
 from linalg_pedagopy.trace.tracer import record, section
 
 DetMethod = Literal["auto", "bareiss", "elimination", "cofactors", "sarrus"]
@@ -33,6 +33,8 @@ NOMS_METHODES = {
     "sarrus": "Sarrus",
 }
 COFACTEURS_TAILLE_MAX = 4
+# Opérations de lignes tracées du déterminant : clés det.*, transvections « L_i ← L_i − (λ)·L_j »
+_OPS = RowOps("det", snapshot_key="matrix", signed_add=False)
 
 
 def _finaliser(expr: Any) -> sp.Expr:
@@ -214,46 +216,11 @@ class Determinant(Procedure[DetResult]):
                 if autre is None:
                     record(StepKind.INFO, "det.zero_column", level=1, col=k + 1)
                     return sp.Integer(0)
-                M[k], M[autre] = M[autre], M[k]
                 signe = -signe
                 echanges += 1
-                record(
-                    StepKind.ROW_SWAP,
-                    "det.row_swap",
-                    level=1,
-                    snapshot={"matrix": Matrix._from_exact_rows(M)},
-                    highlight=Highlight(
-                        pivot=(k, k),
-                        rows=(k, autre),
-                        operation_latex=f"L_{{{k + 1}}} \\leftrightarrow L_{{{autre + 1}}}",
-                    ),
-                    i=k + 1,
-                    j=autre + 1,
-                )
+                _OPS.swap(M, k, autre, col=k)
             pivot = M[k][k]
-            for i in range(k + 1, n):
-                for j in range(k + 1, n):
-                    M[i][j] = _simplify_entry(sp.cancel((pivot * M[i][j] - M[i][k] * M[k][j]) / precedent))
-                    record(
-                        StepKind.INFO,
-                        "det.bareiss_entry",
-                        level=3,
-                        i=i + 1,
-                        j=j + 1,
-                        k=k + 1,
-                        value=M[i][j],
-                    )
-                M[i][k] = sp.Integer(0)
-            record(
-                StepKind.ROW_ADD,
-                "det.bareiss_step",
-                level=1,
-                snapshot={"matrix": Matrix._from_exact_rows(M)},
-                highlight=Highlight(pivot=(k, k), rows=tuple(range(k + 1, n))),
-                k=k + 1,
-                pivot=pivot,
-                previous=precedent,
-            )
+            _OPS.bareiss_step(M, k, precedent)
             precedent = pivot
         resultat = M[n - 1][n - 1] if signe == 1 else -M[n - 1][n - 1]
         record(StepKind.INFO, "det.bareiss_last", level=1, value=M[n - 1][n - 1], swaps=echanges)
@@ -286,44 +253,16 @@ class Determinant(Procedure[DetResult]):
                 return sp.Integer(0)
             ligne, pivot = min(non_nuls, key=lambda item: _pivot_complexity_key(item[1]))
             if ligne != k:
-                M[k], M[ligne] = M[ligne], M[k]
                 signe = -signe
                 echanges += 1
-                record(
-                    StepKind.ROW_SWAP,
-                    "det.row_swap",
-                    level=1,
-                    snapshot={"matrix": Matrix._from_exact_rows(M)},
-                    highlight=Highlight(
-                        pivot=(k, k),
-                        rows=(k, ligne),
-                        operation_latex=f"L_{{{k + 1}}} \\leftrightarrow L_{{{ligne + 1}}}",
-                    ),
-                    i=k + 1,
-                    j=ligne + 1,
-                )
+                _OPS.swap(M, k, ligne, col=k)
             record(StepKind.INFO, "det.pivot", level=2, col=k + 1, pivot=pivot)
             for i in range(k + 1, n):
                 if _est_nul(M[i][k], cond) is True:
                     M[i][k] = sp.Integer(0)
                     continue
                 facteur = _simplify_entry(M[i][k] / pivot)
-                M[i] = [_simplify_entry(M[i][j] - facteur * M[k][j]) for j in range(n)]
-                M[i][k] = sp.Integer(0)
-                record(
-                    StepKind.ROW_ADD,
-                    "det.row_add",
-                    level=1,
-                    snapshot={"matrix": Matrix._from_exact_rows(M)},
-                    highlight=Highlight(
-                        pivot=(k, k),
-                        rows=(i,),
-                        operation_latex=f"L_{{{i + 1}}} \\leftarrow L_{{{i + 1}}} - \\left({sp.latex(facteur)}\\right) L_{{{k + 1}}}",
-                    ),
-                    i=i + 1,
-                    j=k + 1,
-                    lam=facteur,
-                )
+                _OPS.add_multiple(M, i, k, facteur, col=k)
             pivots.append(pivot)
         produit = sp.Mul(*pivots)
         record(

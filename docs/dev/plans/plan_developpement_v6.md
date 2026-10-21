@@ -404,7 +404,8 @@ Aucune à ce jour.
 4. Tâche 3.4 **faite** : `CaseLimitError` et `case_limit_error` (`core/zero.py`) ; message en Python comme les autres exceptions, `core` ne pouvant pas lire la locale de `render` ; tests dans `tests/test_plafonds.py`.
 5. Tâche 3.5 **faite** : `PedagogicalWarning` et `config.max_generic_dim` ; tests dans `tests/test_avertissement_taille.py`. **Phase 3 terminée : version 0.3.1.1** (étiquette `v0.3.1.1`).
 6. Phase 4, tâche 4.1 **faite** : `algorithms/elimination.py` (fonctions pures et `_choose_pivot`), aucune sortie modifiée.
-7. Tâche 4.2 : extraire les opérations élémentaires tracées (échange, dilatation, transvection, étape de Bareiss) dans `elimination.py`, avec un préfixe de clés de trace (`gj`, `det`) ; traces identiques.
+7. Tâche 4.2 **faite** : `RowOps` dans `elimination.py` ; traces du déterminant ajoutées aux tests de caractérisation.
+8. Tâche 4.3 : extraire la boucle d'élimination et `_split_on_factors` dans `EliminationEngine` ; traces et `CaseSplit` identiques.
 
 # Annexe B — Esquisse de l'API cible (version 0.3.4)
 

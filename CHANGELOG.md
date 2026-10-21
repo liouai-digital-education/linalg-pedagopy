@@ -4,6 +4,7 @@
 
 ### Refactorisation — phase 4 du plan v6 (moteur d'élimination)
 - 4.1 : nouveau module `algorithms/elimination.py` qui regroupe les fonctions pures communes à Gauss-Jordan et au déterminant : simplification des coefficients (`_simplify_entry`), critère et choix du pivot (`_pivot_complexity_key`, nouvelle fonction `_choose_pivot`), mise en forme des résultats d'une branche (`_result_entry`, `_factor_with_radicals`). `gauss_jordan.py`, `determinant.py`, `gram_schmidt.py`, `qr.py`, `triangular.py` et `least_squares.py` les importent de là. Aucune sortie modifiée.
+- 4.2 : opérations élémentaires tracées regroupées dans `RowOps` (`algorithms/elimination.py`) : échange, dilatation, transvection et étape de Bareiss, avec le préfixe des clés de trace (`gj`, `det`), le nom de l'instantané et l'écriture des transvections propres à chaque procédure. Gauss-Jordan et le déterminant n'enregistrent plus eux-mêmes ces opérations. Traces identiques ; six cas de déterminant ajoutés aux tests de caractérisation.
 
 ### Corrections — traces de Gauss-Jordan
 - Transvections (`gj.row_add`) : un multiplicateur somme est parenthésé et le signe est le « − » typographique, en texte, LaTeX, Markdown et HTML. La trace affichait « L2 ← L2 - a − 1·L1 », qui change le sens de l'opération, au lieu de « L2 ← L2 − (a − 1)·L1 ».

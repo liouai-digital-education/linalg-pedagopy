@@ -18,6 +18,7 @@ from linalg_pedagopy.algorithms.base import (
 )
 from linalg_pedagopy.algorithms.elimination import (
     PivotStrategy,
+    RowOps,
     _choose_pivot,
     _pivot_complexity_key,
     _result_entry,
@@ -265,6 +266,7 @@ class GaussJordan(Procedure[GJResult]):
 
         pivots: list[int] = []
         pivot_row = 0
+        ops = RowOps("gj", split_col=split_col)
 
         with section(
             "gj.start",
@@ -343,46 +345,12 @@ class GaussJordan(Procedure[GJResult]):
 
                     # Échange de lignes éventuel
                     if chosen_r != pivot_row:
-                        grid[pivot_row], grid[chosen_r] = grid[chosen_r], grid[pivot_row]
-                        snap_mat = Matrix._from_exact_rows(grid)
-                        record(
-                            StepKind.ROW_SWAP,
-                            "gj.row_swap",
-                            level=1,
-                            snapshot={"augmented_matrix": snap_mat},
-                            highlight=Highlight(
-                                pivot=(pivot_row, col),
-                                rows=(pivot_row, chosen_r),
-                                augmented_split=split_col,
-                                operation_latex=f"L_{{{pivot_row + 1}}} \\leftrightarrow L_{{{chosen_r + 1}}}",
-                            ),
-                            i=pivot_row + 1,
-                            j=chosen_r + 1,
-                        )
+                        ops.swap(grid, pivot_row, chosen_r, col=col)
 
                     # Normalisation de la ligne pivot si le pivot != 1
                     pivot_val = grid[pivot_row][col]
                     if oracle.decide(pivot_val - 1, assumptions=cond).verdict != Verdict.ZERO:
-                        scale = _simplify_entry(sp.Integer(1) / pivot_val)
-                        grid[pivot_row] = [
-                            _simplify_entry(scale * x) for x in grid[pivot_row]
-                        ]
-                        grid[pivot_row][col] = sp.Integer(1)
-                        snap_mat = Matrix._from_exact_rows(grid)
-                        record(
-                            StepKind.ROW_SCALE,
-                            "gj.row_scale",
-                            level=1,
-                            snapshot={"augmented_matrix": snap_mat},
-                            highlight=Highlight(
-                                pivot=(pivot_row, col),
-                                rows=(pivot_row,),
-                                augmented_split=split_col,
-                                operation_latex=f"L_{{{pivot_row + 1}}} \\leftarrow \\left({sp.latex(scale)}\\right) L_{{{pivot_row + 1}}}",
-                            ),
-                            i=pivot_row + 1,
-                            scale=scale,
-                        )
+                        ops.scale(grid, pivot_row, col=col)
 
                     # Élimination dans toutes les autres lignes (au-dessus et en-dessous)
                     for r in range(m):
@@ -394,36 +362,7 @@ class GaussJordan(Procedure[GJResult]):
                             grid[r][col] = sp.Integer(0)
                             continue
                         # Transvection L_r <- L_r - factor * L_pivot
-                        grid[r] = [
-                            _simplify_entry(grid[r][c_idx] - factor * grid[pivot_row][c_idx])
-                            for c_idx in range(total_cols)
-                        ]
-                        grid[r][col] = sp.Integer(0)
-                        sign_str = "-" if not str(factor).startswith("-") else "+"
-                        lam_abs = -factor if str(factor).startswith("-") else factor
-                        # Un multiplicateur somme est parenthésé : L2 ← L2 − (a − 1)·L1
-                        lam_txt = format_value_text(lam_abs)
-                        if isinstance(lam_abs, sp.Add):
-                            lam_txt = f"({lam_txt})"
-                        snap_mat = Matrix._from_exact_rows(grid)
-                        record(
-                            StepKind.ROW_ADD,
-                            "gj.row_add",
-                            level=1,
-                            snapshot={"augmented_matrix": snap_mat},
-                            highlight=Highlight(
-                                pivot=(pivot_row, col),
-                                rows=(r,),
-                                augmented_split=split_col,
-                                operation_latex=f"L_{{{r + 1}}} \\leftarrow L_{{{r + 1}}} {sign_str} \\left({sp.latex(lam_abs)}\\right) L_{{{pivot_row + 1}}}",
-                            ),
-                            i=r + 1,
-                            j=pivot_row + 1,
-                            col=col + 1,
-                            sign="−" if sign_str == "-" else "+",
-                            lam=lam_abs,
-                            lam_txt=lam_txt,
-                        )
+                        ops.add_multiple(grid, r, pivot_row, factor, col=col)
 
                 pivots.append(col)
                 pivot_row += 1

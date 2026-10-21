@@ -1,18 +1,26 @@
 """Machinerie d'élimination commune à Gauss-Jordan et au déterminant.
 
-Étape 4.1 du plan v6 : fonctions pures (simplification des coefficients, critère et choix
-du pivot, mise en forme des résultats d'une branche). Les étapes suivantes y ajoutent les
-opérations élémentaires tracées puis le moteur d'élimination lui-même.
+- Étape 4.1 du plan v6 : fonctions pures (simplification des coefficients, critère et choix
+  du pivot, mise en forme des résultats d'une branche).
+- Étape 4.2 : opérations élémentaires tracées (``RowOps`` : échange, dilatation,
+  transvection, étape de Bareiss).
+
+L'étape 4.3 y ajoute le moteur d'élimination lui-même.
 """
 
 from __future__ import annotations
 
-from typing import Callable, Literal, Mapping
+from dataclasses import dataclass
+from typing import Any, Callable, Literal, Mapping
 
 import sympy as sp
 
 from linalg_pedagopy.config import config
 from linalg_pedagopy.core.cases import Condition
+from linalg_pedagopy.objects.matrix import Matrix
+from linalg_pedagopy.render.text import format_value_text
+from linalg_pedagopy.trace.step import Highlight, StepKind
+from linalg_pedagopy.trace.tracer import record
 
 PivotStrategy = Literal["simplest", "first", "partial"]
 
@@ -104,3 +112,140 @@ def _choose_pivot(
                 return 0.0
         return max(candidates, key=_abs_eval)
     return candidates[0]
+
+
+@dataclass(frozen=True)
+class RowOps:
+    """Opérations élémentaires sur une grille de coefficients, enregistrées dans la trace.
+
+    ``prefix`` choisit les clés de trace (``gj.row_swap``, ``det.row_swap``…),
+    ``snapshot_key`` le nom de l'instantané (``augmented_matrix`` ou ``matrix``) et
+    ``split_col`` la position de la barre d'une matrice augmentée. ``signed_add`` règle
+    l'écriture des transvections : ``L2 ← L2 − (a − 1)·L1`` avec le signe du
+    multiplicateur (Gauss-Jordan), ou toujours ``L2 ← L2 − (λ)·L1`` (déterminant).
+    """
+
+    prefix: str
+    snapshot_key: str = "augmented_matrix"
+    split_col: int | None = None
+    signed_add: bool = True
+
+    def _snapshot(self, grid: list[list[sp.Expr]]) -> dict[str, Any]:
+        return {self.snapshot_key: Matrix._from_exact_rows(grid)}
+
+    def swap(self, grid: list[list[sp.Expr]], i: int, j: int, *, col: int) -> None:
+        """Échange des lignes i et j (pivot en (i, col))."""
+        grid[i], grid[j] = grid[j], grid[i]
+        record(
+            StepKind.ROW_SWAP,
+            f"{self.prefix}.row_swap",
+            level=1,
+            snapshot=self._snapshot(grid),
+            highlight=Highlight(
+                pivot=(i, col),
+                rows=(i, j),
+                augmented_split=self.split_col,
+                operation_latex=f"L_{{{i + 1}}} \\leftrightarrow L_{{{j + 1}}}",
+            ),
+            i=i + 1,
+            j=j + 1,
+        )
+
+    def scale(self, grid: list[list[sp.Expr]], i: int, *, col: int) -> sp.Expr:
+        """Dilatation de la ligne i qui ramène le pivot (i, col) à 1 ; renvoie le facteur."""
+        scale = _simplify_entry(sp.Integer(1) / grid[i][col])
+        grid[i] = [_simplify_entry(scale * x) for x in grid[i]]
+        grid[i][col] = sp.Integer(1)
+        record(
+            StepKind.ROW_SCALE,
+            f"{self.prefix}.row_scale",
+            level=1,
+            snapshot=self._snapshot(grid),
+            highlight=Highlight(
+                pivot=(i, col),
+                rows=(i,),
+                augmented_split=self.split_col,
+                operation_latex=f"L_{{{i + 1}}} \\leftarrow \\left({sp.latex(scale)}\\right) L_{{{i + 1}}}",
+            ),
+            i=i + 1,
+            scale=scale,
+        )
+        return scale
+
+    def add_multiple(
+        self, grid: list[list[sp.Expr]], target: int, source: int, factor: sp.Expr, *, col: int
+    ) -> None:
+        """Transvection L_target ← L_target − factor·L_source, qui annule le coefficient (target, col)."""
+        grid[target] = [
+            _simplify_entry(grid[target][c] - factor * grid[source][c]) for c in range(len(grid[target]))
+        ]
+        grid[target][col] = sp.Integer(0)
+        if not self.signed_add:
+            record(
+                StepKind.ROW_ADD,
+                f"{self.prefix}.row_add",
+                level=1,
+                snapshot=self._snapshot(grid),
+                highlight=Highlight(
+                    pivot=(source, col),
+                    rows=(target,),
+                    augmented_split=self.split_col,
+                    operation_latex=f"L_{{{target + 1}}} \\leftarrow L_{{{target + 1}}} - \\left({sp.latex(factor)}\\right) L_{{{source + 1}}}",
+                ),
+                i=target + 1,
+                j=source + 1,
+                lam=factor,
+            )
+            return
+        sign_str = "-" if not str(factor).startswith("-") else "+"
+        lam_abs = -factor if str(factor).startswith("-") else factor
+        # Un multiplicateur somme est parenthésé : L2 ← L2 − (a − 1)·L1
+        lam_txt = format_value_text(lam_abs)
+        if isinstance(lam_abs, sp.Add):
+            lam_txt = f"({lam_txt})"
+        record(
+            StepKind.ROW_ADD,
+            f"{self.prefix}.row_add",
+            level=1,
+            snapshot=self._snapshot(grid),
+            highlight=Highlight(
+                pivot=(source, col),
+                rows=(target,),
+                augmented_split=self.split_col,
+                operation_latex=f"L_{{{target + 1}}} \\leftarrow L_{{{target + 1}}} {sign_str} \\left({sp.latex(lam_abs)}\\right) L_{{{source + 1}}}",
+            ),
+            i=target + 1,
+            j=source + 1,
+            col=col + 1,
+            sign="−" if sign_str == "-" else "+",
+            lam=lam_abs,
+            lam_txt=lam_txt,
+        )
+
+    def bareiss_step(self, grid: list[list[sp.Expr]], k: int, previous: sp.Expr) -> None:
+        """Étape k de Bareiss : m_ij ← (m_kk·m_ij − m_ik·m_kj) / pivot précédent, division exacte."""
+        n = len(grid)
+        pivot = grid[k][k]
+        for i in range(k + 1, n):
+            for j in range(k + 1, n):
+                grid[i][j] = _simplify_entry(sp.cancel((pivot * grid[i][j] - grid[i][k] * grid[k][j]) / previous))
+                record(
+                    StepKind.INFO,
+                    f"{self.prefix}.bareiss_entry",
+                    level=3,
+                    i=i + 1,
+                    j=j + 1,
+                    k=k + 1,
+                    value=grid[i][j],
+                )
+            grid[i][k] = sp.Integer(0)
+        record(
+            StepKind.ROW_ADD,
+            f"{self.prefix}.bareiss_step",
+            level=1,
+            snapshot=self._snapshot(grid),
+            highlight=Highlight(pivot=(k, k), rows=tuple(range(k + 1, n)), augmented_split=self.split_col),
+            k=k + 1,
+            pivot=pivot,
+            previous=previous,
+        )
